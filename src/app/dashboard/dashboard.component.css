@@ -59,6 +59,7 @@ body {
       background-color: transparent;
       color: #fff;
       border: none;
+      margin: 5px;
   }
 
   .list-group-item :active {
