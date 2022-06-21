@@ -1,0 +1,165 @@
+body {
+    background-color: #fbfbfb;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    padding: 58px 0 0; /* Height of navbar */
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
+    /* width: 240px; */
+    z-index: 600;
+  }
+  
+  .sidebar .active {
+    border-radius: 5px;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+  }
+
+  .sidemenu{
+    color: #fff;
+    background: #F0F0F0 url('../../assets/images/Group85@2x.png') top left no-repeat;
+    background-size: cover;
+    height: 100vh;
+  }
+  
+  header {
+    background-image: linear-gradient(to right, #274874 , #AA4337);
+    position: fixed;
+    height: 70px;
+    z-index: 999;
+  }
+
+  header .logo img {
+      width: 40%;
+      margin-top: 17px;
+      margin-left: 15px;
+  }
+
+  header .group88 img {
+      margin-top: 12px;
+      margin-right: 15px;
+  }
+
+  /* .sidebar-sticky {
+    position: relative;
+    top: 0;
+    height: calc(100vh - 48px);
+    padding-top: 0.5rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+  } */
+
+  .list-group-item {
+      background-color: transparent;
+      color: #fff;
+      border: none;
+  }
+
+  .list-group-item :active {
+      background-color: #084982;
+      border-radius: 5px;
+  }
+  .list-group {
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    margin-bottom: 0;
+    border-radius: 0.25rem;
+    margin-top: 30px!important;
+}
+
+.list-group :hover {
+    background-color: #084982;
+    border-radius: 5px;
+}
+
+.list-group img {
+    margin-right: 10px;
+}
+
+.profile-card {
+  position: absolute; 
+  top: 7%; 
+  right: 3%; 
+  z-index: 999;
+  border: none;
+  border-radius: 10px;
+}
+
+.profile-card .card-header {
+  background-image: linear-gradient(to right, #AA4337, #274874); 
+  text-align: center; 
+  color: #fff;
+  padding: 40px; 
+  width: 250px; 
+  height: 200px;
+  border-radius: 5px 5px 0px 0px;
+}
+
+.profile-card .card-header img {
+  margin-left: 35px; 
+  margin-top: -25px;
+} 
+
+.profile-card .card-body {
+  background-color: #ABABAB1A;
+  padding: 0rem 0rem;
+}
+
+.profile-card .card-body a {
+  color: #000; 
+  font-size: 13px; 
+  text-decoration: none;
+}
+
+.profile-card .card-body div {
+  height: 48px;
+  border-bottom: 2px solid #fff;
+  padding: 10px;
+}
+
+.profile-card .card-footer {
+  background-color: #ABABAB;
+  color: #fff;
+  border-radius: 0px 0px 5px 5px;
+}
+
+.menu-icon {
+  display: none;
+}
+
+@media only screen and (max-width: 768px) {
+  .left-content {
+    display: none;
+  }
+
+  .right-content {
+    width: 100%;
+  }
+
+  .mobile-sidebar {
+    background: url('../../assets/images/Group85@2x.png') top right;
+    background-size: cover;
+    top: 70px;
+    position: absolute;
+    width: 100%;
+  }
+
+  .mobile-sidebar .list-group :hover {
+    background-color: #084982;
+    border-radius: 5px;
+    /* width: 50%;
+    text-align: right;
+    margin-left: 50%; */
+  }
+
+  .menu-icon {
+    display: block;
+    padding: 20px;
+  }
+
+}

@@ -1,0 +1,467 @@
+.main-dashboard {
+    margin-top: 100px;
+    max-height: -webkit-calc(110vh - (200px));
+    overflow-y: scroll;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #084982; 
+    border-radius: 5px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #aa4337;
+  }
+
+.head {
+    color: #ABABAB;
+}
+
+.icons {
+    background-image: linear-gradient(to right, #274874 , #AA4337);
+    height: 40px;
+    /* display: none !important; */
+    position: absolute;
+    margin-top: 0px;
+    right: 92px;
+    /* opacity: 0.1; */
+    /* visibility: visible; */
+    padding: 7px;
+}
+
+.showtray:hover +.icons {
+    /* background-image: linear-gradient(to right, #274874 , #AA4337); */
+    /* height: 35px; */
+    /* display: block !important; */
+    /* opacity: 1 !important; */
+    visibility: visible !important;
+}
+
+/* .showtray .btn:hover, .showtray .btn:active{
+    border: none;
+} */
+
+.head{
+    position: relative;
+}
+
+.icons:after{
+     content: "";
+    position: absolute;
+    /* transform: rotate(180deg); */
+    top: 16px;
+    right: -10px;
+    margin-top: -1px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent transparent rgb(173, 72, 72);
+}
+
+.icons a:hover {
+    border: 1px solid #274874;
+    background-color: #274874;
+    border-radius: 5px;
+}
+
+.verticals {
+    color: #084982;
+    text-transform: uppercase;
+    font-weight: 500 !important;
+}
+
+.card-menu {
+   padding: 7px;
+}
+
+.card-menu .card .card-body img {
+    width: 15px;
+    height: 15px;
+}
+
+.card {
+    height: 135px;
+    /* width: 24%; */
+    /* margin: 0.5%;  */
+    box-shadow: 5px 5px 10px #0000000D;
+}
+
+.card-header {
+    height: 60px;
+    text-align: left;
+    padding-left: 15%;
+}
+
+.card-body {
+    height: 60px;
+}
+
+.form1 {
+    background-image: linear-gradient(to right, #084982, #AA4337);
+    background-size: cover;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.form-select {
+    width: 200px;
+    height: 50px;
+    color: #084982;
+    background-color: #fff;
+}
+
+.input-count {
+    width: 200px;
+    height: 50px;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.form-control {
+    width: 125px;
+    height: 50px;
+    color: #084982;
+    background-color: #EFEFEF;
+}
+
+table {
+    border: 1px solid #EFEFEF;
+}
+
+tbody tr th {
+    color:#084982;
+    background-color: #EFEFEF;
+    /* margin: 10px !important; */
+}
+
+.table-striped tr th, td {
+    height: 50px;
+    /* width: 930px; */
+}
+
+.charts div {
+    padding: 2px 6px;
+}
+
+#chart, #chart1, #chart2, #chart3 {
+    /* width: 48%; */
+    height: 275px;
+    border: 1px solid #EFEFEF;
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px #0000000D;
+    margin-bottom: 10px;
+}
+
+#chart4 {
+    /* width: 98%; */
+    height: 275px;
+    border: 1px solid #EFEFEF;
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px #0000000D;
+    margin-bottom: 10px;
+}
+
+.flex-row{
+    place-content: space-around;
+}
+
+.charts {
+    margin-top: 30px;
+    padding: 8px;
+}
+
+.plus-img {
+    background-image: linear-gradient(to right, #084982, #AA4337);
+    background-size: cover;
+    border-radius: 3px;
+    text-align: center;
+    padding: 5px;
+    position: relative;
+}
+
+.plus-img:after{
+    content: "";
+   position: absolute;
+   /* transform: rotate(180deg); */
+   top: 39px;
+   transform: rotate(90deg);
+   right: 86px;
+   margin-top: -5px;
+   border-width: 5px;
+   border-style: solid;
+   border-color: transparent transparent transparent rgb(173, 72, 72);
+}
+
+.table > :not(caption) > * > * {
+    padding: 0;
+    background-color: var(--bs-table-bg);
+    border-bottom-width: 1px;
+    box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+}
+
+.new-icon {
+    position: absolute; 
+    width: -webkit-fill-available; 
+    top: -27px;
+}
+
+:host ::ng-deep .highcharts-credits{
+    fill: #00000000 !important;
+    pointer-events: none;
+}
+:host ::ng-deep .highcharts-root{
+    font-family: PS,sans-serif !important;
+    /* font-weight: 600; */
+    letter-spacing: 3px;
+}
+
+.card-menu .card .card-body .d-flex :first-child span {
+    color: #084982;
+  }
+
+.card-menu .card .card-header h6 {
+    margin-left: -5px;
+}
+
+.dashboard-header {
+    border-bottom: 1px solid #e7e7e7;
+    margin: 0px -20px;
+    padding: 0px 18px;
+}
+
+table tbody tr th .badge {
+    background-color: #fff;
+   color: #084982;
+   font-size: 13px;
+   border: 1px solid #084982;
+   padding: 1px 5px;
+}
+
+@media only screen and (max-width: 1440px) {
+
+    .card {
+        height: 120px;
+        box-shadow: 5px 5px 10px #0000000D;
+    }
+    
+    .card-header {
+        height: 60px;
+        text-align: left;
+        padding-left: 15%;
+    }
+    
+    .card-body {
+        height: 60px;
+    }
+
+    .card-menu {
+        flex: 0 0 auto;
+        /* width: 24.7%; */
+    }
+
+    #chart, #chart1, #chart2, #chart3 {
+        /* width: 47%; */
+        height: 275px;
+        border: 1px solid #EFEFEF;
+        border-radius: 5px;
+        box-shadow: 5px 5px 10px #0000000D;
+        /* margin: 15px; */
+    }
+    
+    #chart4 {
+        /* width: 96.5%; */
+        height: 275px;
+        border: 1px solid #EFEFEF;
+        border-radius: 5px;
+        box-shadow: 5px 5px 10px #0000000D;
+        /* margin: 15px; */
+    }
+
+    .form1 {
+        background-image: linear-gradient(to right, #084982, #AA4337);
+        background-size: cover;
+        border-radius: 5px;
+        margin-top: 20px;
+        /* width: 98.9%; */
+        height: 70px;
+    }
+
+    .form-select {
+        width: 200px;
+        height: 40px;
+        color: #084982;
+        background-color: #fff;
+    }
+    
+    .input-count {
+        width: 200px;
+        height: 40px;
+        background-color: #fff;
+        border-radius: 5px;
+    }
+    
+    .form-control {
+        width: 125px;
+        height: 40px;
+        color: #084982;
+        background-color: #EFEFEF;
+    }
+
+    .table {
+        border: 1px solid #EFEFEF;
+        /* width: 98.9%; */
+    }
+
+  }
+
+  @media only screen and (max-width: 1024px) {
+
+    .card {
+        height: 100px;
+        box-shadow: 5px 5px 10px #0000000D;
+    }
+    
+    .card-header {
+        height: 40px;
+        text-align: left;
+        padding-left: 15%;
+    }
+    
+    .card-body {
+        height: 40px;
+    }
+
+    .card-menu {
+        flex: 0 0 auto;
+        /* width: 24.7%; */
+    }
+
+    #chart, #chart1, #chart2, #chart3 {
+        /* width: 46%; */
+        height: 200px;
+        border: 1px solid #EFEFEF;
+        border-radius: 5px;
+        box-shadow: 5px 5px 10px #0000000D;
+        /* margin: 15px; */
+    }
+    
+    #chart4 {
+        /* width: 95.5%; */
+        height: 200px;
+        border: 1px solid #EFEFEF;
+        border-radius: 5px;
+        box-shadow: 5px 5px 10px #0000000D;
+        /* margin: 15px; */
+    }
+
+    .form1 {
+        background-image: linear-gradient(to right, #084982, #AA4337);
+        background-size: cover;
+        border-radius: 5px;
+        margin-top: 10px;
+        /* width: 98.9%; */
+        height: 70px;
+    }
+
+    .form-select {
+        width: 200px;
+        height: 35px;
+        color: #084982;
+        background-color: #fff;
+    }
+    
+    .input-count {
+        width: 200px;
+        height: 35px;
+        background-color: #fff;
+        border-radius: 5px;
+    }
+    
+    .form-control {
+        width: 125px;
+        height: 35px;
+        color: #084982;
+        background-color: #EFEFEF;
+    }
+
+    .table {
+        border: 1px solid #EFEFEF;
+        /* width: 98.9%; */
+    }
+
+  }
+  .cgrid{
+      display: grid !important;
+  }
+  /* @media only screen and (max-width: 794px) {
+    .cgrid{
+        grid-template-columns: repeat(2,1fr);
+    }
+  } */
+
+  @media only screen and (max-width: 768px) {
+      .head {
+          font-size: 19px;
+      }
+
+      .verticals h6 {
+          font-size: 15px;
+      }
+
+      .card .card-header h6 {
+          font-size: 12px;
+      }
+
+      .card-menu .card .card-body img {
+        width: 12px;
+        height: 12px;
+      }
+
+      .card-menu .card .card-body span {
+        font-size: 12px;
+      }
+
+      .form-select, .form-control, .span1 {
+          font-size: 12px;
+      }
+
+      tr>th, td {
+       font-size: 12px;
+       padding: 5px;
+     }
+
+     .plus-img {
+        background-image: linear-gradient(to right, #084982, #AA4337);
+        background-size: cover;
+        border-radius: 3px;
+        text-align: center;
+        padding: 5px;
+        position: relative;
+    }
+
+    .plus-img:after{
+        content: "";
+       position: absolute;
+       /* transform: rotate(180deg); */
+       top: 39px;
+       transform: rotate(90deg);
+       right: 50px;
+       margin-top: -11px;
+       border-width: 5px;
+       border-style: solid;
+       border-color: transparent transparent transparent rgb(173, 72, 72);
+    }
+    
+  }
+

@@ -1,0 +1,95 @@
+.add-camera {
+    margin-top: 70px !important;
+    max-height: -webkit-calc(110vh - (200px));
+    overflow-y: scroll;
+}
+
+.add-camera:before {
+   box-shadow: -25px 0 20px -20px #0000000D inset;
+   opacity: 0.5;
+   content: " ";
+   height: 100%;
+    /* left: -20px; */
+   position: absolute;
+   top: 0;
+   width: 20px;
+}
+
+.add-camera {
+   background: none repeat scroll 0 0 #fff;
+   height: 80vh;
+   position: relative;
+}
+
+.d-flex h6 {
+    text-transform: uppercase;
+    color: #084982;
+    font-weight: bold;
+    margin-left: -12%;
+}
+
+.d-flex img {
+    margin-left: -21%;
+}
+
+form {
+    padding: 0 50px;
+}
+
+.form-select {
+    background-color: #F8F8F8;
+    height: 50px;
+}
+
+.form-control {
+    height: 50px;
+}
+
+form .add-btn {
+    background-color: #084982;
+    color: #fff;
+    width: 200px;
+    height: 50px;
+    border-radius: 25px;
+}
+
+.site-icons a:hover, a:active {
+    box-shadow: 5px 5px 10px #0000000D;
+    border: 1px solid #EFEFEF;
+    border-radius: 5px;
+    opacity: 1;
+    padding: 15px 0; /* trouble  trbl top right bottom left   */
+   
+}
+
+.site-icons img {
+    width: 18px; 
+    margin: 12px;
+}
+
+@media only screen and (max-width: 768px) {
+    h6 {
+        font-size: 15px;
+    }
+
+    .site-icons img {
+        width: 13px; 
+        margin: 13px;
+    }
+    
+    .form-control, .form-select {
+        font-size: 12px;
+    }
+
+    .add-btn {
+        font-size: 15px;
+    }
+
+    form .add-btn {
+        background-color: #084982;
+        color: #fff;
+        width: 150px;
+        height: 40px;
+        border-radius: 25px;
+    }
+}
