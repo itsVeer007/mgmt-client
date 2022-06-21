@@ -1,6 +1,6 @@
 .main-dashboard {
-    margin-top: 100px;
-    max-height: calc(110vh - (200px));
+    margin-top: 85px;
+    max-height: calc(110vh - (185px));
     overflow-y: scroll;
 }
 
@@ -31,14 +31,14 @@
 
 .icons {
     background-image: linear-gradient(to right, #274874 , #AA4337);
-    height: 40px;
+    height: 36px;
     /* display: none !important; */
     position: absolute;
-    margin-top: 0px;
-    right: 92px;
+    margin-top: -3px;
+    right: 76px;
     /* opacity: 0.1; */
     /* visibility: visible; */
-    padding: 7px;
+    padding: 6px;
 }
 
 .showtray:hover +.icons {
@@ -69,17 +69,20 @@
     border-color: transparent transparent transparent rgb(173, 72, 72);
 }
 
+/*
 .icons a:hover {
     border: 1px solid #274874;
     background-color: #274874;
     border-radius: 5px;
-}
+}*/
 
 .verticals {
     color: #084982;
     text-transform: uppercase;
     font-weight: 500 !important;
+    margin-top: 20px;
 }
+
 
 .card-menu {
    padding: 7px;
@@ -118,21 +121,21 @@
 
 .form-select {
     width: 200px;
-    height: 50px;
+    height: 40px;
     color: #084982;
     background-color: #fff;
 }
 
 .input-count {
     width: 200px;
-    height: 50px;
+    height: 40px;
     background-color: #fff;
     border-radius: 5px;
 }
 
 .form-control {
     width: 125px;
-    height: 50px;
+    height: 40px;
     color: #084982;
     background-color: #EFEFEF;
 }
@@ -148,7 +151,7 @@ tbody tr th {
 }
 
 .table-striped tr th, td {
-    height: 50px;
+    /* height: 50px; */
     /* width: 930px; */
 }
 
@@ -198,7 +201,7 @@ tbody tr th {
    /* transform: rotate(180deg); */
    top: 39px;
    transform: rotate(90deg);
-   right: 86px;
+   right: 47%;
    margin-top: -5px;
    border-width: 5px;
    border-style: solid;
@@ -244,13 +247,29 @@ tbody tr th {
 }
 
 table tbody tr th .badge {
-    background-color: #fff;
-   color: #084982;
+    background-color: #084982;
+   color: #fff;
    font-size: 13px;
-   border: 1px solid #084982;
+   border: 2px solid #084982;
    padding: 1px 5px;
+   margin-left: 5px;
 }
-
+td{
+    align-items: center;
+}
+/* 
+table tbody tr th .badge {
+    background-color: #084982;
+   color: #fff;
+   font-size: 11px;
+   height: 25px;
+   width: 25px;
+   border-radius: 12px;
+   border: 1px solid #084982;
+   text-align: center;
+   padding: 5px 4px;
+}
+*/
 @media only screen and (max-width: 1440px) {
 
     .card {

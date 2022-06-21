@@ -1,11 +1,17 @@
 .add-camera {
     margin-top: 70px !important;
-    max-height: calc(110vh - (200px));
+    /* max-height: calc(110vh - (200px)); */
     overflow-y: scroll;
+    /* background: none repeat scroll 0 0 ; */
+    /* height: 75vh; */
+    background-color: #fff;
+    height: max-content;
+    position: relative;
+    overflow: visible;
 }
 
 .add-camera:before {
-   box-shadow: -25px 0 20px -20px #0000000D inset;
+   /* box-shadow: 25px 0 20px -20px #0000000D inset; */
    opacity: 0.5;
    content: " ";
    height: 100%;
@@ -15,11 +21,7 @@
    width: 20px;
 }
 
-.add-camera {
-   background: none repeat scroll 0 0 #fff;
-   height: 80vh;
-   position: relative;
-}
+
 
 .d-flex h6 {
     text-transform: uppercase;
@@ -29,7 +31,7 @@
 }
 
 .d-flex img {
-    margin-left: -21%;
+    margin-left: -50px;
 }
 
 form {

@@ -1,5 +1,5 @@
 <div class="container-fluid col-lg-12 col-md-12 col-sm-12 col-xs-12 main-dashboard">
-    <div class="d-flex justify-content-between sticky-top bg-white dashboard-header">
+    <div class="d-flex justify-content-between  dashboard-header" style="position: sticky;">
         <h4 class="head">DASHBOARD</h4>
         <div [hidden]="icons111" class="icons1">
             <div class="d-flex flex-row justify-content icons pointer">
@@ -15,13 +15,13 @@
         </div>
         <div class="showtray">
             <button class="btn btn-default" (click)="iconssnew()" style="box-shadow: none !important; margin-top: -13px;">
-                <img src="assets/images/Group 91.png" width="60" height="60" /></button>
+                <img src="assets/images/add-svg.svg" width="40" height="40" /></button>
         </div>
     </div>
 
-    <div class="d-flex justify-content-between my-3 verticals">
+    <div class="d-flex justify-content-between verticals">
         <div>
-            <h6><b>verticals <span> 8</span></b></h6>
+            <h6 style="margin: 0;"><b>verticals <span> 8</span></b></h6>
         </div>
         <div>
             <img src="assets/images/Union 18@2x.png" width="20" height="10" />
@@ -164,17 +164,17 @@
     <div>
         <div class="form1">
             <form autocomplete="off" class="d-flex flex-row justify-content-start">
-                <div class="m-3">
+                <div class="m-2">
                     <select id="inputState" class="form-select mr-5">
                         <option selected>ALL</option>
                         <option>...</option>
                     </select>
                 </div>
-                <div class="input-count m-3 d-flex flex-row justify-content-between">
+                <div class="input-count m-2 d-flex flex-row justify-content-between">
                     <div>
                         <input type="text" class="form-control" placeholder="Customers" />
                     </div>
-                    <span class="text-center span1" style="margin: 13px 20px; color: #084982;">5</span>
+                    <span class="text-center span1" style="margin: 8px 20px; color: #084982;">5</span>
                 </div>
             </form>
         </div>
@@ -184,22 +184,22 @@
         <table class="table table-striped">
             <tbody>
                 <tr>
-                    <th class="px-4 pt-3">Vertical <span class="badge">4</span></th>
-                    <th class="pt-3 text-center">Customer <span class="badge">4</span></th>
-                    <th class="pt-3 text-center">Sites <span class="badge">4</span></th>
-                    <th class="pt-3 text-center">Cameras <span class="badge">4</span></th>
-                    <th class="pt-3 text-center">Analytics <span class="badge">4</span></th>
-                    <th class="pt-3 text-center">Users <span class="badge">4</span></th>
+                    <th style="padding: 10px 0; justify-content:center;" class=" px-4 ">Vertical <span class="badge">4</span></th>
+                    <th style="padding: 10px 0; justify-content:center;" class=" text-center">Customer <span class="badge">4</span></th>
+                    <th style="padding: 10px 0; justify-content:center;" class=" text-center">Sites <span class="badge">42</span></th>
+                    <th style="padding: 10px 0; justify-content:center;" class=" text-center">Cameras <span class="badge">84</span></th>
+                    <th style="padding: 10px 0; justify-content:center;" class=" text-center">Analytics <span class="badge">134</span></th>
+                    <th style="padding: 10px 0; justify-content:center;" class=" text-center">Users <span class="badge">147</span></th>
                     <th></th>
                 </tr>
 
                 <tr>
-                    <td class="px-4 pt-3">Restaurant</td>
-                    <td class="pt-3 text-center">2</td>
-                    <td class="pt-3 text-center">1</td>
-                    <td class="pt-3 text-center">5</td>
-                    <td class="pt-3 text-center">4</td>
-                    <td class="pt-3 text-center">1</td>
+                    <td class="px-4 pt-2">Restaurant</td>
+                    <td class="pt-2 text-center">2</td>
+                    <td class="pt-2 text-center">1</td>
+                    <td class="pt-2 text-center">5</td>
+                    <td class="pt-2 text-center">4</td>
+                    <td class="pt-2 text-center">1</td>
                     <td class="text-center" style="position: relative;">
                         <div [hidden]="icons11" class="icons1 new-icon">
                             <div class="d-flex flex-row justify-content plus-img">
@@ -210,16 +210,16 @@
                             </div>
                         </div>
                         <button class="btn btn-default" (click)="iconss1()" style="box-shadow: none !important;">
-                            <img src="assets/images/Group 91.png" width="45" height="45" /></button>
+                            <img src="assets/images/add-svg.svg" width="30" height="30" /></button>
                     </td>
                 </tr>
                 <tr>
-                    <td class="px-4 pt-3">Grocery</td>
-                    <td class="pt-3 text-center">3</td>
-                    <td class="pt-3 text-center">1</td>
-                    <td class="pt-3 text-center">20</td>
-                    <td class="pt-3 text-center">17</td>
-                    <td class="pt-3 text-center">2</td>
+                    <td class="px-4 pt-2">Grocery</td>
+                    <td class="pt-2 text-center">3</td>
+                    <td class="pt-2 text-center">1</td>
+                    <td class="pt-2 text-center">20</td>
+                    <td class="pt-2 text-center">17</td>
+                    <td class="pt-2 text-center">2</td>
                     <td class="text-center" style="position: relative;">
                         <div [hidden]="icons12" class="icons1 new-icon">
                             <div class="d-flex flex-row justify-content plus-img">
@@ -230,16 +230,16 @@
                             </div>
                         </div>
                         <button class="btn btn-default" (click)="iconss2()" style="box-shadow: none !important;">
-                            <img src="assets/images/Group 91.png" width="45" height="45" /></button>
+                            <img src="assets/images/add-svg.svg" width="30" height="30" /></button>
                     </td>
                 </tr>
                 <tr>
-                    <td class="px-4 pt-3">Gas Station</td>
-                    <td class="pt-3 text-center">2</td>
-                    <td class="pt-3 text-center">1</td>
-                    <td class="pt-3 text-center">15</td>
-                    <td class="pt-3 text-center">12</td>
-                    <td class="pt-3 text-center">2</td>
+                    <td class="px-4 pt-2">Gas Station</td>
+                    <td class="pt-2 text-center">2</td>
+                    <td class="pt-2 text-center">1</td>
+                    <td class="pt-2 text-center">15</td>
+                    <td class="pt-2 text-center">12</td>
+                    <td class="pt-2 text-center">2</td>
                     <td class="text-center" style="position: relative;">
                         <div [hidden]="icons13" class="icons1 new-icon">
                             <div class="d-flex flex-row justify-content plus-img">
@@ -250,16 +250,16 @@
                             </div>
                         </div>
                         <button class="btn btn-default" (click)="iconss3()" style="box-shadow: none !important;">
-                            <img src="assets/images/Group 91.png" width="45" height="45" /></button>
+                            <img src="assets/images/add-svg.svg" width="30" height="30" /></button>
                     </td>
                 </tr>
                 <tr>
-                    <td class="px-4 pt-3">Pharmacies</td>
-                    <td class="pt-3 text-center">2</td>
-                    <td class="pt-3 text-center">1</td>
-                    <td class="pt-3 text-center">10</td>
-                    <td class="pt-3 text-center">9</td>
-                    <td class="pt-3 text-center">1</td>
+                    <td class="px-4 pt-2">Pharmacies</td>
+                    <td class="pt-2 text-center">2</td>
+                    <td class="pt-2 text-center">1</td>
+                    <td class="pt-2 text-center">10</td>
+                    <td class="pt-2 text-center">9</td>
+                    <td class="pt-2 text-center">1</td>
                     <td class="text-center" style="position: relative;">
                         <div [hidden]="icons14" class="icons1 new-icon">
                             <div class="d-flex flex-row justify-content plus-img">
@@ -270,16 +270,16 @@
                             </div>
                         </div>
                         <button class="btn btn-default" (click)="iconss4()" style="box-shadow: none !important;">
-                            <img src="assets/images/Group 91.png" width="45" height="45" /></button>
+                            <img src="assets/images/add-svg.svg" width="30" height="30" /></button>
                     </td>
                 </tr>
                 <tr>
-                    <td class="px-4 pt-3">Store</td>
-                    <td class="pt-3 text-center">5</td>
-                    <td class="pt-3 text-center">1</td>
-                    <td class="pt-3 text-center">5</td>
-                    <td class="pt-3 text-center">5</td>
-                    <td class="pt-3 text-center">1</td>
+                    <td class="px-4 pt-2">Store</td>
+                    <td class="pt-2 text-center">5</td>
+                    <td class="pt-2 text-center">1</td>
+                    <td class="pt-2 text-center">5</td>
+                    <td class="pt-2 text-center">5</td>
+                    <td class="pt-2 text-center">1</td>
                     <td class="text-center" style="position: relative;">
                         <div [hidden]="icons1" class="icons1 new-icon">
                             <div class="d-flex flex-row justify-content plus-img">
@@ -291,7 +291,7 @@
                         </div>
                         <button class="btn btn-default" (click)="iconss()"
                             style="box-shadow: none !important; ">
-                        <img src="assets/images/Group 91.png" width="45" height="45" /></button>
+                        <img src="assets/images/add-svg.svg" width="30" height="30" /></button>
                     </td>
                 </tr>
             </tbody>
