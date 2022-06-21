@@ -1,6 +1,6 @@
 .main-dashboard {
     margin-top: 100px;
-    max-height: -webkit-calc(110vh - (200px));
+    max-height: calc(110vh - (200px));
     overflow-y: scroll;
 }
 
@@ -101,6 +101,8 @@
     height: 60px;
     text-align: left;
     padding-left: 15%;
+    display: flex;
+    align-items: center;
 }
 
 .card-body {
@@ -231,7 +233,8 @@ tbody tr th {
   }
 
 .card-menu .card .card-header h6 {
-    margin-left: -5px;
+    /* margin-left: -5px; */
+    margin: 0 -5px;
 }
 
 .dashboard-header {
@@ -464,4 +467,3 @@ table tbody tr th .badge {
     }
     
   }
-

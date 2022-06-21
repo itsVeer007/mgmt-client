@@ -1,6 +1,6 @@
 .add-customer {
     margin-top: 70px !important;
-    max-height: -webkit-calc(110vh - (200px));
+    max-height: calc(110vh - (200px));
     overflow-y: scroll;
 }
 
