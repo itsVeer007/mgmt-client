@@ -1,0 +1,40 @@
+.latlong {
+  background-color: #084982;
+  color: #fff;
+  height: 50px;
+  border-radius: 5px;
+}
+
+.lat, .long {
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  height: 50px;
+  margin-left: 20px;
+  margin-top: 8px;
+  width: 31.5%;    
+}
+
+.lat .form-control {
+  background-color: #F8F8F8;
+  width: 50%;
+  margin-left: -13px;
+  margin-top: -1px;
+}
+
+.long .form-control {
+  background-color: #F8F8F8;
+  width: 50%;
+  margin-left: -13px;
+  margin-top: -1px;
+}
+
+@media only screen and (max-width: 768px) {
+  .lat, .long {
+      border: 1px solid #ced4da;
+      border-radius: 5px;
+      height: 50px;
+      margin-left: 20px;
+      margin-top: 8px;
+      width: 29.5%;
+  }
+}
