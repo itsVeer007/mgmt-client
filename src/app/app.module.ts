@@ -6,11 +6,11 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MainDashboardComponent } from './main-dashboard/main-dashboard.component';
 import { ChartService } from './chart.service';
-import { AddNewSiteComponent } from './dashboard/add-new-site/add-new-site.component';
-import { AddNewCameraComponent } from './dashboard/add-new-camera/add-new-camera.component';
-import { AddNewCustomerComponent } from './dashboard/add-new-customer/add-new-customer.component';
-import { AddNewBusinessVerticalComponent } from './dashboard/add-new-business-vertical/add-new-business-vertical.component';
-import { AddNewUserComponent } from './dashboard/add-new-user/add-new-user.component';
+import { AddNewSiteComponent } from './main-dashboard/add-new-site/add-new-site.component';
+import { AddNewCameraComponent } from './main-dashboard/add-new-camera/add-new-camera.component';
+import { AddNewCustomerComponent } from './main-dashboard/add-new-customer/add-new-customer.component';
+import { AddNewBusinessVerticalComponent } from './main-dashboard/add-new-business-vertical/add-new-business-vertical.component';
+import { AddNewUserComponent } from './main-dashboard/add-new-user/add-new-user.component';
 
 
 @NgModule({

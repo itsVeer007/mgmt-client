@@ -1,5 +1,5 @@
 <div class="container-fluid col-lg-12 col-md-12 col-sm-12 col-xs-12 main-dashboard">
-    <div class="d-flex justify-content-between  dashboard-header" style="position: sticky;">
+    <!-- <div class="d-flex justify-content-between  dashboard-header" style="position: sticky;">
         <h4 class="head">DASHBOARD</h4>
         <div [hidden]="icons111" class="icons1">
             <div class="d-flex flex-row justify-content icons pointer">
@@ -7,7 +7,6 @@
                 <a (click)="showAddCustomer=!showAddCustomer"><img src="assets/images/Union 25@2x.png" class="mx-2" width="15" height="15" /></a>
                 <a (click)="showAddSite=!showAddSite"><img src="assets/images/Union 26@2x.png" class="mx-2" width="15"
                         height="15" /></a>
-                <!-- <a routerLink="/add-new-site"><img src="assets/images/Union 26@2x.png" class="mx-2" width="15" height="15" /></a> -->
                 <a (click)="showAddCamera=!showAddCamera"><img src="assets/images/bx-cctv@2x.png" class="mx-2" width="15" height="15" /></a>
                 <a><img src="assets/images/Union 27@2x.png" class="mx-2" width="15" height="15" /></a>
                 <a (click)="showAddUser=!showAddUser"><img src="assets/images/Union 29@2x.png" class="mx-2" width="15" height="15" /></a>
@@ -17,22 +16,51 @@
             <button class="btn btn-default" (click)="iconssnew()" style="box-shadow: none !important; margin-top: -13px;">
                 <img src="assets/images/add-svg.svg" width="40" height="40" /></button>
         </div>
-    </div>
+    </div> -->
 
     <div class="d-flex justify-content-between verticals">
         <div>
-            <h6 style="margin: 0;"><b>verticals <span> 8</span></b></h6>
+            <h6 style="margin: 0; margin-left: 20px;"><b>verticals  - <span> 8</span></b></h6>
         </div>
-        <div>
-            <img src="assets/images/Union 18@2x.png" width="20" height="10" />
-            <span class="mx-3">1 - 4</span>
-            <img src="assets/images/Union 17@2x.png" width="20" height="10" />
+        
+        <div class="">
+    
+            <div [hidden]="icons111" class="icons1">
+                <div class="d-flex flex-row justify-content icons pointer">
+                    <a (click)="showAddBusinessVertical=!showAddBusinessVertical"><img src="assets/images/Union 24@2x.png" class="mx-2" width="15" height="15" /></a>
+                    <a (click)="showAddCustomer=!showAddCustomer"><img src="assets/images/Union 25@2x.png" class="mx-2" width="15" height="15" /></a>
+                    <a (click)="showAddSite=!showAddSite"><img src="assets/images/Union 26@2x.png" class="mx-2" width="15"
+                            height="15" /></a>
+                    <!-- <a routerLink="/add-new-site"><img src="assets/images/Union 26@2x.png" class="mx-2" width="15" height="15" /></a> -->
+                    <a (click)="showAddCamera=!showAddCamera"><img src="assets/images/bx-cctv@2x.png" class="mx-2" width="15" height="15" /></a>
+                    <a><img src="assets/images/Union 27@2x.png" class="mx-2" width="15" height="15" /></a>
+                    <a (click)="showAddUser=!showAddUser"><img src="assets/images/Union 29@2x.png" class="mx-2" width="15" height="15" /></a>
+                </div>
+            </div>
+            <div class="showtray">
+                <button class="btn btn-default" (click)="iconssnew()" style="box-shadow: none !important; padding: 1px; ">
+                    <img src="assets/images/add-svg.svg" width="40" height="40" /></button>
+            </div>
+
+            <!-- <div>
+                <img src="assets/images/Union 18@2x.png" width="20" height="10" />
+                <span class="mx-3">1 - 4</span>
+                <img src="assets/images/Union 17@2x.png" width="20" height="10" />
+            </div> -->
+
         </div>
+
+
+
     </div>
 
+
     <!-- class="d-flex justify-content-between card-menu" -->
-    <div class="row" style="padding: 5px;">
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 card-menu">
+    <div class="row d-flex justify-content-around max-center" style="padding: 5px;">
+
+        <img src="../../assets/images/new-svg/next.svg" alt="" style="width: 62px;transform: rotate(180deg);">
+
+        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12 card-menu">
             <div class="card my-1">
                 <div class="card-header">
                     <h6><b>Restaurant</b></h6>
@@ -64,7 +92,7 @@
             </div>
         </div>
 
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 card-menu">
+        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12 card-menu">
             <div class="card my-1">
                 <div class="card-header">
                     <h6><b>Grocery</b></h6>
@@ -96,7 +124,7 @@
             </div>
         </div>
 
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 card-menu">
+        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12 card-menu">
             <div class="card my-1">
                 <div class="card-header">
                     <h6><b>Gas Station</b></h6>
@@ -128,7 +156,7 @@
             </div>
         </div>
 
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 card-menu">
+        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12 card-menu">
             <div class="card my-1">
                 <div class="card-header">
                     <h6><b>Store</b></h6>
@@ -159,9 +187,50 @@
                 </div>
             </div>
         </div>
+
+
+
+        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12 card-menu">
+            <div class="card my-1">
+                <div class="card-header">
+                    <h6><b>Construction</b></h6>
+                </div>
+                <div class="card-body ">
+                    <div class="d-flex flex-row justify-content">
+                        <div class="d-flex flex-column justify-content-start text-center">
+                            <img src="assets/images/Union 11@2x.png" />
+                            <span class="mt-2"><b>3</b></span>
+                        </div>
+
+                        <div class="d-flex flex-column justify-content-start text-center">
+                            <img src="assets/images/Union 14@2x.png" />
+                            <span class="mt-2"><b>15</b></span>
+                        </div>
+
+                        <div class="d-flex flex-column justify-content-start text-center">
+                            <img src="assets/images/bx-cctv@2x (1).png" />
+                            <span class="mt-2"><b>20</b></span>
+                        </div>
+
+                        <div class="d-flex flex-column justify-content-start text-center">
+                            <img src="assets/images/Union 19@2x.png" />
+                            <span class="mt-2"><b>7</b></span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <img src="../../assets/images/new-svg/next.svg" alt="" style="width: 62px;">
+
+
     </div>
 
-    <div>
+    
+
+    <!-- <div>
         <div class="form1">
             <form autocomplete="off" class="d-flex flex-row justify-content-start">
                 <div class="m-2">
@@ -178,18 +247,19 @@
                 </div>
             </form>
         </div>
-    </div>
+    </div> -->
     
-    <div>
-        <table class="table table-striped">
+    <div class="table-resp">
+        <table class="table table-striped" >
             <tbody>
-                <tr>
-                    <th style="padding: 10px 0; justify-content:center;" class=" px-4 ">Vertical <span class="badge">4</span></th>
-                    <th style="padding: 10px 0; justify-content:center;" class=" text-center">Customer <span class="badge">4</span></th>
-                    <th style="padding: 10px 0; justify-content:center;" class=" text-center">Sites <span class="badge">42</span></th>
-                    <th style="padding: 10px 0; justify-content:center;" class=" text-center">Cameras <span class="badge">84</span></th>
-                    <th style="padding: 10px 0; justify-content:center;" class=" text-center">Analytics <span class="badge">134</span></th>
-                    <th style="padding: 10px 0; justify-content:center;" class=" text-center">Users <span class="badge">147</span></th>
+                <tr class="form1">
+                    <th style="padding: 10px 0; justify-content:center;" class="px-4 ">Vertical - <span class="badge">4</span></th>
+                    <th style="padding: 10px 0; justify-content:center;" class="text-center">Customer - <span class="badge">4</span></th>
+                    <th style="padding: 10px 0; justify-content:center;" class="text-center">Sites - <span class="badge">42</span></th>
+                    <th style="padding: 10px 0; justify-content:center;" class="text-center">Cameras - <span class="badge">84</span></th>
+                    <th style="padding: 10px 0; justify-content:center;" class="text-center">Analytics - <span class="badge">134</span></th>
+                    <th style="padding: 10px 0; justify-content:center;" class="text-center">Users - <span class="badge">147</span></th>
+                    <th style="padding: 10px 0; justify-content:center;" class="text-center">Actions</th>
                     <th></th>
                 </tr>
 
@@ -353,6 +423,6 @@
     <app-add-new-user [show]="showAddUser" (newItemEvent)="closenow3($event)"></app-add-new-user>
 </div>
 
-<div style="position: fixed; top:0; right: 0;" *ngIf="showAddBusinessVertical">
+<div style="position: fixed; top:0;" *ngIf="showAddBusinessVertical">
     <app-add-new-business-vertical [show]="showAddBusinessVertical" (newItemEvent)="closenow4($event)"></app-add-new-business-vertical>
 </div>

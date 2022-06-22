@@ -25,6 +25,27 @@ body {
     filter: invert(61%) sepia(64%) saturate(3120%) hue-rotate(205deg) brightness(101%) contrast(103%);
 }
 
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 3px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #084982; 
+    border-radius: 5px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #aa4337;
+  }
 
 
 /* form design */
@@ -116,3 +137,11 @@ form .add-btn {
 }
 
 /* form design ends */
+
+
+
+.max-center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
