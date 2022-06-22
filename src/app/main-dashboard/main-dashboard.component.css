@@ -166,7 +166,7 @@ tbody tr th {
 }
 
 .charts {
-    margin-top: 30px;
+    /* margin-top: 30px; */
     padding: 8px;
 }
 
@@ -212,7 +212,7 @@ tbody tr th {
 :host ::ng-deep .highcharts-root{
     font-family: PS,sans-serif !important;
     /* font-weight: 600; */
-    letter-spacing: 3px;
+    /* letter-spacing: 3px; */
 }
 
 .card-menu .card .card-body .d-flex :first-child span {

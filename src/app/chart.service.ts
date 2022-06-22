@@ -49,7 +49,10 @@ export class ChartService {
   constructor() { }
 
 
-  createchart(charttype:any,threeD:any, title:any, data:any, elementid:any){
+  createchart(charttype:any,threeD:any, title:any, data:any, elementid:any, antype:any){
+    if(antype==null) {
+      antype = ""
+    }
     this.options = {
       // colors: ['#2D95EC','#F64D2A','#2f7ed8', '#0d233a', '#8bbc21', '#910000', '#1aadce',
       // '#492970', '#f28f43', '#77a1e5', '#c42525', '#a6c96a'],
@@ -101,7 +104,7 @@ export class ChartService {
         }
       },
       series: [{
-          //name: antype,
+          name: antype,
           data: data,
           marker: { fillColor: '#BF0B23', radius: 3 , lineWidth: 2, lineColor:null},
           state:{

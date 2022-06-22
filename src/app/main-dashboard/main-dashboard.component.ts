@@ -67,6 +67,7 @@ export class MainDashboardComponent implements OnInit {
     // var subtitle = 'The following charts represent the average amount of time your employees spend at their bays each day.';
     //var antype = 'Minutes';
     var elementid = 'chart';
+    var antype = 'year';
     var data =  [
       ['91', 40],
       ['66', 66],
@@ -81,7 +82,7 @@ export class MainDashboardComponent implements OnInit {
       ['91', 80],
       ['66', 100]
     ];
-    this.chartservice.createchart(charttype, threeD, title, data, elementid)
+    this.chartservice.createchart(charttype, threeD, title, data, elementid, antype)
   }
 
   mychart1(){
@@ -91,6 +92,7 @@ export class MainDashboardComponent implements OnInit {
     // var subtitle = 'The following charts represent the average amount of time your employees spend at their bays each day.';
     // var antype = 'Minutes';
     var elementid = 'chart1';
+    var antype = 'year';
     var data =  [
       ['91', 40],
       ['66', 66],
@@ -105,7 +107,7 @@ export class MainDashboardComponent implements OnInit {
       ['91', 80],
       ['66', 100]
     ];
-    this.chartservice.createchart(charttype, threeD, title, data, elementid)
+    this.chartservice.createchart(charttype, threeD, title, data, elementid, antype)
   }
   mychart2(){
     var charttype = 'line';
@@ -114,6 +116,7 @@ export class MainDashboardComponent implements OnInit {
     // var subtitle = 'The following charts represent the average amount of time your employees spend at their bays each day.';
     // var antype = 'Minutes';
     var elementid = 'chart2';
+    var antype = 'year';
     var data =  [
       ['91', 40],
       ['66', 66],
@@ -128,7 +131,7 @@ export class MainDashboardComponent implements OnInit {
       ['91', 80],
       ['66', 100]
     ];
-    this.chartservice.createchart(charttype, threeD, title, data, elementid)
+    this.chartservice.createchart(charttype, threeD, title, data, elementid, antype)
   }
   mychart3(){
     var charttype = 'line';
@@ -137,6 +140,7 @@ export class MainDashboardComponent implements OnInit {
     // var subtitle = 'The following charts represent the average amount of time your employees spend at their bays each day.';
     // var antype = 'Minutes';
     var elementid = 'chart3';
+    var antype = 'year';
     var data =  [
       ['91', 40],
       ['66', 66],
@@ -151,7 +155,7 @@ export class MainDashboardComponent implements OnInit {
       ['91', 80],
       ['66', 100]
     ];
-    this.chartservice.createchart(charttype, threeD, title, data, elementid)
+    this.chartservice.createchart(charttype, threeD, title, data, elementid, antype)
   }
   mychart4(){
     var charttype = 'line';
@@ -160,6 +164,7 @@ export class MainDashboardComponent implements OnInit {
     // var subtitle = 'The following charts represent the average amount of time your employees spend at their bays each day.';
     // var antype = 'Minutes';
     var elementid = 'chart4';
+    var antype = 'year';
     var data =  [
       ['10', 10],
       ['20', 20],
@@ -170,14 +175,13 @@ export class MainDashboardComponent implements OnInit {
       ['91', 91],
       ['66', 66]
     ];
-    this.chartservice.createchart(charttype, threeD, title, data, elementid)
+    this.chartservice.createchart(charttype, threeD, title, data, elementid, antype)
   }
  
   icons111:boolean = true;
   iconssnew() {
     this.icons111=!this.icons111;
   }
-
 
   icons11:boolean = true;
   iconss1() {
