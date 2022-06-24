@@ -1,3 +1,5 @@
+
+/* Design for checkbox tick - START */
 .main {
     display: block;
     position: relative;
@@ -20,7 +22,7 @@ based on demand */
     left: 10px;
     height: 15px;
     width: 15px;
-    background-color: #fff;
+    background-color: #fff !important;
     border: 1px solid #000;
 }
 
@@ -65,3 +67,5 @@ like a tickmark */
     color: #000;
     font-size: 13px;
 }
+
+/* Design for checkbox tick - END */

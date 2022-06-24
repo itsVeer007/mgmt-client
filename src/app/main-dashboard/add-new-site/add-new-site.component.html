@@ -139,6 +139,10 @@
                         <p class="px-2 mb-1">SERVICES</p>
                     </div>
                     <div class="d-flex justify-content-between m-2 checklist">
+                        <label class="main mx-2 my-3">Safety Escort
+                            <input type="checkbox" checked="checked">
+                            <span class="geekmark"></span>
+                        </label>
                         <div><input type="checkbox" /> Guard</div>
                         <div><input type="checkbox" (click)="toggleShowMonit()" /> Monitoring</div>
                         <div><input type="checkbox" (click)="toggleShowBusiness()" /> Business Intelligence</div>
@@ -147,8 +151,8 @@
                     </div>
                     <div class="m-2" *ngIf="Monitoring">
                         <div class="card">
-                            <div class="card-header">Monitoring</div>
-                            <div class="card-body">
+                            <div class="card-header" (click)="monitoring()">Monitoring</div>
+                            <div class="card-body" *ngIf="moni">
                                 <p>Monitoring Hours</p>
                                 <div class="col-lg-4 col-md-4"><input type="text" class="form-control"
                                         placeholder="Enter" /></div>
@@ -157,8 +161,8 @@
                     </div>
                     <div class="m-2" *ngIf="Business">
                         <div class="card">
-                            <div class="card-header">Business Intelligence</div>
-                            <div class="card-body">
+                            <div class="card-header" (click)="businessIntell()">Business Intelligence</div>
+                            <div class="card-body" *ngIf="intell">
                                 <p>Requested Analytics</p>
                                 <div class="col-lg-4 col-md-4">
                                     <select id="" class="form-select">
@@ -183,11 +187,7 @@
                             <!-- (click)="checkbox($event, 'preinst')" -->
                             <label for="bopis" class="on-off-toggle__slider"></label>
                         </div>
-
-
                     </div>
-
-
 
                     <div class="preinstBody" *ngIf="isShown">
                         <div class="m-2">
@@ -197,8 +197,13 @@
                                         <p>Electrician</p>
                                     </div>
                                     <div class="col-lg-9 col-md-9">
-                                        <input type="radio" value="radio" /> YES
-                                        <input type="radio" value="radio" /> NO
+                                        <fieldset class="d-flex justify-content-start">
+                                            <input type="radio" id="radio3" name="Electrician">
+                                            <label for="">YES</label><br />
+
+                                            <input type="radio" id="radio3" name="Electrician" checked>
+                                            <label for="">NO</label><br />
+                                        </fieldset>
                                     </div>
                                 </div>
                                 <!-- <div class="card-body"></div> -->
@@ -212,8 +217,13 @@
                                         <p>Power Available</p>
                                     </div>
                                     <div class="col-lg-9 col-md-9">
-                                        <input type="radio" value="radio" /> YES
-                                        <input type="radio" value="radio" /> NO
+                                        <fieldset class="d-flex justify-content-start">
+                                            <input type="radio" id="radio2" name="powerAvailable">
+                                            <label for="">YES</label><br />
+
+                                            <input type="radio" id="radio2" name="powerAvailable" checked>
+                                            <label for="">NO</label><br />
+                                        </fieldset>
                                     </div>
                                 </div>
                                 <!-- <div class="card-body"></div> -->
@@ -227,11 +237,18 @@
                                         <p>Internet</p>
                                     </div>
                                     <div class="col-lg-9 col-md-9">
-                                        <input type="radio" value="radio" /> YES
-                                        <input type="radio" value="radio" /> NO
+                                        <fieldset class="d-flex justify-content-start">
+                                            <input type="radio" id="radio1" name="Internet"
+                                                (click)="toggleShowInternet('on','internet')">
+                                            <label for="">YES</label><br />
+
+                                            <input type="radio" id="radio1" name="Internet" checked
+                                                (click)="toggleShowInternet('off','internet')">
+                                            <label for="">NO</label><br />
+                                        </fieldset>
                                     </div>
                                 </div>
-                                <div class="row card-body">
+                                <div class="row card-body" *ngIf="internet">
                                     <div class="form-group col-lg-4 col-md-4">
                                         <label for="exampleInputEmail1">Internet Service Provider</label>
                                         <input type="email" class="form-control" id="exampleInputEmail1"
@@ -254,11 +271,13 @@
                                     </div>
                                     <div class="col-lg-9 col-md-9">
                                         <fieldset class="d-flex justify-content-start">
-                                            <input type="radio" id="radio" name="Security" (click)="toggleShowExistSecuity('on','security')">
-                                            <label for="kraken">YES</label><br />
+                                            <input type="radio" id="radio" name="Security"
+                                                (click)="toggleShowExistSecuity('on','security')">
+                                            <label for="">YES</label><br />
 
-                                            <input type="radio" id="radio" name="Security" checked (click)="toggleShowExistSecuity('off','security')">
-                                            <label for="sasquatch">NO</label><br />
+                                            <input type="radio" id="radio" name="Security" checked
+                                                (click)="toggleShowExistSecuity('off','security')">
+                                            <label for="">NO</label><br />
                                         </fieldset>
                                     </div>
                                 </div>
