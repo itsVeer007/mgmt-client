@@ -178,10 +178,14 @@
                         <!-- <input type="checkbox" checked data-toggle="toggle" data-style="ios"> -->
                         
                         <div class="on-off-toggle">
-                            <input class="on-off-toggle__input" type="checkbox" id="bopis" />
+                            <input class="on-off-toggle__input" type="checkbox" id="bopis" (click)="checkbox($event, 'preinst')" />
                             <label for="bopis" class="on-off-toggle__slider"></label>
                         </div>
+
+                    
                     </div>
+
+       
 
                     <div class="m-2">
                         <div class="card">

@@ -21,4 +21,10 @@ export class AddNewSiteComponent implements OnInit {
     console.log(this.show)
   }
 
+  checkbox(e:any, type:any){
+    if(type== 'preinst'){
+      console.log(e.target.checked, type)
+    }
+  }
+
 }

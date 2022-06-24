@@ -154,7 +154,7 @@
     transform: translateX(32px);
     
   }
-  .on-off-toggle__slider:after {
+  .on-off-toggle__input:checked + :after {
     content: 'on';
     color: #084982;
     padding-left: 8px;
