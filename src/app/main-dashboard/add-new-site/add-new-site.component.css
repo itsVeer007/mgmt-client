@@ -106,32 +106,33 @@
   border: 1px solid #084982;
   transition: background-color 0.4s;
 }
-  .on-off-toggle__slider:before {
-    content: '';
-    display: block;
-    background-color: #084982;
-    /* box-shadow: 0 0 0 1px #949494; */
-    bottom: 3px;
-    height: 18px;
-    left: 3px;
-    position: absolute;
-    transition: .4s;
-    width: 18px;
-    z-index: 5;
-    border-radius: 100%;
-  }
-  
-  .on-off-toggle__slider:after {
-    display: block;
-    line-height: 24px;
-    text-transform: uppercase;
-    font-size: 12px;
-    font-weight: bold;
-    content: 'off' ;
-    color: #084982;
-    padding-left: 26px;
-    transition: all 0.4s;
-  }
+
+.on-off-toggle__slider:before {
+  content: '';
+  display: block;
+  background-color: #084982;
+  /* box-shadow: 0 0 0 1px #949494; */
+  bottom: 3px;
+  height: 18px;
+  left: 3px;
+  position: absolute;
+  transition: .4s;
+  width: 18px;
+  z-index: 5;
+  border-radius: 100%;
+}
+
+.on-off-toggle__slider:after {
+  display: block;
+  line-height: 24px;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: bold;
+  content: 'NO' ;
+  color: #ABABAB;
+  padding-left: 26px;
+  transition: all 0.4s;
+}
   
 
 
@@ -150,15 +151,21 @@
   border: 1px solid #084982;
 }
 
-  .on-off-toggle__input:checked + :before {
-    transform: translateX(32px);
+.on-off-toggle__input + 
+.on-off-toggle__slider {
+  background-color: #F8F8F8;
+  border: 1px solid #ABABAB;
+}
+
+.on-off-toggle__input:checked + :before {
+  transform: translateX(32px);
     
-  }
-  .on-off-toggle__input:checked + :after {
-    content: 'on';
-    color: #084982;
-    padding-left: 8px;
-  }
+}
+.on-off-toggle__input:checked + :after {
+  content: 'YES';
+  color: #084982;
+  padding-left: 8px;
+}
 
 
 /*** END CSS NEEDED FOR SWITCH **/

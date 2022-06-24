@@ -21,10 +21,37 @@ export class AddNewSiteComponent implements OnInit {
     console.log(this.show)
   }
 
-  checkbox(e:any, type:any){
-    if(type== 'preinst'){
-      console.log(e.target.checked, type)
-    }
+  isShown: boolean = false ; // hidden by default
+  
+  toggleShowOnOff() {
+    this.isShown = ! this.isShown;
   }
+
+  Monitoring: boolean = false;
+
+  toggleShowMonit() {
+    this.Monitoring = ! this.Monitoring;
+  }
+
+  Business: boolean = false;
+
+  toggleShowBusiness() {
+    this.Business = ! this.Business;
+  }
+
+  existSecuity: boolean = false;
+
+  toggleShowExistSecuity() {
+    this.existSecuity = ! this.existSecuity;
+  }
+
+  // checkbox(e:any, type:any){
+    // if(type== 'preinst'){
+    //   console.log(e.target.checked, type)
+    // }
+  //   if (document.querySelector('#bopis:checked')) {
+  //     console.log(e.target.checked, type);
+  //   }
+  // }
 
 }
