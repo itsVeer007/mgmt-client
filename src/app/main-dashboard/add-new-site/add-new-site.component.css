@@ -110,7 +110,7 @@
 .on-off-toggle__slider:before {
   content: '';
   display: block;
-  background-color: #084982;
+  background-color: #ABABAB;
   /* box-shadow: 0 0 0 1px #949494; */
   bottom: 3px;
   height: 18px;
@@ -159,7 +159,7 @@
 
 .on-off-toggle__input:checked + :before {
   transform: translateX(32px);
-    
+    background-color: #084982;
 }
 .on-off-toggle__input:checked + :after {
   content: 'YES';
@@ -169,4 +169,13 @@
 
 
 /*** END CSS NEEDED FOR SWITCH **/
-
+.card p{
+  margin: 0;
+}
+.card label{
+  margin: 0 5px;
+}
+.card input{margin-left: 5px;}
+fieldset{
+  align-items: center;
+}

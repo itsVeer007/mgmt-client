@@ -254,12 +254,11 @@
                                     </div>
                                     <div class="col-lg-9 col-md-9">
                                         <fieldset class="d-flex justify-content-start">
-                                            <input type="radio" id="radioYes" name="Security" (click)="toggleShowExistSecuity()">
+                                            <input type="radio" id="radio" name="Security" (click)="toggleShowExistSecuity('on','security')">
                                             <label for="kraken">YES</label><br />
 
-                                            <input type="radio" id="radioNo" name="Security" checked (click)="toggleShowExistSecuity()">
+                                            <input type="radio" id="radio" name="Security" checked (click)="toggleShowExistSecuity('off','security')">
                                             <label for="sasquatch">NO</label><br />
-
                                         </fieldset>
                                     </div>
                                 </div>

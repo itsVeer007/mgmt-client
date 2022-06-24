@@ -41,8 +41,12 @@ export class AddNewSiteComponent implements OnInit {
 
   existSecuity: boolean = false;
 
-  toggleShowExistSecuity() {
-    this.existSecuity = ! this.existSecuity;
+  toggleShowExistSecuity(value:any, type:any) {
+    if(type=='security'){
+      if(value=='on'){this.existSecuity = true;}
+      else{this.existSecuity = false;}
+    }
+
   }
 
   // checkbox(e:any, type:any){
