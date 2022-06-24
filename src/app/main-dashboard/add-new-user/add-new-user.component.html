@@ -1,11 +1,11 @@
 <div class="row formModal">
-    <div class="col-lg-2 col-md-2"></div>
-    <div class="col-lg-10 col-md-10 add-form">
+    <div class="col-lg-6 col-md-6"></div>
+    <div class="col-lg-6 col-md-6 add-form">
 
         <div class="d-flex flex-row justify-content-between">
             <div class="d-flex flex-row justify-content-start">
                 <a class="mt-3 pointer" (click)="closeAddUser(false)"><img src="assets/images/Group 101.svg" /></a>
-                <h6 class="mt-5" style="margin-left: 20px;">add new user</h6>
+                <h6 class="mt-5" style="margin-left: 20px;">add user</h6>
             </div>
 
             <div class="mx-5 my-4 site-icons">
@@ -14,37 +14,97 @@
                 <a><img src="assets/images/Union 26.svg" class="mx-2 my-4" /></a>
                 <a><img src="assets/images/bx-cctv (1).svg" class="mx-2 my-4" /></a>
                 <a><img src="assets/images/Union 27.svg" class="mx-2 my-4" /></a>
-                <a><img src="assets/images/Union 29.svg" class="mx-2 my-4 changesvgcolor"  /></a>
+                <a><img src="assets/images/Union 29.svg" class="mx-2 my-4 changesvgcolor" /></a>
             </div>
         </div>
 
         <div>
             <form autocomplete="off">
                 <div class="row">
-                    <div class="col-lg-4 col-md-4">
-                        <input type="text" class="form-control m-2" placeholder="Name" />
+                    <div class="col-lg-6 col-md-6">
+                        <input type="text" class="form-control m-1" placeholder="User Name*" required/>
                     </div>
-                    <div class="col-lg-4 col-md-4">
-                        <input type="text" class="form-control m-2" placeholder="First Name" />
+                    <div class="col-lg-6 col-md-6">
+                        <input type="password" class="form-control m-1" placeholder="Password*" required/>
                     </div>
-                    <div class="col-lg-4 col-md-4">
-                        <input type="text" class="form-control m-2" placeholder="Last Name" />
+                    <div class="col-lg-6 col-md-6">
+                        <input type="text" class="form-control m-1" placeholder="First Name*" required/>
                     </div>
-                    <div class="col-lg-4 col-md-4">
-                        <input type="password" class="form-control m-2" placeholder="Password" />
+                    <div class="col-lg-6 col-md-6">
+                        <input type="text" class="form-control m-1" placeholder="Last Name*" required/>
                     </div>
-                    <div class="col-lg-4 col-md-4">
+                    <div class="col-lg-6 col-md-6">
+                        <select id="" class="form-select m-1">
+                            <option selected>Role</option>
+                            <option>...</option>
+                        </select>
+                    </div> 
+                    <div class="col-lg-6 col-md-6">
+                        <select id="" class="form-select m-1">
+                            <option selected>Gender</option>
+                            <option>Male</option>
+                            <option>Female</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <select id="" class="form-select m-1">
+                            <option selected>Active</option>
+                            <option>...</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <select id="" class="form-select m-1">
+                            <option selected>Realm</option>
+                            <option>...</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <input type="email" class="form-control m-1" placeholder="Email Id*" required/>
+                    </div> 
+                    <div class="col-lg-6 col-md-6">
+                        <input type="number" class="form-control m-1" placeholder="Contact Number*" required/>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <select id="" class="form-select m-1" required>
+                            <option selected>Country*</option>
+                            <option>...</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <select id="" class="form-select m-1">
+                            <option selected>State</option>
+                            <option>...</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <select id="" class="form-select m-1">
+                            <option selected>District/City</option>
+                            <option>...</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <input type="text" class="form-control m-1" placeholder="Pincode" />
+                    </div>
+                    <div class="col-lg-12 col-md-12">
+                        <input type="text" class="form-control m-1" placeholder="Area/Street" />
+                    </div>
+                    <label class="main mx-2 my-3">Safety Escort
+                        <input type="checkbox" checked="checked">
+                        <span class="geekmark"></span>
+                    </label>
+
+                    <div class="text-center m-2">
+                        <button class="btn add-btn">CREATE</button>
+                    </div>
+
+                    <!-- <div class="col-lg-6 col-md-6">
                         <input type="text" class="form-control m-2" placeholder="User Id" />
                     </div>
                     <div class="col-lg-4 col-md-4">
                         <input type="text" class="form-control m-2" placeholder="Enabled" />
                     </div>
-                    <div class="col-lg-4 col-md-4">
-                        <input type="number" class="form-control m-2" placeholder="Contact Number" />
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <input type="email" class="form-control m-2" placeholder="Email Id" />
-                    </div>
+                   
+                   
                     <div class="col-lg-4 col-md-4">
                         <input type="text" class="form-control m-2" placeholder="Gender" />
                     </div>
@@ -53,9 +113,9 @@
                     </div>
                     <div class="col-lg-4 col-md-4">
                         <input type="text" class="form-control m-2" placeholder="Group" />
-                    </div>
+                    </div> -->
 
-                    <div>
+                    <!-- <div>
                         <div class="row">
                             <div class="col-lg-4 col-md-4">
                                 <input type="text" class="form-control m-2" placeholder="Line1" />
@@ -72,15 +132,11 @@
                             <div class="col-lg-4 col-md-4">
                                 <input type="text" class="form-control m-2" placeholder="Country" />
                             </div>
-                            <div class="col-lg-4 col-md-4">
-                                <input type="text" class="form-control m-2" placeholder="Postal Code" />
-                            </div>
+                           
                         </div>
-                    </div>
+                    </div> -->
 
-                    <div class="text-center m-5">
-                        <button class="btn add-btn">ADD</button>
-                    </div>
+                    
                 </div>
             </form>
         </div>
