@@ -3,7 +3,7 @@
         <header>
             <div class="d-flex justify-content-between">
                 <a class="logo"><img src="assets/images/Logo.svg" /></a>
-                <a class="group88" (click)="showProfile()"><img src="assets/images/Group 88.svg" /></a>
+                <a class="group88" (click)="showProfile()"><img src="assets/images/profile.svg" /></a>
                 <a class="menu-icon" (click)="showMenu()"><img src="assets/images/menu.svg" /></a>
             </div>
         </header>
@@ -11,11 +11,15 @@
             <nav class="collapse d-block sidebar" id="navbarToggleExternalContent">
                 <div class="list-group m-3">
                     <a class="list-group-item active " [routerLink]="['/main-dashboard']" routerLinkActive="routeactive">
-                        <img src="assets/images/Union 6.svg" />
+                        <img src="assets/images/dashboard.svg" />
                         <span> Dashboard</span>
                     </a>
                     <a class="list-group-item " >
-                        <img src="assets/images/Union 7.svg" />
+                        <img src="assets/images/vertical.svg" />
+                        <span> Verticals</span>
+                    </a>
+                    <a class="list-group-item " >
+                        <img src="assets/images/customer.svg" />
                         <span> Customers</span>
                     </a>
 
@@ -25,16 +29,20 @@
                     </a> -->
 
                     <a routerLink="" class="list-group-item ">
-                        <img src="assets/images/Union 10.svg" />
+                        <img src="assets/images/sites.svg" />
                         <span> Sites</span>
                     </a>
                     <a class="list-group-item ">
-                        <img src="assets/images/bx-cctv.svg" />
+                        <img src="assets/images/cam.svg" />
                         <span> Cameras</span>
                     </a>
                     <a class="list-group-item ">
-                        <img src="assets/images/Union 9.svg" />
+                        <img src="assets/images/analytic.svg" />
                         <span> Analytics</span>
+                    </a>
+                    <a class="list-group-item " >
+                        <img src="assets/images/user-white.svg" />
+                        <span> Users</span>
                     </a>
                 </div>
             </nav>
@@ -82,19 +90,25 @@
     <nav class="d-sm-xs-block">
         <div class="list-group text-white text-center">
             <a class="list-group-item my-2">
-                <img src="assets/images/Union 6.svg" /><span> Dashboard</span>
+                <img src="assets/images/dashboard.svg" /><span> Dashboard</span>
+            </a>
+            <a class="list-group-item my-2" >
+                <img src="assets/images/vertical.svg" /><span> Verticals</span>
             </a>
             <a class="list-group-item my-2">
-                <img src="assets/images/Union 7.svg" /><span> Customers</span>
+                <img src="assets/images/customer.svg" /><span> Customers</span>
             </a>
             <a routerLink="" class="list-group-item my-2">
-                <img src="assets/images/Union 10.svg" /><span> Sites</span>
+                <img src="assets/images/sites.svg" /><span> Sites</span>
             </a>
             <a class="list-group-item my-2">
-                <img src="assets/images/bx-cctv.svg" /><span> Cameras</span>
+                <img src="assets/images/cam.svg" /><span> Cameras</span>
             </a>
             <a class="list-group-item my-2">
-                <img src="assets/images/Union 9.svg" /><span> Analytics</span>
+                <img src="assets/images/analytic.svg" /><span> Analytics</span>
+            </a>
+            <a class="list-group-item my-2" >
+                <img src="assets/images/user-white.svg" /><span> Users</span>
             </a>
         </div>
     </nav>
