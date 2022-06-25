@@ -77,7 +77,7 @@ body {
     margin-left: -12%;
 }
 .add-form .site-icons img {
-    width: 15px; 
+    width: 18px; 
     margin: 12px;
 }
 .add-form .d-flex img {
@@ -85,13 +85,16 @@ body {
 }
 form {
     padding: 0 46px;
+    margin-top: -20px;
 }
 .form-select {
     background-color: #F8F8F8;
-    height: 50px;
+    height: 45px;
+    padding: 0;
 }
 .form-control {
-    height: 50px;
+    height: 45px;
+    padding: 0;
 }
 form .add-btn {
     background-color: #084982;
@@ -156,9 +159,10 @@ form .add-btn:hover {
 .add-form form .form-select {
     background-color: #F8F8F8;
     color: #ABABAB;
+    border: 1px solid #EFEFEF;
 }
 .add-form form .form-control {
-    border-radius: 1px solid #EFEFEF;
+    border: 1px solid #EFEFEF;
     background-color: #fff;
     color: #ABABAB;
 }

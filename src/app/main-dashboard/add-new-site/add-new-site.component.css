@@ -4,15 +4,16 @@
   height: 50px;
   border-radius: 5px;
   border: 1px solid #084982;
+  font-size: 13px;
 }
 
-.lat, .long {
-  border: 1px solid #ced4da;
-  border-radius: 5px;
-  height: 50px;
-  margin-left: 20px;
-  margin-top: 8px;
-  width: 31.5%;    
+.lat, .long {  
+  border: 1px solid #EFEFEF;
+    border-radius: 5px;
+    height: 50px;
+    width: 30.6%;
+    padding: 0;
+    margin: 6px 0 0 31px;
 }
 
 .lat .form-control {
@@ -60,7 +61,7 @@
 
 @media only screen and (max-width: 768px) {
   .lat, .long {
-      border: 1px solid #ced4da;
+      border: 1px solid #EFEFEF;
       border-radius: 5px;
       height: 50px;
       margin-left: 20px;
@@ -112,8 +113,8 @@
   display: block;
   background-color: #ABABAB;
   /* box-shadow: 0 0 0 1px #949494; */
-  bottom: 3px;
-  height: 18px;
+  bottom: 5px;
+  height: 15px;
   left: 3px;
   position: absolute;
   transition: .4s;
@@ -204,4 +205,17 @@ fieldset {
   display: none;
   background-color: white;
   overflow: hidden;
+}
+
+.escalation {
+  border: 1px solid #EFEFEF;
+  border-radius: 5px;
+  padding: 0px;
+  height: 47px;
+  width: 31.5%;
+  margin: 6px 0 0 19px;
+}
+
+p {
+  letter-spacing: 1px;
 }
