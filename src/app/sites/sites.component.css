@@ -1,0 +1,165 @@
+.sites {
+    margin-top:50px;
+}
+
+.sites-header {
+    display: flex;
+    align-items: center;
+}
+
+.sites-header p {
+    color: #ABABAB;
+    font-size: 24px;
+}
+
+.sites-header span {
+    color: #084982;
+    font-size: 24px;
+}
+
+.vl-green {
+    border-left: 2px solid #00A44C;
+    height: 40px;
+  }
+
+.vl-red {
+    border-left: 2px solid #EF2800;
+    height: 40px;
+}
+
+.vl-yellow {
+    border-left: 2px solid #F5B400;
+    height: 40px;
+}
+
+.status {
+    font-size: 12px;
+    color: #ABABAB;
+    letter-spacing: 0.5px;
+}
+
+.count {
+    font-size: 18px;
+    color: #000000;
+    font-weight: 600;
+}
+
+form .select {
+    width: 200px;
+    height: 40px;
+}
+
+form .form-select {
+    background-color: #F8F8F8;
+    border: 1px solid #EFEFEF;
+    font-size: 12px;
+    color: #000000;
+}
+
+form .search {
+    border: 1px solid #EFEFEF;
+    border-radius: 30px;
+    width: 250px;
+    height: 45px;
+}
+
+form input, button {
+    border: none;
+    padding: 10px;
+    font-size: 12px;
+}
+
+form input {
+    width: 80%;
+    border-radius: 30px;
+    color: #ABABAB;
+}
+
+form button {
+    width: 20%;
+    background: none;
+}
+
+.table thead {
+    background-image: linear-gradient(to right, #084982 , #D34124);
+    color: #fff;
+    /* height: 50px; */
+    padding: 0px;
+}
+
+.table thead tr th {
+    text-align: center;
+    font-size: 12px;
+}
+
+.table tbody tr td {
+    text-align: center;
+    font-size: 12px;
+    padding: 0;
+}
+
+
+
+
+
+
+/* .container{
+    padding: 1rem;
+    margin: 1rem;
+  } */
+  .table-scroll{
+    /*width:100%; */
+    display: block;
+    empty-cells: show;
+    
+    /* Decoration */
+    border-spacing: 0;
+    border: 1px solid;
+  }
+  
+  .table-scroll thead{
+    background-color: #f1f1f1;  
+    position:relative;
+    display: block;
+    width:100%;
+    overflow-y: scroll;
+  }
+  
+  .table-scroll tbody{
+    /* Position */
+    display: block; position:relative;
+    width:100%; overflow-y:scroll;
+    /* Decoration */
+    border-top: 1px solid rgba(0,0,0,0.2);
+  }
+  
+  .table-scroll tr{
+    width: 100%;
+    display:flex;
+  }
+  
+  .table-scroll td,.table-scroll th{
+    flex-basis:100%;
+    flex-grow:2;
+    display: block;
+    padding: 1rem;
+    text-align:left;
+  }
+  
+  /* Other options */
+  
+  .table-scroll.small-first-col td:first-child,
+  .table-scroll.small-first-col th:first-child{
+    flex-basis:20%;
+    flex-grow:1;
+  }
+  
+  .table-scroll tbody tr:nth-child(2n){
+    background-color: rgba(130,130,170,0.1);
+  }
+  
+  .body-half-screen{
+    max-height: 50vh;
+  }
+  
+  .small-col{flex-basis:10%;}

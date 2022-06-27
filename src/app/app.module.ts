@@ -11,6 +11,7 @@ import { AddNewCameraComponent } from './main-dashboard/add-new-camera/add-new-c
 import { AddNewCustomerComponent } from './main-dashboard/add-new-customer/add-new-customer.component';
 import { AddNewBusinessVerticalComponent } from './main-dashboard/add-new-business-vertical/add-new-business-vertical.component';
 import { AddNewUserComponent } from './main-dashboard/add-new-user/add-new-user.component';
+import { SitesComponent } from './sites/sites.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { AddNewUserComponent } from './main-dashboard/add-new-user/add-new-user.
     AddNewCameraComponent,
     AddNewCustomerComponent,
     AddNewBusinessVerticalComponent,
-    AddNewUserComponent
+    AddNewUserComponent,
+    SitesComponent
   ],
   imports: [
     BrowserModule,
