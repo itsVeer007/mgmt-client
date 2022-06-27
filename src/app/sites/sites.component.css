@@ -99,8 +99,63 @@ form button {
 }
 
 
+.form1 {
+  background-image: linear-gradient(to right, #084982, #AA4337);
+  background-size: cover;
+  border-radius: 5px;
+  margin-top: 20px;
+  /* width: 98.9%; */
+  /* height: 70px; */
 
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
 
+.form1 th{
+  color: #fff;
+  padding: 10px 0; 
+  font-size: 12px;
+  text-align: center;
+  /* justify-content:center; */
+}
+.table-resp{
+  /* padding: 10px; */
+  max-height: calc(100vh - (400px));
+  overflow-y: scroll;
+}
+.table-resp table{
+  border: 1px solid #ababab;
+  /* position: relative; */
+
+}
+
+.table tbody tr td {
+  /* align-items: center; */
+  vertical-align: middle;
+  height: 36px;
+}
+
+.table tbody tr td p {
+  margin: 2px 0;
+}
+
+.table tbody tr td input {
+  /* align-items: center; */
+  margin: 2px 10px;
+}
+
+.dot {
+  content: "";
+  width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  background-color: red;
+  margin: auto;
+  box-shadow: 0px 0px 5px 2px rgba(207,39,39,0.61);
+  border: 1px solid #fff;
+
+}
 
 
 /* .container{
@@ -124,6 +179,7 @@ form button {
     width:100%;
     overflow-y: scroll;
   }
+
   
   .table-scroll tbody{
     /* Position */
