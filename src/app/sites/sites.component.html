@@ -1,4 +1,4 @@
-<div class="container-fluid p-5 sites">
+<div class="container-fluid sites">
 
     <!-- header starts -->
     <div class="d-flex justify-content-between">
@@ -36,7 +36,7 @@
     <!-- count ends -->
 
     <!-- form starts -->
-    <div class="row my-4">
+    <div class="row my-3">
         <div class="col-lg-10 col-md-10">
             <form class="row p-0">
                 <div class="col-lg-4 col-md-4 select">
@@ -57,7 +57,7 @@
                 </div>
             </form>
         </div>
-        <div class="col-lg-2 col-md-2 d-flex justify-content-end">
+        <div class="col-lg-2 col-md-2 table-icons">
             <a class="mx-3"><img src="assets/images/view.svg" /></a>
             <a class="mx-3"><img src="assets/images/edit.svg" /></a>
             <a class="mx-3"><img src="assets/images/delete.svg" /></a>
@@ -153,10 +153,10 @@
 
 
     <div class="table-resp">
-        <table class="table table-striped">
+        <table class="table">
             <tbody>
                 <tr class="form1">
-                    <th><input type="checkbox" /></th>
+                    <th><input type="checkbox" class="form-check-input" /></th>
                     <th>Site ID</th>
                     <th>Site Name</th>
                     <th>Customer</th>
@@ -172,8 +172,10 @@
                 </tr>
 
                 <tr>
-                    <td><input type="checkbox" /></td>
-                    <td>1000015</td>
+                    <td><input type="checkbox" class="form-check-input" /></td>
+                    <td>
+                        <p>1000015</p>
+                    </td>
                     <td>
                         <p>Osaka Midland</p>
                     </td>
@@ -183,14 +185,25 @@
                     <td>
                         <p style="color: #00A44C;">Active</p>
                     </td>
-                    <td><a style="color: #084982;">View</a></td>
+                    <td style="position: relative;">
+                        <a style="color: #084982;" (click)="addressView()">View</a>
+                        <div style="border: 1px solid #0000000D; position: absolute; background-color: #fff; width: 200px; margin-left: -180px; margin-top: -26px;"
+                            [hidden]="address" class="plus-img">
+                            <p class="p-2" style="color: #ABABAB; text-align: left;">ADDRESS</p>
+                            <div style="color: #000; text-align: left; padding: 10px;">
+                                <p>Pathur Road, Tadepally</p>
+                                <p>Guntur - 522501</p>
+                                <p>Andhra Pradesh, India</p>
+                            </div>
+                        </div>
+                    </td>
                     <td>
                         <p>44.463005<br>-110.366479</p>
                     </td>
                     <td><a style="color: #084982;">View</a></td>
                     <td><a style="color: #084982;">View</a></td>
                     <td>
-                        <div class="dot"></div>
+                        <div class="dot-red"></div>
                     </td>
                     <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
                     <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
@@ -199,7 +212,67 @@
 
                 <tr>
                     <td><input type="checkbox" /></td>
-                    <td>1000015</td>
+                    <td>
+                        <p>1000014</p>
+                    </td>
+                    <td>
+                        <p>One Stop</p>
+                    </td>
+                    <td>
+                        <p>Reliance</p>
+                    </td>
+                    <td>
+                        <p style="color: #F5B400;">Onhold</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <p>44.463005<br>-110.366479</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <div class="dot-green"></div>
+                    </td>
+                    <td>
+                        <p style="color: #084982;">IVISUSA1006</p>
+                    </td>
+                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
+                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
+                </tr>
+
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>1000013</td>
+                    <td>
+                        <p>One Stop</p>
+                    </td>
+                    <td>
+                        <p>Reliance</p>
+                    </td>
+                    <td>
+                        <p style="color: red;">Inactive</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <p>44.463005<br>-110.366479</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <div class="dot-yellow"></div>
+                    </td>
+                    <td>
+                        <p style="color: #084982;">IVISUSA1006</p>
+                    </td>
+                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
+                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
+                </tr>
+
+                <tr>
+                    <td><input type="checkbox" class="form-check-input" /></td>
+                    <td>
+                        <p>1000015</p>
+                    </td>
                     <td>
                         <p>Osaka Midland</p>
                     </td>
@@ -216,7 +289,7 @@
                     <td><a style="color: #084982;">View</a></td>
                     <td><a style="color: #084982;">View</a></td>
                     <td>
-                        <div class="dot"></div>
+                        <div class="dot-red"></div>
                     </td>
                     <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
                     <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
@@ -225,7 +298,67 @@
 
                 <tr>
                     <td><input type="checkbox" /></td>
-                    <td>1000015</td>
+                    <td>
+                        <p>1000014</p>
+                    </td>
+                    <td>
+                        <p>One Stop</p>
+                    </td>
+                    <td>
+                        <p>Reliance</p>
+                    </td>
+                    <td>
+                        <p style="color: #F5B400;">Onhold</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <p>44.463005<br>-110.366479</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <div class="dot-green"></div>
+                    </td>
+                    <td>
+                        <p style="color: #084982;">IVISUSA1006</p>
+                    </td>
+                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
+                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
+                </tr>
+
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>1000013</td>
+                    <td>
+                        <p>One Stop</p>
+                    </td>
+                    <td>
+                        <p>Reliance</p>
+                    </td>
+                    <td>
+                        <p style="color: red;">Inactive</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <p>44.463005<br>-110.366479</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <div class="dot-yellow"></div>
+                    </td>
+                    <td>
+                        <p style="color: #084982;">IVISUSA1006</p>
+                    </td>
+                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
+                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
+                </tr>
+
+                <tr>
+                    <td><input type="checkbox" class="form-check-input" /></td>
+                    <td>
+                        <p>1000015</p>
+                    </td>
                     <td>
                         <p>Osaka Midland</p>
                     </td>
@@ -242,7 +375,7 @@
                     <td><a style="color: #084982;">View</a></td>
                     <td><a style="color: #084982;">View</a></td>
                     <td>
-                        <div class="dot"></div>
+                        <div class="dot-red"></div>
                     </td>
                     <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
                     <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
@@ -251,7 +384,67 @@
 
                 <tr>
                     <td><input type="checkbox" /></td>
-                    <td>1000015</td>
+                    <td>
+                        <p>1000014</p>
+                    </td>
+                    <td>
+                        <p>One Stop</p>
+                    </td>
+                    <td>
+                        <p>Reliance</p>
+                    </td>
+                    <td>
+                        <p style="color: #F5B400;">Onhold</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <p>44.463005<br>-110.366479</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <div class="dot-green"></div>
+                    </td>
+                    <td>
+                        <p style="color: #084982;">IVISUSA1006</p>
+                    </td>
+                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
+                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
+                </tr>
+
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>1000013</td>
+                    <td>
+                        <p>One Stop</p>
+                    </td>
+                    <td>
+                        <p>Reliance</p>
+                    </td>
+                    <td>
+                        <p style="color: red;">Inactive</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <p>44.463005<br>-110.366479</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <div class="dot-yellow"></div>
+                    </td>
+                    <td>
+                        <p style="color: #084982;">IVISUSA1006</p>
+                    </td>
+                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
+                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
+                </tr>
+
+                <tr>
+                    <td><input type="checkbox" class="form-check-input" /></td>
+                    <td>
+                        <p>1000015</p>
+                    </td>
                     <td>
                         <p>Osaka Midland</p>
                     </td>
@@ -268,7 +461,7 @@
                     <td><a style="color: #084982;">View</a></td>
                     <td><a style="color: #084982;">View</a></td>
                     <td>
-                        <div class="dot"></div>
+                        <div class="dot-red"></div>
                     </td>
                     <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
                     <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
@@ -277,7 +470,67 @@
 
                 <tr>
                     <td><input type="checkbox" /></td>
-                    <td>1000015</td>
+                    <td>
+                        <p>1000014</p>
+                    </td>
+                    <td>
+                        <p>One Stop</p>
+                    </td>
+                    <td>
+                        <p>Reliance</p>
+                    </td>
+                    <td>
+                        <p style="color: #F5B400;">Onhold</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <p>44.463005<br>-110.366479</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <div class="dot-green"></div>
+                    </td>
+                    <td>
+                        <p style="color: #084982;">IVISUSA1006</p>
+                    </td>
+                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
+                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
+                </tr>
+
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>1000013</td>
+                    <td>
+                        <p>One Stop</p>
+                    </td>
+                    <td>
+                        <p>Reliance</p>
+                    </td>
+                    <td>
+                        <p style="color: red;">Inactive</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <p>44.463005<br>-110.366479</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <div class="dot-yellow"></div>
+                    </td>
+                    <td>
+                        <p style="color: #084982;">IVISUSA1006</p>
+                    </td>
+                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
+                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
+                </tr>
+
+                <tr>
+                    <td><input type="checkbox" class="form-check-input" /></td>
+                    <td>
+                        <p>1000015</p>
+                    </td>
                     <td>
                         <p>Osaka Midland</p>
                     </td>
@@ -294,7 +547,7 @@
                     <td><a style="color: #084982;">View</a></td>
                     <td><a style="color: #084982;">View</a></td>
                     <td>
-                        <div class="dot"></div>
+                        <div class="dot-red"></div>
                     </td>
                     <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
                     <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
@@ -303,7 +556,67 @@
 
                 <tr>
                     <td><input type="checkbox" /></td>
-                    <td>1000015</td>
+                    <td>
+                        <p>1000014</p>
+                    </td>
+                    <td>
+                        <p>One Stop</p>
+                    </td>
+                    <td>
+                        <p>Reliance</p>
+                    </td>
+                    <td>
+                        <p style="color: #F5B400;">Onhold</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <p>44.463005<br>-110.366479</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <div class="dot-green"></div>
+                    </td>
+                    <td>
+                        <p style="color: #084982;">IVISUSA1006</p>
+                    </td>
+                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
+                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
+                </tr>
+
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>1000013</td>
+                    <td>
+                        <p>One Stop</p>
+                    </td>
+                    <td>
+                        <p>Reliance</p>
+                    </td>
+                    <td>
+                        <p style="color: red;">Inactive</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <p>44.463005<br>-110.366479</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <div class="dot-yellow"></div>
+                    </td>
+                    <td>
+                        <p style="color: #084982;">IVISUSA1006</p>
+                    </td>
+                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
+                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
+                </tr>
+
+                <tr>
+                    <td><input type="checkbox" class="form-check-input" /></td>
+                    <td>
+                        <p>1000015</p>
+                    </td>
                     <td>
                         <p>Osaka Midland</p>
                     </td>
@@ -320,7 +633,7 @@
                     <td><a style="color: #084982;">View</a></td>
                     <td><a style="color: #084982;">View</a></td>
                     <td>
-                        <div class="dot"></div>
+                        <div class="dot-red"></div>
                     </td>
                     <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
                     <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
@@ -329,7 +642,67 @@
 
                 <tr>
                     <td><input type="checkbox" /></td>
-                    <td>1000015</td>
+                    <td>
+                        <p>1000014</p>
+                    </td>
+                    <td>
+                        <p>One Stop</p>
+                    </td>
+                    <td>
+                        <p>Reliance</p>
+                    </td>
+                    <td>
+                        <p style="color: #F5B400;">Onhold</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <p>44.463005<br>-110.366479</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <div class="dot-green"></div>
+                    </td>
+                    <td>
+                        <p style="color: #084982;">IVISUSA1006</p>
+                    </td>
+                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
+                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
+                </tr>
+
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>1000013</td>
+                    <td>
+                        <p>One Stop</p>
+                    </td>
+                    <td>
+                        <p>Reliance</p>
+                    </td>
+                    <td>
+                        <p style="color: red;">Inactive</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <p>44.463005<br>-110.366479</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <div class="dot-yellow"></div>
+                    </td>
+                    <td>
+                        <p style="color: #084982;">IVISUSA1006</p>
+                    </td>
+                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
+                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
+                </tr>
+
+                <tr>
+                    <td><input type="checkbox" class="form-check-input" /></td>
+                    <td>
+                        <p>1000015</p>
+                    </td>
                     <td>
                         <p>Osaka Midland</p>
                     </td>
@@ -346,7 +719,7 @@
                     <td><a style="color: #084982;">View</a></td>
                     <td><a style="color: #084982;">View</a></td>
                     <td>
-                        <div class="dot"></div>
+                        <div class="dot-red"></div>
                     </td>
                     <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
                     <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
@@ -355,7 +728,67 @@
 
                 <tr>
                     <td><input type="checkbox" /></td>
-                    <td>1000015</td>
+                    <td>
+                        <p>1000014</p>
+                    </td>
+                    <td>
+                        <p>One Stop</p>
+                    </td>
+                    <td>
+                        <p>Reliance</p>
+                    </td>
+                    <td>
+                        <p style="color: #F5B400;">Onhold</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <p>44.463005<br>-110.366479</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <div class="dot-green"></div>
+                    </td>
+                    <td>
+                        <p style="color: #084982;">IVISUSA1006</p>
+                    </td>
+                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
+                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
+                </tr>
+
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>1000013</td>
+                    <td>
+                        <p>One Stop</p>
+                    </td>
+                    <td>
+                        <p>Reliance</p>
+                    </td>
+                    <td>
+                        <p style="color: red;">Inactive</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <p>44.463005<br>-110.366479</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <div class="dot-yellow"></div>
+                    </td>
+                    <td>
+                        <p style="color: #084982;">IVISUSA1006</p>
+                    </td>
+                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
+                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
+                </tr>
+
+                <tr>
+                    <td><input type="checkbox" class="form-check-input" /></td>
+                    <td>
+                        <p>1000015</p>
+                    </td>
                     <td>
                         <p>Osaka Midland</p>
                     </td>
@@ -372,7 +805,7 @@
                     <td><a style="color: #084982;">View</a></td>
                     <td><a style="color: #084982;">View</a></td>
                     <td>
-                        <div class="dot"></div>
+                        <div class="dot-red"></div>
                     </td>
                     <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
                     <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
@@ -381,7 +814,67 @@
 
                 <tr>
                     <td><input type="checkbox" /></td>
-                    <td>1000015</td>
+                    <td>
+                        <p>1000014</p>
+                    </td>
+                    <td>
+                        <p>One Stop</p>
+                    </td>
+                    <td>
+                        <p>Reliance</p>
+                    </td>
+                    <td>
+                        <p style="color: #F5B400;">Onhold</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <p>44.463005<br>-110.366479</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <div class="dot-green"></div>
+                    </td>
+                    <td>
+                        <p style="color: #084982;">IVISUSA1006</p>
+                    </td>
+                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
+                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
+                </tr>
+
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>1000013</td>
+                    <td>
+                        <p>One Stop</p>
+                    </td>
+                    <td>
+                        <p>Reliance</p>
+                    </td>
+                    <td>
+                        <p style="color: red;">Inactive</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <p>44.463005<br>-110.366479</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <div class="dot-yellow"></div>
+                    </td>
+                    <td>
+                        <p style="color: #084982;">IVISUSA1006</p>
+                    </td>
+                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
+                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
+                </tr>
+
+                <tr>
+                    <td><input type="checkbox" class="form-check-input" /></td>
+                    <td>
+                        <p>1000015</p>
+                    </td>
                     <td>
                         <p>Osaka Midland</p>
                     </td>
@@ -398,7 +891,7 @@
                     <td><a style="color: #084982;">View</a></td>
                     <td><a style="color: #084982;">View</a></td>
                     <td>
-                        <div class="dot"></div>
+                        <div class="dot-red"></div>
                     </td>
                     <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
                     <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
@@ -407,7 +900,67 @@
 
                 <tr>
                     <td><input type="checkbox" /></td>
-                    <td>1000015</td>
+                    <td>
+                        <p>1000014</p>
+                    </td>
+                    <td>
+                        <p>One Stop</p>
+                    </td>
+                    <td>
+                        <p>Reliance</p>
+                    </td>
+                    <td>
+                        <p style="color: #F5B400;">Onhold</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <p>44.463005<br>-110.366479</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <div class="dot-green"></div>
+                    </td>
+                    <td>
+                        <p style="color: #084982;">IVISUSA1006</p>
+                    </td>
+                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
+                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
+                </tr>
+
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>1000013</td>
+                    <td>
+                        <p>One Stop</p>
+                    </td>
+                    <td>
+                        <p>Reliance</p>
+                    </td>
+                    <td>
+                        <p style="color: red;">Inactive</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <p>44.463005<br>-110.366479</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <div class="dot-yellow"></div>
+                    </td>
+                    <td>
+                        <p style="color: #084982;">IVISUSA1006</p>
+                    </td>
+                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
+                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
+                </tr>
+
+                <tr>
+                    <td><input type="checkbox" class="form-check-input" /></td>
+                    <td>
+                        <p>1000015</p>
+                    </td>
                     <td>
                         <p>Osaka Midland</p>
                     </td>
@@ -424,7 +977,7 @@
                     <td><a style="color: #084982;">View</a></td>
                     <td><a style="color: #084982;">View</a></td>
                     <td>
-                        <div class="dot"></div>
+                        <div class="dot-red"></div>
                     </td>
                     <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
                     <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
@@ -433,7 +986,67 @@
 
                 <tr>
                     <td><input type="checkbox" /></td>
-                    <td>1000015</td>
+                    <td>
+                        <p>1000014</p>
+                    </td>
+                    <td>
+                        <p>One Stop</p>
+                    </td>
+                    <td>
+                        <p>Reliance</p>
+                    </td>
+                    <td>
+                        <p style="color: #F5B400;">Onhold</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <p>44.463005<br>-110.366479</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <div class="dot-green"></div>
+                    </td>
+                    <td>
+                        <p style="color: #084982;">IVISUSA1006</p>
+                    </td>
+                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
+                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
+                </tr>
+
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>1000013</td>
+                    <td>
+                        <p>One Stop</p>
+                    </td>
+                    <td>
+                        <p>Reliance</p>
+                    </td>
+                    <td>
+                        <p style="color: red;">Inactive</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <p>44.463005<br>-110.366479</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <div class="dot-yellow"></div>
+                    </td>
+                    <td>
+                        <p style="color: #084982;">IVISUSA1006</p>
+                    </td>
+                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
+                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
+                </tr>
+
+                <tr>
+                    <td><input type="checkbox" class="form-check-input" /></td>
+                    <td>
+                        <p>1000015</p>
+                    </td>
                     <td>
                         <p>Osaka Midland</p>
                     </td>
@@ -450,7 +1063,7 @@
                     <td><a style="color: #084982;">View</a></td>
                     <td><a style="color: #084982;">View</a></td>
                     <td>
-                        <div class="dot"></div>
+                        <div class="dot-red"></div>
                     </td>
                     <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
                     <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
@@ -459,7 +1072,67 @@
 
                 <tr>
                     <td><input type="checkbox" /></td>
-                    <td>1000015</td>
+                    <td>
+                        <p>1000014</p>
+                    </td>
+                    <td>
+                        <p>One Stop</p>
+                    </td>
+                    <td>
+                        <p>Reliance</p>
+                    </td>
+                    <td>
+                        <p style="color: #F5B400;">Onhold</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <p>44.463005<br>-110.366479</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <div class="dot-green"></div>
+                    </td>
+                    <td>
+                        <p style="color: #084982;">IVISUSA1006</p>
+                    </td>
+                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
+                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
+                </tr>
+
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>1000013</td>
+                    <td>
+                        <p>One Stop</p>
+                    </td>
+                    <td>
+                        <p>Reliance</p>
+                    </td>
+                    <td>
+                        <p style="color: red;">Inactive</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <p>44.463005<br>-110.366479</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <div class="dot-yellow"></div>
+                    </td>
+                    <td>
+                        <p style="color: #084982;">IVISUSA1006</p>
+                    </td>
+                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
+                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
+                </tr>
+
+                <tr>
+                    <td><input type="checkbox" class="form-check-input" /></td>
+                    <td>
+                        <p>1000015</p>
+                    </td>
                     <td>
                         <p>Osaka Midland</p>
                     </td>
@@ -476,7 +1149,7 @@
                     <td><a style="color: #084982;">View</a></td>
                     <td><a style="color: #084982;">View</a></td>
                     <td>
-                        <div class="dot"></div>
+                        <div class="dot-red"></div>
                     </td>
                     <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
                     <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
@@ -485,7 +1158,67 @@
 
                 <tr>
                     <td><input type="checkbox" /></td>
-                    <td>1000015</td>
+                    <td>
+                        <p>1000014</p>
+                    </td>
+                    <td>
+                        <p>One Stop</p>
+                    </td>
+                    <td>
+                        <p>Reliance</p>
+                    </td>
+                    <td>
+                        <p style="color: #F5B400;">Onhold</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <p>44.463005<br>-110.366479</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <div class="dot-green"></div>
+                    </td>
+                    <td>
+                        <p style="color: #084982;">IVISUSA1006</p>
+                    </td>
+                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
+                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
+                </tr>
+
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td>1000013</td>
+                    <td>
+                        <p>One Stop</p>
+                    </td>
+                    <td>
+                        <p>Reliance</p>
+                    </td>
+                    <td>
+                        <p style="color: red;">Inactive</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <p>44.463005<br>-110.366479</p>
+                    </td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td><a style="color: #084982;">View</a></td>
+                    <td>
+                        <div class="dot-yellow"></div>
+                    </td>
+                    <td>
+                        <p style="color: #084982;">IVISUSA1006</p>
+                    </td>
+                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
+                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
+                </tr>
+
+                <tr>
+                    <td><input type="checkbox" class="form-check-input" /></td>
+                    <td>
+                        <p>1000015</p>
+                    </td>
                     <td>
                         <p>Osaka Midland</p>
                     </td>
@@ -502,7 +1235,7 @@
                     <td><a style="color: #084982;">View</a></td>
                     <td><a style="color: #084982;">View</a></td>
                     <td>
-                        <div class="dot"></div>
+                        <div class="dot-red"></div>
                     </td>
                     <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
                     <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
@@ -511,15 +1244,17 @@
 
                 <tr>
                     <td><input type="checkbox" /></td>
-                    <td>1000015</td>
                     <td>
-                        <p>Osaka Midland</p>
+                        <p>1000014</p>
                     </td>
                     <td>
-                        <p>BOB</p>
+                        <p>One Stop</p>
                     </td>
                     <td>
-                        <p style="color: #00A44C;">Active</p>
+                        <p>Reliance</p>
+                    </td>
+                    <td>
+                        <p style="color: #F5B400;">Onhold</p>
                     </td>
                     <td><a style="color: #084982;">View</a></td>
                     <td>
@@ -528,50 +1263,26 @@
                     <td><a style="color: #084982;">View</a></td>
                     <td><a style="color: #084982;">View</a></td>
                     <td>
-                        <div class="dot"></div>
+                        <div class="dot-green"></div>
                     </td>
-                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
+                    <td>
+                        <p style="color: #084982;">IVISUSA1006</p>
+                    </td>
                     <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
                     <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
                 </tr>
 
                 <tr>
                     <td><input type="checkbox" /></td>
-                    <td>1000015</td>
+                    <td>1000013</td>
                     <td>
-                        <p>Osaka Midland</p>
+                        <p>One Stop</p>
                     </td>
                     <td>
-                        <p>BOB</p>
+                        <p>Reliance</p>
                     </td>
                     <td>
-                        <p style="color: #00A44C;">Active</p>
-                    </td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td>
-                        <p>44.463005<br>-110.366479</p>
-                    </td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td>
-                        <div class="dot"></div>
-                    </td>
-                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
-                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
-                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
-                </tr>
-
-                <tr>
-                    <td><input type="checkbox" /></td>
-                    <td>1000015</td>
-                    <td>
-                        <p>Osaka Midland</p>
-                    </td>
-                    <td>
-                        <p>BOB</p>
-                    </td>
-                    <td>
-                        <p style="color: #00A44C;">Active</p>
+                        <p style="color: red;">Inactive</p>
                     </td>
                     <td><a style="color: #084982;">View</a></td>
                     <td>
@@ -580,119 +1291,14 @@
                     <td><a style="color: #084982;">View</a></td>
                     <td><a style="color: #084982;">View</a></td>
                     <td>
-                        <div class="dot"></div>
-                    </td>
-                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
-                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
-                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
-                </tr>
-
-                <tr>
-                    <td><input type="checkbox" /></td>
-                    <td>1000015</td>
-                    <td>
-                        <p>Osaka Midland</p>
+                        <div class="dot-yellow"></div>
                     </td>
                     <td>
-                        <p>BOB</p>
+                        <p style="color: #084982;">IVISUSA1006</p>
                     </td>
-                    <td>
-                        <p style="color: #00A44C;">Active</p>
-                    </td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td>
-                        <p>44.463005<br>-110.366479</p>
-                    </td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td>
-                        <div class="dot"></div>
-                    </td>
-                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
                     <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
                     <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
                 </tr>
-
-                <tr>
-                    <td><input type="checkbox" /></td>
-                    <td>1000015</td>
-                    <td>
-                        <p>Osaka Midland</p>
-                    </td>
-                    <td>
-                        <p>BOB</p>
-                    </td>
-                    <td>
-                        <p style="color: #00A44C;">Active</p>
-                    </td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td>
-                        <p>44.463005<br>-110.366479</p>
-                    </td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td>
-                        <div class="dot"></div>
-                    </td>
-                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
-                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
-                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
-                </tr>
-
-                <tr>
-                    <td><input type="checkbox" /></td>
-                    <td>1000015</td>
-                    <td>
-                        <p>Osaka Midland</p>
-                    </td>
-                    <td>
-                        <p>BOB</p>
-                    </td>
-                    <td>
-                        <p style="color: #00A44C;">Active</p>
-                    </td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td>
-                        <p>44.463005<br>-110.366479</p>
-                    </td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td>
-                        <div class="dot"></div>
-                    </td>
-                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
-                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
-                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
-                </tr>
-
-                <tr>
-                    <td><input type="checkbox" /></td>
-                    <td>1000015</td>
-                    <td>
-                        <p>Osaka Midland</p>
-                    </td>
-                    <td>
-                        <p>BOB</p>
-                    </td>
-                    <td>
-                        <p style="color: #00A44C;">Active</p>
-                    </td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td>
-                        <p>44.463005<br>-110.366479</p>
-                    </td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td>
-                        <div class="dot"></div>
-                    </td>
-                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
-                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
-                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
-                </tr>
-
-
-
 
             </tbody>
         </table>

@@ -7,6 +7,7 @@ import { AddNewCustomerComponent } from './main-dashboard/add-new-customer/add-n
 import { AddNewUserComponent } from './main-dashboard/add-new-user/add-new-user.component';
 import { AddNewBusinessVerticalComponent } from './main-dashboard/add-new-business-vertical/add-new-business-vertical.component';
 import { SitesComponent } from './sites/sites.component';
+import { CustomersComponent } from './customers/customers.component';
 
 const routes: Routes = [];
 
@@ -19,7 +20,8 @@ const routes: Routes = [];
     {path:'add-new-customer', component:AddNewCustomerComponent},
     {path:'add-new-user', component:AddNewUserComponent},
     {path:'add-new-business', component:AddNewBusinessVerticalComponent},
-    {path:'sites', component:SitesComponent}
+    {path:'sites', component:SitesComponent},
+    {path:'customers', component:CustomersComponent}
   ])],
   exports: [RouterModule]
 })

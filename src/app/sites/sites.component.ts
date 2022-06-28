@@ -12,4 +12,9 @@ export class SitesComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  address: boolean = true;
+  addressView() {
+    this.address = !this.address;
+  }
+
 }

@@ -12,6 +12,7 @@ import { AddNewCustomerComponent } from './main-dashboard/add-new-customer/add-n
 import { AddNewBusinessVerticalComponent } from './main-dashboard/add-new-business-vertical/add-new-business-vertical.component';
 import { AddNewUserComponent } from './main-dashboard/add-new-user/add-new-user.component';
 import { SitesComponent } from './sites/sites.component';
+import { CustomersComponent } from './customers/customers.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { SitesComponent } from './sites/sites.component';
     AddNewCustomerComponent,
     AddNewBusinessVerticalComponent,
     AddNewUserComponent,
-    SitesComponent
+    SitesComponent,
+    CustomersComponent
   ],
   imports: [
     BrowserModule,
