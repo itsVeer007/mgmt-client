@@ -92,13 +92,8 @@ form button {
     padding: 0px;
 }
 
-.table thead tr th {
-    text-align: center;
-    font-size: 12px;
-}
-
 .table tbody tr td {
-    text-align: center;
+    text-align: left;
     font-size: 12px;
     padding: 0;
 }
@@ -118,7 +113,7 @@ form button {
   color: #fff;
   padding: 10px 0; 
   font-size: 12px;
-  text-align: center;
+  text-align: left;
 }
 
 .table-resp{
@@ -154,3 +149,7 @@ form button {
   border: 1px solid #fff;
 }
 
+.form-check-input{
+    height: 1.2rem;
+    width: 1.2rem;
+}

@@ -31,3 +31,8 @@
 #address1 > option > span{
     font-size: 5px !important;
 }
+
+.address-add a img {
+    float: right;
+    margin: -28px -50px;
+}

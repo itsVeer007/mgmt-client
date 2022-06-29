@@ -95,11 +95,16 @@
     height: 60px;
 }
 
+.table-resp {
+    font-size: 13px;
+}
+
 .form1 {
     background-image: linear-gradient(to right, #084982, #AA4337);
     background-size: cover;
     border-radius: 5px;
     margin-top: 20px;
+    font-size: 13px;
 }
 
 .form-select {
@@ -222,6 +227,7 @@ tbody tr th {
 .card-menu .card .card-header h6 {
     /* margin-left: -5px; */
     margin: 0 -5px;
+    font-size: 14px;
 }
 
 .dashboard-header {
@@ -408,7 +414,7 @@ table tbody tr th .badge {
 
     .table-resp {
         max-width: 100%; 
-        overflow-x:scroll
+        overflow-x:scroll;
     }
   }
   .cgrid{

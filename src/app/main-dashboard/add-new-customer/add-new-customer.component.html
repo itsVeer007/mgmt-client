@@ -144,46 +144,47 @@
                     <div class="col-lg-2 col-md-2">
                         <p>ADDRESS</p>
                     </div>
-                    <div class="col-lg-2 col-md-2"><button type="button">+ADD</button></div>
+                    <div class="col-lg-2 col-md-2"><button type="button" (click)="addQuantity()">+ADD</button></div>
                 </div>
 
-                <div class="row address-add">
+                <div class="row address-add" *ngFor="let quantity of quantities().controls; let i=index" [formGroupName]="i" [hidden]="address2">
+                    <div><a (click)="closeimg()"><img src="assets/images/Group 101.svg" width="50" height="50" /></a></div>
                     <div class="col-lg-12 col-md-12">
-                        <select  class="form-select m-2">
+                        <select  class="form-select m-2" formControlName="addressType">
                             <option selected>Address Type <span class="form-text" style="font-size: 5px;"> (Multi-Select)</span></option>
                             <option>...</option>
                         </select>
                     </div>
                     <div class="col-lg-6 col-md-6">
-                        <select id="" class="form-select m-2">
+                        <select id="" class="form-select m-2" formControlName="country">
                             <option selected>Country</option>
                             <option>...</option>
                         </select>
                     </div>
                     <div class="col-lg-6 col-md-6">
-                        <select id="" class="form-select m-2">
+                        <select id="" class="form-select m-2" formControlName="state">
                             <option selected>State</option>
                             <option>...</option>
                         </select>
                     </div>
                     <div class="col-lg-6 col-md-6">
-                        <select id="" class="form-select m-2">
+                        <select id="" class="form-select m-2" formControlName="district">
                             <option selected>District/City</option>
                             <option>...</option>
                         </select>
                     </div>
                     <div class="col-lg-6 col-md-6">
-                        <input type="text" class="form-control m-2" placeholder="Pincode" />
+                        <input type="text" class="form-control m-2" placeholder="Pincode" formControlName="pincode" />
                     </div>
                     <div class="col-lg-12 col-md-12">
-                        <input type="text" class="form-control m-2" placeholder="Area/Street" />
+                        <input type="text" class="form-control m-2" placeholder="Area/Street" formControlName="area" />
                     </div>
                 </div>
 
                 <div class="col-lg-12 col-md-12">
                     <input type="text" class="form-control m-2" placeholder="Note" />
                 </div>
-                <div class="text-center m-5">
+                <div class="text-center m-3">
                     <button type="submit" class="btn add-btn">ADD</button>
                 </div>
 

@@ -29,10 +29,37 @@ export class AddNewCustomerComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  quantities() : FormArray {  
+    return this.productForm.get("quantities") as FormArray  
+  }  
+     
+  newQuantity(): FormGroup {  
+    return this.fb.group({  
+      addressType: '',  
+      country: '',
+      state: '',
+      district: '',
+      pincode: '',
+      area: '',
+    })  
+  } 
+
+  addQuantity() {  
+    this.quantities().push(this.newQuantity());  
+  } 
+
   onSubmit() {
     console.log(this.productForm.value);
   }
   
+  address2: boolean = false;
+  closeimg() {
+    this.address2 = !this.address2;
+  }
+
+
+
+
   billing_address:boolean = true;
   showBillingAddress(event:any) {
     var x = (event.target.value)

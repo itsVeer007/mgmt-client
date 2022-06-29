@@ -2,6 +2,9 @@ body {
     background-color: #fbfbfb;
   }
 
+  nav {
+    font-size: 14px;
+  }
   /* Sidebar */
   .sidebar {
     position: fixed;
