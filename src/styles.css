@@ -95,6 +95,7 @@ form {
 .form-control {
     height: 45px;
     padding: 0;
+    color: #ABABAB;
 }
 form .add-btn {
     background-color: #084982;
@@ -134,6 +135,7 @@ form .add-btn:hover {
     
     .form-control, .form-select, .latlong {
         font-size: 12px;
+        color: #ABABAB;
     }
 
     .add-btn {

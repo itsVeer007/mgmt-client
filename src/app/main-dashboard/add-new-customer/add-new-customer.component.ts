@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms'
 
 @Component({
   selector: 'app-add-new-customer',
@@ -15,11 +16,23 @@ export class AddNewCustomerComponent implements OnInit {
     this.newItemEvent.emit(value);
   }
 
-  constructor() { }
+  productForm: FormGroup;
+
+  constructor(private fb:FormBuilder) {
+   
+    this.productForm = this.fb.group({
+      name: '',
+      quantities: this.fb.array([]) ,
+    });
+  }
 
   ngOnInit(): void {
   }
 
+  onSubmit() {
+    console.log(this.productForm.value);
+  }
+  
   billing_address:boolean = true;
   showBillingAddress(event:any) {
     var x = (event.target.value)

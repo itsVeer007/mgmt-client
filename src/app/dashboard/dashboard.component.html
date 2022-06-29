@@ -86,19 +86,19 @@
 
 <!-- Mobile View Menu -->
 
-<div class="col-sm-12 col-xs-12 mobile-sidebar" *ngIf="showmenu">
+<div class="col-sm-12 col-xs-12 mobile-sidebar" *ngIf="showmenu" style="z-index: 1;">
     <nav class="d-sm-xs-block">
         <div class="list-group text-white text-center">
-            <a class="list-group-item my-2">
+            <a class="list-group-item my-2 active " [routerLink]="['/main-dashboard']" routerLinkActive="routeactive">
                 <img src="assets/images/dashboard.svg" /><span> Dashboard</span>
             </a>
             <a class="list-group-item my-2" >
                 <img src="assets/images/vertical.svg" /><span> Verticals</span>
             </a>
-            <a class="list-group-item my-2">
+            <a class="list-group-item my-2" [routerLink]="['/customers']" routerLinkActive="routeactive">
                 <img src="assets/images/customer.svg" /><span> Customers</span>
             </a>
-            <a routerLink="" class="list-group-item my-2">
+            <a routerLink="" class="list-group-item my-2" [routerLink]="['/sites']" routerLinkActive="routeactive">
                 <img src="assets/images/sites.svg" /><span> Sites</span>
             </a>
             <a class="list-group-item my-2">

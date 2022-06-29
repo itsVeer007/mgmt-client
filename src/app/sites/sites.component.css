@@ -93,13 +93,8 @@ form button {
     padding: 0px;
 }
 
-.table thead tr th {
-    text-align: center;
-    font-size: 12px;
-}
-
 .table tbody tr td {
-    text-align: center;
+    text-align: left;
     font-size: 12px;
     padding: 0;
 }
@@ -117,13 +112,14 @@ form button {
   position: sticky;
   top: -2px;
   font-weight: 100;
+  z-index: 1;
 }
 
 .form1 th{
   color: #fff;
   padding: 10px 0; 
   font-size: 12px;
-  text-align: center;
+  text-align: left;
   /* justify-content:center; */
 }
 
@@ -189,10 +185,32 @@ form button {
     content: "";
     position: absolute;
     top: 17px;
-    transform: rotate(0deg);
-    right: -12px;
+    transform: rotate(45deg);
+    right: -4px;
     margin-top: -5px;
     border-width: 5px;
-   border-style: solid;
-   border-color: transparent transparent transparent #EFEFEF;
+    border-style: solid;
+    /* border-color: transparent transparent transparent #EFEFEF; */
+    box-shadow: -1px -1px 1px 0 #fff;
+    color: #fff;
+    border-right: 1px solid #EFEFEF;
+    border-top: 1px solid #EFEFEF;
+}
+
+
+@media only screen and (max-width: 768px) {
+    .Active-list {
+        display: flex;
+        justify-content: start;
+    }
+    .search {
+        margin: 20px 0 0 13px;
+    }
+    .table-resp {
+        font-size: 10px;
+    }
+    .table tbody tr th, .table tbody tr td {
+        padding: 5px;
+    }
+
 }

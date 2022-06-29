@@ -14,6 +14,7 @@ import { AddNewUserComponent } from './main-dashboard/add-new-user/add-new-user.
 import { SitesComponent } from './sites/sites.component';
 import { CustomersComponent } from './customers/customers.component';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,9 @@ import { CustomersComponent } from './customers/customers.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     ChartService
