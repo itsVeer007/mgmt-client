@@ -28,3 +28,6 @@
     border-radius: 5px;
     margin: 10px -8px 10px 10px;
 }
+#address1 > option > span{
+    font-size: 5px !important;
+}
