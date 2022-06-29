@@ -17,4 +17,9 @@ export class SitesComponent implements OnInit {
     this.address = !this.address;
   }
 
+  threeDots: boolean = true;
+
+  closeDot() {
+    this.threeDots = !this.threeDots;
+  }
 }

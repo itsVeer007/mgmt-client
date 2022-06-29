@@ -156,7 +156,8 @@
         <table class="table">
             <tbody>
                 <tr class="form1">
-                    <th><input type="checkbox" class="form-check-input" style="background-color: #00000000; border-color:#fff;margin-left:10px;" /></th>
+                    <th><input type="checkbox" class="form-check-input"
+                            style="background-color: #00000000; border-color:#fff;margin-left:10px;" /></th>
                     <th>Site ID</th>
                     <th>Site Name</th>
                     <th>Customer</th>
@@ -207,7 +208,14 @@
                     </td>
                     <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
                     <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
-                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
+                    <td style="position: relative;">
+                        <a (click)="closeDot()"><img src="assets/images/dotlist.svg" width="30" height="12" /></a>
+                        <div class="plus-img1" [hidden]="threeDots">
+                            <a class="mx-3"><img src="assets/images/view.svg" /></a>
+                            <a class="mx-3"><img src="assets/images/edit.svg" /></a>
+                            <a class="mx-3"><img src="assets/images/delete.svg" /></a>
+                        </div>
+                    </td>
                 </tr>
 
                 <tr>
