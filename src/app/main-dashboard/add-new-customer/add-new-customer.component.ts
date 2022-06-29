@@ -27,6 +27,7 @@ export class AddNewCustomerComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.addQuantity()
   }
 
   quantities() : FormArray {  
@@ -53,8 +54,11 @@ export class AddNewCustomerComponent implements OnInit {
   }
   
   address2: boolean = false;
-  closeimg() {
-    this.address2 = !this.address2;
+  closeimg(e:any) {
+    var x = e.target.parentNode.parentNode.parentNode;
+    console.log(x.children);
+    x.style.display = 'none'
+    // this.address2 = !this.address2;
   }
 
 
