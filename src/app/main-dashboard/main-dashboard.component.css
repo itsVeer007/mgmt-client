@@ -9,16 +9,20 @@
 }
 
 .icons {
-    background-image: linear-gradient(to right, #274874 , #AA4337);
+    /* background-image: linear-gradient(to right, #274874 , #AA4337);
     height: 36px;
-    /* display: none !important; */
     position: absolute;
     margin-top: 3px;
     right: 76px;
-    /* opacity: 0.1; */
-    /* visibility: visible; */
     padding: 6px;
-    z-index: 2;
+    z-index: 2; */
+
+    background-image: linear-gradient(to right, #084982 , #D34124);
+    position: absolute;
+    margin-top: 2px;
+    margin-left: -205px;
+    padding: 8px;
+    border-radius: 2px;
 }
 
 .showtray:hover +.icons {

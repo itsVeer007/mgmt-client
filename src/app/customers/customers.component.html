@@ -5,7 +5,21 @@
         <div class="sites-header">
             <p>List of all Customers - <span>5000</span></p>
         </div>
-        <div><a><img src="assets/images/sites-img.svg" alt="" /></a></div>
+        <div style="position: relative;">
+            <div [hidden]="icons1" class="icons-site">
+                <div class="d-flex flex-row justify-content icons pointer">
+                    <a (click)="iconsnew1();showAddBusinessVertical=!showAddBusinessVertical"><img src="assets/images/vertical.svg" class="mx-2" width="15" height="15" /></a>
+                    <a (click)="iconsnew1();showAddCustomer=!showAddCustomer"><img src="assets/images/customer.svg" class="mx-2" width="15" height="15" /></a>
+                    <a (click)="iconsnew1();showAddSite=!showAddSite"><img src="assets/images/sites.svg" class="mx-2" width="15"
+                            height="15" /></a>
+                    <a (click)="iconsnew1();showAddCamera=!showAddCamera"><img src="assets/images/cam.svg" class="mx-2" width="15" height="15" /></a>
+                    <a><img src="assets/images/analytic.svg" class="mx-2" width="15" height="15" /></a>
+                    <a (click)="iconsnew1();showAddUser=!showAddUser"><img src="assets/images/user-white.svg" class="mx-2" width="15" height="15" /></a>
+                </div>
+            </div>
+            <a (click)="iconsnew1()"><img src="assets/images/add.svg" alt="" /></a>
+            <a><img src="assets/images/sites-img.svg" alt="" style="border-radius: 24px; box-shadow: 7px 7px 7px 0px #f3f3f3; margin-top: -9px;"/></a>
+        </div>
     </div>
     <!-- header ends -->
 
@@ -404,4 +418,38 @@
             </tbody>
         </table>
     </div>
+</div>
+
+
+
+
+
+
+
+
+
+<div style="position: fixed; top:0;" *ngIf="showAddSite">
+    <app-add-new-site [show]="showAddSite" (newItemEvent)="closenow($event)"></app-add-new-site>
+</div>
+
+
+
+<div style="position: fixed; top:0;" *ngIf="showAddCamera">
+    <app-add-new-camera [show]="showAddCamera" (newItemEvent)="closenow1($event)"></app-add-new-camera>
+</div>
+
+
+
+<div style="position: fixed; top:0;" *ngIf="showAddCustomer">
+    <app-add-new-customer [show]="showAddCustomer" (newItemEvent)="closenow2($event)"></app-add-new-customer>
+</div>
+
+
+
+<div style="position: fixed; top:0;" *ngIf="showAddUser">
+    <app-add-new-user [show]="showAddUser" (newItemEvent)="closenow3($event)"></app-add-new-user>
+</div>
+
+<div style="position: fixed; top:0;" *ngIf="showAddBusinessVertical">
+    <app-add-new-business-vertical [show]="showAddBusinessVertical" (newItemEvent)="closenow4($event)"></app-add-new-business-vertical>
 </div>
