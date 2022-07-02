@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -8,6 +8,28 @@ import { HttpClient } from '@angular/common/http';
 })
 export class SitesComponent implements OnInit {
 
+  @HostListener('document:mousedown', ['$event']) onGlobalClick(e:any): void {
+    var x = <HTMLElement>document.getElementById(`plus-imgs${this.currentid}`);
+    console.log("ClosedId:: ",`plus-imgs${this.currentid}`);
+    // console.log("TableRecords:: ",this.tableData.length)
+    if(!x.contains(e.target)){
+      if(x.style.display == 'block') {
+        x.style.display = 'none';
+      }
+    }
+
+
+      // if(x.style.display == "none"){
+      //   if(this.visibility){
+      //     if (!this.popupmodal.nativeElement.contains(e.target)) {
+      //       this.visibility=!this.visibility;
+      //       this.calldisabled = true;
+      //       this.time = null;
+      //    }else{}
+      //   }
+      // }
+
+  }
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
@@ -66,14 +88,15 @@ export class SitesComponent implements OnInit {
     this.address = !this.address;
   }
 
-  threeDots: boolean = true;
-  closeDot(e:any) {
+  currentid=0;
+  closeDot(e: any, i: any) {
+    this.currentid= i;
     var x = e.target.parentNode.nextElementSibling;
+    console.log("Close-Click:: ",x);
     if(x.style.display =='none'){
       x.style.display ='flex';
     }else{
       x.style.display ='none';
     }
-    // this.threeDots = !this.threeDots;
   }
 }

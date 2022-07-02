@@ -196,10 +196,10 @@ form button {
 
 .plus-img1 {
     border: 1px solid #EFEFEF;
-    width: 130px;
-    height: 35px;
+    width: 94px;
+    height: 24px;
     position: absolute;
-    margin: -25px 0 0 -127px;
+    margin: -20px 0 0 -94px;
     background-color: #fff;
     box-shadow: -5px 6px 13px 0px #F3F3F3;
     display: flex;
@@ -213,7 +213,7 @@ form button {
     top: 17px;
     transform: rotate(45deg);
     right: -4px;
-    margin-top: -5px;
+    margin-top: -9px;
     border-width: 5px;
     border-style: solid;
     box-shadow: -1px -1px 1px 0 #fff;
