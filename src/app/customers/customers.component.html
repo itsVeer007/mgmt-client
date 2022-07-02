@@ -8,17 +8,22 @@
         <div style="position: relative;">
             <div [hidden]="icons1" class="icons-site">
                 <div class="d-flex flex-row justify-content icons pointer">
-                    <a (click)="iconsnew1();showAddBusinessVertical=!showAddBusinessVertical"><img src="assets/images/vertical.svg" class="mx-2" width="15" height="15" /></a>
-                    <a (click)="iconsnew1();showAddCustomer=!showAddCustomer"><img src="assets/images/customer.svg" class="mx-2" width="15" height="15" /></a>
-                    <a (click)="iconsnew1();showAddSite=!showAddSite"><img src="assets/images/sites.svg" class="mx-2" width="15"
-                            height="15" /></a>
-                    <a (click)="iconsnew1();showAddCamera=!showAddCamera"><img src="assets/images/cam.svg" class="mx-2" width="15" height="15" /></a>
+                    <a (click)="iconsnew1();showAddBusinessVertical=!showAddBusinessVertical"><img
+                            src="assets/images/vertical.svg" class="mx-2" width="15" height="15" /></a>
+                    <a (click)="iconsnew1();showAddCustomer=!showAddCustomer"><img src="assets/images/customer.svg"
+                            class="mx-2" width="15" height="15" /></a>
+                    <a (click)="iconsnew1();showAddSite=!showAddSite"><img src="assets/images/sites.svg" class="mx-2"
+                            width="15" height="15" /></a>
+                    <a (click)="iconsnew1();showAddCamera=!showAddCamera"><img src="assets/images/cam.svg" class="mx-2"
+                            width="15" height="15" /></a>
                     <a><img src="assets/images/analytic.svg" class="mx-2" width="15" height="15" /></a>
-                    <a (click)="iconsnew1();showAddUser=!showAddUser"><img src="assets/images/user-white.svg" class="mx-2" width="15" height="15" /></a>
+                    <a (click)="iconsnew1();showAddUser=!showAddUser"><img src="assets/images/user-white.svg"
+                            class="mx-2" width="15" height="15" /></a>
                 </div>
             </div>
             <a (click)="iconsnew1()"><img src="assets/images/add.svg" alt="" /></a>
-            <a><img src="assets/images/sites-img.svg" alt="" style="border-radius: 24px; box-shadow: 7px 7px 7px 0px #f3f3f3; margin-top: -9px;"/></a>
+            <a><img src="assets/images/sites-img.svg" alt=""
+                    style="border-radius: 24px; box-shadow: 7px 7px 7px 0px #f3f3f3; margin-top: -9px;" /></a>
         </div>
     </div>
     <!-- header ends -->
@@ -66,9 +71,9 @@
             </form>
         </div>
         <div class="col-lg-2 col-md-2 table-icons">
-            <a class="mx-3"><img src="assets/images/view.svg" /></a>
-            <a class="mx-3"><img src="assets/images/edit.svg" /></a>
-            <a class="mx-3"><img src="assets/images/delete.svg" /></a>
+            <a class="mx-2"><img src="assets/images/view.svg" /></a>
+            <a class="mx-2"><img src="assets/images/edit.svg" /></a>
+            <a class="mx-2"><img src="assets/images/delete.svg" /></a>
         </div>
     </div>
     <!-- form ends -->
@@ -78,7 +83,8 @@
         <table class="table">
             <tbody>
                 <tr class="form1">
-                    <th><input type="checkbox" class="form-check-input" style="background-color: #00000000; border-color:#fff;margin-left:10px;" /></th>
+                    <th><input type="checkbox" class="form-check-input"
+                            style="background-color: #00000000; border-color:#fff;margin-left:10px;" /></th>
                     <th>Cust. ID</th>
                     <th>Customer Name</th>
                     <th>Cust. Type</th>
@@ -90,336 +96,47 @@
                     <th></th>
                 </tr>
 
-                <tr>
+                <tr *ngFor="let cust of CustomerTable">
                     <td><input type="checkbox" class="form-check-input" /></td>
-                    <td><p>1000015</p></td>
-                    <td><p>BOB</p></td>
-                    <td><p>Org.</p></td>
-                    <td><p>+91 9999900000</p></td>
-                    <td><p>name1@email.com</p></td>
-                    <td><p>Rajesh G</p></td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td><p style="color: #00A44C;">Active</p></td>
-                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
+                    <td>
+                        <p>{{cust.siteId}}</p>
+                    </td>
+                    <td>
+                        <p>{{cust.customerName}}</p>
+                    </td>
+                    <td>
+                        <p>{{cust.custType}}</p>
+                    </td>
+                    <td>
+                        <p>{{cust.contactNumber}}</p>
+                    </td>
+                    <td>
+                        <p>{{cust.emailId}}</p>
+                    </td>
+                    <td>
+                        <p>{{cust.contactPerson}}</p>
+                    </td>
+                    <td><a style="color: #084982;">{{cust.address}}</a></td>
+                    <td>
+                        <p [style.color]="cust.status == 'Active' ? '#00A44C' :
+                                          cust.status == 'Onhold' ? '#F5B400' :
+                                          cust.status == 'Inactive' ? '#fa500f' :
+                                          '#00A44C'">{{cust.status}}</p>
+                    </td>
+                    <td style="position: relative;">
+                        <a (click)="closeDot($event)"><img src="assets/images/dotlist.svg" width="30" height="12" /></a>
+                        <div class="plus-img1" style="display: none;">
+                            <a class="mx-2"><img src="assets/images/view.svg" /></a>
+                            <a class="mx-2"><img src="assets/images/edit.svg" /></a>
+                            <a class="mx-2"><img src="assets/images/delete.svg" /></a>
+                        </div>
+                    </td>
                 </tr>
-
-                <tr>
-                    <td><input type="checkbox" class="form-check-input" /></td>
-                    <td><p>1000014</p></td>
-                    <td><p>Reliance</p></td>
-                    <td><p>Org.</p></td>
-                    <td><p>+91 8888800000</p></td>
-                    <td><p>Name2@Email.Com</p></td>
-                    <td><p>Ambani Anil</p></td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td><p style="color: #F5B400;">Onhold</p></td>
-                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
-                </tr>
-
-                <tr>
-                    <td><input type="checkbox" class="form-check-input" /></td>
-                    <td><p>1000013</p></td>
-                    <td><p>Narayana P</p></td>
-                    <td><p>Ind.</p></td>
-                    <td><p>+91 7777700000</p></td>
-                    <td><p>Name3@Email.Com</p></td>
-                    <td><p>Self</p></td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td><p style="color: #EF2800;">Inactive</p></td>
-                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
-                </tr>
-
-                <tr>
-                    <td><input type="checkbox" class="form-check-input" /></td>
-                    <td><p>1000015</p></td>
-                    <td><p>BOB</p></td>
-                    <td><p>Org.</p></td>
-                    <td><p>+91 9999900000</p></td>
-                    <td><p>name1@email.com</p></td>
-                    <td><p>Rajesh G</p></td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td><p style="color: #00A44C;">Active</p></td>
-                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
-                </tr>
-
-                <tr>
-                    <td><input type="checkbox" class="form-check-input" /></td>
-                    <td><p>1000014</p></td>
-                    <td><p>Reliance</p></td>
-                    <td><p>Org.</p></td>
-                    <td><p>+91 8888800000</p></td>
-                    <td><p>Name2@Email.Com</p></td>
-                    <td><p>Ambani Anil</p></td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td><p style="color: #F5B400;">Onhold</p></td>
-                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
-                </tr>
-
-                <tr>
-                    <td><input type="checkbox" class="form-check-input" /></td>
-                    <td><p>1000013</p></td>
-                    <td><p>Narayana P</p></td>
-                    <td><p>Ind.</p></td>
-                    <td><p>+91 7777700000</p></td>
-                    <td><p>Name3@Email.Com</p></td>
-                    <td><p>Self</p></td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td><p style="color: #EF2800;">Inactive</p></td>
-                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
-                </tr>
-
-                <tr>
-                    <td><input type="checkbox" class="form-check-input" /></td>
-                    <td><p>1000015</p></td>
-                    <td><p>BOB</p></td>
-                    <td><p>Org.</p></td>
-                    <td><p>+91 9999900000</p></td>
-                    <td><p>name1@email.com</p></td>
-                    <td><p>Rajesh G</p></td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td><p style="color: #00A44C;">Active</p></td>
-                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
-                </tr>
-
-                <tr>
-                    <td><input type="checkbox" class="form-check-input" /></td>
-                    <td><p>1000014</p></td>
-                    <td><p>Reliance</p></td>
-                    <td><p>Org.</p></td>
-                    <td><p>+91 8888800000</p></td>
-                    <td><p>Name2@Email.Com</p></td>
-                    <td><p>Ambani Anil</p></td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td><p style="color: #F5B400;">Onhold</p></td>
-                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
-                </tr>
-
-                <tr>
-                    <td><input type="checkbox" class="form-check-input" /></td>
-                    <td><p>1000013</p></td>
-                    <td><p>Narayana P</p></td>
-                    <td><p>Ind.</p></td>
-                    <td><p>+91 7777700000</p></td>
-                    <td><p>Name3@Email.Com</p></td>
-                    <td><p>Self</p></td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td><p style="color: #EF2800;">Inactive</p></td>
-                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
-                </tr>
-
-                <tr>
-                    <td><input type="checkbox" class="form-check-input" /></td>
-                    <td><p>1000015</p></td>
-                    <td><p>BOB</p></td>
-                    <td><p>Org.</p></td>
-                    <td><p>+91 9999900000</p></td>
-                    <td><p>name1@email.com</p></td>
-                    <td><p>Rajesh G</p></td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td><p style="color: #00A44C;">Active</p></td>
-                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
-                </tr>
-
-                <tr>
-                    <td><input type="checkbox" class="form-check-input" /></td>
-                    <td><p>1000014</p></td>
-                    <td><p>Reliance</p></td>
-                    <td><p>Org.</p></td>
-                    <td><p>+91 8888800000</p></td>
-                    <td><p>Name2@Email.Com</p></td>
-                    <td><p>Ambani Anil</p></td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td><p style="color: #F5B400;">Onhold</p></td>
-                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
-                </tr>
-
-                <tr>
-                    <td><input type="checkbox" class="form-check-input" /></td>
-                    <td><p>1000013</p></td>
-                    <td><p>Narayana P</p></td>
-                    <td><p>Ind.</p></td>
-                    <td><p>+91 7777700000</p></td>
-                    <td><p>Name3@Email.Com</p></td>
-                    <td><p>Self</p></td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td><p style="color: #EF2800;">Inactive</p></td>
-                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
-                </tr>
-
-                <tr>
-                    <td><input type="checkbox" class="form-check-input" /></td>
-                    <td><p>1000015</p></td>
-                    <td><p>BOB</p></td>
-                    <td><p>Org.</p></td>
-                    <td><p>+91 9999900000</p></td>
-                    <td><p>name1@email.com</p></td>
-                    <td><p>Rajesh G</p></td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td><p style="color: #00A44C;">Active</p></td>
-                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
-                </tr>
-
-                <tr>
-                    <td><input type="checkbox" class="form-check-input" /></td>
-                    <td><p>1000014</p></td>
-                    <td><p>Reliance</p></td>
-                    <td><p>Org.</p></td>
-                    <td><p>+91 8888800000</p></td>
-                    <td><p>Name2@Email.Com</p></td>
-                    <td><p>Ambani Anil</p></td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td><p style="color: #F5B400;">Onhold</p></td>
-                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
-                </tr>
-
-                <tr>
-                    <td><input type="checkbox" class="form-check-input" /></td>
-                    <td><p>1000013</p></td>
-                    <td><p>Narayana P</p></td>
-                    <td><p>Ind.</p></td>
-                    <td><p>+91 7777700000</p></td>
-                    <td><p>Name3@Email.Com</p></td>
-                    <td><p>Self</p></td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td><p style="color: #EF2800;">Inactive</p></td>
-                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
-                </tr>
-
-                <tr>
-                    <td><input type="checkbox" class="form-check-input" /></td>
-                    <td><p>1000015</p></td>
-                    <td><p>BOB</p></td>
-                    <td><p>Org.</p></td>
-                    <td><p>+91 9999900000</p></td>
-                    <td><p>name1@email.com</p></td>
-                    <td><p>Rajesh G</p></td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td><p style="color: #00A44C;">Active</p></td>
-                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
-                </tr>
-
-                <tr>
-                    <td><input type="checkbox" class="form-check-input" /></td>
-                    <td><p>1000014</p></td>
-                    <td><p>Reliance</p></td>
-                    <td><p>Org.</p></td>
-                    <td><p>+91 8888800000</p></td>
-                    <td><p>Name2@Email.Com</p></td>
-                    <td><p>Ambani Anil</p></td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td><p style="color: #F5B400;">Onhold</p></td>
-                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
-                </tr>
-
-                <tr>
-                    <td><input type="checkbox" class="form-check-input" /></td>
-                    <td><p>1000013</p></td>
-                    <td><p>Narayana P</p></td>
-                    <td><p>Ind.</p></td>
-                    <td><p>+91 7777700000</p></td>
-                    <td><p>Name3@Email.Com</p></td>
-                    <td><p>Self</p></td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td><p style="color: #EF2800;">Inactive</p></td>
-                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
-                </tr>
-
-                <tr>
-                    <td><input type="checkbox" class="form-check-input" /></td>
-                    <td><p>1000015</p></td>
-                    <td><p>BOB</p></td>
-                    <td><p>Org.</p></td>
-                    <td><p>+91 9999900000</p></td>
-                    <td><p>name1@email.com</p></td>
-                    <td><p>Rajesh G</p></td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td><p style="color: #00A44C;">Active</p></td>
-                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
-                </tr>
-
-                <tr>
-                    <td><input type="checkbox" class="form-check-input" /></td>
-                    <td><p>1000014</p></td>
-                    <td><p>Reliance</p></td>
-                    <td><p>Org.</p></td>
-                    <td><p>+91 8888800000</p></td>
-                    <td><p>Name2@Email.Com</p></td>
-                    <td><p>Ambani Anil</p></td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td><p style="color: #F5B400;">Onhold</p></td>
-                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
-                </tr>
-
-                <tr>
-                    <td><input type="checkbox" class="form-check-input" /></td>
-                    <td><p>1000013</p></td>
-                    <td><p>Narayana P</p></td>
-                    <td><p>Ind.</p></td>
-                    <td><p>+91 7777700000</p></td>
-                    <td><p>Name3@Email.Com</p></td>
-                    <td><p>Self</p></td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td><p style="color: #EF2800;">Inactive</p></td>
-                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
-                </tr>
-
-                <tr>
-                    <td><input type="checkbox" class="form-check-input" /></td>
-                    <td><p>1000015</p></td>
-                    <td><p>BOB</p></td>
-                    <td><p>Org.</p></td>
-                    <td><p>+91 9999900000</p></td>
-                    <td><p>name1@email.com</p></td>
-                    <td><p>Rajesh G</p></td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td><p style="color: #00A44C;">Active</p></td>
-                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
-                </tr>
-
-                <tr>
-                    <td><input type="checkbox" class="form-check-input" /></td>
-                    <td><p>1000014</p></td>
-                    <td><p>Reliance</p></td>
-                    <td><p>Org.</p></td>
-                    <td><p>+91 8888800000</p></td>
-                    <td><p>Name2@Email.Com</p></td>
-                    <td><p>Ambani Anil</p></td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td><p style="color: #F5B400;">Onhold</p></td>
-                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
-                </tr>
-
-                <tr>
-                    <td><input type="checkbox" class="form-check-input" /></td>
-                    <td><p>1000013</p></td>
-                    <td><p>Narayana P</p></td>
-                    <td><p>Ind.</p></td>
-                    <td><p>+91 7777700000</p></td>
-                    <td><p>Name3@Email.Com</p></td>
-                    <td><p>Self</p></td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td><p style="color: #EF2800;">Inactive</p></td>
-                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
-                </tr>
-
-                <tr>
-                    <td><input type="checkbox" class="form-check-input" /></td>
-                    <td><p>1000014</p></td>
-                    <td><p>BOB</p></td>
-                    <td><p>Org.</p></td>
-                    <td><p>+91 9999900000</p></td>
-                    <td><p>name1@email.com</p></td>
-                    <td><p>Rajesh G</p></td>
-                    <td><a style="color: #084982;">View</a></td>
-                    <td><p style="color: #00A44C;">Active</p></td>
-                    <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
-                </tr>
-
             </tbody>
         </table>
     </div>
 </div>
-
+ <!-- table ends -->
 
 
 
@@ -451,5 +168,6 @@
 </div>
 
 <div style="position: fixed; top:0;" *ngIf="showAddBusinessVertical">
-    <app-add-new-business-vertical [show]="showAddBusinessVertical" (newItemEvent)="closenow4($event)"></app-add-new-business-vertical>
+    <app-add-new-business-vertical [show]="showAddBusinessVertical" (newItemEvent)="closenow4($event)">
+    </app-add-new-business-vertical>
 </div>

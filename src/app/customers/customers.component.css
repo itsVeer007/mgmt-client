@@ -177,3 +177,47 @@ form button {
     box-shadow: -1px -1px 1px 0 #d34124;
     color: #d34124;
 }
+
+.plus-img:after{
+    content: "";
+    position: absolute;
+    top: 17px;
+    transform: rotate(45deg);
+    right: -4px;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    /* border-color: transparent transparent transparent #EFEFEF; */
+    box-shadow: -1px -1px 1px 0 #fff;
+    color: #fff;
+    border-right: 1px solid #EFEFEF;
+    border-top: 1px solid #EFEFEF;
+}
+
+.plus-img1 {
+    border: 1px solid #EFEFEF;
+    width: 130px;
+    height: 35px;
+    position: absolute;
+    margin: -25px 0 0 -127px;
+    background-color: #fff;
+    box-shadow: -5px 6px 13px 0px #F3F3F3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.plus-img1:after{
+    content: "";
+    position: absolute;
+    top: 17px;
+    transform: rotate(45deg);
+    right: -4px;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    box-shadow: -1px -1px 1px 0 #fff;
+    color: #fff;
+    border-right: 1px solid #EFEFEF;
+    border-top: 1px solid #EFEFEF;
+}

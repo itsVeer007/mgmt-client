@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,12 +8,35 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CustomersComponent implements OnInit {
 
+  constructor(private http: HttpClient) { }
+
+  ngOnInit(): void {
+    this.CustomerReport();
+  }
+
+  CustomerTable: any;
+  CustomerReport() {
+    this.http.get('assets/JSON/customerData.json').subscribe(res=>{
+      console.log("CustomerReport::",res);
+      this.CustomerTable = res;
+    });
+  }
+
+  closeDot(e:any) {
+    var x = e.target.parentNode.nextElementSibling;
+    console.log("THREE DOTS:: ",e.target.parentNode.nextElementSibling);
+    if(x.style.display == 'none') {
+      x.style.display = 'block';
+    }else {
+      x.style.display = 'none';
+    }
+  }
+
   showAddSite = false;
 
   closenow(value:any) {
     this.showAddSite = value;
   }
-
 
   showAddCamera = false;
 
@@ -43,9 +67,6 @@ export class CustomersComponent implements OnInit {
     this.icons1=!this.icons1;
   }
   
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+ 
 
 }

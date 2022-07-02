@@ -1,0 +1,102 @@
+[
+    {
+        "siteId": 1000014,
+        "customerName": "BOB",
+        "custType": "Org.",
+        "contactNumber": "+91 9999900000",
+        "emailId": "name1@email.com",
+        "contactPerson": "Rajesh G",
+        "address": "View",
+        "status": "Active"
+    },
+    {
+        "siteId": 1000014,
+        "customerName": "BOB",
+        "custType": "Org.",
+        "contactNumber": "+91 9999900000",
+        "emailId": "name1@email.com",
+        "contactPerson": "Rajesh G",
+        "address": "View",
+        "status": "Onhold"
+    },
+    {
+        "siteId": 1000014,
+        "customerName": "BOB",
+        "custType": "Org.",
+        "contactNumber": "+91 9999900000",
+        "emailId": "name1@email.com",
+        "contactPerson": "Rajesh G",
+        "address": "View",
+        "status": "Inactive"
+    },
+    {
+        "siteId": 1000014,
+        "customerName": "BOB",
+        "custType": "Org.",
+        "contactNumber": "+91 9999900000",
+        "emailId": "name1@email.com",
+        "contactPerson": "Rajesh G",
+        "address": "View",
+        "status": "Active"
+    },
+    {
+        "siteId": 1000014,
+        "customerName": "BOB",
+        "custType": "Org.",
+        "contactNumber": "+91 9999900000",
+        "emailId": "name1@email.com",
+        "contactPerson": "Rajesh G",
+        "address": "View",
+        "status": "Active"
+    },
+    {
+        "siteId": 1000014,
+        "customerName": "BOB",
+        "custType": "Org.",
+        "contactNumber": "+91 9999900000",
+        "emailId": "name1@email.com",
+        "contactPerson": "Rajesh G",
+        "address": "View",
+        "status": "Active"
+    },
+    {
+        "siteId": 1000014,
+        "customerName": "BOB",
+        "custType": "Org.",
+        "contactNumber": "+91 9999900000",
+        "emailId": "name1@email.com",
+        "contactPerson": "Rajesh G",
+        "address": "View",
+        "status": "Active"
+    },
+    {
+        "siteId": 1000014,
+        "customerName": "BOB",
+        "custType": "Org.",
+        "contactNumber": "+91 9999900000",
+        "emailId": "name1@email.com",
+        "contactPerson": "Rajesh G",
+        "address": "View",
+        "status": "Active"
+    },
+    {
+        "siteId": 1000014,
+        "customerName": "BOB",
+        "custType": "Org.",
+        "contactNumber": "+91 9999900000",
+        "emailId": "name1@email.com",
+        "contactPerson": "Rajesh G",
+        "address": "View",
+        "status": "Active"
+    },
+    {
+        "siteId": 1000014,
+        "customerName": "BOB",
+        "custType": "Org.",
+        "contactNumber": "+91 9999900000",
+        "emailId": "name1@email.com",
+        "contactPerson": "Rajesh G",
+        "address": "View",
+        "status": "Active"
+    }
+]
