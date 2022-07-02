@@ -159,8 +159,8 @@
                     </td>
                     <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
                     <td style="position: relative;">
-                        <a (click)="closeDot()"><img src="assets/images/dotlist.svg" width="30" height="12" /></a>
-                        <div class="plus-img1" [hidden]="threeDots">
+                        <a (click)="closeDot($event)"><img src="assets/images/dotlist.svg" width="30" height="12" /></a>
+                        <div class="plus-img1" style="display: none;">
                             <a class="mx-3"><img src="assets/images/view.svg" /></a>
                             <a class="mx-3"><img src="assets/images/edit.svg" /></a>
                             <a class="mx-3"><img src="assets/images/delete.svg" /></a>

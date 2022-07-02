@@ -17,9 +17,9 @@ export class MainDashboardComponent implements OnInit {
     if(type=='vert'){this.showAddBusinessVertical = value;}
     if(type=='user'){this.showAddUser = value;}
 
+
     setTimeout(()=>{
       var openform = localStorage.getItem('opennewform');
-      // console.log(value,type,openform)
       if(openform=='showAddSite'){this.showAddSite = true;}
       if(openform=='showAddCamera'){this.showAddCamera = true;}
       if(openform=='showAddCustomer'){this.showAddCustomer = true;}
