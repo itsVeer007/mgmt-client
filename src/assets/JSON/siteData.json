@@ -5,11 +5,12 @@
         "customer": "BOB",
         "status": "Active",
         "address": "View",
-        "lat_Long": "44.463005-110.366479",
+        "lat": "44.463005",
+        "long":"110.366479",
         "escl_Details": "View",
         "engr_Details": "View",
         "services": "",
-        "cntrl_Unit": "assets/images/add-svg.svg",
+        "cntrl_Unit": "IVISUSA12130",
         "devices": "assets/images/add-svg.svg"
     },
     {
@@ -18,11 +19,12 @@
         "customer": "BOB",
         "status": "Onhold",
         "address": "View",
-        "lat_Long": "44.463005-110.366479",
+        "lat": "44.463005",
+        "long":"110.366479",
         "escl_Details": "View",
         "engr_Details": "View",
         "services": "",
-        "cntrl_Unit": "assets/images/add-svg.svg",
+        "cntrl_Unit": "",
         "devices": "assets/images/add-svg.svg"
     },
     {
@@ -31,11 +33,12 @@
         "customer": "BOB",
         "status": "Inactive",
         "address": "View",
-        "lat_Long": "44.463005-110.366479",
+        "lat": "44.463005",
+        "long":"110.366479",
         "escl_Details": "View",
         "engr_Details": "View",
         "services": "",
-        "cntrl_Unit": "assets/images/add-svg.svg",
+        "cntrl_Unit": "IVISUSA12130",
         "devices": "assets/images/add-svg.svg"
     },
     {
@@ -44,11 +47,12 @@
         "customer": "BOB",
         "status": "Active",
         "address": "View",
-        "lat_Long": "44.463005-110.366479",
+        "lat": "44.463005",
+        "long":"110.366479",
         "escl_Details": "View",
         "engr_Details": "View",
         "services": "",
-        "cntrl_Unit": "assets/images/add-svg.svg",
+        "cntrl_Unit": "IVISUSA12130",
         "devices": "assets/images/add-svg.svg"
     },
     {
@@ -57,11 +61,12 @@
         "customer": "BOB",
         "status": "Active",
         "address": "View",
-        "lat_Long": "44.463005-110.366479",
+        "lat": "44.463005",
+        "long":"110.366479",
         "escl_Details": "View",
         "engr_Details": "View",
         "services": "",
-        "cntrl_Unit": "assets/images/add-svg.svg",
+        "cntrl_Unit": "IVISUSA12130",
         "devices": "assets/images/add-svg.svg"
     },
     {
@@ -70,11 +75,12 @@
         "customer": "BOB",
         "status": "Active",
         "address": "View",
-        "lat_Long": "44.463005-110.366479",
+        "lat": "44.463005",
+        "long":"110.366479",
         "escl_Details": "View",
         "engr_Details": "View",
         "services": "",
-        "cntrl_Unit": "assets/images/add-svg.svg",
+        "cntrl_Unit": "IVISUSA12130",
         "devices": "assets/images/add-svg.svg"
     },
     {
@@ -83,11 +89,12 @@
         "customer": "BOB",
         "status": "Active",
         "address": "View",
-        "lat_Long": "44.463005-110.366479",
+        "lat": "44.463005",
+        "long":"110.366479",
         "escl_Details": "View",
         "engr_Details": "View",
         "services": "",
-        "cntrl_Unit": "assets/images/add-svg.svg",
+        "cntrl_Unit": "IVISUSA12130",
         "devices": "assets/images/add-svg.svg"
     },
     {
@@ -96,11 +103,12 @@
         "customer": "BOB",
         "status": "Active",
         "address": "View",
-        "lat_Long": "44.463005-110.366479",
+        "lat": "44.463005",
+        "long":"110.366479",
         "escl_Details": "View",
         "engr_Details": "View",
         "services": "",
-        "cntrl_Unit": "assets/images/add-svg.svg",
+        "cntrl_Unit": "IVISUSA12130",
         "devices": "assets/images/add-svg.svg"
     },
     {
@@ -109,11 +117,12 @@
         "customer": "BOB",
         "status": "Active",
         "address": "View",
-        "lat_Long": "44.463005-110.366479",
+        "lat": "44.463005",
+        "long":"110.366479",
         "escl_Details": "View",
         "engr_Details": "View",
         "services": "",
-        "cntrl_Unit": "assets/images/add-svg.svg",
+        "cntrl_Unit": "",
         "devices": "assets/images/add-svg.svg"
     },
     {
@@ -122,11 +131,12 @@
         "customer": "BOB",
         "status": "Active",
         "address": "View",
-        "lat_Long": "44.463005-110.366479",
+        "lat": "44.463005",
+        "long":"110.366479",
         "escl_Details": "View",
         "engr_Details": "View",
         "services": "",
-        "cntrl_Unit": "assets/images/add-svg.svg",
+        "cntrl_Unit": "IVISUSA12130",
         "devices": "assets/images/add-svg.svg"
     },
     {
@@ -135,11 +145,12 @@
         "customer": "BOB",
         "status": "Active",
         "address": "View",
-        "lat_Long": "44.463005-110.366479",
+        "lat": "44.463005",
+        "long":"110.366479",
         "escl_Details": "View",
         "engr_Details": "View",
         "services": "",
-        "cntrl_Unit": "assets/images/add-svg.svg",
+        "cntrl_Unit": "IVISUSA12130",
         "devices": "assets/images/add-svg.svg"
     }
 ]

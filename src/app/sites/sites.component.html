@@ -117,10 +117,13 @@
                     <td>
                         <p>{{data.customer}}</p>
                     </td>
-                    <!-- <div class="col-md-3 d-flex justify-content-center align-items-center" 
-     [ngStyle]="{'background-color': (vars.state=='Signup') ? '#73c7af' : '#ffffff'}"> -->
+                   
                     <td>
-                        <!-- <p [style.color]="'data.status' == 'Active' ? '#00A44C': 'data.status' == 'Onhold' ? '#000': 'data.status' == 'Inactive' ? '#fff'">{{data.status}}</p> -->
+                        <p [style.color]="
+                        data.status == 'Active' ? '#00A44C': 
+                        data.status == 'Onhold' ? '#F5B400': 
+                        data.status == 'Inactive' ? '#fa500f':
+                        '#084982'">{{data.status}}</p>
 
                     </td>
                     <td style="position: relative;">
@@ -136,14 +139,24 @@
                         </div>
                     </td>
                     <td>
-                        <p>{{data.lat_Long}}</p>
+                        <p>{{data.lat}}<br>- {{data.long}}</p>
                     </td>
                     <td><a style="color: #084982;">{{data.escl_Details}}</a></td>
                     <td><a style="color: #084982;">{{data.engr_Details}}</a></td>
                     <td>
-                        <div class="dot-red"></div>
+                        <!-- <div class="dot-red"></div> -->
+                        <div [ngClass]="
+                        data.status == 'Active' ? 'dot-green': 
+                        data.status == 'Onhold' ? 'dot-yellow': 
+                        data.status == 'Inactive' ? 'dot-red':
+                        'dot-red'"></div>
                     </td>
-                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
+                    <td>
+                        <a>
+                            <img src="assets/images/add-svg.svg" *ngIf="data.cntrl_Unit == '' || data.cntrl_Unit ==null " width="25" height="25" />
+                            <span *ngIf="data.cntrl_Unit != '' && data.cntrl_Unit !=null || data.cntrl_Unit.length>0">{{data?.cntrl_Unit}}</span>
+                        </a>
+                    </td>
                     <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
                     <td style="position: relative;">
                         <a (click)="closeDot()"><img src="assets/images/dotlist.svg" width="30" height="12" /></a>
