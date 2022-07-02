@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-customers',
@@ -7,6 +7,29 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./customers.component.css']
 })
 export class CustomersComponent implements OnInit {
+
+  @HostListener('document:mousedown', ['$event']) onGlobalClick(e:any): void {
+    var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);
+    console.log(`plus-img${this.currentid}`);
+    // console.log(this.CustomerTable.length)
+    if(!x.contains(e.target)){
+      if(x.style.display == 'block') {
+        x.style.display = 'none';
+      }
+    }
+
+
+      // if(x.style.display == "none"){
+      //   if(this.visibility){
+      //     if (!this.popupmodal.nativeElement.contains(e.target)) {
+      //       this.visibility=!this.visibility;
+      //       this.calldisabled = true;
+      //       this.time = null;
+      //    }else{}
+      //   }
+      // }
+
+  }
 
   constructor(private http: HttpClient) { }
 
@@ -22,9 +45,11 @@ export class CustomersComponent implements OnInit {
     });
   }
 
-  closeDot(e:any) {
+  currentid=0;
+  closeDot(e:any,i:any) {
+    this.currentid= i;
     var x = e.target.parentNode.nextElementSibling;
-    console.log("THREE DOTS:: ",e.target.parentNode.nextElementSibling);
+    // console.log("THREE DOTS:: ",e.target.parentNode.nextElementSibling);
     if(x.style.display == 'none') {
       x.style.display = 'block';
     }else {

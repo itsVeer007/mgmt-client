@@ -96,7 +96,7 @@
                     <th></th>
                 </tr>
 
-                <tr *ngFor="let cust of CustomerTable">
+                <tr *ngFor="let cust of CustomerTable; let i=index">
                     <td><input type="checkbox" class="form-check-input" /></td>
                     <td>
                         <p>{{cust.siteId}}</p>
@@ -124,8 +124,8 @@
                                           '#00A44C'">{{cust.status}}</p>
                     </td>
                     <td style="position: relative;">
-                        <a (click)="closeDot($event)"><img src="assets/images/dotlist.svg" width="30" height="12" /></a>
-                        <div class="plus-img1" style="display: none;">
+                        <a (click)="closeDot($event,i)"><img src="assets/images/dotlist.svg" width="30" height="12" /></a>
+                        <div class="plus-img1" id="plus-img{{i}}" style="display: none;">
                             <a class="mx-2"><img src="assets/images/view.svg" /></a>
                             <a class="mx-2"><img src="assets/images/edit.svg" /></a>
                             <a class="mx-2"><img src="assets/images/delete.svg" /></a>
