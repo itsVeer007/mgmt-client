@@ -18,7 +18,7 @@ export class SitesComponent implements OnInit {
   
   SiteTable() {
     this.http.get('assets/JSON/siteData.json').subscribe(res=>{
-      console.log("Sites:: ",res);
+      // console.log("Sites:: ",res);
       this.tableData = res;
     });
   }
@@ -67,8 +67,13 @@ export class SitesComponent implements OnInit {
   }
 
   threeDots: boolean = true;
-
-  closeDot() {
-    this.threeDots = !this.threeDots;
+  closeDot(e:any) {
+    var x = e.target.parentNode.nextElementSibling;
+    if(x.style.display =='none'){
+      x.style.display ='flex';
+    }else{
+      x.style.display ='none';
+    }
+    // this.threeDots = !this.threeDots;
   }
 }
