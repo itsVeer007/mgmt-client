@@ -8,12 +8,11 @@ import { HttpClient } from '@angular/common/http';
 })
 export class SitesComponent implements OnInit {
 
-  @HostListener('document:mousedown', ['$event']) onGlobalClick(e:any): void {
-    var x = <HTMLElement>document.getElementById(`plus-imgs${this.currentid}`);
-    console.log("ClosedId:: ",`plus-imgs${this.currentid}`);
-    // console.log("TableRecords:: ",this.tableData.length)
+  @HostListener('document:mousedown', ['$event']) onGlobalClick1(e:any): void {
+    var x = <HTMLElement>document.getElementById(`plus${this.currentid}`);
+    console.log("ClosedId:: ",`plus${this.currentid}`);
     if(!x.contains(e.target)){
-      if(x.style.display == 'block') {
+      if(x.style.display == 'flex' || x.style.display == 'block') {
         x.style.display = 'none';
       }
     }

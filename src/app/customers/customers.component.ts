@@ -10,25 +10,12 @@ export class CustomersComponent implements OnInit {
 
   @HostListener('document:mousedown', ['$event']) onGlobalClick(e:any): void {
     var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);
-    console.log(`plus-img${this.currentid}`);
-    // console.log(this.CustomerTable.length)
+    // console.log(`plus-img${this.currentid}`);
     if(!x.contains(e.target)){
-      if(x.style.display == 'block') {
+      if(x.style.display == 'flex' || x.style.display == 'block') {
         x.style.display = 'none';
       }
     }
-
-
-      // if(x.style.display == "none"){
-      //   if(this.visibility){
-      //     if (!this.popupmodal.nativeElement.contains(e.target)) {
-      //       this.visibility=!this.visibility;
-      //       this.calldisabled = true;
-      //       this.time = null;
-      //    }else{}
-      //   }
-      // }
-
   }
 
   constructor(private http: HttpClient) { }
