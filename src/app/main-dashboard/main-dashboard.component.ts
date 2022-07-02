@@ -10,35 +10,39 @@ export class MainDashboardComponent implements OnInit {
   
   showAddSite = false;
 
-  closenow(value:any) {
-    this.showAddSite = value;
+  closenow(value:any, type:String) {
+    if(type=='site'){this.showAddSite = value;}
+    if(type=='camr'){this.showAddCamera = value;}
+    if(type=='cust'){this.showAddCustomer = value;}
+    if(type=='vert'){this.showAddBusinessVertical = value;}
+    if(type=='user'){this.showAddUser = value;}
+
+    setTimeout(()=>{
+      var openform = localStorage.getItem('opennewform');
+      // console.log(value,type,openform)
+      if(openform=='showAddSite'){this.showAddSite = true;}
+      if(openform=='showAddCamera'){this.showAddCamera = true;}
+      if(openform=='showAddCustomer'){this.showAddCustomer = true;}
+      if(openform=='showAddBusinessVertical'){this.showAddBusinessVertical = true;}
+      if(openform=='showAddUser'){this.showAddUser = true;}
+      localStorage.setItem('opennewform', '');
+    },100)
+    /*
+        console.log(value,type)
+    if(type=='site'){this.showAddSite = value;}else{this.showAddSite = false;};
+    if(type=='camera'){this.showAddCamera = value;}else{this.showAddCamera = false;};
+    if(type=='cust'){this.showAddCustomer = value;}else{this.showAddCustomer = false;};
+    if(type=='user'){this.showAddUser = value;}else{this.showAddUser = value;};
+    if(type=='none'){this.showAddUser = value;}else{this.showAddUser = value;};
+    */
   }
 
 
   showAddCamera = false;
-
-  closenow1(value:any) {
-    this.showAddCamera = value;
-  }
-
   showAddCustomer = false;
-
-  closenow2(value:any) {
-    this.showAddCustomer = value;
-  }
-
   showAddUser = false;
-
-  closenow3(value:any) {
-    this.showAddUser = value;
-  }
-
   showAddBusinessVertical = false;
 
-  closenow4(value:any) {
-    this.showAddBusinessVertical = value;
-  }
-  
   constructor(private chartservice: ChartService) { }
 
   ngOnInit(): void {

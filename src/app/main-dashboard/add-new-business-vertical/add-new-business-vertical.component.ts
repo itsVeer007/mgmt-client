@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-new-business-vertical',
@@ -9,15 +10,23 @@ export class AddNewBusinessVerticalComponent implements OnInit {
 
   @Input() show:any;
 
-  @Output() newItemEvent = new EventEmitter<boolean>();
+  @Output() newItemEvent = new EventEmitter<any>();
   
-  closeAddVertical(value:boolean) {
+  closeAddVertical(value:any) {
     this.newItemEvent.emit(value);
   }
 
-  constructor() { }
+  constructor(
+    private router:Router
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  openAnotherForm(newform:any) {
+    // this.newItemEvent.emit(false);
+    localStorage.setItem('opennewform', newform)
+    this.closeAddVertical(false);
   }
 
 }
