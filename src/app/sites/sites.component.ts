@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-sites',
@@ -6,6 +7,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sites.component.css']
 })
 export class SitesComponent implements OnInit {
+
+  constructor(private http: HttpClient) { }
+
+  ngOnInit(): void {
+    this.SiteTable();
+  }
+
+  tableData: any;
+  
+  SiteTable() {
+    this.http.get('assets/JSON/siteData.json').subscribe(res=>{
+      console.log("Sites:: ",res);
+      this.tableData = res;
+    });
+  }
 
   showAddSite = false;
 
@@ -43,10 +59,7 @@ export class SitesComponent implements OnInit {
     this.icons1=!this.icons1;
   }
   
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  
 
   address: boolean = true;
   addressView() {

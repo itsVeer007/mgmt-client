@@ -9,12 +9,12 @@
 
 .sites-header p {
     color: #ABABAB;
-    font-size: 24px;
+    font-size: 20px;
 }
 
 .sites-header span {
     color: #084982;
-    font-size: 24px;
+    font-size: 20px;
 }
 
 .vl-green {
@@ -73,6 +73,8 @@ form input {
     width: 80%;
     border-radius: 30px;
     color: #ABABAB;
+    outline: none;
+    margin-top: 2px;
 }
 
 form button {

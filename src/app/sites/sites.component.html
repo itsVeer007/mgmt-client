@@ -8,17 +8,22 @@
         <div style="position: relative;">
             <div [hidden]="icons1" class="icons-site">
                 <div class="d-flex flex-row justify-content icons pointer">
-                    <a (click)="iconsnew1();showAddBusinessVertical=!showAddBusinessVertical"><img src="assets/images/vertical.svg" class="mx-2" width="15" height="15" /></a>
-                    <a (click)="iconsnew1();showAddCustomer=!showAddCustomer"><img src="assets/images/customer.svg" class="mx-2" width="15" height="15" /></a>
-                    <a (click)="iconsnew1();showAddSite=!showAddSite"><img src="assets/images/sites.svg" class="mx-2" width="15"
-                            height="15" /></a>
-                    <a (click)="iconsnew1();showAddCamera=!showAddCamera"><img src="assets/images/cam.svg" class="mx-2" width="15" height="15" /></a>
+                    <a (click)="iconsnew1();showAddBusinessVertical=!showAddBusinessVertical"><img
+                            src="assets/images/vertical.svg" class="mx-2" width="15" height="15" /></a>
+                    <a (click)="iconsnew1();showAddCustomer=!showAddCustomer"><img src="assets/images/customer.svg"
+                            class="mx-2" width="15" height="15" /></a>
+                    <a (click)="iconsnew1();showAddSite=!showAddSite"><img src="assets/images/sites.svg" class="mx-2"
+                            width="15" height="15" /></a>
+                    <a (click)="iconsnew1();showAddCamera=!showAddCamera"><img src="assets/images/cam.svg" class="mx-2"
+                            width="15" height="15" /></a>
                     <a><img src="assets/images/analytic.svg" class="mx-2" width="15" height="15" /></a>
-                    <a (click)="iconsnew1();showAddUser=!showAddUser"><img src="assets/images/user-white.svg" class="mx-2" width="15" height="15" /></a>
+                    <a (click)="iconsnew1();showAddUser=!showAddUser"><img src="assets/images/user-white.svg"
+                            class="mx-2" width="15" height="15" /></a>
                 </div>
             </div>
             <a (click)="iconsnew1()"><img src="assets/images/add.svg" alt="" /></a>
-            <a><img src="assets/images/sites-img.svg" alt="" style="border-radius: 24px; box-shadow: 7px 7px 7px 0px #f3f3f3; margin-top: -9px;"/></a>
+            <a><img src="assets/images/sites-img.svg" alt=""
+                    style="border-radius: 24px; box-shadow: 7px 7px 7px 0px #f3f3f3; margin-top: -9px;" /></a>
         </div>
     </div>
     <!-- header ends -->
@@ -80,7 +85,7 @@
     <!-- form ends -->
 
     <!-- table starts -->
-    
+
     <div class="table-resp">
         <table class="table">
             <tbody>
@@ -101,7 +106,56 @@
                     <th></th>
                 </tr>
 
-                <tr>
+                <tr *ngFor="let data of tableData">
+                    <td><input type="checkbox" class="form-check-input" /></td>
+                    <td>
+                        <p>{{data.siteID}}</p>
+                    </td>
+                    <td>
+                        <p>{{data.siteName}}</p>
+                    </td>
+                    <td>
+                        <p>{{data.customer}}</p>
+                    </td>
+                    <!-- <div class="col-md-3 d-flex justify-content-center align-items-center" 
+     [ngStyle]="{'background-color': (vars.state=='Signup') ? '#73c7af' : '#ffffff'}"> -->
+                    <td>
+                        <!-- <p [style.color]="'data.status' == 'Active' ? '#00A44C': 'data.status' == 'Onhold' ? '#000': 'data.status' == 'Inactive' ? '#fff'">{{data.status}}</p> -->
+
+                    </td>
+                    <td style="position: relative;">
+                        <a style="color: #084982;" (click)="addressView()">{{data.address}}</a>
+                        <div style="border: 1px solid #0000000D; position: absolute; background-color: #fff; width: 200px; margin-left: -210px; margin-top: -26px; box-shadow: -5px 6px 13px 0px #F3F3F3;"
+                            [hidden]="address" class="plus-img">
+                            <p class="p-2" style="color: #ABABAB; text-align: left;">ADDRESS</p>
+                            <div style="color: #000; text-align: left; padding: 10px;">
+                                <p>Pathur Road, Tadepally</p>
+                                <p>Guntur - 522501</p>
+                                <p>Andhra Pradesh, India</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <p>{{data.lat_Long}}</p>
+                    </td>
+                    <td><a style="color: #084982;">{{data.escl_Details}}</a></td>
+                    <td><a style="color: #084982;">{{data.engr_Details}}</a></td>
+                    <td>
+                        <div class="dot-red"></div>
+                    </td>
+                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
+                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
+                    <td style="position: relative;">
+                        <a (click)="closeDot()"><img src="assets/images/dotlist.svg" width="30" height="12" /></a>
+                        <div class="plus-img1" [hidden]="threeDots">
+                            <a class="mx-3"><img src="assets/images/view.svg" /></a>
+                            <a class="mx-3"><img src="assets/images/edit.svg" /></a>
+                            <a class="mx-3"><img src="assets/images/delete.svg" /></a>
+                        </div>
+                    </td>
+                </tr>
+
+                <!-- <tr>
                     <td><input type="checkbox" class="form-check-input" /></td>
                     <td>
                         <p>1000015</p>
@@ -1235,7 +1289,7 @@
                     </td>
                     <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
                     <td><a><img src="assets/images/dotlist.svg" width="30" height="12" /></a></td>
-                </tr>
+                </tr> -->
 
             </tbody>
         </table>
@@ -1270,5 +1324,6 @@
 </div>
 
 <div style="position: fixed; top:0;" *ngIf="showAddBusinessVertical">
-    <app-add-new-business-vertical [show]="showAddBusinessVertical" (newItemEvent)="closenow4($event)"></app-add-new-business-vertical>
+    <app-add-new-business-vertical [show]="showAddBusinessVertical" (newItemEvent)="closenow4($event)">
+    </app-add-new-business-vertical>
 </div>
