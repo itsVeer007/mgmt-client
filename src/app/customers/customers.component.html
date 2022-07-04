@@ -83,7 +83,12 @@
         <table class="table">
             <tbody>
                 <tr class="form1">
-                    <th><input type="checkbox" class="form-check-input"
+                    <!-- <li class="list-group-item">
+                        <input type="checkbox" [(ngModel)]="masterSelected" name="list_name" value="m1"
+                          (change)="checkUncheckAll()" /> <strong>Select/ Unselect All</strong>
+                      </li> -->
+
+                    <th><input type="checkbox" class="form-check-input" [(ngModel)]="masterSelected" (change)="checkUncheckAll()"
                             style="background-color: #00000000; border-color:#fff;margin-left:10px;" /></th>
                     <th>Cust. ID</th>
                     <th>Customer Name</th>
@@ -97,6 +102,11 @@
                 </tr>
 
                 <tr *ngFor="let cust of CustomerTable; let i=index">
+                    <!-- <li class="list-group-item" *ngFor="let item of checklist">
+                        <input type="checkbox" [(ngModel)]="item.isSelected" name="list_name" value="{{item.id}}"
+                          (change)="isAllSelected()" />
+                        {{item.value}}
+                      </li> -->
                     <td><input type="checkbox" class="form-check-input" /></td>
                     <td>
                         <p>{{cust.siteId}}</p>
