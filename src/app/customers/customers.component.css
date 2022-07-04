@@ -196,10 +196,11 @@ form button {
 
 .plus-img1 {
     border: 1px solid #EFEFEF;
-    width: 94px;
-    height: 24px;
+    width: fit-content;
+    height: fit-content;
+    padding: 5px;
     position: absolute;
-    margin: -20px 0 0 -94px;
+    margin: -25px 0 0 -98px;
     background-color: #fff;
     box-shadow: -5px 6px 13px 0px #F3F3F3;
     display: flex;

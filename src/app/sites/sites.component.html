@@ -77,9 +77,9 @@
             </form>
         </div>
         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 table-icons">
-            <a class="mx-3"><img src="assets/images/view.svg" /></a>
-            <a class="mx-3"><img src="assets/images/edit.svg" /></a>
-            <a class="mx-3"><img src="assets/images/delete.svg" /></a>
+            <a class="mx-2"><img src="assets/images/view.svg" /></a>
+            <a class="mx-2"><img src="assets/images/edit.svg" /></a>
+            <a class="mx-2"><img src="assets/images/delete.svg" /></a>
         </div>
     </div>
     <!-- form ends -->
@@ -90,8 +90,9 @@
         <table class="table">
             <tbody>
                 <tr class="form1">
-                    <th><input type="checkbox" class="form-check-input"
-                            style="background-color: #00000000; border-color:#fff;margin-left:10px;" /></th>
+                    <th (click)="allchecked($event)"><input type="checkbox" class="form-check-input" 
+                         name="allclicked" id="allclicked"
+                        style="background-color: #00000000; border-color:#fff;margin-left:10px;" /></th>
                     <th>Site ID</th>
                     <th>Site Name</th>
                     <th>Customer</th>
@@ -107,7 +108,7 @@
                 </tr>
 
                 <tr *ngFor="let data of tableData; let i=index">
-                    <td><input type="checkbox" class="form-check-input" /></td>
+                    <td><input type="checkbox" name="foo" class="form-check-input" /></td>
                     <td>
                         <p>{{data.siteID}}</p>
                     </td>
@@ -163,9 +164,9 @@
                     <td style="position: relative;">
                         <a (click)="closeDot($event,i)"><img src="assets/images/dotlist.svg" width="30" height="12" /></a>
                         <div class="plus-img1" id="plus{{i}}" style="display: none;">
-                            <a class="mx-3"><img src="assets/images/view.svg" /></a>
-                            <a class="mx-3"><img src="assets/images/edit.svg" /></a>
-                            <a class="mx-3"><img src="assets/images/delete.svg" /></a>
+                            <a class="mx-2"><img src="assets/images/view.svg" /></a>
+                            <a class="mx-2"><img src="assets/images/edit.svg" /></a>
+                            <a class="mx-2"><img src="assets/images/delete.svg" /></a>
                         </div>
                     </td>
                 </tr>

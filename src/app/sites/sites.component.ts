@@ -10,7 +10,7 @@ export class SitesComponent implements OnInit {
 
   @HostListener('document:mousedown', ['$event']) onGlobalClick1(e:any): void {
     var x = <HTMLElement>document.getElementById(`plus${this.currentid}`);
-    console.log("ClosedId:: ",`plus${this.currentid}`);
+    // console.log("ClosedId:: ",`plus${this.currentid}`);
     if(!x.contains(e.target)){
       if(x.style.display == 'flex' || x.style.display == 'block') {
         x.style.display = 'none';
@@ -98,4 +98,18 @@ export class SitesComponent implements OnInit {
       x.style.display ='none';
     }
   }
+
+  allchecked(e:any){
+
+    if(document.querySelector('#allclicked:checked')){
+      var checkboxes = <HTMLInputElement><unknown>document.getElementsByName('foo');
+      for(var checkbox in checkboxes){
+        // checkbox.checked = source.checked;
+        // console.log(checkbox)
+      }
+        
+    }
+  }
 }
+
+
