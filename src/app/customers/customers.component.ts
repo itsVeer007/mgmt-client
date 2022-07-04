@@ -27,7 +27,7 @@ export class CustomersComponent implements OnInit {
   CustomerTable: any;
   CustomerReport() {
     this.http.get('assets/JSON/customerData.json').subscribe(res=>{
-      console.log("CustomerReport::",res);
+      // console.log("CustomerReport::",res);
       this.CustomerTable = res;
     });
   }
@@ -45,34 +45,56 @@ export class CustomersComponent implements OnInit {
   }
 
   showAddSite = false;
-
-  closenow(value:any) {
-    this.showAddSite = value;
-  }
-
   showAddCamera = false;
-
-  closenow1(value:any) {
-    this.showAddCamera = value;
-  }
-
   showAddCustomer = false;
-
-  closenow2(value:any) {
-    this.showAddCustomer = value;
-  }
-
   showAddUser = false;
-
-  closenow3(value:any) {
-    this.showAddUser = value;
-  }
-
   showAddBusinessVertical = false;
+  // closenow(value:any) {
+  //   this.showAddSite = value;
+  // }
 
-  closenow4(value:any) {
-    this.showAddBusinessVertical = value;
+  closenow(value:any, type:String) {
+    if(type=='site'){this.showAddSite = value;}
+    if(type=='camr'){this.showAddCamera = value;}
+    if(type=='cust'){this.showAddCustomer = value;}
+    if(type=='vert'){this.showAddBusinessVertical = value;}
+    if(type=='user'){this.showAddUser = value;}
+    // console.log("SITES:: ",type)
+
+    setTimeout(()=>{
+      var openform = localStorage.getItem('opennewform');
+      if(openform=='showAddSite'){this.showAddSite = true;}
+      if(openform=='showAddCamera'){this.showAddCamera = true;}
+      if(openform=='showAddCustomer'){this.showAddCustomer = true;}
+      if(openform=='showAddBusinessVertical'){this.showAddBusinessVertical = true;}
+      if(openform=='showAddUser'){this.showAddUser = true;}
+      localStorage.setItem('opennewform', '');
+    },100)
   }
+
+  // showAddCamera = false;
+
+  // closenow1(value:any) {
+  //   this.showAddCamera = value;
+  // }
+
+  // showAddCustomer = false;
+
+  // closenow2(value:any) {
+  //   this.showAddCustomer = value;
+  // }
+
+  // showAddUser = false;
+
+  // closenow3(value:any) {
+  //   this.showAddUser = value;
+  // }
+
+  // showAddBusinessVertical = false;
+
+  // closenow4(value:any) {
+  //   this.showAddBusinessVertical = value;
+  // }
 
   icons1:boolean = true;
   iconsnew1() {

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-new-customer',
@@ -18,7 +19,7 @@ export class AddNewCustomerComponent implements OnInit {
 
   productForm: FormGroup;
 
-  constructor(private fb:FormBuilder) {
+  constructor(private fb:FormBuilder, private router:Router) {
    
     this.productForm = this.fb.group({
       name: '',
@@ -61,7 +62,11 @@ export class AddNewCustomerComponent implements OnInit {
     // this.address2 = !this.address2;
   }
 
-
+  openAnotherForm(newform:any) {
+    // this.newItemEvent.emit(false);
+    localStorage.setItem('opennewform', newform)
+    this.closeAddCustomer(false);
+  }
 
 
   billing_address:boolean = true;

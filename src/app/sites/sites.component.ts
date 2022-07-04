@@ -29,6 +29,17 @@ export class SitesComponent implements OnInit {
       // }
 
   }
+
+  @HostListener('document:mousedown', ['$event']) onGlobalClick2(e:any): void {
+    var x = <HTMLElement>document.getElementById(`address${this.addressid}`);
+    // console.log("ClosedAddressId:: ",`address${this.addressid}`);
+    if(!x.contains(e.target)){
+      if(x.style.display == 'flex' || x.style.display == 'block') {
+        x.style.display = 'none';
+      }
+    }
+  }
+
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
@@ -45,35 +56,57 @@ export class SitesComponent implements OnInit {
   }
 
   showAddSite = false;
-
-  closenow(value:any) {
-    this.showAddSite = value;
-  }
-
-
   showAddCamera = false;
-
-  closenow1(value:any) {
-    this.showAddCamera = value;
-  }
-
   showAddCustomer = false;
-
-  closenow2(value:any) {
-    this.showAddCustomer = value;
-  }
-
   showAddUser = false;
-
-  closenow3(value:any) {
-    this.showAddUser = value;
-  }
-
   showAddBusinessVertical = false;
+  // closenow(value:any) {
+  //   this.showAddSite = value;
+  // }
 
-  closenow4(value:any) {
-    this.showAddBusinessVertical = value;
+  closenow(value:any, type:String) {
+    if(type=='site'){this.showAddSite = value;}
+    if(type=='camr'){this.showAddCamera = value;}
+    if(type=='cust'){this.showAddCustomer = value;}
+    if(type=='vert'){this.showAddBusinessVertical = value;}
+    if(type=='user'){this.showAddUser = value;}
+    // console.log("SITES:: ",type)
+
+    setTimeout(()=>{
+      var openform = localStorage.getItem('opennewform');
+      if(openform=='showAddSite'){this.showAddSite = true;}
+      if(openform=='showAddCamera'){this.showAddCamera = true;}
+      if(openform=='showAddCustomer'){this.showAddCustomer = true;}
+      if(openform=='showAddBusinessVertical'){this.showAddBusinessVertical = true;}
+      if(openform=='showAddUser'){this.showAddUser = true;}
+      localStorage.setItem('opennewform', '');
+    },100)
   }
+
+
+  // showAddCamera = false;
+
+  // closenow1(value:any) {
+  //   this.showAddCamera = value;
+  // }
+
+  // showAddCustomer = false;
+
+  // closenow2(value:any) {
+  //   this.showAddCustomer = value;
+  // }
+
+  // showAddUser = false;
+
+  // closenow3(value:any) {
+  //   this.showAddUser = value;
+  // }
+
+  // showAddBusinessVertical = false;
+
+  // closenow4(value:any) {
+  //   this.showAddBusinessVertical = value;
+  // }
   
   icons1:boolean = true;
   iconsnew1() {
@@ -82,16 +115,24 @@ export class SitesComponent implements OnInit {
   
   
 
-  address: boolean = true;
-  addressView() {
-    this.address = !this.address;
+  addressid=0;
+  addressView(e: any, i: any) {
+    this.addressid = i;
+    var x = e.target.nextElementSibling;
+    // console.log("AddressView:: ",x)
+    if(x.style.display == 'none') {
+      x.style.display = 'flex';
+    }else {
+      x.style.display = 'none';
+    }
+    // this.address = !this.address;
   }
 
   currentid=0;
   closeDot(e: any, i: any) {
-    this.currentid= i;
+    this.currentid = i;
     var x = e.target.parentNode.nextElementSibling;
-    console.log("Close-Click:: ",x);
+    // console.log("Close-Click:: ",x);
     if(x.style.display =='none'){
       x.style.display ='flex';
     }else{
