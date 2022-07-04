@@ -27,7 +27,7 @@ export class CustomersComponent implements OnInit {
   CustomerTable: any;
   CustomerReport() {
     this.http.get('assets/JSON/customerData.json').subscribe(res=>{
-      // console.log("CustomerReport::",res);
+      console.log("CustomerReport::",res);
       this.CustomerTable = res;
     });
   }
@@ -101,26 +101,13 @@ export class CustomersComponent implements OnInit {
     this.icons1=!this.icons1;
   }
 
-  masterSelected:boolean = false;
-  checklist: any;
+  masterSelected: boolean = false;
 
-  // The master checkbox will check/ uncheck all items
-  checkUncheckAll() {
-    for (var i=0; i<this.CustomerReport.length; i++) {
-      this.checklist[i].isSelected = this.masterSelected;
+  allchecked(e:any){
+    if(document.querySelector('#allchecked:checked')){
+      this.masterSelected = true; 
+    }else {
+      this.masterSelected = false;
     }
-    this.getCheckedItemList();
   }
-
-  checkedList: any;
-  // Get List of Checked Items
-  getCheckedItemList(){
-    this.checkedList = [];
-    for (var i = 0; i < this.checklist.length; i++) {
-      if(this.checklist[i].isSelected)
-      this.checkedList.push(this.checklist[i]);
-    }
-    this.checkedList = JSON.stringify(this.checkedList);
-  }
-
 }

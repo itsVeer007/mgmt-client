@@ -8,33 +8,33 @@ import { HttpClient } from '@angular/common/http';
 })
 export class SitesComponent implements OnInit {
 
-  @HostListener('document:mousedown', ['$event']) onGlobalClick1(e:any): void {
+  @HostListener('document:mousedown', ['$event']) onGlobalClick1(e: any): void {
     var x = <HTMLElement>document.getElementById(`plus${this.currentid}`);
     // console.log("ClosedId:: ",`plus${this.currentid}`);
-    if(!x.contains(e.target)){
-      if(x.style.display == 'flex' || x.style.display == 'block') {
+    if (!x.contains(e.target)) {
+      if (x.style.display == 'flex' || x.style.display == 'block') {
         x.style.display = 'none';
       }
     }
 
 
-      // if(x.style.display == "none"){
-      //   if(this.visibility){
-      //     if (!this.popupmodal.nativeElement.contains(e.target)) {
-      //       this.visibility=!this.visibility;
-      //       this.calldisabled = true;
-      //       this.time = null;
-      //    }else{}
-      //   }
-      // }
+    // if(x.style.display == "none"){
+    //   if(this.visibility){
+    //     if (!this.popupmodal.nativeElement.contains(e.target)) {
+    //       this.visibility=!this.visibility;
+    //       this.calldisabled = true;
+    //       this.time = null;
+    //    }else{}
+    //   }
+    // }
 
   }
 
-  @HostListener('document:mousedown', ['$event']) onGlobalClick2(e:any): void {
+  @HostListener('document:mousedown', ['$event']) onGlobalClick2(e: any): void {
     var x = <HTMLElement>document.getElementById(`address${this.addressid}`);
     // console.log("ClosedAddressId:: ",`address${this.addressid}`);
-    if(!x.contains(e.target)){
-      if(x.style.display == 'flex' || x.style.display == 'block') {
+    if (!x.contains(e.target)) {
+      if (x.style.display == 'flex' || x.style.display == 'block') {
         x.style.display = 'none';
       }
     }
@@ -47,13 +47,14 @@ export class SitesComponent implements OnInit {
   }
 
   tableData: any;
-  
+
   SiteTable() {
-    this.http.get('assets/JSON/siteData.json').subscribe(res=>{
+    this.http.get('assets/JSON/siteData.json').subscribe(res => {
       // console.log("Sites:: ",res);
       this.tableData = res;
     });
   }
+
 
   showAddSite = false;
   showAddCamera = false;
@@ -64,23 +65,23 @@ export class SitesComponent implements OnInit {
   //   this.showAddSite = value;
   // }
 
-  closenow(value:any, type:String) {
-    if(type=='site'){this.showAddSite = value;}
-    if(type=='camr'){this.showAddCamera = value;}
-    if(type=='cust'){this.showAddCustomer = value;}
-    if(type=='vert'){this.showAddBusinessVertical = value;}
-    if(type=='user'){this.showAddUser = value;}
+  closenow(value: any, type: String) {
+    if (type == 'site') { this.showAddSite = value; }
+    if (type == 'camr') { this.showAddCamera = value; }
+    if (type == 'cust') { this.showAddCustomer = value; }
+    if (type == 'vert') { this.showAddBusinessVertical = value; }
+    if (type == 'user') { this.showAddUser = value; }
     // console.log("SITES:: ",type)
 
-    setTimeout(()=>{
+    setTimeout(() => {
       var openform = localStorage.getItem('opennewform');
-      if(openform=='showAddSite'){this.showAddSite = true;}
-      if(openform=='showAddCamera'){this.showAddCamera = true;}
-      if(openform=='showAddCustomer'){this.showAddCustomer = true;}
-      if(openform=='showAddBusinessVertical'){this.showAddBusinessVertical = true;}
-      if(openform=='showAddUser'){this.showAddUser = true;}
+      if (openform == 'showAddSite') { this.showAddSite = true; }
+      if (openform == 'showAddCamera') { this.showAddCamera = true; }
+      if (openform == 'showAddCustomer') { this.showAddCustomer = true; }
+      if (openform == 'showAddBusinessVertical') { this.showAddBusinessVertical = true; }
+      if (openform == 'showAddUser') { this.showAddUser = true; }
       localStorage.setItem('opennewform', '');
-    },100)
+    }, 100)
   }
 
 
@@ -107,49 +108,79 @@ export class SitesComponent implements OnInit {
   // closenow4(value:any) {
   //   this.showAddBusinessVertical = value;
   // }
-  
-  icons1:boolean = true;
-  iconsnew1() {
-    this.icons1=!this.icons1;
-  }
-  
-  
 
-  addressid=0;
+  icons1: boolean = true;
+  iconsnew1() {
+    this.icons1 = !this.icons1;
+  }
+
+
+
+  addressid = 0;
   addressView(e: any, i: any) {
     this.addressid = i;
     var x = e.target.nextElementSibling;
     // console.log("AddressView:: ",x)
-    if(x.style.display == 'none') {
+    if (x.style.display == 'none') {
       x.style.display = 'flex';
-    }else {
+    } else {
       x.style.display = 'none';
     }
     // this.address = !this.address;
   }
 
-  currentid=0;
+  currentid = 0;
   closeDot(e: any, i: any) {
     this.currentid = i;
     var x = e.target.parentNode.nextElementSibling;
     // console.log("Close-Click:: ",x);
-    if(x.style.display =='none'){
-      x.style.display ='flex';
-    }else{
-      x.style.display ='none';
+    if (x.style.display == 'none') {
+      x.style.display = 'flex';
+    } else {
+      x.style.display = 'none';
     }
   }
 
-  allchecked(e:any){
+  masterSelected: boolean = false;
+  // allcheck: boolean = false;
+  SelectAll: boolean = false;
 
-    if(document.querySelector('#allclicked:checked')){
-      var checkboxes = <HTMLInputElement><unknown>document.getElementsByName('foo');
-      for(var checkbox in checkboxes){
-        // checkbox.checked = source.checked;
-        // console.log(checkbox)
-      }
-        
+
+  // allchecked(e:any){
+
+  //   if(document.querySelector('#allcheck:checked')){
+  //     this.masterSelected = true;
+  //     this.SelectAll =true;
+  //   }else{
+  //     this.masterSelected = false;
+  //   }   
+  // }
+
+  // itemchecked(e:any){
+  //   if(document.querySelector('#allcheck:checked')){
+  //     var x = (e.target.checked);
+  //     console.log("ItemChecked:: ",x);
+  //     if(x){
+  //       this.SelectAll = true;
+  //     }else{
+  //       this.SelectAll = false;
+  //     }
+  //   }
+  // }
+
+  selectedAll: any;
+
+  selectAll() {
+    for (var i = 0; i < this.tableData.length; i++) {
+      // console.log(this.tableData[i])
+      this.tableData[i].selected = this.selectedAll;
     }
+  }
+  checkIfAllSelected() {
+    this.selectedAll = this.tableData.every(function (item: any) {
+      // console.log(item)
+      return item.selected == true;
+    })
   }
 }
 
