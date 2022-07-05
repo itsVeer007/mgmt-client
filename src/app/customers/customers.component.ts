@@ -178,6 +178,7 @@ export class CustomersComponent implements OnInit {
 
 // ------- end delete ----------------
   
+// -------start Edit -------------
   editPopup: boolean = true;
 
   confirmEditRow() {
@@ -197,6 +198,10 @@ export class CustomersComponent implements OnInit {
     // console.log("Open Delete Popup:: ",this.editPopup);
     // console.log(this.CustomerTable.siteId);
   }
+// -------------- End Edit ------------------
+
+
+
 
   // ------------- start View --------------------
 
