@@ -8,11 +8,11 @@ import { Component, HostListener, OnInit } from '@angular/core';
 })
 export class CustomersComponent implements OnInit {
 
-  @HostListener('document:mousedown', ['$event']) onGlobalClick(e:any): void {
+  @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
     var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);
     // console.log(`plus-img${this.currentid}`);
-    if(!x.contains(e.target)){
-      if(x.style.display == 'flex' || x.style.display == 'block') {
+    if (!x.contains(e.target)) {
+      if (x.style.display == 'flex' || x.style.display == 'block') {
         x.style.display = 'none';
       }
     }
@@ -26,20 +26,20 @@ export class CustomersComponent implements OnInit {
 
   CustomerTable: any;
   CustomerReport() {
-    this.http.get('assets/JSON/customerData.json').subscribe(res=>{
-      console.log("CustomerReport::",res);
+    this.http.get('assets/JSON/customerData.json').subscribe(res => {
+      // console.log("CustomerReport::",res);
       this.CustomerTable = res;
     });
   }
 
-  currentid=0;
-  closeDot(e:any,i:any) {
-    this.currentid= i;
+  currentid = 0;
+  closeDot(e: any, i: any) {
+    this.currentid = i;
     var x = e.target.parentNode.nextElementSibling;
     // console.log("THREE DOTS:: ",e.target.parentNode.nextElementSibling);
-    if(x.style.display == 'none') {
+    if (x.style.display == 'none') {
       x.style.display = 'block';
-    }else {
+    } else {
       x.style.display = 'none';
     }
   }
@@ -53,23 +53,23 @@ export class CustomersComponent implements OnInit {
   //   this.showAddSite = value;
   // }
 
-  closenow(value:any, type:String) {
-    if(type=='site'){this.showAddSite = value;}
-    if(type=='camr'){this.showAddCamera = value;}
-    if(type=='cust'){this.showAddCustomer = value;}
-    if(type=='vert'){this.showAddBusinessVertical = value;}
-    if(type=='user'){this.showAddUser = value;}
+  closenow(value: any, type: String) {
+    if (type == 'site') { this.showAddSite = value; }
+    if (type == 'camr') { this.showAddCamera = value; }
+    if (type == 'cust') { this.showAddCustomer = value; }
+    if (type == 'vert') { this.showAddBusinessVertical = value; }
+    if (type == 'user') { this.showAddUser = value; }
     // console.log("SITES:: ",type)
 
-    setTimeout(()=>{
+    setTimeout(() => {
       var openform = localStorage.getItem('opennewform');
-      if(openform=='showAddSite'){this.showAddSite = true;}
-      if(openform=='showAddCamera'){this.showAddCamera = true;}
-      if(openform=='showAddCustomer'){this.showAddCustomer = true;}
-      if(openform=='showAddBusinessVertical'){this.showAddBusinessVertical = true;}
-      if(openform=='showAddUser'){this.showAddUser = true;}
+      if (openform == 'showAddSite') { this.showAddSite = true; }
+      if (openform == 'showAddCamera') { this.showAddCamera = true; }
+      if (openform == 'showAddCustomer') { this.showAddCustomer = true; }
+      if (openform == 'showAddBusinessVertical') { this.showAddBusinessVertical = true; }
+      if (openform == 'showAddUser') { this.showAddUser = true; }
       localStorage.setItem('opennewform', '');
-    },100)
+    }, 100)
   }
 
   // showAddCamera = false;
@@ -96,18 +96,56 @@ export class CustomersComponent implements OnInit {
   //   this.showAddBusinessVertical = value;
   // }
 
-  icons1:boolean = true;
+  icons1: boolean = true;
   iconsnew1() {
-    this.icons1=!this.icons1;
+    this.icons1 = !this.icons1;
   }
 
   masterSelected: boolean = false;
 
-  allchecked(e:any){
-    if(document.querySelector('#allchecked:checked')){
-      this.masterSelected = true; 
-    }else {
-      this.masterSelected = false;
+  // allchecked(e:any){
+  //   if(document.querySelector('#allchecked:checked')){
+  //     this.masterSelected = true; 
+  //   }else {
+  //     this.masterSelected = false;
+  //   }
+  // }
+
+  // Start Checkbox
+  selectedAll: any;
+
+  selectAll() {
+    for (var i = 0; i < this.CustomerTable.length; i++) {
+      // console.log(this.CustomerTable[i])
+      this.CustomerTable[i].selected = this.selectedAll;
     }
+  }
+  checkIfAllSelected() {
+    this.selectedAll = this.CustomerTable.every(function (item: any) {
+      // console.log(item)
+      return item.selected == true;
+    })
+  }
+  // End Checkbox
+
+
+  // deleteRow(id: any) {
+  //   console.log("Out of delete():: ", id);
+  //   for (let i = 0; i < this.CustomerTable.length; ++i) {
+  //     console.log("InSide of delete():: ", i);
+  //     if (this.CustomerTable[i].id === id) {
+  //       console.log("InSide of  if delete():: ", this.CustomerTable[i]);
+  //       this.CustomerTable.splice(i, 1);
+  //       console.log("Final:: ", this.CustomerTable.splice(i, 1));
+  //     }
+  //   }
+  // }
+
+  deleteRow: any;
+
+  deleteRow1(r: any) {
+    var i = r.parentNode.parentNode.rowIndex;
+    console.log("DELETEROW:: ",i)
+    // <HTMLElement>document.getElementById("mytable").deleteRow(i);
   }
 }

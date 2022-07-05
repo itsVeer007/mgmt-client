@@ -80,11 +80,15 @@
 
     <!-- table starts -->
     <div class="table-resp">
-        <table class="table">
+        <table class="table" id="mytable">
             <tbody>
                 <tr class="form1">
-                    <th><input type="checkbox" class="form-check-input" id="allchecked" (click)="allchecked($event)"
-                            style="background-color: #00000000; border-color:#fff;margin-left:10px;" /></th>
+                    <th><input type="checkbox" class="form-check-input" [(ngModel)]="selectedAll"
+                        (change)="selectAll();" id="allcheck"
+                        style="background-color: #00000000; border-color:#fff; margin-left:10px;" />
+                </th>
+                    <!-- <th><input type="checkbox" class="form-check-input" id="allchecked" (click)="allchecked($event)"
+                            style="background-color: #00000000; border-color:#fff;margin-left:10px;" /></th> -->
                     <th>Cust. ID</th>
                     <th>Customer Name</th>
                     <th>Cust. Type</th>
@@ -97,7 +101,9 @@
                 </tr>
 
                 <tr *ngFor="let cust of CustomerTable; let i=index">
-                    <td><input type="checkbox" class="form-check-input" [checked]="masterSelected" /></td>
+                    <td><input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="cust.selected"
+                        (change)="checkIfAllSelected();" id="singleCheck" /></td>
+                    <!-- <td><input type="checkbox" class="form-check-input" [checked]="masterSelected" /></td> -->
                     <td>
                         <p>{{cust.siteId}}</p>
                     </td>
@@ -128,7 +134,7 @@
                         <div class="plus-img1" id="plus-img{{i}}" style="display: none;">
                             <a class="mx-2"><img src="assets/images/view.svg" /></a>
                             <a class="mx-2"><img src="assets/images/edit.svg" /></a>
-                            <a class="mx-2"><img src="assets/images/delete.svg" /></a>
+                            <a class="mx-2" value="Delete" (click)="deleteRow1(i)"><img src="assets/images/delete.svg" /></a>
                         </div>
                     </td>
                 </tr>

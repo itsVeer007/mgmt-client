@@ -16,7 +16,13 @@ export class SitesComponent implements OnInit {
         x.style.display = 'none';
       }
     }
-
+    var y = <HTMLElement>document.getElementById(`address${this.addressid}`);
+    // console.log("ClosedAddressId:: ",`address${this.addressid}`);
+    if (!y.contains(e.target)) {
+      if (y.style.display == 'flex' || y.style.display == 'block') {
+        y.style.display = 'none';
+      }
+    }
 
     // if(x.style.display == "none"){
     //   if(this.visibility){
@@ -27,17 +33,6 @@ export class SitesComponent implements OnInit {
     //    }else{}
     //   }
     // }
-
-  }
-
-  @HostListener('document:mousedown', ['$event']) onGlobalClick2(e: any): void {
-    var x = <HTMLElement>document.getElementById(`address${this.addressid}`);
-    // console.log("ClosedAddressId:: ",`address${this.addressid}`);
-    if (!x.contains(e.target)) {
-      if (x.style.display == 'flex' || x.style.display == 'block') {
-        x.style.display = 'none';
-      }
-    }
   }
 
   constructor(private http: HttpClient) { }
