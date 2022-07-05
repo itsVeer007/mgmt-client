@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { ChartService } from '../chart.service';
+import { ChartService } from '../utilities/chart.service';
 
 @Component({
   selector: 'app-main-dashboard',
@@ -51,6 +51,7 @@ export class MainDashboardComponent implements OnInit {
     this.mychart2();
     this.mychart3();
     this.mychart4();
+
   }
 
   showmenu(event:any){
