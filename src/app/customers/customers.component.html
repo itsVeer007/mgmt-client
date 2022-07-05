@@ -1,4 +1,5 @@
-<div class="container-fluid sites">
+<app-loader *ngIf="showLoader"></app-loader>
+<div class="container-fluid sites" id ="top">
 
     <!-- header starts -->
     <div class="d-flex justify-content-between">
@@ -134,7 +135,7 @@
                         <div class="plus-img1" id="plus-img{{i}}" style="display: none;">
                             <a class="mx-2"><img src="assets/images/view.svg" /></a>
                             <a class="mx-2"><img src="assets/images/edit.svg" /></a>
-                            <a class="mx-2" value="Delete" (click)="deleteRow1(i)"><img src="assets/images/delete.svg" /></a>
+                            <a class="mx-2" value="Delete" (click)="deleteRow1(cust, i)"><img src="assets/images/delete.svg" /></a>
                         </div>
                     </td>
                 </tr>

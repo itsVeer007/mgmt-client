@@ -16,6 +16,7 @@ import { CustomersComponent } from './customers/customers.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { LoaderComponent } from './utilities/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { HttpClientModule } from '@angular/common/http';
     AddNewBusinessVerticalComponent,
     AddNewUserComponent,
     SitesComponent,
-    CustomersComponent
+    CustomersComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
