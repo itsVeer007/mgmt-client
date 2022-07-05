@@ -142,17 +142,80 @@ export class CustomersComponent implements OnInit {
   //   }
   // }
 
+
+
+  // ---------------- Start delete ---------------------
   deleteRow: any;
 
   deleteRow1(item:any,i: any) {
-    // var i = r.parentNode.parentNode.rowIndex;
-    console.log("DELETEROW:: ",item)
+    console.log("DELETEROW:: ",item);
     this.showLoader=true;
     setTimeout(()=>{
       this.showLoader=false;
       this.CustomerTable.splice(i, 1);
-    },1000)
-
-    // <HTMLElement>document.getElementById("mytable").deleteRow(i);
+    },1000);
   }
+
+  deletePopup: boolean = true;
+  confirmDeleteRow() {
+    console.log("ToBE DELETED:: ",this.currentItem);
+    this.CustomerTable= this.CustomerTable.filter((item:any) => item.siteId !== this.currentItem.siteId);
+    this.deletePopup = true;
+  }
+
+  closeDeletePopup() {
+    this.deletePopup = true;
+  }
+
+  currentItem: any;
+  openDeletePopup(item: any, i: any) {
+    this.currentItem = item;
+    // console.log("Selected Item:: ", item);
+    this.deletePopup = false;
+    // console.log("Open Delete Popup:: ",this.deletePopup);
+    // console.log(this.CustomerTable.siteId);
+  }
+
+// ------- end delete ----------------
+  
+  editPopup: boolean = true;
+
+  confirmEditRow() {
+    console.log("ToBE DELETED:: ",this.currentItem);
+    // this.CustomerTable= this.CustomerTable.filter((item:any) => item.siteId !== this.currentItem.siteId);
+    this.editPopup = true;
+  }
+
+  closeEditPopup() {
+    this.editPopup = true;
+  }
+
+  openEditPopup(item: any, i: any) {
+    this.currentItem = item;
+    // console.log("Selected Item:: ", item);
+    this.editPopup = false;
+    // console.log("Open Delete Popup:: ",this.editPopup);
+    // console.log(this.CustomerTable.siteId);
+  }
+
+  // ------------- start View --------------------
+
+  viewPopup: boolean = true;
+
+  confirmViewRow() {
+    console.log("ToBE DELETED:: ",this.currentItem);
+    this.viewPopup = true;
+  }
+
+  closeViewPopup() {
+    this.viewPopup = true;
+  }
+
+  openViewPopup(item: any, i: any) {
+    this.currentItem = item;
+    console.log("VIEW PAGE:: ",this.currentItem);
+    this.viewPopup = false;
+  }
+
+  // ------------- end View ---------------------
 }
