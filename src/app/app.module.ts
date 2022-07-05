@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MainDashboardComponent } from './main-dashboard/main-dashboard.component';
-import { ChartService } from './chart.service';
+import { ChartService } from './utilities/chart.service';
 import { AddNewSiteComponent } from './main-dashboard/add-new-site/add-new-site.component';
 import { AddNewCameraComponent } from './main-dashboard/add-new-camera/add-new-camera.component';
 import { AddNewCustomerComponent } from './main-dashboard/add-new-customer/add-new-customer.component';
@@ -16,6 +16,7 @@ import { CustomersComponent } from './customers/customers.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { LoaderComponent } from './utilities/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { HttpClientModule } from '@angular/common/http';
     AddNewBusinessVerticalComponent,
     AddNewUserComponent,
     SitesComponent,
-    CustomersComponent
+    CustomersComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,

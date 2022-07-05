@@ -18,6 +18,7 @@ export class CustomersComponent implements OnInit {
     }
   }
 
+  showLoader=false;
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
@@ -143,9 +144,15 @@ export class CustomersComponent implements OnInit {
 
   deleteRow: any;
 
-  deleteRow1(r: any) {
-    var i = r.parentNode.parentNode.rowIndex;
-    console.log("DELETEROW:: ",i)
+  deleteRow1(item:any,i: any) {
+    // var i = r.parentNode.parentNode.rowIndex;
+    console.log("DELETEROW:: ",item)
+    this.showLoader=true;
+    setTimeout(()=>{
+      this.showLoader=false;
+      this.CustomerTable.splice(i, 1);
+    },1000)
+
     // <HTMLElement>document.getElementById("mytable").deleteRow(i);
   }
 }
