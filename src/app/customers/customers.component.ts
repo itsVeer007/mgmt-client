@@ -181,7 +181,7 @@ export class CustomersComponent implements OnInit {
   editPopup: boolean = true;
 
   confirmEditRow() {
-    console.log("ToBE DELETED:: ",this.currentItem);
+    console.log("TO BE EDITED:: ",this.currentItem);
     // this.CustomerTable= this.CustomerTable.filter((item:any) => item.siteId !== this.currentItem.siteId);
     this.editPopup = true;
   }
