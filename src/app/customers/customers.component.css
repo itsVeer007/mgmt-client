@@ -278,3 +278,16 @@ form button {
     font-size: 10px;
 }
 /* CSS for Popup end */
+
+
+.modalitem ul {
+    padding-left: 0rem;
+}
+.modalitem li {
+    display: flex;
+}
+.modalitem h6 {
+    color: #363636;
+    font-size: 13px;
+    font-family: ms,sans-serif;
+}
