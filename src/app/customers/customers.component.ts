@@ -185,6 +185,7 @@ export class CustomersComponent implements OnInit {
     console.log("TO BE EDITED:: ",this.currentItem);
     // this.CustomerTable= this.CustomerTable.filter((item:any) => item.siteId !== this.currentItem.siteId);
     this.editPopup = true;
+    this.CustomerReport();
   }
 
   closeEditPopup() {
@@ -192,7 +193,8 @@ export class CustomersComponent implements OnInit {
   }
 
   openEditPopup(item: any, i: any) {
-    this.currentItem = item;
+    this.currentItem = JSON.parse(JSON.stringify(item));
+    // this.currentItem = item;
     // console.log("Selected Item:: ", item);
     this.editPopup = false;
     // console.log("Open Delete Popup:: ",this.editPopup);
@@ -208,7 +210,7 @@ export class CustomersComponent implements OnInit {
   viewPopup: boolean = true;
 
   confirmViewRow() {
-    console.log("ToBE DELETED:: ",this.currentItem);
+    console.log("ToBE Viewed:: ",this.currentItem);
     this.viewPopup = true;
   }
 
