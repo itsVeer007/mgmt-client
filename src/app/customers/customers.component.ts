@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, HostListener, OnInit } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-customers',
@@ -225,4 +226,11 @@ export class CustomersComponent implements OnInit {
   }
 
   // ------------- end View ---------------------
+
+
+  deleteMultiRecords(item: any, i: any) {
+    console.log("Delete Multiple Records:: ", item.siteId);
+  }
+
+
 }

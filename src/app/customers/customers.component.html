@@ -103,7 +103,7 @@
 
                 <tr *ngFor="let cust of CustomerTable; let i=index">
                     <td><input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="cust.selected"
-                        (change)="checkIfAllSelected();" id="singleCheck" /></td>
+                         (change)="checkIfAllSelected();deleteMultiRecords(cust, i)" id="singleCheck" /></td>
                     <!-- <td><input type="checkbox" class="form-check-input" [checked]="masterSelected" /></td> -->
                     <td>
                         <p>{{cust.siteId}}</p>
