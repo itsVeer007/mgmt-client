@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SearchPipe } from '../utilities/search.pipe';
 
 @Component({
   selector: 'app-customers',
@@ -26,6 +27,7 @@ export class CustomersComponent implements OnInit {
     this.CustomerReport();
   }
 
+  searchText: any;
   CustomerTable: any;
   CustomerReport() {
     this.http.get('assets/JSON/customerData.json').subscribe(res => {
@@ -113,7 +115,7 @@ export class CustomersComponent implements OnInit {
   //   }
   // }
 
-  // Start Checkbox
+  // -----------------Start Checkbox-----------------
   selectedAll: any;
 
   selectAll() {
@@ -128,22 +130,7 @@ export class CustomersComponent implements OnInit {
       return item.selected == true;
     })
   }
-  // End Checkbox
-
-
-  // deleteRow(id: any) {
-  //   console.log("Out of delete():: ", id);
-  //   for (let i = 0; i < this.CustomerTable.length; ++i) {
-  //     console.log("InSide of delete():: ", i);
-  //     if (this.CustomerTable[i].id === id) {
-  //       console.log("InSide of  if delete():: ", this.CustomerTable[i]);
-  //       this.CustomerTable.splice(i, 1);
-  //       console.log("Final:: ", this.CustomerTable.splice(i, 1));
-  //     }
-  //   }
-  // }
-
-
+  // -------------------End Checkbox----------------------
 
   // ---------------- Start delete ---------------------
   deleteRow: any;
@@ -228,9 +215,52 @@ export class CustomersComponent implements OnInit {
   // ------------- end View ---------------------
 
 
-  deleteMultiRecords(item: any, i: any) {
-    console.log("Delete Multiple Records:: ", item.siteId);
+  // ------------ Multiple Records Starts -------------------
+  deletearray:any=[];
+  deleteMultiRecords(item:any, i: any, e:any) {
+    var checked = (e.target.checked);
+    // console.log("Delete Multiple Records:: ", item);
+    if(this.deletearray.length == 0){this.deletearray.push(item)}
+
+    this.deletearray.forEach((el:any) => {
+      if(el.siteId != item.siteId &&  checked){
+        this.deletearray.push(item);
+        this.deletearray = [...new Set(this.deletearray.map((item:any) => item))]
+      }
+      if(el.siteId == item.siteId &&  !checked){
+        var currentindex = this.deletearray.indexOf(item);
+        this.deletearray.splice(currentindex,1)
+      }
+    });
+    // console.log(this.deletearray)
   }
 
+  deleteSelected(){
+    if(this.selectedAll == false) {
+      this.deletearray.forEach((el:any) => {
+        // this.currentItem = el;
+        // this.confirmDeleteRow();
+        this.CustomerTable= this.CustomerTable.filter((item:any) => item.siteId !== el.siteId);
+      });
+      this.deletearray = []
+    }else {
+      this.CustomerTable.forEach((el:any) => {
+        this.CustomerTable= this.CustomerTable.filter((item:any) => item.siteId !== el.siteId);
+      });
+    }
+  }
+
+  // ------------ Multiple Records ends -------------------
+
+  sorted = false;
+  sort(label:any){
+    this.sorted = !this.sorted;
+    var x = this.CustomerTable;
+    if(this.sorted==false){
+      x.sort((a:string, b:string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
+    }else{
+      x.sort((a:string, b:string) => b[label] > a[label] ? 1 : b[label] < a[label] ? -1 : 0);
+    }
+  }
 
 }

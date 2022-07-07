@@ -17,6 +17,7 @@ import { CustomersComponent } from './customers/customers.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { LoaderComponent } from './utilities/loader/loader.component';
+import { SearchPipe } from './utilities/search.pipe';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { LoaderComponent } from './utilities/loader/loader.component';
     AddNewUserComponent,
     SitesComponent,
     CustomersComponent,
-    LoaderComponent
+    LoaderComponent,
+    SearchPipe
   ],
   imports: [
     BrowserModule,

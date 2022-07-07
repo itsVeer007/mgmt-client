@@ -1,5 +1,5 @@
 <app-loader *ngIf="showLoader"></app-loader>
-<div class="container-fluid sites" id ="top">
+<div class="container-fluid sites" id="top">
 
     <!-- header starts -->
     <div class="d-flex justify-content-between">
@@ -66,7 +66,7 @@
                     </select>
                 </div>
                 <div class="col-lg-4 col-md-4 search">
-                    <input type="text" placeholder="Search" name="search2">
+                    <input type="text" placeholder="Search" name="search2" [(ngModel)]="searchText">
                     <button type="submit"><a><img src="assets/images/search.svg" /></a></button>
                 </div>
             </form>
@@ -74,7 +74,7 @@
         <div class="col-lg-2 col-md-2 table-icons">
             <a class="mx-2"><img src="assets/images/view.svg" /></a>
             <a class="mx-2"><img src="assets/images/edit.svg" /></a>
-            <a class="mx-2"><img src="assets/images/delete.svg" /></a>
+            <a class="mx-2" (click)="deleteSelected()"><img src="assets/images/delete.svg" /></a>
         </div>
     </div>
     <!-- form ends -->
@@ -85,25 +85,25 @@
             <tbody>
                 <tr class="form1">
                     <th><input type="checkbox" class="form-check-input" [(ngModel)]="selectedAll"
-                        (change)="selectAll();" id="allcheck"
-                        style="background-color: #00000000; border-color:#fff; margin-left:10px;" />
-                </th>
+                            (change)="selectAll(); " id="allcheck"
+                            style="background-color: #00000000; border-color:#fff; margin-left:10px;" />
+                    </th>
                     <!-- <th><input type="checkbox" class="form-check-input" id="allchecked" (click)="allchecked($event)"
                             style="background-color: #00000000; border-color:#fff;margin-left:10px;" /></th> -->
-                    <th>Cust. ID</th>
-                    <th>Customer Name</th>
-                    <th>Cust. Type</th>
-                    <th>Contact Number</th>
-                    <th>Email id</th>
-                    <th>Contact Person</th>
-                    <th>Address</th>
-                    <th>Status</th>
+                    <th (click)="sort('siteId')">Cust. ID</th>
+                    <th (click)="sort('customerName')">Customer Name</th>
+                    <th (click)="sort('custType')">Cust. Type</th>
+                    <th (click)="sort('contactNumber')">Contact Number</th>
+                    <th (click)="sort('emailId')">Email id</th>
+                    <th (click)="sort('contactPerson')">Contact Person</th>
+                    <th (click)="sort('address')">Address</th>
+                    <th (click)="sort('status')">Status</th>
                     <th></th>
                 </tr>
 
-                <tr *ngFor="let cust of CustomerTable; let i=index">
+                <tr *ngFor="let cust of CustomerTable | search : searchText; let i=index">
                     <td><input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="cust.selected"
-                         (change)="checkIfAllSelected();deleteMultiRecords(cust, i)" id="singleCheck" /></td>
+                            (change)="checkIfAllSelected();deleteMultiRecords(cust, i, $event)" id="singleCheck" /></td>
                     <!-- <td><input type="checkbox" class="form-check-input" [checked]="masterSelected" /></td> -->
                     <td>
                         <p>{{cust.siteId}}</p>
@@ -131,12 +131,14 @@
                                           '#00A44C'">{{cust.status}}</p>
                     </td>
                     <td style="position: relative;">
-                        <a (click)="closeDot($event,i)"><img src="assets/images/dotlist.svg" width="30" height="12" /></a>
+                        <a (click)="closeDot($event,i)"><img src="assets/images/dotlist.svg" width="30"
+                                height="12" /></a>
                         <div class="plus-img1" id="plus-img{{i}}" style="display: none;">
                             <a class="mx-2" (click)="openViewPopup(cust, i)"><img src="assets/images/view.svg" /></a>
                             <a class="mx-2" (click)="openEditPopup(cust, i)"><img src="assets/images/edit.svg" /></a>
                             <!-- <a class="mx-2" value="Delete" (click)="deleteRow1(cust, i)"><img src="assets/images/delete.svg" /></a> -->
-                            <a class="mx-2" value="Delete" (click)="openDeletePopup(cust, i)"><img src="assets/images/delete.svg" /></a>
+                            <a class="mx-2" value="Delete" (click)="openDeletePopup(cust, i)"><img
+                                    src="assets/images/delete.svg" /></a>
                         </div>
                     </td>
                 </tr>
@@ -144,70 +146,117 @@
         </table>
     </div>
 </div>
- <!-- table ends -->
+<!-- table ends -->
 
 
 
 
 <div class="modalitem max-center" [hidden]="deletePopup">
     <!-- <div  class="deletePopup" > -->
-        <div class="card">
-            <div class="card-header d-flex justify-content-between"><p>Delete Row</p><img src="assets/images/Group 101.svg" width="40" height="40" (click)="closeDeletePopup()" /></div>
-            <div class="card-body text-center">Do you want to delete this item?</div>
-            <div class="card-footer">
-                <button type="button" class="btn btn-primary mx-2" (click)="confirmDeleteRow()">OK</button>
-                <button type="button" class="btn btn-danger" (click)="closeDeletePopup()">Close</button>
-            </div>
+    <div class="card">
+        <div class="card-header d-flex justify-content-between">
+            <p>Delete Row</p><img src="assets/images/Group 101.svg" width="40" height="40"
+                (click)="closeDeletePopup()" />
         </div>
+        <div class="card-body text-center">Do you want to delete this item?</div>
+        <div class="card-footer">
+            <button type="button" class="btn btn-primary mx-2" (click)="confirmDeleteRow()">OK</button>
+            <button type="button" class="btn btn-danger" (click)="closeDeletePopup()">Close</button>
+        </div>
+    </div>
     <!-- </div> -->
 </div>
 
 
 <div class="modalitem max-center" [hidden]="editPopup">
     <!-- <div  class="deletePopup" > -->
-        <div class="card">
-            <div class="card-header d-flex justify-content-between"><p>Edit</p><img src="assets/images/Group 101.svg" width="40" height="40" (click)="closeEditPopup()" /></div>
-            <div class="card-body text-center">
-                <ul *ngIf="currentItem">
-                    <li><h6 style="width: 110px;">Site Id </h6>: <div><input type="text" class="form-control my-1" [(ngModel)]="currentItem.siteId" /></div></li>
-                    <li><h6 style="width: 110px;">Customer Name </h6>: <div><input type="text" class="form-control my-1" [(ngModel)]="currentItem.customerName" /></div></li>
-                    <li><h6 style="width: 110px;">Cust Type </h6>: <div><input type="text" class="form-control my-1" [(ngModel)]="currentItem.custType" /></div></li>
-                    <li><h6 style="width: 110px;">Contact Number </h6>: <div><input type="text" class="form-control my-1" [(ngModel)]="currentItem.contactNumber" /></div></li>
-                    <li><h6 style="width: 110px;">Email Id </h6>: <div><input type="text" class="form-control my-1" [(ngModel)]="currentItem.emailId" /></div></li>
-                    <li><h6 style="width: 110px;">Contact Person </h6>: <div><input type="text" class="form-control my-1" [(ngModel)]="currentItem.contactPerson" /></div></li>
-                    <li><h6 style="width: 110px;">Address </h6>: <div><input type="text" class="form-control my-1" [(ngModel)]="currentItem.address" /></div></li>
-                    <li><h6 style="width: 110px;">Status </h6>: <div><input type="text" class="form-control my-1" [(ngModel)]="currentItem.status" /></div></li>
-                </ul>
-            </div>
-            <div class="card-footer">
-                <button type="button" class="btn btn-primary mx-2" (click)="confirmEditRow()">Update</button>
-                <button type="button" class="btn btn-danger" (click)="closeEditPopup()">Close</button>
-            </div>
+    <div class="card">
+        <div class="card-header d-flex justify-content-between">
+            <p>Edit</p><img src="assets/images/Group 101.svg" width="40" height="40" (click)="closeEditPopup()" />
         </div>
+        <div class="card-body text-center">
+            <ul *ngIf="currentItem">
+                <li>
+                    <h6 style="width: 110px;">Site Id </h6>: <div><input type="text" class="form-control my-1"
+                            [(ngModel)]="currentItem.siteId" /></div>
+                </li>
+                <li>
+                    <h6 style="width: 110px;">Customer Name </h6>: <div><input type="text" class="form-control my-1"
+                            [(ngModel)]="currentItem.customerName" /></div>
+                </li>
+                <li>
+                    <h6 style="width: 110px;">Cust Type </h6>: <div><input type="text" class="form-control my-1"
+                            [(ngModel)]="currentItem.custType" /></div>
+                </li>
+                <li>
+                    <h6 style="width: 110px;">Contact Number </h6>: <div><input type="text" class="form-control my-1"
+                            [(ngModel)]="currentItem.contactNumber" /></div>
+                </li>
+                <li>
+                    <h6 style="width: 110px;">Email Id </h6>: <div><input type="text" class="form-control my-1"
+                            [(ngModel)]="currentItem.emailId" /></div>
+                </li>
+                <li>
+                    <h6 style="width: 110px;">Contact Person </h6>: <div><input type="text" class="form-control my-1"
+                            [(ngModel)]="currentItem.contactPerson" /></div>
+                </li>
+                <li>
+                    <h6 style="width: 110px;">Address </h6>: <div><input type="text" class="form-control my-1"
+                            [(ngModel)]="currentItem.address" /></div>
+                </li>
+                <li>
+                    <h6 style="width: 110px;">Status </h6>: <div><input type="text" class="form-control my-1"
+                            [(ngModel)]="currentItem.status" /></div>
+                </li>
+            </ul>
+        </div>
+        <div class="card-footer">
+            <button type="button" class="btn btn-primary mx-2" (click)="confirmEditRow()">Update</button>
+            <button type="button" class="btn btn-danger" (click)="closeEditPopup()">Close</button>
+        </div>
+    </div>
     <!-- </div>   -->
 </div>
 
 <div class="modalitem max-center" [hidden]="viewPopup">
     <!-- <div  class="deletePopup" > -->
-        <div class="card">
-            <div class="card-header d-flex justify-content-between"><p>Customers</p><img src="assets/images/Group 101.svg" width="40" height="40" (click)="closeViewPopup()" /></div>
-            <div class="card-body text-center">
-                <ul *ngIf="currentItem">
-                    <li><h6 style="width: 110px;">Site Id </h6>: {{currentItem?.siteId}}</li>
-                    <li><h6 style="width: 110px;">Customer Name </h6>: {{currentItem?.customerName}}</li>
-                    <li><h6 style="width: 110px;">Cust Type </h6>: {{currentItem?.custType}}</li>
-                    <li><h6 style="width: 110px;">Contact Number </h6>: {{currentItem?.contactNumber}}</li>
-                    <li><h6 style="width: 110px;">Email Id </h6>: {{currentItem?.emailId}}</li>
-                    <li><h6 style="width: 110px;">Contact Person </h6>: {{currentItem?.contactPerson}}</li>
-                    <li><h6 style="width: 110px;">Address </h6>: {{currentItem?.address}}</li>
-                    <li><h6 style="width: 110px;">Status </h6>: {{currentItem?.status}}</li>
-                </ul>
-            </div>
-            <div class="card-footer">
-                <!-- <button type="button" class="btn btn-primary" (click)="confirmViewRow()">OK</button> -->
-                <button type="button" class="btn btn-danger" (click)="closeViewPopup()">Close</button>
-            </div>
+    <div class="card">
+        <div class="card-header d-flex justify-content-between">
+            <p>Customers</p><img src="assets/images/Group 101.svg" width="40" height="40" (click)="closeViewPopup()" />
         </div>
+        <div class="card-body text-center">
+            <ul *ngIf="currentItem">
+                <li>
+                    <h6 style="width: 110px;">Site Id </h6>: {{currentItem?.siteId}}
+                </li>
+                <li>
+                    <h6 style="width: 110px;">Customer Name </h6>: {{currentItem?.customerName}}
+                </li>
+                <li>
+                    <h6 style="width: 110px;">Cust Type </h6>: {{currentItem?.custType}}
+                </li>
+                <li>
+                    <h6 style="width: 110px;">Contact Number </h6>: {{currentItem?.contactNumber}}
+                </li>
+                <li>
+                    <h6 style="width: 110px;">Email Id </h6>: {{currentItem?.emailId}}
+                </li>
+                <li>
+                    <h6 style="width: 110px;">Contact Person </h6>: {{currentItem?.contactPerson}}
+                </li>
+                <li>
+                    <h6 style="width: 110px;">Address </h6>: {{currentItem?.address}}
+                </li>
+                <li>
+                    <h6 style="width: 110px;">Status </h6>: {{currentItem?.status}}
+                </li>
+            </ul>
+        </div>
+        <div class="card-footer">
+            <!-- <button type="button" class="btn btn-primary" (click)="confirmViewRow()">OK</button> -->
+            <button type="button" class="btn btn-danger" (click)="closeViewPopup()">Close</button>
+        </div>
+    </div>
     <!-- </div> -->
 </div>
 
