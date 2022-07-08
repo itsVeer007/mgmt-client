@@ -4,27 +4,63 @@
         "customersCount": "2",
         "sitesCount": "3",
         "cameraCount": "5",
-        "analyticCount": "5"
+        "analyticCount": "5",
+        "id":1
     },
     {
         "vertical": "Restaurant2",
         "customersCount": "2",
         "sitesCount": "3",
         "cameraCount": "5",
-        "analyticCount": "5"
+        "analyticCount": "5",
+        "id":2
     },
     {
         "vertical": "Restaurant3",
         "customersCount": "2",
         "sitesCount": "3",
         "cameraCount": "5",
-        "analyticCount": "5"
+        "analyticCount": "5",
+        "id":3
     },
     {
         "vertical": "Restaurant4",
         "customersCount": "2",
         "sitesCount": "3",
         "cameraCount": "5",
-        "analyticCount": "5"
+        "analyticCount": "5",
+        "id":4
+    },
+    {
+        "vertical": "Restaurant5",
+        "customersCount": "2",
+        "sitesCount": "3",
+        "cameraCount": "5",
+        "analyticCount": "5",
+        "id":5
+    },
+    {
+        "vertical": "Restaurant6",
+        "customersCount": "2",
+        "sitesCount": "3",
+        "cameraCount": "5",
+        "analyticCount": "5",
+        "id":6
+    },
+    {
+        "vertical": "Restaurant7",
+        "customersCount": "2",
+        "sitesCount": "3",
+        "cameraCount": "5",
+        "analyticCount": "5",
+        "id":7
+    },
+    {
+        "vertical": "Restaurant8",
+        "customersCount": "2",
+        "sitesCount": "3",
+        "cameraCount": "5",
+        "analyticCount": "5",
+        "id":8
     }
 ]

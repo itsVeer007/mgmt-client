@@ -73,6 +73,9 @@
    padding: 7px;
    /* min-width: fit-content;
    display: flex; */
+   display: flex;
+   justify-content: center;
+   /* grid-template-columns: repeat(4,1fr); */
 }
 
 .card-menu .card .card-body img {
@@ -87,18 +90,22 @@
     padding-bottom: 10px;
     box-shadow: 5px 5px 10px #0000000D;
 }
+.card1{
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 5px;
+    margin: 5px;
+    min-width: 220px;
+    /* padding: 5px; */
+    box-shadow: 5px 5px 10px #0000000D;
+}
 
 .card-header {
     height: 45px;
-    /* padding-left: 15%; */
-    display: flex;
-    align-items: center;
-    text-align: center;
-    justify-content: center;
 }
-
+.card-header h6{margin: 0;}
 .card-body {
-    height: 60px;
+    height: 70px;
+
 }
 
 .table-resp {

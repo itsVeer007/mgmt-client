@@ -81,12 +81,15 @@ export class MainDashboardComponent implements OnInit {
     this.mychart3();
     this.mychart4();
 
+ 
   }
 
   cardReport: any;
   getMainDashboardCardReport() {
     this.http.get('assets/JSON/verticalCard.json').subscribe(res =>{
       this.cardReport = res;
+      var a = JSON.parse(JSON.stringify(res))
+      this.showcardReport = a.splice(0,4); 
     });
   }
 
@@ -241,6 +244,25 @@ export class MainDashboardComponent implements OnInit {
       x.style.display = 'block';
     }else {
       x.style.display = 'none';
+    }
+  }
+
+  showcardReport:any;
+  prevvert(){
+    var indexOfFirstElem = this.cardReport.map(function (item:any) { return item.id; }).indexOf(this.showcardReport[0].id);
+    if(indexOfFirstElem != 0){
+      indexOfFirstElem = indexOfFirstElem-=1;
+      var a = JSON.parse(JSON.stringify(this.cardReport))
+      this.showcardReport = a.splice(indexOfFirstElem,4); 
+    }
+  }
+  nextvert(){
+    var indexOfFirstElem = this.cardReport.map(function (item:any) { return item.id; }).indexOf(this.showcardReport[0].id);
+    console.log(indexOfFirstElem , (this.cardReport.length -1))
+      if((indexOfFirstElem+4) < (this.cardReport.length)){
+      indexOfFirstElem = indexOfFirstElem+=1;
+      var a = JSON.parse(JSON.stringify(this.cardReport))
+      this.showcardReport = a.splice(indexOfFirstElem,4); 
     }
   }
 
