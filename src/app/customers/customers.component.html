@@ -7,7 +7,7 @@
             <p>List of all Customers - <span>5000</span></p>
         </div>
         <div style="position: relative;">
-            <div [hidden]="icons1" class="icons-site">
+            <div (click)="icons1=!icons1" class="icons-site" id="icons-site"  *ngIf="icons1">
                 <div class="d-flex flex-row justify-content icons pointer">
                     <a (click)="iconsnew1();showAddBusinessVertical=!showAddBusinessVertical"><img
                             src="assets/images/vertical.svg" class="mx-2" width="15" height="15" /></a>

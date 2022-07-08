@@ -25,7 +25,7 @@
 
         <div class="">
 
-            <div [hidden]="icons111" class="icons1">
+            <div *ngIf="icons111" class="icons1" id="icons-site" (click)="icons111=!icons111">
                 <div class="d-flex flex-row justify-content icons pointer">
                     <a (click)="iconssnew();showAddBusinessVertical=!showAddBusinessVertical"><img
                             src="assets/images/vertical.svg" class="mx-2" width="15" height="15" /></a>
@@ -65,31 +65,31 @@
 
         <img src="assets/images/new-svg/next.svg" alt="" style="width: 62px;transform: rotate(180deg);">
 
-        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12 card-menu">
-            <div class="card my-1">
+        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12 card-menu" >
+            <div class="card my-1" *ngFor="let ver of cardReport">
                 <div class="card-header">
-                    <h6><b>Restaurant</b></h6>
+                    <h6><b>{{ver.vertical}}</b></h6>
                 </div>
-                <div class="card-body">
-                    <div class="d-flex flex-row justify-content ">
+                <div class="card-body ">
+                    <div class="d-flex flex-row justify-content">
                         <div class="d-flex flex-column justify-content-start text-center">
                             <img src="assets/images/cust-icon.svg" />
-                            <span class="mt-2"><b>2</b></span>
+                            <span class="mt-2"><b>{{ver.customersCount}}</b></span>
                         </div>
 
                         <div class="d-flex flex-column justify-content-start text-center">
                             <img src="assets/images/site-icon.svg" />
-                            <span class="mt-2"><b>3</b></span>
+                            <span class="mt-2"><b>{{ver.sitesCount}}</b></span>
                         </div>
 
                         <div class="d-flex flex-column justify-content-start text-center">
                             <img src="assets/images/cam-icon.svg" />
-                            <span class="mt-2"><b>20</b></span>
+                            <span class="mt-2"><b>{{ver.cameraCount}}</b></span>
                         </div>
 
                         <div class="d-flex flex-column justify-content-start text-center">
                             <img src="assets/images/analy-icon.svg" />
-                            <span class="mt-2"><b>18</b></span>
+                            <span class="mt-2"><b>{{ver.analyticCount}}</b></span>
                         </div>
 
                     </div>
@@ -97,7 +97,7 @@
             </div>
         </div>
 
-        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12 card-menu">
+        <!-- <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12 card-menu">
             <div class="card my-1">
                 <div class="card-header">
                     <h6><b>Grocery</b></h6>
@@ -225,7 +225,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
 
         <img src="assets/images/new-svg/next.svg" alt="" style="width: 62px;">
@@ -273,16 +273,15 @@
                     <th style="padding: 10px 0; justify-content:center;" class="text-center">Actions</th>
                     <th></th>
                 </tr>
-
-                <tr>
-                    <td class="px-4 pt-2">Restaurant</td>
-                    <td class="pt-2 text-center">2</td>
-                    <td class="pt-2 text-center">1</td>
-                    <td class="pt-2 text-center">5</td>
-                    <td class="pt-2 text-center">4</td>
-                    <td class="pt-2 text-center">1</td>
+                <tr *ngFor="let main of mainReport; let i=index">
+                    <td class="px-4 pt-2">{{main.verticalName}}</td>
+                    <td class="pt-2 text-center">{{main.customerCount}}</td>
+                    <td class="pt-2 text-center">{{main.sitesCount}}</td>
+                    <td class="pt-2 text-center">{{main.camerasCount}}</td>
+                    <td class="pt-2 text-center">{{main.analyticsCount}}</td>
+                    <td class="pt-2 text-center">{{main.usersCount}}</td>
                     <td class="text-center" style="position: relative;">
-                        <div [hidden]="icons11" class="icons1 new-icon">
+                        <div class="icons1 new-icon" id="icons1{{i}}" style="display: none;">
                             <div class="d-flex flex-row justify-content plus-img">
                                 <a><img src="assets/images/Union 26@2x.png" width="15" height="15" /></a>
                                 <a><img src="assets/images/bx-cctv@2x.png" width="15" height="15" /></a>
@@ -290,88 +289,10 @@
                                 <a><img src="assets/images/Union 29@2x.png" width="15" height="15" /></a>
                             </div>
                         </div>
-                        <button class="btn btn-default" (click)="iconss1()" style="box-shadow: none !important;">
-                            <img src="assets/images/add-svg.svg" width="30" height="30" /></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="px-4 pt-2">Grocery</td>
-                    <td class="pt-2 text-center">3</td>
-                    <td class="pt-2 text-center">1</td>
-                    <td class="pt-2 text-center">20</td>
-                    <td class="pt-2 text-center">17</td>
-                    <td class="pt-2 text-center">2</td>
-                    <td class="text-center" style="position: relative;">
-                        <div [hidden]="icons12" class="icons1 new-icon">
-                            <div class="d-flex flex-row justify-content plus-img">
-                                <a><img src="assets/images/Union 26@2x.png" width="15" height="15" /></a>
-                                <a><img src="assets/images/bx-cctv@2x.png" width="15" height="15" /></a>
-                                <a><img src="assets/images/Union 27@2x.png" width="15" height="15" /></a>
-                                <a><img src="assets/images/Union 29@2x.png" width="15" height="15" /></a>
-                            </div>
-                        </div>
-                        <button class="btn btn-default" (click)="iconss2()" style="box-shadow: none !important;">
-                            <img src="assets/images/add-svg.svg" width="30" height="30" /></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="px-4 pt-2">Gas Station</td>
-                    <td class="pt-2 text-center">2</td>
-                    <td class="pt-2 text-center">1</td>
-                    <td class="pt-2 text-center">15</td>
-                    <td class="pt-2 text-center">12</td>
-                    <td class="pt-2 text-center">2</td>
-                    <td class="text-center" style="position: relative;">
-                        <div [hidden]="icons13" class="icons1 new-icon">
-                            <div class="d-flex flex-row justify-content plus-img">
-                                <a><img src="assets/images/Union 26@2x.png" width="15" height="15" /></a>
-                                <a><img src="assets/images/bx-cctv@2x.png" width="15" height="15" /></a>
-                                <a><img src="assets/images/Union 27@2x.png" width="15" height="15" /></a>
-                                <a><img src="assets/images/Union 29@2x.png" width="15" height="15" /></a>
-                            </div>
-                        </div>
-                        <button class="btn btn-default" (click)="iconss3()" style="box-shadow: none !important;">
-                            <img src="assets/images/add-svg.svg" width="30" height="30" /></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="px-4 pt-2">Pharmacies</td>
-                    <td class="pt-2 text-center">2</td>
-                    <td class="pt-2 text-center">1</td>
-                    <td class="pt-2 text-center">10</td>
-                    <td class="pt-2 text-center">9</td>
-                    <td class="pt-2 text-center">1</td>
-                    <td class="text-center" style="position: relative;">
-                        <div [hidden]="icons14" class="icons1 new-icon">
-                            <div class="d-flex flex-row justify-content plus-img">
-                                <a><img src="assets/images/Union 26@2x.png" width="15" height="15" /></a>
-                                <a><img src="assets/images/bx-cctv@2x.png" width="15" height="15" /></a>
-                                <a><img src="assets/images/Union 27@2x.png" width="15" height="15" /></a>
-                                <a><img src="assets/images/Union 29@2x.png" width="15" height="15" /></a>
-                            </div>
-                        </div>
-                        <button class="btn btn-default" (click)="iconss4()" style="box-shadow: none !important;">
-                            <img src="assets/images/add-svg.svg" width="30" height="30" /></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="px-4 pt-2">Store</td>
-                    <td class="pt-2 text-center">5</td>
-                    <td class="pt-2 text-center">1</td>
-                    <td class="pt-2 text-center">5</td>
-                    <td class="pt-2 text-center">5</td>
-                    <td class="pt-2 text-center">1</td>
-                    <td class="text-center" style="position: relative;">
-                        <div [hidden]="icons1" class="icons1 new-icon">
-                            <div class="d-flex flex-row justify-content plus-img">
-                                <a><img src="assets/images/Union 26@2x.png" width="15" height="15" /></a>
-                                <a><img src="assets/images/bx-cctv@2x.png" width="15" height="15" /></a>
-                                <a><img src="assets/images/Union 27@2x.png" width="15" height="15" /></a>
-                                <a><img src="assets/images/Union 29@2x.png" width="15" height="15" /></a>
-                            </div>
-                        </div>
-                        <button class="btn btn-default" (click)="iconss()" style="box-shadow: none !important; ">
-                            <img src="assets/images/add-svg.svg" width="30" height="30" /></button>
+                        <button class="btn btn-default" (click)="iconss1($event, i)"
+                            style="box-shadow: none !important;">
+                            <img src="assets/images/add-svg.svg" width="30" height="30" />
+                        </button>
                     </td>
                 </tr>
             </tbody>

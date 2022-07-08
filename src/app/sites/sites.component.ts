@@ -16,12 +16,19 @@ export class SitesComponent implements OnInit {
         x.style.display = 'none';
       }
     }
+
     var y = <HTMLElement>document.getElementById(`address${this.addressid}`);
     // console.log("ClosedAddressId:: ",`address${this.addressid}`);
     if (!y.contains(e.target)) {
       if (y.style.display == 'flex' || y.style.display == 'block') {
         y.style.display = 'none';
       }
+    }
+
+    var z = <HTMLElement>document.getElementById(`icons-site`);
+    console.log(`icons-site`);
+    if (!z.contains(e.target)) {
+        this.icons1=false;
     }
 
     // if(x.style.display == "none"){
@@ -104,7 +111,7 @@ export class SitesComponent implements OnInit {
   //   this.showAddBusinessVertical = value;
   // }
 
-  icons1: boolean = true;
+  icons1: boolean = false;
   iconsnew1() {
     this.icons1 = !this.icons1;
   }

@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
 import { ChartService } from '../utilities/chart.service';
 
 @Component({
@@ -7,6 +8,32 @@ import { ChartService } from '../utilities/chart.service';
   styleUrls: ['./main-dashboard.component.css']
 })
 export class MainDashboardComponent implements OnInit {
+  
+  @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
+    var x = <HTMLElement>document.getElementById(`icons-site`);
+   if(x!=null){
+      if (!x.contains(e.target)) {
+        this.icons111=false;
+     }
+   }
+
+    var y = <HTMLElement>document.getElementById(`icons1${this.currentid}`);
+    if(y!=null){
+      if (!y.contains(e.target.parentNode.previousElementSibling)) {
+        if (y.style.display == 'flex' || y.style.display == 'block') {
+          y.style.display = 'none';
+        }
+      }
+    }
+  
+  }
+
+  openicons11(i:any){
+    var y = <HTMLElement>document.getElementById(`icons1${this.currentid}`);
+    if (y.style.display == 'flex' || y.style.display == 'block') {
+      y.style.display = 'none';
+    }
+  }
   
   showAddSite = false;
 
@@ -43,15 +70,31 @@ export class MainDashboardComponent implements OnInit {
   showAddUser = false;
   showAddBusinessVertical = false;
 
-  constructor(private chartservice: ChartService) { }
+  constructor(private chartservice: ChartService, private http: HttpClient) { }
 
   ngOnInit(): void {
+    this.getMainDashboardCardReport();
+    this.getMainDashboardReport();
     this.mychart();
     this.mychart1();
     this.mychart2();
     this.mychart3();
     this.mychart4();
 
+  }
+
+  cardReport: any;
+  getMainDashboardCardReport() {
+    this.http.get('assets/JSON/verticalCard.json').subscribe(res =>{
+      this.cardReport = res;
+    });
+  }
+
+  mainReport: any;
+  getMainDashboardReport() {
+    this.http.get('assets/JSON/mainDashboard.json').subscribe(res =>{
+      this.mainReport = res;
+    });
   }
 
   showmenu(event:any){
@@ -183,34 +226,22 @@ export class MainDashboardComponent implements OnInit {
     this.chartservice.createchart(charttype, threeD, title, data, elementid, antype)
   }
  
-  icons111:boolean = true;
+  icons111:boolean = false;
   iconssnew() {
     this.icons111=!this.icons111;
   }
 
-  icons11:boolean = true;
-  iconss1() {
-    this.icons11=!this.icons11;
-  }
-
-  icons12:boolean = true;
-  iconss2() {
-    this.icons12=!this.icons12;
-  }
-
-  icons13:boolean = true;
-  iconss3() {
-    this.icons13=!this.icons13;
-  }
-
-  icons14:boolean = true;
-  iconss4() {
-    this.icons14=!this.icons14;
-  }
-
-  icons1:boolean = true;
-  iconss() {
-    this.icons1=!this.icons1;
+  icons11:boolean = false;
+  currentid=0;
+  iconss1(e:any, i:any) {
+    this.currentid=i;
+    var x = e.target.parentNode.previousElementSibling;
+    // console.log("MainDashboard:: ",x)
+    if(x.style.display == 'none') {
+      x.style.display = 'block';
+    }else {
+      x.style.display = 'none';
+    }
   }
 
 }

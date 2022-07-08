@@ -18,7 +18,15 @@ export class CustomersComponent implements OnInit {
         x.style.display = 'none';
       }
     }
+
+    var y = <HTMLElement>document.getElementById(`icons-site`);
+    console.log(`icons-site`);
+    if (!y.contains(e.target)) {
+        this.icons1=false;
+    }
   }
+ 
+
 
   showLoader=false;
   constructor(private http: HttpClient) { }
@@ -100,7 +108,7 @@ export class CustomersComponent implements OnInit {
   //   this.showAddBusinessVertical = value;
   // }
 
-  icons1: boolean = true;
+  icons1: boolean = false;
   iconsnew1() {
     this.icons1 = !this.icons1;
   }

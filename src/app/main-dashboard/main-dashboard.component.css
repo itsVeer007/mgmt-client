@@ -71,6 +71,8 @@
 
 .card-menu {
    padding: 7px;
+   /* min-width: fit-content;
+   display: flex; */
 }
 
 .card-menu .card .card-body img {
@@ -143,11 +145,6 @@ tbody tr th {
     /* margin: 10px !important; */
 }
 
-.table-striped tr th, td {
-    /* height: 50px; */
-    /* width: 930px; */
-}
-
 .charts div {
     padding: 2px 6px;
 }
@@ -192,7 +189,7 @@ tbody tr th {
     content: "";
    position: absolute;
    /* transform: rotate(180deg); */
-   top: 39px;
+   top: 34px;
    transform: rotate(90deg);
    right: 47%;
    margin-top: -5px;
@@ -212,6 +209,9 @@ tbody tr th {
     position: absolute; 
     width: -webkit-fill-available; 
     top: -27px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 :host ::ng-deep .highcharts-credits{
