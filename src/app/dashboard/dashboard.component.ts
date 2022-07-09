@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,6 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
+  @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
+    var x = <HTMLElement>document.getElementById(`sidebar`);
+   if(x!=null){
+      if (!x.contains(e.target)) {
+        this.showmenu=false;
+     }
+   }
+  }
+  
   constructor() { }
 
   ngOnInit(): void {
