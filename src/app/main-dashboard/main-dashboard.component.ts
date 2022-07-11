@@ -108,11 +108,23 @@ export class MainDashboardComponent implements OnInit {
 
   mainReport: any;
   count: any;
+  totalCust:any=0;
+  totalSites:any=0;
+  totalCams:any=0;
+  totalAna:any=0;
+  totalUsers:any=0;
   getMainDashboardReport() {
     this.http.get('assets/JSON/mainDashboard.json').subscribe(res =>{
       this.mainReport = res;
-      var count = Object.keys(res).length;
-      console.log(count);
+      console.log(res)
+      this.count = Object.keys(res).length;
+      this.mainReport.forEach((el:any) => {
+          this.totalCust += Number(el.customerCount);
+          this.totalSites+= Number(el.sitesCount);
+          this.totalCams+= Number(el.camerasCount);
+          this.totalAna+= Number(el.analyticsCount);
+          this.totalUsers+= Number(el.usersCount);
+      });
     });
   }
 

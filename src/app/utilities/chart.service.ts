@@ -65,7 +65,8 @@ export class ChartService {
       },
       title: {text: title},
       xAxis:{categories:  ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']},
-     // subtitle: {text: subtitle },
+      // subtitle: {text: subtitle },
+      tooltip: {pointFormat: ''},
       plotOptions: {
         pie: {
           innerSize: 150,

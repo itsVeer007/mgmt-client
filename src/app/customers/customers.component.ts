@@ -12,19 +12,25 @@ export class CustomersComponent implements OnInit {
 
   @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
     var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);
+    var y = <HTMLElement>document.getElementById(`icons-site`);
+
     // console.log(`plus-img${this.currentid}`);
-    if (!x.contains(e.target)) {
-      if (x.style.display == 'flex' || x.style.display == 'block') {
-        x.style.display = 'none';
+    if(x !=null){
+      if (!x.contains(e.target)) {
+        if (x.style.display == 'flex' || x.style.display == 'block') {
+          x.style.display = 'none';
+        }
       }
     }
 
-    var y = <HTMLElement>document.getElementById(`icons-site`);
-    console.log(`icons-site`);
-    if (!y.contains(e.target)) {
-        this.icons1=false;
+    if(y !=null){
+      console.log(`icons-site`);
+      if (!y.contains(e.target)) {
+          this.icons1=false;
+      }
     }
   }
+  
  
 
 
