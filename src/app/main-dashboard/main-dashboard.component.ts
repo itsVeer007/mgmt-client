@@ -148,18 +148,18 @@ export class MainDashboardComponent implements OnInit {
     var elementid = 'chart';
     var antype = 'year';
     var data =  [
-      ['91', 40],
+      ['40', 40],
       ['66', 66],
-      ['91', 50],
-      ['66', 70],
-      ['91', 10],
-      ['66', 40],
+      ['50', 50],
+      ['70', 70],
+      ['10', 10],
+      ['40', 40],
       ['91', 91],
-      ['66', 40],
-      ['91', 40],
+      ['40', 40],
+      ['40', 40],
       ['66', 66],
-      ['91', 80],
-      ['66', 100]
+      ['80', 80],
+      ['100', 100]
     ];
     this.chartservice.createchart(charttype, threeD, title, data, elementid, antype)
   }
@@ -173,18 +173,18 @@ export class MainDashboardComponent implements OnInit {
     var elementid = 'chart1';
     var antype = 'year';
     var data =  [
-      ['91', 40],
+      ['40', 40],
       ['66', 66],
-      ['91', 50],
-      ['66', 70],
-      ['91', 10],
-      ['66', 40],
+      ['50', 50],
+      ['70', 70],
+      ['10', 10],
+      ['40', 40],
       ['91', 91],
-      ['66', 40],
-      ['91', 40],
+      ['40', 40],
+      ['40', 40],
       ['66', 66],
-      ['91', 80],
-      ['66', 100]
+      ['80', 80],
+      ['100', 100]
     ];
     this.chartservice.createchart(charttype, threeD, title, data, elementid, antype)
   }
@@ -197,18 +197,18 @@ export class MainDashboardComponent implements OnInit {
     var elementid = 'chart2';
     var antype = 'year';
     var data =  [
-      ['91', 40],
+      ['40', 40],
       ['66', 66],
-      ['91', 50],
-      ['66', 70],
-      ['91', 10],
-      ['66', 40],
+      ['50', 50],
+      ['70', 70],
+      ['10', 10],
+      ['40', 40],
       ['91', 91],
-      ['66', 40],
-      ['91', 40],
+      ['40', 40],
+      ['40', 40],
       ['66', 66],
-      ['91', 80],
-      ['66', 100]
+      ['80', 80],
+      ['100', 100]
     ];
     this.chartservice.createchart(charttype, threeD, title, data, elementid, antype)
   }
@@ -221,18 +221,18 @@ export class MainDashboardComponent implements OnInit {
     var elementid = 'chart3';
     var antype = 'year';
     var data =  [
-      ['91', 40],
+      ['40', 40],
       ['66', 66],
-      ['91', 50],
-      ['66', 70],
-      ['91', 10],
-      ['66', 40],
+      ['50', 50],
+      ['70', 70],
+      ['10', 10],
+      ['40', 40],
       ['91', 91],
-      ['66', 40],
-      ['91', 40],
+      ['40', 40],
+      ['40', 40],
       ['66', 66],
-      ['91', 80],
-      ['66', 100]
+      ['80', 80],
+      ['100', 100]
     ];
     this.chartservice.createchart(charttype, threeD, title, data, elementid, antype)
   }
@@ -245,14 +245,18 @@ export class MainDashboardComponent implements OnInit {
     var elementid = 'chart4';
     var antype = 'year';
     var data =  [
-      ['10', 10],
-      ['20', 20],
-      ['45', 45],
-      ['25', 25],
-      ['60', 60],
+      ['40', 40],
+      ['66', 66],
       ['50', 50],
+      ['70', 70],
+      ['10', 10],
+      ['40', 40],
       ['91', 91],
-      ['66', 66]
+      ['40', 40],
+      ['40', 40],
+      ['66', 66],
+      ['80', 80],
+      ['100', 100]
     ];
     this.chartservice.createchart(charttype, threeD, title, data, elementid, antype)
   }
