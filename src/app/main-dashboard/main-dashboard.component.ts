@@ -258,7 +258,7 @@ export class MainDashboardComponent implements OnInit {
   }
   nextvert(){
     var indexOfFirstElem = this.cardReport.map(function (item:any) { return item.id; }).indexOf(this.showcardReport[0].id);
-    console.log(indexOfFirstElem , (this.cardReport.length -1))
+    // console.log(indexOfFirstElem , (this.cardReport.length -1))
       if((indexOfFirstElem+4) < (this.cardReport.length)){
       indexOfFirstElem = indexOfFirstElem+=1;
       var a = JSON.parse(JSON.stringify(this.cardReport))
