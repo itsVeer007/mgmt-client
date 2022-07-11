@@ -107,9 +107,12 @@ export class MainDashboardComponent implements OnInit {
   }
 
   mainReport: any;
+  count: any;
   getMainDashboardReport() {
     this.http.get('assets/JSON/mainDashboard.json').subscribe(res =>{
       this.mainReport = res;
+      var count = Object.keys(res).length;
+      console.log(count);
     });
   }
 
