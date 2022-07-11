@@ -80,23 +80,39 @@ export class MainDashboardComponent implements OnInit {
     this.mychart2();
     this.mychart3();
     this.mychart4();
-
- 
   }
 
   cardReport: any;
   getMainDashboardCardReport() {
+    this.getNoOfElements();
     this.http.get('assets/JSON/verticalCard.json').subscribe(res =>{
       this.cardReport = res;
-      var a = JSON.parse(JSON.stringify(res))
-      this.showcardReport = a.splice(0,4); 
+      var a = JSON.parse(JSON.stringify(res));
+      // console.log(this.noOfCards);
+      this.showcardReport = a.splice(0,this.noOfCards); 
     });
   }
 
+  noOfCards=4;
+  getNoOfElements() {
+    var x = document.body.clientWidth;
+    // console.log(x);
+    if(x < 400) {this.noOfCards=1;}
+    if(x > 400) {this.noOfCards=1;}
+    if(x > 500) {this.noOfCards=2;}
+    if(x > 700) {this.noOfCards=3;}
+    if(x > 900) {this.noOfCards=4;}
+    if(x > 1400) {this.noOfCards=5;}
+    // console.log(this.noOfCards)
+  }
+
   mainReport: any;
+  count: any;
   getMainDashboardReport() {
     this.http.get('assets/JSON/mainDashboard.json').subscribe(res =>{
       this.mainReport = res;
+      var count = Object.keys(res).length;
+      console.log(count);
     });
   }
 
@@ -253,16 +269,16 @@ export class MainDashboardComponent implements OnInit {
     if(indexOfFirstElem != 0){
       indexOfFirstElem = indexOfFirstElem-=1;
       var a = JSON.parse(JSON.stringify(this.cardReport))
-      this.showcardReport = a.splice(indexOfFirstElem,4); 
+      this.showcardReport = a.splice(indexOfFirstElem,this.noOfCards); 
     }
   }
   nextvert(){
     var indexOfFirstElem = this.cardReport.map(function (item:any) { return item.id; }).indexOf(this.showcardReport[0].id);
-    // console.log(indexOfFirstElem , (this.cardReport.length -1))
-      if((indexOfFirstElem+4) < (this.cardReport.length)){
+    console.log(indexOfFirstElem , (this.cardReport.length -1))
+    if((indexOfFirstElem+this.noOfCards) < (this.cardReport.length)){
       indexOfFirstElem = indexOfFirstElem+=1;
       var a = JSON.parse(JSON.stringify(this.cardReport))
-      this.showcardReport = a.splice(indexOfFirstElem,4); 
+      this.showcardReport = a.splice(indexOfFirstElem,this.noOfCards); 
     }
   }
 

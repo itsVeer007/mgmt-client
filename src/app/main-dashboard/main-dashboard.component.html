@@ -65,8 +65,8 @@
 
         <img src="assets/images/new-svg/next.svg" alt="" style="width: 62px;transform: rotate(180deg);" (click)="prevvert()">
 
-        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12 card-menu" >
-            <div class="card1 my-1" *ngFor="let ver of showcardReport">
+        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12 card-menu" *ngFor="let ver of showcardReport" >
+            <div class="card1 my-1">
                 <div class="card-header max-center">
                     <h6><b>{{ver.vertical}}</b></h6>
                 </div>
@@ -259,7 +259,7 @@
             <tbody>
                 <tr class="form1">
                     <th style="padding: 10px 0; justify-content:center;" class="px-4 ">Vertical - <span
-                            class="badge">4</span></th>
+                            class="badge">6</span></th>
                     <th style="padding: 10px 0; justify-content:center;" class="text-center">Customer - <span
                             class="badge">4</span></th>
                     <th style="padding: 10px 0; justify-content:center;" class="text-center">Sites - <span
