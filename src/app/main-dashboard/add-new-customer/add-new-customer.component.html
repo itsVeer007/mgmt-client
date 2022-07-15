@@ -1,6 +1,6 @@
 <div class="row formModal">
     <div class="col-lg-6 col-md-6"></div>
-    <div class="col-lg-6 col-md-6 add-form" id="customer">
+    <div class="col-lg-6 col-md-6 add-form" id="customer"  @inOutPaneAnimation>
 
         <div class="d-flex flex-row justify-content-between">
             <div class="d-flex flex-row justify-content-start">
@@ -10,7 +10,7 @@
 
             <div class="mx-5 my-4 site-icons">
                 <a (click)="openAnotherForm('showAddBusinessVertical')"><img src="assets/images/ver-icon-form.svg" class="mx-2 my-4" /></a>
-                <a (click)="openAnotherForm('showAddCustomer')"><img src="assets/images/cust-icon-form.svg" class="mx-2 my-4 changesvgcolor myborder" /></a>
+                <a (click)="openAnotherForm('showAddCustomer')" class="boxshadow"><img src="assets/images/cust-icon-form.svg" class="mx-2 my-4 changesvgcolor" /></a>
                 <a (click)="openAnotherForm('showAddSite')"><img src="assets/images/site-icon-form.svg" class="mx-2 my-4" /></a>
                 <a (click)="openAnotherForm('showAddCamera')"><img src="assets/images/cam-icon-form.svg" class="mx-2 my-4" /></a>
                 <a (click)="openAnotherForm('analytics')"><img src="assets/images/analy-icon-form.svg" class="mx-2 my-4" /></a>

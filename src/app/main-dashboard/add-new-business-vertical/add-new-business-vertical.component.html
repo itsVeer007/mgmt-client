@@ -40,9 +40,38 @@
 
 
 
-<div class="row formModal">
-    <div class="col-lg-6 col-md-6"></div>
-    <div class="col-lg-6 col-md-6 add-form" id="vertical">
+
+<!-- <div style="width:50%; float: right; background-color: antiquewhite;">
+    <form>
+        <input type="text" placeholder="Enter Name"/>
+        <input type="text" placeholder="Enter Name"/>
+
+        <input type="text" placeholder="Enter Name"/>
+        <input type="text" placeholder="Enter Name"/>
+
+        <input type="text" placeholder="Enter Name"/>
+        <input type="text" placeholder="Enter Name"/>
+        <input type="text" placeholder="Enter Name"/>
+        <input type="text" placeholder="Enter Name"/>
+
+        <input type="text" placeholder="Enter Name"/>
+        <input type="text" placeholder="Enter Name"/>
+        <input type="text" placeholder="Enter Name"/>
+        <input type="text" placeholder="Enter Name"/>
+    </form>
+</div> -->
+
+
+
+
+
+
+
+
+
+<div class="row formModal" >
+    <div class="col-lg-7 col-md-7"></div>
+    <div class="col-lg-5 col-md-5 add-form" id="vertical" @inOutPaneAnimation>
 
         <div class="d-flex flex-row justify-content-between">
             <div class="d-flex flex-row justify-content-start">
@@ -51,7 +80,7 @@
             </div>
 
             <div class="mx-5 my-4 site-icons">
-                <a (click)="openAnotherForm('showAddBusinessVertical')"><img src="assets/images/ver-icon-form.svg" class="mx-2 my-4 changesvgcolor" /></a>
+                <a (click)="openAnotherForm('showAddBusinessVertical')" class="boxshadow"><img src="assets/images/ver-icon-form.svg" class="mx-2 my-4 changesvgcolor" /></a>
                 <a (click)="openAnotherForm('showAddCustomer')"><img src="assets/images/cust-icon-form.svg" class="mx-2 my-4" /></a>
                 <a (click)="openAnotherForm('showAddSite')"><img src="assets/images/site-icon-form.svg" class="mx-2 my-4" /></a>
                 <a (click)="openAnotherForm('showAddCamera')"><img src="assets/images/cam-icon-form.svg" class="mx-2 my-4" /></a>
@@ -79,6 +108,8 @@
                     <div class="col-lg-2 col-md-2" style="opacity: 0; pointer-events:none;">
                         <input type="text" class="form-control m-2" placeholder="" disabled />
                     </div>
+
+                    <!-- invisible line 2 -->
                     <div class="col-lg-4 col-md-4" style="opacity: 0; pointer-events:none; height: 1px;">
                         <input type="text" class="form-control m-2" placeholder="" disabled />
                     </div>
@@ -89,6 +120,10 @@
                     <div class="text-center m-5">
                         <button class="btn add-btn">ADD</button>
                     </div>
+
+
+
+                    
                 </div>
             </form>
         </div>

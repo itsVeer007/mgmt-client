@@ -8,23 +8,27 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
   templateUrl: './main-dashboard.component.html',
   styleUrls: ['./main-dashboard.component.css'],
   animations: [
-    trigger('enterRight', [
-      transition(':enter', [
-        style({ opacity: 0, transform: 'translateX(200px)' }),
+    trigger("inOutPaneAnimation", [
+      transition(":enter", [
+        style({ opacity: 0, transform: "translateX(100%)" }), //apply default styles before animation starts
         animate(
-          '300ms ease-in',
-          style({ opacity: 1, transform: 'translateX(0)' })
-        ),
+          "750ms ease-in-out",
+          style({ opacity: 1, transform: "translateX(0)" })
+        )
       ]),
-    //   transition(':leave', [
-    //     animate(
-    //       '300ms ease-in',
-    //       style({ opacity: 0, transform: 'translateX(200px)' })
-    //     ),
-    //   ]),
+      transition(":leave", [
+        style({ opacity: 1, transform: "translateX(0)" }), //apply default styles before animation starts
+        animate(
+          "600ms ease-in-out",
+          style({ opacity: 0, transform: "translateX(100%)" })
+        )
+      ])
     ])
   ]
 })
+
+
+
 
 export class MainDashboardComponent implements OnInit {
 
@@ -289,8 +293,23 @@ export class MainDashboardComponent implements OnInit {
   }
 
   icons111: boolean = false;
-  iconssnew() {
+  iconssnew(type:any) {
     this.icons111 = !this.icons111;
+    this.showIconVertical = false;
+    this.showIconCustomer = false;
+    this.showIconSite = false;
+    this.showIconCamera = false;
+    this.showIconAnalytic = false;
+    this.showIconUser = false;
+
+    // var x:any ;
+    // if (type == 'site') { x = <HTMLElement>document.getElementById('site')!; console.log(type, x)  }
+    // if (type == 'camr') { x = <HTMLElement>document.getElementById('camr')!; console.log(type, x)  }
+    // if (type == 'cust') { x = <HTMLElement>document.getElementById('cust')!; console.log(type, x)  }
+    // if (type == 'vert') { x = <HTMLElement>document.getElementById('vert')!; console.log(type, x)  }
+    // if (type == 'user') { x = <HTMLElement>document.getElementById('user')!; console.log(type, x)  }
+    // x.style.display = "block";
+    // x.style.animation= "slideIn 1.2s";
   }
 
   icons11: boolean = false;

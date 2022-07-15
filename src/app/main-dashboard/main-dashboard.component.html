@@ -33,24 +33,24 @@
                 <div class="lists" *ngIf="showIconAnalytic" style="margin-left: -85px;">Analytic</div>
                 <div class="lists" *ngIf="showIconUser" style="margin-left: -40px;">User</div>
 
-                <div class="d-flex flex-row justify-content icons pointer" style="position: absolute;">
-                    <a (click)="iconssnew();showAddBusinessVertical=!showAddBusinessVertical">
+                <div class="d-flex flex-row justify-content icons pointer" style="position: absolute;" >
+                    <a (click)="iconssnew('vert');showAddBusinessVertical=!showAddBusinessVertical">
                         <img src="assets/images/vertical.svg" class="mx-2" width="15" height="15"
                             (mouseenter)="showIconVertical = true" (mouseleave)="showIconVertical = false" />
                     </a>
 
-                    <a (click)="iconssnew();showAddCustomer=!showAddCustomer">
+                    <a (click)="iconssnew('cust');showAddCustomer=!showAddCustomer">
                         <img src="assets/images/customer.svg" class="list mx-2" width="15" height="15"
                             (mouseenter)="showIconCustomer = true" (mouseleave)="showIconCustomer = false" />
                     </a>
 
-                    <a (click)="iconssnew();showAddSite=!showAddSite">
+                    <a (click)="iconssnew('site');showAddSite=!showAddSite">
                         <img src="assets/images/sites.svg" class="list mx-2" width="15" height="15"
-                            (mouseenter)="showIconSite = true" (mouseleave)="showIconSite = false" />
+                            (mouseenter)="showIconSite = true" (mouseleave)="showIconSite = false"/>
                     </a>
 
                     <!-- <a routerLink="/add-new-site"><img src="assets/images/Union 26@2x.png" class="mx-2" width="15" height="15" /></a> -->
-                    <a (click)="iconssnew();showAddCamera=!showAddCamera">
+                    <a (click)="iconssnew('camr');showAddCamera=!showAddCamera">
                         <img src="assets/images/cam.svg" class="list mx-2" width="15" height="15"
                             (mouseenter)="showIconCamera = true" (mouseleave)="showIconCamera = false" />
                     </a>
@@ -60,14 +60,14 @@
                             (mouseenter)="showIconAnalytic = true" (mouseleave)="showIconAnalytic = false" />
                     </a>
 
-                    <a (click)="iconssnew();showAddUser=!showAddUser">
+                    <a (click)="iconssnew('user');showAddUser=!showAddUser">
                         <img src="assets/images/user-white.svg" class="list mx-2" width="15" height="15"
                             (mouseenter)="showIconUser = true" (mouseleave)="showIconUser = false" />
                     </a>
                 </div>
             </div>
             <div class="showtray">
-                <button class="btn btn-default" (click)="iconssnew()"
+                <button class="btn btn-default" (click)="iconssnew('btn')"
                     style="box-shadow: none !important; padding: 1px; ">
                     <img src="assets/images/add-svg.svg" width="40" height="40" /></button>
             </div>
@@ -358,30 +358,28 @@
 </div>
 
 
-
 <div style="position: fixed; top:0;" *ngIf="showAddSite">
-    <app-add-new-site [show]="showAddSite" (newItemEvent)="closenow($event, 'site')"></app-add-new-site>
+    <app-add-new-site [show]="showAddSite" (newItemEvent)="closenow($event, 'site')" ></app-add-new-site>
 </div>
 
 
 
 <div style="position: fixed; top:0;" *ngIf="showAddCamera">
-    <app-add-new-camera [show]="showAddCamera" (newItemEvent)="closenow($event, 'camr')"></app-add-new-camera>
+    <app-add-new-camera [show]="showAddCamera" (newItemEvent)="closenow($event, 'camr')" ></app-add-new-camera>
 </div>
 
 
 
 <div style="position: fixed; top:0;" *ngIf="showAddCustomer">
-    <app-add-new-customer [show]="showAddCustomer" (newItemEvent)="closenow($event, 'cust')"></app-add-new-customer>
+    <app-add-new-customer [show]="showAddCustomer" (newItemEvent)="closenow($event, 'cust')" ></app-add-new-customer>
 </div>
 
 
 
 <div style="position: fixed; top:0;" *ngIf="showAddUser">
-    <app-add-new-user [show]="showAddUser" (newItemEvent)="closenow($event, 'user')"></app-add-new-user>
+    <app-add-new-user [show]="showAddUser" (newItemEvent)="closenow($event, 'user')" ></app-add-new-user>
 </div>
 
-<div style="position: fixed; top:0;" *ngIf="showAddBusinessVertical; show" @enterRight>
-    <app-add-new-business-vertical [show]="showAddBusinessVertical" (newItemEvent)="closenow($event, 'vert')">
-    </app-add-new-business-vertical>
+<div style="position: fixed; top:0;" *ngIf="showAddBusinessVertical">
+    <app-add-new-business-vertical [show]="showAddBusinessVertical" (newItemEvent)="closenow($event, 'vert')" ></app-add-new-business-vertical>
 </div>

@@ -1,6 +1,6 @@
 <div class="row formModal">
     <div class="col-lg-6 col-md-6"></div>
-    <div class="col-lg-6 col-md-6 add-form" id="user">
+    <div class="col-lg-6 col-md-6 add-form" id="user" @inOutPaneAnimation>
 
         <div class="d-flex flex-row justify-content-between">
             <div class="d-flex flex-row justify-content-start">
@@ -14,7 +14,7 @@
                 <a (click)="openAnotherForm('showAddSite')"><img src="assets/images/site-icon-form.svg" class="mx-2 my-4" /></a>
                 <a (click)="openAnotherForm('showAddCamera')"><img src="assets/images/cam-icon-form.svg" class="mx-2 my-4" /></a>
                 <a (click)="openAnotherForm('analytics')"><img src="assets/images/analy-icon-form.svg" class="mx-2 my-4" /></a>
-                <a (click)="openAnotherForm('showAddUser')"><img src="assets/images/user-icon-form.svg" class="mx-2 my-4 changesvgcolor" /></a>
+                <a (click)="openAnotherForm('showAddUser')" class="boxshadow"><img src="assets/images/user-icon-form.svg" class="mx-2 my-4 changesvgcolor" /></a>
             </div>
         </div>
 
