@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,6 +11,15 @@ export class AddNewCameraComponent implements OnInit {
   @Input() show:any;
 
   @Output() newItemEvent = new EventEmitter<boolean>();
+  
+  @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
+    var x = <HTMLElement>document.getElementById(`camera`);
+    if (x != null) {
+      if (!x.contains(e.target)) {
+        this.closeAddCamera(false);
+      }
+    }
+  }
   
   closeAddCamera(value:boolean) {
     this.newItemEvent.emit(value);

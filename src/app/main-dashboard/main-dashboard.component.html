@@ -26,19 +26,44 @@
         <div class="">
 
             <div *ngIf="icons111" class="icons1" id="icons-site" (click)="icons111=!icons111">
-                <div class="d-flex flex-row justify-content icons pointer">
-                    <a (click)="iconssnew();showAddBusinessVertical=!showAddBusinessVertical"><img
-                            src="assets/images/vertical.svg" class="mx-2" width="15" height="15" /></a>
-                    <a (click)="iconssnew();showAddCustomer=!showAddCustomer"><img src="assets/images/customer.svg"
-                            class="mx-2" width="15" height="15" /></a>
-                    <a (click)="iconssnew();showAddSite=!showAddSite"><img src="assets/images/sites.svg" class="mx-2"
-                            width="15" height="15" /></a>
+                <div class="lists" *ngIf="showIconVertical" style="margin-left: -235px;">Business Vertical</div>
+                <div class="lists" *ngIf="showIconCustomer" style="margin-left: -180px;">Customer</div>
+                <div class="lists" *ngIf="showIconSite" style="margin-left: -135px;">Site</div>
+                <div class="lists" *ngIf="showIconCamera" style="margin-left: -115px;">Camera</div>
+                <div class="lists" *ngIf="showIconAnalytic" style="margin-left: -85px;">Analytic</div>
+                <div class="lists" *ngIf="showIconUser" style="margin-left: -40px;">User</div>
+
+                <div class="d-flex flex-row justify-content icons pointer" style="position: absolute;">
+                    <a (click)="iconssnew();showAddBusinessVertical=!showAddBusinessVertical">
+                        <img src="assets/images/vertical.svg" class="mx-2" width="15" height="15"
+                            (mouseenter)="showIconVertical = true" (mouseleave)="showIconVertical = false" />
+                    </a>
+
+                    <a (click)="iconssnew();showAddCustomer=!showAddCustomer">
+                        <img src="assets/images/customer.svg" class="list mx-2" width="15" height="15"
+                            (mouseenter)="showIconCustomer = true" (mouseleave)="showIconCustomer = false" />
+                    </a>
+
+                    <a (click)="iconssnew();showAddSite=!showAddSite">
+                        <img src="assets/images/sites.svg" class="list mx-2" width="15" height="15"
+                            (mouseenter)="showIconSite = true" (mouseleave)="showIconSite = false" />
+                    </a>
+
                     <!-- <a routerLink="/add-new-site"><img src="assets/images/Union 26@2x.png" class="mx-2" width="15" height="15" /></a> -->
-                    <a (click)="iconssnew();showAddCamera=!showAddCamera"><img src="assets/images/cam.svg" class="mx-2"
-                            width="15" height="15" /></a>
-                    <a><img src="assets/images/analytic.svg" class="mx-2" width="15" height="15" /></a>
-                    <a (click)="iconssnew();showAddUser=!showAddUser"><img src="assets/images/user-white.svg"
-                            class="mx-2" width="15" height="15" /></a>
+                    <a (click)="iconssnew();showAddCamera=!showAddCamera">
+                        <img src="assets/images/cam.svg" class="list mx-2" width="15" height="15"
+                            (mouseenter)="showIconCamera = true" (mouseleave)="showIconCamera = false" />
+                    </a>
+
+                    <a>
+                        <img src="assets/images/analytic.svg" class="list mx-2" width="15" height="15"
+                            (mouseenter)="showIconAnalytic = true" (mouseleave)="showIconAnalytic = false" />
+                    </a>
+
+                    <a (click)="iconssnew();showAddUser=!showAddUser">
+                        <img src="assets/images/user-white.svg" class="list mx-2" width="15" height="15"
+                            (mouseenter)="showIconUser = true" (mouseleave)="showIconUser = false" />
+                    </a>
                 </div>
             </div>
             <div class="showtray">
@@ -63,9 +88,10 @@
     <!-- class="d-flex justify-content-between card-menu" -->
     <div class="row d-flex justify-content-between max-center" style="padding: 5px;">
 
-        <img src="assets/images/new-svg/next.svg" alt="" style="width: 62px;transform: rotate(180deg);" (click)="prevvert()">
+        <img src="assets/images/new-svg/next.svg" alt="" style="width: 62px;transform: rotate(180deg);"
+            (click)="prevvert()">
 
-        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12 card-menu" *ngFor="let ver of showcardReport" >
+        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12 card-menu" *ngFor="let ver of showcardReport">
             <div class="card1 my-1">
                 <div class="card-header max-center">
                     <h6><b>{{ver.vertical}}</b></h6>
@@ -355,7 +381,7 @@
     <app-add-new-user [show]="showAddUser" (newItemEvent)="closenow($event, 'user')"></app-add-new-user>
 </div>
 
-<div style="position: fixed; top:0;" *ngIf="showAddBusinessVertical">
+<div style="position: fixed; top:0;" *ngIf="showAddBusinessVertical; show" @enterRight>
     <app-add-new-business-vertical [show]="showAddBusinessVertical" (newItemEvent)="closenow($event, 'vert')">
     </app-add-new-business-vertical>
 </div>

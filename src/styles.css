@@ -22,7 +22,7 @@ body {
 }
 
 .changesvgcolor{
-    filter: invert(61%) sepia(64%) saturate(3120%) hue-rotate(205deg) brightness(101%) contrast(103%);
+    filter: invert(40%) sepia(64%) saturate(3120%) hue-rotate(205deg) brightness(101%) contrast(103%);
 }
 
 /* width */

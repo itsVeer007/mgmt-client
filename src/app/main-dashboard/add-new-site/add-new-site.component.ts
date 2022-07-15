@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,11 +12,20 @@ export class AddNewSiteComponent implements OnInit {
 
   @Output() newItemEvent = new EventEmitter<boolean>();
 
+  @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
+    var x = <HTMLElement>document.getElementById(`sites`);
+    if (x != null) {
+      if (!x.contains(e.target)) {
+        this.closeAddSite(false);
+      }
+    }
+  }
+
   closeAddSite(value: boolean) {
     this.newItemEvent.emit(value);
   }
 
-  constructor(private router:Router) { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     console.log(this.show)
@@ -71,9 +80,9 @@ export class AddNewSiteComponent implements OnInit {
   monitoring() {
     this.moni = !this.moni;
   }
- 
+
   intell: boolean = false;
-  
+
   businessIntell() {
     this.intell = !this.intell;
   }
@@ -87,9 +96,20 @@ export class AddNewSiteComponent implements OnInit {
   //   }
   // }
 
-  openAnotherForm(newform:any) {
+  openAnotherForm(newform: any) {
     // this.newItemEvent.emit(false);
     localStorage.setItem('opennewform', newform)
     this.closeAddSite(false);
+  }
+
+  latitude: any;
+  longitude: any;
+  getLocation() {
+    navigator.geolocation.getCurrentPosition((latlong)=> {
+      this.latitude =(latlong.coords.latitude);
+      this.longitude = (latlong.coords.longitude);
+    }, function () {
+      alert('User not allowed')
+    }, { timeout: 10000 })
   }
 }

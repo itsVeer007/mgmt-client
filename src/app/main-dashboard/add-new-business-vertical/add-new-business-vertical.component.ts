@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,6 +11,15 @@ export class AddNewBusinessVerticalComponent implements OnInit {
   @Input() show:any;
 
   @Output() newItemEvent = new EventEmitter<any>();
+  
+  @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
+    var x = <HTMLElement>document.getElementById(`vertical`);
+    if (x != null) {
+      if (!x.contains(e.target)) {
+        this.closeAddVertical(false);
+      }
+    }
+  }
   
   closeAddVertical(value:any) {
     this.newItemEvent.emit(value);

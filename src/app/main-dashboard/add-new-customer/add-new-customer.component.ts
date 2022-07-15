@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms'
 import { Router } from '@angular/router';
 
@@ -12,6 +12,15 @@ export class AddNewCustomerComponent implements OnInit {
   @Input() show:any;
 
   @Output() newItemEvent = new EventEmitter<boolean>();
+  
+  @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
+    var x = <HTMLElement>document.getElementById(`customer`);
+    if (x != null) {
+      if (!x.contains(e.target)) {
+        this.closeAddCustomer(false);
+      }
+    }
+  }
   
   closeAddCustomer(value:boolean) {
     this.newItemEvent.emit(value);
