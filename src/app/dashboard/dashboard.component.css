@@ -93,7 +93,7 @@ body {
 
 .profile-card {
   position: absolute; 
-  top: 7%; 
+  top: 6.5%; 
   right: 3%; 
   z-index: 999;
   border: none;
@@ -101,7 +101,7 @@ body {
 }
 
 .profile-card .card-header {
-  background-image: linear-gradient(to right, #AA4337, #274874); 
+  background-image: linear-gradient(to top, #AA4337, #274874); 
   text-align: center; 
   color: #fff;
   padding: 40px; 

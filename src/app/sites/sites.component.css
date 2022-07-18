@@ -101,6 +101,7 @@ form button {
     padding: 0;
 }
 
+
 .form1 {
   background-image: linear-gradient(to right, #084982, #AA4337);
   background-size: cover;
@@ -265,4 +266,8 @@ form button {
 
 td:nth-child(7) {
     font-size: 11px !important;
-  }
+}
+
+.lists {
+    margin-top: -20px;
+}

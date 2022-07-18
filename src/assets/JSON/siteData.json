@@ -14,7 +14,7 @@
         "devices": "assets/images/add-svg.svg"
     },
     {
-        "siteID": 1000015,
+        "siteID": 1000016,
         "siteName": "Osaka Midland",
         "customer": "BOB",
         "status": "Onhold",
@@ -28,7 +28,7 @@
         "devices": "assets/images/add-svg.svg"
     },
     {
-        "siteID": 1000015,
+        "siteID": 1000017,
         "siteName": "Osaka Midland",
         "customer": "BOB",
         "status": "Inactive",
@@ -41,7 +41,7 @@
         "cntrl_Unit": "IVISUSA12130",
         "devices": "assets/images/add-svg.svg"
     },{
-        "siteID": 1000015,
+        "siteID": 1000018,
         "siteName": "Osaka Midland",
         "customer": "BOB",
         "status": "Active",
@@ -55,7 +55,7 @@
         "devices": "assets/images/add-svg.svg"
     },
     {
-        "siteID": 1000015,
+        "siteID": 1000019,
         "siteName": "Osaka Midland",
         "customer": "BOB",
         "status": "Onhold",
@@ -69,7 +69,7 @@
         "devices": "assets/images/add-svg.svg"
     },
     {
-        "siteID": 1000015,
+        "siteID": 1000020,
         "siteName": "Osaka Midland",
         "customer": "BOB",
         "status": "Inactive",
@@ -83,7 +83,7 @@
         "devices": "assets/images/add-svg.svg"
     },
     {
-        "siteID": 1000015,
+        "siteID": 1000021,
         "siteName": "Osaka Midland",
         "customer": "BOB",
         "status": "Active",
@@ -97,7 +97,7 @@
         "devices": "assets/images/add-svg.svg"
     },
     {
-        "siteID": 1000015,
+        "siteID": 1000022,
         "siteName": "Osaka Midland",
         "customer": "BOB",
         "status": "Onhold",
@@ -111,7 +111,7 @@
         "devices": "assets/images/add-svg.svg"
     },
     {
-        "siteID": 1000015,
+        "siteID": 1000023,
         "siteName": "Osaka Midland",
         "customer": "BOB",
         "status": "Inactive",

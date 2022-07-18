@@ -55,7 +55,7 @@
 
 
 <!-- Profile Details -->
-<div class="card profile-card" [hidden]="profile">
+<div class="card profile-card" *ngIf="profile" id="profiles">
     <div class="card-header d-flex flex-column justify-content">
         <img src="assets/images/Ellipse 25@2x.png" width="100" height="100" />
         <h6 class="mt-2">User Name</h6>
