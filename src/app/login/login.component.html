@@ -1,0 +1,17 @@
+<div class="login">
+    <div><a class="login-logo"><img src="assets/images/Logo.svg" /></a></div>
+    <div class="main-header">
+        <div class="heading">
+            <h4>SIGN IN</h4>
+        </div>
+        <form>
+            <input type="text" name="uname" class="form-control" placeholder="Enter UserName" [(ngModel)]="username" (keydown)="error=null"/>
+            <input type="password" name="pwd" class="form-control" placeholder="Enter Password" [(ngModel)]="password"/>
+            <a><small>Forgot Password ?</small></a>
+            <div class="btns">
+                <div>{{error ? error:''}} &nbsp;</div>    
+                <button type="submit" class="btn" (click)="submit()">LOGIN</button>
+            </div>
+        </form>
+    </div>
+</div>

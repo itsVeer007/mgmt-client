@@ -69,3 +69,8 @@ like a tickmark */
 }
 
 /* Design for checkbox tick - END */
+.help-block{
+    color: red;
+    margin-left: 10px;
+}
+

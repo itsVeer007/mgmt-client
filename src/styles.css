@@ -62,11 +62,11 @@ body {
     /* max-height: calc(110vh - (200px)); */
     overflow-y: scroll;
     /* background: none repeat scroll 0 0 ; */
-    /* height: 75vh; */
+    height: 95vh;
     background-color: #fff;
-    height: max-content;
+    /* height: max-content; */
     position: relative;
-    overflow: visible;
+    /* overflow: visible; */
 }
 .add-form:before {
    box-shadow: -25px 0 20px -20px #0000000D inset;
@@ -87,6 +87,7 @@ body {
 .add-form .site-icons img {
     width: 18px; 
     margin: 12px;
+    cursor: pointer;
 }
 .add-form .d-flex img {
     margin-left: -50px;

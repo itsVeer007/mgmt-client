@@ -9,84 +9,112 @@
             </div>
 
             <div class="mx-5 my-4 site-icons">
-                <a (click)="openAnotherForm('showAddBusinessVertical')"><img src="assets/images/ver-icon-form.svg" class="mx-2 my-4" /></a>
-                <a (click)="openAnotherForm('showAddCustomer')"><img src="assets/images/cust-icon-form.svg" class="mx-2 my-4" /></a>
-                <a (click)="openAnotherForm('showAddSite')"><img src="assets/images/site-icon-form.svg" class="mx-2 my-4" /></a>
-                <a (click)="openAnotherForm('showAddCamera')"><img src="assets/images/cam-icon-form.svg" class="mx-2 my-4" /></a>
-                <a (click)="openAnotherForm('analytics')"><img src="assets/images/analy-icon-form.svg" class="mx-2 my-4" /></a>
-                <a (click)="openAnotherForm('showAddUser')" class="boxshadow"><img src="assets/images/user-icon-form.svg" class="mx-2 my-4 changesvgcolor" /></a>
+                <a (click)="openAnotherForm('showAddBusinessVertical')"><img src="assets/images/ver-icon-form.svg"
+                        class="mx-2 my-4" /></a>
+                <a (click)="openAnotherForm('showAddCustomer')"><img src="assets/images/cust-icon-form.svg"
+                        class="mx-2 my-4" /></a>
+                <a (click)="openAnotherForm('showAddSite')"><img src="assets/images/site-icon-form.svg"
+                        class="mx-2 my-4" /></a>
+                <a (click)="openAnotherForm('showAddCamera')"><img src="assets/images/cam-icon-form.svg"
+                        class="mx-2 my-4" /></a>
+                <a (click)="openAnotherForm('analytics')"><img src="assets/images/analy-icon-form.svg"
+                        class="mx-2 my-4" /></a>
+                <a (click)="openAnotherForm('showAddUser')" class="boxshadow"><img
+                        src="assets/images/user-icon-form.svg" class="mx-2 my-4 changesvgcolor" /></a>
             </div>
         </div>
 
         <div>
-            <form autocomplete="off">
+            <!-- [style.border]="(user.username =='' && error==true) ? '3px solid rgb(238, 160, 160)':''" -->
+            <form autocomplete="off" [formGroup]="UserForm" (ngSubmit)="onSubmit()" #addUserForm="ngForm">
                 <div class="row">
+                    <!-- <div class="col-lg-6 col-md-6" [class.has-error]="userControl.invalid && userControl.touched">
+                        <input type="text" class="form-control m-1" placeholder="User Name*"  [style.border]="userControl.invalid && userControl.touched ?'3px solid rgb(238, 160, 160)':''"
+                         [(ngModel)]="user.username" id="user" name="user" required #userControl="ngModel" />
+                         <small class="help-block" *ngIf="userControl.invalid && userControl.touched">
+                            Please Enter UserName
+                         </small>
+                    </div> -->
+
                     <div class="col-lg-6 col-md-6">
-                        <input type="text" class="form-control m-1" placeholder="User Name*" required/>
+                        <input type="text" class="form-control m-1" placeholder="User Name*" id="UserName"
+                            formControlName="userName" required />
                     </div>
                     <div class="col-lg-6 col-md-6">
-                        <input type="password" class="form-control m-1" placeholder="Password*" required/>
+                        <input type="password" class="form-control m-1" placeholder="Password*"
+                            formControlName="password" name="pwd" required />
                     </div>
                     <div class="col-lg-6 col-md-6">
-                        <input type="text" class="form-control m-1" placeholder="First Name*" required/>
+                        <input type="text" class="form-control m-1" placeholder="First Name*" formControlName="first"
+                            name="first" required />
                     </div>
                     <div class="col-lg-6 col-md-6">
-                        <input type="text" class="form-control m-1" placeholder="Last Name*" required/>
+                        <input type="text" class="form-control m-1" placeholder="Last Name*" formControlName="last"
+                            name="last" required />
                     </div>
                     <div class="col-lg-6 col-md-6">
-                        <select id="" class="form-select m-1">
-                            <option selected>Role</option>
-                            <option>...</option>
-                        </select>
-                    </div> 
-                    <div class="col-lg-6 col-md-6">
-                        <select id="" class="form-select m-1">
-                            <option selected>Gender</option>
-                            <option>Male</option>
-                            <option>Female</option>
-                        </select>
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                        <select id="" class="form-select m-1">
-                            <option selected>Active</option>
-                            <option>...</option>
-                        </select>
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                        <select id="" class="form-select m-1">
-                            <option selected>Realm</option>
-                            <option>...</option>
-                        </select>
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                        <input type="email" class="form-control m-1" placeholder="Email Id*" required/>
-                    </div> 
-                    <div class="col-lg-6 col-md-6">
-                        <input type="number" class="form-control m-1" placeholder="Contact Number*" required/>
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                        <select id="" class="form-select m-1" required>
-                            <option selected>Country*</option>
-                            <option>...</option>
+                        <!-- <select class="custom-select mb-3" (change)="changeCity($event)" formControlName="cityName">
+                            <option value="">Choose City</option>
+                            <option *ngFor="let city of City" [ngValue]="city">
+                                {{ city }}
+                            </option>
+                        </select> -->
+
+                        <select class="form-select m-1" id="" formControlName="role">
+                            <option value="" selected>Role</option>
+                            <option value="role" name="rr">rrr</option>
                         </select>
                     </div>
                     <div class="col-lg-6 col-md-6">
-                        <select id="" class="form-select m-1">
-                            <option selected>State</option>
-                            <option>...</option>
+                        <select class="form-select m-1" id="" formControlName="gender" >
+                            <option value="" selected>Gender</option>
+                            <option value="m" name="male">Male</option>
+                            <option value="f" name="female">Female</option>
                         </select>
                     </div>
                     <div class="col-lg-6 col-md-6">
-                        <select id="" class="form-select m-1">
-                            <option selected>District/City</option>
-                            <option>...</option>
+                        <select class="form-select m-1" id="" formControlName="active" >
+                            <option value="" selected>Active</option>
+                            <option value="a" name="active">active</option>
                         </select>
                     </div>
                     <div class="col-lg-6 col-md-6">
-                        <input type="text" class="form-control m-1" placeholder="Pincode" />
+                        <select class="form-select m-1" id="" formControlName="realm">
+                            <option value="" selected>Realm</option>
+                            <option value="real" name="real">real</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <input type="email" class="form-control m-1" placeholder="Email Id*" formControlName="email"
+                            name="email" required />
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <input type="text" class="form-control m-1" placeholder="Contact Number*"
+                            formControlName="phone" name="number" required />
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <select class="form-select m-1" id="" name="coun" formControlName="country" required>
+                            <option value="" selected>Country*</option>
+                            <option value="count" name="count">count</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <select class="form-select m-1" id="" formControlName="state">
+                            <option value="" selected>State</option>
+                            <option value="state1" name="state1">state1</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <select class="form-select m-1" id="" formControlName="city">
+                            <option value="" selected>District/City</option>
+                            <option value="cit" name="cit">cit</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <input type="text" class="form-control m-1" placeholder="Pincode" formControlName="pincode" />
                     </div>
                     <div class="col-lg-12 col-md-12">
-                        <input type="text" class="form-control m-1" placeholder="Area/Street" />
+                        <input type="text" class="form-control m-1" placeholder="Area/Street" formControlName="area" />
                     </div>
                     <label class="main mx-2 my-3">Safety Escort
                         <input type="checkbox" checked="checked">
@@ -94,51 +122,22 @@
                     </label>
 
                     <div class="text-center mb-5">
-                        <button class="btn add-btn">ADD</button>
+                        <button type="submit" class="btn add-btn" (click)="submit()">ADD</button>
                     </div>
-
-                    <!-- <div class="col-lg-6 col-md-6">
-                        <input type="text" class="form-control m-2" placeholder="User Id" />
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <input type="text" class="form-control m-2" placeholder="Enabled" />
-                    </div>
-                   
-                   
-                    <div class="col-lg-4 col-md-4">
-                        <input type="text" class="form-control m-2" placeholder="Gender" />
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <input type="text" class="form-control m-2" placeholder="Role" />
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <input type="text" class="form-control m-2" placeholder="Group" />
-                    </div> -->
-
-                    <!-- <div>
-                        <div class="row">
-                            <div class="col-lg-4 col-md-4">
-                                <input type="text" class="form-control m-2" placeholder="Line1" />
-                            </div>
-                            <div class="col-lg-4 col-md-4">
-                                <input type="text" class="form-control m-2" placeholder="Line2" />
-                            </div>
-                            <div class="col-lg-4 col-md-4">
-                                <input type="text" class="form-control m-2" placeholder="City" />
-                            </div>
-                            <div class="col-lg-4 col-md-4">
-                                <input type="text" class="form-control m-2" placeholder="State" />
-                            </div>
-                            <div class="col-lg-4 col-md-4">
-                                <input type="text" class="form-control m-2" placeholder="Country" />
-                            </div>
-                           
-                        </div>
-                    </div> -->
-
-                    
                 </div>
             </form>
+
+            <!-- <form class="form-row" [formGroup]="UserForm" (ngSubmit)="onSubmit()">
+                <div class="col-lg-12 col-md-12">
+                    <input type="text" class="form-control" id="fullName" formControlName="fullName" />
+                </div>
+                <div class="col-lg-12 col-md-12">
+                    <input type="email" class="form-control" id="email" formControlName="email" />
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary" (click)="submit()">SUBMIT</button>
+                </div>
+            </form> -->
         </div>
 
     </div>
