@@ -19,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoaderComponent } from './utilities/loader/loader.component';
 import { SearchPipe } from './utilities/search.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { XpAnimationDirective } from './utilities/animation/animation.directive';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SitesComponent,
     CustomersComponent,
     LoaderComponent,
-    SearchPipe
+    SearchPipe,
+    XpAnimationDirective
   ],
   imports: [
     BrowserModule,
