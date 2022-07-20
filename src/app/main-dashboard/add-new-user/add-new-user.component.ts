@@ -1,6 +1,8 @@
 import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ApiService } from 'src/app/utilities/api.service';
 
 @Component({
   selector: 'app-add-new-user',
@@ -44,9 +46,74 @@ export class AddNewUserComponent implements OnInit {
     this.newItemEvent.emit(value);
   }
 
-  constructor(private router:Router) { }
 
-  ngOnInit(): void {
+  constructor(private router:Router, 
+              private apiser: ApiService, 
+              private fb: FormBuilder) { }
+
+  error=false;
+  user = {
+    username: "",
+    password: "",
+    firstname: "",
+    lastname: "",
+    roleList: [  ],
+    email: "",
+    gender: "",
+    realm: "",
+    contactNumber1: "",
+    contactNumber2: "",
+    country: "",
+    addressLine1: "",
+    addressLine2: "",
+    district: "",
+    state: "",
+    city: "",
+    pin: "",
+    employee: "",
+    employeeId: "",
+    accesstoken: "",
+    callingUsername: "",
+    callingSystemDetail: "admin",
+    safetyEscort: ""
+  }
+
+  UserForm: any =  FormGroup;
+  ngOnInit() {
+    // this.employeeForm = new FormGroup({
+    //   fullName: new FormControl(),
+    //   email: new FormControl()
+    // });
+
+    this.UserForm = this.fb.group({
+      'userName': new FormControl(''),
+      'password': new FormControl(''),
+      'first': new FormControl(''),
+      'last': new FormControl(''),
+      // 'role': this.fb.group({
+      //        cityName: ['']
+      //       }),
+      'role': new FormControl(''),
+      'gender': new FormControl(''),
+      'active': new FormControl(''),
+      'realm': new FormControl(''),
+      'email': new FormControl(''),
+      'phone': new FormControl(''),
+      'country': new FormControl(''),
+      'state': new FormControl(''),
+      'city': new FormControl(''),
+      'pincode': new FormControl(''),
+      'area': new FormControl('')   
+    });
+
+    // const addUser = {
+    //   'fullName':'HARI CHANDANA',
+    //   'email':'hari@gmail.com'
+    // };
+    // this.employeeForm.setValue(addUser);
+  }
+
+  onSubmit(): void {
   }
 
   openAnotherForm(newform:any) {
@@ -55,4 +122,15 @@ export class AddNewUserComponent implements OnInit {
     this.closeAddUser(false);
   }
 
+  submit(){
+    console.log("Entered in AddUser:: ",this.UserForm.value);
+    // console.log("Payload:: ",this.user);
+    // this.apiser.addUser(this.user).subscribe((res: any)=>{
+    //   console.log(res);
+    //   if(res.Status == "Success"){
+    //   }
+    // });
+  }
+
 }
+

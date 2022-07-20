@@ -8,12 +8,14 @@ import { AddNewUserComponent } from './main-dashboard/add-new-user/add-new-user.
 import { AddNewBusinessVerticalComponent } from './main-dashboard/add-new-business-vertical/add-new-business-vertical.component';
 import { SitesComponent } from './sites/sites.component';
 import { CustomersComponent } from './customers/customers.component';
-
+import { LoginComponent } from './login/login.component'
+import { DashboardComponent } from './dashboard/dashboard.component';
 const routes: Routes = [];
 
 @NgModule({
   imports: [RouterModule.forRoot([
-    {path:'', redirectTo:'main-dashboard', pathMatch:'full'},
+    {path:'', redirectTo:'/login', pathMatch:'full'},
+    {path:'login', component:LoginComponent},
     {path:'main-dashboard', component:MainDashboardComponent},
     {path:'add-new-site', component:AddNewSiteComponent},
     {path:'add-new-camera', component:AddNewCameraComponent},
