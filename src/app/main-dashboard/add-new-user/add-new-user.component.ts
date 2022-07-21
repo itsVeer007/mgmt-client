@@ -29,6 +29,10 @@ import { ApiService } from 'src/app/utilities/api.service';
 })
 export class AddNewUserComponent implements OnInit {
 
+  constructor(private router:Router, 
+    private apiser: ApiService, 
+    private fb: FormBuilder) { }
+
   @Input() show:any;
 
   @Output() newItemEvent = new EventEmitter<boolean>();
@@ -42,14 +46,7 @@ export class AddNewUserComponent implements OnInit {
     }
   }
   
-  closeAddUser(value:boolean) {
-    this.newItemEvent.emit(value);
-  }
 
-
-  constructor(private router:Router, 
-              private apiser: ApiService, 
-              private fb: FormBuilder) { }
 
   error=false;
   user = {
@@ -77,8 +74,9 @@ export class AddNewUserComponent implements OnInit {
     callingSystemDetail: "admin",
     safetyEscort: ""
   }
-
   UserForm: any =  FormGroup;
+
+
   ngOnInit() {
     // this.employeeForm = new FormGroup({
     //   fullName: new FormControl(),
@@ -113,7 +111,16 @@ export class AddNewUserComponent implements OnInit {
     // this.employeeForm.setValue(addUser);
   }
 
+  getUserDetails(){
+    this.apiser.getUser().subscribe((res:any)=>{
+      console.log(res)
+    })
+  }
+
   onSubmit(): void {
+  }
+  closeAddUser(value:boolean) {
+    this.newItemEvent.emit(value);
   }
 
   openAnotherForm(newform:any) {

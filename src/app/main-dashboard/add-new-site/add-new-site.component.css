@@ -227,3 +227,9 @@ p {
 .existSecuity input, .existSecuity select {
   margin-left: 4px;
 }
+.adjustedclose{
+  position: absolute;
+  top: 88px;
+  left: 144px;
+  z-index: 1;
+}

@@ -24,4 +24,18 @@ export class ApiService {
     let url = this.baseUrl+"/login/login_2_0";
     return this.http.post(url,loginDetails);
   }
+
+  getUser(){
+    let url = this.baseUrl+"/User/getUser_1_0";
+    var user = JSON.parse(localStorage.getItem('user')!);
+    console.log(user)
+    var payload = {
+      "username":"deepika",
+      "email":"deepika123@gmail.com",
+      "callingUsername": user.userName,
+      "accesstoken":user.accesstoken,
+      "callingSystemDetail":"admin"
+    }
+    return this.http.post(url, payload);
+  }
 }
