@@ -227,3 +227,8 @@ p {
 .existSecuity input, .existSecuity select {
   margin-left: 4px;
 }
+.closebtn {
+  margin-top: 100px;
+  margin-left: auto;
+  margin-right: -50px;
+}
