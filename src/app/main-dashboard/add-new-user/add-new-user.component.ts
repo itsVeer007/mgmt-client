@@ -109,11 +109,38 @@ export class AddNewUserComponent implements OnInit {
     //   'email':'hari@gmail.com'
     // };
     // this.employeeForm.setValue(addUser);
+    this.getUserDetails()
   }
 
   getUserDetails(){
     this.apiser.getUser().subscribe((res:any)=>{
       console.log(res)
+      if(res.Status == 'Success'){
+        this.user.username= "";
+        // this.user.password= res. ;
+        this.user.firstname= res.firstName ;
+        this.user.lastname= res.lastName ;
+        // this.user.roleList = res. ;
+        this.user.email= res.email ;
+        this.user.gender= res.gender ;
+        this.user.realm= res.realm ;
+        this.user.contactNumber1= res.contactNo1 ;
+        this.user.contactNumber2= res.contactNo2 ;
+        this.user.country= res.country ;
+        this.user.addressLine1= res.address_line1 ;
+        this.user.addressLine2= res.address_line2 ;
+        this.user.district= res.district ;
+        this.user.state= res.state ;
+        this.user.city= res.city ;
+        this.user.pin= res.pin ;
+        this.user.employee= res.employee ;
+        this.user.employeeId= res.empId ;
+        // this.user.accesstoken= res. ;
+        // this.user.callingUsername= res. ;
+        this.user.callingSystemDetail = "portal" ;
+        this.user.safetyEscort = res.safetyescort;
+        
+      }
     })
   }
 

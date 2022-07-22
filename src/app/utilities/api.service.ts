@@ -28,14 +28,24 @@ export class ApiService {
   getUser(){
     let url = this.baseUrl+"/User/getUser_1_0";
     var user = JSON.parse(localStorage.getItem('user')!);
-    console.log(user)
+    // console.log(user);
     var payload = {
       "username":"deepika",
       "email":"deepika123@gmail.com",
-      "callingUsername": user.userName,
-      "accesstoken":user.accesstoken,
-      "callingSystemDetail":"admin"
+      "callingUsername": user.UserName,
+      "accesstoken":user.access_token,
+      "callingSystemDetail":"portal"
     }
+    // console.log(payload)
     return this.http.post(url, payload);
+  }
+
+  updateUser(user:any){
+    let url = this.baseUrl+"/User/getUser_1_0";
+    var a = JSON.parse(localStorage.getItem('user')!);
+    user.accesstoken=a.access_token;
+    user.callingUsername= a.UserName;
+    return this.http.post(url, user);
+
   }
 }

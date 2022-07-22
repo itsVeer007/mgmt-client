@@ -37,7 +37,7 @@
                     </div> -->
 
                     <div class="col-lg-6 col-md-6">
-                        <input type="text" class="form-control m-1" placeholder="User Name*" id="UserName"
+                        <input type="text" class="form-control m-1" placeholder="User Name*" id="UserName" [(ngModel)]="user.username"
                             formControlName="userName" required />
                     </div>
                     <div class="col-lg-6 col-md-6">
@@ -45,11 +45,11 @@
                             formControlName="password" name="pwd" required />
                     </div>
                     <div class="col-lg-6 col-md-6">
-                        <input type="text" class="form-control m-1" placeholder="First Name*" formControlName="first"
+                        <input type="text" class="form-control m-1" placeholder="First Name*" formControlName="first" [(ngModel)]="user.firstname"
                             name="first" required />
                     </div>
                     <div class="col-lg-6 col-md-6">
-                        <input type="text" class="form-control m-1" placeholder="Last Name*" formControlName="last"
+                        <input type="text" class="form-control m-1" placeholder="Last Name*" formControlName="last" [(ngModel)]="user.lastname"
                             name="last" required />
                     </div>
                     <div class="col-lg-6 col-md-6">
