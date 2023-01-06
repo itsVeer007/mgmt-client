@@ -1,14 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, HostListener, OnInit } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SearchPipe } from '../utilities/search.pipe';
 
 @Component({
-  selector: 'app-customers',
-  templateUrl: './customers.component.html',
-  styleUrls: ['./customers.component.css']
+  selector: 'app-users',
+  templateUrl: './users.component.html',
+  styleUrls: ['./users.component.css']
 })
-export class CustomersComponent implements OnInit {
+export class UsersComponent implements OnInit {
 
   // @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
   //   var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);
@@ -59,7 +57,6 @@ export class CustomersComponent implements OnInit {
   CustomerTable: any;
   CustomerReport() {
     this.http.get('assets/JSON/customerData.json').subscribe(res => {
-      // console.log("CustomerReport::",res);
       this.CustomerTable = res;
     });
   }
@@ -129,15 +126,16 @@ export class CustomersComponent implements OnInit {
   // }
 
   icons1: boolean = false;
+
   iconsnew1() {
     this.icons1 = !this.icons1;
 
-    this.showIconVertical = false;
-    this.showIconCustomer = false;
-    this.showIconSite = false;
-    this.showIconCamera = false;
-    this.showIconAnalytic = false;
-    this.showIconUser = false;
+    // this.showIconVertical = false;
+    // this.showIconCustomer = false;
+    // this.showIconSite = false;
+    // this.showIconCamera = false;
+    // this.showIconAnalytic = false;
+    // this.showIconUser = false;
   }
 
   masterSelected: boolean = false;
@@ -342,5 +340,4 @@ export class CustomersComponent implements OnInit {
       x.sort((a: string, b: string) => b[label] > a[label] ? 1 : b[label] < a[label] ? -1 : 0);
     }
   }
-
 }

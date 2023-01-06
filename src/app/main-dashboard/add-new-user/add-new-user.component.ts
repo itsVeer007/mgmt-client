@@ -29,23 +29,23 @@ import { ApiService } from 'src/app/utilities/api.service';
 })
 export class AddNewUserComponent implements OnInit {
 
-  constructor(private router:Router, 
-    private apiser: ApiService, 
+  constructor(private router:Router,
+    private apiser: ApiService,
     private fb: FormBuilder) { }
 
   @Input() show:any;
 
   @Output() newItemEvent = new EventEmitter<boolean>();
-  
-  @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
-    var x = <HTMLElement>document.getElementById(`user`);
-    if (x != null) {
-      if (!x.contains(e.target)) {
-        this.closeAddUser(false);
-      }
-    }
-  }
-  
+
+  // @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
+  //   var x = <HTMLElement>document.getElementById(`user`);
+  //   if (x != null) {
+  //     if (!x.contains(e.target)) {
+  //       this.closeAddUser(false);
+  //     }
+  //   }
+  // }
+
 
 
   error=false;
@@ -101,7 +101,7 @@ export class AddNewUserComponent implements OnInit {
       'state': new FormControl(''),
       'city': new FormControl(''),
       'pincode': new FormControl(''),
-      'area': new FormControl('')   
+      'area': new FormControl('')
     });
 
     // const addUser = {
@@ -139,7 +139,7 @@ export class AddNewUserComponent implements OnInit {
         // this.user.callingUsername= res. ;
         this.user.callingSystemDetail = "portal" ;
         this.user.safetyEscort = res.safetyescort;
-        
+
       }
     })
   }

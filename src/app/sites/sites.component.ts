@@ -9,45 +9,33 @@ import { SearchPipe } from '../utilities/search.pipe';
 })
 export class SitesComponent implements OnInit {
 
-  @HostListener('document:mousedown', ['$event']) onGlobalClick1(e: any): void {
-    var x = <HTMLElement>document.getElementById(`plus${this.currentid}`);
-    // console.log("ClosedId:: ",`plus${this.currentid}`);
-    if (x != null) {
-      if (!x.contains(e.target)) {
-        if (x.style.display == 'flex' || x.style.display == 'block') {
-          x.style.display = 'none';
-        }
-      }
-    }
+  // @HostListener('document:mousedown', ['$event']) onGlobalClick1(e: any): void {
+  //   var x = <HTMLElement>document.getElementById(`plus${this.currentid}`);
+  //   console.log("ClosedId:: ",`plus${this.currentid}`);
+  //   if (x != null) {
+  //     if (!x.contains(e.target)) {
+  //       if (x.style.display == 'flex' || x.style.display == 'block') {
+  //         x.style.display = 'none';
+  //       }
+  //     }
+  //   }
 
-    var y = <HTMLElement>document.getElementById(`address${this.addressid}`);
-    // console.log("ClosedAddressId:: ",`address${this.addressid}`);
-    if (y != null) {
-      if (!y.contains(e.target)) {
-        if (y.style.display == 'flex' || y.style.display == 'block') {
-          y.style.display = 'none';
-        }
-      }
-    }
+  //   var y = <HTMLElement>document.getElementById(`address${this.addressid}`);
+  //   if (y != null) {
+  //     if (!y.contains(e.target)) {
+  //       if (y.style.display == 'flex' || y.style.display == 'block') {
+  //         y.style.display = 'none';
+  //       }
+  //     }
+  //   }
 
-    var z = <HTMLElement>document.getElementById(`icons-site`);
-    // console.log(`icons-site`);
-    if (z != null) {
-      if (!z.contains(e.target)) {
-        this.icons1 = false;
-      }
-    }
-
-    // if(x.style.display == "none"){
-    //   if(this.visibility){
-    //     if (!this.popupmodal.nativeElement.contains(e.target)) {
-    //       this.visibility=!this.visibility;
-    //       this.calldisabled = true;
-    //       this.time = null;
-    //    }else{}
-    //   }
-    // }
-  }
+  //   var z = <HTMLElement>document.getElementById(`icons-site`);
+  //   if (z != null) {
+  //     if (!z.contains(e.target)) {
+  //       this.icons1 = false;
+  //     }
+  //   }
+  // }
 
   constructor(private http: HttpClient) { }
 
@@ -68,7 +56,7 @@ export class SitesComponent implements OnInit {
   showIconView1: boolean = false;
   showIconEdit1: boolean = false;
   showIconDelete1: boolean = false;
-  
+
   searchText: any;
   tableData: any;
 
@@ -184,7 +172,7 @@ export class SitesComponent implements OnInit {
   //     this.SelectAll =true;
   //   }else{
   //     this.masterSelected = false;
-  //   }   
+  //   }
   // }
 
   // itemchecked(e:any){

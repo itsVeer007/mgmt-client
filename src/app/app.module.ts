@@ -21,6 +21,7 @@ import { SearchPipe } from './utilities/search.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { XpAnimationDirective } from './utilities/animation/animation.directive';
 import { LoginComponent } from './login/login.component';
+import { UsersComponent } from './users/users.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { LoginComponent } from './login/login.component';
     CustomersComponent,
     LoaderComponent,
     SearchPipe,
-    LoginComponent
+    LoginComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,

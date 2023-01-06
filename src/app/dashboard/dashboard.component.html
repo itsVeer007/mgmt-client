@@ -40,7 +40,7 @@
                         <img src="assets/images/analytic.svg" />
                         <span> Analytics</span>
                     </a>
-                    <a class="list-group-item " >
+                    <a class="list-group-item " [routerLink]="['/users']" routerLinkActive="routeactive">
                         <img src="assets/images/user-white.svg" />
                         <span> Users</span>
                     </a>
@@ -107,7 +107,7 @@
             <a class="list-group-item my-2">
                 <img src="assets/images/analytic.svg" /><span> Analytics</span>
             </a>
-            <a class="list-group-item my-2" >
+            <a class="list-group-item my-2" [routerLink]="['/users']" routerLinkActive="routeactive">
                 <img src="assets/images/user-white.svg" /><span> Users</span>
             </a>
         </div>

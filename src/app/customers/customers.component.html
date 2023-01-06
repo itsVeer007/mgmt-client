@@ -7,7 +7,7 @@
             <p>List of all Customers - <span>5000</span></p>
         </div>
         <div style="position: relative;">
-            <div (click)="icons1=!icons1" class="icons-site" id="icons-site" *ngIf="icons1">
+            <!-- <div (click)="icons1=!icons1" class="icons-site" id="icons-site" *ngIf="icons1">
                 <div class="lists" *ngIf="showIconVertical" style="margin-left: -25px;">Business Vertical</div>
                 <div class="lists" *ngIf="showIconCustomer" style="margin-left: 23px;">Customer</div>
                 <div class="lists" *ngIf="showIconSite" style="margin-left: 67px;">Site</div>
@@ -46,8 +46,8 @@
                             (mouseenter)="showIconUser = true" (mouseleave)="showIconUser = false" />
                     </a>
                 </div>
-            </div>
-            <a (click)="iconsnew1()"><img src="assets/images/add.svg" alt="" /></a>
+            </div> -->
+            <a (click)="iconsnew1();showAddCustomer=!showAddCustomer"><img src="assets/images/add.svg" alt="" /></a>
             <a><img src="assets/images/sites-img.svg" alt=""
                     style="border-radius: 24px; box-shadow: 7px 7px 7px 0px #f3f3f3; margin-top: -9px;" /></a>
         </div>

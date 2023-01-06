@@ -10,6 +10,7 @@ import { SitesComponent } from './sites/sites.component';
 import { CustomersComponent } from './customers/customers.component';
 import { LoginComponent } from './login/login.component'
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { UsersComponent } from './users/users.component';
 const routes: Routes = [];
 
 @NgModule({
@@ -23,7 +24,8 @@ const routes: Routes = [];
     {path:'add-new-user', component:AddNewUserComponent},
     {path:'add-new-business', component:AddNewBusinessVerticalComponent},
     {path:'sites', component:SitesComponent},
-    {path:'customers', component:CustomersComponent}
+    {path:'customers', component:CustomersComponent},
+    {path:'users', component:UsersComponent}
   ])],
   exports: [RouterModule]
 })

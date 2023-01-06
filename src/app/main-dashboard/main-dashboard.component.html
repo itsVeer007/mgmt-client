@@ -19,68 +19,65 @@
     </div> -->
 
     <div class="d-flex justify-content-between verticals">
+      <div>
+        <h5 class="text-secondary my-4">Dashboard</h5>
+        <h6><b>verticals - <span> 8</span></b></h6>
+      </div>
+
+      <!-- <div class="">
+
+        <div *ngIf="icons111" class="icons1" id="icons-site" (click)="icons111=!icons111">
+          <div class="lists" *ngIf="showIconVertical" style="margin-left: -235px;">Business Vertical</div>
+          <div class="lists" *ngIf="showIconCustomer" style="margin-left: -180px;">Customer</div>
+          <div class="lists" *ngIf="showIconSite" style="margin-left: -135px;">Site</div>
+          <div class="lists" *ngIf="showIconCamera" style="margin-left: -115px;">Camera</div>
+          <div class="lists" *ngIf="showIconAnalytic" style="margin-left: -85px;">Analytic</div>
+          <div class="lists" *ngIf="showIconUser" style="margin-left: -40px;">User</div>
+
+          <div class="d-flex flex-row justify-content icons pointer" style="position: absolute;">
+            <a (click)="iconssnew('vert');showAddBusinessVertical=!showAddBusinessVertical">
+              <img src="assets/images/vertical.svg" class="mx-2" width="15" height="15"
+                (mouseenter)="showIconVertical = true" (mouseleave)="showIconVertical = false" />
+            </a>
+
+            <a (click)="iconssnew('cust');showAddCustomer=!showAddCustomer">
+              <img src="assets/images/customer.svg" class="list mx-2" width="15" height="15"
+                (mouseenter)="showIconCustomer = true" (mouseleave)="showIconCustomer = false" />
+            </a>
+
+            <a (click)="iconssnew('site');showAddSite=!showAddSite">
+              <img src="assets/images/sites.svg" class="list mx-2" width="15" height="15" (mouseenter)="showIconSite = true"
+                (mouseleave)="showIconSite = false" />
+            </a>
+
+            <a (click)="iconssnew('camr');showAddCamera=!showAddCamera">
+              <img src="assets/images/cam.svg" class="list mx-2" width="15" height="15" (mouseenter)="showIconCamera = true"
+                (mouseleave)="showIconCamera = false" />
+            </a>
+
+            <a>
+              <img src="assets/images/analytic.svg" class="list mx-2" width="15" height="15"
+                (mouseenter)="showIconAnalytic = true" (mouseleave)="showIconAnalytic = false" />
+            </a>
+
+            <a (click)="iconssnew('user');showAddUser=!showAddUser">
+              <img src="assets/images/user-white.svg" class="list mx-2" width="15" height="15"
+                (mouseenter)="showIconUser = true" (mouseleave)="showIconUser = false" />
+            </a>
+          </div>
+        </div>
+        <div class="showtray">
+          <button class="btn btn-default" (click)="iconssnew('btn')" style="box-shadow: none !important; padding: 1px; ">
+            <img src="assets/images/add-svg.svg" width="40" height="40" /></button>
+        </div>
+
         <div>
-            <h6 style="margin: 0; margin-left: 20px; font-size: 16px;"><b>verticals - <span> 8</span></b></h6>
+          <img src="assets/images/Union 18@2x.png" width="20" height="10" />
+          <span class="mx-3">1 - 4</span>
+          <img src="assets/images/Union 17@2x.png" width="20" height="10" />
         </div>
 
-        <div class="">
-
-            <div *ngIf="icons111" class="icons1" id="icons-site" (click)="icons111=!icons111">
-                <div class="lists" *ngIf="showIconVertical" style="margin-left: -235px;">Business Vertical</div>
-                <div class="lists" *ngIf="showIconCustomer" style="margin-left: -180px;">Customer</div>
-                <div class="lists" *ngIf="showIconSite" style="margin-left: -135px;">Site</div>
-                <div class="lists" *ngIf="showIconCamera" style="margin-left: -115px;">Camera</div>
-                <div class="lists" *ngIf="showIconAnalytic" style="margin-left: -85px;">Analytic</div>
-                <div class="lists" *ngIf="showIconUser" style="margin-left: -40px;">User</div>
-
-                <div class="d-flex flex-row justify-content icons pointer" style="position: absolute;" >
-                    <a (click)="iconssnew('vert');showAddBusinessVertical=!showAddBusinessVertical">
-                        <img src="assets/images/vertical.svg" class="mx-2" width="15" height="15"
-                            (mouseenter)="showIconVertical = true" (mouseleave)="showIconVertical = false" />
-                    </a>
-
-                    <a (click)="iconssnew('cust');showAddCustomer=!showAddCustomer">
-                        <img src="assets/images/customer.svg" class="list mx-2" width="15" height="15"
-                            (mouseenter)="showIconCustomer = true" (mouseleave)="showIconCustomer = false" />
-                    </a>
-
-                    <a (click)="iconssnew('site');showAddSite=!showAddSite">
-                        <img src="assets/images/sites.svg" class="list mx-2" width="15" height="15"
-                            (mouseenter)="showIconSite = true" (mouseleave)="showIconSite = false" />
-                    </a>
-
-                    <!-- <a routerLink="/add-new-site"><img src="assets/images/Union 26@2x.png" class="mx-2" width="15" height="15" /></a> -->
-                    <a (click)="iconssnew('camr');showAddCamera=!showAddCamera">
-                        <img src="assets/images/cam.svg" class="list mx-2" width="15" height="15"
-                            (mouseenter)="showIconCamera = true" (mouseleave)="showIconCamera = false" />
-                    </a>
-
-                    <a>
-                        <img src="assets/images/analytic.svg" class="list mx-2" width="15" height="15"
-                            (mouseenter)="showIconAnalytic = true" (mouseleave)="showIconAnalytic = false" />
-                    </a>
-
-                    <a (click)="iconssnew('user');showAddUser=!showAddUser">
-                        <img src="assets/images/user-white.svg" class="list mx-2" width="15" height="15"
-                            (mouseenter)="showIconUser = true" (mouseleave)="showIconUser = false" />
-                    </a>
-                </div>
-            </div>
-            <div class="showtray">
-                <button class="btn btn-default" (click)="iconssnew('btn')"
-                    style="box-shadow: none !important; padding: 1px; ">
-                    <img src="assets/images/add-svg.svg" width="40" height="40" /></button>
-            </div>
-
-            <!-- <div>
-                <img src="assets/images/Union 18@2x.png" width="20" height="10" />
-                <span class="mx-3">1 - 4</span>
-                <img src="assets/images/Union 17@2x.png" width="20" height="10" />
-            </div> -->
-
-        </div>
-
-
+      </div> -->
 
     </div>
 
@@ -326,7 +323,7 @@
     </div>
 
     <!-- <div>
-        <div class="form1"> 
+        <div class="form1">
             <p class="text-white p-3" style="font-size: 16px!important; font-weight: 700!important;">Analytics</p>
         </div>
     </div> -->

@@ -32,26 +32,23 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 
 export class MainDashboardComponent implements OnInit {
 
-  @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
-    var x = <HTMLElement>document.getElementById(`icons-site`);
-    if (x != null) {
-      if (!x.contains(e.target)) {
-        this.icons111 = false;
-      }
-    }
+  // @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
+  //   var x = <HTMLElement>document.getElementById(`icons-site`);
+  //   if (x != null) {
+  //     if (!x.contains(e.target)) {
+  //       this.icons111 = false;
+  //     }
+  //   }
 
-    var y = <HTMLElement>document.getElementById(`icons1${this.currentid}`);
-    if (y != null) {
-      if (!y.contains(e.target.parentNode.previousElementSibling)) {
-        if (y.style.display == 'flex' || y.style.display == 'block') {
-          y.style.display = 'none';
-        }
-      }
-    }
-
-
-
-  }
+  //   var y = <HTMLElement>document.getElementById(`icons1${this.currentid}`);
+  //   if (y != null) {
+  //     if (!y.contains(e.target.parentNode.previousElementSibling)) {
+  //       if (y.style.display == 'flex' || y.style.display == 'block') {
+  //         y.style.display = 'none';
+  //       }
+  //     }
+  //   }
+  // }
 
   openicons11(i: any) {
     var y = <HTMLElement>document.getElementById(`icons1${this.currentid}`);
@@ -118,6 +115,7 @@ export class MainDashboardComponent implements OnInit {
     this.getNoOfElements();
     this.http.get('assets/JSON/verticalCard.json').subscribe(res => {
       this.cardReport = res;
+      console.log(res)
       var a = JSON.parse(JSON.stringify(res));
       // console.log(this.noOfCards);
       this.showcardReport = a.splice(0, this.noOfCards);
