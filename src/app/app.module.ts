@@ -24,14 +24,16 @@ import { LoginComponent } from './login/login.component';
 import { UsersComponent } from './users/users.component';
 import { AddAdditionalSiteComponent } from './main-dashboard/add-additional-site/add-additional-site.component';
 import { MultiSelectSearchComponent } from './utilities/multi-select-search/multi-select-search.component';
+import { AssetsComponent } from './assets/assets.component';
+import { TicketsComponent } from './tickets/tickets.component';
+import { InventoryComponent } from './inventory/inventory.component';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { AssetsComponent } from './assets/assets.component';
-import { TicketsComponent } from './tickets/tickets.component';
-import { InventoryComponent } from './inventory/inventory.component';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -65,7 +67,9 @@ import { InventoryComponent } from './inventory/inventory.component';
     MatFormFieldModule,
     MatSelectModule,
     MatIconModule,
-    MatInputModule
+    MatInputModule,
+    MatDividerModule,
+    MatListModule
   ],
   providers: [
     ChartService

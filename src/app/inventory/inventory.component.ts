@@ -346,4 +346,12 @@ export class InventoryComponent implements OnInit {
       x.sort((a: string, b: string) => b[label] > a[label] ? 1 : b[label] < a[label] ? -1 : 0);
     }
   }
+
+  //Show Detail
+  showDetail: boolean = false;
+
+  onShowDetail() {
+    this.showDetail = !this.showDetail
+  }
+
 }
