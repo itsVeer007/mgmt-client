@@ -3,7 +3,7 @@
   <!-- header starts -->
   <div class="d-flex justify-content-between">
     <div class="users-header">
-      <p>List of all Users - <span>1500</span></p>
+      <p>Total Inventory - <span>500</span></p>
     </div>
     <div style="position: relative">
       <!-- <div (click)="icons1 = !icons1" class="icons-site" id="icons-site" *ngIf="icons1">
@@ -71,26 +71,63 @@
   <!-- header ends -->
 
   <!-- count starts -->
-  <div class="row">
+  <div class="d-flex align-items-center">
     <div class="col-lg-1 col-md-1 d-flex justify-content-start">
       <div class="vl-green"></div>
       <div class="mx-2">
-        <div class="status">Active</div>
-        <div class="count">1300</div>
+        <div class="status">In-Stock</div>
+        <div class="count">20</div>
       </div>
     </div>
     <div class="col-lg-1 col-md-1 d-flex justify-content-start">
       <div class="vl-red"></div>
       <div class="mx-2">
-        <div class="status">Inactive</div>
-        <div class="count">150</div>
+        <div class="status">Installed</div>
+        <div class="count">400</div>
       </div>
     </div>
     <div class="col-lg-1 col-md-1 d-flex justify-content-start">
       <div class="vl-yellow"></div>
       <div class="mx-2">
-        <div class="status">Onhold</div>
+        <div class="status">Scrap</div>
+        <div class="count">5</div>
+      </div>
+    </div>
+    <div class="col-lg-1 col-md-1 d-flex justify-content-start">
+      <div class="vl-yellow"></div>
+      <div class="mx-2">
+        <div class="status">Reuse</div>
+        <div class="count">5</div>
+      </div>
+    </div>
+    <div class="col-lg-1 col-md-1 d-flex justify-content-start">
+      <div class="vl-yellow"></div>
+      <div class="mx-2">
+        <div class="status">Returned</div>
         <div class="count">50</div>
+      </div>
+    </div>
+    <div class="col-lg-1 col-md-1 d-flex justify-content-start">
+      <div class="vl-yellow"></div>
+      <div class="mx-2">
+        <div class="status">Removed</div>
+        <div class="count">20</div>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-md-1 d-flex justify-content-start">
+      <div class="card" style="width: 14rem;">
+          <h5 class="card-title m-0 text-center">In-Stock Total</h5>
+          <div class="card-body d-flex justify-content-between">
+            <div>
+              <h6 class="card-subtitle m-0 text-muted">Cost</h6>
+              <p class="m-0">2000</p>
+            </div>
+            <div>
+              <h6 class="card-subtitle m-0 text-muted">Price</h6>
+              <p class="m-0">2000</p>
+            </div>
+          </div>
       </div>
     </div>
   </div>

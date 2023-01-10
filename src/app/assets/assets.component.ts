@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css']
+  selector: 'app-assets',
+  templateUrl: './assets.component.html',
+  styleUrls: ['./assets.component.css']
 })
-export class UsersComponent implements OnInit {
+export class AssetsComponent implements OnInit {
 
   // @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
   //   var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);

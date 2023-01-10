@@ -1,0 +1,15 @@
+<mat-form-field class="w-100 m-1" appearance="outline">
+  <mat-select placeholder="Select Site (Multi-Site)" [formControl]="selectFormControl" multiple>
+    <div class="select-container">
+      <mat-optgroup>
+        <mat-form-field style="width:100%;">
+          <input #search autocomplete="off" placeholder="Search" aria-label="Search" matInput [formControl]="searchTextboxControl">
+        </mat-form-field>
+      </mat-optgroup>
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        {{option}}
+      </mat-option>
+    </div>
+  </mat-select>
+</mat-form-field>
+<!-- <div *ngIf="selectFormControl.value">{{ 'You have choosen ' + selectFormControl.value }}</div> -->

@@ -1,0 +1,74 @@
+<div class="row formModal">
+  <div class="col-lg-6 col-md-6"></div>
+  <div class="col-lg-6 col-md-6 add-form" id="additionalSite" @inOutPaneAnimation>
+
+      <div class="d-flex flex-row justify-content-between">
+          <div class="d-flex flex-row justify-content-start">
+              <a class="mt-3 pointer" (click)="closeAddAdditionalSite(false)"><img src="assets/images/Group 101.svg" /></a>
+              <div class="ms-3 mt-5">
+                <h5 class="m-0 text-bold" style="font-size: 18px;">User Name - 6</h5>
+                <h5 class="m-0 text-secondary" style="font-size: 18px;">US00010</h5>
+              </div>
+          </div>
+
+      </div>
+
+      <div class="mt-2">
+          <form autocomplete="off" [formGroup]="addSiteForm" #addAdditionalSiteForm="ngForm">
+            <div class="row">
+              <div class="col-lg-6 col-md-6">
+                <select class="form-select m-1" id="" name="coun" formControlName="verticals" required>
+                  <option value="" selected>All Verticals</option>
+                  <option value="count" name="count">count</option>
+                </select>
+              </div>
+              <div class="col-lg-6 col-md-6">
+                <select class="form-select m-1" id="" name="coun" formControlName="customers" required>
+                  <option value="" selected>All Customers</option>
+                  <option value="count" name="count">count</option>
+                </select>
+              </div>
+              <div class="col-lg-12 col-md-6">
+                <!-- <select class="form-select m-1" id="" name="coun" formControlName="selectSite" required>
+                  <option id="1" value="" selected>Select Site (Multi-Select)</option>
+                  <option id="2" value="count" name="count" *ngFor="let item of items | search: searchText">{{item}}</option>
+                </select> -->
+                <!-- <div class="col-lg-12 col-md-6 search"> -->
+                  <!-- <input type="search" placeholder="Search" name="search2" [(ngModel)]="searchText" /> -->
+                  <!-- <button type="submit">
+                    <a><img src="assets/images/search.svg" /></a>
+                  </button> -->
+                  <!-- <div >
+                    <p></p>
+                  </div> -->
+                <!-- </div> -->
+                <app-multi-select-search></app-multi-select-search>
+              </div>
+
+              <div class="col-lg-12 mt-5">
+                <h6 class="m-0" style="font-weight: 500; font-size: 16px;">No.of Sites Added - 3</h6>
+              </div>
+              <ul class="list-group">
+                <li class="list-group-item m-2 border">
+                  <p class="m-0 text-primary">Site Name - 3</p>
+                  <p class="m-0">Vertical Name, Customer Name</p>
+                </li>
+                <li class="list-group-item m-2 border">
+                  <p class="m-0 text-primary">Site Name - 2</p>
+                  <p class="m-0">Vertical Name, Customer Name</p>
+                </li>
+                <li class="list-group-item m-2 border">
+                  <p class="m-0 text-primary">Site Name - 1</p>
+                  <p class="m-0">Vertical Name, Customer Name</p>
+                </li>
+              </ul>
+
+              <div class="text-center mb-5">
+                <button type="submit" class="btn add-btn">ADD</button>
+              </div>
+            </div>
+          </form>
+      </div>
+
+  </div>
+</div>

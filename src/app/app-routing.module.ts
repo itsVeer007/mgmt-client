@@ -11,6 +11,9 @@ import { CustomersComponent } from './customers/customers.component';
 import { LoginComponent } from './login/login.component'
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UsersComponent } from './users/users.component';
+import { InventoryComponent } from './inventory/inventory.component';
+import { AssetsComponent } from './assets/assets.component';
+import { TicketsComponent } from './tickets/tickets.component';
 const routes: Routes = [];
 
 @NgModule({
@@ -25,7 +28,10 @@ const routes: Routes = [];
     {path:'add-new-business', component:AddNewBusinessVerticalComponent},
     {path:'sites', component:SitesComponent},
     {path:'customers', component:CustomersComponent},
-    {path:'users', component:UsersComponent}
+    {path:'users', component:UsersComponent},
+    {path:'inventory', component:InventoryComponent},
+    {path:'assets', component:AssetsComponent},
+    {path:'tickets', component:TicketsComponent}
   ])],
   exports: [RouterModule]
 })

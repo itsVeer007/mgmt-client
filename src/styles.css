@@ -255,3 +255,5 @@ form .add-btn:hover {
 }
 
 /* At plus-img, when hover on icons show the name --------------  END*/
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

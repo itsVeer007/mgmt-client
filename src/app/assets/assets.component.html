@@ -3,7 +3,7 @@
   <!-- header starts -->
   <div class="d-flex justify-content-between">
     <div class="users-header">
-      <p>List of all Users - <span>1500</span></p>
+      <p>List of Assets - <span>250</span></p>
     </div>
     <div style="position: relative">
       <!-- <div (click)="icons1 = !icons1" class="icons-site" id="icons-site" *ngIf="icons1">
@@ -76,21 +76,14 @@
       <div class="vl-green"></div>
       <div class="mx-2">
         <div class="status">Active</div>
-        <div class="count">1300</div>
+        <div class="count">220</div>
       </div>
     </div>
     <div class="col-lg-1 col-md-1 d-flex justify-content-start">
       <div class="vl-red"></div>
       <div class="mx-2">
         <div class="status">Inactive</div>
-        <div class="count">150</div>
-      </div>
-    </div>
-    <div class="col-lg-1 col-md-1 d-flex justify-content-start">
-      <div class="vl-yellow"></div>
-      <div class="mx-2">
-        <div class="status">Onhold</div>
-        <div class="count">50</div>
+        <div class="count">30</div>
       </div>
     </div>
   </div>
@@ -150,14 +143,11 @@
           </th>
           <!-- <th><input type="checkbox" class="form-check-input" id="allchecked" (click)="allchecked($event)"
                             style="background-color: #00000000; border-color:#fff;margin-left:10px;" /></th> -->
-          <th (click)="sort('siteId')">User ID</th>
-          <th (click)="sort('customerName')">User Name</th>
-          <th (click)="sort('custType')">Role</th>
-          <th (click)="sort('address')">Address</th>
-          <th (click)="sort('contactNumber')">Contact Number</th>
-          <th (click)="sort('emailId')">Email id</th>
-          <th (click)="sort('contactPerson')">#Sites</th>
-          <th (click)="sort('contactPerson')">Safety Escort</th>
+          <th (click)="sort('siteId')">Asset ID</th>
+          <th (click)="sort('customerName')">Asset Name</th>
+          <th (click)="sort('custType')">Asset Type</th>
+          <th (click)="sort('address')">Details</th>
+          <th (click)="sort('contactNumber')">Site Name</th>
           <th (click)="sort('status')">Status</th>
           <th></th>
         </tr>
@@ -183,17 +173,6 @@
           </td>
           <td>
             <button class="bg-white" style="color: #084982">{{ cust.address }}</button>
-          </td>
-          <td>
-            <p>{{ cust.contactNumber }}</p>
-          </td>
-          <td>
-            <p>{{ cust.emailId }}</p>
-          </td>
-          <td>
-            <a class="pointer" (click)="iconsnew1(); showSite = !showSite">
-              <img src="assets/images/add-svg.svg" width="25" height="25" />
-            </a>
           </td>
           <td>
             <p>{{ cust.siteId }}</p>

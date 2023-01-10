@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css']
+  selector: 'app-tickets',
+  templateUrl: './tickets.component.html',
+  styleUrls: ['./tickets.component.css']
 })
-export class UsersComponent implements OnInit {
+export class TicketsComponent implements OnInit {
 
   // @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
   //   var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);
@@ -345,4 +345,5 @@ export class UsersComponent implements OnInit {
       x.sort((a: string, b: string) => b[label] > a[label] ? 1 : b[label] < a[label] ? -1 : 0);
     }
   }
+
 }
