@@ -173,22 +173,22 @@
           </td>
           <!-- <td><input type="checkbox" class="form-check-input" [checked]="masterSelected" /></td> -->
           <td>
-            <p>{{ cust.siteId }}</p>
+            <p>{{ cust.employeeId }}</p>
           </td>
           <td>
-            <p>{{ cust.contactPerson }}</p>
+            <p>{{ cust.username }}</p>
           </td>
           <td>
-            <p>{{ cust.customerName }}</p>
+            <p>{{ cust.roleList }}</p>
           </td>
           <td>
-            <button class="bg-white" style="color: #084982">{{ cust.address }}</button>
+            <button class="bg-white" style="color: #084982">View</button>
           </td>
           <td>
-            <p>{{ cust.contactNumber }}</p>
+            <p>{{ cust.contactNumber1 }}</p>
           </td>
           <td>
-            <p>{{ cust.emailId }}</p>
+            <p>{{ cust.email }}</p>
           </td>
           <td>
             <a class="pointer" (click)="iconsnew1(); showSite = !showSite">
@@ -196,18 +196,18 @@
             </a>
           </td>
           <td>
-            <p>{{ cust.siteId }}</p>
+            <p>{{ cust.safetyEscort }}</p>
           </td>
           <td>
             <p [style.color]="cust.status == 'Active' ? '#00A44C' : cust.status == 'Onhold' ? '#F5B400' : cust.status == 'Inactive' ? '#fa500f' : '#00A44C'">
               {{ cust.status }}
             </p>
           </td>
+
           <td style="position: relative">
             <a (click)="closeDot($event, i)"><img src="assets/images/dotlist.svg" width="30" height="12" /></a>
-            <!-- -------------------------------- Popup for view, edit, delete --------- START     -->
+
             <div class="plus-img1" id="plus-img{{ i }}" style="display: none">
-              <!-- ---------------------------- Hover for view, edit, delete ---------------------START -->
               <div class="lists" *ngIf="showIconView1" style="margin-left: 5px; margin-top: -20px">
                 View
               </div>
@@ -217,17 +217,14 @@
               <div class="lists" *ngIf="showIconDelete1" style="margin-left: 63px; margin-top: -20px">
                 Delete
               </div>
-              <!-- ---------------------------- Hover for view, edit, delete ---------------------END -->
 
               <a class="mx-2" (click)="openViewPopup(cust, i)"><img src="assets/images/view.svg"
                   (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" /></a>
               <a class="mx-2" (click)="openEditPopup(cust, i)"><img src="assets/images/edit.svg"
                   (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" /></a>
-              <!-- <a class="mx-2" value="Delete" (click)="deleteRow1(cust, i)"><img src="assets/images/delete.svg" /></a> -->
               <a class="mx-2" value="Delete" (click)="openDeletePopup(cust, i)"><img src="assets/images/delete.svg"
                   (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" /></a>
             </div>
-            <!-- ----------------------------- Popup for view, edit, delete --------- END     -->
           </td>
         </tr>
       </tbody>
@@ -257,7 +254,6 @@
 </div>
 
 <div class="modalitem max-center" [hidden]="editPopup">
-  <!-- <div  class="deletePopup" > -->
   <div class="card">
     <div class="card-header d-flex justify-content-between">
       <p>Edit</p>
@@ -266,17 +262,17 @@
     <div class="card-body text-center">
       <ul *ngIf="currentItem">
         <li>
-          <h6 style="width: 110px">Site Id</h6>
+          <h6 style="width: 110px">User Id</h6>
           :
           <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.siteId" />
+            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.employeeId" />
           </div>
         </li>
         <li>
-          <h6 style="width: 110px">Customer Name</h6>
+          <h6 style="width: 110px">User Name</h6>
           :
           <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.customerName" />
+            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.username" />
           </div>
         </li>
         <li>
@@ -290,14 +286,14 @@
           <h6 style="width: 110px">Contact Number</h6>
           :
           <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.contactNumber" />
+            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.contactNumber1" />
           </div>
         </li>
         <li>
           <h6 style="width: 110px">Email Id</h6>
           :
           <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.emailId" />
+            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.email" />
           </div>
         </li>
         <li>
@@ -336,7 +332,6 @@
 </div>
 
 <div class="modalitem max-center" [hidden]="viewPopup">
-  <!-- <div  class="deletePopup" > -->
   <div class="card">
     <div class="card-header d-flex justify-content-between">
       <p>Customers</p>
@@ -346,11 +341,11 @@
       <ul *ngIf="currentItem">
         <li>
           <h6 style="width: 110px">Site Id</h6>
-          : {{ currentItem?.siteId }}
+          : {{ currentItem?.employeeId }}
         </li>
         <li>
           <h6 style="width: 110px">Customer Name</h6>
-          : {{ currentItem?.customerName }}
+          : {{ currentItem?.username }}
         </li>
         <li>
           <h6 style="width: 110px">Cust Type</h6>
@@ -358,11 +353,11 @@
         </li>
         <li>
           <h6 style="width: 110px">Contact Number</h6>
-          : {{ currentItem?.contactNumber }}
+          : {{ currentItem?.contactNumber1 }}
         </li>
         <li>
           <h6 style="width: 110px">Email Id</h6>
-          : {{ currentItem?.emailId }}
+          : {{ currentItem?.email }}
         </li>
         <li>
           <h6 style="width: 110px">Contact Person</h6>

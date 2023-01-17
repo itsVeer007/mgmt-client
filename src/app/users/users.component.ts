@@ -56,9 +56,9 @@ export class UsersComponent implements OnInit {
   searchText: any;
   CustomerTable: any;
   CustomerReport() {
-    this.http.get('assets/JSON/customerData.json').subscribe(res => {
+    this.http.get('assets/JSON/userData.json').subscribe(res => {
       this.CustomerTable = res;
-      console.log(res)
+      // console.log(res)
     });
   }
 

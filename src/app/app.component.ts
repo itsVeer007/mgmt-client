@@ -14,9 +14,9 @@ export class AppComponent {
   ngOnInit(){
     // this.user=JSON.parse(localStorage.getItem('user')!);
     this.apiser.user$.subscribe((res)=>{
+    console.log('Subject:: ', res);
 
-      console.log('Subject:: ', res)
-      this.user=JSON.parse(localStorage.getItem('user')!);
+    this.user=JSON.parse(localStorage.getItem('user')!);
     });
   }
 }

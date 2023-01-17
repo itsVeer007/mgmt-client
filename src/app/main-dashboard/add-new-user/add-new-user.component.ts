@@ -1,6 +1,6 @@
 import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/utilities/api.service';
 
@@ -29,9 +29,7 @@ import { ApiService } from 'src/app/utilities/api.service';
 })
 export class AddNewUserComponent implements OnInit {
 
-  constructor(private router:Router,
-    private apiser: ApiService,
-    private fb: FormBuilder) { }
+  constructor(private router:Router, private apiser: ApiService, private fb: FormBuilder) { }
 
   @Input() show:any;
 
@@ -45,16 +43,21 @@ export class AddNewUserComponent implements OnInit {
   //     }
   //   }
   // }
+  // error=false;
 
 
+  UserForm: any =  FormGroup;
 
-  error=false;
   user = {
     username: "",
     password: "",
     firstname: "",
     lastname: "",
-    roleList: [  ],
+    roleList: [
+      "Role",
+      "Employee",
+      "Worker"
+    ],
     email: "",
     gender: "",
     realm: "",
@@ -74,7 +77,6 @@ export class AddNewUserComponent implements OnInit {
     callingSystemDetail: "admin",
     safetyEscort: ""
   }
-  UserForm: any =  FormGroup;
 
 
   ngOnInit() {
@@ -84,31 +86,26 @@ export class AddNewUserComponent implements OnInit {
     // });
 
     this.UserForm = this.fb.group({
-      'userName': new FormControl(''),
-      'password': new FormControl(''),
-      'first': new FormControl(''),
-      'last': new FormControl(''),
+      'userName': new FormControl('', Validators.required),
+      'password': new FormControl('', [Validators.required, Validators.minLength(8)]),
+      'first': new FormControl('', Validators.required),
+      'last': new FormControl('', Validators.required),
       // 'role': this.fb.group({
       //        cityName: ['']
       //       }),
-      'role': new FormControl(''),
-      'gender': new FormControl(''),
-      'active': new FormControl(''),
-      'realm': new FormControl(''),
-      'email': new FormControl(''),
-      'phone': new FormControl(''),
-      'country': new FormControl(''),
-      'state': new FormControl(''),
-      'city': new FormControl(''),
-      'pincode': new FormControl(''),
-      'area': new FormControl('')
+      'role': new FormControl('', Validators.required),
+      'gender': new FormControl('', Validators.required),
+      'active': new FormControl('', Validators.required),
+      'realm': new FormControl('', Validators.required),
+      'email': new FormControl('', Validators.required),
+      'phone': new FormControl('', Validators.required),
+      'country': new FormControl('', Validators.required),
+      'state': new FormControl('', Validators.required),
+      'city': new FormControl('', Validators.required),
+      'pincode': new FormControl('', Validators.required),
+      'area': new FormControl('', Validators.required)
     });
 
-    // const addUser = {
-    //   'fullName':'HARI CHANDANA',
-    //   'email':'hari@gmail.com'
-    // };
-    // this.employeeForm.setValue(addUser);
     this.getUserDetails()
   }
 
@@ -144,8 +141,9 @@ export class AddNewUserComponent implements OnInit {
     })
   }
 
-  onSubmit(): void {
-  }
+  // onSubmit(): void {
+  // }
+
   closeAddUser(value:boolean) {
     this.newItemEvent.emit(value);
   }
@@ -158,12 +156,13 @@ export class AddNewUserComponent implements OnInit {
 
   submit(){
     console.log("Entered in AddUser:: ",this.UserForm.value);
-    // console.log("Payload:: ",this.user);
-    // this.apiser.addUser(this.user).subscribe((res: any)=>{
-    //   console.log(res);
-    //   if(res.Status == "Success"){
-    //   }
-    // });
+    console.log("Payload:: ",this.user);
+    this.apiser.addUser(this.user).subscribe((res: any)=>{
+      console.log(res);
+      if(res.Status == "Success"){
+      }
+    });
+    // console.log(this.UserForm.valid)
   }
 
 }

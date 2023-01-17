@@ -1,16 +1,16 @@
 <div class="row formModal">
-    <div class="col-lg-2 col-md-2" style="position: relative;">
-        <!-- <div class="closebtn" (click)="closeAddSite(false)"><img src="assets/images/Group 101.svg" /></div> -->
-    </div>
-    <div class="col-lg-10 col-md-10 add-form" id="sites" @inOutPaneAnimation >
+  <div class="col-lg-2 col-md-2" style="position: relative;">
+    <!-- <div class="closebtn" (click)="closeAddSite(false)"><img src="assets/images/Group 101.svg" /></div> -->
+  </div>
+  <div class="col-lg-10 col-md-10 add-form" id="sites" @inOutPaneAnimation>
 
-        <div class="d-flex flex-row justify-content-between">
-            <div class="col-sm-9 col-xs-9 d-flex flex-row justify-content-start">
-                <a class="mt-3 pointer" (click)="closeAddSite(false)"><img src="assets/images/Group 101.svg" /></a>
-                <h6 class="mt-5" style="margin-left: 20px;">add site</h6>
-            </div>
+    <div class="d-flex flex-row justify-content-between">
+      <div class="col-sm-9 col-xs-9 d-flex flex-row justify-content-start">
+        <a class="mt-3 pointer" (click)="closeAddSite(false)"><img src="assets/images/Group 101.svg" /></a>
+        <h6 class="mt-5" style="margin-left: 20px;">add site</h6>
+      </div>
 
-            <!-- <div class="col-sm-3 col-xs-3 my-4 site-icons">
+      <!-- <div class="col-sm-3 col-xs-3 my-4 site-icons">
                 <a (click)="openAnotherForm('showAddBusinessVertical')"><img src="assets/images/ver-icon-form.svg"
                         class="mx-2 my-4" /></a>
                 <a (click)="openAnotherForm('showAddCustomer')"><img src="assets/images/cust-icon-form.svg"
@@ -24,376 +24,406 @@
                 <a (click)="openAnotherForm('showAddUser')"><img src="assets/images/user-icon-form.svg"
                         class="mx-2 my-4" /></a>
             </div> -->
-        </div>
+    </div>
 
-        <div>
-            <form autocomplete="off">
-                <div class="row">
-                    <div class="col-lg-4 col-md-4">
-                        <select id="" class="form-select m-2">
-                            <option selected>Select Vertical</option>
-                            <option>...</option>
-                        </select>
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <select id="" class="form-select m-2">
-                            <option selected>Select Customer</option>
-                            <option>...</option>
-                        </select>
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <input type="text" class="form-control m-2" placeholder="Site Name" />
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <input type="text" class="form-control m-2" placeholder="Contact Number" />
-                    </div>
-                    <!-- <div class="col-lg-4 col-md-4">
+    <div>
+      <form autocomplete="off">
+        <div class="row">
+          <div class="col-lg-4 col-md-4">
+            <select id="" class="form-select m-2">
+              <option selected>Select Vertical</option>
+              <option>...</option>
+            </select>
+          </div>
+          <div class="col-lg-4 col-md-4">
+            <select id="" class="form-select m-2">
+              <option selected>Select Customer</option>
+              <option>...</option>
+            </select>
+          </div>
+          <div class="col-lg-4 col-md-4">
+            <input type="text" class="form-control m-2" placeholder="Site Name" />
+          </div>
+          <div class="col-lg-4 col-md-4">
+            <input type="text" class="form-control m-2" placeholder="Contact Number" />
+          </div>
+          <!-- <div class="col-lg-4 col-md-4">
                         <input type="number" class="form-control m-2" placeholder="Fax Number" />
                     </div> -->
 
-                    <div class="col-lg-4 col-md-4">
-                        <input type="email" class="form-control m-2" placeholder="Email Id" />
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <input type="text" class="form-control m-2" placeholder="Website" />
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-lg-12 col-md-12">
-                        <p class="px-2 mb-1">ADDRESS</p>
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <select id="" class="form-select m-2" required>
-                            <option selected>Country*</option>
-                            <option>...</option>
-                        </select>
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <select id="" class="form-select m-2">
-                            <option selected>State</option>
-                            <option>...</option>
-                        </select>
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <select id="" class="form-select m-2">
-                            <option selected>District/City</option>
-                            <option>...</option>
-                        </select>
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <input type="text" class="form-control m-2" placeholder="Pincode" />
-                    </div>
-                    <div class="col-lg-8 col-md-8">
-                        <input type="text" class="form-control m-2" placeholder="Area/Street" />
-                    </div>
+          <div class="col-lg-4 col-md-4">
+            <input type="email" class="form-control m-2" placeholder="Email Id" />
+          </div>
+          <div class="col-lg-4 col-md-4">
+            <input type="text" class="form-control m-2" placeholder="Website" />
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-lg-12 col-md-12">
+            <p class="px-2 mb-1">ADDRESS</p>
+          </div>
+          <div class="col-lg-4 col-md-4">
+            <select id="" class="form-select m-2" required>
+              <option selected>Country*</option>
+              <option>...</option>
+            </select>
+          </div>
+          <div class="col-lg-4 col-md-4">
+            <select id="" class="form-select m-2">
+              <option selected>State</option>
+              <option>...</option>
+            </select>
+          </div>
+          <div class="col-lg-4 col-md-4">
+            <select id="" class="form-select m-2">
+              <option selected>District/City</option>
+              <option>...</option>
+            </select>
+          </div>
+          <div class="col-lg-4 col-md-4">
+            <input type="text" class="form-control m-2" placeholder="Pincode" />
+          </div>
+          <div class="col-lg-8 col-md-8">
+            <input type="text" class="form-control m-2" placeholder="Area/Street" />
+          </div>
 
-                    <div class="col-lg-4 col-md-4 d-flex mt-3 escalation">
-                        <div style="width: 40%;">
-                            <input type="text" class="form-control" placeholder="Latitude"
-                                style="background-color: #F8F8F8;" name="lat"/>
-                        </div>
-                        <div style="width: 60%; color: #084982;" class="max-center">{{latitude ? latitude : ""}}</div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 d-flex mt-3 escalation">
-                        <div style="width: 40%;">
-                            <input type="text" class="form-control" placeholder="Longitude"
-                                style="background-color: #F8F8F8;" name="lon"/>
-                        </div>
-                        <div style="width: 60%; color: #084982;" class="max-center">{{longitude ? longitude : ""}}</div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 px-3 mt-2" style="width: 30%;">
-                        <button class="btn m-2 latlong" (click)="getLocation()">Get Lat Long</button>
-                    </div>
+          <div class="col-lg-4 col-md-4 d-flex mt-3 escalation">
+            <div style="width: 40%;">
+              <input type="text" class="form-control" placeholder="Latitude" style="background-color: #F8F8F8;"
+                name="lat" />
+            </div>
+            <div style="width: 60%; color: #084982;" class="max-center">{{latitude ? latitude : ""}}</div>
+          </div>
+          <div class="col-lg-4 col-md-4 d-flex mt-3 escalation">
+            <div style="width: 40%;">
+              <input type="text" class="form-control" placeholder="Longitude" style="background-color: #F8F8F8;"
+                name="lon" />
+            </div>
+            <div style="width: 60%; color: #084982;" class="max-center">{{longitude ? longitude : ""}}</div>
+          </div>
+          <div class="col-lg-4 col-md-4 px-3 mt-2" style="width: 30%;">
+            <button class="btn m-2 latlong" (click)="getLocation()">Get Lat Long</button>
+          </div>
 
-                </div>
-                <div class="row mt-3">
-                    <div class="col-lg-12 col-md-12">
-                        <p class="px-2 mb-1">ESCALATION DETAILS <span style="color: red;">*</span> <small id="emailHelp"
-                                class="form-text" style="color:#000;"> (Please select atleast One Escalation)</small>
-                        </p>
-                    </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-lg-12 col-md-12">
+            <p class="px-2 mb-1">ESCALATION DETAILS <span style="color: red;">*</span> <small id="emailHelp"
+                class="form-text" style="color:#000;"> (Please select atleast One Escalation)</small>
+            </p>
+          </div>
 
-                    <div class="col-lg-4 col-md-4 d-flex escalation">
-                        <div style="width: 40%;">
-                            <select class="form-select">
-                                <option selected>Select</option>
-                                <option>...</option>
-                            </select>
-                        </div>
-                        <div style="width: 60%;">
-                            <input type="text" class="form-control" placeholder="Enter Name" style="border: none;" />
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <input type="text" class="form-control m-2" placeholder="Contact Number" />
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <input type="email" class="form-control m-2" placeholder="Email Id" />
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-lg-12 col-md-12">
-                        <p class="px-2 mb-1">ENGINEER DETAILS <span style="color: red;">*</span> <small id="emailHelp"
-                                class="form-text" style="color:#000;"> (Please select atleast One Engineer)</small></p>
-                    </div>
-                    <div class="col-lg-4 col-md-4 d-flex escalation">
-                        <div style="width: 40%;">
-                            <select class="form-select">
-                                <option selected>Select</option>
-                                <option>...</option>
-                            </select>
-                        </div>
-                        <div style="width: 60%;">
-                            <input type="text" class="form-control" placeholder="Enter Name" style="border: none;" />
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <input type="text" class="form-control m-2" placeholder="Contact Number" />
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <input type="email" class="form-control m-2" placeholder="Email Id" />
-                    </div>
-                </div>
-
-                <div class="row mt-3 service">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-lg-12">
-                        <p class="px-2 mb-1">SERVICES</p>
-                    </div>
-                    <div class="d-flex justify-content-between checklist" style="padding: 6px 12px 6px 20px;">
-                        <div><input type="checkbox" /> Guard</div>
-                        <div><input type="checkbox" (click)="toggleShowMonit()" /> Monitoring</div>
-                        <div><input type="checkbox" (click)="toggleShowBusiness()" /> Business Intelligence</div>
-                        <div><input type="checkbox" /> Safety Escort</div>
-                        <div><input type="checkbox" /> Proximity Ads</div>
-                    </div>
-                    <div class="m-2" *ngIf="Monitoring">
-                        <div class="card">
-                            <div class="card-header" (click)="monitoring()">Monitoring</div>
-                            <div class="card-body" *ngIf="moni">
-                                <p>Monitoring Hours</p>
-                                <div class="col-lg-4 col-md-4"><input type="text" class="form-control"
-                                        placeholder="Enter" /></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="m-2" *ngIf="Business">
-                        <div class="card">
-                            <div class="card-header" (click)="businessIntell()">Business Intelligence</div>
-                            <div class="card-body" *ngIf="intell">
-                                <p>Requested Analytics</p>
-                                <div class="col-lg-4 col-md-4">
-                                    <select id="" class="form-select">
-                                        <option selected>Select</option>
-                                        <option>...</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row mt-3 pre-install">
-                    <div class="col-lg-12 col-md-12 d-flex justify-content-start">
-                        <p class="px-2 mb-1">PRE INSTALLATION FORM</p>
-
-                        <!-- <input type="checkbox" checked data-toggle="toggle" data-style="ios"> -->
-
-                        <div class="on-off-toggle mx-5">
-                            <input class="on-off-toggle__input" type="checkbox" id="bopis"
-                                (click)="toggleShowOnOff()" />
-                            <!-- (click)="checkbox($event, 'preinst')" -->
-                            <label for="bopis" class="on-off-toggle__slider"></label>
-                        </div>
-                    </div>
-
-                    <div class="preinstBody" *ngIf="isShown" style="padding: 0 0 0 12px;">
-                        <div class="m-2">
-                            <div class="card">
-                                <div class="card-header d-flex justify-content-start">
-                                    <div class="col-lg-3 col-md-3">
-                                        <p>Electrician</p>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9">
-                                        <fieldset class="d-flex justify-content-start">
-                                            <input type="radio" id="radio3" name="Electrician">
-                                            <label for="">YES</label><br />
-
-                                            <input type="radio" id="radio3" name="Electrician" checked>
-                                            <label for="">NO</label><br />
-                                        </fieldset>
-                                    </div>
-                                </div>
-                                <!-- <div class="card-body"></div> -->
-                            </div>
-                        </div>
-
-                        <div class="m-2">
-                            <div class="card">
-                                <div class="card-header d-flex justify-content-start">
-                                    <div class="col-lg-3 col-md-3">
-                                        <p>Power Available</p>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9">
-                                        <fieldset class="d-flex justify-content-start">
-                                            <input type="radio" id="radio2" name="powerAvailable">
-                                            <label for="">YES</label><br />
-
-                                            <input type="radio" id="radio2" name="powerAvailable" checked>
-                                            <label for="">NO</label><br />
-                                        </fieldset>
-                                    </div>
-                                </div>
-                                <!-- <div class="card-body"></div> -->
-                            </div>
-                        </div>
-
-                        <div class="m-2">
-                            <div class="card">
-                                <div class="card-header d-flex justify-content-start">
-                                    <div class="col-lg-3 col-md-3">
-                                        <p>Internet</p>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9">
-                                        <fieldset class="d-flex justify-content-start">
-                                            <input type="radio" id="radio1" name="Internet"
-                                                (click)="toggleShowInternet('on','internet')">
-                                            <label for="">YES</label><br />
-
-                                            <input type="radio" id="radio1" name="Internet" checked
-                                                (click)="toggleShowInternet('off','internet')">
-                                            <label for="">NO</label><br />
-                                        </fieldset>
-                                    </div>
-                                </div>
-                                <div class="row card-body" *ngIf="internet">
-                                    <div class="form-group col-lg-4 col-md-4">
-                                        <label for="exampleInputEmail1">Internet Service Provider</label>
-                                        <input type="email" class="form-control m-1" id="exampleInputEmail1"
-                                            placeholder="Excell Media Pvt.Ltd.">
-                                    </div>
-                                    <div class="form-group col-lg-4 col-md-4">
-                                        <label for="exampleInputEmail1">Preferred Installer</label>
-                                        <input type="email" class="form-control m-1" id="exampleInputEmail1"
-                                            placeholder="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="m-2">
-                            <div class="card">
-                                <div class="card-header d-flex justify-content-start">
-                                    <div class="col-lg-3 col-md-3">
-                                        <p>Existing Security System</p>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9">
-                                        <fieldset class="d-flex justify-content-start">
-                                            <input type="radio" id="radio" name="Security"
-                                                (click)="toggleShowExistSecuity('on','security')">
-                                            <label for="">YES</label><br />
-
-                                            <input type="radio" id="radio" name="Security" checked
-                                                (click)="toggleShowExistSecuity('off','security')">
-                                            <label for="">NO</label><br />
-                                        </fieldset>
-                                    </div>
-                                </div>
-                                <div class="row card-body existSecuity" *ngIf="existSecuity">
-                                    <div class="form-group col-lg-4 col-md-4">
-                                        <label for="exampleInputEmail1">Camera URL</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1"
-                                            placeholder="Enter">
-                                    </div>
-                                    <div class="form-group col-lg-4 col-md-4">
-                                        <label for="exampleInputEmail1">Native App Name</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1"
-                                            placeholder="Enter">
-                                    </div>
-                                    <div class="form-group col-lg-4 col-md-4">
-                                        <label for="exampleInputEmail1">No. of NVR's at Client Location</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="1">
-                                    </div>
-                                    <div class="row">
-                                        <!-- <div><hr><p style="color: #084982;">NVR - 1</p><hr></div> -->
-                                        <div class="col-lg-5 col-md-5">
-                                            <hr>
-                                        </div>
-                                        <div class="col-lg-2 col-md-2 text-center"
-                                            style="display: flex; align-items: center; justify-content: center;">
-                                            <p style="color: #084982;">NVR - 1</p>
-                                        </div>
-                                        <div class="col-lg-5 col-md-5">
-                                            <hr>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-lg-4 col-md-4">
-                                        <label for="exampleInputEmail1">NVR IP Address</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1"
-                                            placeholder="Enter">
-                                    </div>
-                                    <div class="form-group col-lg-4 col-md-4">
-                                        <label for="exampleInputEmail1">NVR Model</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1"
-                                            placeholder="Enter">
-                                    </div>
-                                    <div class="form-group col-lg-4 col-md-4">
-                                        <label for="exampleInputEmail1">NVR Type</label>
-                                        <div>
-                                            <select id="" class="form-select">
-                                                <option selected>Select</option>
-                                                <option>...</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-lg-4 col-md-4">
-                                        <label for="exampleInputEmail1">NVR User Name</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1"
-                                            placeholder="Enter">
-                                    </div>
-                                    <div class="form-group col-lg-4 col-md-4">
-                                        <label for="exampleInputEmail1">NVR Password</label>
-                                        <input type="password" class="form-control" id="exampleInputEmail1"
-                                            placeholder="Enter">
-                                    </div>
-                                    <div class="form-group col-lg-4 col-md-4">
-                                        <label for="exampleInputEmail1">No. of Cameras on NVR</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1"
-                                            placeholder="Enter">
-                                    </div>
-                                    <div class="form-group col-lg-4 col-md-4">
-                                        <label for="exampleInputEmail1">NVR URL</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1"
-                                            placeholder="Enter">
-                                    </div>
-                                    <div class="form-group col-lg-4 col-md-4">
-                                        <label for="exampleInputEmail1">NVR Serial Number</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1"
-                                            placeholder="Enter">
-                                    </div>
-                                    <div class="form-group col-lg-4 col-md-4">
-                                        <label for="exampleInputEmail1">Camera Serial Number</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1"
-                                            placeholder="Enter">
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-12 col-md-12">
-                        <input type="text" class="form-control m-2" placeholder="Note" />
-                    </div>
-
-                </div>
-                <div>
-
-                    <div class="text-center m-4">
-                        <button class="btn add-btn">ADD</button>
-                    </div>
-                </div>
-            </form>
+          <div class="col-lg-4 col-md-4 d-flex escalation">
+            <div style="width: 40%;">
+              <select class="form-select">
+                <option selected>Select</option>
+                <option>...</option>
+              </select>
+            </div>
+            <div style="width: 60%;">
+              <input type="text" class="form-control" placeholder="Enter Name" style="border: none;" />
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4">
+            <input type="text" class="form-control m-2" placeholder="Contact Number" />
+          </div>
+          <div class="col-lg-4 col-md-4">
+            <input type="email" class="form-control m-2" placeholder="Email Id" />
+          </div>
         </div>
 
+        <div class="row mt-3">
+          <div class="col-lg-12 col-md-12">
+            <p class="px-2 mb-1">ENGINEER DETAILS <span style="color: red;">*</span> <small id="emailHelp"
+                class="form-text" style="color:#000;"> (Please select atleast One Engineer)</small></p>
+          </div>
+          <div class="col-lg-4 col-md-4 d-flex escalation">
+            <div style="width: 40%;">
+              <select class="form-select">
+                <option selected>Select</option>
+                <option>...</option>
+              </select>
+            </div>
+            <div style="width: 60%;">
+              <input type="text" class="form-control" placeholder="Enter Name" style="border: none;" />
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4">
+            <input type="text" class="form-control m-2" placeholder="Contact Number" />
+          </div>
+          <div class="col-lg-4 col-md-4">
+            <input type="email" class="form-control m-2" placeholder="Email Id" />
+          </div>
+        </div>
+
+        <div class="row mb-3 service">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-lg-12">
+            <p class="px-2 mb-1">SERVICES</p>
+          </div>
+          <div class="d-flex justify-content-between checklist" style="padding: 6px 12px 6px 20px;">
+            <div><input type="checkbox" /> Guard</div>
+            <div><input type="checkbox" (click)="toggleShowMonit()" /> Monitoring</div>
+            <div><input type="checkbox" (click)="toggleShowBusiness()" /> Business Intelligence</div>
+            <div><input type="checkbox" /> Safety Escort</div>
+            <div><input type="checkbox" /> Proximity Ads</div>
+          </div>
+          <div class="m-2" *ngIf="Monitoring">
+            <div class="card">
+              <div class="card-header" (click)="monitoring()">Monitoring</div>
+              <div class="card-body" *ngIf="moni">
+                <p>Monitoring Hours</p>
+                <div class="col-lg-4 col-md-4"><input type="text" class="form-control" placeholder="Enter" /></div>
+              </div>
+            </div>
+          </div>
+          <div class="m-2" *ngIf="Business">
+            <div class="card">
+              <div class="card-header" (click)="businessIntell()">Business Intelligence</div>
+              <div class="card-body" *ngIf="intell">
+                <p>Requested Analytics</p>
+                <div class="col-lg-4 col-md-4">
+                  <select id="" class="form-select">
+                    <option selected>Select</option>
+                    <option>...</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-12 col-md-12 d-flex justify-content-start align-items-center mb-3">
+          <p class="px-2 m-0">RF ID</p>
+
+          <div class="on-off-toggle mx-5">
+            <input class="on-off-toggle__input" type="checkbox" id="bopis">
+            <label for="bopis" class="on-off-toggle__slider"></label>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-lg-12 col-md-12">
+            <p class="px-2 mb-1">ENGINEER DETAILS <span style="color: red;">*</span> <small id="emailHelp"
+                class="form-text" style="color:#000;"> (Please select atleast One Engineer)</small></p>
+          </div>
+          <div class="col-lg-4 col-md-4">
+            <input type="email" class="form-control m-2" placeholder="Email Id" />
+          </div>
+          <div class="col-lg-4 col-md-4">
+            <input type="email" class="form-control m-2" placeholder="Email Id" />
+          </div>
+          <div class="col-lg-4 col-md-4">
+            <input type="email" class="form-control m-2" placeholder="Email Id" />
+          </div>
+        </div>
+
+        <div class="col-lg-12 col-md-12 d-flex justify-content-start align-items-center mb-3">
+          <p class="px-2 m-0">QR CODE</p>
+
+          <div class="on-off-toggle mx-5">
+            <input class="on-off-toggle__input" type="checkbox" id="bopis">
+            <label for="bopis" class="on-off-toggle__slider"></label>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-lg-12 col-md-12">
+            <p class="px-2 mb-1">ENGINEER DETAILS <span style="color: red;">*</span> <small id="emailHelp"
+                class="form-text" style="color:#000;"> (Please select atleast One Engineer)</small></p>
+          </div>
+          <div class="col-lg-4 col-md-4">
+            <input type="email" class="form-control m-2" placeholder="Email Id" />
+          </div>
+          <div class="col-lg-4 col-md-4">
+            <input type="email" class="form-control m-2" placeholder="Email Id" />
+          </div>
+        </div>
+
+        <div class="row mb-3 pre-install">
+          <div class="col-lg-12 col-md-12 d-flex justify-content-start align-items-center mb-3">
+            <p class="px-2 m-0">PRE INSTALLATION FORM</p>
+
+            <div class="on-off-toggle mx-5">
+              <input class="on-off-toggle__input" type="checkbox" id="bopis" (click)="toggleShowOnOff()" />
+              <label for="bopis" class="on-off-toggle__slider"></label>
+            </div>
+          </div>
+
+          <div class="preinstBody" *ngIf="isShown" style="padding: 0 0 0 12px;">
+            <div class="m-2">
+              <div class="card">
+                <div class="card-header d-flex justify-content-start">
+                  <div class="col-lg-3 col-md-3">
+                    <p>Electrician</p>
+                  </div>
+                  <div class="col-lg-9 col-md-9">
+                    <fieldset class="d-flex justify-content-start">
+                      <input type="radio" id="radio3" name="Electrician">
+                      <label for="">YES</label><br />
+
+                      <input type="radio" id="radio3" name="Electrician" checked>
+                      <label for="">NO</label><br />
+                    </fieldset>
+                  </div>
+                </div>
+                <!-- <div class="card-body"></div> -->
+              </div>
+            </div>
+
+            <div class="m-2">
+              <div class="card">
+                <div class="card-header d-flex justify-content-start">
+                  <div class="col-lg-3 col-md-3">
+                    <p>Power Available</p>
+                  </div>
+                  <div class="col-lg-9 col-md-9">
+                    <fieldset class="d-flex justify-content-start">
+                      <input type="radio" id="radio2" name="powerAvailable">
+                      <label for="">YES</label><br />
+
+                      <input type="radio" id="radio2" name="powerAvailable" checked>
+                      <label for="">NO</label><br />
+                    </fieldset>
+                  </div>
+                </div>
+                <!-- <div class="card-body"></div> -->
+              </div>
+            </div>
+
+            <div class="m-2">
+              <div class="card">
+                <div class="card-header d-flex justify-content-start">
+                  <div class="col-lg-3 col-md-3">
+                    <p>Internet</p>
+                  </div>
+                  <div class="col-lg-9 col-md-9">
+                    <fieldset class="d-flex justify-content-start">
+                      <input type="radio" id="radio1" name="Internet" (click)="toggleShowInternet('on','internet')">
+                      <label for="">YES</label><br />
+
+                      <input type="radio" id="radio1" name="Internet" checked
+                        (click)="toggleShowInternet('off','internet')">
+                      <label for="">NO</label><br />
+                    </fieldset>
+                  </div>
+                </div>
+                <div class="row card-body" *ngIf="internet">
+                  <div class="form-group col-lg-4 col-md-4">
+                    <label for="exampleInputEmail1">Internet Service Provider</label>
+                    <input type="email" class="form-control m-1" id="exampleInputEmail1"
+                      placeholder="Excell Media Pvt.Ltd.">
+                  </div>
+                  <div class="form-group col-lg-4 col-md-4">
+                    <label for="exampleInputEmail1">Preferred Installer</label>
+                    <input type="email" class="form-control m-1" id="exampleInputEmail1" placeholder="">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="m-2">
+              <div class="card">
+                <div class="card-header d-flex justify-content-start">
+                  <div class="col-lg-3 col-md-3">
+                    <p>Existing Security System</p>
+                  </div>
+                  <div class="col-lg-9 col-md-9">
+                    <fieldset class="d-flex justify-content-start">
+                      <input type="radio" id="radio" name="Security" (click)="toggleShowExistSecuity('on','security')">
+                      <label for="">YES</label><br />
+
+                      <input type="radio" id="radio" name="Security" checked
+                        (click)="toggleShowExistSecuity('off','security')">
+                      <label for="">NO</label><br />
+                    </fieldset>
+                  </div>
+                </div>
+                <div class="row card-body existSecuity" *ngIf="existSecuity">
+                  <div class="form-group col-lg-4 col-md-4">
+                    <label for="exampleInputEmail1">Camera URL</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter">
+                  </div>
+                  <div class="form-group col-lg-4 col-md-4">
+                    <label for="exampleInputEmail1">Native App Name</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter">
+                  </div>
+                  <div class="form-group col-lg-4 col-md-4">
+                    <label for="exampleInputEmail1">No. of NVR's at Client Location</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="1">
+                  </div>
+                  <div class="row">
+                    <!-- <div><hr><p style="color: #084982;">NVR - 1</p><hr></div> -->
+                    <div class="col-lg-5 col-md-5">
+                      <hr>
+                    </div>
+                    <div class="col-lg-2 col-md-2 text-center"
+                      style="display: flex; align-items: center; justify-content: center;">
+                      <p style="color: #084982;">NVR - 1</p>
+                    </div>
+                    <div class="col-lg-5 col-md-5">
+                      <hr>
+                    </div>
+                  </div>
+                  <div class="form-group col-lg-4 col-md-4">
+                    <label for="exampleInputEmail1">NVR IP Address</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter">
+                  </div>
+                  <div class="form-group col-lg-4 col-md-4">
+                    <label for="exampleInputEmail1">NVR Model</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter">
+                  </div>
+                  <div class="form-group col-lg-4 col-md-4">
+                    <label for="exampleInputEmail1">NVR Type</label>
+                    <div>
+                      <select id="" class="form-select">
+                        <option selected>Select</option>
+                        <option>...</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group col-lg-4 col-md-4">
+                    <label for="exampleInputEmail1">NVR User Name</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter">
+                  </div>
+                  <div class="form-group col-lg-4 col-md-4">
+                    <label for="exampleInputEmail1">NVR Password</label>
+                    <input type="password" class="form-control" id="exampleInputEmail1" placeholder="Enter">
+                  </div>
+                  <div class="form-group col-lg-4 col-md-4">
+                    <label for="exampleInputEmail1">No. of Cameras on NVR</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter">
+                  </div>
+                  <div class="form-group col-lg-4 col-md-4">
+                    <label for="exampleInputEmail1">NVR URL</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter">
+                  </div>
+                  <div class="form-group col-lg-4 col-md-4">
+                    <label for="exampleInputEmail1">NVR Serial Number</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter">
+                  </div>
+                  <div class="form-group col-lg-4 col-md-4">
+                    <label for="exampleInputEmail1">Camera Serial Number</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter">
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-12 col-md-12">
+            <input type="text" class="form-control m-2" placeholder="Note" />
+          </div>
+
+        </div>
+        <div>
+
+          <div class="text-center m-4">
+            <button class="btn add-btn">ADD</button>
+          </div>
+        </div>
+      </form>
     </div>
+
+  </div>
 </div>
