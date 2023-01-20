@@ -150,9 +150,19 @@ form .add-btn:hover {
   /* height: 50px !important; */
 }
 
-::ng-deep  .mat-h6, .mat-typography h6 {
-  font: 400 calc(64px * 0.67)/20px Roboto, "Helvetica Neue", sans-serif;
-  margin: 0 0 12px;
+.form-heading {
+  font-size: 20px;
+  text-transform: uppercase;
+  color: #084982;
+  font-weight: bold;
+  margin: 40px 0 0 15px;
+}
+
+.alert-danger {
+  border-radius: 5px;
+  padding: 0 10px;
+  margin: 0 0 0 5px;
+  font-size: 12px;
 }
 
 @media only screen and (max-width: 768px) {

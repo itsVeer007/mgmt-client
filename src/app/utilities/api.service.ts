@@ -7,44 +7,49 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ApiService {
 
-  user$=new BehaviorSubject(null);
-  
+  user$ = new BehaviorSubject(null);
+
   constructor(
     private http: HttpClient
   ) { }
 
   baseUrl = "http://usmgmt.iviscloud.net:777/businessInterface/";
-  
-  addUser(payload: any) {
-    let url = this.baseUrl+"User/addUser_1_0";
-    return this.http.post(url, payload);
-  }
-  
+
   login(loginDetails: any) {
     let url = this.baseUrl+"/login/login_2_0";
     return this.http.post(url,loginDetails);
   }
 
-  getUser(){
-    let url = this.baseUrl+"/User/getUser_1_0";
+  addUser(payload: any) {
+    let url = this.baseUrl+"User/addUser_1_0";
     var user = JSON.parse(localStorage.getItem('user')!);
-    // console.log(user);
-    var payload = {
-      "username":"deepika",
-      "email":"deepika123@gmail.com",
-      "callingUsername": user.UserName,
-      "accesstoken":user.access_token,
-      "callingSystemDetail":"portal"
-    }
-    // console.log(payload)
+    console.log(user);
+    payload.accesstoken = user.access_token;
+    payload.callingUsername = user.UserName;
     return this.http.post(url, payload);
   }
 
-  updateUser(user:any){
+  getUser(email: string) {
+    let url = this.baseUrl+"/User/getUser_1_0";
+    var user = JSON.parse(localStorage.getItem('user')!);
+    console.log('user', user);
+
+    var payload = {
+      "username":"veer",
+      "email": email,
+      "callingUsername": user.UserName,
+      "accesstoken": user.access_token,
+      "callingSystemDetail":"portal"
+    }
+    console.log('pay', payload)
+    return this.http.post(url, payload);
+  }
+
+  updateUser(user:any) {
     let url = this.baseUrl+"/User/getUser_1_0";
     var a = JSON.parse(localStorage.getItem('user')!);
-    user.accesstoken=a.access_token;
-    user.callingUsername= a.UserName;
+    user.accesstoken = a.access_token;
+    user.callingUsername = a.UserName;
     return this.http.post(url, user);
 
   }

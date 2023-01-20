@@ -423,7 +423,7 @@
 </div> -->
 
 <div style="position: fixed; top: 0" *ngIf="showAddUser">
-  <app-add-new-user [show]="showAddUser" (newItemEvent)="closenow($event, 'user')"></app-add-new-user>
+  <app-add-new-user [show]="showAddUser" (newItemEvent)="closenow($event, 'user')" (newUser)="addNewUser($event)"></app-add-new-user>
 </div>
 
 <!-- <div style="position: fixed; top: 0" *ngIf="showAddBusinessVertical">

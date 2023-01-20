@@ -35,6 +35,8 @@ export class AddNewUserComponent implements OnInit {
 
   @Output() newItemEvent = new EventEmitter<boolean>();
 
+  @Output() newUser = new EventEmitter<any>();
+
   // @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
   //   var x = <HTMLElement>document.getElementById(`user`);
   //   if (x != null) {
@@ -53,13 +55,10 @@ export class AddNewUserComponent implements OnInit {
     password: "",
     firstname: "",
     lastname: "",
-    roleList: [
-      "Role",
-      "Employee",
-      "Worker"
-    ],
+    roleList: "",
     email: "",
     gender: "",
+    active: "",
     realm: "",
     contactNumber1: "",
     contactNumber2: "",
@@ -78,6 +77,8 @@ export class AddNewUserComponent implements OnInit {
     safetyEscort: ""
   }
 
+  email: string = "";
+
 
   ngOnInit() {
     // this.employeeForm = new FormGroup({
@@ -90,36 +91,40 @@ export class AddNewUserComponent implements OnInit {
       'password': new FormControl('', [Validators.required, Validators.minLength(8)]),
       'first': new FormControl('', Validators.required),
       'last': new FormControl('', Validators.required),
-      // 'role': this.fb.group({
+      // 'gender': this.fb.group({
       //        cityName: ['']
       //       }),
+      'employeeId': new FormControl('', Validators.required),
       'role': new FormControl('', Validators.required),
       'gender': new FormControl('', Validators.required),
       'active': new FormControl('', Validators.required),
       'realm': new FormControl('', Validators.required),
       'email': new FormControl('', Validators.required),
-      'phone': new FormControl('', Validators.required),
+      'contact_1': new FormControl('', Validators.required),
+      'contact_2': new FormControl('', Validators.required),
+      'address_1': new FormControl('', Validators.required),
+      'address_2': new FormControl('', Validators.required),
       'country': new FormControl('', Validators.required),
       'state': new FormControl('', Validators.required),
       'city': new FormControl('', Validators.required),
       'pincode': new FormControl('', Validators.required),
-      'area': new FormControl('', Validators.required)
+      'district': new FormControl('', Validators.required)
     });
 
-    this.getUserDetails()
+    // this.getUserDetails()
   }
 
   getUserDetails(){
-    this.apiser.getUser().subscribe((res:any)=>{
+    this.apiser.getUser(this.email).subscribe((res:any)=>{
       console.log(res)
       if(res.Status == 'Success'){
         this.user.username= "";
         // this.user.password= res. ;
         this.user.firstname= res.firstName ;
         this.user.lastname= res.lastName ;
-        // this.user.roleList = res. ;
+        // this.user.roleList = res ;
         this.user.email= res.email ;
-        this.user.gender= res.gender ;
+        this.user.gender= res.gender;
         this.user.realm= res.realm ;
         this.user.contactNumber1= res.contactNo1 ;
         this.user.contactNumber2= res.contactNo2 ;
@@ -132,17 +137,14 @@ export class AddNewUserComponent implements OnInit {
         this.user.pin= res.pin ;
         this.user.employee= res.employee ;
         this.user.employeeId= res.empId ;
-        // this.user.accesstoken= res. ;
-        // this.user.callingUsername= res. ;
+        this.user.accesstoken= res.access_token;
+        this.user.callingUsername= res.callingUsername;
         this.user.callingSystemDetail = "portal" ;
         this.user.safetyEscort = res.safetyescort;
 
       }
     })
   }
-
-  // onSubmit(): void {
-  // }
 
   closeAddUser(value:boolean) {
     this.newItemEvent.emit(value);
@@ -154,15 +156,63 @@ export class AddNewUserComponent implements OnInit {
     this.closeAddUser(false);
   }
 
-  submit(){
-    console.log("Entered in AddUser:: ",this.UserForm.value);
-    console.log("Payload:: ",this.user);
-    this.apiser.addUser(this.user).subscribe((res: any)=>{
-      console.log(res);
-      if(res.Status == "Success"){
+  submitted!: boolean;
+
+  submit(value: any){
+
+    // if(this.UserForm.valid) {
+    //   this.apiser.addUser(this.user).subscribe((res: any) => {
+    //     if(res.Status == "Success"){
+    //       localStorage.setItem('userCreated', JSON.stringify(res))
+    //       this.newUser.emit(value);
+    //     }
+    //   });
+    // }
+
+    if(this.UserForm.valid) {
+      console.log("Entered in AddUser: ",this.UserForm.value);
+      console.log("Payload: ",this.user);
+
+      let dummyResponse =   {
+        "username": "cooper@gmail.com",
+        "password": "Z%^gfd#12D",
+        "firstname": "Cooper",
+        "lastname": "K",
+        "roleList": [
+            "default store"
+        ],
+        "email": "cooper@gmail.com",
+        "gender": "M",
+        "realm": "IVISUSA",
+        "contactNumber1": "+91 1234567890",
+        "contactNumber2": "",
+        "country": "India",
+        "addressLine1": "",
+        "addressLine2": "900 East 4th Street",
+        "district": "",
+        "state": "AP",
+        "city": "Mangalgiri",
+        "pin": "79762",
+        "employee": "T",
+        "employeeId": "ID",
+        "accesstoken": "",
+        "callingUsername": "ivisus",
+        "callingSystemDetail": "admin",
+        "safetyEscort": "F"
       }
-    });
-    // console.log(this.UserForm.valid)
+
+      localStorage.setItem('userCreated', JSON.stringify(dummyResponse))
+      this.newUser.emit(value);
+      this.submitted = false;
+    }
+
+    this.submitted = true;
+  }
+
+
+  checkbox: boolean = false;
+  onCheck() {
+    this.checkbox = !this.checkbox;
   }
 
 }

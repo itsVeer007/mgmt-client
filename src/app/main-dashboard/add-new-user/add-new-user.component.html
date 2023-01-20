@@ -5,7 +5,7 @@
     <div class="d-flex flex-row justify-content-between">
       <div class="d-flex flex-row justify-content-start">
         <a class="mt-3 pointer" (click)="closeAddUser(false)"><img src="assets/images/Group 101.svg" /></a>
-        <h6 class="mt-5" style="margin-left: 20px;">add user</h6>
+        <span class="form-heading">add user</span>
       </div>
 
       <!-- <div class="mx-5 my-4 site-icons">
@@ -25,114 +25,154 @@
     </div>
 
     <div>
-      <form autocomplete="off" [formGroup]="UserForm" #addUserForm="ngForm">
+      <form autocomplete="off" [formGroup]="UserForm" (ngSubmit)="submit(newUser)" #addUserForm="ngForm">
         <div class="row">
           <div class="col-lg-6 col-md-6">
-            <input type="text" class="form-control m-1" placeholder="User Name*" id="UserName"
-              [(ngModel)]="user.username" formControlName="userName" required
-              [style.border]="(UserForm.controls['userName'].invalid && UserForm.controls['userName'].touched) ? '1px solid red' : '1px solid black'">
+            <input type="text" class="form-control m-1" placeholder="User Name" id="UserName" [(ngModel)]="user.username" formControlName="userName">
+              <div *ngIf="(UserForm.controls['userName'].hasError('required') && submitted) || (UserForm.controls['userName'].invalid && UserForm.controls['userName'].touched)" class='alert-danger'>
+                Name is required
+              </div>
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <input type="password" class="form-control m-1" placeholder="Password*" formControlName="password" name="pwd" required
-            [style.border]="(UserForm.controls['password'].invalid && UserForm.controls['password'].touched) ? '1px solid red' : '1px solid black'">
+            <input type="password" class="form-control m-1" placeholder="Password" formControlName="password">
+            <div *ngIf="(UserForm.controls['password'].hasError('required') && submitted) || (UserForm.controls['password'].invalid && UserForm.controls['password'].touched)" class='alert-danger'>
+              Password is required
+            </div>
+            <div *ngIf="(UserForm.controls['password'].touched && UserForm.controls['password'].value.length < 8)" class='alert-danger'>
+              Min 8 Characters required
+            </div>
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <input type="text" class="form-control m-1" placeholder="First Name*" formControlName="first"
+            <input type="text" class="form-control m-1" placeholder="First Name" formControlName="first"
               [(ngModel)]="user.firstname" name="first" required
               [style.border]="(UserForm.controls['first'].invalid && UserForm.controls['first'].touched) ? '1px solid red' : '1px solid black'">
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <input type="text" class="form-control m-1" placeholder="Last Name*" formControlName="last"
+            <input type="text" class="form-control m-1" placeholder="Last Name" formControlName="last"
               [(ngModel)]="user.lastname" name="last" required
-              [style.border]="(UserForm.controls['last'].invalid && UserForm.controls['last'].touched) ? '1px solid red' : '1px solid black'">
+              [style.border]="(UserForm.controls['last'].invalid && UserForm.controls['last'].touched) || UserForm.submitted ? '1px solid red' : '1px solid black'">
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <select class="form-select m-1" id="" formControlName="role"
+            <select class="form-select m-1" id="" formControlName="role" [(ngModel)]="user.roleList"
               [style.border]="(UserForm.controls['role'].invalid && UserForm.controls['role'].touched) ? '1px solid red' : '1px solid black'">
-              <option value="role" *ngFor="let role of user.roleList">{{role}}</option>
+              <option value="" disabled selected>Select role</option>
+              <option value="Employee">Employee</option>
+              <option value="Worker">Worker</option>
             </select>
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <select class="form-select m-1" id="" formControlName="gender"
+            <select class="form-select m-1" id="" formControlName="gender" [(ngModel)]="user.gender"
               [style.border]="(UserForm.controls['gender'].invalid && UserForm.controls['gender'].touched) ? '1px solid red' : '1px solid black'">
-              <option value="" selected>Gender</option>
-              <option value="m" name="male">Male</option>
-              <option value="f" name="female">Female</option>
+              <option value="" disabled selected>Select gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
             </select>
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <select class="form-select m-1" id="" formControlName="active"
+            <select class="form-select m-1" id="" formControlName="active" [(ngModel)]="user.active"
               [style.border]="(UserForm.controls['active'].invalid && UserForm.controls['active'].touched) ? '1px solid red' : '1px solid black'">
-              <option value="" selected>Active</option>
-              <option value="a" name="active">active</option>
+              <option value="" disabled selected>Select status</option>
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
             </select>
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <select class="form-select m-1" id="" formControlName="realm"
+            <select class="form-select m-1" id="" formControlName="realm" [(ngModel)]="user.realm"
               [style.border]="(UserForm.controls['realm'].invalid && UserForm.controls['realm'].touched) ? '1px solid red' : '1px solid black'">
-              <option value="" selected>Realm</option>
-              <option value="realm" name="realm">realm</option>
+              <option value="" disabled selected>Select realm</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
             </select>
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <input type="email" class="form-control m-1" placeholder="Email Id*" formControlName="email" name="email" required
+            <input type="email" class="form-control m-1" placeholder="Email Id" formControlName="email" [(ngModel)]="user.email" required
               [style.border]="(UserForm.controls['email'].invalid && UserForm.controls['email'].touched) ? '1px solid red' : '1px solid black'">
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <input type="text" class="form-control m-1" placeholder="Contact Number*" formControlName="phone"name="number" required
-              [style.border]="(UserForm.controls['phone'].invalid && UserForm.controls['phone'].touched) ? '1px solid red' : '1px solid black'">
+            <input type="text" class="form-control m-1" placeholder="Contact Number" formControlName="contact_1" [(ngModel)]="user.contactNumber1" required
+              [style.border]="(UserForm.controls['contact_1'].invalid && UserForm.controls['contact_1'].touched) ? '1px solid red' : '1px solid black'">
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <select class="form-select m-1" id="" name="coun" formControlName="country" required
+            <input type="text" class="form-control m-1" placeholder="Alternate Contact Number" formControlName="contact_2" [(ngModel)]="user.contactNumber2" required
+              [style.border]="(UserForm.controls['contact_2'].invalid && UserForm.controls['contact_2'].touched) ? '1px solid red' : '1px solid black'">
+          </div>
+
+          <div class="col-lg-6 col-md-6">
+            <input type="text" class="form-control m-1" placeholder="Enter Address" formControlName="address_1" [(ngModel)]="user.addressLine1" required
+              [style.border]="(UserForm.controls['address_1'].invalid && UserForm.controls['address_1'].touched) ? '1px solid red' : '1px solid black'">
+          </div>
+
+          <div class="col-lg-6 col-md-6">
+            <input type="text" class="form-control m-1" placeholder="Enter Alternate Address" formControlName="address_2" [(ngModel)]="user.addressLine2" required
+              [style.border]="(UserForm.controls['address_2'].invalid && UserForm.controls['address_2'].touched) ? '1px solid red' : '1px solid black'">
+          </div>
+
+          <div class="col-lg-6 col-md-6">
+            <select class="form-select m-1" id="" name="coun" formControlName="country" [(ngModel)]="user.country" required
               [style.border]="(UserForm.controls['country'].invalid && UserForm.controls['country'].touched) ? '1px solid red' : '1px solid black'">
-              <option value="" selected>Country*</option>
-              <option value="count" name="count">country</option>
+              <option value="" disabled selected>Select country</option>
+              <option value="India">India</option>
+              <option value="US">US</option>
             </select>
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <select class="form-select m-1" id="" formControlName="state"
+            <select class="form-select m-1" id="" formControlName="state" [(ngModel)]="user.state"
               [style.border]="(UserForm.controls['state'].invalid && UserForm.controls['state'].touched) ? '1px solid red' : '1px solid black'">
-              <option value="" selected>State</option>
-              <option value="state1" name="state1">state</option>
+              <option value="" disabled selected>Select state</option>
+              <option value="AP">AP</option>
+              <option value="TS">TS</option>
             </select>
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <select class="form-select m-1" id="" formControlName="city"
-              [style.border]="(UserForm.controls['city'].invalid && UserForm.controls['city'].touched) ? '1px solid red' : '1px solid black'">
-              <option value="" selected>District/City</option>
-              <option value="cit" name="cit">cit</option>
+            <select class="form-select m-1" id="" formControlName="district" [(ngModel)]="user.district"
+              [style.border]="(UserForm.controls['district'].invalid && UserForm.controls['district'].touched) ? '1px solid red' : '1px solid black'">
+              <option value="" disabled selected>Select district</option>
+              <option value="Krishna">Krishna</option>
+              <option value="Guntur">Guntur</option>
             </select>
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <input type="text" class="form-control m-1" placeholder="Pincode" formControlName="pincode"
+            <input type="text" class="form-control m-1" placeholder="Pincode" formControlName="pincode" [(ngModel)]="user.pin"
               [style.border]="(UserForm.controls['pincode'].invalid && UserForm.controls['pincode'].touched) ? '1px solid red' : '1px solid black'">
           </div>
 
           <div class="col-lg-12 col-md-12">
-            <input type="text" class="form-control m-1" placeholder="Area/Street" formControlName="area"
-              [style.border]="(UserForm.controls['area'].invalid && UserForm.controls['area'].touched) ? '1px solid red' : '1px solid black'">
+            <input type="text" class="form-control m-1" placeholder="city" formControlName="city" [(ngModel)]="user.city"
+              [style.border]="(UserForm.controls['city'].invalid && UserForm.controls['city'].touched) ? '1px solid red' : '1px solid black'">
           </div>
 
-          <label class="main mx-2 my-3">Safety Escort
-            <input type="checkbox" checked="checked">
-            <span class="geekmark"></span>
-          </label>
+          <div class="row d-flex align-items-center mx-1 my-2">
+            <label class="main col-lg-4">Safety Escort
+              <input type="checkbox">
+              <span class="geekmark"></span>
+            </label>
+
+            <label class="main col-lg-4">Employee
+              <input type="checkbox" (change)="onCheck()">
+              <span class="geekmark"></span>
+            </label>
+
+            <div class="col-lg-4" *ngIf="checkbox">
+              <input type="text" class="mb-3 form-control" placeholder="ID" formControlName="employeeId" [(ngModel)]="user.employeeId"
+                [style.border]="(UserForm.controls['employeeId'].invalid && UserForm.controls['employeeId'].touched) ? '1px solid red' : '1px solid black'">
+            </div>
+          </div>
 
           <div class="text-center mb-5">
-            <button type="submit" class="btn add-btn" (click)="submit()">CREATE</button>
+            <button type="submit" class="btn add-btn">CREATE</button>
           </div>
         </div>
       </form>

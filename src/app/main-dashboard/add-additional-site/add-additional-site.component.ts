@@ -69,22 +69,22 @@ export class AddAdditionalSiteComponent implements OnInit {
       'selectSite': new FormControl(''),
     });
 
-    this.getSiteDetails()
+    // this.getSiteDetails()
   }
 
-  getSiteDetails(){
-    this.apiser.getUser().subscribe((res:any)=>{
-      // console.log(res)
-      if(res.Status == 'Success'){
-        this.site.userId= "";
-        this.site.userName= "";
-        this.site.verticals= res.verticals ;
-        this.site.customers= res.customers ;
-        this.site.selectSite= res.selectSite;
+  // getSiteDetails(){
+  //   this.apiser.getUser().subscribe((res:any)=>{
+  //     // console.log(res)
+  //     if(res.Status == 'Success'){
+  //       this.site.userId= "";
+  //       this.site.userName= "";
+  //       this.site.verticals= res.verticals ;
+  //       this.site.customers= res.customers ;
+  //       this.site.selectSite= res.selectSite;
 
-      }
-    })
-  }
+  //     }
+  //   })
+  // }
 
   onSubmit(): void {
   }

@@ -102,7 +102,17 @@ export class UsersComponent implements OnInit {
       if (openform == 'showAddUser') { this.showAddUser = true; }
       if (openform == 'additionalSite') { this.showSite = true; }
       localStorage.setItem('opennewform', '');
-    }, 100)
+    }, 100);
+  }
+
+  //----------------------------------Add New User
+
+  addNewUser(newUser: any) {
+    newUser = JSON.parse(localStorage.getItem('userCreated')!);
+    if(newUser) {
+      this.CustomerTable.push(newUser)
+      localStorage.removeItem('userCreated');
+    }
   }
 
   // showAddCamera = false;

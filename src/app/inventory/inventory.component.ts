@@ -59,7 +59,7 @@ export class InventoryComponent implements OnInit {
   CustomerReport() {
     this.http.get('assets/JSON/customerData.json').subscribe(res => {
       this.CustomerTable = res;
-      console.log(res)
+      // console.log(res)
     });
   }
 
