@@ -94,16 +94,16 @@ export class AddNewUserComponent implements OnInit {
       // 'gender': this.fb.group({
       //        cityName: ['']
       //       }),
-      'employeeId': new FormControl('', Validators.required),
+      'employeeId': new FormControl(''),
       'role': new FormControl('', Validators.required),
       'gender': new FormControl('', Validators.required),
       'active': new FormControl('', Validators.required),
       'realm': new FormControl('', Validators.required),
       'email': new FormControl('', Validators.required),
       'contact_1': new FormControl('', Validators.required),
-      'contact_2': new FormControl('', Validators.required),
+      'contact_2': new FormControl(''),
       'address_1': new FormControl('', Validators.required),
-      'address_2': new FormControl('', Validators.required),
+      'address_2': new FormControl(''),
       'country': new FormControl('', Validators.required),
       'state': new FormControl('', Validators.required),
       'city': new FormControl('', Validators.required),
@@ -158,7 +158,7 @@ export class AddNewUserComponent implements OnInit {
 
   submitted!: boolean;
 
-  submit(value: any){
+  submit(value: any) {
 
     // if(this.UserForm.valid) {
     //   this.apiser.addUser(this.user).subscribe((res: any) => {
