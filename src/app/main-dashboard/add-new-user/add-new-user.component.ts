@@ -55,10 +55,10 @@ export class AddNewUserComponent implements OnInit {
     password: "",
     firstname: "",
     lastname: "",
-    roleList: "",
+    roleList: [],
     email: "",
     gender: "",
-    active: "",
+    // active: "",
     realm: "",
     contactNumber1: "",
     contactNumber2: "",
@@ -69,26 +69,21 @@ export class AddNewUserComponent implements OnInit {
     state: "",
     city: "",
     pin: "",
-    employee: "",
+    employee: "T",
     employeeId: "",
     accesstoken: "",
     callingUsername: "",
     callingSystemDetail: "admin",
-    safetyEscort: ""
+    safetyEscort: "F"
   }
 
   email: string = "";
 
 
   ngOnInit() {
-    // this.employeeForm = new FormGroup({
-    //   fullName: new FormControl(),
-    //   email: new FormControl()
-    // });
-
     this.UserForm = this.fb.group({
       'userName': new FormControl('', Validators.required),
-      'password': new FormControl('', [Validators.required, Validators.minLength(8)]),
+      'password': new FormControl('', [Validators.required]),
       'first': new FormControl('', Validators.required),
       'last': new FormControl('', Validators.required),
       // 'gender': this.fb.group({
@@ -97,7 +92,7 @@ export class AddNewUserComponent implements OnInit {
       'employeeId': new FormControl(''),
       'role': new FormControl('', Validators.required),
       'gender': new FormControl('', Validators.required),
-      'active': new FormControl('', Validators.required),
+      // 'active': new FormControl('', Validators.required),
       'realm': new FormControl('', Validators.required),
       'email': new FormControl('', Validators.required),
       'contact_1': new FormControl('', Validators.required),
@@ -108,10 +103,12 @@ export class AddNewUserComponent implements OnInit {
       'state': new FormControl('', Validators.required),
       'city': new FormControl('', Validators.required),
       'pincode': new FormControl('', Validators.required),
-      'district': new FormControl('', Validators.required)
+      'district': new FormControl('', Validators.required),
+      'safetyEscort': new FormControl(''),
+      'employee': new FormControl('')
     });
 
-    // this.getUserDetails()
+    // this.getUserDetails();
   }
 
   getUserDetails(){
@@ -119,29 +116,28 @@ export class AddNewUserComponent implements OnInit {
       console.log(res)
       if(res.Status == 'Success'){
         this.user.username= "";
-        // this.user.password= res. ;
-        this.user.firstname= res.firstName ;
-        this.user.lastname= res.lastName ;
-        // this.user.roleList = res ;
-        this.user.email= res.email ;
+        // this.user.password= res.;
+        this.user.firstname= res.firstName;
+        this.user.lastname= res.lastName;
+        // this.user.roleList = res.Roles;
+        this.user.email= res.email;
         this.user.gender= res.gender;
-        this.user.realm= res.realm ;
-        this.user.contactNumber1= res.contactNo1 ;
-        this.user.contactNumber2= res.contactNo2 ;
-        this.user.country= res.country ;
-        this.user.addressLine1= res.address_line1 ;
-        this.user.addressLine2= res.address_line2 ;
-        this.user.district= res.district ;
-        this.user.state= res.state ;
-        this.user.city= res.city ;
-        this.user.pin= res.pin ;
-        this.user.employee= res.employee ;
-        this.user.employeeId= res.empId ;
+        this.user.realm= res.realm;
+        this.user.contactNumber1= res.contactNo1;
+        this.user.contactNumber2= res.contactNo2;
+        this.user.country= res.country;
+        this.user.addressLine1= res.address_line1;
+        this.user.addressLine2= res.address_line2;
+        this.user.district= res.district;
+        this.user.state= res.state;
+        this.user.city= res.city;
+        this.user.pin= res.pin;
+        this.user.employee= res.employee;
+        this.user.employeeId= res.empId;
         this.user.accesstoken= res.access_token;
         this.user.callingUsername= res.callingUsername;
-        this.user.callingSystemDetail = "portal" ;
+        this.user.callingSystemDetail = "portal";
         this.user.safetyEscort = res.safetyescort;
-
       }
     })
   }
@@ -158,54 +154,20 @@ export class AddNewUserComponent implements OnInit {
 
   submitted!: boolean;
 
-  submit(value: any) {
-
-    // if(this.UserForm.valid) {
-    //   this.apiser.addUser(this.user).subscribe((res: any) => {
-    //     if(res.Status == "Success"){
-    //       localStorage.setItem('userCreated', JSON.stringify(res))
-    //       this.newUser.emit(value);
-    //     }
-    //   });
-    // }
+  submit() {
+    console.log("Userform: ",this.UserForm.value);
+    console.log("Payload: ",this.user);
 
     if(this.UserForm.valid) {
-      console.log("Entered in AddUser: ",this.UserForm.value);
-      console.log("Payload: ",this.user);
-
-      let dummyResponse =   {
-        "username": "cooper@gmail.com",
-        "password": "Z%^gfd#12D",
-        "firstname": "Cooper",
-        "lastname": "K",
-        "roleList": [
-            "default store"
-        ],
-        "email": "cooper@gmail.com",
-        "gender": "M",
-        "realm": "IVISUSA",
-        "contactNumber1": "+91 1234567890",
-        "contactNumber2": "",
-        "country": "India",
-        "addressLine1": "",
-        "addressLine2": "900 East 4th Street",
-        "district": "",
-        "state": "AP",
-        "city": "Mangalgiri",
-        "pin": "79762",
-        "employee": "T",
-        "employeeId": "ID",
-        "accesstoken": "",
-        "callingUsername": "ivisus",
-        "callingSystemDetail": "admin",
-        "safetyEscort": "F"
-      }
-
-      localStorage.setItem('userCreated', JSON.stringify(dummyResponse))
-      this.newUser.emit(value);
+      this.apiser.addUser(this.user).subscribe((res: any) => {
+        if(res.Status == "Success") {
+          localStorage.setItem('userCreated', JSON.stringify(res));
+          console.log('status');
+        }
+      });
+      console.log('valid');
       this.submitted = false;
     }
-
     this.submitted = true;
   }
 
@@ -214,6 +176,9 @@ export class AddNewUserComponent implements OnInit {
   onCheck() {
     this.checkbox = !this.checkbox;
   }
+
+  check: any;
+
 
 }
 

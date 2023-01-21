@@ -31,16 +31,16 @@ export class AddNewCustomerComponent implements OnInit {
   @Input() show:any;
 
   @Output() newItemEvent = new EventEmitter<boolean>();
-  
-  @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
-    var x = <HTMLElement>document.getElementById(`customer`);
-    if (x != null) {
-      if (!x.contains(e.target)) {
-        this.closeAddCustomer(false);
-      }
-    }
-  }
-  
+
+  // @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
+  //   var x = <HTMLElement>document.getElementById(`customer`);
+  //   if (x != null) {
+  //     if (!x.contains(e.target)) {
+  //       this.closeAddCustomer(false);
+  //     }
+  //   }
+  // }
+
   closeAddCustomer(value:boolean) {
     this.newItemEvent.emit(value);
   }
@@ -48,7 +48,7 @@ export class AddNewCustomerComponent implements OnInit {
   productForm: FormGroup;
 
   constructor(private fb:FormBuilder, private router:Router) {
-   
+
     this.productForm = this.fb.group({
       name: '',
       quantities: this.fb.array([]) ,
@@ -59,29 +59,29 @@ export class AddNewCustomerComponent implements OnInit {
     this.addQuantity()
   }
 
-  quantities() : FormArray {  
-    return this.productForm.get("quantities") as FormArray  
-  }  
-     
-  newQuantity(): FormGroup {  
-    return this.fb.group({  
-      addressType: '',  
+  quantities() : FormArray {
+    return this.productForm.get("quantities") as FormArray
+  }
+
+  newQuantity(): FormGroup {
+    return this.fb.group({
+      addressType: '',
       country: '',
       state: '',
       district: '',
       pincode: '',
       area: '',
-    })  
-  } 
+    })
+  }
 
-  addQuantity() {  
-    this.quantities().push(this.newQuantity());  
-  } 
+  addQuantity() {
+    this.quantities().push(this.newQuantity());
+  }
 
   onSubmit() {
     console.log(this.productForm.value);
   }
-  
+
   address2: boolean = false;
   closeimg(e:any) {
     var x = e.target.parentNode.parentNode.parentNode;

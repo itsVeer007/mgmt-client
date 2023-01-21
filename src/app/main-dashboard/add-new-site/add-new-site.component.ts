@@ -31,14 +31,14 @@ export class AddNewSiteComponent implements OnInit {
 
   @Output() newItemEvent = new EventEmitter<boolean>();
 
-  @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
-    var x = <HTMLElement>document.getElementById(`sites`);
-    if (x != null) {
-      if (!x.contains(e.target)) {
-        this.closeAddSite(false);
-      }
-    }
-  }
+  // @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
+  //   var x = <HTMLElement>document.getElementById(`sites`);
+  //   if (x != null) {
+  //     if (!x.contains(e.target)) {
+  //       this.closeAddSite(false);
+  //     }
+  //   }
+  // }
 
   closeAddSite(value: boolean) {
     this.newItemEvent.emit(value);

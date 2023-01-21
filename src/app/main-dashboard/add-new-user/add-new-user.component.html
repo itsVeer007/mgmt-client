@@ -25,29 +25,29 @@
     </div>
 
     <div>
-      <form autocomplete="off" [formGroup]="UserForm" (ngSubmit)="submit(newUser)" #addUserForm="ngForm">
+      <form autocomplete="off" [formGroup]="UserForm" #addUserForm="ngForm">
         <div class="row">
           <div class="col-lg-6 col-md-6">
-            <input type="text" class="form-control m-1" placeholder="User Name" id="UserName" [(ngModel)]="user.username" formControlName="userName">
-              <div *ngIf="(UserForm.controls['userName'].hasError('required') && submitted) || (UserForm.controls['userName'].invalid && UserForm.controls['userName'].touched)" class='alert-danger'>
+            <input type="text" class="form-control m-1" placeholder="User Name" [(ngModel)]="user.username" formControlName="userName">
+              <div *ngIf="(UserForm.controls['userName'].hasError('required') && submitted) && (UserForm.controls['userName'].invalid)" class='alert-danger'>
                 Name is required
               </div>
           </div>
 
           <div class="col-lg-6 col-md-6">
             <input type="password" class="form-control m-1" placeholder="Password" formControlName="password">
-            <div *ngIf="(UserForm.controls['password'].hasError('required') && submitted) || (UserForm.controls['password'].invalid && UserForm.controls['password'].touched)" class='alert-danger'>
+            <div *ngIf="(UserForm.controls['password'].hasError('required') && submitted) || (UserForm.controls['password'].invalid) && !(UserForm.controls['password'].value.length < 8)" class='alert-danger'>
               Password is required
             </div>
-            <!-- <div *ngIf="((UserForm.controls['password'].invalid && UserForm.controls['password'].touched) && UserForm.controls['password'].value.length < 8) " class='alert-danger'>
+            <div *ngIf="(UserForm.controls['password'].touched && UserForm.controls['password'].value.length < 8) && !(UserForm.controls['password'].hasError('required'))" class='alert-danger'>
               Min 8 Characters required
-            </div> -->
+            </div>
           </div>
 
           <div class="col-lg-6 col-md-6">
             <input type="text" class="form-control m-1" placeholder="First Name" formControlName="first"
               [(ngModel)]="user.firstname" name="first" required>
-              <div *ngIf="(UserForm.controls['first'].hasError('required') && submitted) || (UserForm.controls['first'].invalid && UserForm.controls['first'].touched)" class='alert-danger'>
+              <div *ngIf="(UserForm.controls['first'].hasError('required') && submitted) && (UserForm.controls['first'].invalid)" class='alert-danger'>
                 First name is required
               </div>
           </div>
@@ -55,158 +55,159 @@
           <div class="col-lg-6 col-md-6">
             <input type="text" class="form-control m-1" placeholder="Last Name" formControlName="last"
               [(ngModel)]="user.lastname" name="last" required>
-              <div *ngIf="(UserForm.controls['last'].hasError('required') && submitted) || (UserForm.controls['last'].invalid && UserForm.controls['last'].touched)" class='alert-danger'>
+              <div *ngIf="(UserForm.controls['last'].hasError('required') && submitted) && (UserForm.controls['last'].invalid)" class='alert-danger'>
                 Last name is required
               </div>
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <select class="form-select m-1" id="" formControlName="role" [(ngModel)]="user.roleList">
+            <select class="form-select m-1" id="role" formControlName="role" [(ngModel)]="user.roleList" multiple>
               <option value="" disabled selected>Select role</option>
               <option value="Employee">Employee</option>
               <option value="Worker">Worker</option>
+              <option value="Other">Other</option>
             </select>
-            <div *ngIf="(UserForm.controls['role'].hasError('required') && submitted) || (UserForm.controls['role'].invalid && UserForm.controls['role'].touched)" class='alert-danger'>
+            <div *ngIf="(UserForm.controls['role'].hasError('required') && submitted) && (UserForm.controls['role'].invalid)" class='alert-danger'>
               Role is required
             </div>
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <select class="form-select m-1" id="" formControlName="gender" [(ngModel)]="user.gender">
+            <select class="form-select m-1" id="gender" formControlName="gender" [(ngModel)]="user.gender">
               <option value="" disabled selected>Select gender</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
+              <option value="M">Male</option>
+              <option value="F">Female</option>
             </select>
-            <div *ngIf="(UserForm.controls['gender'].hasError('required') && submitted) || (UserForm.controls['gender'].invalid && UserForm.controls['gender'].touched)" class='alert-danger'>
+            <div *ngIf="(UserForm.controls['gender'].hasError('required') && submitted) && (UserForm.controls['gender'].invalid)" class='alert-danger'>
               Gender is required
             </div>
           </div>
 
-          <div class="col-lg-6 col-md-6">
-            <select class="form-select m-1" id="" formControlName="active" [(ngModel)]="user.active">
+          <!-- <div class="col-lg-6 col-md-6">
+            <select class="form-select m-1" id="status" formControlName="active" [(ngModel)]="user.active">
               <option value="" disabled selected>Select status</option>
               <option value="Active">Active</option>
               <option value="Inactive">Inactive</option>
             </select>
-            <div *ngIf="(UserForm.controls['active'].hasError('required') && submitted) || (UserForm.controls['active'].invalid && UserForm.controls['active'].touched)" class='alert-danger'>
+            <div *ngIf="(UserForm.controls['active'].hasError('required') && submitted) && (UserForm.controls['active'].invalid)" class='alert-danger'>
               Status is required
             </div>
-          </div>
+          </div> -->
 
           <div class="col-lg-6 col-md-6">
-            <select class="form-select m-1" id="" formControlName="realm" [(ngModel)]="user.realm">
+            <select class="form-select m-1" id="realm" formControlName="realm" [(ngModel)]="user.realm">
               <option value="" disabled selected>Select realm</option>
               <option value="1">1</option>
               <option value="2">2</option>
             </select>
-            <div *ngIf="(UserForm.controls['realm'].hasError('required') && submitted) || (UserForm.controls['realm'].invalid && UserForm.controls['realm'].touched)" class='alert-danger'>
+            <div *ngIf="(UserForm.controls['realm'].hasError('required') && submitted) && (UserForm.controls['realm'].invalid)" class='alert-danger'>
               Realm is required
             </div>
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <input type="email" class="form-control m-1" placeholder="Email Id" formControlName="email" [(ngModel)]="user.email" required>
-            <div *ngIf="(UserForm.controls['email'].hasError('required') && submitted) || (UserForm.controls['email'].invalid && UserForm.controls['email'].touched)" class='alert-danger'>
+            <input type="email" class="form-control m-1" placeholder="Email Id" formControlName="email" [(ngModel)]="user.email">
+            <div *ngIf="(UserForm.controls['email'].hasError('required') && submitted) && (UserForm.controls['email'].invalid)" class='alert-danger'>
               Email is required
             </div>
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <input type="text" class="form-control m-1" placeholder="Contact Number" formControlName="contact_1" [(ngModel)]="user.contactNumber1" required>
-            <div *ngIf="(UserForm.controls['contact_1'].hasError('required') && submitted) || (UserForm.controls['contact_1'].invalid && UserForm.controls['contact_1'].touched)" class='alert-danger'>
+            <input type="text" class="form-control m-1" placeholder="Contact Number" formControlName="contact_1" [(ngModel)]="user.contactNumber1">
+            <div *ngIf="(UserForm.controls['contact_1'].hasError('required') && submitted) && (UserForm.controls['contact_1'].invalid)" class='alert-danger'>
               Contact is required
             </div>
           </div>
 
           <div class="col-lg-6 col-md-6">
             <input type="text" class="form-control m-1" placeholder="Alternate Contact Number" formControlName="contact_2" [(ngModel)]="user.contactNumber2">
-            <!-- <div *ngIf="(UserForm.controls['contact_2'].hasError('required') && submitted) || (UserForm.controls['contact_2'].invalid && UserForm.controls['contact_2'].touched)" class='alert-danger'>
+            <!-- <div *ngIf="(UserForm.controls['contact_2'].hasError('required') && submitted) || (UserForm.controls['contact_2'].invalid)" class='alert-danger'>
               Name is required
             </div> -->
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <input type="text" class="form-control m-1" placeholder="Enter Address" formControlName="address_1" [(ngModel)]="user.addressLine1" required>
-            <div *ngIf="(UserForm.controls['address_1'].hasError('required') && submitted) || (UserForm.controls['address_1'].invalid && UserForm.controls['address_1'].touched)" class='alert-danger'>
+            <input type="text" class="form-control m-1" placeholder="Enter Address" formControlName="address_1" [(ngModel)]="user.addressLine1">
+            <div *ngIf="(UserForm.controls['address_1'].hasError('required') && submitted) && (UserForm.controls['address_1'].invalid)" class='alert-danger'>
               Address is required
             </div>
           </div>
 
           <div class="col-lg-6 col-md-6">
             <input type="text" class="form-control m-1" placeholder="Enter Alternate Address" formControlName="address_2" [(ngModel)]="user.addressLine2">
-            <!-- <div *ngIf="(UserForm.controls['address_2'].hasError('required') && submitted) || (UserForm.controls['address_2'].invalid && UserForm.controls['address_2'].touched)" class='alert-danger'>
+            <!-- <div *ngIf="(UserForm.controls['address_2'].hasError('required') && submitted) || (UserForm.controls['address_2'].invalid)" class='alert-danger'>
               Name is required
             </div> -->
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <select class="form-select m-1" id="" formControlName="country" [(ngModel)]="user.country" required>
+            <select class="form-select m-1" id="country" formControlName="country" [(ngModel)]="user.country">
               <option value="" disabled selected>Select country</option>
               <option value="India">India</option>
               <option value="US">US</option>
             </select>
-            <div *ngIf="(UserForm.controls['country'].hasError('required') && submitted) || (UserForm.controls['country'].invalid && UserForm.controls['country'].touched)" class='alert-danger'>
+            <div *ngIf="(UserForm.controls['country'].hasError('required') && submitted) && (UserForm.controls['country'].invalid)" class='alert-danger'>
               Country is required
             </div>
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <select class="form-select m-1" id="" formControlName="state" [(ngModel)]="user.state">
+            <select class="form-select m-1" id="state" formControlName="state" [(ngModel)]="user.state">
               <option value="" disabled selected>Select state</option>
               <option value="AP">AP</option>
               <option value="TS">TS</option>
             </select>
-            <div *ngIf="(UserForm.controls['state'].hasError('required') && submitted) || (UserForm.controls['state'].invalid && UserForm.controls['state'].touched)" class='alert-danger'>
+            <div *ngIf="(UserForm.controls['state'].hasError('required') && submitted) && (UserForm.controls['state'].invalid)" class='alert-danger'>
               State is required
             </div>
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <select class="form-select m-1" id="" formControlName="district" [(ngModel)]="user.district">
+            <select class="form-select m-1" id="district" formControlName="district" [(ngModel)]="user.district">
               <option value="" disabled selected>Select district</option>
               <option value="Krishna">Krishna</option>
               <option value="Guntur">Guntur</option>
             </select>
-            <div *ngIf="(UserForm.controls['district'].hasError('required') && submitted) || (UserForm.controls['district'].invalid && UserForm.controls['district'].touched)" class='alert-danger'>
+            <div *ngIf="(UserForm.controls['district'].hasError('required') && submitted) && (UserForm.controls['district'].invalid)" class='alert-danger'>
               District is required
             </div>
           </div>
 
           <div class="col-lg-6 col-md-6">
             <input type="text" class="form-control m-1" placeholder="Pincode" formControlName="pincode" [(ngModel)]="user.pin">
-            <div *ngIf="(UserForm.controls['pincode'].hasError('required') && submitted) || (UserForm.controls['pincode'].invalid && UserForm.controls['pincode'].touched)" class='alert-danger'>
+            <div *ngIf="(UserForm.controls['pincode'].hasError('required') && submitted) && (UserForm.controls['pincode'].invalid)" class='alert-danger'>
               Pin is required
             </div>
           </div>
 
           <div class="col-lg-12 col-md-12">
             <input type="text" class="form-control m-1" placeholder="city" formControlName="city" [(ngModel)]="user.city">
-            <div *ngIf="(UserForm.controls['city'].hasError('required') && submitted) || (UserForm.controls['city'].invalid && UserForm.controls['city'].touched)" class='alert-danger'>
+            <div *ngIf="(UserForm.controls['city'].hasError('required') && submitted) && (UserForm.controls['city'].invalid)" class='alert-danger'>
               City is required
             </div>
           </div>
 
           <div class="row d-flex align-items-center mx-1 my-2">
             <label class="main col-lg-4">Safety Escort
-              <input type="checkbox">
+              <input type="checkbox" [(ngModel)]="user.safetyEscort" formControlName="safetyEscort">
               <span class="geekmark"></span>
             </label>
 
             <label class="main col-lg-4">Employee
-              <input type="checkbox" (change)="onCheck()">
+              <input type="checkbox" [(ngModel)]="user.employee" formControlName="employee">
               <span class="geekmark"></span>
             </label>
 
-            <div class="col-lg-4" *ngIf="checkbox">
+            <div class="col-lg-4">
               <input type="text" class="mb-3 form-control" placeholder="ID" formControlName="employeeId" [(ngModel)]="user.employeeId">
-              <!-- <div *ngIf="(UserForm.controls['employeeId'].hasError('required') && submitted) || (UserForm.controls['employeeId'].invalid && UserForm.controls['employeeId'].touched)" class='alert-danger'>
+              <!-- <div *ngIf="(UserForm.controls['employeeId'].hasError('required') && submitted) || (UserForm.controls['employeeId'].invalid)" class='alert-danger'>
                 ID is required
               </div> -->
             </div>
           </div>
 
           <div class="text-center mb-5">
-            <button type="submit" class="btn add-btn">CREATE</button>
+            <button type="submit" class="btn add-btn" (click)="submit()">ADD</button>
           </div>
         </div>
       </form>

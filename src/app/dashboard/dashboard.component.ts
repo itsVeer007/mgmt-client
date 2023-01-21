@@ -1,4 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ApiService } from '../utilities/api.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { ApiService } from '../utilities/api.service';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private apiser:ApiService) { }
+  constructor(private apiser:ApiService, private router: Router) { }
 
   @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
     var x = <HTMLElement>document.getElementById(`sidebar`);
@@ -43,6 +44,11 @@ export class DashboardComponent implements OnInit {
 
   showMenu() {
     this.showmenu = !this.showmenu;
+  }
+
+  logout() {
+    localStorage.clear();
+    this.router.navigateByUrl('/login');
   }
 
 }

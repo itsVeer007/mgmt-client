@@ -35,7 +35,6 @@ export class ApiService {
     console.log('user', user);
 
     var payload = {
-      "username":"veer",
       "email": email,
       "callingUsername": user.UserName,
       "accesstoken": user.access_token,

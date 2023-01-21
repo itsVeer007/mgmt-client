@@ -21,7 +21,7 @@
     "pin": "79761",
     "employee": "T",
     "employeeId": "ID",
-    "accesstoken": "x4ix8f95GRKy0GDb-G4TtWHebaBfS50IEhi8Aug",
+    "accesstoken": "",
     "callingUsername": "ivisus",
     "callingSystemDetail": "admin",
     "safetyEscort": "F"
@@ -92,34 +92,6 @@
         "default store"
     ],
     "email": "veer@gmail.com",
-    "gender": "M",
-    "realm": "IVISUSA",
-    "contactNumber1": "+91 (999) 362-9900",
-    "contactNumber2": "",
-    "country": "India",
-    "addressLine1": "",
-    "addressLine2": "900 East 4th Street",
-    "district": "",
-    "state": "AP",
-    "city": "Mangalgiri",
-    "pin": "79761",
-    "employee": "T",
-    "employeeId": "ID",
-    "accesstoken": "",
-    "callingUsername": "ivisus",
-    "callingSystemDetail": "admin",
-    "safetyEscort": "F"
-  },
-
-  {
-    "username": "asfsdfs",
-    "password": "Z%^gfd#12B",
-    "firstname": "Mark",
-    "lastname": "M",
-    "roleList": [
-        "default store"
-    ],
-    "email": "sdfsdf",
     "gender": "M",
     "realm": "IVISUSA",
     "contactNumber1": "+91 (999) 362-9900",

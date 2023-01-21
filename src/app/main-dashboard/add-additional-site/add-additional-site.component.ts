@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
   animations:[
     trigger("inOutPaneAnimation", [
       transition(":enter", [
-        style({ opacity: 0, transform: "translateX(100%)" }), //apply default styles before animation starts
+        style({ opacity: 0, transform: "translateX(100%)", }), //apply default styles before animation starts
         animate(
           "750ms ease-in-out",
           style({ opacity: 1, transform: "translateX(0)" })
@@ -47,8 +47,6 @@ export class AddAdditionalSiteComponent implements OnInit {
   addSiteForm: any =  FormGroup;
 
   site = {
-    userId: "",
-    userName: "",
     verticals: "",
     customers: "",
     selectSite: "",

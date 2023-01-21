@@ -30,16 +30,16 @@ export class AddNewBusinessVerticalComponent implements OnInit {
   @Input() show:any;
 
   @Output() newItemEvent = new EventEmitter<any>();
-  
-  @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
-    var x = <HTMLElement>document.getElementById(`vertical`);
-    if (x != null) {
-      if (!x.contains(e.target)) {
-        this.closeAddVertical(false);
-      }
-    }
-  }
-  
+
+  // @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
+  //   var x = <HTMLElement>document.getElementById(`vertical`);
+  //   if (x != null) {
+  //     if (!x.contains(e.target)) {
+  //       this.closeAddVertical(false);
+  //     }
+  //   }
+  // }
+
   closeAddVertical(value:any) {
     this.newItemEvent.emit(value);
   }
