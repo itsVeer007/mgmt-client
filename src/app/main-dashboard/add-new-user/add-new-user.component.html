@@ -63,9 +63,9 @@
           <div class="col-lg-6 col-md-6">
             <select class="form-select m-1" id="role" formControlName="role" [(ngModel)]="user.roleList" multiple>
               <option value="" disabled selected>Select role</option>
-              <option value="Employee">Employee</option>
-              <option value="Worker">Worker</option>
-              <option value="Other">Other</option>
+              <option value="default store">default store</option>
+              <!-- <option value="Worker">Worker</option>
+              <option value="Other">Other</option> -->
             </select>
             <div *ngIf="(UserForm.controls['role'].hasError('required') && submitted) && (UserForm.controls['role'].invalid)" class='alert-danger'>
               Role is required
@@ -97,8 +97,7 @@
           <div class="col-lg-6 col-md-6">
             <select class="form-select m-1" id="realm" formControlName="realm" [(ngModel)]="user.realm">
               <option value="" disabled selected>Select realm</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
+              <option value="IVISUSA">IVISUSA</option>
             </select>
             <div *ngIf="(UserForm.controls['realm'].hasError('required') && submitted) && (UserForm.controls['realm'].invalid)" class='alert-danger'>
               Realm is required
@@ -189,20 +188,20 @@
 
           <div class="row d-flex align-items-center mx-1 my-2">
             <label class="main col-lg-4">Safety Escort
-              <input type="checkbox" [(ngModel)]="user.safetyEscort" formControlName="safetyEscort">
+              <input type="checkbox"  [ngModel]="user.safetyEscort=='true' ? true : false" (ngModelChange)="user.safetyEscort=$event ? 'T' : 'F'" formControlName="safetyEscort">
               <span class="geekmark"></span>
             </label>
 
             <label class="main col-lg-4">Employee
-              <input type="checkbox" [(ngModel)]="user.employee" formControlName="employee">
+              <input type="checkbox" [ngModel]="user.employee=='true' ? true : false" (ngModelChange)="user.employee=$event ? 'T' : 'F'" formControlName="employee" (click)="onCheck()">
               <span class="geekmark"></span>
             </label>
 
-            <div class="col-lg-4">
+            <div class="col-lg-4" *ngIf="checkbox">
               <input type="text" class="mb-3 form-control" placeholder="ID" formControlName="employeeId" [(ngModel)]="user.employeeId">
-              <!-- <div *ngIf="(UserForm.controls['employeeId'].hasError('required') && submitted) || (UserForm.controls['employeeId'].invalid)" class='alert-danger'>
+              <div *ngIf="(UserForm.controls['employeeId'].hasError('required') && submitted) || (UserForm.controls['employeeId'].invalid)" class='alert-danger'>
                 ID is required
-              </div> -->
+              </div>
             </div>
           </div>
 

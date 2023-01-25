@@ -15,9 +15,9 @@ export class ApiService {
 
   baseUrl = "http://usmgmt.iviscloud.net:777/businessInterface/";
 
-  login(loginDetails: any) {
+  login(payload: any) {
     let url = this.baseUrl+"/login/login_2_0";
-    return this.http.post(url,loginDetails);
+    return this.http.post(url, payload);
   }
 
   addUser(payload: any) {

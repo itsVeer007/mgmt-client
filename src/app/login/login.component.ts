@@ -26,10 +26,10 @@ export class LoginComponent implements OnInit {
       "password": this.password,
       "calling_System_Detail": "portal"
     }
-    this.apiser.login(loginDetails).subscribe((res:any)=>{
-      console.log("Login:: ",res);
+    this.apiser.login(loginDetails).subscribe((res:any) => {
+      console.log("Login", res);
       if(res.Status == "Success") {
-        localStorage.setItem('user',JSON.stringify(res));
+        localStorage.setItem('user', JSON.stringify(res));
         this.apiser.user$.next(res);
         this.route.navigateByUrl("/main-dashboard");
       }else {

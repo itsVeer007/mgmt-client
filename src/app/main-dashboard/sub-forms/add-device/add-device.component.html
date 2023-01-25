@@ -1,0 +1,102 @@
+<div class="row formModal">
+  <div class="col-lg-6 col-md-6"></div>
+  <div class="col-lg-6 col-md-6 add-form" id="additionalSite" @inOutPaneAnimation>
+
+    <!-- <div> -->
+
+      <div class="row">
+        <a class="col-lg-1 mt-3 pointer position-relative" style="right: 50px; bottom: 8px;" (click)="closeAddAdditionalSite(false)">
+          <img src="assets/images/Group 101.svg">
+        </a>
+
+        <div class="col-lg-11 d-flex justify-content-between align-items-center">
+          <div>
+            <h5 class="m-0" style="font-size: 18px; font-weight: 600;">1000015 - Osaka Midland</h5>
+            <h5 class="m-0 text-secondary" style="font-size: 18px;">IVISUSA1006</h5>
+          </div>
+          <div>
+            <a class="pointer"><img src="assets/images/add.svg" alt=""></a>
+          </div>
+        </div>
+      </div>
+    <!-- </div> -->
+
+    <div class="text-secondary p-3 row" style="background-color: #084982;">
+      <div class="col-lg-11 col-sm-2">
+        <img class="pointer me-2" src="assets/images/Union 18.svg" alt="" width="15px" height="15px">
+        <span>Device - 1</span>
+      </div>
+      <div class="col-lg-1 col-sm-10"><img class="pointer" src="assets/images/Union 60.svg" alt="" width="15px" height="15px"></div>
+    </div>
+
+    <div class="mt-2">
+      <form autocomplete="off" [formGroup]="addDevice" #addAdditionalSiteForm="ngForm">
+        <div class="row">
+          <div class="col-lg-6 col-xl-6">
+            <select class="form-select m-1" id="device" formControlName="device">
+              <option value="" selected disabled>Select device</option>
+              <option value="Device1">Device1</option>
+            </select>
+          </div>
+
+          <div class="col-lg-6 col-xl-6">
+            <select class="form-select m-1" id="camera" formControlName="camera">
+              <option value="" selected disabled>Select camera</option>
+              <option value="Camera1">Camera1</option>
+            </select>
+          </div>
+
+          <div class="col-lg-6 col-xl-6">
+            <select class="form-select m-1" id="temp" formControlName="temp">
+              <option value="" selected disabled>Select temp range</option>
+              <option value="Temperature1">Temperature1</option>
+            </select>
+          </div>
+
+          <div class="col-lg-6 col-xl-6">
+            <select class="form-select m-1" id="age" formControlName="age">
+              <option value="" selected disabled>Select age range</option>
+              <option value="Age1">Age1</option>
+            </select>
+          </div>
+
+          <div class="col-lg-6 col-xl-6">
+            <select class="form-select m-1" id="demographics" formControlName="demographics">
+              <option value="" selected disabled>Select demographics</option>
+              <option value="Demographic1">Demographic1</option>
+            </select>
+          </div>
+
+          <div class="col-lg-6 col-xl-6">
+            <select class="form-select m-1" id="status" formControlName="status">
+              <option value="" selected disabled>Select status</option>
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+          </div>
+
+          <div class="row my-3 equipment">
+            <div class="d-flex justify-content-between">
+              <p class="checklist m-0 text-secondary text-bold">Equipment Type</p>
+              <div class="checklist d-flex align-items-center"><input class="me-2" type="checkbox">Audio</div>
+              <div class="checklist d-flex align-items-center"><input class="me-2" type="checkbox">Video</div>
+              <div class="checklist d-flex align-items-center"><input class="me-2" type="checkbox">WIFI</div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-xl-6 mb-3">
+            <select class="form-select m-1" id="select" formControlName="select">
+              <option value="" selected disabled>Select</option>
+              <option value="Option1">Option1</option>
+            </select>
+          </div>
+
+          <div class="text-center my-3">
+            <button type="submit" class="btn add-btn" (click)="submit()">ADD</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>

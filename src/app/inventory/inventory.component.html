@@ -71,54 +71,62 @@
   <!-- header ends -->
 
   <!-- count starts -->
-  <div class="d-flex align-items-center">
-    <div class="col-lg-1 col-md-1 d-flex justify-content-start">
-      <div class="vl-green"></div>
-      <div class="mx-2">
-        <div class="status">In-Stock</div>
-        <div class="count">20</div>
+  <div class="row d-flex align-items-center">
+
+    <div class="row col-lg-7 me-2">
+      <div class="col-lg-2 d-flex justify-content-start">
+        <div class="vl-yellow"></div>
+        <div class="mx-2">
+          <div class="status">In-Stock</div>
+          <div class="count">20</div>
+        </div>
       </div>
-    </div>
-    <div class="col-lg-1 col-md-1 d-flex justify-content-start">
-      <div class="vl-red"></div>
-      <div class="mx-2">
-        <div class="status">Installed</div>
-        <div class="count">400</div>
+      <div class="col-lg-2 d-flex justify-content-start">
+        <div class="vl-green"></div>
+        <div class="mx-2">
+          <div class="status">Installed</div>
+          <div class="count">400</div>
+        </div>
       </div>
-    </div>
-    <div class="col-lg-1 col-md-1 d-flex justify-content-start">
-      <div class="vl-yellow"></div>
-      <div class="mx-2">
-        <div class="status">Scrap</div>
-        <div class="count">5</div>
+      <div class="col-lg-2 d-flex justify-content-start">
+        <div class="vl-red"></div>
+        <div class="mx-2">
+          <div class="status">Scrap</div>
+          <div class="count">5</div>
+        </div>
       </div>
-    </div>
-    <div class="col-lg-1 col-md-1 d-flex justify-content-start">
-      <div class="vl-yellow"></div>
-      <div class="mx-2">
-        <div class="status">Reuse</div>
-        <div class="count">5</div>
+      <div class="col-lg-2 d-flex justify-content-start">
+        <div class="vl-greay"></div>
+        <div class="mx-2">
+          <div class="status">Reuse</div>
+          <div class="count">5</div>
+        </div>
       </div>
-    </div>
-    <div class="col-lg-1 col-md-1 d-flex justify-content-start">
-      <div class="vl-yellow"></div>
-      <div class="mx-2">
-        <div class="status">Returned</div>
-        <div class="count">50</div>
+      <div class="col-lg-2 d-flex justify-content-start">
+        <div class="vl-orange"></div>
+        <div class="mx-2">
+          <div class="status">Returned</div>
+          <div class="count">50</div>
+        </div>
       </div>
-    </div>
-    <div class="col-lg-1 col-md-1 d-flex justify-content-start">
-      <div class="vl-yellow"></div>
-      <div class="mx-2">
-        <div class="status">Removed</div>
-        <div class="count">20</div>
+      <div class="col-lg-2 d-flex justify-content-start">
+        <div class="vl-yellow"></div>
+        <div class="mx-2">
+          <div class="violet">Removed</div>
+          <div class="count">20</div>
+        </div>
       </div>
     </div>
 
-    <div class="col-lg-4 col-md-1 d-flex justify-content-start">
-      <div class="card" style="width: 14rem;">
-          <h5 class="card-title m-0 text-center">In-Stock Total</h5>
-          <div class="card-body d-flex justify-content-between">
+    <div class="col-lg-5">
+      <div class="card bg-light" style="width: 18rem;">
+        <div class="d-flex justify-content-between m-2">
+          <img class="pointer" src="assets/images/Union 18@2x.png" alt="" width="15px" height="15px">
+          <span class="card-title m-0 text-center" style="font-size: 18px; font-weight: 700;">In-Stock Total</span>
+          <img class="pointer" src="assets/images/Union 17@2x.png" alt="" width="15px" height="15px">
+        </div>
+
+          <div class="card-body d-flex justify-content-evenly">
             <div>
               <h6 class="card-subtitle m-0 text-muted">Cost</h6>
               <p class="m-0">2000</p>
@@ -137,13 +145,13 @@
   <div class="row my-3">
     <div class="col-lg-10 col-md-10">
       <form class="row p-0">
-        <div class="col-lg-4 col-md-4 select">
+        <div class="col-lg-4 col-md-4 col-sm-4 select">
           <select class="form-select">
             <option selected>All Verticals</option>
             <option></option>
           </select>
         </div>
-        <div class="col-lg-4 col-md-4 search">
+        <div class="col-lg-4 col-md-4 col-sm-4 search">
           <input type="text" placeholder="Search" name="search2" [(ngModel)]="searchText" />
           <button type="submit">
             <a><img src="assets/images/search.svg" /></a>
@@ -260,7 +268,6 @@
               <a class="mx-2" value="Delete" (click)="openDeletePopup(cust, i)"><img src="assets/images/delete.svg"
                   (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" /></a>
             </div>
-            <!-- ----------------------------- Popup for view, edit, delete --------- END     -->
           </td>
         </tr>
       </tbody>

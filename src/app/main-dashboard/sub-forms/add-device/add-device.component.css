@@ -1,0 +1,13 @@
+.equipment {
+  padding: 0 18px;
+}
+
+.equipment .checklist {
+  font-size: 16px;
+}
+
+@media screen and (max-width: 768px) {
+  .equipment .checklist {
+    font-size: 12px;
+  }
+}

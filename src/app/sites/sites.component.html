@@ -47,9 +47,10 @@
                 </div>
             </div> -->
 
-            <a (click)="iconsnew1();showAddSite=!showAddSite"><img src="assets/images/add.svg" alt="" /></a>
-            <a><img src="assets/images/sites-img.svg" alt=""
-                    style="border-radius: 24px; box-shadow: 7px 7px 7px 0px #f3f3f3; margin-top: -9px;" /></a>
+            <a class="pointer" (click)="show('site')"><img src="assets/images/add.svg" alt="" /></a>
+            <a>
+              <img src="assets/images/sites-img.svg" alt="" style="border-radius: 24px; box-shadow: 7px 7px 7px 0px #f3f3f3; margin-top: -9px;">
+            </a>
         </div>
     </div>
     <!-- header ends -->
@@ -84,22 +85,22 @@
     <div class="row my-3">
         <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
             <form class="row p-0">
-                <div class="col-lg-4 col-md-4 col-sm-8 col-xs-6 select">
-                    <select class="form-select">
-                        <option selected>All Verticals</option>
-                        <option></option>
-                    </select>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 select">
-                    <select class="form-select">
-                        <option selected>All Customers</option>
-                        <option></option>
-                    </select>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 search">
-                    <input type="text" placeholder="Search" name="search2" [(ngModel)]="searchText">
-                    <button type="submit"><a><img src="assets/images/search.svg" /></a></button>
-                </div>
+              <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 select">
+                  <select class="form-select">
+                      <option selected>All Verticals</option>
+                      <option></option>
+                  </select>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 select">
+                  <select class="form-select">
+                      <option selected>All Customers</option>
+                      <option></option>
+                  </select>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 search">
+                  <input type="text" placeholder="Search" name="search2" [(ngModel)]="searchText">
+                  <button type="submit"><a><img src="assets/images/search.svg" /></a></button>
+              </div>
             </form>
         </div>
         <div class="col-lg-2 col-md-2 table-icons" style="position: relative;">
@@ -130,26 +131,25 @@
                     <!-- <th><input type="checkbox" class="form-check-input"
                         id="allcheck" [checked]="SelectAll" (click)="allchecked($event)" style="background-color: #00000000; border-color:#fff;margin-left:10px;" />
                     </th> -->
-                    <th (click)="sort('siteID')">Site ID<img src="assets/images/sorticon.svg" style="height: 15px; margin:0 5px"></th>
-                    <th (click)="sort('siteName')">Site Name<img src="assets/images/sorticon.svg" style="height: 15px; margin:0 5px"></th>
-                    <th (click)="sort('customer')">Customer<img src="assets/images/sorticon.svg" style="height: 15px; margin:0 5px"></th>
-                    <th (click)="sort('status')">Status<img src="assets/images/sorticon.svg" style="height: 15px; margin:0 5px"></th>
-                    <th (click)="sort('address')">Address<img src="assets/images/sorticon.svg" style="height: 15px; margin:0 5px"></th>
-                    <th (click)="sort('lat-long')">Lat & Long<img src="assets/images/sorticon.svg" style="height: 15px; margin:0 5px"></th>
-                    <th (click)="sort('escl_Details')">Escl. Details<img src="assets/images/sorticon.svg" style="height: 15px; margin:0 5px"></th>
-                    <th (click)="sort('engr_Details')">Engr. Details<img src="assets/images/sorticon.svg" style="height: 15px; margin:0 5px"></th>
-                    <th>Services<img src="assets/images/sorticon.svg" style="height: 15px; margin:0 5px"></th>
-                    <th (click)="sort('cntrl_Unit')">Cntrl Unit<img src="assets/images/sorticon.svg" style="height: 15px; margin:0 5px"></th>
-                    <th>Devices<img src="assets/images/sorticon.svg" style="height: 15px; margin:0 5px"></th>
+                    <th (click)="sort('siteID')">Site ID</th>
+                    <th (click)="sort('siteName')">Site Name</th>
+                    <th (click)="sort('customer')">Customer</th>
+                    <th (click)="sort('status')">Status</th>
+                    <th (click)="sort('address')">Address</th>
+                    <!-- <th (click)="sort('lat-long')">Lat & Long</th> -->
+                    <th (click)="sort('escl_Details')">Escl. Details</th>
+                    <th (click)="sort('engr_Details')">Engr. Details</th>
+                    <th>Services</th>
+                    <th (click)="sort('cntrl_Unit')">Cntrl Unit</th>
+                    <th>Inventory</th>
+                    <th>Analytics</th>
+                    <th>Devices</th>
                     <th></th>
                 </tr>
 
                 <tr *ngFor="let data of tableData | search : searchText; let i=index">
                     <td><input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="data.selected"
                             (change)="checkIfAllSelected();" id="singleCheck" /></td>
-
-
-                    <!-- <td><input type="checkbox" name="foo" class="form-check-input" [checked]="masterSelected" id="singleCheck" (click)="itemchecked($event)" /></td> -->
                     <td>
                         <p>{{data.siteID}}</p>
                     </td>
@@ -161,14 +161,14 @@
                     </td>
 
                     <td>
-                        <p [style.color]="
-                        data.status == 'Active' ? '#00A44C':
-                        data.status == 'Onhold' ? '#F5B400':
-                        data.status == 'Inactive' ? '#fa500f':
-                        '#084982'">{{data.status}}</p>
-
+                      <p [style.color]="
+                      data.status == 'Active' ? '#00A44C':
+                      data.status == 'Onhold' ? '#F5B400':
+                      data.status == 'Inactive' ? '#fa500f':
+                      '#084982'">{{data.status}}
+                      </p>
                     </td>
-                    <td style="position: relative;">
+                    <td class="pointer" style="position: relative;">
                         <a style="color: #084982;" (click)="addressView($event,i)">{{data.address}}</a>
                         <div style="display: none; border: 1px solid #0000000D; position: absolute; background-color: #fff; width: fit-content; margin-left: -227px; margin-top: -26px; box-shadow: -5px 6px 13px 0px #F3F3F3;"
                             class="plus-img" id="address{{i}}">
@@ -180,9 +180,9 @@
                             </div>
                         </div>
                     </td>
-                    <td>
+                    <!-- <td>
                         <p>{{data.lat}}<br>-{{data.long}}</p>
-                    </td>
+                    </td> -->
                     <td><a style="color: #084982;">{{data.escl_Details}}</a></td>
                     <td><a style="color: #084982;">{{data.engr_Details}}</a></td>
                     <td>
@@ -194,39 +194,59 @@
                         'dot-red'"></div>
                     </td>
                     <td>
-                        <a>
-                            <img src="assets/images/add-svg.svg"
-                                *ngIf="data.cntrl_Unit == '' || data.cntrl_Unit ==null " width="25" height="25" />
-                            <span
-                                *ngIf="data.cntrl_Unit != '' && data.cntrl_Unit !=null || data.cntrl_Unit.length>0">{{data?.cntrl_Unit}}</span>
-                        </a>
+                      <a>
+                        <img src="assets/images/add-svg.svg" *ngIf="data.cntrl_Unit == '' || data.cntrl_Unit ==null " width="25" height="25">
+                        <span *ngIf="data.cntrl_Unit != '' && data.cntrl_Unit !=null || data.cntrl_Unit.length>0">{{data?.cntrl_Unit}}</span>
+                      </a>
                     </td>
-                    <td><a><img src="assets/images/add-svg.svg" width="25" height="25" /></a></td>
-                    <td style="position: relative;">
-                        <a (click)="closeDot($event,i)"><img src="assets/images/dotlist.svg" width="30"
-                                height="12" /></a>
-                        <!-- -------------------------------- Popup for view, edit, delete --------- START     -->
-                        <div class="plus-img1" id="plus{{i}}" style="display: none;">
+                    <td class="pointer" style="position: relative;">
+                      <a style="color: #084982;" (click)="addressView($event,i)">{{data.address}}</a>
+                      <div style="display: none; border: 1px solid #0000000D; position: absolute; background-color: #fff; width: fit-content; margin-left: -227px; margin-top: -26px; box-shadow: -5px 6px 13px 0px #F3F3F3;"
+                          class="plus-img" id="address{{i}}">
+                          <p class="p-2" style="color: #ABABAB; text-align: left;">Inventory</p>
+                          <div style="color: #000; text-align: left; padding: 10px;">
+                              <p>Pathur Road, Tadepally</p>
+                              <p>Guntur - 522501</p>
+                              <p>Andhra Pradesh, India</p>
+                          </div>
+                      </div>
+                  </td>
+                  <td>
+                    <a>
+                      <img src="assets/images/add-svg.svg" *ngIf="data.cntrl_Unit == '' || data.cntrl_Unit ==null " width="25" height="25">
+                      <span *ngIf="data.cntrl_Unit != '' && data.cntrl_Unit !=null || data.cntrl_Unit.length>0">{{data?.cntrl_Unit}}</span>
+                    </a>
+                  </td>
+                  <td>
+                    <a class="pointer"><img src="assets/images/add-svg.svg" width="25" height="25" (click)="show('device')"></a>
+                  </td>
+                  <td style="position: relative;">
+                    <a (click)="closeDot($event,i)"><img src="assets/images/dotlist.svg" width="30" height="12" /></a>
 
-                            <!-- ---------------------------- Hover for view, edit, delete ---------------------START -->
-                            <div class="lists" *ngIf="showIconView1" style="margin-left: -55px; margin-top: -40px;">View
-                            </div>
-                            <div class="lists" *ngIf="showIconEdit1" style="margin-left: 5px; margin-top: -40px;">Edit
-                            </div>
-                            <div class="lists" *ngIf="showIconDelete1" style="margin-left: 68px; margin-top: -40px;">
-                                Delete</div>
-                            <!-- ---------------------------- Hover for view, edit, delete ---------------------END -->
+                    <!-- -------------------------------- Popup for view, edit, delete --------- START     -->
+                    <div class="plus-img1" id="plus{{i}}" style="display: none;">
 
-                            <a class="mx-2"><img src="assets/images/view.svg"
-                                    (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" /></a>
-                            <a class="mx-2"><img src="assets/images/edit.svg"
-                                    (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" /></a>
-                            <a class="mx-2" value="Delete"><img
-                                    src="assets/images/delete.svg" (mouseenter)="showIconDelete1 = true"
-                                    (mouseleave)="showIconDelete1 = false" /></a>
+                        <!-- ---------------------------- Hover for view, edit, delete ---------------------START -->
+                        <div class="lists" *ngIf="showIconView1" style="margin-left: -55px; margin-top: -40px;">
+                          View
                         </div>
-                        <!-- ----------------------------- Popup for view, edit, delete --------- END     -->
-                    </td>
+                        <div class="lists" *ngIf="showIconEdit1" style="margin-left: 5px; margin-top: -40px;">
+                          Edit
+                        </div>
+                        <div class="lists" *ngIf="showIconDelete1" style="margin-left: 68px; margin-top: -40px;">
+                          Delete
+                        </div>
+
+                        <!-- ---------------------------- Hover for view, edit, delete ---------------------END -->
+                        <a class="mx-2"><img src="assets/images/view.svg"
+                                (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" /></a>
+                        <a class="mx-2"><img src="assets/images/edit.svg"
+                                (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" /></a>
+                        <a class="mx-2" value="Delete"><img
+                                src="assets/images/delete.svg" (mouseenter)="showIconDelete1 = true"
+                                (mouseleave)="showIconDelete1 = false" /></a>
+                    </div>
+                  </td>
                 </tr>
 
 
@@ -271,12 +291,16 @@
 
 
 <div style="position: fixed; top:0;" *ngIf="showAddSite">
-    <app-add-new-site [show]="showAddSite" (newItemEvent)="closenow($event, 'site')"></app-add-new-site>
+    <app-add-new-site [show]="showAddSite" (newItemEvent)="closenow('site', $event)"></app-add-new-site>
+</div>
+
+<div style="position: fixed; top:0;" *ngIf="showAddDevice">
+  <app-add-device [show]="showAddDevice" (newItemEvent)="closenow('device', $event)"></app-add-device>
 </div>
 
 
 
-<div style="position: fixed; top:0;" *ngIf="showAddCamera">
+<!-- <div style="position: fixed; top:0;" *ngIf="showAddCamera">
     <app-add-new-camera [show]="showAddCamera" (newItemEvent)="closenow($event, 'camr')"></app-add-new-camera>
 </div>
 
@@ -295,4 +319,4 @@
 <div style="position: fixed; top:0;" *ngIf="showAddBusinessVertical">
     <app-add-new-business-vertical [show]="showAddBusinessVertical" (newItemEvent)="closenow($event, 'vert')">
     </app-add-new-business-vertical>
-</div>
+</div> -->

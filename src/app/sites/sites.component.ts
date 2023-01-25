@@ -68,32 +68,39 @@ export class SitesComponent implements OnInit {
   }
 
 
-  showAddSite = false;
-  showAddCamera = false;
-  showAddCustomer = false;
-  showAddUser = false;
-  showAddBusinessVertical = false;
-  // closenow(value:any) {
-  //   this.showAddSite = value;
-  // }
+  // showAddCamera = false;
+  // showAddCustomer = false;
+  // showAddUser = false;
+  // showAddBusinessVertical = false;
+  showAddSite: boolean = false;
+  showAddDevice: boolean = false;
 
-  closenow(value: any, type: String) {
+  show(value: string) {
+    if(value == 'site') {this.showAddSite = true}
+    if(value == 'device') {this.showAddDevice = true}
+  }
+
+  closenow(type: string, value: any) {
     if (type == 'site') { this.showAddSite = value; }
-    if (type == 'camr') { this.showAddCamera = value; }
-    if (type == 'cust') { this.showAddCustomer = value; }
-    if (type == 'vert') { this.showAddBusinessVertical = value; }
-    if (type == 'user') { this.showAddUser = value; }
+    if (type == 'device') { this.showAddDevice = value; }
+
+    // if (type == 'camr') { this.showAddCamera = value; }
+    // if (type == 'cust') { this.showAddCustomer = value; }
+    // if (type == 'vert') { this.showAddBusinessVertical = value; }
+    // if (type == 'user') { this.showAddUser = value; }
+
     // console.log("SITES:: ",type)
 
-    setTimeout(() => {
-      var openform = localStorage.getItem('opennewform');
-      if (openform == 'showAddSite') { this.showAddSite = true; }
-      if (openform == 'showAddCamera') { this.showAddCamera = true; }
-      if (openform == 'showAddCustomer') { this.showAddCustomer = true; }
-      if (openform == 'showAddBusinessVertical') { this.showAddBusinessVertical = true; }
-      if (openform == 'showAddUser') { this.showAddUser = true; }
-      localStorage.setItem('opennewform', '');
-    }, 100)
+    // setTimeout(() => {
+    //   var openform = localStorage.getItem('opennewform');
+    //   if (openform == 'showAddSite') { this.showAddSite = true; }
+    //   if (openform == 'showAddDevice') { this.showAddDevice = true; }
+    //   if (openform == 'showAddCamera') { this.showAddCamera = true; }
+    //   if (openform == 'showAddCustomer') { this.showAddCustomer = true; }
+    //   if (openform == 'showAddBusinessVertical') { this.showAddBusinessVertical = true; }
+    //   if (openform == 'showAddUser') { this.showAddUser = true; }
+    //   localStorage.setItem('opennewform', '');
+    // }, 100)
   }
 
 
@@ -120,20 +127,6 @@ export class SitesComponent implements OnInit {
   // closenow4(value:any) {
   //   this.showAddBusinessVertical = value;
   // }
-
-  icons1: boolean = false;
-  iconsnew1() {
-    this.icons1 = !this.icons1;
-
-    this.showIconVertical = false;
-    this.showIconCustomer = false;
-    this.showIconSite = false;
-    this.showIconCamera = false;
-    this.showIconAnalytic = false;
-    this.showIconUser = false;
-  }
-
-
 
   addressid = 0;
   addressView(e: any, i: any) {

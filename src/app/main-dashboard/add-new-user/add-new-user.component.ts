@@ -58,7 +58,6 @@ export class AddNewUserComponent implements OnInit {
     roleList: [],
     email: "",
     gender: "",
-    // active: "",
     realm: "",
     contactNumber1: "",
     contactNumber2: "",
@@ -69,7 +68,7 @@ export class AddNewUserComponent implements OnInit {
     state: "",
     city: "",
     pin: "",
-    employee: "T",
+    employee: "F",
     employeeId: "",
     accesstoken: "",
     callingUsername: "",
@@ -92,7 +91,6 @@ export class AddNewUserComponent implements OnInit {
       'employeeId': new FormControl(''),
       'role': new FormControl('', Validators.required),
       'gender': new FormControl('', Validators.required),
-      // 'active': new FormControl('', Validators.required),
       'realm': new FormControl('', Validators.required),
       'email': new FormControl('', Validators.required),
       'contact_1': new FormControl('', Validators.required),
@@ -176,9 +174,6 @@ export class AddNewUserComponent implements OnInit {
   onCheck() {
     this.checkbox = !this.checkbox;
   }
-
-  check: any;
-
 
 }
 

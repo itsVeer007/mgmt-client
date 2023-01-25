@@ -22,7 +22,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { XpAnimationDirective } from './utilities/animation/animation.directive';
 import { LoginComponent } from './login/login.component';
 import { UsersComponent } from './users/users.component';
-import { AddAdditionalSiteComponent } from './main-dashboard/add-additional-site/add-additional-site.component';
+import { AddAdditionalSiteComponent } from './main-dashboard/sub-forms/add-additional-site/add-additional-site.component';
 import { MultiSelectSearchComponent } from './utilities/multi-select-search/multi-select-search.component';
 import { AssetsComponent } from './assets/assets.component';
 import { TicketsComponent } from './tickets/tickets.component';
@@ -34,6 +34,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
+import { AddDeviceComponent } from './main-dashboard/sub-forms/add-device/add-device.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { MatListModule } from '@angular/material/list';
     MultiSelectSearchComponent,
     AssetsComponent,
     TicketsComponent,
-    InventoryComponent
+    InventoryComponent,
+    AddDeviceComponent
   ],
   imports: [
     BrowserModule,
