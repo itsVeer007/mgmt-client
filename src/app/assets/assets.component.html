@@ -60,7 +60,7 @@
           </a>
         </div>
       </div> -->
-      <a class="pointer" (click)="iconsnew1(); showAddUser = !showAddUser">
+      <a class="pointer" (click)="showAddAsset()">
         <img src="assets/images/add.svg" alt="" />
       </a>
       <a class="pointer">
@@ -146,8 +146,16 @@
           <th (click)="sort('siteId')">Asset ID</th>
           <th (click)="sort('customerName')">Asset Name</th>
           <th (click)="sort('custType')">Asset Type</th>
+          <th (click)="sort('siteId')">Site ID</th>
+          <th (click)="sort('customerName')">Site Name</th>
+          <th (click)="sort('siteId')">Device ID</th>
+          <th (click)="sort('customerName')">Device Name</th>
+          <th (click)="sort('address')">Device Mode</th>
+          <th (click)="sort('address')">Mime Type</th>
+          <th (click)="sort('address')">Duration</th>
+          <th (click)="sort('address')">Start Date</th>
+          <th (click)="sort('address')">End Date</th>
           <th (click)="sort('address')">Details</th>
-          <th (click)="sort('contactNumber')">Site Name</th>
           <th (click)="sort('status')">Status</th>
           <th></th>
         </tr>
@@ -172,13 +180,37 @@
             <p>{{ cust.customerName }}</p>
           </td>
           <td>
-            <button class="bg-white" style="color: #084982">{{ cust.address }}</button>
+            <p>{{ cust.siteId }}</p>
+          </td>
+          <td>
+            <p>{{ cust.contactPerson }}</p>
           </td>
           <td>
             <p>{{ cust.siteId }}</p>
           </td>
           <td>
-            <p [style.color]="cust.status == 'Active' ? '#00A44C' : cust.status == 'Onhold' ? '#F5B400' : cust.status == 'Inactive' ? '#fa500f' : '#00A44C'">
+            <p>{{ cust.contactPerson }}</p>
+          </td>
+          <td>
+            <button class="bg-white" style="color: #084982">{{ cust.address }}</button>
+          </td>
+          <td>
+            <button class="bg-white" style="color: #084982">{{ cust.address }}</button>
+          </td>
+          <td>
+            <button class="bg-white" style="color: #084982">--</button>
+          </td>
+          <td>
+            <button class="bg-white" style="color: #084982">--</button>
+          </td>
+          <td>
+            <button class="bg-white" style="color: #084982">--</button>
+          </td>
+          <td>
+            <button class="bg-white" style="color: #084982">{{ cust.address }}</button>
+          </td>
+          <td>
+            <p [style.color]="cust.status == 'Added' ? '#00A44C' : cust.status == 'Sync' ? '#F5B400' : cust.status == 'Removed' ? '#fa500f' : '#00A44C'">
               {{ cust.status }}
             </p>
           </td>
@@ -406,8 +438,8 @@
   <app-add-new-customer [show]="showAddCustomer" (newItemEvent)="closenow($event, 'cust')"></app-add-new-customer>
 </div> -->
 
-<div style="position: fixed; top: 0" *ngIf="showAddUser">
-  <app-add-new-user [show]="showAddUser" (newItemEvent)="closenow($event, 'user')"></app-add-new-user>
+<div style="position: fixed; top: 0" *ngIf="showAsset">
+  <app-add-new-asset (newItemEvent)="closenow($event, 'asset')"></app-add-new-asset>
 </div>
 
 <!-- <div style="position: fixed; top: 0" *ngIf="showAddBusinessVertical">
@@ -415,6 +447,6 @@
   </app-add-new-business-vertical>
 </div> -->
 
-<div style="position: fixed; top: 0" *ngIf="showSite">
+<!-- <div style="position: fixed; top: 0" *ngIf="showSite">
   <app-add-additional-site [show]="showSite" (newItemEvent)="closenow($event, 'additionalSite')"></app-add-additional-site>
-</div>
+</div> -->

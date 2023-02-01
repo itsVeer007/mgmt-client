@@ -1,13 +1,15 @@
 .users {
-  margin-top:80px;
+  margin-top: 80px;
 }
 
-.users-header {
+/* .users-header {
   display: flex;
   align-items: center;
-}
+  justify-content: space-between;
+} */
 
 .users-header p {
+  margin: 25px 0;
   color: #ABABAB;
   font-size: 20px;
 }
@@ -38,6 +40,11 @@
 }
 
 .vl-greay {
+  border-left: 2px solid #ABABAB;
+  height: 40px;
+}
+
+.vl-violet {
   border-left: 2px solid #ABABAB;
   height: 40px;
 }

@@ -39,12 +39,12 @@ export class AssetsComponent implements OnInit {
     this.CustomerReport();
   }
 
-  showIconVertical: boolean = false;
-  showIconCustomer: boolean = false;
-  showIconSite: boolean = false;
-  showIconCamera: boolean = false;
-  showIconAnalytic: boolean = false;
-  showIconUser: boolean = false;
+  // showIconVertical: boolean = false;
+  // showIconCustomer: boolean = false;
+  // showIconSite: boolean = false;
+  // showIconCamera: boolean = false;
+  // showIconAnalytic: boolean = false;
+  // showIconUser: boolean = false;
 
   showIconView: boolean = false;
   showIconEdit: boolean = false;
@@ -56,7 +56,7 @@ export class AssetsComponent implements OnInit {
   searchText: any;
   CustomerTable: any;
   CustomerReport() {
-    this.http.get('assets/JSON/customerData.json').subscribe(res => {
+    this.http.get('assets/JSON/assetsData.json').subscribe(res => {
       this.CustomerTable = res;
       // console.log(res)
     });
@@ -83,26 +83,43 @@ export class AssetsComponent implements OnInit {
   // closenow(value:any) {
   //   this.showAddSite = value;
   // }
+  showAsset: boolean = false;
+
+  showAddAsset() {
+    this.showAsset = true;
+    // this.showSite = false;
+    // if (type == 'site') { this.showAddSite = value; }
+    // if (type == 'camr') { this.showAddCamera = value; }
+
+    // this.showIconVertical = false;
+    // this.showIconCustomer = false;
+    // this.showIconSite = false;
+    // this.showIconCamera = false;
+    // this.showIconAnalytic = false;
+    // this.showIconUser = false;
+  }
 
   closenow(value: any, type: String) {
-    if (type == 'site') { this.showAddSite = value; }
-    if (type == 'camr') { this.showAddCamera = value; }
-    if (type == 'cust') { this.showAddCustomer = value; }
-    if (type == 'vert') { this.showAddBusinessVertical = value; }
-    if (type == 'user') { this.showAddUser = value; }
-    if(type == 'additionalSite') {this.showSite = value;}
+    if (type == 'asset') { this.showAsset = value; }
+
+    // if (type == 'site') { this.showAddSite = value; }
+    // if (type == 'camr') { this.showAddCamera = value; }
+    // if (type == 'cust') { this.showAddCustomer = value; }
+    // if (type == 'vert') { this.showAddBusinessVertical = value; }
+    // if (type == 'user') { this.showAddUser = value; }
+    // if(type == 'additionalSite') {this.showSite = value;}
     // console.log("SITES:: ",type)
 
-    setTimeout(() => {
-      var openform = localStorage.getItem('opennewform');
-      if (openform == 'showAddSite') { this.showAddSite = true; }
-      if (openform == 'showAddCamera') { this.showAddCamera = true; }
-      if (openform == 'showAddCustomer') { this.showAddCustomer = true; }
-      if (openform == 'showAddBusinessVertical') { this.showAddBusinessVertical = true; }
-      if (openform == 'showAddUser') { this.showAddUser = true; }
-      if (openform == 'additionalSite') { this.showSite = true; }
-      localStorage.setItem('opennewform', '');
-    }, 100)
+    // setTimeout(() => {
+    //   var openform = localStorage.getItem('opennewform');
+    //   if (openform == 'showAddSite') { this.showAddSite = true; }
+    //   if (openform == 'showAddCamera') { this.showAddCamera = true; }
+    //   if (openform == 'showAddCustomer') { this.showAddCustomer = true; }
+    //   if (openform == 'showAddBusinessVertical') { this.showAddBusinessVertical = true; }
+    //   if (openform == 'showAddUser') { this.showAddUser = true; }
+    //   if (openform == 'additionalSite') { this.showSite = true; }
+    //   localStorage.setItem('opennewform', '');
+    // }, 100)
   }
 
   // showAddCamera = false;
@@ -128,20 +145,6 @@ export class AssetsComponent implements OnInit {
   // closenow4(value:any) {
   //   this.showAddBusinessVertical = value;
   // }
-
-  icons1: boolean = false;
-
-  iconsnew1() {
-    this.icons1 = !this.icons1;
-    this.showSite = false;
-
-    // this.showIconVertical = false;
-    // this.showIconCustomer = false;
-    // this.showIconSite = false;
-    // this.showIconCamera = false;
-    // this.showIconAnalytic = false;
-    // this.showIconUser = false;
-  }
 
   masterSelected: boolean = false;
 

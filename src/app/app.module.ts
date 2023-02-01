@@ -35,6 +35,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { AddDeviceComponent } from './main-dashboard/sub-forms/add-device/add-device.component';
+import { AddNewAssetComponent } from './main-dashboard/add-new-asset/add-new-asset.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { AddDeviceComponent } from './main-dashboard/sub-forms/add-device/add-de
     AssetsComponent,
     TicketsComponent,
     InventoryComponent,
-    AddDeviceComponent
+    AddDeviceComponent,
+    AddNewAssetComponent
   ],
   imports: [
     BrowserModule,
