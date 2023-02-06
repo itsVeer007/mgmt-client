@@ -36,6 +36,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { AddDeviceComponent } from './main-dashboard/sub-forms/add-device/add-device.component';
 import { AddNewAssetComponent } from './main-dashboard/add-new-asset/add-new-asset.component';
+import { VjsPlayerComponent } from './utilities/vjs-player/vjs-player.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { AddNewAssetComponent } from './main-dashboard/add-new-asset/add-new-ass
     TicketsComponent,
     InventoryComponent,
     AddDeviceComponent,
-    AddNewAssetComponent
+    AddNewAssetComponent,
+    VjsPlayerComponent
   ],
   imports: [
     BrowserModule,

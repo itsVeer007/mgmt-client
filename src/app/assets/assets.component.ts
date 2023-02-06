@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../utilities/api.service';
+import { AssetService } from '../utilities/asset.service';
 
 @Component({
   selector: 'app-assets',
@@ -33,10 +35,19 @@ export class AssetsComponent implements OnInit {
 
 
   showLoader = false;
-  constructor(private http: HttpClient) { }
+  deviceId: string = ''
+
+  constructor(private http: HttpClient, private apiser: AssetService) { }
 
   ngOnInit(): void {
     this.CustomerReport();
+    this.getAsset();
+  }
+
+  getAsset() {
+    this.apiser.getAssets().subscribe((res: any) => {
+      console.log(res)
+    })
   }
 
   // showIconVertical: boolean = false;
@@ -54,10 +65,10 @@ export class AssetsComponent implements OnInit {
   showIconDelete1: boolean = false;
 
   searchText: any;
-  CustomerTable: any;
+  assetTable: any;
   CustomerReport() {
     this.http.get('assets/JSON/assetsData.json').subscribe(res => {
-      this.CustomerTable = res;
+      this.assetTable = res;
       // console.log(res)
     });
   }
@@ -122,30 +133,6 @@ export class AssetsComponent implements OnInit {
     // }, 100)
   }
 
-  // showAddCamera = false;
-
-  // closenow1(value:any) {
-  //   this.showAddCamera = value;
-  // }
-
-  // showAddCustomer = false;
-
-  // closenow2(value:any) {
-  //   this.showAddCustomer = value;
-  // }
-
-  // showAddUser = false;
-
-  // closenow3(value:any) {
-  //   this.showAddUser = value;
-  // }
-
-  // showAddBusinessVertical = false;
-
-  // closenow4(value:any) {
-  //   this.showAddBusinessVertical = value;
-  // }
-
   masterSelected: boolean = false;
 
   // allchecked(e:any){
@@ -156,24 +143,22 @@ export class AssetsComponent implements OnInit {
   //   }
   // }
 
-  // -----------------Start Checkbox-----------------
+
   selectedAll: any;
 
   selectAll() {
-    for (var i = 0; i < this.CustomerTable.length; i++) {
-      // console.log(this.CustomerTable[i])
-      this.CustomerTable[i].selected = this.selectedAll;
+    for (var i = 0; i < this.assetTable.length; i++) {
+      // console.log(this.assetTable[i])
+      this.assetTable[i].selected = this.selectedAll;
     }
   }
   checkIfAllSelected() {
-    this.selectedAll = this.CustomerTable.every(function (item: any) {
+    this.selectedAll = this.assetTable.every(function (item: any) {
       // console.log(item)
       return item.selected == true;
     })
   }
-  // -------------------End Checkbox----------------------
 
-  // ---------------- Start delete ---------------------
   deleteRow: any;
 
   deleteRow1(item: any, i: any) {
@@ -181,14 +166,14 @@ export class AssetsComponent implements OnInit {
     this.showLoader = true;
     setTimeout(() => {
       this.showLoader = false;
-      this.CustomerTable.splice(i, 1);
+      this.assetTable.splice(i, 1);
     }, 1000);
   }
 
   deletePopup: boolean = true;
   confirmDeleteRow() {
     console.log("ToBE DELETED:: ", this.currentItem);
-    this.CustomerTable = this.CustomerTable.filter((item: any) => item.siteId !== this.currentItem.siteId);
+    this.assetTable = this.assetTable.filter((item: any) => item.siteId !== this.currentItem.siteId);
     this.deletePopup = true;
   }
 
@@ -202,19 +187,15 @@ export class AssetsComponent implements OnInit {
     // console.log("Selected Item:: ", item);
     this.deletePopup = false;
     // console.log("Open Delete Popup:: ",this.deletePopup);
-    // console.log(this.CustomerTable.siteId);
+    // console.log(this.assetTable.siteId);
   }
 
-  // ------- End delete ----------------
 
-
-
-  // -------Start Edit -------------
   editPopup: boolean = true;
 
   confirmEditRow() {
     console.log("TO BE EDITED:: ", this.currentItem);
-    // this.CustomerTable= this.CustomerTable.filter((item:any) => item.siteId !== this.currentItem.siteId);
+    // this.assetTable= this.assetTable.filter((item:any) => item.siteId !== this.currentItem.siteId);
     this.editPopup = true;
     this.CustomerReport();
   }
@@ -229,7 +210,7 @@ export class AssetsComponent implements OnInit {
     // console.log("Selected Item:: ", item);
     this.editPopup = false;
     // console.log("Open Delete Popup:: ",this.editPopup);
-    // console.log(this.CustomerTable.siteId);
+    // console.log(this.assetTable.siteId);
   }
 
   editArray: any = [];
@@ -253,12 +234,7 @@ export class AssetsComponent implements OnInit {
     }
     this.CustomerReport();
   }
-  // -------------- End Edit ------------------
 
-
-
-
-  // ------------- start View --------------------
 
   viewPopup: boolean = true;
 
@@ -297,11 +273,8 @@ export class AssetsComponent implements OnInit {
       this.viewPopup = false;
     }
   }
-  // ------------- End View ---------------------
 
 
-
-  // ------------ Multiple Records Starts -------------------
   deletearray: any = [];
   deleteMultiRecords(item: any, i: any, e: any) {
     var checked = (e.target.checked);
@@ -326,22 +299,21 @@ export class AssetsComponent implements OnInit {
       this.deletearray.forEach((el: any) => {
         // this.currentItem = el;
         // this.confirmDeleteRow();
-        this.CustomerTable = this.CustomerTable.filter((item: any) => item.siteId !== el.siteId);
+        this.assetTable = this.assetTable.filter((item: any) => item.siteId !== el.siteId);
       });
       this.deletearray = []
     } else {
-      this.CustomerTable.forEach((el: any) => {
-        this.CustomerTable = this.CustomerTable.filter((item: any) => item.siteId !== el.siteId);
+      this.assetTable.forEach((el: any) => {
+        this.assetTable = this.assetTable.filter((item: any) => item.siteId !== el.siteId);
       });
     }
   }
 
-  // ------------ Multiple Records Ends -------------------
 
   sorted = false;
   sort(label: any) {
     this.sorted = !this.sorted;
-    var x = this.CustomerTable;
+    var x = this.assetTable;
     if (this.sorted == false) {
       x.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
     } else {

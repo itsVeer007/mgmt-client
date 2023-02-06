@@ -1,23 +1,3 @@
-// import { Injectable } from '@angular/core';
-
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class ChartService {
-
-//   constructor() { }
-// }
-
-
-
-
-
-
-
-
-
-
-
 import { Injectable } from '@angular/core';
 import * as Highcharts from 'highcharts';
 declare var require: any;
@@ -121,8 +101,8 @@ export class ChartService {
   }
 }
 
- 
-/** use function to create chart with <div id="container"></div> 
+
+/** use function to create chart with <div id="container"></div>
   mychart(){
     var charttype = 'pie';
     var threeD = true;

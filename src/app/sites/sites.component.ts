@@ -188,6 +188,7 @@ export class SitesComponent implements OnInit {
       this.tableData[i].selected = this.selectedAll;
     }
   }
+
   checkIfAllSelected() {
     this.selectedAll = this.tableData.every(function (item: any) {
       // console.log(item)

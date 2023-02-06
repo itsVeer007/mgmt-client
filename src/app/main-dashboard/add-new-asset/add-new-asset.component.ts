@@ -26,8 +26,8 @@ import { Router } from '@angular/router';
   ]
 })
 export class AddNewAssetComponent implements OnInit {
-  @Input() show:any;
 
+  @Input() show:any;
   @Output() newItemEvent = new EventEmitter<boolean>();
 
   // @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
@@ -39,19 +39,19 @@ export class AddNewAssetComponent implements OnInit {
   //   }
   // }
 
-  closeAddCamera(value:boolean) {
-    this.newItemEvent.emit(value);
-  }
-
   constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
-  openAnotherForm(newform:any) {
-    // this.newItemEvent.emit(false);
-    localStorage.setItem('opennewform', newform)
-    this.closeAddCamera(false);
+  closeAddCamera(value:boolean) {
+    this.newItemEvent.emit(value);
   }
+
+  // openAnotherForm(newform:any) {
+  //   // this.newItemEvent.emit(false);
+  //   localStorage.setItem('opennewform', newform)
+  //   this.closeAddCamera(false);
+  // }
 
 }

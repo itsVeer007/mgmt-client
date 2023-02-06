@@ -2,8 +2,6 @@
   <div class="col-lg-6 col-md-6"></div>
   <div class="col-lg-6 col-md-6 add-form" id="additionalSite" @inOutPaneAnimation>
 
-    <!-- <div> -->
-
       <div class="row">
         <a class="col-lg-1 mt-3 pointer position-relative" style="right: 50px; bottom: 8px;" (click)="closeAddAdditionalSite(false)">
           <img src="assets/images/Group 101.svg">
@@ -19,7 +17,6 @@
           </div>
         </div>
       </div>
-    <!-- </div> -->
 
     <div class="text-secondary p-3 row" style="background-color: #084982;">
       <div class="col-lg-11 col-sm-2">
@@ -32,64 +29,165 @@
     <div class="mt-2">
       <form autocomplete="off" [formGroup]="addDevice" #addAdditionalSiteForm="ngForm">
         <div class="row">
-          <div class="col-lg-6 col-xl-6">
+          <div class="col-lg-6">
             <select class="form-select m-1" id="device" formControlName="device">
               <option value="" selected disabled>Select device</option>
               <option value="Device1">Device1</option>
             </select>
           </div>
 
-          <div class="col-lg-6 col-xl-6">
+          <div class="col-lg-6 d-flex align-items-center justify-content-between">
+            <div>
+              <label for="device" style="width: 71px; font-size: 12px;">Device Mode</label>
+            </div>
+            <div class="w-100">
+              <select class="form-select m-1" id="device" formControlName="device">
+                <option value="" selected disabled>Select</option>
+                <option value="Device1">Device1</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-lg-6 d-flex align-items-center justify-content-evenly">
+            <div>
+              <label for="device" style="width: 51px; font-size: 12px;">Ad Hours</label>
+            </div>
+            <div class="me-2">
+              <select class="form-select m-1" id="device" formControlName="device">
+                <option value="" selected disabled>Select</option>
+                <option value="Device1">Device1</option>
+              </select>
+            </div>
+            <span>-</span>
+            <div>
+              <select class="form-select m-1" id="device" formControlName="device">
+                <option value="" selected disabled>Select</option>
+                <option value="Device1">Device1</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-lg-6 d-flex align-items-center justify-content-between">
+            <div>
+              <label for="device" style="width: 93px; font-size: 12px;">Ad Working Days</label>
+            </div>
+            <div class="w-100">
+              <select class="form-select m-1" id="device" formControlName="device">
+                <option value="" selected disabled>Select</option>
+                <option value="Device1">Device1</option>
+              </select>
+            </div>
+          </div>
+
+
+          <div class="col-lg-6">
             <select class="form-select m-1" id="camera" formControlName="camera">
-              <option value="" selected disabled>Select camera</option>
-              <option value="Camera1">Camera1</option>
+              <option value="" selected disabled>Accessories Type</option>
+              <option value="Video">Video</option>
             </select>
           </div>
 
-          <div class="col-lg-6 col-xl-6">
+          <div class="col-lg-6">
             <select class="form-select m-1" id="temp" formControlName="temp">
-              <option value="" selected disabled>Select temp range</option>
-              <option value="Temperature1">Temperature1</option>
+              <option value="" selected disabled>Select Accessories</option>
+              <option value="Camera">Camera</option>
             </select>
           </div>
 
-          <div class="col-lg-6 col-xl-6">
+          <div class="col-lg-6 d-flex align-items-center justify-content-between mb-3">
+            <div>
+              <label for="device" style="width: 88px; font-size: 12px;">Call Freequency</label>
+            </div>
+            <div class="w-100">
+              <input type="text" class="form-control m-2" placeholder="" />
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <select class="form-select m-1" id="age" formControlName="age">
+              <option value="" selected disabled>Status</option>
+              <option value="Active">Active</option>
+            </select>
+          </div>
+
+          <!-- AD PARAMETERS -->
+          <div class="my-2">
+            <h5 class="m-0" style="font-size: 15px; font-weight: 500;">AD PARAMETERS</h5>
+          </div>
+
+          <div class="col-lg-6">
+            <select class="form-select m-1" id="age" formControlName="age">
+              <option value="" selected disabled>Select temp range</option>
+              <option value="Age1">Age1</option>
+            </select>
+          </div>
+
+          <div class="col-lg-6">
             <select class="form-select m-1" id="age" formControlName="age">
               <option value="" selected disabled>Select age range</option>
               <option value="Age1">Age1</option>
             </select>
           </div>
+          <!-- /AD PARAMETERS -->
 
-          <div class="col-lg-6 col-xl-6">
-            <select class="form-select m-1" id="demographics" formControlName="demographics">
-              <option value="" selected disabled>Select demographics</option>
-              <option value="Demographic1">Demographic1</option>
-            </select>
-          </div>
-
-          <div class="col-lg-6 col-xl-6">
-            <select class="form-select m-1" id="status" formControlName="status">
-              <option value="" selected disabled>Select status</option>
-              <option value="Active">Active</option>
-              <option value="Inactive">Inactive</option>
-            </select>
-          </div>
-
-          <div class="row my-3 equipment">
-            <div class="d-flex justify-content-between">
-              <p class="checklist m-0 text-secondary text-bold">Equipment Type</p>
-              <div class="checklist d-flex align-items-center"><input class="me-2" type="checkbox">Audio</div>
-              <div class="checklist d-flex align-items-center"><input class="me-2" type="checkbox">Video</div>
-              <div class="checklist d-flex align-items-center"><input class="me-2" type="checkbox">WIFI</div>
+          <div class="my-3 equipment">
+            <label class="form-check-label me-3">Demographics</label>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+              <label class="form-check-label" for="inlineRadio1">True</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+              <label class="form-check-label" for="inlineRadio2">False</label>
             </div>
           </div>
 
-          <div class="col-lg-6 col-xl-6 mb-3">
-            <select class="form-select m-1" id="select" formControlName="select">
-              <option value="" selected disabled>Select</option>
-              <option value="Option1">Option1</option>
+          <!-- CAMERA DETAILS -->
+          <div class="my-2">
+            <h5 class="m-0" style="font-size: 15px; font-weight: 500;">CAMERA DETAILS</h5>
+          </div>
+
+          <div class="col-lg-6">
+            <select class="form-select m-1" id="age" formControlName="age">
+              <option value="" selected disabled>Select Cam Id</option>
+              <option value="Age1">Age1</option>
             </select>
           </div>
+
+          <div class="col-lg-6 d-flex align-items-center justify-content-between">
+            <div>
+              <label for="device" style="width: 30px; font-size: 12px;">FPS</label>
+            </div>
+            <div class="w-100">
+              <input type="text" class="form-control m-1" placeholder="" />
+            </div>
+          </div>
+
+          <div class="col-lg-6 d-flex align-items-center justify-content-evenly">
+            <div>
+              <label for="device" style="width: 51px; font-size: 12px;">Ad Hours</label>
+            </div>
+            <div>
+              <input type="text" class="form-control" placeholder="Width" />
+            </div>
+            <span class="mx-2">X</span>
+            <div>
+              <input type="text" class="form-control" placeholder="Height" />
+            </div>
+          </div>
+
+          <div class="col-lg-6 my-3 equipment">
+            <label class="form-check-label me-3">Label</label>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+              <label class="form-check-label" for="inlineRadio1">Person</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+              <label class="form-check-label" for="inlineRadio2">Vehicle</label>
+            </div>
+          </div>
+          <!-- /CAMERA DETAILS -->
 
           <div class="text-center my-3">
             <button type="submit" class="btn add-btn" (click)="submit()">ADD</button>

@@ -50,6 +50,6 @@ export class ApiService {
     user.accesstoken = a.access_token;
     user.callingUsername = a.UserName;
     return this.http.post(url, user);
-
   }
+
 }
