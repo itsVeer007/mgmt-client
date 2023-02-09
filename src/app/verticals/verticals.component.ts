@@ -1,16 +1,14 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, HostListener, OnInit } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SearchPipe } from '../utilities/search.pipe';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-customers',
-  templateUrl: './customers.component.html',
-  styleUrls: ['./customers.component.css']
+  selector: 'app-verticals',
+  templateUrl: './verticals.component.html',
+  styleUrls: ['./verticals.component.css']
 })
-export class CustomersComponent implements OnInit {
+export class VerticalsComponent implements OnInit {
 
-  // @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
+// @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
   //   var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);
   //   var y = <HTMLElement>document.getElementById(`icons-site`);
 
@@ -58,9 +56,9 @@ export class CustomersComponent implements OnInit {
   searchText: any;
   CustomerTable: any;
   CustomerReport() {
-    this.http.get('assets/JSON/customerData.json').subscribe(res => {
-      // console.log("CustomerReport::",res);
+    this.http.get('assets/JSON/userData.json').subscribe(res => {
       this.CustomerTable = res;
+      // console.log(res)
     });
   }
 
@@ -78,21 +76,23 @@ export class CustomersComponent implements OnInit {
 
   // showAddSite = false;
   // showAddCamera = false;
+  // showAddCustomer = false;
   // showAddUser = false;
   // showAddBusinessVertical = false;
+  // showSite = false;
   // closenow(value:any) {
   //   this.showAddSite = value;
   // }
 
-  showAddCustomer = false;
-
   closenow(value: any, type: String) {
-    if (type == 'cust') { this.showAddCustomer = value; }
+    if (type == 'user') { this.showAddUser = value; }
+    if(type == 'additionalSite') {this.showAddSite = value;}
 
-    // if (type == 'site') { this.showAddSite = value; }
     // if (type == 'camr') { this.showAddCamera = value; }
+    // if (type == 'cust') { this.showAddCustomer = value; }
     // if (type == 'vert') { this.showAddBusinessVertical = value; }
     // if (type == 'user') { this.showAddUser = value; }
+    // if(type == 'additionalSite') {this.showSite = value;}
     // console.log("SITES:: ",type)
 
     // setTimeout(() => {
@@ -102,8 +102,20 @@ export class CustomersComponent implements OnInit {
     //   if (openform == 'showAddCustomer') { this.showAddCustomer = true; }
     //   if (openform == 'showAddBusinessVertical') { this.showAddBusinessVertical = true; }
     //   if (openform == 'showAddUser') { this.showAddUser = true; }
+    //   if (openform == 'additionalSite') { this.showSite = true; }
     //   localStorage.setItem('opennewform', '');
-    // }, 100)
+    // }, 100);
+
+  }
+
+  //----------------------------------Add New User
+
+  addNewUser(newUser: any) {
+    newUser = JSON.parse(localStorage.getItem('userCreated')!);
+    if(newUser) {
+      this.CustomerTable.push(newUser)
+      localStorage.removeItem('userCreated');
+    }
   }
 
   // showAddCamera = false;
@@ -130,10 +142,16 @@ export class CustomersComponent implements OnInit {
   //   this.showAddBusinessVertical = value;
   // }
 
+  showAddUser: boolean = false;
+  showAddSite: boolean = false;
+
   show(type: string) {
-    if (type == 'cust') { this.showAddCustomer = true; }
+    if (type == 'user') { this.showAddUser = true; }
+    if (type == 'additionalSite') { this.showAddSite = true; }
 
     // this.icons1 = !this.icons1;
+    // this.showSite = false;
+
     // this.showIconVertical = false;
     // this.showIconCustomer = false;
     // this.showIconSite = false;

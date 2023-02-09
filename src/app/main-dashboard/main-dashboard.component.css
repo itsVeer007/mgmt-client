@@ -213,8 +213,8 @@ tbody tr th {
 }
 
 .new-icon {
-    position: absolute; 
-    width: -webkit-fill-available; 
+    position: absolute;
+    width: -webkit-fill-available;
     top: -27px;
     display: flex;
     justify-content: center;
@@ -265,7 +265,7 @@ table tbody tr th .badge {
 td{
     align-items: center;
 }
-/* 
+/*
 table tbody tr th .badge {
     background-color: #084982;
    color: #fff;
@@ -431,7 +431,7 @@ table tbody tr th .badge {
     }
 
     .table-resp {
-        max-width: 100%; 
+        max-width: 100%;
         overflow-x:scroll;
     }
 }
@@ -497,7 +497,7 @@ table tbody tr th .badge {
        border-style: solid;
        border-color: transparent transparent transparent rgb(173, 72, 72);
     }
-    
+
 }
 
 .lists {

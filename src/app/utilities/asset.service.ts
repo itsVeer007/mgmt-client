@@ -6,7 +6,9 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AssetService {
 
-  assetUrl = 'http://usmgmt.iviscloud.net:777/ProximityAdvertisement/listAssets_1_0/?deviceId=123';
+  getAssetUrl = 'http://usmgmt.iviscloud.net:777/ProximityAdvertisement/listAssets_1_0/?deviceId=123';
+
+  addAssetUrl = 'http://usmgmt.iviscloud.net:777/ProximityAdvertisement/createAsset_1_0/';
 
   constructor(private http: HttpClient) { }
 
@@ -21,7 +23,11 @@ export class AssetService {
     //   "callingSystemDetail":"portal"
     // }
 
-    return this.http.get(this.assetUrl);
+    return this.http.get(this.getAssetUrl);
+  }
+
+  addAsset(payload: any) {
+    return this.http.post(this.addAssetUrl, payload)
   }
 
 }

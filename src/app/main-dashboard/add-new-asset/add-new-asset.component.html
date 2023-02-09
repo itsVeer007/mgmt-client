@@ -20,19 +20,21 @@
     </div>
 
     <div>
-      <form autocomplete="off">
+      <form autocomplete="off" [formGroup]="addAssetForm">
         <div class="row">
           <div class="col-lg-6 col-md-6">
-            <select id="" class="form-select my-1">
-              <option selected>Select Customer</option>
-              <option>...</option>
+            <select id="" class="form-select my-1" formControlName="customer">
+              <option value="" selected disabled>Select Customer</option>
+              <option value="Customer-1">Customer-1</option>
+              <option value="Customer-2">Customer-2</option>
             </select>
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <select id="" class="form-select my-1">
-              <option selected>Select Site</option>
-              <option>...</option>
+            <select id="" class="form-select my-1" formControlName="site">
+              <option value="" selected disabled>Select Site</option>
+              <option value="Site-1">Site-1</option>
+              <option value="Site-2">Site-2</option>
             </select>
           </div>
 
@@ -43,28 +45,29 @@
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <select id="" class="form-select my-1">
-              <option selected>Mime type</option>
-              <option>...</option>
+            <select id="" class="form-select my-1" formControlName="mimeType">
+              <option  value="" selected disabled>Mime type</option>
+              <option value="Video">Video</option>
+              <option value="Audio">Audio</option>
             </select>
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <input type="text" class="form-control my-1" placeholder="Enter Duration" />
+            <input type="text" class="form-control my-1" placeholder="Enter Duration" formControlName="duration" />
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <input type="text" class="form-control my-1" placeholder="Enter Asset Name" />
+            <input type="text" class="form-control my-1" placeholder="Enter Asset Name" formControlName="assetName" />
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <input type="text" class="form-control my-1" placeholder="Enter Description" />
+            <input type="text" class="form-control my-1" placeholder="Enter Description" formControlName="description" />
           </div>
 
           <div class="col-lg-12 col-md-6 d-flex my-1 escalation">
             <div style="width: 20%; background-color: #F8F8F8;" class="max-center p-2">URL</div>
             <div style="width: 80%; color: #084982;">
-              <input type="text" class="form-control" placeholder="" name="lat" />
+              <input type="text" class="form-control" placeholder="" name="lat" formControlName="url" />
             </div>
           </div>
 
@@ -77,7 +80,7 @@
           </div>
 
           <div class="text-center my-5">
-            <button class="btn add-btn">ADD</button>
+            <button class="btn add-btn" (click)="addNewAsset()">ADD</button>
           </div>
         </div>
       </form>

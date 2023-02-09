@@ -37,6 +37,8 @@ import { MatListModule } from '@angular/material/list';
 import { AddDeviceComponent } from './main-dashboard/sub-forms/add-device/add-device.component';
 import { AddNewAssetComponent } from './main-dashboard/add-new-asset/add-new-asset.component';
 import { VjsPlayerComponent } from './utilities/vjs-player/vjs-player.component';
+import { VerticalsComponent } from './verticals/verticals.component';
+import { AnalyticsComponent } from './analytics/analytics.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +63,9 @@ import { VjsPlayerComponent } from './utilities/vjs-player/vjs-player.component'
     InventoryComponent,
     AddDeviceComponent,
     AddNewAssetComponent,
-    VjsPlayerComponent
+    VjsPlayerComponent,
+    VerticalsComponent,
+    AnalyticsComponent
   ],
   imports: [
     BrowserModule,

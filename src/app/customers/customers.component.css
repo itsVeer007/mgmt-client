@@ -113,7 +113,7 @@ form button {
 
 .form1 th{
   color: #fff;
-  padding: 10px 0; 
+  padding: 10px 0;
   font-size: 12px;
   text-align: left;
 }
@@ -123,9 +123,9 @@ form button {
   overflow-y: scroll;
 }
 
-.table-resp table{
+/* .table-resp table{
   border: 1px solid #EFEFEF;
-}
+} */
 
 .table tbody tr td {
   vertical-align: middle;

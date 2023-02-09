@@ -2,28 +2,39 @@
   <div class="col-lg-6 col-md-6"></div>
   <div class="col-lg-6 col-md-6 add-form" id="additionalSite" @inOutPaneAnimation>
 
-      <div class="row">
-        <a class="col-lg-1 mt-3 pointer position-relative" style="right: 50px; bottom: 8px;" (click)="closeAddAdditionalSite(false)">
-          <img src="assets/images/Group 101.svg">
-        </a>
+    <div class="row">
+      <a class="col-lg-1 mt-3 pointer position-relative" style="right: 50px; bottom: 8px;"
+        (click)="closeAddAdditionalSite(false)">
+        <img src="assets/images/Group 101.svg">
+      </a>
 
-        <div class="col-lg-11 d-flex justify-content-between align-items-center">
-          <div>
-            <h5 class="m-0" style="font-size: 18px; font-weight: 600;">1000015 - Osaka Midland</h5>
-            <h5 class="m-0 text-secondary" style="font-size: 18px;">IVISUSA1006</h5>
-          </div>
-          <div>
-            <a class="pointer"><img src="assets/images/add.svg" alt=""></a>
-          </div>
+      <div class="col-lg-11 d-flex justify-content-between align-items-center">
+        <div>
+          <h5 class="m-0" style="font-size: 18px; font-weight: 600;">1000015 - Osaka Midland</h5>
+          <h5 class="m-0 text-secondary" style="font-size: 18px;">IVISUSA1006</h5>
+        </div>
+        <div>
+          <a class="pointer"><img src="assets/images/add.svg" alt=""></a>
         </div>
       </div>
+    </div>
 
-    <div class="text-secondary p-3 row" style="background-color: #084982;">
-      <div class="col-lg-11 col-sm-2">
-        <img class="pointer me-2" src="assets/images/Union 18.svg" alt="" width="15px" height="15px">
-        <span>Device - 1</span>
+    <!-- <div class="text-secondary p-3" style="background-color: #084982;">
+        <div class="w-100">
+          <img class="pointer me-2" src="assets/images/Union 18.svg" alt="" width="15px" height="15px">
+          <span class="mx-2"  *ngFor="let item of deviceList">{{item}}</span>
+          <img class="pointer ms-2" style="text-align: end;" src="assets/images/Union 60.svg" alt="" width="15px" height="15px">
+        </div>
+    </div> -->
+
+    <div class="row d-flex justify-content-between max-center" style="padding: 15px; background-color: #084982;">
+      <img src="assets/images/Union 18.svg" alt="" style="width: 40px; transform: rotate(0deg);" (click)="prevvert()">
+
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 card-menu text-white" *ngFor="let item of deviceList">
+        {{item}}
       </div>
-      <div class="col-lg-1 col-sm-10"><img class="pointer" src="assets/images/Union 60.svg" alt="" width="15px" height="15px"></div>
+
+      <img src="assets/images/Union 60.svg" alt="" style="width: 40px;" (click)="nextvert()">
     </div>
 
     <div class="mt-2">
@@ -96,7 +107,7 @@
 
           <div class="col-lg-6 d-flex align-items-center justify-content-between mb-3">
             <div>
-              <label for="device" style="width: 88px; font-size: 12px;">Call Freequency</label>
+              <label for="device" style="width: 88px; font-size: 12px;">Ad's Download Freq</label>
             </div>
             <div class="w-100">
               <input type="text" class="form-control m-2" placeholder="" />
@@ -112,7 +123,7 @@
 
           <!-- AD PARAMETERS -->
           <div class="my-2">
-            <h5 class="m-0" style="font-size: 15px; font-weight: 500;">AD PARAMETERS</h5>
+            <h5 class="m-0" style="font-size: 15px; font-weight: 500;">ADVERTISEMENT PARAMETERS</h5>
           </div>
 
           <div class="col-lg-6">
@@ -190,7 +201,7 @@
           <!-- /CAMERA DETAILS -->
 
           <div class="text-center my-3">
-            <button type="submit" class="btn add-btn" (click)="submit()">ADD</button>
+            <button type="submit" class="btn add-btn" (click)="add()">ADD</button>
           </div>
         </div>
       </form>

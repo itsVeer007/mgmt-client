@@ -130,9 +130,9 @@ form button {
   overflow-y: scroll;
 }
 
-.table-resp table{
+/* .table-resp table{
   border: 1px solid #EFEFEF;
-}
+} */
 
 .table tbody tr td {
   /* align-items: center; */

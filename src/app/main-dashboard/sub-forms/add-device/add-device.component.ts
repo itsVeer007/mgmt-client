@@ -41,6 +41,7 @@ export class AddDeviceComponent implements OnInit {
 
 
   addDevice: any =  FormGroup;
+  deviceList = ['Device-1', 'Device-2', 'Device-3'];
 
   site = {
     device: "",
@@ -96,8 +97,27 @@ export class AddDeviceComponent implements OnInit {
     this.newItemEvent.emit(value);
   }
 
-  submit(){
+  add(){
     console.log("add device", this.addDevice.value);
+  }
+
+  showcardReport: any;
+  prevvert() {
+    // var indexOfFirstElem = this.cardReport.map(function (item: any) { return item.id; }).indexOf(this.showcardReport[0].id);
+    // if (indexOfFirstElem != 0) {
+    //   indexOfFirstElem = indexOfFirstElem -= 1;
+    //   var a = JSON.parse(JSON.stringify(this.cardReport))
+    //   this.showcardReport = a.splice(indexOfFirstElem, this.noOfCards);
+    }
+
+  nextvert() {
+    // var indexOfFirstElem = this.cardReport.map(function (item: any) { return item.id; }).indexOf(this.showcardReport[0].id);
+    // console.log(indexOfFirstElem, (this.cardReport.length - 1))
+    // if ((indexOfFirstElem + this.noOfCards) < (this.cardReport.length)) {
+    //   indexOfFirstElem = indexOfFirstElem += 1;
+    //   var a = JSON.parse(JSON.stringify(this.cardReport))
+    //   this.showcardReport = a.splice(indexOfFirstElem, this.noOfCards);
+    // }
   }
 
 }

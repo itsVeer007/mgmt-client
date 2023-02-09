@@ -46,7 +46,8 @@ export class AssetsComponent implements OnInit {
 
   getAsset() {
     this.apiser.getAssets().subscribe((res: any) => {
-      console.log(res)
+      this.assetTable = res.Assets_List;
+      // console.log(res);
     })
   }
 
@@ -66,11 +67,12 @@ export class AssetsComponent implements OnInit {
 
   searchText: any;
   assetTable: any;
+
   CustomerReport() {
-    this.http.get('assets/JSON/assetsData.json').subscribe(res => {
-      this.assetTable = res;
-      // console.log(res)
-    });
+    // this.http.get('assets/JSON/assetsData.json').subscribe(res => {
+    //   this.assetTable = res;
+    //   console.log(res)
+    // });
   }
 
   currentid = 0;

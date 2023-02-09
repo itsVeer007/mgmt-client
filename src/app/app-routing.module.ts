@@ -14,24 +14,28 @@ import { UsersComponent } from './users/users.component';
 import { InventoryComponent } from './inventory/inventory.component';
 import { AssetsComponent } from './assets/assets.component';
 import { TicketsComponent } from './tickets/tickets.component';
+import { AnalyticsComponent } from './analytics/analytics.component';
+import { VerticalsComponent } from './verticals/verticals.component';
 const routes: Routes = [];
 
 @NgModule({
   imports: [RouterModule.forRoot([
-    {path:'', redirectTo:'/login', pathMatch:'full'},
-    {path:'login', component:LoginComponent},
-    {path:'main-dashboard', component:MainDashboardComponent},
-    {path:'add-new-site', component:AddNewSiteComponent},
-    {path:'add-new-camera', component:AddNewCameraComponent},
-    {path:'add-new-customer', component:AddNewCustomerComponent},
-    {path:'add-new-user', component:AddNewUserComponent},
-    {path:'add-new-business', component:AddNewBusinessVerticalComponent},
-    {path:'sites', component:SitesComponent},
-    {path:'customers', component:CustomersComponent},
-    {path:'users', component:UsersComponent},
-    {path:'inventory', component:InventoryComponent},
-    {path:'assets', component:AssetsComponent},
-    {path:'tickets', component:TicketsComponent}
+    { path: '', redirectTo: '/login', pathMatch: 'full' },
+    { path: 'login', component: LoginComponent },
+    { path: 'main-dashboard', component: MainDashboardComponent },
+    { path: 'verticals', component: VerticalsComponent },
+    { path: 'add-new-site', component: AddNewSiteComponent },
+    { path: 'add-new-camera', component: AddNewCameraComponent },
+    { path: 'add-new-customer', component: AddNewCustomerComponent },
+    { path: 'add-new-user', component: AddNewUserComponent },
+    { path: 'add-new-business', component: AddNewBusinessVerticalComponent },
+    { path: 'sites', component: SitesComponent },
+    { path: 'analytics', component: AnalyticsComponent },
+    { path: 'customers', component: CustomersComponent },
+    { path: 'users', component: UsersComponent },
+    { path: 'inventory', component: InventoryComponent },
+    { path: 'assets', component: AssetsComponent },
+    { path: 'tickets', component: TicketsComponent }
   ])],
   exports: [RouterModule]
 })

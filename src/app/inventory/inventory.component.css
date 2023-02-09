@@ -140,9 +140,9 @@ max-height: calc(100vh - (280px));
 overflow-y: scroll;
 }
 
-.table-resp table{
+/* .table-resp table{
 border: 1px solid #EFEFEF;
-}
+} */
 
 .table tbody tr td {
 vertical-align: middle;

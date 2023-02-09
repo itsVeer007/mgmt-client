@@ -1,6 +1,8 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AssetService } from 'src/app/utilities/asset.service';
 
 @Component({
   selector: 'app-add-new-asset',
@@ -39,9 +41,20 @@ export class AddNewAssetComponent implements OnInit {
   //   }
   // }
 
-  constructor(private router: Router) { }
+  addAssetForm: any = FormGroup;
+
+  constructor(private router: Router, private fb: FormBuilder, assetService: AssetService) { }
 
   ngOnInit(): void {
+    this.addAssetForm = this.fb.group({
+      'customer': new FormControl(''),
+      'site': new FormControl(''),
+      'mimeType': new FormControl(''),
+      'duration': new FormControl(''),
+      'assetName': new FormControl(''),
+      'description': new FormControl(''),
+      'url': new FormControl(''),
+    })
   }
 
   closeAddCamera(value:boolean) {
@@ -53,5 +66,9 @@ export class AddNewAssetComponent implements OnInit {
   //   localStorage.setItem('opennewform', newform)
   //   this.closeAddCamera(false);
   // }
+
+  addNewAsset() {
+    console.log(this.addAssetForm.value)
+  }
 
 }
