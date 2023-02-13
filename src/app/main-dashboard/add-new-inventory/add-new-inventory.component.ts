@@ -1,13 +1,13 @@
-import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/services/api.service';
 
 @Component({
-  selector: 'app-add-new-user',
-  templateUrl: './add-new-user.component.html',
-  styleUrls: ['./add-new-user.component.css'],
+  selector: 'app-add-new-inventory',
+  templateUrl: './add-new-inventory.component.html',
+  styleUrls: ['./add-new-inventory.component.css'],
   animations:[
     trigger("inOutPaneAnimation", [
       transition(":enter", [
@@ -27,9 +27,8 @@ import { ApiService } from 'src/services/api.service';
     ])
   ]
 })
-export class AddNewUserComponent implements OnInit {
-
-  constructor(private router:Router, private apiser: ApiService, private fb: FormBuilder) { }
+export class AddNewInventoryComponent implements OnInit {
+  constructor(private router: Router, private apiser: ApiService, private fb: FormBuilder) { }
 
   @Input() show:any;
 
@@ -76,6 +75,8 @@ export class AddNewUserComponent implements OnInit {
     safetyEscort: "F"
   }
 
+  email: string = "";
+
 
   ngOnInit() {
     this.UserForm = this.fb.group({
@@ -107,16 +108,15 @@ export class AddNewUserComponent implements OnInit {
     // this.getUserDetails();
   }
 
-  email: string = "";
   getUserDetails(){
     this.apiser.getUser(this.email).subscribe((res:any)=>{
       console.log(res)
       if(res.Status == 'Success'){
         this.user.username= "";
-        this.user.password= res.password;
+        // this.user.password= res.;
         this.user.firstname= res.firstName;
         this.user.lastname= res.lastName;
-        this.user.roleList = res.roleList;
+        // this.user.roleList = res.Roles;
         this.user.email= res.email;
         this.user.gender= res.gender;
         this.user.realm= res.realm;
@@ -159,8 +159,10 @@ export class AddNewUserComponent implements OnInit {
       this.apiser.addUser(this.user).subscribe((res: any) => {
         if(res.Status == "Success") {
           localStorage.setItem('userCreated', JSON.stringify(res));
+          console.log('status');
         }
       });
+      console.log('valid');
       this.submitted = false;
     }
     this.submitted = true;
@@ -173,4 +175,3 @@ export class AddNewUserComponent implements OnInit {
   }
 
 }
-

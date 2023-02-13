@@ -2,8 +2,8 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ApiService } from 'src/app/utilities/api.service';
 import { Observable } from 'rxjs';
+import { ApiService } from 'src/services/api.service';
 
 @Component({
   selector: 'app-add-additional-site',

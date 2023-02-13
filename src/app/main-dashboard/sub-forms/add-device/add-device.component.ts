@@ -1,7 +1,7 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { ApiService } from 'src/app/utilities/api.service';
+import { ApiService } from 'src/services/api.service';
 
 @Component({
   selector: 'app-add-device',

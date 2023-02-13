@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ApiService } from './utilities/api.service';
+import { ApiService } from 'src/services/api.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +10,7 @@ export class AppComponent {
   title = 'Management-Server';
   user=null;
 
-  constructor(private apiser:ApiService){}
+  constructor(private apiser: ApiService){}
   ngOnInit(){
     // this.user=JSON.parse(localStorage.getItem('user')!);
     this.apiser.user$.subscribe((res)=>{

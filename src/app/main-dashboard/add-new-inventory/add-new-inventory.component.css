@@ -1,0 +1,77 @@
+
+.on-off-toggle {
+  width: 56px;
+  height: 24px;
+  position: relative;
+  display: inline-block;
+}
+
+.on-off-toggle__slider {
+  width: 56px;
+  height: 24px;
+  display: block;
+  border-radius: 34px;
+  background-color: #fff;
+  border: 1px solid #084982;
+  transition: background-color 0.4s;
+}
+
+.on-off-toggle__slider:before {
+  content: '';
+  display: block;
+  background-color: #ABABAB;
+  /* box-shadow: 0 0 0 1px #949494; */
+  bottom: 5px;
+  height: 15px;
+  left: 3px;
+  position: absolute;
+  transition: .4s;
+  width: 18px;
+  z-index: 5;
+  border-radius: 100%;
+}
+
+.on-off-toggle__slider:after {
+  display: block;
+  line-height: 24px;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: bold;
+  content: 'NO' ;
+  color: #ABABAB;
+  padding-left: 26px;
+  transition: all 0.4s;
+}
+
+
+
+.on-off-toggle__input {
+  /*
+    This way of hiding the default input is better
+    for accessibility than using display: none;
+  */
+  position: absolute;
+  opacity: 0;
+}
+
+.on-off-toggle__input:checked +
+.on-off-toggle__slider {
+  background-color: #fff;
+  border: 1px solid #084982;
+}
+
+.on-off-toggle__input +
+.on-off-toggle__slider {
+  background-color: #F8F8F8;
+  border: 1px solid #ABABAB;
+}
+
+.on-off-toggle__input:checked + :before {
+  transform: translateX(32px);
+    background-color: #084982;
+}
+.on-off-toggle__input:checked + :after {
+  content: 'YES';
+  color: #084982;
+  padding-left: 8px;
+}

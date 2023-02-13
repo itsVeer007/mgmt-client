@@ -2,7 +2,8 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AssetService } from 'src/app/utilities/asset.service';
+import { AssetService } from 'src/services/asset.service';
+import { FileUploadService } from 'src/services/file-upload.service';
 
 @Component({
   selector: 'app-add-new-asset',
@@ -32,6 +33,8 @@ export class AddNewAssetComponent implements OnInit {
   @Input() show:any;
   @Output() newItemEvent = new EventEmitter<boolean>();
 
+  @Output() newUser = new EventEmitter<any>();
+
   // @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
   //   var x = <HTMLElement>document.getElementById(`camera`);
   //   if (x != null) {
@@ -43,7 +46,24 @@ export class AddNewAssetComponent implements OnInit {
 
   addAssetForm: any = FormGroup;
 
-  constructor(private router: Router, private fb: FormBuilder, assetService: AssetService) { }
+  shortLink: string = "";
+  file: File | null = null;
+  // loading: boolean = false;
+
+  constructor(private router: Router, private fb: FormBuilder, private assetService: AssetService, private fileUploadService: FileUploadService) { }
+
+  user = {
+    customer: "",
+    site: "",
+    mimeType: "",
+    duration: "",
+    assetName: "",
+    description: "",
+    url: "",
+    fromDate: "",
+    toDate: ""
+    // roleList: []
+  }
 
   ngOnInit(): void {
     this.addAssetForm = this.fb.group({
@@ -53,8 +73,26 @@ export class AddNewAssetComponent implements OnInit {
       'duration': new FormControl(''),
       'assetName': new FormControl(''),
       'description': new FormControl(''),
+      'fromDate': new FormControl(''),
+      'toDate': new FormControl(''),
       'url': new FormControl(''),
     })
+  }
+
+  onChange(event: any) {
+    this.file = event.target.files[0];
+  }
+
+  onUpload() {
+    // this.loading = !this.loading;
+    console.log(this.file);
+
+    this.fileUploadService.upload(this.file).subscribe((event: any) => {
+      if (typeof (event) === 'object') {
+        this.shortLink = event.link;
+      }
+    }
+    );
   }
 
   closeAddCamera(value:boolean) {
@@ -68,7 +106,11 @@ export class AddNewAssetComponent implements OnInit {
   // }
 
   addNewAsset() {
-    console.log(this.addAssetForm.value)
+    console.log(this.addAssetForm.value);
+
+    // this.assetService.addAsset(this.addAssetForm.value).subscribe((res) => {
+    //   console.log(res)
+    // })
   }
 
 }

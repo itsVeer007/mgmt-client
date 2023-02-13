@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MainDashboardComponent } from './main-dashboard/main-dashboard.component';
-import { ChartService } from './utilities/chart.service';
 import { AddNewSiteComponent } from './main-dashboard/add-new-site/add-new-site.component';
 import { AddNewCameraComponent } from './main-dashboard/add-new-camera/add-new-camera.component';
 import { AddNewCustomerComponent } from './main-dashboard/add-new-customer/add-new-customer.component';
@@ -39,6 +38,8 @@ import { AddNewAssetComponent } from './main-dashboard/add-new-asset/add-new-ass
 import { VjsPlayerComponent } from './utilities/vjs-player/vjs-player.component';
 import { VerticalsComponent } from './verticals/verticals.component';
 import { AnalyticsComponent } from './analytics/analytics.component';
+import { AddNewInventoryComponent } from './main-dashboard/add-new-inventory/add-new-inventory.component';
+import { ChartService } from 'src/services/chart.service';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { AnalyticsComponent } from './analytics/analytics.component';
     AddNewAssetComponent,
     VjsPlayerComponent,
     VerticalsComponent,
-    AnalyticsComponent
+    AnalyticsComponent,
+    AddNewInventoryComponent
   ],
   imports: [
     BrowserModule,

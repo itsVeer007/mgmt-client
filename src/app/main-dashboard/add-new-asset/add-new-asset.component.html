@@ -23,7 +23,7 @@
       <form autocomplete="off" [formGroup]="addAssetForm">
         <div class="row">
           <div class="col-lg-6 col-md-6">
-            <select id="" class="form-select my-1" formControlName="customer">
+            <select id="customer" class="form-select my-1" formControlName="customer" [(ngModel)]="user.customer">
               <option value="" selected disabled>Select Customer</option>
               <option value="Customer-1">Customer-1</option>
               <option value="Customer-2">Customer-2</option>
@@ -31,7 +31,7 @@
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <select id="" class="form-select my-1" formControlName="site">
+            <select id="site" class="form-select my-1" formControlName="site" [(ngModel)]="user.site">
               <option value="" selected disabled>Select Site</option>
               <option value="Site-1">Site-1</option>
               <option value="Site-2">Site-2</option>
@@ -39,13 +39,18 @@
           </div>
 
           <div class="col-lg-12 col-md-6">
-            <div class="bg-light d-flex align-items-center justify-content-center my-1" style="height: 150px;">
-              <p class="m-0">Drag and drop or <span class="text-primary pointer">Browse</span> your file</p>
+            <div class="text-center">
+              <div class="d-flex align-items-center">
+                <input class="form-control file" type="file" (change)="onChange($event)" formControlName="url" [(ngModel)]="user.url">
+                <button (click)="onUpload()" class="btn btn-primary ms-2">
+                  Upload
+                </button>
+              </div>
             </div>
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <select id="" class="form-select my-1" formControlName="mimeType">
+            <select id="mimeType" class="form-select my-1" formControlName="mimeType" [(ngModel)]="user.mimeType">
               <option  value="" selected disabled>Mime type</option>
               <option value="Video">Video</option>
               <option value="Audio">Audio</option>
@@ -53,36 +58,37 @@
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <input type="text" class="form-control my-1" placeholder="Enter Duration" formControlName="duration" />
+            <input type="text" class="form-control my-1" placeholder="Enter Duration" formControlName="duration" [(ngModel)]="user.duration">
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <input type="text" class="form-control my-1" placeholder="Enter Asset Name" formControlName="assetName" />
+            <input type="text" class="form-control my-1" placeholder="Enter Asset Name" formControlName="assetName" [(ngModel)]="user.assetName">
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <input type="text" class="form-control my-1" placeholder="Enter Description" formControlName="description" />
+            <input type="text" class="form-control my-1" placeholder="Enter Description" formControlName="description" [(ngModel)]="user.description">
           </div>
 
           <div class="col-lg-12 col-md-6 d-flex my-1 escalation">
             <div style="width: 20%; background-color: #F8F8F8;" class="max-center p-2">URL</div>
             <div style="width: 80%; color: #084982;">
-              <input type="text" class="form-control" placeholder="" name="lat" formControlName="url" />
+              <input type="text" class="form-control" placeholder="">
             </div>
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <input type="date" class="form-control my-1" />
+            <input type="date" class="form-control my-1" formControlName="fromDate" [(ngModel)]="user.fromDate">
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <input type="date" class="form-control my-1" />
+            <input type="date" class="form-control my-1" formControlName="toDate" [(ngModel)]="user.toDate">
           </div>
 
           <div class="text-center my-5">
             <button class="btn add-btn" (click)="addNewAsset()">ADD</button>
           </div>
         </div>
+
       </form>
     </div>
 

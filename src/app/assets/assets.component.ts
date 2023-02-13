@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../utilities/api.service';
-import { AssetService } from '../utilities/asset.service';
+import { AssetService } from '../../services/asset.service';
 
 @Component({
   selector: 'app-assets',
@@ -47,7 +46,7 @@ export class AssetsComponent implements OnInit {
   getAsset() {
     this.apiser.getAssets().subscribe((res: any) => {
       this.assetTable = res.Assets_List;
-      // console.log(res);
+      console.log(res);
     })
   }
 
@@ -144,6 +143,14 @@ export class AssetsComponent implements OnInit {
   //     this.masterSelected = false;
   //   }
   // }
+
+  addNewUser(newUser: any) {
+    // newUser = JSON.parse(localStorage.getItem('userCreated')!);
+    if(newUser) {
+      this.assetTable.push(newUser)
+      // localStorage.removeItem('userCreated');
+    }
+  }
 
 
   selectedAll: any;

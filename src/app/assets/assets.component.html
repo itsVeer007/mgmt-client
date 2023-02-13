@@ -444,7 +444,7 @@
 </div> -->
 
 <div style="position: fixed; top: 0" *ngIf="showAsset">
-  <app-add-new-asset (newItemEvent)="closenow($event, 'asset')"></app-add-new-asset>
+  <app-add-new-asset (newItemEvent)="closenow($event, 'asset')" (newUser)="addNewUser($event)"></app-add-new-asset>
 </div>
 
 <!-- <div style="position: fixed; top: 0" *ngIf="showAddBusinessVertical">

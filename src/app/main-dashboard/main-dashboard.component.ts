@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
-import { ChartService } from '../utilities/chart.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { ChartService } from 'src/services/chart.service';
 
 @Component({
   selector: 'app-main-dashboard',

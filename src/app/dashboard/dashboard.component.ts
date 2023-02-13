@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiService } from '../utilities/api.service';
+import { ApiService } from 'src/services/api.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,7 +9,7 @@ import { ApiService } from '../utilities/api.service';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private apiser:ApiService, private router: Router) { }
+  constructor(private apiser: ApiService, private router: Router) { }
 
   @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
     var x = <HTMLElement>document.getElementById(`sidebar`);
