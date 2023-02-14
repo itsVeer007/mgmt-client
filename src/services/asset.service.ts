@@ -7,8 +7,13 @@ import { HttpClient } from '@angular/common/http';
 export class AssetService {
 
   baseUrl = 'http://usmgmt.iviscloud.net:777/ProximityAdvertisement/';
+  metadata = 'http://usmgmt.iviscloud.net:777/common/getValuesListByType_1_0?type=Device_Type';
 
   constructor(private http: HttpClient) { }
+
+  getMetadata() {
+    return this.http.get(this.metadata);
+  }
 
   getAssets() {
     let url = this.baseUrl + "listAssets_1_0/";

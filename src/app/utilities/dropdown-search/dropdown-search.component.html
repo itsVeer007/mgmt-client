@@ -1,0 +1,20 @@
+<div class="form">
+  <mat-form-field class="width" appearance="fill">
+    <input
+      matInput
+      placeholder="Country"
+      aria-label="Country"
+      [matAutocomplete]="auto"
+      [formControl]="countryCtrl"
+      required
+    />
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option
+        *ngFor="let country of filteredCountry | async"
+        [value]="country.name"
+      >
+        <span>{{ country.name }} | {{ country.code }}</span>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</div>

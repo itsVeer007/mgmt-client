@@ -33,6 +33,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { AddDeviceComponent } from './main-dashboard/sub-forms/add-device/add-device.component';
 import { AddNewAssetComponent } from './main-dashboard/add-new-asset/add-new-asset.component';
 import { VjsPlayerComponent } from './utilities/vjs-player/vjs-player.component';
@@ -40,6 +41,7 @@ import { VerticalsComponent } from './verticals/verticals.component';
 import { AnalyticsComponent } from './analytics/analytics.component';
 import { AddNewInventoryComponent } from './main-dashboard/add-new-inventory/add-new-inventory.component';
 import { ChartService } from 'src/services/chart.service';
+import { DropdownSearchComponent } from './utilities/dropdown-search/dropdown-search.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +69,8 @@ import { ChartService } from 'src/services/chart.service';
     VjsPlayerComponent,
     VerticalsComponent,
     AnalyticsComponent,
-    AddNewInventoryComponent
+    AddNewInventoryComponent,
+    DropdownSearchComponent
   ],
   imports: [
     BrowserModule,
@@ -81,7 +84,8 @@ import { ChartService } from 'src/services/chart.service';
     MatIconModule,
     MatInputModule,
     MatDividerModule,
-    MatListModule
+    MatListModule,
+    MatAutocompleteModule
   ],
   providers: [
     ChartService

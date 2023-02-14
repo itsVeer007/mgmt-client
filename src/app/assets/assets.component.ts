@@ -10,31 +10,33 @@ import { AssetService } from '../../services/asset.service';
 export class AssetsComponent implements OnInit {
 
   // @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
-  //   var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);
-  //   var y = <HTMLElement>document.getElementById(`icons-site`);
+    //   var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);
+    //   var y = <HTMLElement>document.getElementById(`icons-site`);
 
-  //   // console.log(`plus-img${this.currentid}`);
-  //   if (x != null) {
-  //     if (!x.contains(e.target)) {
-  //       if (x.style.display == 'flex' || x.style.display == 'block') {
-  //         x.style.display = 'none';
-  //       }
-  //     }
-  //   }
+    //   // console.log(`plus-img${this.currentid}`);
+    //   if (x != null) {
+      //     if (!x.contains(e.target)) {
+        //       if (x.style.display == 'flex' || x.style.display == 'block') {
+          //         x.style.display = 'none';
+          //       }
+          //     }
+          //   }
 
-  //   if (y != null) {
-  //     console.log(`icons-site`);
-  //     if (!y.contains(e.target)) {
-  //       this.icons1 = false;
-  //     }
+          //   if (y != null) {
+            //     console.log(`icons-site`);
+            //     if (!y.contains(e.target)) {
+              //       this.icons1 = false;
+              //     }
   //   }
   // }
 
 
 
-
+  assetTable: any[] = [];
+  searchText: any;
   showLoader = false;
-  deviceId: string = ''
+  deviceId: string = '';
+  activeAssets: number = 0;
 
   constructor(private http: HttpClient, private apiser: AssetService) { }
 
@@ -44,9 +46,17 @@ export class AssetsComponent implements OnInit {
   }
 
   getAsset() {
+    this.activeAssets = 0;
+
     this.apiser.getAssets().subscribe((res: any) => {
       this.assetTable = res.Assets_List;
       console.log(res);
+
+      for(let item of this.assetTable) {
+        if(item.is_active != 0) {
+          this.activeAssets = this.activeAssets + 1;
+        }
+      }
     })
   }
 
@@ -64,8 +74,6 @@ export class AssetsComponent implements OnInit {
   showIconEdit1: boolean = false;
   showIconDelete1: boolean = false;
 
-  searchText: any;
-  assetTable: any;
 
   CustomerReport() {
     // this.http.get('assets/JSON/assetsData.json').subscribe(res => {

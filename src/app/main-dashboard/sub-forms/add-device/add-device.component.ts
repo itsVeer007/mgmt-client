@@ -43,18 +43,18 @@ export class AddDeviceComponent implements OnInit {
   addDevice: any =  FormGroup;
   deviceList = ['Device-1', 'Device-2', 'Device-3'];
 
-  site = {
-    device: "",
-    camera: "",
-    temperature: "",
-    age: "",
-    demographics: "",
-    status: "",
-    audio: "",
-    video: "",
-    wifi: "",
-    select: ""
-  }
+  // site = {
+  //   device: "",
+  //   camera: "",
+  //   temperature: "",
+  //   age: "",
+  //   demographics: "",
+  //   status: "",
+  //   audio: "",
+  //   video: "",
+  //   wifi: "",
+  //   select: ""
+  // }
 
   searchText: any;
 

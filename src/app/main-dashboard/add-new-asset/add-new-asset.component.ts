@@ -33,7 +33,7 @@ export class AddNewAssetComponent implements OnInit {
   @Input() show:any;
   @Output() newItemEvent = new EventEmitter<boolean>();
 
-  @Output() newUser = new EventEmitter<any>();
+  // @Output() newUser = new EventEmitter<any>();
 
   // @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
   //   var x = <HTMLElement>document.getElementById(`camera`);
@@ -52,31 +52,46 @@ export class AddNewAssetComponent implements OnInit {
 
   constructor(private router: Router, private fb: FormBuilder, private assetService: AssetService, private fileUploadService: FileUploadService) { }
 
-  user = {
-    customer: "",
-    site: "",
-    mimeType: "",
-    duration: "",
-    assetName: "",
-    description: "",
-    url: "",
-    fromDate: "",
-    toDate: ""
-    // roleList: []
-  }
+  // user = {
+  //   site: "",
+  //   device: "",
+  //   is_enabled: 1,
+  //   mimeType: "",
+  //   is_active: 1,
+  //   duration: "10",
+  //   is_processing: 1,
+  //   nocache: 1,
+  //   skip_asset_check: 1,
+  //   play_order: 0,
+  //   assetName: "",
+  //   description: "",
+  //   url: "",
+  //   fromDate: "",
+  //   toDate: ""
+  // }
 
   ngOnInit(): void {
     this.addAssetForm = this.fb.group({
-      'customer': new FormControl(''),
-      'site': new FormControl(''),
+      'file': new FormControl(''),
+      'siteId': new FormControl(''),
+      'deviceId': new FormControl(''),
+      'is_enabled': new FormControl(1),
       'mimeType': new FormControl(''),
+      // 'is_active': new FormControl(1),
       'duration': new FormControl(''),
+      // 'is_processing': new FormControl(1),
       'assetName': new FormControl(''),
+      // 'nocache': new FormControl(1),
+      // 'skip_asset_check': new FormControl(1),
+      'play_order': new FormControl(0),
+      'start_date': new FormControl(''),
+      'end_date': new FormControl(''),
+      'createdBy': new FormControl(''),
+      'deviceMode': new FormControl(''),
       'description': new FormControl(''),
-      'fromDate': new FormControl(''),
-      'toDate': new FormControl(''),
-      'url': new FormControl(''),
-    })
+    });
+
+    // this.onGetMetadata();
   }
 
   onChange(event: any) {
@@ -88,8 +103,10 @@ export class AddNewAssetComponent implements OnInit {
     console.log(this.file);
 
     this.fileUploadService.upload(this.file).subscribe((event: any) => {
-      if (typeof (event) === 'object') {
-        this.shortLink = event.link;
+      if (typeof(event) === 'object') {
+        // this.shortLink = event.link;
+        let x= event.name
+        console.log(x);
       }
     }
     );
@@ -105,12 +122,34 @@ export class AddNewAssetComponent implements OnInit {
   //   this.closeAddCamera(false);
   // }
 
-  addNewAsset() {
-    console.log(this.addAssetForm.value);
+  onGetMetadata() {
+    this.assetService.getMetadata().subscribe((res) => {
+      console.log(res)
+    })
+  }
 
-    // this.assetService.addAsset(this.addAssetForm.value).subscribe((res) => {
+  addNewAsset() {
+    let formPayload = new FormData();
+
+    formPayload.append('file', this.addAssetForm.get('file').value);
+    formPayload.append('siteId', this.addAssetForm.get('siteId').value);
+    formPayload.append('deviceId', this.addAssetForm.get('deviceId').value);
+    formPayload.append('is_enabled', this.addAssetForm.get('is_enabled').value);
+    formPayload.append('mimeType', this.addAssetForm.get('mimeType').value);
+    formPayload.append('duration', this.addAssetForm.get('duration').value);
+    formPayload.append('assetName', this.addAssetForm.get('assetName').value);
+    formPayload.append('play_order', this.addAssetForm.get('play_order').value);
+    formPayload.append('start_date', this.addAssetForm.get('start_date').value);
+    formPayload.append('end_date', this.addAssetForm.get('end_date').value);
+    formPayload.append('createdBy', this.addAssetForm.get('createdBy').value);
+    formPayload.append('deviceMode', this.addAssetForm.get('deviceMode').value);
+    formPayload.append('description', this.addAssetForm.get('description').value);
+
+
+    // this.assetService.addAsset(formPayload).subscribe((res) => {
     //   console.log(res)
     // })
+    console.log(this.addAssetForm.value);
   }
 
 }

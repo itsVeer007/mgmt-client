@@ -46,10 +46,6 @@
 
 
 .on-off-toggle__input {
-  /*
-    This way of hiding the default input is better
-    for accessibility than using display: none;
-  */
   position: absolute;
   opacity: 0;
 }

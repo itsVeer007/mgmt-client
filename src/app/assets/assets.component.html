@@ -77,14 +77,14 @@
       <div class="vl-green"></div>
       <div class="mx-2">
         <div class="status">Active</div>
-        <div class="count">220</div>
+        <div class="count">{{activeAssets}}</div>
       </div>
     </div>
     <div class="col-lg-1 col-md-1 d-flex justify-content-start">
       <div class="vl-red"></div>
       <div class="mx-2">
         <div class="status">Inactive</div>
-        <div class="count">30</div>
+        <div class="count">{{assetTable.length - activeAssets}}</div>
       </div>
     </div>
   </div>
@@ -135,15 +135,15 @@
       <tbody>
         <tr class="form1">
           <th>
-            <input type="checkbox" class="form-check-input" [(ngModel)]="selectedAll" (change)="selectAll()"
-              id="allcheck" style="
-                background-color: #00000000;
-                border-color: #fff;
-                margin-left: 10px;
-              " />
+            <input type="checkbox" class="form-check-input" [(ngModel)]="selectedAll" (change)="selectAll()" id="allcheck"
+              style="
+                  background-color: #00000000;
+                  border-color: #fff;
+                  margin-left: 10px;
+                " />
           </th>
           <!-- <th><input type="checkbox" class="form-check-input" id="allchecked" (click)="allchecked($event)"
-                            style="background-color: #00000000; border-color:#fff;margin-left:10px;" /></th> -->
+                              style="background-color: #00000000; border-color:#fff;margin-left:10px;" /></th> -->
           <th (click)="sort('siteId')">Asset ID</th>
           <th (click)="sort('customerName')">Asset Name</th>
           <th (click)="sort('custType')">Asset Type</th>
@@ -164,11 +164,11 @@
         <tr *ngFor="let item of assetTable | search : searchText; let i = index">
           <td>
             <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="item.selected" (change)="
-                checkIfAllSelected();
-                deleteMultiRecords(item, i, $event);
-                ViewByCheckbox(item, i, $event);
-                EditByCheckbox(item, i, $event)
-              " id="singleCheck" />
+                  checkIfAllSelected();
+                  deleteMultiRecords(item, i, $event);
+                  ViewByCheckbox(item, i, $event);
+                  EditByCheckbox(item, i, $event)
+                " id="singleCheck" />
           </td>
           <!-- <td><input type="checkbox" class="form-check-input" [checked]="masterSelected" /></td> -->
           <td>
@@ -196,8 +196,8 @@
             <p>{{ item.deviceMode }}</p>
           </td>
           <!-- <td>
-            <p>{{ item.mimetype }}</p>
-          </td> -->
+              <p>{{ item.mimetype }}</p>
+            </td> -->
           <td>
             <p>{{item.duration}}</p>
           </td>
@@ -211,8 +211,8 @@
             <p>{{item.description}}</p>
           </td>
           <!-- <td>
-            <button class="bg-white" style="color: #084982">{{ item.address }}</button>
-          </td> -->
+              <button class="bg-white" style="color: #084982">{{ item.address }}</button>
+            </td> -->
           <td>
             <p
               [style.color]="item.status == 'Added' ? '#00A44C' : item.status == 'Sync' ? '#F5B400' : item.status == 'Removed' ? '#fa500f' : '#00A44C'">
@@ -249,7 +249,7 @@
       </tbody>
     </table>
   </div>
-</div>
+  </div>
 <!-- table ends -->
 
 <div class="modalitem max-center" [hidden]="deletePopup">
@@ -394,6 +394,7 @@
         </li>
       </ul>
     </div>
+
     <div class="card-footer">
       <!-- <button type="button" class="btn btn-primary" (click)="confirmViewRow()">OK</button> -->
       <button type="button" class="btn btn-danger" (click)="closeViewPopup()">
@@ -404,54 +405,6 @@
   <!-- </div> -->
 </div>
 
-<!-- <div style="position: fixed; top:0;" *ngIf="showAddSite">
-    <app-add-new-site [show]="showAddSite" (newItemEvent)="closenow($event)"></app-add-new-site>
-</div>
-
-
-
-<div style="position: fixed; top:0;" *ngIf="showAddCamera">
-    <app-add-new-camera [show]="showAddCamera" (newItemEvent)="closenow1($event)"></app-add-new-camera>
-</div>
-
-
-
-<div style="position: fixed; top:0;" *ngIf="showAddCustomer">
-    <app-add-new-customer [show]="showAddCustomer" (newItemEvent)="closenow2($event)"></app-add-new-customer>
-</div>
-
-
-
-<div style="position: fixed; top:0;" *ngIf="showAddUser">
-    <app-add-new-user [show]="showAddUser" (newItemEvent)="closenow3($event)"></app-add-new-user>
-</div>
-
-<div style="position: fixed; top:0;" *ngIf="showAddBusinessVertical">
-    <app-add-new-business-vertical [show]="showAddBusinessVertical" (newItemEvent)="closenow4($event)">
-    </app-add-new-business-vertical>
-</div> -->
-
-<!-- <div style="position: fixed; top: 0" *ngIf="showAddSite">
-  <app-add-new-site [show]="showAddSite" (newItemEvent)="closenow($event, 'site')"></app-add-new-site>
-</div>
-
-<div style="position: fixed; top: 0" *ngIf="showAddCamera">
-  <app-add-new-camera [show]="showAddCamera" (newItemEvent)="closenow($event, 'camr')"></app-add-new-camera>
-</div>
-
-<div style="position: fixed; top: 0" *ngIf="showAddCustomer">
-  <app-add-new-customer [show]="showAddCustomer" (newItemEvent)="closenow($event, 'cust')"></app-add-new-customer>
-</div> -->
-
 <div style="position: fixed; top: 0" *ngIf="showAsset">
   <app-add-new-asset (newItemEvent)="closenow($event, 'asset')" (newUser)="addNewUser($event)"></app-add-new-asset>
 </div>
-
-<!-- <div style="position: fixed; top: 0" *ngIf="showAddBusinessVertical">
-  <app-add-new-business-vertical [show]="showAddBusinessVertical" (newItemEvent)="closenow($event, 'vert')">
-  </app-add-new-business-vertical>
-</div> -->
-
-<!-- <div style="position: fixed; top: 0" *ngIf="showSite">
-  <app-add-additional-site [show]="showSite" (newItemEvent)="closenow($event, 'additionalSite')"></app-add-additional-site>
-</div> -->
