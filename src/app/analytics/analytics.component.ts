@@ -85,8 +85,8 @@ export class AnalyticsComponent implements OnInit {
   // }
 
   closenow(value: any, type: String) {
-    if (type == 'user') { this.showAddUser = value; }
-    if(type == 'additionalSite') {this.showAddSite = value;}
+    if (type == 'analytic') { this.showAnalytic = value; }
+    // if(type == 'additionalSite') {this.showAddSite = value;}
 
     // if (type == 'camr') { this.showAddCamera = value; }
     // if (type == 'cust') { this.showAddCustomer = value; }
@@ -142,12 +142,11 @@ export class AnalyticsComponent implements OnInit {
   //   this.showAddBusinessVertical = value;
   // }
 
-  showAddUser: boolean = false;
-  showAddSite: boolean = false;
+  showAnalytic: boolean = false;
 
   show(type: string) {
-    if (type == 'user') { this.showAddUser = true; }
-    if (type == 'additionalSite') { this.showAddSite = true; }
+    if (type == 'analytic') { this.showAnalytic = true; }
+    // if (type == 'additionalSite') { this.showAddSite = true; }
 
     // this.icons1 = !this.icons1;
     // this.showSite = false;

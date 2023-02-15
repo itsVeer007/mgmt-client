@@ -147,7 +147,7 @@ export class VerticalsComponent implements OnInit {
 
   show(type: string) {
     if (type == 'user') { this.showAddUser = true; }
-    if (type == 'additionalSite') { this.showAddSite = true; }
+    // if (type == 'additionalSite') { this.showAddSite = true; }
 
     // this.icons1 = !this.icons1;
     // this.showSite = false;

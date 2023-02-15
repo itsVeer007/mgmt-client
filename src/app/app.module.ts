@@ -34,6 +34,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatButtonModule } from '@angular/material/button';
+
+
 import { AddDeviceComponent } from './main-dashboard/sub-forms/add-device/add-device.component';
 import { AddNewAssetComponent } from './main-dashboard/add-new-asset/add-new-asset.component';
 import { VjsPlayerComponent } from './utilities/vjs-player/vjs-player.component';
@@ -42,6 +47,8 @@ import { AnalyticsComponent } from './analytics/analytics.component';
 import { AddNewInventoryComponent } from './main-dashboard/add-new-inventory/add-new-inventory.component';
 import { ChartService } from 'src/services/chart.service';
 import { DropdownSearchComponent } from './utilities/dropdown-search/dropdown-search.component';
+import { AddNewAnalyticComponent } from './main-dashboard/add-new-analytic/add-new-analytic.component';
+import { AddNewTicketComponent } from './main-dashboard/add-new-ticket/add-new-ticket.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +77,9 @@ import { DropdownSearchComponent } from './utilities/dropdown-search/dropdown-se
     VerticalsComponent,
     AnalyticsComponent,
     AddNewInventoryComponent,
-    DropdownSearchComponent
+    DropdownSearchComponent,
+    AddNewAnalyticComponent,
+    AddNewTicketComponent
   ],
   imports: [
     BrowserModule,
@@ -85,10 +94,14 @@ import { DropdownSearchComponent } from './utilities/dropdown-search/dropdown-se
     MatInputModule,
     MatDividerModule,
     MatListModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatButtonModule
   ],
   providers: [
-    ChartService
+    ChartService,
+    SearchPipe
   ],
   bootstrap: [AppComponent]
 })

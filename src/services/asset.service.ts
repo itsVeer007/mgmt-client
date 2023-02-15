@@ -6,8 +6,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AssetService {
 
-  baseUrl = 'http://usmgmt.iviscloud.net:777/ProximityAdvertisement/';
-  metadata = 'http://usmgmt.iviscloud.net:777/common/getValuesListByType_1_0?type=Device_Type';
+  baseUrl = 'http://usstaging.ivisecurity.com:777/ProximityAdvertisement/';
+  metadata = 'http://usstaging.ivisecurity.com:777/common/getValuesListByType_1_0?type=Device_Type';
 
   constructor(private http: HttpClient) { }
 

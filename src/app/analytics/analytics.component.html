@@ -60,7 +60,7 @@
           </a>
         </div>
       </div> -->
-      <a class="pointer" (click)="show('user')">
+      <a class="pointer" (click)="show('analytic')">
         <img src="assets/images/add.svg" alt="" />
       </a>
       <a class="pointer">
@@ -422,8 +422,12 @@
   <app-add-new-customer [show]="showAddCustomer" (newItemEvent)="closenow($event, 'cust')"></app-add-new-customer>
 </div> -->
 
-<div style="position: fixed; top: 0" *ngIf="showAddUser">
+<!-- <div style="position: fixed; top: 0" *ngIf="showAddUser">
   <app-add-new-user [show]="showAddUser" (newItemEvent)="closenow($event, 'user')" (newUser)="addNewUser($event)"></app-add-new-user>
+</div> -->
+
+<div style="position: fixed; top: 0" *ngIf="showAnalytic">
+  <app-add-new-analytic [show]="showAnalytic" (newItemEvent)="closenow($event, 'analytic')"></app-add-new-analytic>
 </div>
 
 <!-- <div style="position: fixed; top: 0" *ngIf="showAddBusinessVertical">
@@ -431,6 +435,6 @@
   </app-add-new-business-vertical>
 </div> -->
 
-<div style="position: fixed; top: 0" *ngIf="showAddSite">
+<!-- <div style="position: fixed; top: 0" *ngIf="showAddSite">
   <app-add-additional-site [show]="showAddSite" (newItemEvent)="closenow($event, 'additionalSite')"></app-add-additional-site>
-</div>
+</div> -->

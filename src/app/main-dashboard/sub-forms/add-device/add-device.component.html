@@ -14,7 +14,7 @@
           <h5 class="m-0 text-secondary" style="font-size: 18px;">IVISUSA1006</h5>
         </div>
         <div>
-          <a class="pointer"><img src="assets/images/add.svg" alt=""></a>
+          <a class="pointer"><img src="assets/images/add.svg" alt="" (click)="deviceAdd()"></a>
         </div>
       </div>
     </div>
@@ -27,15 +27,17 @@
         </div>
     </div> -->
 
-    <div class="row d-flex justify-content-between max-center" style="padding: 15px; background-color: #084982;">
-      <img src="assets/images/Union 18.svg" alt="" style="width: 40px; transform: rotate(0deg);" (click)="prevvert()">
+    <!-- <div class="d-flex justify-content-start" style="padding: 15px; background-color: #084982;"> -->
+      <!-- <img src="assets/images/Union 18.svg" alt="" style="width: 40px; transform: rotate(0deg);" (click)="prevvert()"> -->
 
-      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 card-menu text-white" *ngFor="let item of deviceList">
-        {{item}}
+      <div class="mx-2 d-flex">
+        <span class="pointer mx-2" *ngFor="let item of deviceList; let i=index" (click)="showNewForm()">
+          {{item}} {{i+1}}
+        </span>
       </div>
 
-      <img src="assets/images/Union 60.svg" alt="" style="width: 40px;" (click)="nextvert()">
-    </div>
+      <!-- <img src="assets/images/Union 60.svg" alt="" style="width: 40px;" (click)="nextvert()"> -->
+    <!-- </div> -->
 
     <div class="mt-2">
       <form autocomplete="off" [formGroup]="addDevice" #addAdditionalSiteForm="ngForm">
@@ -43,7 +45,7 @@
           <div class="col-lg-6">
             <select class="form-select m-1" id="device" formControlName="device">
               <option value="" selected disabled>Select device</option>
-              <option value="Device1">Device1</option>
+              <option value="Device1" *ngFor="let item of deviceType">{{item.value}}</option>
             </select>
           </div>
 

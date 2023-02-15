@@ -3,7 +3,7 @@
   <!-- header starts -->
   <div class="d-flex justify-content-between">
     <div class="users-header">
-      <p>List of Assets - <span>250</span></p>
+      <p>List of Assets - <span>{{assetTable.length}}</span></p>
     </div>
     <div style="position: relative">
       <!-- <div (click)="icons1 = !icons1" class="icons-site" id="icons-site" *ngIf="icons1">
@@ -158,6 +158,7 @@
           <th (click)="sort('address')">End Date</th>
           <th (click)="sort('address')">Details</th>
           <th (click)="sort('status')">Status</th>
+          <th (click)="sort('status')">Video</th>
           <th></th>
         </tr>
 
@@ -218,6 +219,11 @@
               [style.color]="item.status == 'Added' ? '#00A44C' : item.status == 'Sync' ? '#F5B400' : item.status == 'Removed' ? '#fa500f' : '#00A44C'">
               {{ item.status }}
             </p>
+          </td>
+          <td>
+            <a class="pointer">
+              <img style="color: #bdb8b8;" src="assets/images/play.svg" width="25" height="25" />
+            </a>
           </td>
           <td style="position: relative">
             <a (click)="closeDot($event, i)"><img src="assets/images/dotlist.svg" width="30" height="12" /></a>

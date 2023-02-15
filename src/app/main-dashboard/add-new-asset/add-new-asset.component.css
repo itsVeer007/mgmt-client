@@ -1,3 +1,18 @@
 .file {
   padding: 12px;
 }
+
+.date {
+  width: 202px;
+}
+
+
+
+/* .mat-form-field-appearance-outline ::ng-deep .mat-form-field-flex {
+  margin-top: -0.5em;
+  height: 50px;
+} */
+
+.mat-form-field-appearance-outline ::ng-deep .mat-form-field-wrapper {
+  padding-bottom: 0.5em;
+}

@@ -2,6 +2,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ApiService } from 'src/services/api.service';
+import { AssetService } from 'src/services/asset.service';
 
 @Component({
   selector: 'app-add-device',
@@ -41,7 +42,7 @@ export class AddDeviceComponent implements OnInit {
 
 
   addDevice: any =  FormGroup;
-  deviceList = ['Device-1', 'Device-2', 'Device-3'];
+  deviceList = ['Device'];
 
   // site = {
   //   device: "",
@@ -60,7 +61,7 @@ export class AddDeviceComponent implements OnInit {
 
   items = ['john', 'mark', 'cooper', 'henry', 'roben'];
 
-  constructor(private fb: FormBuilder, private apiser: ApiService) { }
+  constructor(private fb: FormBuilder, private apiser: ApiService, private assetService: AssetService) { }
 
   ngOnInit(): void {
     this.addDevice = this.fb.group({
@@ -76,6 +77,7 @@ export class AddDeviceComponent implements OnInit {
       'select': new FormControl('')
     });
 
+    this.onGetMetadata();
     // this.getSiteDetails()
   }
 
@@ -95,6 +97,14 @@ export class AddDeviceComponent implements OnInit {
 
   closeAddAdditionalSite(value: boolean) {
     this.newItemEvent.emit(value);
+  }
+
+  deviceType: Array<any> = [];
+  onGetMetadata() {
+    this.assetService.getMetadata().subscribe((res: any) => {
+      this.deviceType = res.List_Shown_By_Type_Given;
+      // console.log(res);
+    })
   }
 
   add(){
@@ -118,6 +128,14 @@ export class AddDeviceComponent implements OnInit {
     //   var a = JSON.parse(JSON.stringify(this.cardReport))
     //   this.showcardReport = a.splice(indexOfFirstElem, this.noOfCards);
     // }
+  }
+
+  deviceAdd() {
+    this.deviceList.push('Device')
+  }
+
+  showNewForm() {
+
   }
 
 }

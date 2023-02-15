@@ -23,38 +23,62 @@
       <form autocomplete="off" [formGroup]="addAssetForm">
         <div class="row">
           <div class="col-lg-6 col-md-6">
-            <select id="customer" class="form-select my-1" formControlName="siteId">
+            <!-- <select id="customer" class="form-select my-1" formControlName="siteId">
               <option value="" selected disabled>Select Site</option>
               <option value="Site-1">Site-1</option>
               <option value="Site-2">Site-2</option>
-            </select>
+            </select> -->
+            <mat-form-field appearance="outline" class="w-100">
+              <input matInput placeholder="Select Site" [matAutocomplete]="auto" formControlName="siteId" [(ngModel)]="searchText">
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let item of country_lis | search : searchText; let i=index" [value]="item">
+                  <span>{{ item }}</span>
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
           </div>
 
-          <div class="col-lg-6 col-md-6">
-            <select id="site" class="form-select my-1" formControlName="deviceId">
+          <div class="col-lg-6 col-md-6" >
+            <!-- <select id="site" class="form-select my-1" formControlName="deviceId">
               <option value="" selected disabled>Select Device</option>
-              <option value="Device-1">Device-1</option>
-              <option value="Device-2">Device-2</option>
-            </select>
+              <option *ngFor="let item of deviceType">{{item.value}}</option>
+            </select> -->
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Choose an option</mat-label>
+              <mat-select formControlName="mimeType" formControlName="deviceId">
+                <mat-option value="Video">Video</mat-option>
+                <mat-option value="Audio">Audio</mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
 
-          <div class="col-lg-12 col-md-6">
-            <div class="text-center">
+          <div class="col-lg-12 col-md-6" style="padding-bottom: 0.5em;">
+            <!-- <div class="text-center">
               <div class="d-flex align-items-center">
                 <input class="form-control file" type="file" (change)="onChange($event)" formControlName="file">
                 <button (click)="onUpload()" class="btn btn-primary ms-2">
                   Upload
                 </button>
               </div>
-            </div>
+            </div> -->
+            <button type="button" color="primary" mat-raised-button (click)="fileInput.click()">Choose File</button>
+            <input hidden (change)="onFileSelected($event)" #fileInput type="file" formControlName="file">
+            <span class="file-name">{{selectedFile?.name}}</span>
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <select id="mimeType" class="form-select my-1" formControlName="mimeType">
+            <!-- <select id="mimeType" class="form-select my-1" formControlName="mimeType">
               <option value="" selected disabled>Mime type</option>
               <option value="Video">Video</option>
               <option value="Audio">Audio</option>
-            </select>
+            </select> -->
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Choose an option</mat-label>
+              <mat-select formControlName="mimeType">
+                <mat-option value="Video">Video</mat-option>
+                <mat-option value="Audio">Audio</mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
 
           <!-- <div class="col-lg-6 col-md-6">
@@ -62,11 +86,19 @@
           </div> -->
 
           <div class="col-lg-6 col-md-6">
-            <input type="text" class="form-control my-1" placeholder="Enter Asset Name" formControlName="assetName">
+            <!-- <input type="text" class="form-control my-1" placeholder="Enter Asset Name" formControlName="assetName"> -->
+            <mat-form-field class="example-full-width" appearance="outline" class="w-100">
+              <mat-label>Enter Asset Name</mat-label>
+              <input matInput formControlName="assetName">
+            </mat-form-field>
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <input type="text" class="form-control my-1" placeholder="Enter Description" formControlName="description">
+            <!-- <input type="text" class="form-control my-1" placeholder="Enter Description" formControlName="description"> -->
+            <mat-form-field class="example-full-width" appearance="outline" class="w-100">
+              <mat-label>Enter Description</mat-label>
+              <input matInput formControlName="description">
+            </mat-form-field>
           </div>
 
           <!-- <div class="col-lg-12 col-md-6 d-flex my-1 escalation">
@@ -77,11 +109,21 @@
           </div> -->
 
           <div class="col-lg-6 col-md-6">
-            <input type="date" class="form-control my-1" formControlName="start_date">
+            <!-- <input type="date" class="form-control my-1" formControlName="start_date"> -->
+            <mat-form-field appearance="outline" class="w-100">
+              <input matInput [matDatepicker]="picker1" placeholder="Choose a date" formControlName="start_date">
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <input type="date" class="form-control my-1" formControlName="end_date">
+            <!-- <input type="date" class="form-control my-1" formControlName="end_date"> -->
+            <mat-form-field appearance="outline" class="w-100">
+              <input matInput [matDatepicker]="picker2" placeholder="Choose a date" formControlName="end_date">
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
           </div>
 
           <div class="text-center my-5">

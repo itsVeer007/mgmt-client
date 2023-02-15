@@ -85,24 +85,25 @@ export class TicketsComponent implements OnInit {
   // }
 
   closenow(value: any, type: String) {
-    if (type == 'site') { this.showAddSite = value; }
-    if (type == 'camr') { this.showAddCamera = value; }
-    if (type == 'cust') { this.showAddCustomer = value; }
-    if (type == 'vert') { this.showAddBusinessVertical = value; }
-    if (type == 'user') { this.showAddUser = value; }
-    if(type == 'additionalSite') {this.showSite = value;}
+    if (type == 'ticket') { this.showTicket = value; }
+
+    // if (type == 'camr') { this.showAddCamera = value; }
+    // if (type == 'cust') { this.showAddCustomer = value; }
+    // if (type == 'vert') { this.showAddBusinessVertical = value; }
+    // if (type == 'user') { this.showAddUser = value; }
+    // if(type == 'additionalSite') {this.showSite = value;}
     // console.log("SITES:: ",type)
 
-    setTimeout(() => {
-      var openform = localStorage.getItem('opennewform');
-      if (openform == 'showAddSite') { this.showAddSite = true; }
-      if (openform == 'showAddCamera') { this.showAddCamera = true; }
-      if (openform == 'showAddCustomer') { this.showAddCustomer = true; }
-      if (openform == 'showAddBusinessVertical') { this.showAddBusinessVertical = true; }
-      if (openform == 'showAddUser') { this.showAddUser = true; }
-      if (openform == 'additionalSite') { this.showSite = true; }
-      localStorage.setItem('opennewform', '');
-    }, 100)
+    // setTimeout(() => {
+    //   var openform = localStorage.getItem('opennewform');
+    //   if (openform == 'showAddSite') { this.showAddSite = true; }
+    //   if (openform == 'showAddCamera') { this.showAddCamera = true; }
+    //   if (openform == 'showAddCustomer') { this.showAddCustomer = true; }
+    //   if (openform == 'showAddBusinessVertical') { this.showAddBusinessVertical = true; }
+    //   if (openform == 'showAddUser') { this.showAddUser = true; }
+    //   if (openform == 'additionalSite') { this.showSite = true; }
+    //   localStorage.setItem('opennewform', '');
+    // }, 100)
   }
 
   // showAddCamera = false;
@@ -129,11 +130,13 @@ export class TicketsComponent implements OnInit {
   //   this.showAddBusinessVertical = value;
   // }
 
-  icons1: boolean = false;
+  showTicket: boolean = false;
 
-  iconsnew1() {
-    this.icons1 = !this.icons1;
-    this.showSite = false;
+  show(type: string) {
+    if (type == 'ticket') { this.showTicket = true }
+
+    // this.icons1 = !this.icons1;
+    // this.showSite = false;
 
     // this.showIconVertical = false;
     // this.showIconCustomer = false;

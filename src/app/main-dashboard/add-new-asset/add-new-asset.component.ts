@@ -45,9 +45,10 @@ export class AddNewAssetComponent implements OnInit {
   // }
 
   addAssetForm: any = FormGroup;
+  searchText: any;
 
-  shortLink: string = "";
-  file: File | null = null;
+  // shortLink: string = "";
+  // file: File | null = null;
   // loading: boolean = false;
 
   constructor(private router: Router, private fb: FormBuilder, private assetService: AssetService, private fileUploadService: FileUploadService) { }
@@ -91,26 +92,26 @@ export class AddNewAssetComponent implements OnInit {
       'description': new FormControl(''),
     });
 
-    // this.onGetMetadata();
+    this.onGetMetadata();
   }
 
-  onChange(event: any) {
-    this.file = event.target.files[0];
-  }
+  // onChange(event: any) {
+  //   this.file = event.target.files[0];
+  // }
 
-  onUpload() {
-    // this.loading = !this.loading;
-    console.log(this.file);
+  // onUpload() {
+  //   this.loading = !this.loading;
+  //   console.log(this.file);
 
-    this.fileUploadService.upload(this.file).subscribe((event: any) => {
-      if (typeof(event) === 'object') {
-        // this.shortLink = event.link;
-        let x= event.name
-        console.log(x);
-      }
-    }
-    );
-  }
+  //   this.fileUploadService.upload(this.file).subscribe((event: any) => {
+  //     if (typeof(event) === 'object') {
+  //       this.shortLink = event.link;
+  //       let x= event.name
+  //       console.log(x);
+  //     }
+  //   }
+  //   );
+  // }
 
   closeAddCamera(value:boolean) {
     this.newItemEvent.emit(value);
@@ -122,9 +123,11 @@ export class AddNewAssetComponent implements OnInit {
   //   this.closeAddCamera(false);
   // }
 
+  deviceType: Array<any> = [];
   onGetMetadata() {
-    this.assetService.getMetadata().subscribe((res) => {
-      console.log(res)
+    this.assetService.getMetadata().subscribe((res: any) => {
+      this.deviceType = res.List_Shown_By_Type_Given;
+      // console.log(res);
     })
   }
 
@@ -150,6 +153,15 @@ export class AddNewAssetComponent implements OnInit {
     //   console.log(res)
     // })
     console.log(this.addAssetForm.value);
+  }
+
+  country_lis = ['Site-1', 'Site-2', 'Site-3'];
+
+  selectedFile: any = null;
+
+  onFileSelected(event: any): void {
+      this.selectedFile = event.target.files[0] ?? null;
+
   }
 
 }
