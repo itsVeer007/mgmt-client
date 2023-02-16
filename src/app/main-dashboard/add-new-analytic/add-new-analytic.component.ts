@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AssetService } from 'src/services/asset.service';
+import { DropDownService } from 'src/services/drop-down.service';
 import { FileUploadService } from 'src/services/file-upload.service';
 
 @Component({
@@ -51,7 +52,7 @@ export class AddNewAnalyticComponent implements OnInit {
   file: File | null = null;
   // loading: boolean = false;
 
-  constructor(private router: Router, private fb: FormBuilder, private assetService: AssetService, private fileUploadService: FileUploadService) { }
+  constructor(private router: Router, private fb: FormBuilder, private dropDown: DropDownService, private fileUploadService: FileUploadService) { }
 
   ngOnInit(): void {
     this.addAssetForm = this.fb.group({
@@ -60,7 +61,7 @@ export class AddNewAnalyticComponent implements OnInit {
       'deviceId': new FormControl(''),
     });
 
-    // this.onGetMetadata();
+    // this.ongetDeviceType();
   }
 
   onChange(event: any) {
@@ -92,8 +93,8 @@ export class AddNewAnalyticComponent implements OnInit {
   // }
 
   deviceType: Array<any> = [];
-  onGetMetadata() {
-    this.assetService.getMetadata().subscribe((res: any) => {
+  ongetDeviceType() {
+    this.dropDown.getDeviceType().subscribe((res: any) => {
       this.deviceType = res;
       // console.log(res)
       // console.log(this.deviceType);

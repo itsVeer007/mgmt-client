@@ -37,6 +37,10 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 import { AddDeviceComponent } from './main-dashboard/sub-forms/add-device/add-device.component';
@@ -49,6 +53,8 @@ import { ChartService } from 'src/services/chart.service';
 import { DropdownSearchComponent } from './utilities/dropdown-search/dropdown-search.component';
 import { AddNewAnalyticComponent } from './main-dashboard/add-new-analytic/add-new-analytic.component';
 import { AddNewTicketComponent } from './main-dashboard/add-new-ticket/add-new-ticket.component';
+
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -79,7 +85,7 @@ import { AddNewTicketComponent } from './main-dashboard/add-new-ticket/add-new-t
     AddNewInventoryComponent,
     DropdownSearchComponent,
     AddNewAnalyticComponent,
-    AddNewTicketComponent
+    AddNewTicketComponent,
   ],
   imports: [
     BrowserModule,
@@ -97,11 +103,16 @@ import { AddNewTicketComponent } from './main-dashboard/add-new-ticket/add-new-t
     MatAutocompleteModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatButtonModule
+    MatButtonModule,
+    MatTabsModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    MatProgressBarModule
   ],
   providers: [
     ChartService,
-    SearchPipe
+    SearchPipe,
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

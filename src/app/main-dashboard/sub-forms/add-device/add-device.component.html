@@ -14,7 +14,7 @@
           <h5 class="m-0 text-secondary" style="font-size: 18px;">IVISUSA1006</h5>
         </div>
         <div>
-          <a class="pointer"><img src="assets/images/add.svg" alt="" (click)="deviceAdd()"></a>
+          <a class="pointer"><img src="assets/images/add.svg" alt="" (click)="addTab()"></a>
         </div>
       </div>
     </div>
@@ -30,183 +30,280 @@
     <!-- <div class="d-flex justify-content-start" style="padding: 15px; background-color: #084982;"> -->
       <!-- <img src="assets/images/Union 18.svg" alt="" style="width: 40px; transform: rotate(0deg);" (click)="prevvert()"> -->
 
-      <div class="mx-2 d-flex">
+      <!-- <div class="mx-2 d-flex">
         <span class="pointer mx-2" *ngFor="let item of deviceList; let i=index" (click)="showNewForm()">
           {{item}} {{i+1}}
         </span>
-      </div>
+      </div> -->
 
       <!-- <img src="assets/images/Union 60.svg" alt="" style="width: 40px;" (click)="nextvert()"> -->
     <!-- </div> -->
 
     <div class="mt-2">
-      <form autocomplete="off" [formGroup]="addDevice" #addAdditionalSiteForm="ngForm">
-        <div class="row">
-          <div class="col-lg-6">
-            <select class="form-select m-1" id="device" formControlName="device">
-              <option value="" selected disabled>Select device</option>
-              <option value="Device1" *ngFor="let item of deviceType">{{item.value}}</option>
-            </select>
-          </div>
+      <mat-tab-group [selectedIndex]="selected.value" (selectedIndexChange)="selected.setValue($event)" backgroundColor="primary">
+        <mat-tab *ngFor="let tab of tabs; let i = index" [label]="tab + '-' + (i + 1)">
+          <form autocomplete="off" [formGroup]="addDevice" #addAdditionalSiteForm="ngForm">
+            <div class="row mt-2">
 
-          <div class="col-lg-6 d-flex align-items-center justify-content-between">
-            <div>
-              <label for="device" style="width: 93px; font-size: 12px;">Device Mode</label>
-            </div>
-            <div class="w-100">
-              <select class="form-select m-1" id="device" formControlName="device">
-                <option value="" selected disabled>Select</option>
-                <option value="Device1">Device1</option>
-              </select>
-            </div>
-          </div>
+              <div class="col-lg-6">
+                <!-- <select class="form-select m-1" id="device">
+                  <option value="" selected disabled>Select device</option>
+                  <option value="Device1" *ngFor="let item of deviceType">{{item.value}}</option>
+                </select> -->
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Select device</mat-label>
+                  <mat-select>
+                    <mat-option *ngFor="let item of deviceType" [value]="item.value">{{item.value}}</mat-option>
+                    <!-- <mat-option value="Device 2">Device 2</mat-option> -->
+                  </mat-select>
+                </mat-form-field>
+              </div>
 
-          <div class="col-lg-6 d-flex align-items-center justify-content-evenly">
-            <div>
-              <label for="device" style="width: 51px; font-size: 12px;">Ad Hours</label>
-            </div>
-            <div class="me-2">
-              <select class="form-select m-1" id="device" formControlName="device">
-                <option value="" selected disabled>Select</option>
-                <option value="Device1">Device1</option>
-              </select>
-            </div>
-            <span>-</span>
-            <div>
-              <select class="form-select m-1" id="device" formControlName="device">
-                <option value="" selected disabled>Select</option>
-                <option value="Device1">Device1</option>
-              </select>
-            </div>
-          </div>
+              <div class="col-lg-6">
+                <!-- <div>
+                  <label for="device" style="width: 93px; font-size: 12px;">Device Mode</label>
+                </div>
+                <div class="w-100">
+                  <select class="form-select m-1" id="device">
+                    <option value="" selected disabled>Select</option>
+                    <option value="Device1">Device1</option>
+                  </select>
+                </div> -->
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Select Device Mode</mat-label>
+                  <mat-select>
+                    <mat-option *ngFor="let item of deviceMode" [value]="item.value">{{item.value}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
 
-          <div class="col-lg-6 d-flex align-items-center justify-content-between">
-            <div>
-              <label for="device" style="width: 93px; font-size: 12px;">Ad Working Days</label>
+              <div class="col-lg-6 d-flex align-items-center justify-content-evenly">
+                <!-- <div>
+                  <label for="device" style="width: 51px; font-size: 12px;">Ad Hours</label>
+                </div>
+                <div class="me-2">
+                  <select class="form-select m-1" id="device">
+                    <option value="" selected disabled>Select</option>
+                    <option value="Device1">Device1</option>
+                  </select>
+                </div>
+                <span>-</span>
+                <div>
+                  <select class="form-select m-1" id="device">
+                    <option value="" selected disabled>Select</option>
+                    <option value="Device1">Device1</option>
+                  </select>
+                </div> -->
+                <mat-form-field appearance="outline" [ngStyle]="{'width': 'calc(50% - 8.78px)'}">
+                  <mat-label>Select</mat-label>
+                  <mat-select>
+                    <mat-option value="BS">BS</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <span class="mx-2">-</span>
+                <mat-form-field appearance="outline" [ngStyle]="{'width': 'calc(50% - 8.78px)'}">
+                  <mat-label>Select</mat-label>
+                  <mat-select>
+                    <mat-option value="BS">BS</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="col-lg-6 d-flex align-items-center justify-content-between">
+                <!-- <div>
+                  <label for="device" style="width: 93px; font-size: 12px;">Ad Working Days</label>
+                </div>
+                <div class="w-100">
+                  <select class="form-select m-1" id="device">
+                    <option value="" selected disabled>Select</option>
+                    <option value="Device1">Device1</option>
+                  </select>
+                </div> -->
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Ad Working Days</mat-label>
+                  <mat-select>
+                    <mat-option value="1">1</mat-option>
+                    <mat-option value="2">2</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+
+              <div class="col-lg-6">
+                <!-- <select class="form-select m-1" id="camera" formControlName="camera">
+                  <option value="" selected disabled>Accessories Type</option>
+                  <option value="Video">Video</option>
+                </select> -->
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Accessories Type</mat-label>
+                  <mat-select>
+                    <mat-option value="Audio">Audio</mat-option>
+                    <mat-option value="Video">Video</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="col-lg-6">
+                <!-- <select class="form-select m-1" id="temp" formControlName="temp">
+                  <option value="" selected disabled>Select Accessories</option>
+                  <option value="Camera">Camera</option>
+                </select> -->
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Select Accessories</mat-label>
+                  <mat-select>
+                    <mat-option value="Accessorie 1">Accessorie 1</mat-option>
+                    <mat-option value="Accessorie 2">Accessorie 2</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="col-lg-6">
+                <!-- <div>
+                  <label for="device" style="width: 108px; font-size: 12px;">Ad's Download Freq</label>
+                </div>
+                <div class="w-100">
+                  <input type="text" class="form-control m-2" placeholder="" />
+                </div> -->
+                <mat-form-field class="example-full-width" appearance="outline" class="w-100">
+                  <mat-label>Call Frequency</mat-label>
+                  <input matInput>
+                </mat-form-field>
+              </div>
+
+              <div class="col-lg-6">
+                <!-- <select class="form-select m-1" id="age" formControlName="age">
+                  <option value="" selected disabled>Status</option>
+                  <option value="Active">Active</option>
+                </select> -->
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Status</mat-label>
+                  <mat-select>
+                    <mat-option value="Active">Active</mat-option>
+                    <mat-option value="Inactive">Inactive</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="my-2">
+                <h5 class="m-0" style="font-size: 15px; font-weight: 500;">ADVERTISEMENT PARAMETERS</h5>
+              </div>
+
+              <div class="col-lg-6">
+                <!-- <select class="form-select m-1" id="age" formControlName="age">
+                  <option value="" selected disabled>Select temp range</option>
+                  <option value="Age1">Age1</option>
+                </select> -->
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Select temp range</mat-label>
+                  <mat-select>
+                    <mat-option *ngFor="let item of tempRange" [value]="item.value">{{item.value}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="col-lg-6">
+                <!-- <select class="form-select m-1" id="age" formControlName="age">
+                  <option value="" selected disabled>Select age range</option>
+                  <option value="Age1">Age1</option>
+                </select> -->
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Select age range</mat-label>
+                  <mat-select>
+                    <mat-option *ngFor="let item of ageRange" [value]="item.value">{{item.value}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="my-3 equipment">
+                <!-- <label class="form-check-label me-3">Demographics</label> -->
+                <!-- <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                  <label class="form-check-label" for="inlineRadio1">True</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                  <label class="form-check-label" for="inlineRadio2">False</label>
+                </div> -->
+                <mat-radio-group aria-label="Select an option">
+                  <mat-label>Demographics</mat-label>
+                  <mat-radio-button class="ms-3" value="True">True</mat-radio-button>
+                  <mat-radio-button class="ms-3" value="False">False</mat-radio-button>
+                </mat-radio-group>
+              </div>
+
+              <div class="my-2">
+                <h5 class="m-0" style="font-size: 15px; font-weight: 500;">CAMERA DETAILS</h5>
+              </div>
+
+              <div class="col-lg-6">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Ad Working Days</mat-label>
+                  <mat-select>
+                    <mat-option value="BS">BS</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="col-lg-6">
+                <!-- <div>
+                  <label for="device" style="width: 30px; font-size: 12px;">FPS</label>
+                </div>
+                <div class="w-100">
+                  <input type="text" class="form-control m-1" placeholder="" />
+                </div> -->
+                <mat-form-field class="example-full-width" appearance="outline" class="w-100">
+                  <mat-label>FPS</mat-label>
+                  <input matInput>
+                </mat-form-field>
+              </div>
+
+              <div class="col-lg-6">
+                <!-- <div>
+                  <label for="device" style="width: 51px; font-size: 12px;">Ad Hours</label>
+                </div>
+                <div>
+                  <input type="text" class="form-control" placeholder="Width" />
+                </div>
+                <span class="mx-2">X</span>
+                <div>
+                  <input type="text" class="form-control" placeholder="Height" />
+                </div> -->
+                <mat-form-field class="example-full-width" appearance="outline" [ngStyle]="{'width': 'calc(50% - 13px)'}">
+                  <mat-label>Width</mat-label>
+                  <input matInput>
+                </mat-form-field>
+                <span class="mx-2">X</span>
+                <mat-form-field class="example-full-width" appearance="outline" [ngStyle]="{'width': 'calc(50% - 13px)'}">
+                  <mat-label>Height</mat-label>
+                  <input matInput>
+                </mat-form-field>
+              </div>
+
+              <div class="col-lg-6 my-3 equipment">
+                <!-- <label class="form-check-label me-3">Label</label>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                  <label class="form-check-label" for="inlineRadio1">Person</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                  <label class="form-check-label" for="inlineRadio2">Vehicle</label>
+                </div> -->
+                <mat-radio-group aria-label="Select an option" class="w-50">
+                  <mat-label>Label</mat-label>
+                  <mat-radio-button class="ms-3" value="Person">Person</mat-radio-button>
+                  <mat-radio-button class="ms-3" value="Vehicle">Vehicle</mat-radio-button>
+                </mat-radio-group>
+              </div>
+
+              <div class="text-center my-3">
+                <button type="submit" class="btn add-btn" (click)="add()">ADD</button>
+              </div>
             </div>
-            <div class="w-100">
-              <select class="form-select m-1" id="device" formControlName="device">
-                <option value="" selected disabled>Select</option>
-                <option value="Device1">Device1</option>
-              </select>
-            </div>
-          </div>
+          </form>
+        </mat-tab>
+      </mat-tab-group>
 
-
-          <div class="col-lg-6">
-            <select class="form-select m-1" id="camera" formControlName="camera">
-              <option value="" selected disabled>Accessories Type</option>
-              <option value="Video">Video</option>
-            </select>
-          </div>
-
-          <div class="col-lg-6">
-            <select class="form-select m-1" id="temp" formControlName="temp">
-              <option value="" selected disabled>Select Accessories</option>
-              <option value="Camera">Camera</option>
-            </select>
-          </div>
-
-          <div class="col-lg-6 d-flex align-items-center justify-content-between mb-3">
-            <div>
-              <label for="device" style="width: 108px; font-size: 12px;">Ad's Download Freq</label>
-            </div>
-            <div class="w-100">
-              <input type="text" class="form-control m-2" placeholder="" />
-            </div>
-          </div>
-
-          <div class="col-lg-6">
-            <select class="form-select m-1" id="age" formControlName="age">
-              <option value="" selected disabled>Status</option>
-              <option value="Active">Active</option>
-            </select>
-          </div>
-
-          <!-- AD PARAMETERS -->
-          <div class="my-2">
-            <h5 class="m-0" style="font-size: 15px; font-weight: 500;">ADVERTISEMENT PARAMETERS</h5>
-          </div>
-
-          <div class="col-lg-6">
-            <select class="form-select m-1" id="age" formControlName="age">
-              <option value="" selected disabled>Select temp range</option>
-              <option value="Age1">Age1</option>
-            </select>
-          </div>
-
-          <div class="col-lg-6">
-            <select class="form-select m-1" id="age" formControlName="age">
-              <option value="" selected disabled>Select age range</option>
-              <option value="Age1">Age1</option>
-            </select>
-          </div>
-          <!-- /AD PARAMETERS -->
-
-          <div class="my-3 equipment">
-            <label class="form-check-label me-3">Demographics</label>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-              <label class="form-check-label" for="inlineRadio1">True</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-              <label class="form-check-label" for="inlineRadio2">False</label>
-            </div>
-          </div>
-
-          <!-- CAMERA DETAILS -->
-          <div class="my-2">
-            <h5 class="m-0" style="font-size: 15px; font-weight: 500;">CAMERA DETAILS</h5>
-          </div>
-
-          <div class="col-lg-6">
-            <select class="form-select m-1" id="age" formControlName="age">
-              <option value="" selected disabled>Select Cam Id</option>
-              <option value="Age1">Age1</option>
-            </select>
-          </div>
-
-          <div class="col-lg-6 d-flex align-items-center justify-content-between">
-            <div>
-              <label for="device" style="width: 30px; font-size: 12px;">FPS</label>
-            </div>
-            <div class="w-100">
-              <input type="text" class="form-control m-1" placeholder="" />
-            </div>
-          </div>
-
-          <div class="col-lg-6 d-flex align-items-center justify-content-evenly">
-            <div>
-              <label for="device" style="width: 51px; font-size: 12px;">Ad Hours</label>
-            </div>
-            <div>
-              <input type="text" class="form-control" placeholder="Width" />
-            </div>
-            <span class="mx-2">X</span>
-            <div>
-              <input type="text" class="form-control" placeholder="Height" />
-            </div>
-          </div>
-
-          <div class="col-lg-6 my-3 equipment">
-            <label class="form-check-label me-3">Label</label>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-              <label class="form-check-label" for="inlineRadio1">Person</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-              <label class="form-check-label" for="inlineRadio2">Vehicle</label>
-            </div>
-          </div>
-          <!-- /CAMERA DETAILS -->
-
-          <div class="text-center my-3">
-            <button type="submit" class="btn add-btn" (click)="add()">ADD</button>
-          </div>
-        </div>
-      </form>
     </div>
 
   </div>

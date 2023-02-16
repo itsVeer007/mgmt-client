@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ApiService } from 'src/services/api.service';
 import { AssetService } from 'src/services/asset.service';
+import { DropDownService } from 'src/services/drop-down.service';
 
 @Component({
   selector: 'app-add-device',
@@ -42,7 +43,6 @@ export class AddDeviceComponent implements OnInit {
 
 
   addDevice: any =  FormGroup;
-  deviceList = ['Device'];
 
   // site = {
   //   device: "",
@@ -61,11 +61,12 @@ export class AddDeviceComponent implements OnInit {
 
   items = ['john', 'mark', 'cooper', 'henry', 'roben'];
 
-  constructor(private fb: FormBuilder, private apiser: ApiService, private assetService: AssetService) { }
+  constructor(private fb: FormBuilder, private apiser: ApiService, private dropDown: DropDownService) { }
 
   ngOnInit(): void {
     this.addDevice = this.fb.group({
       'device': new FormControl(''),
+      'deviceMode': new FormControl(''),
       'camera': new FormControl(''),
       'temp': new FormControl(''),
       'age': new FormControl(''),
@@ -77,7 +78,10 @@ export class AddDeviceComponent implements OnInit {
       'select': new FormControl('')
     });
 
-    this.onGetMetadata();
+    this.ongetDeviceType();
+    this.ongetDeviceMode();
+    this.onTempRange();
+    this.onAgeRange();
     // this.getSiteDetails()
   }
 
@@ -100,10 +104,30 @@ export class AddDeviceComponent implements OnInit {
   }
 
   deviceType: Array<any> = [];
-  onGetMetadata() {
-    this.assetService.getMetadata().subscribe((res: any) => {
+  ongetDeviceType() {
+    this.dropDown.getDeviceType().subscribe((res: any) => {
       this.deviceType = res.List_Shown_By_Type_Given;
-      // console.log(res);
+    })
+  }
+
+  deviceMode: Array<any> = [];
+  ongetDeviceMode() {
+    this.dropDown.getDeviceMode().subscribe((res: any) => {
+      this.deviceMode = res.List_Shown_By_Type_Given;
+    })
+  }
+
+  tempRange: Array<any> = [];
+  onTempRange() {
+    this.dropDown.tempRange().subscribe((res: any) => {
+      this.tempRange = res.List_Shown_By_Type_Given;
+    })
+  }
+
+  ageRange: Array<any> = [];
+  onAgeRange() {
+    this.dropDown.ageRange().subscribe((res: any) => {
+      this.ageRange = res.List_Shown_By_Type_Given;
     })
   }
 
@@ -111,31 +135,17 @@ export class AddDeviceComponent implements OnInit {
     console.log("add device", this.addDevice.value);
   }
 
-  showcardReport: any;
-  prevvert() {
-    // var indexOfFirstElem = this.cardReport.map(function (item: any) { return item.id; }).indexOf(this.showcardReport[0].id);
-    // if (indexOfFirstElem != 0) {
-    //   indexOfFirstElem = indexOfFirstElem -= 1;
-    //   var a = JSON.parse(JSON.stringify(this.cardReport))
-    //   this.showcardReport = a.splice(indexOfFirstElem, this.noOfCards);
-    }
 
-  nextvert() {
-    // var indexOfFirstElem = this.cardReport.map(function (item: any) { return item.id; }).indexOf(this.showcardReport[0].id);
-    // console.log(indexOfFirstElem, (this.cardReport.length - 1))
-    // if ((indexOfFirstElem + this.noOfCards) < (this.cardReport.length)) {
-    //   indexOfFirstElem = indexOfFirstElem += 1;
-    //   var a = JSON.parse(JSON.stringify(this.cardReport))
-    //   this.showcardReport = a.splice(indexOfFirstElem, this.noOfCards);
-    // }
+  tabs = ['Device'];
+  selected = new FormControl();
+
+  addTab() {
+    this.tabs.push('Device');
+    this.selected.setValue(this.tabs.length - 1);
   }
 
-  deviceAdd() {
-    this.deviceList.push('Device')
-  }
-
-  showNewForm() {
-
-  }
+  // removeTab(index: number) {
+  //   this.tabs.splice(index, 1);
+  // }
 
 }

@@ -29,9 +29,9 @@
               <option value="Site-2">Site-2</option>
             </select> -->
             <mat-form-field appearance="outline" class="w-100">
-              <input matInput placeholder="Select Site" [matAutocomplete]="auto" formControlName="siteId" [(ngModel)]="searchText">
+              <input matInput placeholder="Site Id" [matAutocomplete]="auto" formControlName="siteId" [(ngModel)]="searchText">
               <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let item of country_lis | search : searchText; let i=index" [value]="item">
+                <mat-option *ngFor="let item of siteIdList | search : searchText; let i=index" [value]="item">
                   <span>{{ item }}</span>
                 </mat-option>
               </mat-autocomplete>
@@ -44,10 +44,9 @@
               <option *ngFor="let item of deviceType">{{item.value}}</option>
             </select> -->
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Choose an option</mat-label>
-              <mat-select formControlName="mimeType" formControlName="deviceId">
-                <mat-option value="Video">Video</mat-option>
-                <mat-option value="Audio">Audio</mat-option>
+              <mat-label>Device Id</mat-label>
+              <mat-select formControlName="deviceId">
+                <mat-option *ngFor="let item of deviceIdList" [value]="item">{{item}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
@@ -61,9 +60,20 @@
                 </button>
               </div>
             </div> -->
-            <button type="button" color="primary" mat-raised-button (click)="fileInput.click()">Choose File</button>
-            <input hidden (change)="onFileSelected($event)" #fileInput type="file" formControlName="file">
-            <span class="file-name">{{selectedFile?.name}}</span>
+            <div class="file-upload">
+              <div>Drag and drop or <a (click)="fileInput.click()">Browse</a> your file</div>
+            </div>
+
+            <div class="d-flex align-items-center justify-content-between my-2">
+              <input hidden (change)="onFileSelected($event)" #fileInput type="file" formControlName="file">
+              <span class="file-name">{{selectedFile?.name}}</span>
+              <mat-progress-bar class="ms-3 w-50" mode="determinate" value="40"></mat-progress-bar>
+              <!-- <div> -->
+                <a class="pointer text-end">
+                  <img style="color: #bdb8b8;" src="assets/images/close.svg" width="20" height="20" />
+                </a>
+              <!-- </div> -->
+            </div>
           </div>
 
           <div class="col-lg-6 col-md-6">
@@ -73,23 +83,18 @@
               <option value="Audio">Audio</option>
             </select> -->
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Choose an option</mat-label>
-              <mat-select formControlName="mimeType">
-                <mat-option value="Video">Video</mat-option>
-                <mat-option value="Audio">Audio</mat-option>
+              <mat-label>Mime type</mat-label>
+              <mat-select formControlName="mimetype">
+                <mat-option *ngFor="let item of deviceType" value="{{item.value}}">{{item.value}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
-
-          <!-- <div class="col-lg-6 col-md-6">
-            <input type="text" class="form-control my-1" placeholder="Enter Duration" formControlName="duration">
-          </div> -->
 
           <div class="col-lg-6 col-md-6">
             <!-- <input type="text" class="form-control my-1" placeholder="Enter Asset Name" formControlName="assetName"> -->
             <mat-form-field class="example-full-width" appearance="outline" class="w-100">
               <mat-label>Enter Asset Name</mat-label>
-              <input matInput formControlName="assetName">
+              <input matInput formControlName="asset_name">
             </mat-form-field>
           </div>
 
@@ -101,17 +106,19 @@
             </mat-form-field>
           </div>
 
-          <!-- <div class="col-lg-12 col-md-6 d-flex my-1 escalation">
-            <div style="width: 20%; background-color: #F8F8F8;" class="max-center p-2">URL</div>
-            <div style="width: 80%; color: #084982;">
-              <input type="text" class="form-control" placeholder="">
-            </div>
-          </div> -->
+          <div class="col-lg-6 col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Device Mode</mat-label>
+              <mat-select formControlName="deviceMode">
+                <mat-option value="BS" *ngFor="let item of deviceMode" [value]="item.value">{{item.value}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
 
           <div class="col-lg-6 col-md-6">
             <!-- <input type="date" class="form-control my-1" formControlName="start_date"> -->
             <mat-form-field appearance="outline" class="w-100">
-              <input matInput [matDatepicker]="picker1" placeholder="Choose a date" formControlName="start_date">
+              <input matInput [matDatepicker]="picker1" placeholder="Start Date" formControlName="start_date">
               <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
               <mat-datepicker #picker1></mat-datepicker>
             </mat-form-field>
@@ -120,7 +127,7 @@
           <div class="col-lg-6 col-md-6">
             <!-- <input type="date" class="form-control my-1" formControlName="end_date"> -->
             <mat-form-field appearance="outline" class="w-100">
-              <input matInput [matDatepicker]="picker2" placeholder="Choose a date" formControlName="end_date">
+              <input matInput [matDatepicker]="picker2" placeholder="End Date" formControlName="end_date">
               <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
               <mat-datepicker #picker2></mat-datepicker>
             </mat-form-field>
