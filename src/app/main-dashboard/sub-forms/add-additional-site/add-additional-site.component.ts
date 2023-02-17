@@ -46,6 +46,10 @@ export class AddAdditionalSiteComponent implements OnInit {
 
   addSiteForm: any =  FormGroup;
 
+
+  checked = false;
+
+
   site = {
     verticals: "",
     customers: "",
@@ -55,6 +59,7 @@ export class AddAdditionalSiteComponent implements OnInit {
   searchText: any;
 
   items = ['john', 'mark', 'cooper', 'henry', 'roben'];
+  siteIdList = [ 3001, 3002, 3003, 3004];
 
   constructor(private fb: FormBuilder, private apiser: ApiService) { }
 
@@ -65,6 +70,7 @@ export class AddAdditionalSiteComponent implements OnInit {
       'verticals': new FormControl(''),
       'customers': new FormControl(''),
       'selectSite': new FormControl(''),
+      'checked': new FormControl()
     });
 
     // this.getSiteDetails()

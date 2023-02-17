@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Route } from '@angular/router';
 import { AssetService } from '../../services/asset.service';
 
 @Component({
@@ -50,6 +51,7 @@ export class AssetsComponent implements OnInit {
 
     this.apiser.getAssets().subscribe((res: any) => {
       this.assetTable = res.Assets_List;
+      // this.videoUrl = res.Assets_List;
       console.log(res);
 
       for(let item of this.assetTable) {

@@ -74,3 +74,7 @@ like a tickmark */
     margin-left: 10px;
 }
 
+.mat-form-field-appearance-outline ::ng-deep .mat-form-field-wrapper {
+  padding-bottom: 0.5em;
+}
+

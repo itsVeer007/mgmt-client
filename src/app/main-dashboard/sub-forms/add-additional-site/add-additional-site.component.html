@@ -16,23 +16,43 @@
           <form autocomplete="off" [formGroup]="addSiteForm" #addAdditionalSiteForm="ngForm">
             <div class="row">
               <div class="col-lg-6 col-xl-6">
-                <select class="form-select m-1" id="verticals" formControlName="verticals" required>
+                <!-- <select class="form-select m-1" id="verticals" formControlName="verticals" required>
                   <option value="" selected>All Verticals</option>
                   <option value="count" name="count">count</option>
-                </select>
+                </select> -->
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Select Camera Id</mat-label>
+                  <mat-select formControlName="verticals">
+                    <mat-option value="01">01</mat-option>
+                  </mat-select>
+                </mat-form-field>
               </div>
               <div class="col-lg-6 col-xl-6">
-                <select class="form-select m-1" id="customers" formControlName="customers" required>
+                <!-- <select class="form-select m-1" id="customers" formControlName="customers" required>
                   <option value="" selected>All Customers</option>
                   <option value="count" name="count">count</option>
-                </select>
+                </select> -->
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Select Camera Id</mat-label>
+                  <mat-select formControlName="customers" multiple>
+                    <mat-option value="01">01</mat-option>
+                  </mat-select>
+                </mat-form-field>
               </div>
               <div class="col-lg-12 col-xl-12">
-                <select class="form-select m-1" id="customers" formControlName="customers" required>
+                <!-- <select class="form-select m-1" id="customers" formControlName="customers" required>
                   <option value="" selected>All Customers</option>
                   <option value="count" name="count">count</option>
-                </select>
+                </select> -->
                 <!-- <app-multi-select-search></app-multi-select-search> -->
+                <mat-form-field appearance="outline" class="w-100">
+                  <input matInput placeholder="Site Id" [matAutocomplete]="auto" formControlName="customers" [(ngModel)]="searchText">
+                  <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let item of siteIdList | search : searchText; let i=index" [value]="item">
+                      <mat-checkbox class="example-margin">{{ item }}</mat-checkbox>
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
               </div>
 
               <div class="col-lg-12 col-xl-12 mt-5">

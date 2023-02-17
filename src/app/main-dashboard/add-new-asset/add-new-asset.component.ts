@@ -84,9 +84,15 @@ export class AddNewAssetComponent implements OnInit {
   deviceIdList = [ 301, 302, 303, 304];
 
   selectedFile: any = null;
+  selectedFiles:  Array<any> = [];
 
-  onFileSelected(event: any): void {
+  onFileSelected(event: any) {
     this.selectedFile = event.target.files[0] ?? null;
+    this.selectedFiles.push(this.selectedFile);
+  }
+
+  deleteFile() {
+    this.selectedFiles.pop()
   }
 
   closeAddCamera(value:boolean) {

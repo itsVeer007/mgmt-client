@@ -149,8 +149,6 @@ export class AddNewUserComponent implements OnInit {
     this.closeAddUser(false);
   }
 
-  submitted!: boolean;
-
   submit() {
     console.log("Userform: ",this.UserForm.value);
     console.log("Payload: ",this.user);
@@ -161,16 +159,14 @@ export class AddNewUserComponent implements OnInit {
           localStorage.setItem('userCreated', JSON.stringify(res));
         }
       });
-      this.submitted = false;
     }
-    this.submitted = true;
   }
 
 
-  checkbox: boolean = false;
-  onCheck() {
-    this.checkbox = !this.checkbox;
-  }
+  // checkbox: boolean = false;
+  // onCheck() {
+  //   this.checkbox = !this.checkbox;
+  // }
 
 }
 

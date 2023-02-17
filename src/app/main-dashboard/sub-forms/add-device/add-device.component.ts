@@ -1,6 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from 'src/services/api.service';
 import { AssetService } from 'src/services/asset.service';
 import { DropDownService } from 'src/services/drop-down.service';
@@ -44,19 +44,6 @@ export class AddDeviceComponent implements OnInit {
 
   addDevice: any =  FormGroup;
 
-  // site = {
-  //   device: "",
-  //   camera: "",
-  //   temperature: "",
-  //   age: "",
-  //   demographics: "",
-  //   status: "",
-  //   audio: "",
-  //   video: "",
-  //   wifi: "",
-  //   select: ""
-  // }
-
   searchText: any;
 
   items = ['john', 'mark', 'cooper', 'henry', 'roben'];
@@ -65,17 +52,28 @@ export class AddDeviceComponent implements OnInit {
 
   ngOnInit(): void {
     this.addDevice = this.fb.group({
-      'device': new FormControl(''),
-      'deviceMode': new FormControl(''),
-      'camera': new FormControl(''),
-      'temp': new FormControl(''),
-      'age': new FormControl(''),
-      'demographics': new FormControl(''),
-      'status': new FormControl(''),
-      'audio': new FormControl(''),
-      'video': new FormControl(''),
-      'wifi': new FormControl(''),
-      'select': new FormControl('')
+      'deviceId': new FormControl(126), //
+      'siteId': new FormControl(125), //
+      'deviceUnitId': new FormControl(''), //
+      'deviceCallFreq': new FormControl(),
+      'deviceMode': new FormControl('', Validators.required),
+      'workingDays': new FormControl(''),
+      'getlogs': new FormControl(), //bol
+      'width': new FormControl(),
+      'height': new FormControl(),
+      'modelName': new FormControl(''), //select
+      'resolution': new FormControl(''), //select
+      'threshold': new FormControl(''), //
+      'maxNo': new FormControl(), //
+      'objectName': new FormControl(''), //select
+      'refreshRules': new FormControl(), // bol
+      'displayOn': new FormControl(), //bol
+      'adsHours': new FormControl(''), //?
+      'weather_interval': new FormControl(''), //input
+      'cameraId': new FormControl(''),
+      'createdBy': new FormControl(), //nrq
+      'modifiedBy': new FormControl(), //nrq
+      'remarks': new FormControl(''), //nrq
     });
 
     this.ongetDeviceType();
@@ -110,10 +108,11 @@ export class AddDeviceComponent implements OnInit {
     })
   }
 
-  deviceMode: Array<any> = [];
+  deviceMode: any;
   ongetDeviceMode() {
     this.dropDown.getDeviceMode().subscribe((res: any) => {
       this.deviceMode = res.List_Shown_By_Type_Given;
+      // console.log(this.deviceMode)
     })
   }
 
@@ -131,11 +130,6 @@ export class AddDeviceComponent implements OnInit {
     })
   }
 
-  add(){
-    console.log("add device", this.addDevice.value);
-  }
-
-
   tabs = ['Device'];
   selected = new FormControl();
 
@@ -145,7 +139,11 @@ export class AddDeviceComponent implements OnInit {
   }
 
   // removeTab(index: number) {
-  //   this.tabs.splice(index, 1);
-  // }
+    //   this.tabs.splice(index, 1);
+    // }
+
+    add(){
+      console.log("add device", this.addDevice.value);
+    }
 
 }
