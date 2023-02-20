@@ -26,16 +26,21 @@ export class AssetService {
     formData.append('deviceId', payload.deviceId);
     formData.append('enabled', payload.enabled);
     formData.append('mimetype', payload.mimetype);
-    formData.append('asset_name', payload.asset_name);
-    formData.append('play_order', payload.play_order);
-    formData.append('start_date', this.date.transform(payload.start_date, 'yyyy-MM-dd'));
-    formData.append('end_date', this.date.transform(payload.end_date, 'yyyy-MM-dd'));
+    formData.append('assetName', payload.assetName);
+    formData.append('playOrder', payload.playOrder);
+    formData.append('startDate', this.date.transform(payload.startDate, 'yyyy-MM-dd'));
+    formData.append('endDate', this.date.transform(payload.endDate, 'yyyy-MM-dd'));
     formData.append('createdBy', payload.createdBy);
     formData.append('deviceMode', payload.deviceMode);
     formData.append('description', payload.description);
 
     let url = this.baseUrl + "createAsset_1_0/";
     return this.http.post(url, formData);
+  }
+
+  addDevice(payload: any) {
+    let url = this.baseUrl + "createDeviceAdsInfo_1_0";
+    return this.http.post(url, payload)
   }
 
 }

@@ -28,8 +28,10 @@ import { DropDownService } from 'src/services/drop-down.service';
     ])
   ]
 })
+
+
 export class AddDeviceComponent implements OnInit {
-  @Input() show:any;
+  @Input() data: any;
   @Output() newItemEvent = new EventEmitter<boolean>();
 
   // @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
@@ -48,32 +50,58 @@ export class AddDeviceComponent implements OnInit {
 
   items = ['john', 'mark', 'cooper', 'henry', 'roben'];
 
-  constructor(private fb: FormBuilder, private apiser: ApiService, private dropDown: DropDownService) { }
+  constructor(private fb: FormBuilder, private assetService: AssetService, private dropDown: DropDownService) { }
+
+
+  device = {
+    deviceId: '',
+    siteId: '',
+    deviceUnitId: '',
+    deviceCallFreq: '',
+    deviceMode: '',
+    workingDays: '',
+    getlogs: '',
+    width: '',
+    height: '',
+    modelName: '',
+    resolution: '',
+    threshold: '',
+    maxNo: '',
+    objectName: '',
+    refreshRules: '',
+    displayOn: '',
+    adsHours: '',
+    weather_interval: '',
+    cameraId: '',
+    createdBy: '',
+    modifiedBy: '',
+    remarks: ''
+  }
 
   ngOnInit(): void {
     this.addDevice = this.fb.group({
-      'deviceId': new FormControl(126), //
-      'siteId': new FormControl(125), //
-      'deviceUnitId': new FormControl(''), //
-      'deviceCallFreq': new FormControl(),
+      'deviceId': new FormControl(126),
+      'siteId': new FormControl(125),
+      'deviceUnitId': new FormControl(''),
+      'deviceCallFreq': new FormControl('', Validators.required),
       'deviceMode': new FormControl('', Validators.required),
       'workingDays': new FormControl(''),
-      'getlogs': new FormControl(), //bol
-      'width': new FormControl(),
-      'height': new FormControl(),
-      'modelName': new FormControl(''), //select
-      'resolution': new FormControl(''), //select
+      'getlogs': new FormControl(0),
+      'width': new FormControl('', Validators.required),
+      'height': new FormControl('', Validators.required),
+      'modelName': new FormControl('', this.device.deviceMode == 'BSR' ? Validators.required : []),
+      'resolution': new FormControl('', this.device.deviceMode == 'BSR' ? Validators.required : []),
       'threshold': new FormControl(''), //
-      'maxNo': new FormControl(), //
-      'objectName': new FormControl(''), //select
-      'refreshRules': new FormControl(), // bol
-      'displayOn': new FormControl(), //bol
-      'adsHours': new FormControl(''), //?
-      'weather_interval': new FormControl(''), //input
-      'cameraId': new FormControl(''),
-      'createdBy': new FormControl(), //nrq
-      'modifiedBy': new FormControl(), //nrq
-      'remarks': new FormControl(''), //nrq
+      'maxNo': new FormControl(3), //
+      'objectName': new FormControl('', this.device.deviceMode == 'BSR' ? Validators.required : []),
+      'refreshRules': new FormControl(),
+      'displayOn': new FormControl(),
+      'adsHours': new FormControl('', Validators.required),
+      'weather_interval': new FormControl('', this.device.deviceMode == 'BSR' ? Validators.required : []),
+      'cameraId': new FormControl('', Validators.required),
+      'createdBy': new FormControl(1),
+      'modifiedBy': new FormControl(0),
+      'remarks': new FormControl(''),
     });
 
     this.ongetDeviceType();
@@ -101,7 +129,8 @@ export class AddDeviceComponent implements OnInit {
     this.newItemEvent.emit(value);
   }
 
-  deviceType: Array<any> = [];
+  // drop-down-service-methods //
+  deviceType: any;
   ongetDeviceType() {
     this.dropDown.getDeviceType().subscribe((res: any) => {
       this.deviceType = res.List_Shown_By_Type_Given;
@@ -116,14 +145,14 @@ export class AddDeviceComponent implements OnInit {
     })
   }
 
-  tempRange: Array<any> = [];
+  tempRange: any;
   onTempRange() {
     this.dropDown.tempRange().subscribe((res: any) => {
       this.tempRange = res.List_Shown_By_Type_Given;
     })
   }
 
-  ageRange: Array<any> = [];
+  ageRange: any;
   onAgeRange() {
     this.dropDown.ageRange().subscribe((res: any) => {
       this.ageRange = res.List_Shown_By_Type_Given;
@@ -142,8 +171,20 @@ export class AddDeviceComponent implements OnInit {
     //   this.tabs.splice(index, 1);
     // }
 
+    showModel: boolean = false;
+
+    onMode() {
+      this.device.deviceMode == "BSR" ? this.showModel = true : this.showModel = false;
+    }
+
     add(){
-      console.log("add device", this.addDevice.value);
+      if(this.addDevice.valid) {
+        this.assetService.addDevice(this.addDevice.value).subscribe((res) => {
+          console.log(res)
+        })
+      }
+      console.log(this.addDevice.value);
+      console.log(this.device)
     }
 
 }

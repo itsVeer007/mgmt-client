@@ -1,20 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
-@font-face {
-  font-family: ms;
-  src: url(/src/assets/Montserrat-VariableFont_wght.ttf) format("truetype");
-}
 
 body {
   font-family: ms, sans-serif, Arial, Helvetica !important;
 }
 
+@font-face {
+  font-family: ms;
+  src: url(/src/assets/Montserrat-VariableFont_wght.ttf) format("truetype");
+}
 
 .pointer {
   cursor: pointer;
 }
 
 .changesvgcolor {
-  /* filter: invert(30%) sepia(35%) saturate(2120%) hue-rotate(205deg) brightness(101%) contrast(103%); */
   filter: invert(21%) sepia(57%) saturate(2120%) hue-rotate(205deg) brightness(101%) contrast(103%);
 }
 
@@ -299,15 +298,3 @@ form .add-btn:hover {
   border-right: 1px solid #918b8b;
   border-top: 1px solid #918b8b;
 }
-
-/* At plus-img, when hover on icons show the name --------------  END*/
-html,
-body {
-  height: 100%;
-}
-
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
-

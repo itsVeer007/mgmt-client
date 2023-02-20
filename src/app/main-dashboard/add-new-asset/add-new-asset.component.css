@@ -6,17 +6,6 @@
   width: 202px;
 }
 
-
-
-/* .mat-form-field-appearance-outline ::ng-deep .mat-form-field-flex {
-  margin-top: -0.5em;
-  height: 50px;
-} */
-
-.mat-form-field-appearance-outline ::ng-deep .mat-form-field-wrapper {
-  padding-bottom: 0.5em;
-}
-
 .file-upload {
   color: #c0bebe;
   border: 1px dotted #e0e0e0;
@@ -28,4 +17,25 @@
 .file-upload a {
   cursor: pointer;
   text-decoration: none;
+}
+
+/* common ng-deep */
+
+.mat-form-field-appearance-outline ::ng-deep .mat-form-field-outline {
+  top: 5px;
+  bottom: 5px;
+}
+
+.mat-form-field-appearance-outline ::ng-deep .mat-form-field-wrapper {
+  padding-bottom: 0.5em;
+}
+
+::ng-deep .mat-select-value {
+  position: relative;
+  bottom: 4px;
+}
+
+::ng-deep input.mat-input-element {
+  position: relative;
+  bottom: 4px;
 }

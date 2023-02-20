@@ -1,6 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AssetService } from 'src/services/asset.service';
 import { DropDownService } from 'src/services/drop-down.service';
@@ -57,21 +57,21 @@ export class AddNewAssetComponent implements OnInit {
   ngOnInit(): void {
     this.addAssetForm = this.fb.group({
       'file': new FormControl(''),
-      'siteId': new FormControl(),
-      'deviceId': new FormControl(),
+      'siteId': new FormControl('', Validators.required),
+      'deviceId': new FormControl('', Validators.required),
       'enabled': new FormControl(1),
-      'mimetype': new FormControl(''),
+      'mimetype': new FormControl('', Validators.required),
       // 'is_active': new FormControl(1),
       // 'duration': new FormControl('9'),
       // 'is_processing': new FormControl(1),
-      'asset_name': new FormControl(''),
+      'assetName': new FormControl('', Validators.required),
       // 'nocache': new FormControl(1),
       // 'skip_asset_check': new FormControl(1),
-      'play_order': new FormControl(0),
-      'start_date': new FormControl(''),
-      'end_date': new FormControl(''),
+      'playOrder': new FormControl(0),
+      'startDate': new FormControl('', Validators.required),
+      'endDate': new FormControl('', Validators.required),
       'createdBy': new FormControl(1),
-      'deviceMode': new FormControl(''),
+      'deviceMode': new FormControl('', Validators.required),
       'description': new FormControl(''),
     });
 
@@ -139,9 +139,11 @@ export class AddNewAssetComponent implements OnInit {
 
 
   addNewAsset() {
-    this.assetService.addAsset(this.addAssetForm.value, this.selectedFile).subscribe((res) => {
-      console.log(res)
-    });
+    if(this.addAssetForm.valid) {
+      this.assetService.addAsset(this.addAssetForm.value, this.selectedFile).subscribe((res) => {
+        console.log(res)
+      });
+    }
 
     console.log(this.addAssetForm.value);
   }

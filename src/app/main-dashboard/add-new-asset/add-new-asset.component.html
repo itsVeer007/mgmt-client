@@ -29,7 +29,7 @@
               <option value="Site-2">Site-2</option>
             </select> -->
             <mat-form-field appearance="outline" class="w-100">
-              <input matInput placeholder="Site Id" [matAutocomplete]="auto" formControlName="siteId" [(ngModel)]="searchText">
+              <input matInput placeholder="Site Id" [matAutocomplete]="auto" formControlName="siteId" [(ngModel)]="searchText" required>
               <mat-autocomplete #auto="matAutocomplete">
                 <mat-option *ngFor="let item of siteIdList | search : searchText; let i=index" [value]="item">
                   <span>{{ item }}</span>
@@ -45,7 +45,7 @@
             </select> -->
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Device Id</mat-label>
-              <mat-select formControlName="deviceId">
+              <mat-select formControlName="deviceId" required>
                 <mat-option *ngFor="let item of deviceIdList" [value]="item">{{item}}</mat-option>
               </mat-select>
             </mat-form-field>
@@ -88,7 +88,7 @@
             </select> -->
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Mime type</mat-label>
-              <mat-select formControlName="mimetype">
+              <mat-select formControlName="mimetype" required>
                 <mat-option *ngFor="let item of deviceType" value="{{item.value}}">{{item.value}}</mat-option>
               </mat-select>
             </mat-form-field>
@@ -98,7 +98,7 @@
             <!-- <input type="text" class="form-control my-1" placeholder="Enter Asset Name" formControlName="assetName"> -->
             <mat-form-field class="example-full-width" appearance="outline" class="w-100">
               <mat-label>Enter Asset Name</mat-label>
-              <input matInput formControlName="asset_name">
+              <input matInput formControlName="assetName" required>
             </mat-form-field>
           </div>
 
@@ -113,7 +113,7 @@
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Device Mode</mat-label>
-              <mat-select formControlName="deviceMode">
+              <mat-select formControlName="deviceMode" required>
                 <mat-option value="BS" *ngFor="let item of deviceMode" [value]="item.value">{{item.value}}</mat-option>
               </mat-select>
             </mat-form-field>
@@ -122,7 +122,7 @@
           <div class="col-lg-6 col-md-6">
             <!-- <input type="date" class="form-control my-1" formControlName="start_date"> -->
             <mat-form-field appearance="outline" class="w-100">
-              <input matInput [matDatepicker]="picker1" placeholder="Start Date" formControlName="start_date">
+              <input matInput [matDatepicker]="picker1" placeholder="Start Date" formControlName="startDate" required>
               <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
               <mat-datepicker #picker1></mat-datepicker>
             </mat-form-field>
@@ -131,7 +131,7 @@
           <div class="col-lg-6 col-md-6">
             <!-- <input type="date" class="form-control my-1" formControlName="end_date"> -->
             <mat-form-field appearance="outline" class="w-100">
-              <input matInput [matDatepicker]="picker2" placeholder="End Date" formControlName="end_date">
+              <input matInput [matDatepicker]="picker2" placeholder="End Date" formControlName="endDate" required>
               <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
               <mat-datepicker #picker2></mat-datepicker>
             </mat-form-field>

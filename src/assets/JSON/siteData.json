@@ -24,7 +24,7 @@
         "escl_Details": "View",
         "engr_Details": "View",
         "services": "",
-        "cntrl_Unit": "",
+        "cntrl_Unit": "IVISUSA12131",
         "devices": "assets/images/add-svg.svg"
     },
     {
@@ -38,7 +38,7 @@
         "escl_Details": "View",
         "engr_Details": "View",
         "services": "",
-        "cntrl_Unit": "IVISUSA12130",
+        "cntrl_Unit": "IVISUSA12132",
         "devices": "assets/images/add-svg.svg"
     },{
         "siteID": 1000018,
@@ -51,7 +51,7 @@
         "escl_Details": "View",
         "engr_Details": "View",
         "services": "",
-        "cntrl_Unit": "IVISUSA12130",
+        "cntrl_Unit": "IVISUSA12133",
         "devices": "assets/images/add-svg.svg"
     },
     {
@@ -79,7 +79,7 @@
         "escl_Details": "View",
         "engr_Details": "View",
         "services": "",
-        "cntrl_Unit": "IVISUSA12130",
+        "cntrl_Unit": "IVISUSA12134",
         "devices": "assets/images/add-svg.svg"
     },
     {
@@ -93,7 +93,7 @@
         "escl_Details": "View",
         "engr_Details": "View",
         "services": "",
-        "cntrl_Unit": "IVISUSA12130",
+        "cntrl_Unit": "IVISUSA12135",
         "devices": "assets/images/add-svg.svg"
     },
     {

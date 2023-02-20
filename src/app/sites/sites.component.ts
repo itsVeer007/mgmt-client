@@ -62,7 +62,7 @@ export class SitesComponent implements OnInit {
 
   SiteTable() {
     this.http.get('assets/JSON/siteData.json').subscribe(res => {
-      // console.log("Sites:: ",res);
+      // console.log(res);
       this.tableData = res;
     });
   }

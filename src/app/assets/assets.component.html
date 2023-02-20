@@ -1,65 +1,12 @@
 <!-- <app-loader *ngIf="showLoader"></app-loader> -->
 <div class="container-fluid users" id="top">
-  <!-- header starts -->
+
+  <!-- header -->
   <div class="d-flex justify-content-between">
     <div class="users-header">
       <p>List of Assets - <span>{{assetTable.length}}</span></p>
     </div>
     <div style="position: relative">
-      <!-- <div (click)="icons1 = !icons1" class="icons-site" id="icons-site" *ngIf="icons1">
-        <div class="lists" *ngIf="showIconVertical" style="margin-left: -25px">
-          Business Vertical
-        </div>
-        <div class="lists" *ngIf="showIconCustomer" style="margin-left: 23px">
-          Customer
-        </div>
-        <div class="lists" *ngIf="showIconSite" style="margin-left: 67px">
-          Site
-        </div>
-        <div class="lists" *ngIf="showIconCamera" style="margin-left: 88px">
-          Camera
-        </div>
-        <div class="lists" *ngIf="showIconAnalytic" style="margin-left: 120px">
-          Analytic
-        </div>
-        <div class="lists" *ngIf="showIconUser" style="margin-left: 160px">
-          User
-        </div>
-
-        <div class="d-flex flex-row justify-content icons pointer">
-          <a (click)="
-              iconsnew1(); showAddBusinessVertical = !showAddBusinessVertical
-            ">
-            <img src="assets/images/vertical.svg" class="mx-2" width="15" height="15"
-              (mouseenter)="showIconVertical = true" (mouseleave)="showIconVertical = false" />
-          </a>
-
-          <a (click)="iconsnew1(); showAddCustomer = !showAddCustomer">
-            <img src="assets/images/customer.svg" class="mx-2" width="15" height="15"
-              (mouseenter)="showIconCustomer = true" (mouseleave)="showIconCustomer = false" />
-          </a>
-
-          <a (click)="iconsnew1(); showAddSite = !showAddSite">
-            <img src="assets/images/sites.svg" class="mx-2" width="15" height="15" (mouseenter)="showIconSite = true"
-              (mouseleave)="showIconSite = false" />
-          </a>
-
-          <a (click)="iconsnew1(); showAddCamera = !showAddCamera">
-            <img src="assets/images/cam.svg" class="mx-2" width="15" height="15" (mouseenter)="showIconCamera = true"
-              (mouseleave)="showIconCamera = false" />
-          </a>
-
-          <a>
-            <img src="assets/images/analytic.svg" class="mx-2" width="15" height="15"
-              (mouseenter)="showIconAnalytic = true" (mouseleave)="showIconAnalytic = false" />
-          </a>
-
-          <a (click)="iconsnew1(); showAddUser = !showAddUser">
-            <img src="assets/images/user-white.svg" class="mx-2" width="15" height="15"
-              (mouseenter)="showIconUser = true" (mouseleave)="showIconUser = false" />
-          </a>
-        </div>
-      </div> -->
       <a class="pointer" (click)="showAddAsset()">
         <img src="assets/images/add.svg" alt="" />
       </a>
@@ -69,9 +16,9 @@
       </a>
     </div>
   </div>
-  <!-- header ends -->
+  <!-- /header -->
 
-  <!-- count starts -->
+  <!-- count -->
   <div class="row">
     <div class="col-lg-1 col-md-1 d-flex justify-content-start">
       <div class="vl-green"></div>
@@ -88,9 +35,9 @@
       </div>
     </div>
   </div>
-  <!-- count ends -->
+  <!-- /count -->
 
-  <!-- form starts -->
+  <!-- form -->
   <div class="row my-3">
     <div class="col-lg-10 col-md-10">
       <form class="row p-0">
@@ -127,9 +74,9 @@
           (mouseenter)="showIconDelete = true" (mouseleave)="showIconDelete = false" /></a>
     </div>
   </div>
-  <!-- form ends -->
+  <!-- /form -->
 
-  <!-- table starts -->
+  <!-- table -->
   <div class="table-resp">
     <table class="table" id="mytable">
       <tbody>
@@ -227,9 +174,7 @@
           </td>
           <td style="position: relative">
             <a (click)="closeDot($event, i)"><img src="assets/images/dotlist.svg" width="30" height="12" /></a>
-            <!-- -------------------------------- Popup for view, edit, delete --------- START     -->
             <div class="plus-img1" id="plus-img{{ i }}" style="display: none">
-              <!-- ---------------------------- Hover for view, edit, delete ---------------------START -->
               <div class="lists" *ngIf="showIconView1" style="margin-left: 5px; margin-top: -20px">
                 View
               </div>
@@ -239,7 +184,6 @@
               <div class="lists" *ngIf="showIconDelete1" style="margin-left: 63px; margin-top: -20px">
                 Delete
               </div>
-              <!-- ---------------------------- Hover for view, edit, delete ---------------------END -->
 
               <a class="mx-2" (click)="openViewPopup(item, i)"><img src="assets/images/view.svg"
                   (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" /></a>
@@ -249,7 +193,6 @@
               <a class="mx-2" value="Delete" (click)="openDeletePopup(item, i)"><img src="assets/images/delete.svg"
                   (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" /></a>
             </div>
-            <!-- ----------------------------- Popup for view, edit, delete --------- END     -->
           </td>
         </tr>
       </tbody>
