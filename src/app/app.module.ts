@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+//components
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MainDashboardComponent } from './main-dashboard/main-dashboard.component';
@@ -12,21 +16,21 @@ import { AddNewBusinessVerticalComponent } from './main-dashboard/add-new-busine
 import { AddNewUserComponent } from './main-dashboard/add-new-user/add-new-user.component';
 import { SitesComponent } from './sites/sites.component';
 import { CustomersComponent } from './customers/customers.component';
-
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { LoaderComponent } from './utilities/loader/loader.component';
-import { SearchPipe } from './utilities/search.pipe';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { XpAnimationDirective } from './utilities/animation/animation.directive';
 import { LoginComponent } from './login/login.component';
 import { UsersComponent } from './users/users.component';
 import { AddAdditionalSiteComponent } from './main-dashboard/sub-forms/add-additional-site/add-additional-site.component';
-import { MultiSelectSearchComponent } from './utilities/multi-select-search/multi-select-search.component';
 import { AssetsComponent } from './assets/assets.component';
 import { TicketsComponent } from './tickets/tickets.component';
 import { InventoryComponent } from './inventory/inventory.component';
+import { AddDeviceComponent } from './main-dashboard/sub-forms/add-device/add-device.component';
+import { AddNewAssetComponent } from './main-dashboard/add-new-asset/add-new-asset.component';
+import { VerticalsComponent } from './verticals/verticals.component';
+import { AnalyticsComponent } from './analytics/analytics.component';
+import { AddNewInventoryComponent } from './main-dashboard/add-new-inventory/add-new-inventory.component';
+import { AddNewAnalyticComponent } from './main-dashboard/add-new-analytic/add-new-analytic.component';
+import { AddNewTicketComponent } from './main-dashboard/add-new-ticket/add-new-ticket.component';
 
+// material module
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
@@ -43,17 +47,12 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
-import { AddDeviceComponent } from './main-dashboard/sub-forms/add-device/add-device.component';
-import { AddNewAssetComponent } from './main-dashboard/add-new-asset/add-new-asset.component';
+//utilities
+import { MultiSelectSearchComponent } from './utilities/multi-select-search/multi-select-search.component';
 import { VjsPlayerComponent } from './utilities/vjs-player/vjs-player.component';
-import { VerticalsComponent } from './verticals/verticals.component';
-import { AnalyticsComponent } from './analytics/analytics.component';
-import { AddNewInventoryComponent } from './main-dashboard/add-new-inventory/add-new-inventory.component';
+import { LoaderComponent } from './utilities/loader/loader.component';
 import { ChartService } from 'src/services/chart.service';
-import { DropdownSearchComponent } from './utilities/dropdown-search/dropdown-search.component';
-import { AddNewAnalyticComponent } from './main-dashboard/add-new-analytic/add-new-analytic.component';
-import { AddNewTicketComponent } from './main-dashboard/add-new-ticket/add-new-ticket.component';
-
+import { SearchPipe } from './utilities/search.pipe';
 import { DatePipe } from '@angular/common';
 
 @NgModule({
@@ -83,7 +82,6 @@ import { DatePipe } from '@angular/common';
     VerticalsComponent,
     AnalyticsComponent,
     AddNewInventoryComponent,
-    DropdownSearchComponent,
     AddNewAnalyticComponent,
     AddNewTicketComponent,
   ],

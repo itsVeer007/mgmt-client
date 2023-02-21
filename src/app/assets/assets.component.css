@@ -56,7 +56,7 @@ form .form-select {
   color: #000000;
 }
 
-form .search {
+/* form .search {
   border: 1px solid #EFEFEF;
   border-radius: 30px;
   width: 250px;
@@ -81,7 +81,7 @@ form input {
 form button {
   width: 20%;
   background: none;
-}
+} */
 
 .table-icons {
   display: flex;
@@ -102,7 +102,7 @@ form button {
 }
 
 .form1 {
-  background-image: linear-gradient(to right, #084982, #AA4337);
+  background-image: linear-gradient(to right, #084982, #D34124);
   background-size: cover;
   border-radius: 5px;
   margin-top: 20px;
@@ -331,4 +331,29 @@ border: 1px solid #EFEFEF;
 
 .lists {
   margin-top: -20px;
+}
+
+/* common ng-deep */
+
+.mat-form-field-appearance-outline ::ng-deep .mat-form-field-outline {
+  top: 5px;
+  bottom: 5px;
+}
+
+.mat-form-field-appearance-outline ::ng-deep .mat-form-field-wrapper {
+  padding-bottom: 0.5em;
+}
+
+::ng-deep .mat-select-value {
+  position: relative;
+  bottom: 4px;
+}
+
+::ng-deep input.mat-input-element {
+  position: relative;
+  bottom: 4px;
+}
+
+.mat-form-field-appearance-outline ::ng-deep .mat-form-field-wrapper {
+  margin: 0;
 }

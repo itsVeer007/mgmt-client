@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AssetService } from 'src/services/asset.service';
 import { DropDownService } from 'src/services/drop-down.service';
 import { FileUploadService } from 'src/services/file-upload.service';
+import { Asset } from './asset';
 
 @Component({
   selector: 'app-add-new-asset',
@@ -54,10 +55,25 @@ export class AddNewAssetComponent implements OnInit {
 
   constructor(private router: Router, private fb: FormBuilder, private assetService: AssetService, private dropDown: DropDownService) { }
 
+  asset: Asset = {
+    file: null,
+    siteId: null,
+    deviceId: null,
+    enabled: 1,
+    mimetype: '',
+    assetName: '',
+    playOrder: 0,
+    startDate: '',
+    endDate: '',
+    createdBy: 1,
+    deviceMode: '',
+    description: ''
+  }
+
   ngOnInit(): void {
     this.addAssetForm = this.fb.group({
       'file': new FormControl(''),
-      'siteId': new FormControl('', Validators.required),
+      'siteId': new FormControl(null, Validators.required),
       'deviceId': new FormControl('', Validators.required),
       'enabled': new FormControl(1),
       'mimetype': new FormControl('', Validators.required),
@@ -123,14 +139,14 @@ export class AddNewAssetComponent implements OnInit {
   //   this.closeAddCamera(false);
   // }
 
-  deviceType: Array<any> = [];
+  deviceType: any;
   ongetDeviceType() {
     this.dropDown.getDeviceType().subscribe((res: any) => {
       this.deviceType = res.List_Shown_By_Type_Given;
     })
   }
 
-  deviceMode: Array<any> = [];
+  deviceMode: any;
   ongetDeviceMode() {
     this.dropDown.getDeviceMode().subscribe((res: any) => {
       this.deviceMode = res.List_Shown_By_Type_Given;
@@ -144,7 +160,6 @@ export class AddNewAssetComponent implements OnInit {
         console.log(res)
       });
     }
-
     console.log(this.addAssetForm.value);
   }
 

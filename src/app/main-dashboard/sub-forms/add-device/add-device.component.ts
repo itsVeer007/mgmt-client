@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ApiService } from 'src/services/api.service';
 import { AssetService } from 'src/services/asset.service';
 import { DropDownService } from 'src/services/drop-down.service';
+import { AddDevice } from './add-device';
 
 @Component({
   selector: 'app-add-device',
@@ -53,54 +54,54 @@ export class AddDeviceComponent implements OnInit {
   constructor(private fb: FormBuilder, private assetService: AssetService, private dropDown: DropDownService) { }
 
 
-  device = {
-    deviceId: '',
-    siteId: '',
+  device: AddDevice = {
+    deviceId: 126,
+    siteId: 125,
     deviceUnitId: '',
-    deviceCallFreq: '',
+    deviceCallFreq: null,
     deviceMode: '',
     workingDays: '',
-    getlogs: '',
-    width: '',
-    height: '',
+    getlogs: 0,
+    width: null,
+    height: null,
     modelName: '',
     resolution: '',
     threshold: '',
-    maxNo: '',
+    maxNo: 3,
     objectName: '',
     refreshRules: '',
     displayOn: '',
     adsHours: '',
     weather_interval: '',
     cameraId: '',
-    createdBy: '',
-    modifiedBy: '',
+    createdBy: 1,
+    modifiedBy: 0,
     remarks: ''
   }
 
   ngOnInit(): void {
     this.addDevice = this.fb.group({
-      'deviceId': new FormControl(126),
-      'siteId': new FormControl(125),
+      'deviceId': new FormControl(null),
+      'siteId': new FormControl(null),
       'deviceUnitId': new FormControl(''),
       'deviceCallFreq': new FormControl('', Validators.required),
       'deviceMode': new FormControl('', Validators.required),
-      'workingDays': new FormControl(''),
-      'getlogs': new FormControl(0),
+      'workingDays': new FormControl('', Validators.required),
+      'getlogs': new FormControl(null),
       'width': new FormControl('', Validators.required),
       'height': new FormControl('', Validators.required),
       'modelName': new FormControl('', this.device.deviceMode == 'BSR' ? Validators.required : []),
       'resolution': new FormControl('', this.device.deviceMode == 'BSR' ? Validators.required : []),
       'threshold': new FormControl(''), //
-      'maxNo': new FormControl(3), //
+      'maxNo': new FormControl(null), //
       'objectName': new FormControl('', this.device.deviceMode == 'BSR' ? Validators.required : []),
-      'refreshRules': new FormControl(),
-      'displayOn': new FormControl(),
-      'adsHours': new FormControl('', Validators.required),
+      'refreshRules': new FormControl(null),
+      'displayOn': new FormControl(null),
+      'adsHours': new FormControl([''], Validators.required),
       'weather_interval': new FormControl('', this.device.deviceMode == 'BSR' ? Validators.required : []),
       'cameraId': new FormControl('', Validators.required),
-      'createdBy': new FormControl(1),
-      'modifiedBy': new FormControl(0),
+      'createdBy': new FormControl(null),
+      'modifiedBy': new FormControl(null),
       'remarks': new FormControl(''),
     });
 
@@ -141,7 +142,6 @@ export class AddDeviceComponent implements OnInit {
   ongetDeviceMode() {
     this.dropDown.getDeviceMode().subscribe((res: any) => {
       this.deviceMode = res.List_Shown_By_Type_Given;
-      // console.log(this.deviceMode)
     })
   }
 
@@ -161,30 +161,27 @@ export class AddDeviceComponent implements OnInit {
 
   tabs = ['Device'];
   selected = new FormControl();
-
   addTab() {
     this.tabs.push('Device');
     this.selected.setValue(this.tabs.length - 1);
   }
 
   // removeTab(index: number) {
-    //   this.tabs.splice(index, 1);
-    // }
+  //   this.tabs.splice(index, 1);
+  // }
 
-    showModel: boolean = false;
+  showModel: boolean = false;
+  onMode() {
+    this.device.deviceMode == "BSR" ? this.showModel = true : this.showModel = false;
+  }
 
-    onMode() {
-      this.device.deviceMode == "BSR" ? this.showModel = true : this.showModel = false;
+  add() {
+    if(this.addDevice.valid) {
+      this.assetService.addDevice(this.device).subscribe((res) => {
+        console.log(res)
+      })
     }
-
-    add(){
-      if(this.addDevice.valid) {
-        this.assetService.addDevice(this.addDevice.value).subscribe((res) => {
-          console.log(res)
-        })
-      }
-      console.log(this.addDevice.value);
-      console.log(this.device)
-    }
+    console.log(this.device);
+  }
 
 }

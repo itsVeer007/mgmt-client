@@ -1,9 +1,9 @@
 <div class="row formModal">
   <div class="col-lg-6 col-md-6"></div>
-  <div class="col-lg-6 col-md-6 add-form" id="additionalSite" @inOutPaneAnimation>
+  <div class="col-lg-6 col-md-6 add-form p-0" id="additionalSite" @inOutPaneAnimation>
 
     <div class="row">
-      <a class="col-lg-1 mt-3 pointer position-relative" style="right: 50px; bottom: 8px;" (click)="closeAddAdditionalSite(false)">
+      <a class="col-lg-1 mt-3 pointer position-relative" style="right: 38px; bottom: 8px;" (click)="closeAddAdditionalSite(false)">
         <img src="assets/images/Group 101.svg">
       </a>
 
@@ -13,7 +13,10 @@
           <h5 class="m-0 text-secondary" style="font-size: 18px;">IVISUSA12130</h5>
         </div>
         <div>
-          <a class="pointer"><img src="assets/images/add.svg" alt="" (click)="addTab()"></a>
+          <a class="pointer mx-3">
+            <button mat-raised-button color="primary" (click)="addTab()">Add Device</button>
+          </a>
+          <!-- <img src="assets/images/add.svg" alt=""> -->
         </div>
       </div>
     </div>
@@ -39,8 +42,8 @@
     <!-- </div> -->
 
     <div class="mt-2">
-      <mat-tab-group [selectedIndex]="selected.value" (selectedIndexChange)="selected.setValue($event)" backgroundColor="primary" class="p-0">
-        <mat-tab *ngFor="let tab of tabs; let i = index" [label]="tab + '-' + (i + 1)">
+      <mat-tab-group [selectedIndex]="selected.value" (selectedIndexChange)="selected.setValue($event)" backgroundColor="primary">
+        <mat-tab *ngFor="let tab of tabs; let i = index" [label]="tab + '-' + (i + 1)" class="mat-tab">
           <form autocomplete="off" [formGroup]="addDevice" #addAdditionalSiteForm="ngForm">
             <div class="row mt-2">
 
@@ -120,7 +123,7 @@
                 </div> -->
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Ad Working Days</mat-label>
-                  <mat-select formControlName="workingDays">
+                  <mat-select formControlName="workingDays" [(ngModel)]="device.workingDays">
                     <mat-option value="1">1</mat-option>
                     <mat-option value="2">2</mat-option>
                   </mat-select>

@@ -2,7 +2,7 @@
 <div class="container-fluid users" id="top">
 
   <!-- header -->
-  <div class="d-flex justify-content-between">
+  <div class="d-flex align-items-center justify-content-between">
     <div class="users-header">
       <p>List of Assets - <span>{{assetTable.length}}</span></p>
     </div>
@@ -41,20 +41,48 @@
   <div class="row my-3">
     <div class="col-lg-10 col-md-10">
       <form class="row p-0">
-        <div class="col-lg-4 col-md-4 select">
-          <select class="form-select">
+        <div class="col-lg-3 col-md-3 col-sm-12">
+          <!-- <select class="form-select">
             <option selected>All</option>
             <option></option>
-          </select>
+          </select> -->
+          <mat-form-field appearance="outline">
+            <mat-label>Site Name</mat-label>
+            <mat-select>
+              <mat-option (click)="sort('siteId')">Filter by A-Z</mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
-        <div class="col-lg-4 col-md-4 search">
-          <input type="text" placeholder="Search" name="search2" [(ngModel)]="searchText" />
+
+        <div class="col-lg-3 col-md-3 col-sm-12">
+          <!-- <select class="form-select">
+            <option selected>All</option>
+            <option></option>
+          </select> -->
+          <mat-form-field appearance="outline">
+            <mat-label>Device Mode</mat-label>
+            <mat-select>
+              <mat-option value="BS">BS</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-sm-12">
+          <!-- <input type="text" placeholder="Search" name="search2" [(ngModel)]="searchText" />
           <button type="submit">
             <a><img src="assets/images/search.svg" /></a>
-          </button>
+          </button> -->
+          <mat-form-field class="example-form-field" appearance="outline">
+            <mat-label>Search</mat-label>
+            <input matInput type="text" name="search2" [(ngModel)]="searchText">
+            <button matSuffix mat-icon-button>
+              <mat-icon>search</mat-icon>
+            </button>
+          </mat-form-field>
         </div>
       </form>
     </div>
+
     <div class="col-lg-2 col-md-2 table-icons" style="position: relative">
       <div class="lists" *ngIf="showIconView" style="margin-right: 60px; margin-top: -40px">
         View

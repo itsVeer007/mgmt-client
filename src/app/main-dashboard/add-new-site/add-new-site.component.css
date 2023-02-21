@@ -7,7 +7,7 @@
   font-size: 13px;
 }
 
-.lat, .long {  
+.lat, .long {
   border: 1px solid #EFEFEF;
     border-radius: 5px;
     height: 50px;
@@ -100,7 +100,7 @@
 
 .on-off-toggle__slider {
   width: 56px;
-  height: 24px;
+  height: 23px;
   display: block;
   border-radius: 34px;
   background-color: #fff;
@@ -118,7 +118,7 @@
   left: 3px;
   position: absolute;
   transition: .4s;
-  width: 18px;
+  width: 16px;
   z-index: 5;
   border-radius: 100%;
 }
@@ -134,25 +134,25 @@
   padding-left: 26px;
   transition: all 0.4s;
 }
-  
 
 
+
+/*
+  This way of hiding the default input is better
+  for accessibility than using display: none;
+*/
 .on-off-toggle__input {
-  /*
-    This way of hiding the default input is better 
-    for accessibility than using display: none;
-  */
   position: absolute;
   opacity: 0;
 }
 
-.on-off-toggle__input:checked + 
+.on-off-toggle__input:checked +
 .on-off-toggle__slider {
   background-color: #fff;
   border: 1px solid #084982;
 }
 
-.on-off-toggle__input + 
+.on-off-toggle__input +
 .on-off-toggle__slider {
   background-color: #F8F8F8;
   border: 1px solid #ABABAB;
@@ -197,7 +197,7 @@ fieldset {
 }
 
 .active, .accordion:hover {
-  background-color: #ccc; 
+  background-color: #ccc;
 }
 
 .panel {
@@ -232,3 +232,33 @@ p {
   margin-left: auto;
   margin-right: -50px;
 }
+
+/* common ng-deep */
+
+.mat-form-field-appearance-outline ::ng-deep .mat-form-field-outline {
+  top: 5px;
+  bottom: 5px;
+}
+
+.mat-form-field-appearance-outline ::ng-deep .mat-form-field-wrapper {
+  padding-bottom: 0.5em;
+}
+
+::ng-deep .mat-select-value {
+  position: relative;
+  bottom: 4px;
+}
+
+::ng-deep input.mat-input-element {
+  position: relative;
+  bottom: 4px;
+}
+
+::ng-deep .mat-form-field-outline {
+  background: #F8F8F8;
+}
+
+/* .mat-form-field-appearance-outline ::ng-deep .mat-form-field-flex{
+  margin-top: -8px;
+} */
+
