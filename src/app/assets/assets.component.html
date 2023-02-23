@@ -38,15 +38,10 @@
   <!-- /count -->
 
   <!-- form -->
-  <div class="row my-3">
-    <div class="col-lg-10 col-md-10">
-      <form class="row p-0">
+  <div class="row my-2">
+    <div class="row col-lg-10 col-md-10">
         <div class="col-lg-3 col-md-3 col-sm-12">
-          <!-- <select class="form-select">
-            <option selected>All</option>
-            <option></option>
-          </select> -->
-          <mat-form-field appearance="outline">
+          <mat-form-field appearance="outline" class="w-100">
             <mat-label>Site Name</mat-label>
             <mat-select>
               <mat-option (click)="sort('siteId')">Filter by A-Z</mat-option>
@@ -55,32 +50,23 @@
         </div>
 
         <div class="col-lg-3 col-md-3 col-sm-12">
-          <!-- <select class="form-select">
-            <option selected>All</option>
-            <option></option>
-          </select> -->
-          <mat-form-field appearance="outline">
+          <mat-form-field appearance="outline" class="w-100">
             <mat-label>Device Mode</mat-label>
             <mat-select>
-              <mat-option value="BS">BS</mat-option>
+              <mat-option *ngFor="let item of deviceMode" [value]="item.value">{{item.value}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
 
         <div class="col-lg-3 col-md-3 col-sm-12">
-          <!-- <input type="text" placeholder="Search" name="search2" [(ngModel)]="searchText" />
-          <button type="submit">
-            <a><img src="assets/images/search.svg" /></a>
-          </button> -->
-          <mat-form-field class="example-form-field" appearance="outline">
+          <mat-form-field class="example-form-field" appearance="outline" class="w-100">
             <mat-label>Search</mat-label>
-            <input matInput type="text" name="search2" [(ngModel)]="searchText">
+            <input matInput type="text" [(ngModel)]="searchText">
             <button matSuffix mat-icon-button>
               <mat-icon>search</mat-icon>
             </button>
           </mat-form-field>
         </div>
-      </form>
     </div>
 
     <div class="col-lg-2 col-md-2 table-icons" style="position: relative">
@@ -178,10 +164,10 @@
             <p>{{item.duration}}</p>
           </td>
           <td>
-            <p>{{ item.start_date }}</p>
+            <p>{{item.start_date ? item.start_date : currentDateTime}}</p>
           </td>
           <td>
-            <p>{{item.end_date}}</p>
+            <p>{{item.end_date ? item.end_date : '9999-12-31'}}</p>
           </td>
           <!-- <td>
             <p>{{item.description}}</p>
@@ -202,7 +188,8 @@
           </td>
           <td style="position: relative">
             <a (click)="closeDot($event, i)"><img src="assets/images/dotlist.svg" width="30" height="12" /></a>
-            <div class="plus-img1" id="plus-img{{ i }}" style="display: none">
+
+            <div class="plus-img1" id="plus-img{{i}}" style="display: none">
               <div class="lists" *ngIf="showIconView1" style="margin-left: 5px; margin-top: -20px">
                 View
               </div>
@@ -213,13 +200,10 @@
                 Delete
               </div>
 
-              <a class="mx-2" (click)="openViewPopup(item, i)"><img src="assets/images/view.svg"
-                  (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" /></a>
-              <a class="mx-2" (click)="openEditPopup(item, i)"><img src="assets/images/edit.svg"
-                  (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" /></a>
+              <a class="mx-2" (click)="openViewPopup(item, i)"><img src="assets/images/view.svg" (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" /></a>
+              <a class="mx-2" (click)="openEditPopup(item, i)"><img src="assets/images/edit.svg" (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" /></a>
               <!-- <a class="mx-2" value="Delete" (click)="deleteRow1(item, i)"><img src="assets/images/delete.svg" /></a> -->
-              <a class="mx-2" value="Delete" (click)="openDeletePopup(item, i)"><img src="assets/images/delete.svg"
-                  (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" /></a>
+              <a class="mx-2" value="Delete" (click)="openDeletePopup(item, i)"><img src="assets/images/delete.svg" (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" /></a>
             </div>
           </td>
         </tr>

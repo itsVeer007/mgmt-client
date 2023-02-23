@@ -9,49 +9,25 @@
 
       <div class="col-lg-11 d-flex justify-content-between align-items-center">
         <div>
-          <h5 class="m-0" style="font-size: 18px; font-weight: 600;">1000015 - Osaka Midland</h5>
-          <h5 class="m-0 text-secondary" style="font-size: 18px;">IVISUSA12130</h5>
+          <h5 class="m-0" style="font-size: 18px; font-weight: 600;">{{siteData.siteID}} - {{siteData.siteName}}</h5>
+          <h5 class="m-0 text-secondary" style="font-size: 18px;">{{siteData.cntrl_Unit}}</h5>
         </div>
-        <div>
+        <!-- <div>
           <a class="pointer mx-3">
-            <button mat-raised-button color="primary" (click)="addTab()">Add Device</button>
+            <button mat-raised-button color="primary">Add Device</button>
           </a>
-          <!-- <img src="assets/images/add.svg" alt=""> -->
-        </div>
+          <img src="assets/images/add.svg" alt="">
+        </div> -->
       </div>
     </div>
 
-    <!-- <div class="text-secondary p-3" style="background-color: #084982;">
-        <div class="w-100">
-          <img class="pointer me-2" src="assets/images/Union 18.svg" alt="" width="15px" height="15px">
-          <span class="mx-2"  *ngFor="let item of deviceList">{{item}}</span>
-          <img class="pointer ms-2" style="text-align: end;" src="assets/images/Union 60.svg" alt="" width="15px" height="15px">
-        </div>
-    </div> -->
-
-    <!-- <div class="d-flex justify-content-start" style="padding: 15px; background-color: #084982;"> -->
-      <!-- <img src="assets/images/Union 18.svg" alt="" style="width: 40px; transform: rotate(0deg);" (click)="prevvert()"> -->
-
-      <!-- <div class="mx-2 d-flex">
-        <span class="pointer mx-2" *ngFor="let item of deviceList; let i=index" (click)="showNewForm()">
-          {{item}} {{i+1}}
-        </span>
-      </div> -->
-
-      <!-- <img src="assets/images/Union 60.svg" alt="" style="width: 40px;" (click)="nextvert()"> -->
-    <!-- </div> -->
-
     <div class="mt-2">
-      <mat-tab-group [selectedIndex]="selected.value" (selectedIndexChange)="selected.setValue($event)" backgroundColor="primary">
-        <mat-tab *ngFor="let tab of tabs; let i = index" [label]="tab + '-' + (i + 1)" class="mat-tab">
+      <mat-tab-group backgroundColor="primary">
+        <mat-tab label="New Device">
           <form autocomplete="off" [formGroup]="addDevice" #addAdditionalSiteForm="ngForm">
             <div class="row mt-2">
 
               <div class="col-lg-6">
-                <!-- <select class="form-select m-1" id="device">
-                  <option value="" selected disabled>Select device</option>
-                  <option value="Device1" *ngFor="let item of deviceType">{{item.value}}</option>
-                </select> -->
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Select device</mat-label>
                   <mat-select>
@@ -61,15 +37,6 @@
               </div>
 
               <div class="col-lg-6">
-                <!-- <div>
-                  <label for="device" style="width: 93px; font-size: 12px;">Device Mode</label>
-                </div>
-                <div class="w-100">
-                  <select class="form-select m-1" id="device">
-                    <option value="" selected disabled>Select</option>
-                    <option value="Device1">Device1</option>
-                  </select>
-                </div> -->
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Select Device Mode</mat-label>
                   <mat-select formControlName="deviceMode" [(ngModel)]="device.deviceMode">
@@ -112,15 +79,6 @@
               </div>
 
               <div class="col-lg-6 d-flex align-items-center justify-content-between">
-                <!-- <div>
-                  <label for="device" style="width: 93px; font-size: 12px;">Ad Working Days</label>
-                </div>
-                <div class="w-100">
-                  <select class="form-select m-1" id="device">
-                    <option value="" selected disabled>Select</option>
-                    <option value="Device1">Device1</option>
-                  </select>
-                </div> -->
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Ad Working Days</mat-label>
                   <mat-select formControlName="workingDays" [(ngModel)]="device.workingDays">
@@ -132,10 +90,6 @@
 
 
               <div class="col-lg-6">
-                <!-- <select class="form-select m-1" id="camera" formControlName="camera">
-                  <option value="" selected disabled>Accessories Type</option>
-                  <option value="Video">Video</option>
-                </select> -->
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Accessories Type</mat-label>
                   <mat-select>
@@ -146,10 +100,6 @@
               </div>
 
               <div class="col-lg-6">
-                <!-- <select class="form-select m-1" id="temp" formControlName="temp">
-                  <option value="" selected disabled>Select Accessories</option>
-                  <option value="Camera">Camera</option>
-                </select> -->
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Select Accessories</mat-label>
                   <mat-select>
@@ -160,12 +110,6 @@
               </div>
 
               <div class="col-lg-6">
-                <!-- <div>
-                  <label for="device" style="width: 108px; font-size: 12px;">Ad's Download Freq</label>
-                </div>
-                <div class="w-100">
-                  <input type="text" class="form-control m-2" placeholder="" />
-                </div> -->
                 <mat-form-field class="example-full-width" appearance="outline" class="w-100">
                   <mat-label>Call Frequency</mat-label>
                   <input matInput type="number" formControlName="deviceCallFreq" [(ngModel)]="device.deviceCallFreq">
@@ -191,10 +135,6 @@
               </div>
 
               <div class="col-lg-6">
-                <!-- <select class="form-select m-1" id="age" formControlName="age">
-                  <option value="" selected disabled>Select temp range</option>
-                  <option value="Age1">Age1</option>
-                </select> -->
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Select temp range</mat-label>
                   <mat-select>
@@ -204,10 +144,6 @@
               </div>
 
               <div class="col-lg-6">
-                <!-- <select class="form-select m-1" id="age" formControlName="age">
-                  <option value="" selected disabled>Select age range</option>
-                  <option value="Age1">Age1</option>
-                </select> -->
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Select age range</mat-label>
                   <mat-select>
@@ -232,7 +168,10 @@
                   <mat-radio-button class="ms-3" value="False">False</mat-radio-button>
                 </mat-radio-group>
               </div>
+            </div>
 
+
+            <div class="row" *ngIf="showModel">
               <div class="my-2">
                 <h5 class="m-0" style="font-size: 15px; font-weight: 500;">CAMERA DETAILS</h5>
               </div>
@@ -240,19 +179,13 @@
               <div class="col-lg-6">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Select Camera Id</mat-label>
-                  <mat-select formControlName="cameraId" [(ngModel)]="device.cameraId">
+                  <mat-select formControlName="cameraId" [(ngModel)]="device.cameraId" required>
                     <mat-option value="01">01</mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>
 
               <div class="col-lg-6">
-                <!-- <div>
-                  <label for="device" style="width: 30px; font-size: 12px;">FPS</label>
-                </div>
-                <div class="w-100">
-                  <input type="text" class="form-control m-1" placeholder="" />
-                </div> -->
                 <mat-form-field class="example-full-width" appearance="outline" class="w-100">
                   <mat-label>FPS</mat-label>
                   <input matInput>
@@ -260,24 +193,14 @@
               </div>
 
               <div class="col-lg-6">
-                <!-- <div>
-                  <label for="device" style="width: 51px; font-size: 12px;">Ad Hours</label>
-                </div>
-                <div>
-                  <input type="text" class="form-control" placeholder="Width" />
-                </div>
-                <span class="mx-2">X</span>
-                <div>
-                  <input type="text" class="form-control" placeholder="Height" />
-                </div> -->
                 <mat-form-field class="example-full-width" appearance="outline" [ngStyle]="{'width': 'calc(50% - 13px)'}">
                   <mat-label>Width</mat-label>
-                  <input matInput type="number" formControlName="width" [(ngModel)]="device.width">
+                  <input matInput type="number" formControlName="width" [(ngModel)]="device.width" required>
                 </mat-form-field>
                 <span class="mx-2">X</span>
                 <mat-form-field class="example-full-width" appearance="outline" [ngStyle]="{'width': 'calc(50% - 13px)'}">
                   <mat-label>Height</mat-label>
-                  <input matInput type="number" formControlName="height" [(ngModel)]="device.height">
+                  <input matInput type="number" formControlName="height" [(ngModel)]="device.height" required>
                 </mat-form-field>
               </div>
 
@@ -297,10 +220,7 @@
                   <mat-radio-button class="ms-3" value="Vehicle">Vehicle</mat-radio-button>
                 </mat-radio-group>
               </div>
-            </div>
 
-
-            <div class="row" *ngIf="showModel">
               <div class="my-2">
                 <h5 class="m-0" style="font-size: 15px; font-weight: 500;">MODELING DETAILS</h5>
               </div>
@@ -370,6 +290,74 @@
             </div>
           </form>
         </mat-tab>
+
+
+
+        <div *ngIf="tabs.length >= 1" class="w-100">
+          <mat-tab *ngFor="let tab of tabs; let i = index" [label]="tab + '-' + (i+1)" class="mat-tab" class="w-100">
+            <div class="row added-device w-100">
+              <div class="col-lg-6 mb-3">
+                <p class="device-title m-0">Device Name</p>
+                <p class="device-sub m-0">Pi - 5</p>
+              </div>
+
+              <div class="col-lg-6 mb-3">
+                <p class="device-title m-0">Temp Range</p>
+                <p class="device-sub m-0">24</p>
+              </div>
+
+              <div class="col-lg-6 mb-3">
+                <p class="device-title m-0">Cameras</p>
+                <p class="device-sub m-0">Camera-4</p>
+              </div>
+
+              <div class="col-lg-6 mb-3">
+                <p class="device-title m-0">Age Range</p>
+                <p class="device-sub m-0">20y - 40y</p>
+              </div>
+
+              <div class="col-lg-6 mb-3">
+                <p class="device-title m-0">Status</p>
+                <p class="device-sub m-0">Active</p>
+              </div>
+
+              <div class="col-lg-6 mb-3">
+                <p class="device-title device-title m-0">Demographics</p>
+              </div>
+
+              <div class="col-lg-6 mb-3">
+                <p class="device-title m-0">Devices</p>
+                <p class="device-sub m-0">Speaker</p>
+              </div>
+
+              <div class="col-lg-12 d-flex justify-content-start align-items-center mb-3">
+                <p class="device-title m-0" style="font-weight: 500;">Assets(Ads/QR Code and Etc)</p>
+
+                <div class="on-off-toggle mx-5">
+                  <input class="on-off-toggle__input" type="checkbox" id="pre" (click)="toggleShowOnOff()" />
+                  <label for="pre" class="on-off-toggle__slider"></label>
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Select</mat-label>
+                  <mat-select disabled>
+                    <mat-option value="01">01</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-lg-6">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Select</mat-label>
+                  <mat-select disabled>
+                    <mat-option value="01">01</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-tab>
+        </div>
       </mat-tab-group>
 
     </div>

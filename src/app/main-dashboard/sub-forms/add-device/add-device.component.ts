@@ -46,7 +46,6 @@ export class AddDeviceComponent implements OnInit {
 
 
   addDevice: any =  FormGroup;
-
   searchText: any;
 
   items = ['john', 'mark', 'cooper', 'henry', 'roben'];
@@ -54,9 +53,9 @@ export class AddDeviceComponent implements OnInit {
   constructor(private fb: FormBuilder, private assetService: AssetService, private dropDown: DropDownService) { }
 
 
-  device: AddDevice = {
-    deviceId: 126,
-    siteId: 125,
+  device = {
+    // deviceId: null,
+    // siteId: null,
     deviceUnitId: '',
     deviceCallFreq: null,
     deviceMode: '',
@@ -79,6 +78,7 @@ export class AddDeviceComponent implements OnInit {
     remarks: ''
   }
 
+  siteData: any;
   ngOnInit(): void {
     this.addDevice = this.fb.group({
       'deviceId': new FormControl(null),
@@ -88,18 +88,18 @@ export class AddDeviceComponent implements OnInit {
       'deviceMode': new FormControl('', Validators.required),
       'workingDays': new FormControl('', Validators.required),
       'getlogs': new FormControl(null),
-      'width': new FormControl('', Validators.required),
-      'height': new FormControl('', Validators.required),
-      'modelName': new FormControl('', this.device.deviceMode == 'BSR' ? Validators.required : []),
-      'resolution': new FormControl('', this.device.deviceMode == 'BSR' ? Validators.required : []),
+      'width': new FormControl('', this.device.deviceMode == 'ODR' ? Validators.required : []),
+      'height': new FormControl('', this.device.deviceMode == 'ODR' ? Validators.required : []),
+      'modelName': new FormControl('', this.device.deviceMode == 'ODR' ? Validators.required : []),
+      'resolution': new FormControl('', this.device.deviceMode == 'ODR' ? Validators.required : []),
       'threshold': new FormControl(''), //
       'maxNo': new FormControl(null), //
-      'objectName': new FormControl('', this.device.deviceMode == 'BSR' ? Validators.required : []),
+      'objectName': new FormControl('', this.device.deviceMode == 'ODR' ? Validators.required : []),
       'refreshRules': new FormControl(null),
       'displayOn': new FormControl(null),
       'adsHours': new FormControl([''], Validators.required),
-      'weather_interval': new FormControl('', this.device.deviceMode == 'BSR' ? Validators.required : []),
-      'cameraId': new FormControl('', Validators.required),
+      'weather_interval': new FormControl('', this.device.deviceMode == 'ODR' ? Validators.required : []),
+      'cameraId': new FormControl('', this.device.deviceMode == 'ODR' ? Validators.required : []),
       'createdBy': new FormControl(null),
       'modifiedBy': new FormControl(null),
       'remarks': new FormControl(''),
@@ -109,7 +109,7 @@ export class AddDeviceComponent implements OnInit {
     this.ongetDeviceMode();
     this.onTempRange();
     this.onAgeRange();
-    // this.getSiteDetails()
+    this.siteData = JSON.parse(localStorage.getItem('device_temp')!);
   }
 
   // getSiteDetails(){
@@ -125,6 +125,12 @@ export class AddDeviceComponent implements OnInit {
   //     }
   //   })
   // }
+
+  isShown: boolean = false; // hidden by default
+
+  toggleShowOnOff() {
+    this.isShown = !this.isShown;
+  }
 
   closeAddAdditionalSite(value: boolean) {
     this.newItemEvent.emit(value);
@@ -159,12 +165,12 @@ export class AddDeviceComponent implements OnInit {
     })
   }
 
-  tabs = ['Device'];
-  selected = new FormControl();
-  addTab() {
-    this.tabs.push('Device');
-    this.selected.setValue(this.tabs.length - 1);
-  }
+
+  // selected = new FormControl();
+  // addTab() {
+  //   this.tabs.push('Device');
+  //   this.selected.setValue(this.tabs.length - 1);
+  // }
 
   // removeTab(index: number) {
   //   this.tabs.splice(index, 1);
@@ -172,13 +178,15 @@ export class AddDeviceComponent implements OnInit {
 
   showModel: boolean = false;
   onMode() {
-    this.device.deviceMode == "BSR" ? this.showModel = true : this.showModel = false;
+    this.device.deviceMode == "ODR" ? this.showModel = true : this.showModel = false;
   }
 
+  tabs = ['Device'];
   add() {
     if(this.addDevice.valid) {
       this.assetService.addDevice(this.device).subscribe((res) => {
         console.log(res)
+        this.tabs.push('Device');
       })
     }
     console.log(this.device);

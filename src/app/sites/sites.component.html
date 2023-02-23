@@ -41,39 +41,76 @@
     <!-- /count -->
 
     <!-- form -->
-    <div class="row my-3">
-        <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
-            <form class="row p-0">
-              <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 select">
-                  <select class="form-select">
-                      <option selected>All Verticals</option>
-                      <option></option>
-                  </select>
-              </div>
-              <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 select">
-                  <select class="form-select">
-                      <option selected>All Customers</option>
-                      <option></option>
-                  </select>
-              </div>
-              <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 search">
-                  <input type="text" placeholder="Search" name="search2" [(ngModel)]="searchText">
-                  <button type="submit"><a><img src="assets/images/search.svg" /></a></button>
-              </div>
-            </form>
+    <div class="row my-2">
+      <!-- <form class="row p-0">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 select">
+            <select class="form-select">
+                <option selected>All Verticals</option>
+                <option></option>
+            </select>
         </div>
-        <div class="col-lg-2 col-md-2 table-icons" style="position: relative;">
-            <div class="lists" *ngIf="showIconView" style="margin-right: 60px; margin-top: -40px;">View</div>
-            <div class="lists" *ngIf="showIconEdit" style="margin-right: 30px; margin-top: -40px;">Edit</div>
-            <div class="lists" *ngIf="showIconDelete" style="margin-right: -5px; margin-top: -40px;">Delete</div>
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 select">
+            <select class="form-select">
+                <option selected>All Customers</option>
+                <option></option>
+            </select>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 search">
+            <input type="text" placeholder="Search" name="search2" [(ngModel)]="searchText">
+            <button type="submit"><a><img src="assets/images/search.svg" /></a></button>
+        </div>
+      </form> -->
+      <div class="row col-lg-10 col-md-10">
+        <div class="col-lg-3 col-md-3 col-sm-12">
+          <!-- <select class="form-select">
+            <option selected>All</option>
+            <option></option>
+          </select> -->
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Site Name</mat-label>
+            <mat-select>
+              <mat-option (click)="sort('siteID')">Filter by A-Z</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
 
-            <a class="mx-2"><img src="assets/images/view.svg" (mouseenter)="showIconView = true"
-                    (mouseleave)="showIconView = false" /></a>
-            <a class="mx-2"><img src="assets/images/edit.svg" (mouseenter)="showIconEdit = true"
-                    (mouseleave)="showIconEdit = false" /></a>
-            <a class="mx-2"><img src="assets/images/delete.svg"
-                    (mouseenter)="showIconDelete = true" (mouseleave)="showIconDelete = false" /></a>
+        <!-- <div class="col-lg-3 col-md-3 col-sm-12"> -->
+          <!-- <select class="form-select">
+            <option selected>All</option>
+            <option></option>
+          </select> -->
+          <!-- <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Device Mode</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let item of deviceMode" [value]="item.value">{{item.value}}</mat-option>
+            </mat-select>
+          </mat-form-field> -->
+        <!-- </div> -->
+
+        <div class="col-lg-3 col-md-3 col-sm-12">
+          <!-- <input type="text" placeholder="Search" name="search2" [(ngModel)]="searchText" />
+          <button type="submit">
+            <a><img src="assets/images/search.svg" /></a>
+          </button> -->
+          <mat-form-field class="example-form-field" appearance="outline" class="w-100">
+            <mat-label>Search</mat-label>
+            <input matInput type="text" name="search2"  [(ngModel)]="searchText">
+            <button matSuffix mat-icon-button>
+              <mat-icon>search</mat-icon>
+            </button>
+          </mat-form-field>
         </div>
+      </div>
+
+      <div class="col-lg-2 col-md-2 table-icons" style="position: relative;">
+          <div class="lists" *ngIf="showIconView" style="margin-right: 60px; margin-top: -40px;">View</div>
+          <div class="lists" *ngIf="showIconEdit" style="margin-right: 30px; margin-top: -40px;">Edit</div>
+          <div class="lists" *ngIf="showIconDelete" style="margin-right: -5px; margin-top: -40px;">Delete</div>
+
+          <a class="mx-2"><img src="assets/images/view.svg" (mouseenter)="showIconView=true" (mouseleave)="showIconView = false"></a>
+          <a class="mx-2"><img src="assets/images/edit.svg" (mouseenter)="showIconEdit=true" (mouseleave)="showIconEdit = false"></a>
+          <a class="mx-2"><img src="assets/images/delete.svg"(mouseenter)="showIconDelete = true" (mouseleave)="showIconDelete=false"></a>
+      </div>
     </div>
     <!-- /form -->
 
@@ -106,8 +143,9 @@
                 </tr>
 
                 <tr *ngFor="let data of tableData | search : searchText; let i=index">
-                    <td><input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="data.selected"
-                            (change)="checkIfAllSelected();" id="singleCheck" /></td>
+                    <td>
+                      <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="data.selected" (change)="checkIfAllSelected();" id="singleCheck" />
+                    </td>
                     <td>
                         <p>{{data.siteID}}</p>
                     </td>
@@ -176,7 +214,7 @@
                     </a>
                   </td>
                   <td>
-                    <a class="pointer"><img src="assets/images/add-svg.svg" width="25" height="25" (click)="show('device')"></a>
+                    <a class="pointer"><img src="assets/images/add-svg.svg" width="25" height="25" (click)="show('device'); saveLocal(data)"></a>
                   </td>
                   <td style="position: relative;">
                     <a (click)="closeDot($event,i)"><img src="assets/images/dotlist.svg" width="30" height="12" /></a>

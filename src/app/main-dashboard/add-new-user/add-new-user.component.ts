@@ -86,7 +86,7 @@ export class AddNewUserComponent implements OnInit {
       // 'gender': this.fb.group({
       //        cityName: ['']
       //       }),
-      'employeeId': new FormControl(''),
+      // 'employeeId': new FormControl(''),
       'role': new FormControl('', Validators.required),
       'gender': new FormControl('', Validators.required),
       'realm': new FormControl('', Validators.required),
@@ -101,7 +101,7 @@ export class AddNewUserComponent implements OnInit {
       'pincode': new FormControl('', Validators.required),
       'district': new FormControl('', Validators.required),
       'safetyEscort': new FormControl(''),
-      'employee': new FormControl('')
+      // 'employee': new FormControl('')
     });
 
     // this.getUserDetails();

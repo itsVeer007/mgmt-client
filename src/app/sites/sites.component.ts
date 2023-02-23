@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { SearchPipe } from '../utilities/search.pipe';
+import { DropDownService } from 'src/services/drop-down.service';
 
 @Component({
   selector: 'app-sites',
@@ -37,18 +38,27 @@ export class SitesComponent implements OnInit {
   //   }
   // }
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private dropDown: DropDownService) { }
 
   ngOnInit(): void {
     this.SiteTable();
+    this.ongetDeviceMode();
+    // this.test();
   }
 
-  showIconVertical: boolean = false;
-  showIconCustomer: boolean = false;
-  showIconSite: boolean = false;
-  showIconCamera: boolean = false;
-  showIconAnalytic: boolean = false;
-  showIconUser: boolean = false;
+  deviceMode: any;
+  ongetDeviceMode() {
+    this.dropDown.getDeviceMode().subscribe((res: any) => {
+      this.deviceMode = res.List_Shown_By_Type_Given;
+    })
+  }
+
+  // showIconVertical: boolean = false;
+  // showIconCustomer: boolean = false;
+  // showIconSite: boolean = false;
+  // showIconCamera: boolean = false;
+  // showIconAnalytic: boolean = false;
+  // showIconUser: boolean = false;
 
   showIconView: boolean = false;
   showIconEdit: boolean = false;
@@ -78,6 +88,10 @@ export class SitesComponent implements OnInit {
   show(value: string) {
     if(value == 'site') {this.showAddSite = true}
     if(value == 'device') {this.showAddDevice = true}
+  }
+
+  saveLocal(site: any) {
+    localStorage.setItem('device_temp', JSON.stringify(site));
   }
 
   closenow(type: string, value: any) {
@@ -206,6 +220,8 @@ export class SitesComponent implements OnInit {
       x.sort((a:string, b:string) => b[label] > a[label] ? 1 : b[label] < a[label] ? -1 : 0);
     }
   }
+
+
 
 }
 

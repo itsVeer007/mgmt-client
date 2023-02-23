@@ -115,7 +115,7 @@ export class MainDashboardComponent implements OnInit {
     this.getNoOfElements();
     this.http.get('assets/JSON/verticalCard.json').subscribe(res => {
       this.cardReport = res;
-      console.log(res)
+      // console.log(res)
       var a = JSON.parse(JSON.stringify(res));
       // console.log(this.noOfCards);
       this.showcardReport = a.splice(0, this.noOfCards);
@@ -145,7 +145,7 @@ export class MainDashboardComponent implements OnInit {
   getMainDashboardReport() {
     this.http.get('assets/JSON/mainDashboard.json').subscribe(res => {
       this.mainReport = res;
-      console.log(res)
+      // console.log(res)
       this.count = Object.keys(res).length;
       this.mainReport.forEach((el: any) => {
         this.totalCust += Number(el.customerCount);

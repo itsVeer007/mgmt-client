@@ -95,9 +95,9 @@ export class AddNewAssetComponent implements OnInit {
     this.ongetDeviceMode()
   };
 
-  siteIdList = [ 3001, 3002, 3003, 3004];
+  siteIdList = [ 1077, 1002, 3002, 9999];
 
-  deviceIdList = [ 301, 302, 303, 304];
+  deviceIdList = [ 1054, 1035, 1022, 390];
 
   selectedFile: any = null;
   selectedFiles:  Array<any> = [];

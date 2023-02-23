@@ -44,45 +44,6 @@
   font-weight: 600;
 }
 
-form .select {
-  width: 200px;
-  height: 40px;
-}
-
-form .form-select {
-  background-color: #F8F8F8;
-  border: 1px solid #EFEFEF;
-  font-size: 12px;
-  color: #000000;
-}
-
-/* form .search {
-  border: 1px solid #EFEFEF;
-  border-radius: 30px;
-  width: 250px;
-  height: 45px;
-}
-
-form input,
-button {
-  border: none;
-  padding: 10px;
-  font-size: 12px;
-}
-
-form input {
-  width: 80%;
-  border-radius: 30px;
-  color: #ABABAB;
-  outline: none;
-  margin-top: 2px;
-}
-
-form button {
-  width: 20%;
-  background: none;
-} */
-
 .table-icons {
   display: flex;
   justify-content: end;
@@ -188,7 +149,6 @@ border: 1px solid #EFEFEF;
   margin-top: -5px;
   border-width: 5px;
   border-style: solid;
-  /* border-color: transparent transparent transparent #EFEFEF; */
   box-shadow: -1px -1px 1px 0 #fff;
   color: #fff;
   border-right: 1px solid #EFEFEF;
@@ -234,6 +194,7 @@ border: 1px solid #EFEFEF;
   width: fit-content;
   margin: auto;
 } */
+
 .modalitem .card {
   border: none;
 }
@@ -354,6 +315,16 @@ border: 1px solid #EFEFEF;
   bottom: 4px;
 }
 
-.mat-form-field-appearance-outline ::ng-deep .mat-form-field-wrapper {
+/* only-asset */
+/* .mat-form-field-appearance-outline ::ng-deep .mat-form-field-wrapper {
   margin: 0;
+} */
+
+/* ::ng-deep .mat-form-field-outline-start {
+  border-radius: 28px 0 0 28px !important;
+  min-width: 28px !important;
 }
+
+::ng-deep .mat-form-field-outline-end {
+  border-radius: 0 28px 28px 0 !important;
+} */

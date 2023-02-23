@@ -23,11 +23,6 @@
       <form autocomplete="off" [formGroup]="addAssetForm">
         <div class="row">
           <div class="col-lg-6 col-md-6">
-            <!-- <select id="customer" class="form-select my-1" formControlName="siteId">
-              <option value="" selected disabled>Select Site</option>
-              <option value="Site-1">Site-1</option>
-              <option value="Site-2">Site-2</option>
-            </select> -->
             <mat-form-field appearance="outline" class="w-100">
               <input matInput placeholder="Site Id" [matAutocomplete]="auto" formControlName="siteId" [(ngModel)]="searchText" required>
               <mat-autocomplete #auto="matAutocomplete">
@@ -39,10 +34,6 @@
           </div>
 
           <div class="col-lg-6 col-md-6" >
-            <!-- <select id="site" class="form-select my-1" formControlName="deviceId">
-              <option value="" selected disabled>Select Device</option>
-              <option *ngFor="let item of deviceType">{{item.value}}</option>
-            </select> -->
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Device Id</mat-label>
               <mat-select formControlName="deviceId" required>
@@ -81,11 +72,6 @@
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <!-- <select id="mimeType" class="form-select my-1" formControlName="mimeType">
-              <option value="" selected disabled>Mime type</option>
-              <option value="Video">Video</option>
-              <option value="Audio">Audio</option>
-            </select> -->
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Mime type</mat-label>
               <mat-select formControlName="mimetype" required>
@@ -95,7 +81,6 @@
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <!-- <input type="text" class="form-control my-1" placeholder="Enter Asset Name" formControlName="assetName"> -->
             <mat-form-field class="example-full-width" appearance="outline" class="w-100">
               <mat-label>Enter Asset Name</mat-label>
               <input matInput formControlName="assetName" required>
@@ -103,7 +88,6 @@
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <!-- <input type="text" class="form-control my-1" placeholder="Enter Description" formControlName="description"> -->
             <mat-form-field class="example-full-width" appearance="outline" class="w-100">
               <mat-label>Enter Description</mat-label>
               <input matInput formControlName="description">
@@ -120,7 +104,6 @@
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <!-- <input type="date" class="form-control my-1" formControlName="start_date"> -->
             <mat-form-field appearance="outline" class="w-100">
               <input matInput [matDatepicker]="picker1" placeholder="Start Date" formControlName="startDate" required>
               <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
@@ -129,7 +112,6 @@
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <!-- <input type="date" class="form-control my-1" formControlName="end_date"> -->
             <mat-form-field appearance="outline" class="w-100">
               <input matInput [matDatepicker]="picker2" placeholder="End Date" formControlName="endDate" required>
               <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>

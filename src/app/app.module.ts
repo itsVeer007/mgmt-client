@@ -45,6 +45,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatCardModule } from '@angular/material/card';
 
 
 //utilities
@@ -105,7 +106,8 @@ import { DatePipe } from '@angular/common';
     MatTabsModule,
     MatCheckboxModule,
     MatRadioModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatCardModule
   ],
   providers: [
     ChartService,

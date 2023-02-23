@@ -1,6 +1,8 @@
+import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Route } from '@angular/router';
+import { DropDownService } from 'src/services/drop-down.service';
 import { AssetService } from '../../services/asset.service';
 
 @Component({
@@ -39,19 +41,19 @@ export class AssetsComponent implements OnInit {
   deviceId: string = '';
   activeAssets: number = 0;
 
-  constructor(private http: HttpClient, private apiser: AssetService) { }
+  constructor(private http: HttpClient, private apiser: AssetService, private dropDown: DropDownService, public datepipe: DatePipe) { }
 
+  currentDateTime: any;
   ngOnInit(): void {
-    this.CustomerReport();
+    this.currentDateTime =this.datepipe.transform(new Date, 'yyyy-MM-dd');
+    // this.CustomerReport();
     this.getAsset();
+    this.ongetDeviceMode();
   }
 
   getAsset() {
-    this.activeAssets = 0;
-
     this.apiser.getAssets().subscribe((res: any) => {
-      this.assetTable = res.Assets_List;
-      // this.videoUrl = res.Assets_List;
+      this.assetTable = res.asset_details;
       console.log(res);
 
       for(let item of this.assetTable) {
@@ -59,6 +61,13 @@ export class AssetsComponent implements OnInit {
           this.activeAssets = this.activeAssets + 1;
         }
       }
+    })
+  }
+
+  deviceMode: any;
+  ongetDeviceMode() {
+    this.dropDown.getDeviceMode().subscribe((res: any) => {
+      this.deviceMode = res.List_Shown_By_Type_Given;
     })
   }
 
@@ -96,12 +105,12 @@ export class AssetsComponent implements OnInit {
     }
   }
 
-  showAddSite = false;
-  showAddCamera = false;
-  showAddCustomer = false;
-  showAddUser = false;
-  showAddBusinessVertical = false;
-  showSite = false;
+  // showAddSite = false;
+  // showAddCamera = false;
+  // showAddCustomer = false;
+  // showAddUser = false;
+  // showAddBusinessVertical = false;
+  // showSite = false;
   // closenow(value:any) {
   //   this.showAddSite = value;
   // }
