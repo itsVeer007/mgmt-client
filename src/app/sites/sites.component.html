@@ -248,5 +248,5 @@
 </div>
 
 <div style="position: fixed; top:0;" *ngIf="showAddDevice">
-  <app-add-device [data]="tableData" (newItemEvent)="closenow('device', $event)"></app-add-device>
+  <app-add-device (newItemEvent)="closenow('device', $event)"></app-add-device>
 </div>

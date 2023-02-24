@@ -32,7 +32,7 @@ import { AddDevice } from './add-device';
 
 
 export class AddDeviceComponent implements OnInit {
-  @Input() data: any;
+  // @Input() data: any;
   @Output() newItemEvent = new EventEmitter<boolean>();
 
   // @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
@@ -54,8 +54,8 @@ export class AddDeviceComponent implements OnInit {
 
 
   device = {
-    // deviceId: null,
-    // siteId: null,
+    deviceId: null,
+    siteId: null,
     deviceUnitId: '',
     deviceCallFreq: null,
     deviceMode: '',
@@ -132,8 +132,8 @@ export class AddDeviceComponent implements OnInit {
     this.isShown = !this.isShown;
   }
 
-  closeAddAdditionalSite(value: boolean) {
-    this.newItemEvent.emit(value);
+  closeAddAdditionalSite() {
+    this.newItemEvent.emit(false);
   }
 
   // drop-down-service-methods //

@@ -4,7 +4,7 @@
 
     <div class="d-flex flex-row justify-content-between">
       <div class="d-flex flex-row justify-content-start">
-        <a class="mt-3 pointer" (click)="closeAddCamera(false)"><img src="assets/images/Group 101.svg" /></a>
+        <a class="close-main pointer" (click)="closeAddCamera()"><img src="assets/images/Group 101.svg" /></a>
         <span class="form-heading">create analytic</span>
       </div>
 
@@ -24,23 +24,55 @@
         <div class="row">
 
           <div class="col-lg-6 col-md-6">
-            <input type="text" class="form-control my-1" placeholder="Analytic Name" formControlName="description">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Analytic Name</mat-label>
+              <input matInput required>
+            </mat-form-field>
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <select id="customer" class="form-select my-1" formControlName="siteId">
-              <option value="" selected disabled>Category</option>
-              <option value="Site-1">Site-1</option>
-              <option value="Site-2">Site-2</option>
-            </select>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Category</mat-label>
+              <mat-select required>
+                <mat-option value="Site-1">Site-1</mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <select id="customer" class="form-select my-1" formControlName="siteId">
-              <option value="" selected disabled>Active</option>
-              <option value="Site-1">Site-1</option>
-              <option value="Site-2">Site-2</option>
-            </select>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Category</mat-label>
+              <mat-select required>
+                <mat-option value="Site-1">Site-1</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-6 col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Category</mat-label>
+              <mat-select required>
+                <mat-option value="Site-1">Site-1</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-6 col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Category</mat-label>
+              <mat-select required>
+                <mat-option value="Site-1">Site-1</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-6 col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Device Id</mat-label>
+              <mat-select required>
+                <mat-option value="Device-1">Device-1</mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
 
           <div class="text-center my-5">

@@ -41,8 +41,8 @@ export class AddNewCustomerComponent implements OnInit {
   //   }
   // }
 
-  closeAddCustomer(value:boolean) {
-    this.newItemEvent.emit(value);
+  closeAddCustomer() {
+    this.newItemEvent.emit(false);
   }
 
   productForm: FormGroup;
@@ -91,9 +91,8 @@ export class AddNewCustomerComponent implements OnInit {
   }
 
   openAnotherForm(newform:any) {
-    // this.newItemEvent.emit(false);
+    this.newItemEvent.emit(false);
     localStorage.setItem('opennewform', newform)
-    this.closeAddCustomer(false);
   }
 
 

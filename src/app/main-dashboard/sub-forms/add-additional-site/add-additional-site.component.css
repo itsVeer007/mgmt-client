@@ -1,3 +1,20 @@
+.close {
+  position: relative;
+  left: -50px;
+}
+
+.site-detail {
+  margin: 38px 0 0 -44px;
+}
+
+@media screen and (max-width: 768px) {
+  .close {
+    left: 300px;
+    top: 0;
+  }
+}
+
+
 .mat-form-field-appearance-outline ::ng-deep .mat-form-field-wrapper {
   padding-bottom: 0.5em;
 }
@@ -13,4 +30,25 @@
 
 ::ng-deep .mat-card-subtitle {
   margin-bottom: 0 !important;
+}
+
+/* common ng-deep */
+
+.mat-form-field-appearance-outline ::ng-deep .mat-form-field-outline {
+  top: 5px;
+  bottom: 5px;
+}
+
+.mat-form-field-appearance-outline ::ng-deep .mat-form-field-wrapper {
+  padding-bottom: 0.5em;
+}
+
+::ng-deep .mat-select-value {
+  position: relative;
+  bottom: 4px;
+}
+
+::ng-deep input.mat-input-element {
+  position: relative;
+  bottom: 4px;
 }

@@ -52,9 +52,11 @@ export class AssetsComponent implements OnInit {
   }
 
   getAsset() {
+    this.showLoader = true;
     this.apiser.getAssets().subscribe((res: any) => {
       this.assetTable = res.asset_details;
-      console.log(res);
+      this.showLoader = false;
+      // console.log(res);
 
       for(let item of this.assetTable) {
         if(item.is_active != 0) {

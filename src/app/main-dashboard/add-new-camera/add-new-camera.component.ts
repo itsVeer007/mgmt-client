@@ -41,8 +41,8 @@ export class AddNewCameraComponent implements OnInit {
   //   }
   // }
 
-  closeAddCamera(value:boolean) {
-    this.newItemEvent.emit(value);
+  closeAddCamera() {
+    this.newItemEvent.emit(false);
   }
 
   constructor(private router:Router) { }
@@ -51,9 +51,8 @@ export class AddNewCameraComponent implements OnInit {
   }
 
   openAnotherForm(newform:any) {
-    // this.newItemEvent.emit(false);
-    localStorage.setItem('opennewform', newform)
-    this.closeAddCamera(false);
+    this.newItemEvent.emit(false);
+    localStorage.setItem('opennewform', newform);
   }
 
 }

@@ -81,8 +81,8 @@ export class AddNewTicketComponent implements OnInit {
     );
   }
 
-  closeAddCamera(value:boolean) {
-    this.newItemEvent.emit(value);
+  closeAddCamera() {
+    this.newItemEvent.emit(false);
   }
 
   // openAnotherForm(newform:any) {

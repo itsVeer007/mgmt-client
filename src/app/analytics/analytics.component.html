@@ -427,7 +427,7 @@
 </div> -->
 
 <div style="position: fixed; top: 0" *ngIf="showAnalytic">
-  <app-add-new-analytic [show]="showAnalytic" (newItemEvent)="closenow($event, 'analytic')"></app-add-new-analytic>
+  <app-add-new-analytic (newItemEvent)="closenow($event, 'analytic')"></app-add-new-analytic>
 </div>
 
 <!-- <div style="position: fixed; top: 0" *ngIf="showAddBusinessVertical">

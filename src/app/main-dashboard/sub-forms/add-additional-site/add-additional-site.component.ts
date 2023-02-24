@@ -93,8 +93,8 @@ export class AddAdditionalSiteComponent implements OnInit {
   onSubmit(): void {
   }
 
-  closeAddAdditionalSite(value:boolean) {
-    this.newItemEvent.emit(value);
+  closeAddAdditionalSite() {
+    this.newItemEvent.emit(false);
   }
 
   submit(){

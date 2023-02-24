@@ -32,7 +32,7 @@ import { FileUploadService } from 'src/services/file-upload.service';
 export class AddNewAnalyticComponent implements OnInit {
 
 
-  @Input() show:any;
+  // @Input() show:any;
   @Output() newItemEvent = new EventEmitter<boolean>();
 
   // @Output() newUser = new EventEmitter<any>();
@@ -82,8 +82,8 @@ export class AddNewAnalyticComponent implements OnInit {
     );
   }
 
-  closeAddCamera(value:boolean) {
-    this.newItemEvent.emit(value);
+  closeAddCamera() {
+    this.newItemEvent.emit(false);
   }
 
   // openAnotherForm(newform:any) {

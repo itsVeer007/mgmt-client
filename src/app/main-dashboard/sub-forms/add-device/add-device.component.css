@@ -16,6 +16,8 @@
   margin-left: 0;
 } */
 
+
+
 .added-device {
   padding: 10px 80px;
 }
@@ -107,6 +109,24 @@
   content: 'YES';
   color: #084982;
   padding-left: 8px;
+}
+
+.device-detail {
+  margin: 0 0 0 -45px;
+}
+
+.close {
+  position: relative;
+  right: 38px;
+  bottom: 8px;
+}
+
+@media screen and (max-width: 767px) {
+  .close {
+    left: 300px;
+    top: 0;
+    margin: 0 !important;
+  }
 }
 
 ::ng-deep .mat-tab-group.mat-primary.mat-background-primary>.mat-tab-header .mat-ink-bar {

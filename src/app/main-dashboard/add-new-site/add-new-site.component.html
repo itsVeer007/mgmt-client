@@ -5,8 +5,8 @@
   <div class="col-lg-10 col-md-10 add-form" id="sites" @inOutPaneAnimation>
 
     <div class="d-flex flex-row justify-content-between">
-      <div class="col-sm-9 col-xs-9 d-flex flex-row justify-content-start">
-        <a class="mt-3 pointer" (click)="closeAddSite(false)"><img src="assets/images/Group 101.svg" /></a>
+      <div class="d-flex flex-row justify-content-start">
+        <a class="close-main pointer" (click)="closeAddSite()"><img src="assets/images/Group 101.svg" /></a>
         <span class="form-heading">add site</span>
       </div>
 
@@ -57,7 +57,7 @@
 
           <div class="col-lg-4 col-md-4">
             <!-- <input type="text" class="form-control m-2" placeholder="Site Name" /> -->
-            <mat-form-field class="example-full-width" appearance="outline" class="w-100">
+            <mat-form-field appearance="outline" class="w-100">
               <mat-label>Site Name</mat-label>
               <input matInput>
             </mat-form-field>
@@ -65,7 +65,7 @@
 
           <div class="col-lg-4 col-md-4">
             <!-- <input type="text" class="form-control m-2" placeholder="Contact Number" /> -->
-            <mat-form-field class="example-full-width" appearance="outline" class="w-100">
+            <mat-form-field appearance="outline" class="w-100">
               <mat-label>Contact Number</mat-label>
               <input matInput>
             </mat-form-field>
@@ -73,7 +73,7 @@
 
           <div class="col-lg-4 col-md-4">
             <!-- <input type="email" class="form-control m-2" placeholder="Email Id" /> -->
-            <mat-form-field class="example-full-width" appearance="outline" class="w-100">
+            <mat-form-field appearance="outline" class="w-100">
               <mat-label>Email Id</mat-label>
               <input matInput>
             </mat-form-field>
@@ -81,7 +81,7 @@
 
           <div class="col-lg-4 col-md-4">
             <!-- <input type="text" class="form-control m-2" placeholder="Website" /> -->
-            <mat-form-field class="example-full-width" appearance="outline" class="w-100">
+            <mat-form-field appearance="outline" class="w-100">
               <mat-label>Website</mat-label>
               <input matInput>
             </mat-form-field>
@@ -134,14 +134,14 @@
 
           <div class="col-lg-4 col-md-4">
             <!-- <input type="text" class="form-control m-2" placeholder="Pincode" /> -->
-            <mat-form-field class="example-full-width" appearance="outline" class="w-100">
+            <mat-form-field appearance="outline" class="w-100">
               <mat-label>Pincode</mat-label>
               <input matInput>
             </mat-form-field>
           </div>
           <div class="col-lg-8 col-md-8">
             <!-- <input type="text" class="form-control m-2" placeholder="Area/Street" /> -->
-            <mat-form-field class="example-full-width" appearance="outline" class="w-100">
+            <mat-form-field appearance="outline" class="w-100">
               <mat-label>Area/Street</mat-label>
               <input matInput>
             </mat-form-field>
@@ -152,7 +152,7 @@
               <input type="text" class="form-control" placeholder="Latitude" style="background-color: #F8F8F8;" name="lat" />
             </div>
             <div style="width: 60%; color: #084982;" class="max-center">{{latitude ? latitude : ""}}</div> -->
-            <mat-form-field class="example-full-width" appearance="outline" class="w-100">
+            <mat-form-field appearance="outline" class="w-100">
               <mat-label>{{latitude ? latitude : "Latitude"}}</mat-label>
               <input matInput>
             </mat-form-field>
@@ -164,7 +164,7 @@
                 name="lon" />
             </div>
             <div style="width: 60%; color: #084982;" class="max-center">{{longitude ? longitude : ""}}</div> -->
-            <mat-form-field class="example-full-width" appearance="outline" class="w-100">
+            <mat-form-field appearance="outline" class="w-100">
               <mat-label>{{longitude ? longitude : "Longitude"}}</mat-label>
               <input matInput>
             </mat-form-field>
@@ -193,7 +193,7 @@
             <div style="width: 60%;">
               <input type="text" class="form-control" placeholder="Enter Name" style="border: none;" />
             </div> -->
-            <mat-form-field class="example-full-width" appearance="outline" class="w-100">
+            <mat-form-field appearance="outline" class="w-100">
               <mat-label>Enter Name</mat-label>
               <input matInput>
             </mat-form-field>
@@ -201,7 +201,7 @@
 
           <div class="col-lg-4 col-md-4">
             <!-- <input type="text" class="form-control m-2" placeholder="Contact Number" /> -->
-            <mat-form-field class="example-full-width" appearance="outline" class="w-100">
+            <mat-form-field appearance="outline" class="w-100">
               <mat-label>Contact Number</mat-label>
               <input matInput>
             </mat-form-field>
@@ -209,7 +209,7 @@
 
           <div class="col-lg-4 col-md-4">
             <!-- <input type="email" class="form-control m-2" placeholder="Email Id" /> -->
-            <mat-form-field class="example-full-width" appearance="outline" class="w-100">
+            <mat-form-field appearance="outline" class="w-100">
               <mat-label>Email Id</mat-label>
               <input matInput>
             </mat-form-field>
@@ -233,7 +233,7 @@
             <div style="width: 60%;">
               <input type="text" class="form-control" placeholder="Enter Name" style="border: none;" />
             </div> -->
-            <mat-form-field class="example-full-width" appearance="outline" class="w-100">
+            <mat-form-field appearance="outline" class="w-100">
               <mat-label>Enter Name</mat-label>
               <input matInput>
             </mat-form-field>
@@ -241,7 +241,7 @@
 
           <div class="col-lg-4 col-md-4">
             <!-- <input type="text" class="form-control m-2" placeholder="Contact Number" /> -->
-            <mat-form-field class="example-full-width" appearance="outline" class="w-100">
+            <mat-form-field appearance="outline" class="w-100">
               <mat-label>Contact Number</mat-label>
               <input matInput>
             </mat-form-field>
@@ -249,7 +249,7 @@
 
           <div class="col-lg-4 col-md-4">
             <!-- <input type="email" class="form-control m-2" placeholder="Email Id" /> -->
-            <mat-form-field class="example-full-width" appearance="outline" class="w-100">
+            <mat-form-field appearance="outline" class="w-100">
               <mat-label>Email Id</mat-label>
               <input matInput>
             </mat-form-field>
@@ -311,7 +311,7 @@
 
           <div class="col-lg-4 col-md-4">
             <!-- <input type="email" class="form-control m-2" placeholder="Email Id" /> -->
-            <mat-form-field class="example-full-width" appearance="outline" class="w-100">
+            <mat-form-field appearance="outline" class="w-100">
               <mat-label>Enter Number</mat-label>
               <input matInput>
             </mat-form-field>
@@ -329,7 +329,7 @@
 
           <div class="col-lg-4 col-md-4">
             <!-- <input type="email" class="form-control m-2" placeholder="Email Id" /> -->
-            <mat-form-field class="example-full-width" appearance="outline" class="w-100">
+            <mat-form-field appearance="outline" class="w-100">
               <mat-label>Scan Tag Id</mat-label>
               <input matInput>
             </mat-form-field>
@@ -359,7 +359,7 @@
 
           <div class="col-lg-4 col-md-4">
             <!-- <input type="email" class="form-control m-2" placeholder="Email Id" /> -->
-            <mat-form-field class="example-full-width" appearance="outline" class="w-100">
+            <mat-form-field appearance="outline" class="w-100">
               <mat-label>URL</mat-label>
               <input matInput>
             </mat-form-field>
@@ -540,7 +540,7 @@
 
           <div class="col-lg-12 col-md-12">
             <!-- <input type="text" class="form-control m-2" placeholder="Note" /> -->
-            <mat-form-field class="example-full-width" appearance="outline" class="w-100">
+            <mat-form-field appearance="outline" class="w-100">
               <mat-label>Note</mat-label>
               <input matInput>
             </mat-form-field>

@@ -103,35 +103,19 @@ export class AddNewAssetComponent implements OnInit {
   selectedFiles:  Array<any> = [];
 
   onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0] ?? null;
-    this.selectedFiles.push(this.selectedFile);
+    if(typeof(event) == 'object') {
+      this.selectedFile = event.target.files[0] ?? null;
+      this.selectedFiles.push(this.selectedFile);
+    }
   }
 
   deleteFile() {
-    this.selectedFiles.pop()
+    this.selectedFiles.pop();
   }
 
-  closeAddCamera(value:boolean) {
-    this.newItemEvent.emit(value);
+  closeAddCamera() {
+    this.newItemEvent.emit(false);
   }
-
-  // onChange(event: any) {
-  //   this.file = event.target.files[0];
-  // }
-
-  // onUpload() {
-  //   this.loading = !this.loading;
-  //   console.log(this.file);
-
-  //   this.fileUploadService.upload(this.file).subscribe((event: any) => {
-  //     if (typeof(event) === 'object') {
-  //       this.shortLink = event.link;
-  //       let x= event.name
-  //       console.log(x);
-  //     }
-  //   }
-  //   );
-  // }
 
   // openAnotherForm(newform:any) {
   //   // this.newItemEvent.emit(false);
@@ -162,6 +146,5 @@ export class AddNewAssetComponent implements OnInit {
     }
     console.log(this.addAssetForm.value);
   }
-
 
 }

@@ -95,8 +95,8 @@ export class SitesComponent implements OnInit {
   }
 
   closenow(type: string, value: any) {
-    if (type == 'site') { this.showAddSite = value; }
-    if (type == 'device') { this.showAddDevice = value; }
+    if (type == 'site') { this.showAddSite = value }
+    if (type == 'device') { this.showAddDevice = value }
 
     // if (type == 'camr') { this.showAddCamera = value; }
     // if (type == 'cust') { this.showAddCustomer = value; }

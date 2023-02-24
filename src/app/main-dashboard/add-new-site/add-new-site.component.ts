@@ -40,8 +40,8 @@ export class AddNewSiteComponent implements OnInit {
   //   }
   // }
 
-  closeAddSite(value: boolean) {
-    this.newItemEvent.emit(value);
+  closeAddSite() {
+    this.newItemEvent.emit(false);
   }
 
   constructor(private router: Router) { }
@@ -116,9 +116,8 @@ export class AddNewSiteComponent implements OnInit {
   // }
 
   openAnotherForm(newform: any) {
-    // this.newItemEvent.emit(false);
-    localStorage.setItem('opennewform', newform)
-    this.closeAddSite(false);
+    this.newItemEvent.emit(false);
+    localStorage.setItem('opennewform', newform);
   }
 
   latitude: any;
