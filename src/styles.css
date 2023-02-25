@@ -11,6 +11,7 @@ body {
 
 .pointer {
   cursor: pointer;
+  text-decoration: none;
 }
 
 .changesvgcolor {

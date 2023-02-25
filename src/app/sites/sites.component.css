@@ -219,6 +219,11 @@ form button {
 
 
 @media only screen and (max-width: 768px) {
+  .search-form {
+    display: flex;
+    flex-direction: column;
+  }
+
   form .select {
     margin: 5px 0;
   }
@@ -271,13 +276,13 @@ form button {
     color: #d34124;
 }
 
-td:nth-child(7) {
+/* td:nth-child(7) {
     font-size: 11px !important;
-}
+} */
 
-.lists {
+/* .lists {
     margin-top: -20px;
-}
+} */
 
 /* common ng-deep */
 

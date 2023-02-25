@@ -294,6 +294,11 @@ form button {
 
 
 @media only screen and (max-width: 768px) {
+  .search-form {
+    display: flex;
+    flex-direction: column;
+  }
+
   .search {
       width: 186px;
   }
@@ -329,6 +334,6 @@ form button {
 
 }
 
-.lists {
+/* .lists {
   margin-top: -20px;
-}
+} */

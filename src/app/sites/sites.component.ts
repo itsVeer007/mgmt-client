@@ -10,33 +10,33 @@ import { DropDownService } from 'src/services/drop-down.service';
 })
 export class SitesComponent implements OnInit {
 
-  // @HostListener('document:mousedown', ['$event']) onGlobalClick1(e: any): void {
-  //   var x = <HTMLElement>document.getElementById(`plus${this.currentid}`);
-  //   console.log("ClosedId:: ",`plus${this.currentid}`);
-  //   if (x != null) {
-  //     if (!x.contains(e.target)) {
-  //       if (x.style.display == 'flex' || x.style.display == 'block') {
-  //         x.style.display = 'none';
-  //       }
-  //     }
-  //   }
+  @HostListener('document:mousedown', ['$event']) onGlobalClick1(e: any): void {
+    var x = <HTMLElement>document.getElementById(`plus${this.currentid}`);
+    // console.log("ClosedId:: ",`plus${this.currentid}`);
+    if (x != null) {
+      if (!x.contains(e.target)) {
+        if (x.style.display == 'flex' || x.style.display == 'block') {
+          x.style.display = 'none';
+        }
+      }
+    }
 
-  //   var y = <HTMLElement>document.getElementById(`address${this.addressid}`);
-  //   if (y != null) {
-  //     if (!y.contains(e.target)) {
-  //       if (y.style.display == 'flex' || y.style.display == 'block') {
-  //         y.style.display = 'none';
-  //       }
-  //     }
-  //   }
+    var y = <HTMLElement>document.getElementById(`address${this.addressid}`);
+    if (y != null) {
+      if (!y.contains(e.target)) {
+        if (y.style.display == 'flex' || y.style.display == 'block') {
+          y.style.display = 'none';
+        }
+      }
+    }
 
-  //   var z = <HTMLElement>document.getElementById(`icons-site`);
-  //   if (z != null) {
-  //     if (!z.contains(e.target)) {
-  //       this.icons1 = false;
-  //     }
-  //   }
-  // }
+    // var z = <HTMLElement>document.getElementById(`icons-site`);
+    // if (z != null) {
+    //   if (!z.contains(e.target)) {
+    //     this.icons1 = false;
+    //   }
+    // }
+  }
 
   constructor(private http: HttpClient, private dropDown: DropDownService) { }
 

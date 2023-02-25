@@ -44,11 +44,11 @@
   font-weight: 600;
 }
 
-.table-icons {
+/* .table-icons {
   display: flex;
   justify-content: end;
   align-items: center;
-}
+} */
 
 .table thead {
   background-image: linear-gradient(to right, #084982, #D34124);
@@ -269,6 +269,16 @@ border: 1px solid #EFEFEF;
 
 
 @media only screen and (max-width: 768px) {
+  .search-form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* .table-icons {
+    justify-content: end;
+    align-items: end;
+    text-align: end;
+  } */
   .search {
     width: 186px;
   }
@@ -290,9 +300,9 @@ border: 1px solid #EFEFEF;
 
 }
 
-.lists {
+/* .lists {
   margin-top: -20px;
-}
+} */
 
 /* common ng-deep */
 

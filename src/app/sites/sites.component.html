@@ -41,7 +41,7 @@
     <!-- /count -->
 
     <!-- form -->
-    <div class="row my-2">
+    <div class="search-form d-flex align-items-center justify-content-between my-2">
       <!-- <form class="row p-0">
         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 select">
             <select class="form-select">
@@ -94,7 +94,7 @@
           </button> -->
           <mat-form-field class="example-form-field" appearance="outline" class="w-100">
             <mat-label>Search</mat-label>
-            <input matInput type="text" name="search2"  [(ngModel)]="searchText">
+            <input matInput type="text"  [(ngModel)]="searchText">
             <button matSuffix mat-icon-button>
               <mat-icon>search</mat-icon>
             </button>
@@ -118,99 +118,101 @@
     <div class="table-resp">
         <table class="table">
             <tbody>
-                <tr class="form1">
-                    <th><input type="checkbox" class="form-check-input" [(ngModel)]="selectedAll"
-                            (change)="selectAll();" id="allcheck"
-                            style="background-color: #00000000; border-color:#fff;margin-left:10px;" />
-                    </th>
-                    <!-- <th><input type="checkbox" class="form-check-input"
-                        id="allcheck" [checked]="SelectAll" (click)="allchecked($event)" style="background-color: #00000000; border-color:#fff;margin-left:10px;" />
-                    </th> -->
-                    <th (click)="sort('siteID')">Site ID</th>
-                    <th (click)="sort('siteName')">Site Name</th>
-                    <th (click)="sort('customer')">Customer</th>
-                    <th (click)="sort('status')">Status</th>
-                    <th (click)="sort('address')">Address</th>
-                    <!-- <th (click)="sort('lat-long')">Lat & Long</th> -->
-                    <th (click)="sort('escl_Details')">Escl. Details</th>
-                    <th (click)="sort('engr_Details')">Engr. Details</th>
-                    <th>Services</th>
-                    <th (click)="sort('cntrl_Unit')">Cntrl Unit</th>
-                    <th>Inventory</th>
-                    <th>Analytics</th>
-                    <th>Devices</th>
-                    <th></th>
-                </tr>
+              <tr class="form1">
+                <th><input type="checkbox" class="form-check-input" [(ngModel)]="selectedAll"
+                        (change)="selectAll();" id="allcheck"
+                        style="background-color: #00000000; border-color:#fff;margin-left:10px;" />
+                </th>
+                <!-- <th><input type="checkbox" class="form-check-input"
+                    id="allcheck" [checked]="SelectAll" (click)="allchecked($event)" style="background-color: #00000000; border-color:#fff;margin-left:10px;" />
+                </th> -->
+                <th (click)="sort('siteID')">Site ID</th>
+                <th (click)="sort('siteName')">Site Name</th>
+                <th (click)="sort('customer')">Customer</th>
+                <th (click)="sort('status')">Status</th>
+                <th (click)="sort('address')">Address</th>
+                <!-- <th (click)="sort('lat-long')">Lat & Long</th> -->
+                <th (click)="sort('escl_Details')">Escl. Details</th>
+                <th (click)="sort('engr_Details')">Engr. Details</th>
+                <th>Services</th>
+                <th (click)="sort('cntrl_Unit')">Cntrl Unit</th>
+                <th>Inventory</th>
+                <th>Analytics</th>
+                <th>Devices</th>
+                <th></th>
+              </tr>
 
-                <tr *ngFor="let data of tableData | search : searchText; let i=index">
-                    <td>
-                      <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="data.selected" (change)="checkIfAllSelected();" id="singleCheck" />
-                    </td>
-                    <td>
-                        <p>{{data.siteID}}</p>
-                    </td>
-                    <td>
-                        <p>{{data.siteName}}</p>
-                    </td>
-                    <td>
-                        <p>{{data.customer}}</p>
-                    </td>
+              <tr *ngFor="let data of tableData | search : searchText; let i=index">
+                  <td>
+                    <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="data.selected" (change)="checkIfAllSelected();" id="singleCheck" />
+                  </td>
+                  <td>
+                    <p>{{data.siteID}}</p>
+                  </td>
+                  <td>
+                    <p>{{data.siteName}}</p>
+                  </td>
+                  <td>
+                    <p>{{data.customer}}</p>
+                  </td>
 
-                    <td>
-                      <p [style.color]="
-                      data.status == 'Active' ? '#00A44C':
-                      data.status == 'Onhold' ? '#F5B400':
-                      data.status == 'Inactive' ? '#fa500f':
-                      '#084982'">{{data.status}}
-                      </p>
-                    </td>
-                    <td class="pointer" style="position: relative;">
-                        <a style="color: #084982;" (click)="addressView($event,i)">{{data.address}}</a>
-                        <div style="display: none; border: 1px solid #0000000D; position: absolute; background-color: #fff; width: fit-content; margin-left: -227px; margin-top: -26px; box-shadow: -5px 6px 13px 0px #F3F3F3;"
-                            class="plus-img" id="address{{i}}">
-                            <p class="p-2" style="color: #ABABAB; text-align: left;">ADDRESS</p>
-                            <div style="color: #000; text-align: left; padding: 10px;">
-                                <p>Pathur Road, Tadepally</p>
-                                <p>Guntur - 522501</p>
-                                <p>Andhra Pradesh, India</p>
-                            </div>
-                        </div>
-                    </td>
-                    <!-- <td>
-                        <p>{{data.lat}}<br>-{{data.long}}</p>
-                    </td> -->
-                    <td><a style="color: #084982;">{{data.escl_Details}}</a></td>
-                    <td><a style="color: #084982;">{{data.engr_Details}}</a></td>
-                    <td>
-                        <!-- <div class="dot-red"></div> -->
-                        <div [ngClass]="
-                        data.status == 'Active' ? 'dot-green':
-                        data.status == 'Onhold' ? 'dot-yellow':
-                        data.status == 'Inactive' ? 'dot-red':
-                        'dot-red'"></div>
-                    </td>
-                    <td>
-                      <a>
-                        <img src="assets/images/add-svg.svg" *ngIf="data.cntrl_Unit == '' || data.cntrl_Unit ==null " width="25" height="25">
-                        <span *ngIf="data.cntrl_Unit != '' && data.cntrl_Unit !=null || data.cntrl_Unit.length>0">{{data?.cntrl_Unit}}</span>
-                      </a>
-                    </td>
-                    <td class="pointer" style="position: relative;">
+                  <td>
+                    <p [style.color]="
+                    data.status == 'Active' ? '#00A44C':
+                    data.status == 'Onhold' ? '#F5B400':
+                    data.status == 'Inactive' ? '#fa500f':
+                    '#084982'">{{data.status}}
+                    </p>
+                  </td>
+                  <td class="pointer">
                       <a style="color: #084982;" (click)="addressView($event,i)">{{data.address}}</a>
+
                       <div style="display: none; border: 1px solid #0000000D; position: absolute; background-color: #fff; width: fit-content; margin-left: -227px; margin-top: -26px; box-shadow: -5px 6px 13px 0px #F3F3F3;"
                           class="plus-img" id="address{{i}}">
-                          <p class="p-2" style="color: #ABABAB; text-align: left;">Inventory</p>
+                          <p class="p-2" style="color: #ABABAB; text-align: left;">ADDRESS</p>
                           <div style="color: #000; text-align: left; padding: 10px;">
-                              <p>Pathur Road, Tadepally</p>
-                              <p>Guntur - 522501</p>
-                              <p>Andhra Pradesh, India</p>
+                            <p>Pathur Road, Tadepally</p>
+                            <p>Guntur - 522501</p>
+                            <p>Andhra Pradesh, India</p>
                           </div>
                       </div>
+                  </td>
+                  <!-- <td>
+                      <p>{{data.lat}}<br>-{{data.long}}</p>
+                  </td> -->
+                  <td><a class="pointer" style="color: #084982;">{{data.escl_Details}}</a></td>
+                  <td><a class="pointer" style="color: #084982;">{{data.escl_Details}}</a></td>
+                  <td>
+                    <!-- <div class="dot-red"></div> -->
+                    <div [ngClass]="
+                    data.status == 'Active' ? 'dot-green':
+                    data.status == 'Onhold' ? 'dot-yellow':
+                    data.status == 'Inactive' ? 'dot-red':
+                    'dot-red'"></div>
                   </td>
                   <td>
                     <a>
                       <img src="assets/images/add-svg.svg" *ngIf="data.cntrl_Unit == '' || data.cntrl_Unit ==null " width="25" height="25">
                       <span *ngIf="data.cntrl_Unit != '' && data.cntrl_Unit !=null || data.cntrl_Unit.length>0">{{data?.cntrl_Unit}}</span>
+                    </a>
+                  </td>
+                  <td class="pointer">
+                    <a style="color: #084982;" (click)="addressView($event,i)">{{data.address}}</a>
+
+                    <div style="display: none; border: 1px solid #0000000D; position: absolute; background-color: #fff; width: fit-content; margin-left: -227px; margin-top: -26px; box-shadow: -5px 6px 13px 0px #F3F3F3;"
+                        class="plus-img" id="address{{i}}">
+                        <p class="p-2" style="color: #ABABAB; text-align: left;">ADDRESS</p>
+                        <div style="color: #000; text-align: left; padding: 10px;">
+                          <p>Pathur Road, Tadepally</p>
+                          <p>Guntur - 522501</p>
+                          <p>Andhra Pradesh, India</p>
+                        </div>
+                    </div>
+                  </td>
+                  <td>
+                    <a>
+                      <img src="assets/images/add-svg.svg" *ngIf="data.cntrl_Unit == '' || data.cntrl_Unit == null " width="25" height="25">
+                      <span *ngIf="data.cntrl_Unit != '' && data.cntrl_Unit !=null || data.cntrl_Unit.length > 0">{{data?.cntrl_Unit}}</span>
                     </a>
                   </td>
                   <td>
@@ -220,19 +222,19 @@
                     <a (click)="closeDot($event,i)"><img src="assets/images/dotlist.svg" width="30" height="12" /></a>
 
                     <div class="plus-img1" id="plus{{i}}" style="display: none;">
-                        <div class="lists" *ngIf="showIconView1" style="margin-left: -55px; margin-top: -40px;">
-                          View
-                        </div>
-                        <div class="lists" *ngIf="showIconEdit1" style="margin-left: 5px; margin-top: -40px;">
-                          Edit
-                        </div>
-                        <div class="lists" *ngIf="showIconDelete1" style="margin-left: 68px; margin-top: -40px;">
-                          Delete
-                        </div>
+                      <div class="lists" *ngIf="showIconView1" style="margin-left: -55px; margin-top: -40px;">
+                        View
+                      </div>
+                      <div class="lists" *ngIf="showIconEdit1" style="margin-left: 5px; margin-top: -40px;">
+                        Edit
+                      </div>
+                      <div class="lists" *ngIf="showIconDelete1" style="margin-left: 68px; margin-top: -40px;">
+                        Delete
+                      </div>
 
-                        <a class="mx-2"><img src="assets/images/view.svg" (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" /></a>
-                        <a class="mx-2"><img src="assets/images/edit.svg" (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" /></a>
-                        <a class="mx-2" value="Delete"><img src="assets/images/delete.svg" (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" /></a>
+                      <a class="mx-2"><img src="assets/images/view.svg" (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" /></a>
+                      <a class="mx-2"><img src="assets/images/edit.svg" (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" /></a>
+                      <a class="mx-2" value="Delete"><img src="assets/images/delete.svg" (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" /></a>
                     </div>
                   </td>
                 </tr>
