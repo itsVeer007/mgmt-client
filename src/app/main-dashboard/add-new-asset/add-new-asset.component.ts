@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { AssetService } from 'src/services/asset.service';
 import { DropDownService } from 'src/services/drop-down.service';
 import { FileUploadService } from 'src/services/file-upload.service';
-import { Asset } from './asset';
 
 @Component({
   selector: 'app-add-new-asset',
@@ -55,7 +54,7 @@ export class AddNewAssetComponent implements OnInit {
 
   constructor(private router: Router, private fb: FormBuilder, private assetService: AssetService, private dropDown: DropDownService) { }
 
-  asset: Asset = {
+  asset = {
     file: null,
     siteId: null,
     deviceId: null,
@@ -72,7 +71,7 @@ export class AddNewAssetComponent implements OnInit {
 
   ngOnInit(): void {
     this.addAssetForm = this.fb.group({
-      'file': new FormControl(''),
+      'file': new FormControl('', Validators.required),
       'siteId': new FormControl(null, Validators.required),
       'deviceId': new FormControl('', Validators.required),
       'enabled': new FormControl(1),
@@ -138,12 +137,15 @@ export class AddNewAssetComponent implements OnInit {
   }
 
 
+  submit: boolean = false;
   addNewAsset() {
     if(this.addAssetForm.valid) {
       this.assetService.addAsset(this.addAssetForm.value, this.selectedFile).subscribe((res) => {
         console.log(res)
       });
+
     }
+    this.submit = true;
     console.log(this.addAssetForm.value);
   }
 

@@ -2,6 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { SearchPipe } from '../utilities/search.pipe';
 import { DropDownService } from 'src/services/drop-down.service';
+import { SiteService } from 'src/services/site.service';
 
 @Component({
   selector: 'app-sites',
@@ -30,6 +31,15 @@ export class SitesComponent implements OnInit {
       }
     }
 
+    // var z = <HTMLElement>document.getElementById(`engineer${this.engineerDetail}`);
+    // if (z != null) {
+    //   if (!z.contains(e.target)) {
+    //     if (z.style.display == 'flex' || z.style.display == 'block') {
+    //       z.style.display = 'none';
+    //     }
+    //   }
+    // }
+
     // var z = <HTMLElement>document.getElementById(`icons-site`);
     // if (z != null) {
     //   if (!z.contains(e.target)) {
@@ -38,12 +48,16 @@ export class SitesComponent implements OnInit {
     // }
   }
 
-  constructor(private http: HttpClient, private dropDown: DropDownService) { }
+  constructor(private http: HttpClient, private dropDown: DropDownService, private siteSer: SiteService) { }
+
+  tableData: any[] = [];
+  searchText: any;
 
   ngOnInit(): void {
-    this.SiteTable();
+    this.onGetSites()
     this.ongetDeviceMode();
-    // this.test();
+    // this.onGetEngineer(1001);
+    // this.x = JSON.parse(localStorage.getItem('tab_length')!)
   }
 
   deviceMode: any;
@@ -67,15 +81,25 @@ export class SitesComponent implements OnInit {
   showIconEdit1: boolean = false;
   showIconDelete1: boolean = false;
 
-  searchText: any;
-  tableData: any;
-
-  SiteTable() {
-    this.http.get('assets/JSON/siteData.json').subscribe(res => {
-      // console.log(res);
-      this.tableData = res;
-    });
+  onGetSites() {
+    this.siteSer.getSites().subscribe((res: any) => {
+      this.tableData = res.sitesList;
+      console.log(res);
+    })
   }
+
+  engineerDetail: any
+
+  onGetEngineer(id: any) {
+    this.siteSer.getEngineer(id).subscribe((res: any) => {
+      this.engineerDetail = res.Engineer_details;
+      localStorage.setItem('engineer_detail', JSON.stringify(this.engineerDetail));
+      console.log(this.engineerDetail);
+    })
+  }
+
+  // saveEngineer() {
+  // }
 
 
   // showAddCamera = false;
@@ -90,7 +114,7 @@ export class SitesComponent implements OnInit {
     if(value == 'device') {this.showAddDevice = true}
   }
 
-  saveLocal(site: any) {
+  saveSiteData(site: any) {
     localStorage.setItem('device_temp', JSON.stringify(site));
   }
 
@@ -221,7 +245,132 @@ export class SitesComponent implements OnInit {
     }
   }
 
+  currentItem: any;
 
+  //delete
+  deletePopup: boolean = true;
+
+  openDeletePopup(item: any, i: any) {
+    this.currentItem = item;
+    this.deletePopup = false;
+  }
+
+  confirmDeleteRow() {
+    console.log("ToBE DELETED:: ", this.currentItem);
+    this.tableData = this.tableData.filter((item: any) => item.siteId !== this.currentItem.siteId);
+    this.deletePopup = true;
+  }
+
+  closeDeletePopup() {
+    this.deletePopup = true;
+  }
+
+  deletearray: any = [];
+  deleteMultiRecords(item: any, i: any, e: any) {
+    var checked = (e.target.checked);
+    // console.log("Delete Multiple Records:: ", item);
+    if (this.deletearray.length == 0) { this.deletearray.push(item) }
+
+    this.deletearray.forEach((el: any) => {
+      if (el.siteId != item.siteId && checked) {
+        this.deletearray.push(item);
+        this.deletearray = [...new Set(this.deletearray.map((item: any) => item))]
+      }
+      if (el.siteId == item.siteId && !checked) {
+        var currentindex = this.deletearray.indexOf(item);
+        this.deletearray.splice(currentindex, 1)
+      }
+    });
+    // console.log(this.deletearray)
+  }
+
+  deleteSelected() {
+    if (this.selectedAll == false) {
+      this.deletearray.forEach((el: any) => {
+        this.tableData = this.tableData.filter((item: any) => item.siteId !== el.siteId);
+      });
+      this.deletearray = []
+    } else {
+      this.tableData.forEach((el: any) => {
+        this.tableData = this.tableData.filter((item: any) => item.siteId !== el.siteId);
+      });
+    }
+  }
+
+
+  //edit
+  editPopup: boolean = true;
+
+  openEditPopup(item: any, i: any) {
+    this.currentItem = JSON.parse(JSON.stringify(item));
+    this.editPopup = false;
+  }
+
+  confirmEditRow() {
+    console.log("TO BE EDITED:: ", this.currentItem);
+    this.editPopup = true;
+  }
+
+  closeEditPopup() {
+    this.editPopup = true;
+  }
+
+  editArray: any = [];
+  EditByCheckbox(itemE: any, i: any, e: any) {
+    var checked = (e.target.checked);
+    if (checked == true && this.editArray.includes(itemE) == false) {
+      this.editArray.push(itemE);
+      this.currentItem = this.editArray[(this.editArray.length - 1)];
+    }
+    if (checked == false && this.editArray.includes(itemE) == true) {
+      this.editArray.splice(this.editArray.indexOf(itemE), 1)
+    }
+  }
+
+  editBySelectedOne() {
+    if (this.editArray.length > 0) {
+      this.editPopup = false;
+    }
+  }
+
+  //view
+  viewPopup: boolean = true;
+
+  openViewPopup(item: any, i: any) {
+    this.currentItem = item;
+    console.log("VIEW PAGE:: ", this.currentItem);
+    this.viewPopup = false;
+  }
+
+  confirmViewRow() {
+    console.log("ToBE Viewed:: ", this.currentItem);
+    this.viewPopup = true;
+  }
+
+  closeViewPopup() {
+    this.viewPopup = true;
+  }
+
+  viewArray: any = [];
+  ViewByCheckbox(itemV: any, i: any, e: any) {
+    var checked = (e.target.checked);
+    // console.log("View By Checkbox:: ",itemV);
+    // console.log("View Array::" ,this.viewArray);
+    // console.log("present in array : "+this.viewArray.includes(itemV),  " checked : "+ checked)
+    if (checked == true && this.viewArray.includes(itemV) == false) {
+      this.viewArray.push(itemV);
+      this.currentItem = this.viewArray[(this.viewArray.length - 1)];
+    }
+    if (checked == false && this.viewArray.includes(itemV) == true) {
+      this.viewArray.splice(this.viewArray.indexOf(itemV), 1)
+    }
+  }
+
+  viewBySelectedOne() {
+    if (this.viewArray.length > 0) {
+      this.viewPopup = false;
+    }
+  }
 
 }
 

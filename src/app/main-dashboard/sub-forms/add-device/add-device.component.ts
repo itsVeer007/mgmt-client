@@ -185,11 +185,13 @@ export class AddDeviceComponent implements OnInit {
   add() {
     if(this.addDevice.valid) {
       this.assetService.addDevice(this.device).subscribe((res) => {
-        console.log(res)
+        console.log(res);
         this.tabs.push('Device');
+        // localStorage.setItem('tab_length', JSON.stringify(this.tabs.length));
       })
     }
     console.log(this.device);
+    console.log(this.tabs.length);
   }
 
 }

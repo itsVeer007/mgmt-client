@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Route } from '@angular/router';
 import { DropDownService } from 'src/services/drop-down.service';
 import { AssetService } from '../../services/asset.service';
@@ -12,26 +12,25 @@ import { AssetService } from '../../services/asset.service';
 })
 export class AssetsComponent implements OnInit {
 
-  // @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
-    //   var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);
-    //   var y = <HTMLElement>document.getElementById(`icons-site`);
+  @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
+    var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);
+    var y = <HTMLElement>document.getElementById(`icons-site`);
 
-    //   // console.log(`plus-img${this.currentid}`);
-    //   if (x != null) {
-      //     if (!x.contains(e.target)) {
-        //       if (x.style.display == 'flex' || x.style.display == 'block') {
-          //         x.style.display = 'none';
-          //       }
-          //     }
-          //   }
+    if (x != null) {
+      if (!x.contains(e.target)) {
+        if (x.style.display == 'flex' || x.style.display == 'block') {
+          x.style.display = 'none';
+        }
+      }
+    }
 
-          //   if (y != null) {
-            //     console.log(`icons-site`);
-            //     if (!y.contains(e.target)) {
-              //       this.icons1 = false;
-              //     }
-  //   }
-  // }
+    // if (y != null) {
+    //   console.log(`icons-site`);
+    //   if (!y.contains(e.target)) {
+    //     this.icons1 = false;
+    //   }
+    // }
+  }
 
 
 
@@ -46,7 +45,6 @@ export class AssetsComponent implements OnInit {
   currentDateTime: any;
   ngOnInit(): void {
     this.currentDateTime =this.datepipe.transform(new Date, 'yyyy-MM-dd');
-    // this.CustomerReport();
     this.getAsset();
     this.ongetDeviceMode();
   }
@@ -86,14 +84,6 @@ export class AssetsComponent implements OnInit {
   showIconView1: boolean = false;
   showIconEdit1: boolean = false;
   showIconDelete1: boolean = false;
-
-
-  CustomerReport() {
-    // this.http.get('assets/JSON/assetsData.json').subscribe(res => {
-    //   this.assetTable = res;
-    //   console.log(res)
-    // });
-  }
 
   currentid = 0;
   closeDot(e: any, i: any) {
@@ -227,7 +217,6 @@ export class AssetsComponent implements OnInit {
     console.log("TO BE EDITED:: ", this.currentItem);
     // this.assetTable= this.assetTable.filter((item:any) => item.siteId !== this.currentItem.siteId);
     this.editPopup = true;
-    this.CustomerReport();
   }
 
   closeEditPopup() {
@@ -262,7 +251,6 @@ export class AssetsComponent implements OnInit {
     if (this.editArray.length > 0) {
       this.editPopup = false;
     }
-    this.CustomerReport();
   }
 
 
@@ -349,5 +337,12 @@ export class AssetsComponent implements OnInit {
     } else {
       x.sort((a: string, b: string) => b[label] > a[label] ? 1 : b[label] < a[label] ? -1 : 0);
     }
+  }
+
+  selected: any;
+
+  onSelect(value: any){
+    console.log(value);
+    this.assetTable = this.deviceMode.filter((item: any) => item.value == value);
   }
 }

@@ -1,11 +1,11 @@
-body {
+  body {
     background-color: #fbfbfb;
   }
 
   nav {
     font-size: 14px;
   }
-  /* Sidebar */
+
   .sidebar {
     position: fixed;
     top: 0;
@@ -31,22 +31,15 @@ body {
     height: 100vh;
   }
 
-  header {
+  .header {
     background-image: linear-gradient(to right, #084982 , #D34124);
     position: fixed;
     height: 70px;
     z-index: 999;
   }
 
-  header .logo img {
-      /* width: 40%; */
-      margin-top: 20px;
-      margin-left: 15px;
-  }
-
-  header .group88 img {
-      margin-top: 12px;
-      margin-right: 15px;
+  .header .group88 img {
+    width: 40px;
   }
 
   /* .sidebar-sticky {
@@ -127,7 +120,7 @@ body {
 }
 
 .profile-card .card-body div {
-  height: 48px;
+  /* height: 48px; */
   border-bottom: 2px solid #fff;
   padding: 10px;
 }
@@ -136,6 +129,12 @@ body {
   background-color: #ABABAB;
   color: #fff;
   border-radius: 0px 0px 5px 5px;
+  padding: 3px !important;
+  text-align: center;
+}
+
+.profile-card .card-footer:hover {
+  opacity: 0.8;
 }
 
 .menu-icon {
@@ -143,6 +142,10 @@ body {
 }
 
 @media only screen and (max-width: 768px) {
+  .header .logo img {
+    width: 150px;
+  }
+
   .left-content {
     display: none;
   }
@@ -152,10 +155,7 @@ body {
   }
 
   .mobile-sidebar {
-
-    /* background: url('../../assets/images/bgimg.png') top right; */
     background: url('../../assets/images/bgimg.png') top right;
-
     background-size: cover;
     top: 70px;
     position: absolute;
@@ -165,9 +165,6 @@ body {
   .mobile-sidebar .list-group :hover {
     background-color: #084982;
     border-radius: 5px;
-    /* width: 50%;
-    text-align: right;
-    margin-left: 50%; */
   }
 
   .menu-icon {

@@ -1,67 +1,65 @@
 <div class="container-fluid">
     <div class="row content">
-        <header>
-            <div class="d-flex justify-content-between">
-                <a class="logo"><img src="assets/images/Logo.svg" /></a>
-                <a class="group88" (click)="showProfile()"><img src="assets/images/profile.svg" /></a>
-                <a class="menu-icon" (click)="showMenu()"><img src="assets/images/menu.svg" /></a>
-            </div>
-        </header>
-        <div class="left-content sidemenu col-lg-2 col-md-2" style="position: sticky;">
-            <nav class="collapse d-block sidebar" id="navbarToggleExternalContent">
-                <div class="list-group m-3">
-                    <a class="list-group-item active " [routerLink]="['/main-dashboard']" routerLinkActive="routeactive">
-                        <img src="assets/images/dashboard.svg">
-                        <span> Dashboard</span>
-                    </a>
-                    <a class="list-group-item " [routerLink]="['/verticals']" routerLinkActive="routeactive">
-                        <img src="assets/images/vertical.svg">
-                        <span> Verticals</span>
-                    </a>
-                    <a class="list-group-item " [routerLink]="['/customers']" routerLinkActive="routeactive">
-                        <img src="assets/images/customer.svg">
-                        <span> Customers</span>
-                    </a>
+      <div class="header d-flex justify-content-between align-items-center">
+          <a class="logo"><img src="assets/images/Logo.svg" /></a>
+          <a class="group88" (click)="showProfile()"><img src="assets/images/profile.svg" /></a>
+          <a class="menu-icon" (click)="showMenu()"><img src="assets/images/menu.svg" /></a>
+      </div>
+      <div class="left-content sidemenu col-lg-2 col-md-2" style="position: sticky;">
+          <nav class="collapse d-block sidebar" id="navbarToggleExternalContent">
+              <div class="list-group m-3">
+                  <a class="list-group-item active " [routerLink]="['/main-dashboard']" routerLinkActive="routeactive">
+                      <img src="assets/images/dashboard.svg">
+                      <span> Dashboard</span>
+                  </a>
+                  <a class="list-group-item " [routerLink]="['/verticals']" routerLinkActive="routeactive">
+                      <img src="assets/images/vertical.svg">
+                      <span> Verticals</span>
+                  </a>
+                  <a class="list-group-item " [routerLink]="['/customers']" routerLinkActive="routeactive">
+                      <img src="assets/images/customer.svg">
+                      <span> Customers</span>
+                  </a>
 
-                    <!-- <a routerLink="/service-category" class="nav-link active" aria-current="page">
-                        <span data-feather="home"></span>
-                        Category
-                    </a> -->
+                  <!-- <a routerLink="/service-category" class="nav-link active" aria-current="page">
+                      <span data-feather="home"></span>
+                      Category
+                  </a> -->
 
-                    <a class="list-group-item " [routerLink]="['/sites']" routerLinkActive="routeactive">
-                        <img src="assets/images/sites.svg">
-                        <span> Sites</span>
-                    </a>
-                    <a class="list-group-item ">
-                        <img src="assets/images/cam.svg">
-                        <span> Cameras</span>
-                    </a>
-                    <a class="list-group-item " [routerLink]="['/analytics']" routerLinkActive="routeactive">
-                        <img src="assets/images/analytic.svg">
-                        <span> Analytics</span>
-                    </a>
-                    <a class="list-group-item " [routerLink]="['/users']" routerLinkActive="routeactive">
-                        <img src="assets/images/user-white.svg">
-                        <span> Users</span>
-                    </a>
-                    <a class="list-group-item " [routerLink]="['/inventory']" routerLinkActive="routeactive">
-                      <img src="assets/images/inventory.svg">
-                      <span> Inventory</span>
-                    </a>
-                    <a class="list-group-item " [routerLink]="['/assets']" routerLinkActive="routeactive">
-                      <img src="assets/images/asset.svg">
-                      <span> Assets(Ads)</span>
-                    </a>
-                    <a class="list-group-item " [routerLink]="['/tickets']" routerLinkActive="routeactive">
-                      <img src="assets/images/ticket.svg">
-                      <span> Tickets/Jobs</span>
-                    </a>
-                </div>
-            </nav>
-        </div>
-        <div class="right-content col-lg-10 col-md-10 col-sm-12 col-xs-12" style="padding: 0;">
-            <router-outlet></router-outlet>
-        </div>
+                  <a class="list-group-item " [routerLink]="['/sites']" routerLinkActive="routeactive">
+                      <img src="assets/images/sites.svg">
+                      <span> Sites</span>
+                  </a>
+                  <a class="list-group-item ">
+                      <img src="assets/images/cam.svg">
+                      <span> Cameras</span>
+                  </a>
+                  <a class="list-group-item " [routerLink]="['/analytics']" routerLinkActive="routeactive">
+                      <img src="assets/images/analytic.svg">
+                      <span> Analytics</span>
+                  </a>
+                  <a class="list-group-item " [routerLink]="['/users']" routerLinkActive="routeactive">
+                      <img src="assets/images/user-white.svg">
+                      <span> Users</span>
+                  </a>
+                  <a class="list-group-item " [routerLink]="['/inventory']" routerLinkActive="routeactive">
+                    <img src="assets/images/inventory.svg">
+                    <span> Inventory</span>
+                  </a>
+                  <a class="list-group-item " [routerLink]="['/assets']" routerLinkActive="routeactive">
+                    <img src="assets/images/asset.svg">
+                    <span> Assets(Ads)</span>
+                  </a>
+                  <a class="list-group-item " [routerLink]="['/tickets']" routerLinkActive="routeactive">
+                    <img src="assets/images/ticket.svg">
+                    <span> Tickets/Jobs</span>
+                  </a>
+              </div>
+          </nav>
+      </div>
+      <div class="right-content col-lg-10 col-md-10 col-sm-12 col-xs-12" style="padding: 0;">
+          <router-outlet></router-outlet>
+      </div>
     </div>
 </div>
 
@@ -70,25 +68,18 @@
 <div class="card profile-card" *ngIf="profile" id="profiles">
     <div class="card-header d-flex flex-column justify-content">
         <img src="assets/images/Ellipse 25@2x.png" width="100" height="100" />
-        <h6 class="mt-2">User Name</h6>
-        <h6>+91 xxxx xxxx<br>
-            name@gmail.com</h6>
+        <span class="mt-2">User Name</span>
+        <span>+91 XXXXX XXXXX<br>user@gmail.com</span>
     </div>
     <div class="card-body">
         <div>
-            <a class="mx-2">
-                <img src="assets/images/edit-line@2x.png" width="15" height="15" /> <span class="mx-2"> Edit
-                    Profile</span></a>
+          <a class="mx-2 pointer"><img src="assets/images/edit-line@2x.png" width="15" height="15" /> <span class="mx-2">Edit Profile</span></a>
         </div>
         <div>
-            <a class="mx-2">
-                <img src="assets/images/Union 48@2x.png" width="15" height="15" /> <span class="mx-2"> Change
-                    Password</span></a>
+          <a class="mx-2 pointer"><img src="assets/images/Union 48@2x.png" width="15" height="15" /> <span class="mx-2">Change Password</span></a>
         </div>
         <div>
-            <a class="mx-2">
-                <img src="assets/images/Union 48@2x.png" width="15" height="15" /> <span class="mx-2"> Terms &
-                    Conditions</span></a>
+          <a class="mx-2 pointer"><img src="assets/images/info-outline.svg" width="15" height="15" /> <span class="mx-2">Terms & Conditions</span></a>
         </div>
     </div>
     <div class="card-footer">

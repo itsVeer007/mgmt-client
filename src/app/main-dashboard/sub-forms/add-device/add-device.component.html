@@ -10,8 +10,8 @@
 
         <div class="d-flex justify-content-between align-items-center">
           <div class="device-detail">
-            <h5 class="m-0" style="font-size: 18px; font-weight: 600;">{{ siteData?.siteID }} - {{ siteData?.siteName }}</h5>
-            <h5 class="m-0 text-secondary" style="font-size: 18px;">{{ siteData?.cntrl_Unit }}</h5>
+            <h5 class="m-0" style="font-size: 18px; font-weight: 600;">{{ siteData?.siteId }} - {{ siteData?.siteName }}</h5>
+            <h5 class="m-0 text-secondary" style="font-size: 18px;">{{ siteData?.centralUnitId }}</h5>
           </div>
           <!-- <div>
             <a class="pointer mx-3">
@@ -31,10 +31,11 @@
 
               <div class="col-lg-6">
                 <mat-form-field appearance="outline" class="w-100">
-                  <mat-label>Select device</mat-label>
+                  <mat-label>Select Device</mat-label>
                   <mat-select>
                     <mat-option *ngFor="let item of deviceType" [value]="item.value">{{ item.value }}</mat-option>
                   </mat-select>
+                  <mat-error class="mt-1">Device is required</mat-error>
                 </mat-form-field>
               </div>
 
@@ -44,7 +45,7 @@
                   <mat-select formControlName="deviceMode" [(ngModel)]="device.deviceMode">
                     <mat-option *ngFor="let item of deviceMode" [value]="item.value" (click)="onMode()">{{ item.value }}</mat-option>
                   </mat-select>
-                  <mat-error class="mt-1">Please select device mode</mat-error>
+                  <mat-error class="mt-1">Device mode is required</mat-error>
                 </mat-form-field>
               </div>
 
@@ -77,6 +78,7 @@
                   <mat-select formControlName="adsHours" [(ngModel)]="device.adsHours">
                     <mat-option value="9-10">9-10</mat-option>
                   </mat-select>
+                  <mat-error class="mt-1">Ad-Hours is required</mat-error>
                 </mat-form-field>
               </div>
 
@@ -87,6 +89,7 @@
                     <mat-option value="1">1</mat-option>
                     <mat-option value="2">2</mat-option>
                   </mat-select>
+                  <mat-error class="mt-1">Ad Working Days is required</mat-error>
                 </mat-form-field>
               </div>
 
@@ -115,6 +118,7 @@
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Call Frequency</mat-label>
                   <input matInput type="number" formControlName="deviceCallFreq" [(ngModel)]="device.deviceCallFreq">
+                  <mat-error class="mt-1">Call Frequency is required</mat-error>
                 </mat-form-field>
               </div>
 
@@ -170,6 +174,7 @@
                   <mat-select formControlName="cameraId" [(ngModel)]="device.cameraId" required>
                     <mat-option value="01">01</mat-option>
                   </mat-select>
+                  <mat-error class="mt-1">Camera Id is required</mat-error>
                 </mat-form-field>
               </div>
 
@@ -184,11 +189,13 @@
                 <mat-form-field appearance="outline" [ngStyle]="{'width': 'calc(50% - 13px)'}">
                   <mat-label>Width</mat-label>
                   <input matInput type="number" formControlName="width" [(ngModel)]="device.width" required>
+                  <mat-error class="mt-1">Width is required</mat-error>
                 </mat-form-field>
                 <span class="mx-2">X</span>
                 <mat-form-field appearance="outline" [ngStyle]="{'width': 'calc(50% - 13px)'}">
                   <mat-label>Height</mat-label>
                   <input matInput type="number" formControlName="height" [(ngModel)]="device.height" required>
+                  <mat-error class="mt-1">Height is required</mat-error>
                 </mat-form-field>
               </div>
 
@@ -219,6 +226,7 @@
                   <mat-select formControlName="modelName" [(ngModel)]="device.modelName" required>
                     <mat-option value="01">01</mat-option>
                   </mat-select>
+                  <mat-error class="mt-1">Model Name is required</mat-error>
                 </mat-form-field>
               </div>
 
@@ -228,6 +236,7 @@
                   <mat-select formControlName="resolution" [(ngModel)]="device.resolution" required>
                     <mat-option value="01">01</mat-option>
                   </mat-select>
+                  <mat-error class="mt-1">Resolution is required</mat-error>
                 </mat-form-field>
               </div>
 
@@ -245,6 +254,7 @@
                   <mat-select formControlName="objectName" [(ngModel)]="device.objectName" required>
                     <mat-option value="01">01</mat-option>
                   </mat-select>
+                  <mat-error class="mt-1">Object Name is required</mat-error>
                 </mat-form-field>
               </div>
 
@@ -252,6 +262,7 @@
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Weather Interval</mat-label>
                   <input matInput formControlName="weather_interval" [(ngModel)]="device.weather_interval" required>
+                  <mat-error class="mt-1">Weather Interval is required</mat-error>
                 </mat-form-field>
               </div>
 
@@ -281,7 +292,7 @@
 
 
 
-        <div *ngIf="tabs.length >= 1" class="w-100">
+        <div *ngIf="tabs.length != 0" class="w-100">
           <mat-tab *ngFor="let tab of tabs; let i = index" [label]="tab + '-' + (i+1)" class="mat-tab" class="w-100">
             <div class="row added-device w-100">
               <div class="col-lg-6 mb-3">

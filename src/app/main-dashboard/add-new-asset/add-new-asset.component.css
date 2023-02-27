@@ -2,16 +2,25 @@
   padding: 12px;
 }
 
-.date {
-  width: 202px;
+.invalid {
+  border: 1px dotted red;
+  border-radius: 5px;
+  text-align: center;
+  padding: 55px;
+  margin-top: 10px;
 }
 
-.file-upload {
+.valid{
   color: #c0bebe;
   border: 1px dotted #e0e0e0;
   border-radius: 5px;
   text-align: center;
   padding: 55px;
+  margin-top: 10px;
+}
+
+.date {
+  width: 202px;
 }
 
 .file-upload a {
