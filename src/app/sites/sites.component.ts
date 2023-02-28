@@ -31,14 +31,14 @@ export class SitesComponent implements OnInit {
       }
     }
 
-    // var z = <HTMLElement>document.getElementById(`engineer${this.engineerDetail}`);
-    // if (z != null) {
-    //   if (!z.contains(e.target)) {
-    //     if (z.style.display == 'flex' || z.style.display == 'block') {
-    //       z.style.display = 'none';
-    //     }
-    //   }
-    // }
+    var z = <HTMLElement>document.getElementById(`engineer${this.engineerId}`);
+    if (z != null) {
+      if (!z.contains(e.target)) {
+        if (z.style.display == 'flex' || z.style.display == 'block') {
+          z.style.display = 'none';
+        }
+      }
+    }
 
     // var z = <HTMLElement>document.getElementById(`icons-site`);
     // if (z != null) {
@@ -56,7 +56,6 @@ export class SitesComponent implements OnInit {
   ngOnInit(): void {
     this.onGetSites()
     this.ongetDeviceMode();
-    // this.onGetEngineer(1001);
     // this.x = JSON.parse(localStorage.getItem('tab_length')!)
   }
 
@@ -88,19 +87,25 @@ export class SitesComponent implements OnInit {
     })
   }
 
-  engineerDetail: any
-
+  engineerDetail: any;
   onGetEngineer(id: any) {
     this.siteSer.getEngineer(id).subscribe((res: any) => {
       this.engineerDetail = res.Engineer_details;
-      localStorage.setItem('engineer_detail', JSON.stringify(this.engineerDetail));
       console.log(this.engineerDetail);
     })
   }
 
-  // saveEngineer() {
-  // }
-
+  engineerId = 0;
+  engineerView(e: any, i: any) {
+    this.engineerId = i;
+    var x = e.target.nextElementSibling;
+    console.log(x)
+    if (x.style.display == 'none') {
+      x.style.display = 'flex';
+    } else {
+      x.style.display = 'none';
+    }
+  }
 
   // showAddCamera = false;
   // showAddCustomer = false;
@@ -140,31 +145,6 @@ export class SitesComponent implements OnInit {
     //   localStorage.setItem('opennewform', '');
     // }, 100)
   }
-
-
-  // showAddCamera = false;
-
-  // closenow1(value:any) {
-  //   this.showAddCamera = value;
-  // }
-
-  // showAddCustomer = false;
-
-  // closenow2(value:any) {
-  //   this.showAddCustomer = value;
-  // }
-
-  // showAddUser = false;
-
-  // closenow3(value:any) {
-  //   this.showAddUser = value;
-  // }
-
-  // showAddBusinessVertical = false;
-
-  // closenow4(value:any) {
-  //   this.showAddBusinessVertical = value;
-  // }
 
   addressid = 0;
   addressView(e: any, i: any) {

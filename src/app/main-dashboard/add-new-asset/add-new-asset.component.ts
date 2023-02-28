@@ -4,7 +4,6 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AssetService } from 'src/services/asset.service';
 import { DropDownService } from 'src/services/drop-down.service';
-import { FileUploadService } from 'src/services/file-upload.service';
 
 @Component({
   selector: 'app-add-new-asset',
@@ -31,7 +30,6 @@ import { FileUploadService } from 'src/services/file-upload.service';
 })
 export class AddNewAssetComponent implements OnInit {
 
-  @Input() show:any;
   @Output() newItemEvent = new EventEmitter<boolean>();
 
   // @Output() newUser = new EventEmitter<any>();

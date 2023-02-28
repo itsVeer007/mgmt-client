@@ -54,55 +54,47 @@ export class AddDeviceComponent implements OnInit {
 
 
   device = {
-    deviceId: null,
-    siteId: null,
-    deviceUnitId: '',
     deviceCallFreq: null,
     deviceMode: '',
     workingDays: '',
-    getlogs: 0,
     width: null,
     height: null,
     modelName: '',
     resolution: '',
-    threshold: '',
-    maxNo: 3,
     objectName: '',
     refreshRules: '',
     displayOn: '',
     adsHours: '',
     weather_interval: '',
     cameraId: '',
-    createdBy: 1,
-    modifiedBy: 0,
-    remarks: ''
+
+    //required
+    siteId: null,
+    deviceTypeId: null,
+    deviceName: ''
   }
 
   siteData: any;
-  ngOnInit(): void {
+  ngOnInit() {
     this.addDevice = this.fb.group({
-      'deviceId': new FormControl(null),
-      'siteId': new FormControl(null),
-      'deviceUnitId': new FormControl(''),
-      'deviceCallFreq': new FormControl('', Validators.required),
-      'deviceMode': new FormControl('', Validators.required),
-      'workingDays': new FormControl('', Validators.required),
-      'getlogs': new FormControl(null),
-      'width': new FormControl('', this.device.deviceMode == 'ODR' ? Validators.required : []),
-      'height': new FormControl('', this.device.deviceMode == 'ODR' ? Validators.required : []),
-      'modelName': new FormControl('', this.device.deviceMode == 'ODR' ? Validators.required : []),
-      'resolution': new FormControl('', this.device.deviceMode == 'ODR' ? Validators.required : []),
-      'threshold': new FormControl(''), //
-      'maxNo': new FormControl(null), //
-      'objectName': new FormControl('', this.device.deviceMode == 'ODR' ? Validators.required : []),
+      'deviceCallFreq': new FormControl(''),
+      'deviceMode': new FormControl(''),
+      'workingDays': new FormControl(''),
+      'width': new FormControl(''),
+      'height': new FormControl(''),
+      'modelName': new FormControl(''),
+      'resolution': new FormControl(''),
+      'objectName': new FormControl(''),
       'refreshRules': new FormControl(null),
       'displayOn': new FormControl(null),
-      'adsHours': new FormControl([''], Validators.required),
-      'weather_interval': new FormControl('', this.device.deviceMode == 'ODR' ? Validators.required : []),
-      'cameraId': new FormControl('', this.device.deviceMode == 'ODR' ? Validators.required : []),
-      'createdBy': new FormControl(null),
-      'modifiedBy': new FormControl(null),
-      'remarks': new FormControl(''),
+      'adsHours': new FormControl(''),
+      'weather_interval': new FormControl(''),
+      'cameraId': new FormControl(''),
+
+      //required
+      'siteId': new FormControl(null),
+      'deviceTypeId': new FormControl(null, Validators.required),
+      'deviceName': new FormControl(''),
     });
 
     this.ongetDeviceType();
@@ -135,6 +127,8 @@ export class AddDeviceComponent implements OnInit {
   closeAddAdditionalSite() {
     this.newItemEvent.emit(false);
   }
+
+  deviceTypeIdList = [1, 2, 3, 4, 5];
 
   // drop-down-service-methods //
   deviceType: any;
@@ -181,17 +175,21 @@ export class AddDeviceComponent implements OnInit {
     this.device.deviceMode == "ODR" ? this.showModel = true : this.showModel = false;
   }
 
-  tabs = ['Device'];
+  tabs: any[] = [];
+  responseData: any;
   add() {
+    this.device.siteId = this.siteData.siteId;
     if(this.addDevice.valid) {
-      this.assetService.addDevice(this.device).subscribe((res) => {
+      this.assetService.addDevice(this.device).subscribe((res: any) => {
+        // this.responseData = res.device-types;
         console.log(res);
-        this.tabs.push('Device');
+        if(res.Status == "Success") {
+          this.tabs.push('Device');
+        }
         // localStorage.setItem('tab_length', JSON.stringify(this.tabs.length));
       })
     }
     console.log(this.device);
-    console.log(this.tabs.length);
   }
 
 }

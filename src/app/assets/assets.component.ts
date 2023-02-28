@@ -1,7 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, HostListener, OnInit } from '@angular/core';
-import { Route } from '@angular/router';
 import { DropDownService } from 'src/services/drop-down.service';
 import { AssetService } from '../../services/asset.service';
 
@@ -36,7 +35,6 @@ export class AssetsComponent implements OnInit {
 
   assetTable: any[] = [];
   searchText: any;
-  showLoader = false;
   deviceId: string = '';
   activeAssets: number = 0;
 
@@ -50,11 +48,9 @@ export class AssetsComponent implements OnInit {
   }
 
   getAsset() {
-    this.showLoader = true;
     this.apiser.getAssets().subscribe((res: any) => {
       this.assetTable = res.asset_details;
-      this.showLoader = false;
-      // console.log(res);
+      console.log(res);
 
       for(let item of this.assetTable) {
         if(item.is_active != 0) {
@@ -183,9 +179,7 @@ export class AssetsComponent implements OnInit {
 
   deleteRow1(item: any, i: any) {
     console.log("DELETEROW:: ", item);
-    this.showLoader = true;
     setTimeout(() => {
-      this.showLoader = false;
       this.assetTable.splice(i, 1);
     }, 1000);
   }

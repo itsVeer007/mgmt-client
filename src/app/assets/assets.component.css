@@ -190,11 +190,6 @@ border: 1px solid #EFEFEF;
 
 /* CSS for Popup start */
 
-/* .deletePopup {
-  width: fit-content;
-  margin: auto;
-} */
-
 .modalitem .card {
   border: none;
 }
@@ -300,12 +295,7 @@ border: 1px solid #EFEFEF;
 
 }
 
-/* .lists {
-  margin-top: -20px;
-} */
-
 /* common ng-deep */
-
 .mat-form-field-appearance-outline ::ng-deep .mat-form-field-outline {
   top: 5px;
   bottom: 5px;
