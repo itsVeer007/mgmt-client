@@ -108,7 +108,6 @@ export class UsersComponent implements OnInit {
 
   }
 
-  //----------------------------------Add New User
 
   addNewUser(newUser: any) {
     newUser = JSON.parse(localStorage.getItem('userCreated')!);
@@ -170,9 +169,8 @@ export class UsersComponent implements OnInit {
   //   }
   // }
 
-  // -----------------Start Checkbox-----------------
-  selectedAll: any;
 
+  selectedAll: any;
   selectAll() {
     for (var i = 0; i < this.CustomerTable.length; i++) {
       // console.log(this.CustomerTable[i])
@@ -185,11 +183,9 @@ export class UsersComponent implements OnInit {
       return item.selected == true;
     })
   }
-  // -------------------End Checkbox----------------------
 
-  // ---------------- Start delete ---------------------
+
   deleteRow: any;
-
   deleteRow1(item: any, i: any) {
     console.log("DELETEROW:: ", item);
     this.showLoader = true;
@@ -219,13 +215,8 @@ export class UsersComponent implements OnInit {
     // console.log(this.CustomerTable.siteId);
   }
 
-  // ------- End delete ----------------
 
-
-
-  // -------Start Edit -------------
   editPopup: boolean = true;
-
   confirmEditRow() {
     console.log("TO BE EDITED:: ", this.currentItem);
     // this.CustomerTable= this.CustomerTable.filter((item:any) => item.siteId !== this.currentItem.siteId);
@@ -267,15 +258,9 @@ export class UsersComponent implements OnInit {
     }
     this.CustomerReport();
   }
-  // -------------- End Edit ------------------
 
-
-
-
-  // ------------- start View --------------------
 
   viewPopup: boolean = true;
-
   confirmViewRow() {
     console.log("ToBE Viewed:: ", this.currentItem);
     this.viewPopup = true;
@@ -311,11 +296,9 @@ export class UsersComponent implements OnInit {
       this.viewPopup = false;
     }
   }
-  // ------------- End View ---------------------
 
 
 
-  // ------------ Multiple Records Starts -------------------
   deletearray: any = [];
   deleteMultiRecords(item: any, i: any, e: any) {
     var checked = (e.target.checked);
@@ -349,8 +332,6 @@ export class UsersComponent implements OnInit {
       });
     }
   }
-
-  // ------------ Multiple Records Ends -------------------
 
   sorted = false;
   sort(label: any) {

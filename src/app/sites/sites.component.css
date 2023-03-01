@@ -342,7 +342,6 @@
 } */
 
 /* common ng-deep */
-
 .mat-form-field-appearance-outline ::ng-deep .mat-form-field-outline {
   top: 5px;
   bottom: 5px;

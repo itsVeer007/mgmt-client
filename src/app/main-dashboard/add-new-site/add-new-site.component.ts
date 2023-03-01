@@ -27,7 +27,7 @@ import { Router } from '@angular/router';
 })
 export class AddNewSiteComponent implements OnInit {
 
-  @Input() show: any;
+  // @Input() show: any;
 
   @Output() newItemEvent = new EventEmitter<boolean>();
 

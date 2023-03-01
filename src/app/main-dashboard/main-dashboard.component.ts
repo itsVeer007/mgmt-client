@@ -67,15 +67,15 @@ export class MainDashboardComponent implements OnInit {
     if (type == 'user') { this.showAddUser = value; }
 
 
-    setTimeout(() => {
-      var openform = localStorage.getItem('opennewform');
-      if (openform == 'showAddSite') { this.showAddSite = true; }
-      if (openform == 'showAddCamera') { this.showAddCamera = true; }
-      if (openform == 'showAddCustomer') { this.showAddCustomer = true; }
-      if (openform == 'showAddBusinessVertical') { this.showAddBusinessVertical = true; }
-      if (openform == 'showAddUser') { this.showAddUser = true; }
-      localStorage.setItem('opennewform', '');
-    }, 100)
+    // setTimeout(() => {
+    //   var openform = localStorage.getItem('opennewform');
+    //   if (openform == 'showAddSite') { this.showAddSite = true; }
+    //   if (openform == 'showAddCamera') { this.showAddCamera = true; }
+    //   if (openform == 'showAddCustomer') { this.showAddCustomer = true; }
+    //   if (openform == 'showAddBusinessVertical') { this.showAddBusinessVertical = true; }
+    //   if (openform == 'showAddUser') { this.showAddUser = true; }
+    //   localStorage.setItem('opennewform', '');
+    // }, 100)
     /*
         console.log(value,type)
     if(type=='site'){this.showAddSite = value;}else{this.showAddSite = false;};
@@ -97,10 +97,10 @@ export class MainDashboardComponent implements OnInit {
   ngOnInit(): void {
     this.getMainDashboardCardReport();
     this.getMainDashboardReport();
-    this.mychart();
+    // this.mychart();
     this.mychart1();
-    this.mychart2();
-    this.mychart3();
+    // this.mychart2();
+    // this.mychart3();
     this.mychart4();
   }
   showIconVertical: boolean = false;
@@ -290,14 +290,17 @@ export class MainDashboardComponent implements OnInit {
     this.chartservice.createchart(charttype, threeD, title, data, elementid, antype)
   }
 
-  icons111: boolean = false;
-  iconssnew(type:any) {
-    this.icons111 = !this.icons111;
-    this.showIconVertical = false;
-    this.showIconCustomer = false;
+  // icons111: boolean = false;
+  openIcon(type:any) {
+    if(type == 'site') {this.showAddSite = true};
+    if(type == 'user') {this.showAddUser = true};
+
+    // this.icons111 = !this.icons111;
+    // this.showIconVertical = false;
+    // this.showIconCustomer = false;
     this.showIconSite = false;
-    this.showIconCamera = false;
-    this.showIconAnalytic = false;
+    // this.showIconCamera = false;
+    // this.showIconAnalytic = false;
     this.showIconUser = false;
 
     // var x:any ;

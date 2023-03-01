@@ -107,6 +107,13 @@ export class SitesComponent implements OnInit {
     }
   }
 
+  onGetCentralboxDetail: any;
+  onGetCentralbox(id: any) {
+    this.siteSer.getCentralbox(id).subscribe((res: any) => {
+      console.log(res)
+    })
+  }
+
   // showAddCamera = false;
   // showAddCustomer = false;
   // showAddUser = false;
@@ -212,17 +219,6 @@ export class SitesComponent implements OnInit {
       // console.log(item)
       return item.selected == true;
     })
-  }
-
-  sorted = false;
-  sort(label:any){
-    this.sorted = !this.sorted;
-    var x = this.tableData;
-    if(this.sorted==false){
-      x.sort((a:string, b:string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
-    }else{
-      x.sort((a:string, b:string) => b[label] > a[label] ? 1 : b[label] < a[label] ? -1 : 0);
-    }
   }
 
   currentItem: any;
@@ -349,6 +345,17 @@ export class SitesComponent implements OnInit {
   viewBySelectedOne() {
     if (this.viewArray.length > 0) {
       this.viewPopup = false;
+    }
+  }
+
+  sorted = false;
+  sort(label:any){
+    this.sorted = !this.sorted;
+    var x = this.tableData;
+    if(this.sorted==false){
+      x.sort((a:string, b:string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
+    }else{
+      x.sort((a:string, b:string) => b[label] > a[label] ? 1 : b[label] < a[label] ? -1 : 0);
     }
   }
 

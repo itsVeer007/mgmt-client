@@ -31,7 +31,7 @@ export class AddNewUserComponent implements OnInit {
 
   constructor(private router:Router, private apiser: ApiService, private fb: FormBuilder) { }
 
-  @Input() show:any;
+  // @Input() show:any;
 
   @Output() newItemEvent = new EventEmitter<boolean>();
 

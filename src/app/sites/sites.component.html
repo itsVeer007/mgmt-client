@@ -47,7 +47,7 @@
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Site Name</mat-label>
           <mat-select>
-            <mat-option (click)="sort('siteID')">Filter by A-Z</mat-option>
+            <mat-option (click)="sort('siteName')">Filter by A-Z</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -120,7 +120,7 @@
 
                 <td>
                   <p [style.color]="data.status == 'Active' ? '#00A44C': data.status == 'Onhold' ? '#F5B400': data.status == 'Inactive' ? '#fa500f': '#084982'">
-                    {{data.status}}
+                    {{ data.status ? data.status : '--' }}
                   </p>
                 </td>
 
@@ -160,14 +160,17 @@
                   </div>
                 </td>
 
-                <td><a class="pointer" style="color: #084982;">{{data.escl_Details}}</a></td>
+                <td>
+                  <!-- <a class="pointer" style="color: #084982;">{{data.escl_Details}}</a> -->
+                  <a class="pointer" style="color: #084982;">View</a>
+                </td>
 
                 <td>
                   <!-- <div [ngClass]="data.status == 'Active' ? 'dot-green': data.status == 'Onhold' ? 'dot-yellow': data.status == 'Inactive' ? 'dot-red': 'dot-red'"></div> -->
                   --
                 </td>
                 <td>
-                  <a>
+                  <a class="pointer" style="color: #000;" (click)="onGetCentralbox(data.siteId)">
                     <img src="assets/images/add-svg.svg" *ngIf="data.centralUnitId == '' || data.centralUnitId == null" width="25" height="25">
                     <span *ngIf="data.cntrl_Unit != '' && data.centralUnitId !=null">{{data?.centralUnitId}}</span>
                   </a>
@@ -189,7 +192,7 @@
                   </a>
                 </td>
                 <td>
-                  <a (click)="closeDot($event,i)"><img src="assets/images/dotlist.svg" width="30" height="12" /></a>
+                  <a class="pointer" (click)="closeDot($event,i)"><img src="assets/images/dotlist.svg" width="30" height="12" /></a>
 
                   <div class="plus-img1" id="plus{{i}}" style="display: none;">
                     <div class="lists" *ngIf="showIconView1" style="margin-left: -55px; margin-top: -40px;">
@@ -336,7 +339,7 @@
 
 
 <div style="position: fixed; top:0;" *ngIf="showAddSite">
-    <app-add-new-site [show]="showAddSite" (newItemEvent)="closenow('site', $event)"></app-add-new-site>
+    <app-add-new-site (newItemEvent)="closenow('site', $event)"></app-add-new-site>
 </div>
 
 <div style="position: fixed; top:0;" *ngIf="showAddDevice">

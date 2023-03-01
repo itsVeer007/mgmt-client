@@ -30,7 +30,7 @@ import { ApiService } from 'src/services/api.service';
 })
 export class AddAdditionalSiteComponent implements OnInit {
 
-  @Input() show:any;
+  // @Input() show:any;
   @Output() newItemEvent = new EventEmitter<boolean>();
 
   // @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
@@ -59,7 +59,7 @@ export class AddAdditionalSiteComponent implements OnInit {
   searchText: any;
 
   items = ['john', 'mark', 'cooper', 'henry', 'roben'];
-  siteIdList = [ 3001, 3002, 3003, 3004];
+  siteIdList = [ '3001', '3002', '3003', '3004'];
 
   constructor(private fb: FormBuilder, private apiser: ApiService) { }
 

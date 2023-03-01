@@ -19,4 +19,9 @@ export class SiteService {
     let url = this.baseUrl + '/sites/getEngineerdetails_1_0/' + `${id}`;
     return this.http.get(url)
   }
+
+  getCentralbox(id: any) {
+    let url = this.baseUrl + '/sites/getcentralBox_1_0/' + `${id}`;
+    return this.http.get(url)
+  }
 }

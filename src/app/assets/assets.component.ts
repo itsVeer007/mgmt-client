@@ -333,10 +333,4 @@ export class AssetsComponent implements OnInit {
     }
   }
 
-  selected: any;
-
-  onSelect(value: any){
-    console.log(value);
-    this.assetTable = this.deviceMode.filter((item: any) => item.value == value);
-  }
 }
