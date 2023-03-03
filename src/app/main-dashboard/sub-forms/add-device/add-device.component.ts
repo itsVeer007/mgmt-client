@@ -54,46 +54,63 @@ export class AddDeviceComponent implements OnInit {
 
 
   device = {
-    deviceCallFreq: null,
-    deviceMode: '',
-    workingDays: '',
-    width: null,
-    height: null,
-    modelName: '',
-    resolution: '',
-    objectName: '',
-    refreshRules: '',
-    displayOn: '',
-    adsHours: '',
-    weather_interval: '',
-    cameraId: '',
-
-    //required
     siteId: null,
     deviceTypeId: null,
     deviceName: ''
   }
 
+  asset = {
+    deviceId: null,
+    siteId: null,
+    deviceUnitId: '',
+    deviceCallFreq: 1,
+    deviceMode: '',
+    workingDays: '',
+    getlogs: 0,
+    width: null,
+    height: null,
+    modelName: '',
+    resolution: '',
+    threshold: "",
+    maxNo: 3,
+    objectName: '',
+    refreshRules: 0,
+    displayOn: 0,
+    adsHours: '',
+    weather_interval: '',
+    cameraId: '',
+    createdBy: 1,
+    remarks: ""
+  }
+
   siteData: any;
   ngOnInit() {
     this.addDevice = this.fb.group({
-      'deviceCallFreq': new FormControl(''),
-      'deviceMode': new FormControl(''),
-      'workingDays': new FormControl(''),
+      'deviceId': new FormControl(''),
+      // 'siteId': new FormControl(''),
+      'deviceUnitId': new FormControl(''),
+      'deviceCallFreq': new FormControl(''), //default -1
+      'deviceMode': new FormControl(''), //default -bs
+      'workingDays': new FormControl(''), //default -all
+      'getlogs': new FormControl(''),
       'width': new FormControl(''),
       'height': new FormControl(''),
       'modelName': new FormControl(''),
       'resolution': new FormControl(''),
-      'objectName': new FormControl(''),
-      'refreshRules': new FormControl(null),
-      'displayOn': new FormControl(null),
-      'adsHours': new FormControl(''),
-      'weather_interval': new FormControl(''),
+      'threshold': new FormControl(''),
+      'maxNo': new FormControl(''),
+      'objectName': new FormControl(''), //default -person
+      'refreshRules': new FormControl(''), //default -false
+      'displayOn': new FormControl(''), //default -false
+      'adsHours': new FormControl(''), //default -9am - 6pm
+      'weather_interval': new FormControl(''), //default -15min
       'cameraId': new FormControl(''),
+      'createdBy': new FormControl(''),
+      'remarks': new FormControl(''),
 
       //required
-      'siteId': new FormControl(null),
-      'deviceTypeId': new FormControl(null, Validators.required),
+      'siteId': new FormControl(''),
+      'deviceTypeId': new FormControl('', Validators.required),
       'deviceName': new FormControl(''),
     });
 
@@ -172,7 +189,7 @@ export class AddDeviceComponent implements OnInit {
 
   showModel: boolean = false;
   onMode() {
-    this.device.deviceMode == "ODR" ? this.showModel = true : this.showModel = false;
+    this.asset.deviceMode == "ODR" ? this.showModel = true : this.showModel = false;
   }
 
   tabs: any[] = [];
@@ -190,6 +207,7 @@ export class AddDeviceComponent implements OnInit {
       })
     }
     console.log(this.device);
+    console.log(this.asset);
   }
 
 }

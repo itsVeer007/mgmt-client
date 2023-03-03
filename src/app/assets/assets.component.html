@@ -24,14 +24,14 @@
       <div class="vl-green"></div>
       <div class="mx-2">
         <div class="status">Active</div>
-        <div class="count">{{activeAssets}}</div>
+        <div class="count">--</div>
       </div>
     </div>
     <div class="col-lg-1 col-md-1 d-flex justify-content-start">
       <div class="vl-red"></div>
       <div class="mx-2">
         <div class="status">Inactive</div>
-        <div class="count">{{assetTable.length - activeAssets}}</div>
+        <div class="count">--</div>
       </div>
     </div>
   </div>
@@ -53,7 +53,7 @@
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Device Mode</mat-label>
             <mat-select>
-              <mat-option *ngFor="let item of deviceMode" [value]="item.value">{{item.value}}</mat-option>
+              <mat-option (click)="selectMode(item.value)" *ngFor="let item of deviceMode" [value]="item.value">{{item.value}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -172,7 +172,7 @@
               [style.color]="item.status == 'Added' ? '#00A44C' : item.status == 'Sync' ? '#F5B400' : item.status == 'Removed' ? '#fa500f' : '#00A44C'">
               {{ item.status }}
             </p>
-            <a href="" class="ms-2">Edit</a>
+            <a class="ms-2 pointer">Edit</a>
           </td>
           <td>
             <a class="pointer" [href]="item.url" target="_blank">

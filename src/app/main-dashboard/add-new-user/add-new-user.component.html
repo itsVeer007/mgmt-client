@@ -163,7 +163,7 @@
 
           <div class="row">
             <label class="main col-lg-4 ms-1 mt-2">Safety Escort
-              <input type="checkbox"  [ngModel]="user.safetyEscort=='true' ? true : false" (ngModelChange)="user.safetyEscort=$event ? 'T' : 'F'" formControlName="safetyEscort">
+              <input type="checkbox"  [ngModel]="user.safetyEscort=='true' ? true : false" (ngModelChange)="user.safetyEscort = $event ? 'T' : 'F'" formControlName="safetyEscort">
               <span class="geekmark"></span>
             </label>
 

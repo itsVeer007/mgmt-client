@@ -13,7 +13,6 @@ export class SitesComponent implements OnInit {
 
   @HostListener('document:mousedown', ['$event']) onGlobalClick1(e: any): void {
     var x = <HTMLElement>document.getElementById(`plus${this.currentid}`);
-    // console.log("ClosedId:: ",`plus${this.currentid}`);
     if (x != null) {
       if (!x.contains(e.target)) {
         if (x.style.display == 'flex' || x.style.display == 'block') {
@@ -99,7 +98,6 @@ export class SitesComponent implements OnInit {
   engineerView(e: any, i: any) {
     this.engineerId = i;
     var x = e.target.nextElementSibling;
-    console.log(x)
     if (x.style.display == 'none') {
       x.style.display = 'flex';
     } else {

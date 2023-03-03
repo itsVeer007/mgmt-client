@@ -47,9 +47,11 @@ export class AssetsComponent implements OnInit {
     this.ongetDeviceMode();
   }
 
+  tableData: any;
   getAsset() {
     this.apiser.getAssets().subscribe((res: any) => {
       this.assetTable = res.asset_details;
+      this.tableData = this.assetTable;
       console.log(res);
 
       for(let item of this.assetTable) {
@@ -58,6 +60,12 @@ export class AssetsComponent implements OnInit {
         }
       }
     })
+  }
+
+  selectMode(data: any) {
+    // this.searchText = data;
+    // let dataSome = this.tableData;
+    this.assetTable = this.tableData.filter((el: any) => el.deviceMode == data);
   }
 
   deviceMode: any;
@@ -85,7 +93,6 @@ export class AssetsComponent implements OnInit {
   closeDot(e: any, i: any) {
     this.currentid = i;
     var x = e.target.parentNode.nextElementSibling;
-    // console.log("THREE DOTS:: ",e.target.parentNode.nextElementSibling);
     if (x.style.display == 'none') {
       x.style.display = 'block';
     } else {
@@ -99,9 +106,6 @@ export class AssetsComponent implements OnInit {
   // showAddUser = false;
   // showAddBusinessVertical = false;
   // showSite = false;
-  // closenow(value:any) {
-  //   this.showAddSite = value;
-  // }
   showAsset: boolean = false;
 
   showAddAsset() {
@@ -109,13 +113,6 @@ export class AssetsComponent implements OnInit {
     // this.showSite = false;
     // if (type == 'site') { this.showAddSite = value; }
     // if (type == 'camr') { this.showAddCamera = value; }
-
-    // this.showIconVertical = false;
-    // this.showIconCustomer = false;
-    // this.showIconSite = false;
-    // this.showIconCamera = false;
-    // this.showIconAnalytic = false;
-    // this.showIconUser = false;
   }
 
   closenow(value: any, type: String) {
@@ -127,7 +124,6 @@ export class AssetsComponent implements OnInit {
     // if (type == 'vert') { this.showAddBusinessVertical = value; }
     // if (type == 'user') { this.showAddUser = value; }
     // if(type == 'additionalSite') {this.showSite = value;}
-    // console.log("SITES:: ",type)
 
     // setTimeout(() => {
     //   var openform = localStorage.getItem('opennewform');
