@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ApiService } from 'src/services/api.service';
 import { AssetService } from 'src/services/asset.service';
 import { DropDownService } from 'src/services/drop-down.service';
+import { SiteService } from 'src/services/site.service';
 import { AddDevice } from './add-device';
 
 @Component({
@@ -50,7 +51,7 @@ export class AddDeviceComponent implements OnInit {
 
   items = ['john', 'mark', 'cooper', 'henry', 'roben'];
 
-  constructor(private fb: FormBuilder, private assetService: AssetService, private dropDown: DropDownService) { }
+  constructor(private fb: FormBuilder, private siteService: SiteService, private assetService: AssetService, private dropDown: DropDownService) { }
 
 
   device = {
@@ -63,7 +64,7 @@ export class AddDeviceComponent implements OnInit {
     deviceId: null,
     siteId: null,
     deviceUnitId: '',
-    deviceCallFreq: 1,
+    deviceCallFreq: null,
     deviceMode: '',
     workingDays: '',
     getlogs: 0,
@@ -86,7 +87,7 @@ export class AddDeviceComponent implements OnInit {
   siteData: any;
   ngOnInit() {
     this.addDevice = this.fb.group({
-      'deviceId': new FormControl(''),
+      // 'deviceId': new FormControl(''),
       // 'siteId': new FormControl(''),
       'deviceUnitId': new FormControl(''),
       'deviceCallFreq': new FormControl(''), //default -1
@@ -109,8 +110,8 @@ export class AddDeviceComponent implements OnInit {
       'remarks': new FormControl(''),
 
       //required
-      'siteId': new FormControl(''),
-      'deviceTypeId': new FormControl('', Validators.required),
+      // 'siteId': new FormControl(''),
+      'deviceTypeId': new FormControl(''),
       'deviceName': new FormControl(''),
     });
 
@@ -187,21 +188,22 @@ export class AddDeviceComponent implements OnInit {
   //   this.tabs.splice(index, 1);
   // }
 
-  showModel: boolean = false;
-  onMode() {
-    this.asset.deviceMode == "ODR" ? this.showModel = true : this.showModel = false;
-  }
-
   tabs: any[] = [];
   responseData: any;
   add() {
     this.device.siteId = this.siteData.siteId;
     if(this.addDevice.valid) {
-      this.assetService.addDevice(this.device).subscribe((res: any) => {
+      this.siteService.addDevice(this.device).subscribe((res: any) => {
         // this.responseData = res.device-types;
         console.log(res);
         if(res.Status == "Success") {
           this.tabs.push('Device');
+
+          this.asset.deviceId = res.deviceUnitId;
+          this.asset.siteId = res.siteId;
+          this.assetService.createDeviceAdd(this.asset).subscribe((data: any) => {
+            console.log(data);
+          })
         }
         // localStorage.setItem('tab_length', JSON.stringify(this.tabs.length));
       })

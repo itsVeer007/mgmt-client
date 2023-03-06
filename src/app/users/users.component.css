@@ -297,10 +297,21 @@ form button {
   .search {
       width: 186px;
   }
+
   form {
       display: flex;
       flex-wrap: nowrap;
       margin-bottom: 10px;
+  }
+
+  .search-form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .table-icons {
+    position: relative;
+    left: 125px;
   }
 
   form .select {

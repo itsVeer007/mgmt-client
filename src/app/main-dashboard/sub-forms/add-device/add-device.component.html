@@ -32,7 +32,7 @@
               <div class="col-lg-6">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Select Device</mat-label>
-                  <mat-select>
+                  <mat-select required>
                     <mat-option *ngFor="let item of deviceType" [value]="item.value">{{ item.value }}</mat-option>
                   </mat-select>
                   <mat-error class="mt-1">Device is required</mat-error>
@@ -42,8 +42,8 @@
               <div class="col-lg-6">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Select Device Mode</mat-label>
-                  <mat-select formControlName="deviceMode" [(ngModel)]="asset.deviceMode">
-                    <mat-option *ngFor="let item of deviceMode" [value]="item.value" (click)="onMode()">{{ item.value }}</mat-option>
+                  <mat-select formControlName="deviceMode" [(ngModel)]="asset.deviceMode" required>
+                    <mat-option *ngFor="let item of deviceMode" [value]="item.value">{{ item.value }}</mat-option>
                   </mat-select>
                   <mat-error class="mt-1">Device mode is required</mat-error>
                 </mat-form-field>
@@ -75,7 +75,7 @@
                 <!-- <span class="mx-2">-</span> -->
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Ad-Hours</mat-label>
-                  <mat-select formControlName="adsHours" [(ngModel)]="asset.adsHours">
+                  <mat-select formControlName="adsHours" [(ngModel)]="asset.adsHours" required>
                     <mat-option value="9am-6pm">9am-6pm</mat-option>
                   </mat-select>
                   <mat-error class="mt-1">Ad-Hours is required</mat-error>
@@ -85,7 +85,7 @@
               <div class="col-lg-6 d-flex align-items-center justify-content-between">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Ad Working Days</mat-label>
-                  <mat-select formControlName="workingDays" [(ngModel)]="asset.workingDays">
+                  <mat-select formControlName="workingDays" [(ngModel)]="asset.workingDays" required>
                     <mat-option value="1">1</mat-option>
                     <mat-option value="2">2</mat-option>
                   </mat-select>
@@ -117,7 +117,7 @@
               <div class="col-lg-6">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Call Frequency</mat-label>
-                  <input matInput type="number" formControlName="deviceCallFreq" [(ngModel)]="asset.deviceCallFreq">
+                  <input matInput type="number" formControlName="deviceCallFreq" [(ngModel)]="asset.deviceCallFreq" required>
                   <mat-error class="mt-1">Call Frequency is required</mat-error>
                 </mat-form-field>
               </div>
@@ -125,7 +125,7 @@
               <div class="col-lg-6 d-flex align-items-center justify-content-evenly">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Device Type Id</mat-label>
-                  <mat-select formControlName="deviceTypeId" [(ngModel)]="device.deviceTypeId">
+                  <mat-select formControlName="deviceTypeId" [(ngModel)]="device.deviceTypeId" required>
                     <mat-option *ngFor="let item of deviceTypeIdList" [value]="item">{{ item }}</mat-option>
                   </mat-select>
                   <mat-error class="mt-1">Device Type Id is required</mat-error>
@@ -139,7 +139,7 @@
               <div class="col-lg-6">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Select temp range</mat-label>
-                  <mat-select>
+                  <mat-select required>
                     <mat-option *ngFor="let item of tempRange" [value]="item.value">{{ item.value }}</mat-option>
                   </mat-select>
                 </mat-form-field>
@@ -148,7 +148,7 @@
               <div class="col-lg-6">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Select age range</mat-label>
-                  <mat-select>
+                  <mat-select required>
                     <mat-option *ngFor="let item of ageRange" [value]="item.value">{{ item.value }}</mat-option>
                   </mat-select>
                 </mat-form-field>
@@ -164,16 +164,16 @@
                   <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
                   <label class="form-check-label" for="inlineRadio2">False</label>
                 </div> -->
-                <mat-radio-group aria-label="Select an option" style="font-size: 12px;">
+                <mat-radio-group name="radioOpt1" style="font-size: 12px;">
                   <mat-label>Demographics</mat-label>
-                  <mat-radio-button class="ms-3" value="True">True</mat-radio-button>
-                  <mat-radio-button class="ms-3" value="False" checked>False</mat-radio-button>
+                  <mat-radio-button class="ms-3" name="Demographics" value="True">True</mat-radio-button>
+                  <mat-radio-button class="ms-3" name="Demographics" value="False" checked>False</mat-radio-button>
                 </mat-radio-group>
               </div>
             </div>
 
 
-            <div class="row" *ngIf="showModel">
+            <div class="row" *ngIf="asset.deviceMode == 'ODR'">
               <div class="my-2">
                 <h5 class="m-0" style="font-size: 15px; font-weight: 500;">CAMERA DETAILS</h5>
               </div>
@@ -181,7 +181,7 @@
               <div class="col-lg-6">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Select Camera Id</mat-label>
-                  <mat-select formControlName="cameraId" [(ngModel)]="asset.cameraId">
+                  <mat-select formControlName="cameraId" [(ngModel)]="asset.cameraId" [required]="asset.deviceMode == 'ODR'">
                     <mat-option value="01">01</mat-option>
                   </mat-select>
                   <mat-error class="mt-1">Camera Id is required</mat-error>
@@ -198,13 +198,13 @@
               <div class="col-lg-6">
                 <mat-form-field appearance="outline" [ngStyle]="{'width': 'calc(50% - 13px)'}">
                   <mat-label>Width</mat-label>
-                  <input matInput type="number" formControlName="width" [(ngModel)]="asset.width">
+                  <input matInput type="number" formControlName="width" [(ngModel)]="asset.width" [required]="asset.deviceMode == 'ODR'">
                   <mat-error class="mt-1">Width is required</mat-error>
                 </mat-form-field>
                 <span class="mx-2">X</span>
                 <mat-form-field appearance="outline" [ngStyle]="{'width': 'calc(50% - 13px)'}">
                   <mat-label>Height</mat-label>
-                  <input matInput type="number" formControlName="height" [(ngModel)]="asset.height">
+                  <input matInput type="number" formControlName="height" [(ngModel)]="asset.height" [required]="asset.deviceMode == 'ODR'">
                   <mat-error class="mt-1">Height is required</mat-error>
                 </mat-form-field>
               </div>
@@ -219,10 +219,10 @@
                   <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
                   <label class="form-check-label" for="inlineRadio2">Vehicle</label>
                 </div> -->
-                <mat-radio-group aria-label="Select an option" class="w-50">
+                <mat-radio-group name="radioOpt2" class="w-50">
                   <mat-label>Label</mat-label>
-                  <mat-radio-button class="ms-3" value="Person">Person</mat-radio-button>
-                  <mat-radio-button class="ms-3" value="Vehicle" checked>Vehicle</mat-radio-button>
+                  <mat-radio-button class="ms-3" name="Label" value="Person" checked>Person</mat-radio-button>
+                  <mat-radio-button class="ms-3" name="Label" value="Vehicle">Vehicle</mat-radio-button>
                 </mat-radio-group>
               </div>
 
@@ -233,7 +233,7 @@
               <div class="col-lg-6">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Select Model Name</mat-label>
-                  <mat-select formControlName="modelName" [(ngModel)]="asset.modelName">
+                  <mat-select formControlName="modelName" [(ngModel)]="asset.modelName" [required]="asset.deviceMode == 'ODR'">
                     <mat-option value="01">01</mat-option>
                   </mat-select>
                   <mat-error class="mt-1">Model Name is required</mat-error>
@@ -243,7 +243,7 @@
               <div class="col-lg-6">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Select Resolution</mat-label>
-                  <mat-select formControlName="resolution" [(ngModel)]="asset.resolution">
+                  <mat-select formControlName="resolution" [(ngModel)]="asset.resolution" [required]="asset.deviceMode == 'ODR'">
                     <mat-option value="01">01</mat-option>
                   </mat-select>
                   <mat-error class="mt-1">Resolution is required</mat-error>
@@ -251,10 +251,10 @@
               </div>
 
               <div class="col-lg-12 mb-3 equipment" style="font-size: 12px;">
-                <mat-radio-group aria-label="Select an option" class="w-50">
+                <mat-radio-group name="radioOpt3" class="w-50">
                   <mat-label>Get Logs</mat-label>
-                  <mat-radio-button class="ms-3" value="True">True</mat-radio-button>
-                  <mat-radio-button class="ms-3" value="False">False</mat-radio-button>
+                  <mat-radio-button class="ms-3" name="Logs" value="True">True</mat-radio-button>
+                  <mat-radio-button class="ms-3" name="Logs" value="False" checked>False</mat-radio-button>
                 </mat-radio-group>
               </div>
 
@@ -277,18 +277,18 @@
               </div>
 
               <div class="col-lg-6 mb-3 equipment" style="font-size: 12px;">
-                <mat-radio-group aria-label="Select an option" class="w-50" formControlName="refreshRules" [(ngModel)]="asset.refreshRules">
+                <mat-radio-group name="radioOpt4" class="w-50">
                   <mat-label>Refresh</mat-label>
-                  <mat-radio-button class="ms-3" value=''>True</mat-radio-button>
-                  <mat-radio-button class="ms-3" value='' checked>False</mat-radio-button>
+                  <mat-radio-button class="ms-3" name="Refresh" value='1'>True</mat-radio-button>
+                  <mat-radio-button class="ms-3" name="Refresh" value='0' checked>False</mat-radio-button>
                 </mat-radio-group>
               </div>
 
               <div class="col-lg-6 mb-3 equipment" style="font-size: 12px;">
-                <mat-radio-group aria-label="Select an option" class="w-50" formControlName="displayOn" [(ngModel)]="asset.displayOn">
+                <mat-radio-group name="radioOpt5" class="w-50">
                   <mat-label>Display On</mat-label>
-                  <mat-radio-button class="ms-3" value=''>True</mat-radio-button>
-                  <mat-radio-button class="ms-3" value='' checked>False</mat-radio-button>
+                  <mat-radio-button class="ms-3" name="Display" value='1'>True</mat-radio-button>
+                  <mat-radio-button class="ms-3" name="Display" value='0' checked>False</mat-radio-button>
                 </mat-radio-group>
               </div>
 

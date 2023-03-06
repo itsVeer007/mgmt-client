@@ -4,7 +4,7 @@
   <!-- header -->
   <div class="d-flex align-items-center justify-content-between">
     <div class="users-header">
-      <p>List of Assets - <span>{{assetTable.length}}</span></p>
+      <p>List of Assets - <span>{{ assetTable.length }}</span></p>
     </div>
     <div style="position: relative">
       <a class="pointer" (click)="showAddAsset()">
@@ -18,24 +18,41 @@
   </div>
   <!-- /header -->
 
-  <!-- count -->
+  <!-- status -->
   <div class="row">
     <div class="col-lg-1 col-md-1 d-flex justify-content-start">
       <div class="vl-green"></div>
       <div class="mx-2">
-        <div class="status">Active</div>
-        <div class="count">--</div>
+        <div class="status">Added</div>
+        <div class="count">{{ added.length }}</div>
       </div>
     </div>
+
     <div class="col-lg-1 col-md-1 d-flex justify-content-start">
       <div class="vl-red"></div>
       <div class="mx-2">
-        <div class="status">Inactive</div>
-        <div class="count">--</div>
+        <div class="status">Removed</div>
+        <div class="count">{{ removed.length }}</div>
+      </div>
+    </div>
+
+    <div class="col-lg-1 col-md-1 d-flex justify-content-start">
+      <div class="vl-yellow"></div>
+      <div class="mx-2">
+        <div class="status">Synced</div>
+        <div class="count">{{ synced.length }}</div>
+      </div>
+    </div>
+
+    <div class="col-lg-1 col-md-1 d-flex justify-content-start">
+      <div class="vl-blue"></div>
+      <div class="mx-2">
+        <div class="status">Sent to Controller</div>
+        <div class="count">{{ sendToController.length }}</div>
       </div>
     </div>
   </div>
-  <!-- /count -->
+  <!-- /status -->
 
   <!-- form -->
   <div class="search-form d-flex align-items-center justify-content-between my-2">
@@ -116,6 +133,7 @@
           <th (click)="sort('address')">End Date</th>
           <!-- <th (click)="sort('address')">Details</th> -->
           <th (click)="sort('status')">Status</th>
+          <th (click)="sort('status')">Ad Info</th>
           <th (click)="sort('status')">Play</th>
           <th></th>
         </tr>
@@ -141,7 +159,7 @@
             <p>--</p>
           </td>
           <td>
-            <p>{{ item.id }}</p>
+            <p>{{ item.deviceId }}</p>
           </td>
           <td>
             <p>--</p>
@@ -167,12 +185,16 @@
           <!-- <td>
               <button class="bg-white" style="color: #084982">{{ item.address }}</button>
             </td> -->
-          <td class="d-flex align-items-center">
-            <p
-              [style.color]="item.status == 'Added' ? '#00A44C' : item.status == 'Sync' ? '#F5B400' : item.status == 'Removed' ? '#fa500f' : '#00A44C'">
+          <td>
+            <p [style.color]="item.status == 'Added' ? '#00A44C' : item.status == 'Sync' ? '#F5B400' : item.status == 'Removed' ? '#fa500f' : '#00A44C'">
               {{ item.status }}
+              <a class="ms-2 pointer">Edit</a>
             </p>
-            <a class="ms-2 pointer">Edit</a>
+          </td>
+          <td>
+            <a class="pointer" (click)="openDialog()">
+              <img style="color: #bdb8b8;" src="assets/images/live_tv.svg" width="20" height="20" />
+            </a>
           </td>
           <td>
             <a class="pointer" [href]="item.url" target="_blank">
@@ -180,7 +202,7 @@
             </a>
           </td>
           <td>
-            <a (click)="closeDot($event, i)"><img src="assets/images/dotlist.svg" width="30" height="12" /></a>
+            <a class="pointer" (click)="closeDot($event, i)"><img src="assets/images/dotlist.svg" width="30" height="12" /></a>
 
             <div class="plus-img1" id="plus-img{{i}}" style="display: none">
               <div class="lists" *ngIf="showIconView1" style="margin-left: 5px; margin-top: -20px">
@@ -357,7 +379,8 @@
   </div>
   <!-- </div> -->
 </div>
+<!-- <app-ad-info></app-ad-info> -->
 
 <div style="position: fixed; top: 0" *ngIf="showAsset">
-  <app-add-new-asset (newItemEvent)="closenow($event, 'asset')" (newUser)="addNewUser($event)"></app-add-new-asset>
+  <app-add-new-asset [data]="assetTable"  (newItemEvent)="closenow($event, 'asset')"></app-add-new-asset>
 </div>

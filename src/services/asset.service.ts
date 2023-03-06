@@ -9,9 +9,6 @@ export class AssetService {
 
   baseUrl = 'http://usstaging.ivisecurity.com:777/ProximityAdvertisement/';
 
-  deviceUrl = 'http://usstaging.ivisecurity.com:777/Mgmt_server-main';
-
-
 
   constructor(private http: HttpClient, private date: DatePipe) { }
 
@@ -40,8 +37,8 @@ export class AssetService {
     return this.http.post(url, formData);
   }
 
-  addDevice(payload: any) {
-    let url = this.deviceUrl + "/devices/addDeviceToSite_1_0";
+  createDeviceAdd(payload: any) {
+    let url = this.baseUrl + '/createDeviceAdsInfo_1_0';
     return this.http.post(url, payload)
   }
 

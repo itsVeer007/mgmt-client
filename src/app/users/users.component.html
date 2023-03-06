@@ -43,7 +43,7 @@
   <!-- count ends -->
 
   <!-- form starts -->
-  <div class="row my-2">
+  <div class="search-form d-flex align-items-center justify-content-between my-2">
     <!-- <div class="col-lg-10 col-md-10">
       <form class="row p-0">
         <div class="col-lg-4 col-md-4 col-sm-4 select">
@@ -82,7 +82,7 @@
       </div>
     </div>
 
-    <div class="col-lg-2 col-md-2 table-icons" style="position: relative">
+    <div class="col-lg-2 col-md-2 table-icons">
       <div class="lists" *ngIf="showIconView" style="margin-right: 60px; margin-top: -40px">
         View
       </div>
@@ -172,7 +172,7 @@
           </td>
 
           <td style="position: relative">
-            <a (click)="closeDot($event, i)"><img src="assets/images/dotlist.svg" width="30" height="12" /></a>
+            <a class="pointer" (click)="closeDot($event, i)"><img src="assets/images/dotlist.svg" width="30" height="12" /></a>
 
             <div class="plus-img1" id="plus-img{{ i }}" style="display: none">
               <div class="lists" *ngIf="showIconView1" style="margin-left: 5px; margin-top: -20px">

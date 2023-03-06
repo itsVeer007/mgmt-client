@@ -30,6 +30,7 @@ import { DropDownService } from 'src/services/drop-down.service';
 })
 export class AddNewAssetComponent implements OnInit {
 
+  @Input() data: any;
   @Output() newItemEvent = new EventEmitter<boolean>();
 
   // @Output() newUser = new EventEmitter<any>();
@@ -45,6 +46,8 @@ export class AddNewAssetComponent implements OnInit {
 
   addAssetForm: any = FormGroup;
   searchText: any;
+  siteIdList: any
+  deviceIdList: any
 
   // shortLink: string = "";
   // file: File | null = null;
@@ -90,11 +93,13 @@ export class AddNewAssetComponent implements OnInit {
 
     this.ongetDeviceType();
     this.ongetDeviceMode()
+    this.getId();
   };
 
-  siteIdList = [ 1077, 1002, 3002, 9999];
-
-  deviceIdList = [ 1054, 1035, 1022, 390];
+  getId() {
+      this.siteIdList = this.data;
+      this.deviceIdList = this.data;
+  }
 
   selectedFile: any = null;
   selectedFiles:  Array<any> = [];

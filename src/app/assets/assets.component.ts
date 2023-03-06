@@ -1,8 +1,10 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, HostListener, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { DropDownService } from 'src/services/drop-down.service';
 import { AssetService } from '../../services/asset.service';
+import { AdInfoComponent } from './ad-info/ad-info.component';
 
 @Component({
   selector: 'app-assets',
@@ -36,9 +38,14 @@ export class AssetsComponent implements OnInit {
   assetTable: any[] = [];
   searchText: any;
   deviceId: string = '';
-  activeAssets: number = 0;
+  // activeAssets: number = 0;
 
-  constructor(private http: HttpClient, private apiser: AssetService, private dropDown: DropDownService, public datepipe: DatePipe) { }
+  added: any[] = [];
+  removed: any[] = [];
+  synced: any[] = [];
+  sendToController: any[] = [];
+
+  constructor(private http: HttpClient, private apiser: AssetService, private dropDown: DropDownService, public datepipe: DatePipe, public dialog: MatDialog) { }
 
   currentDateTime: any;
   ngOnInit(): void {
@@ -55,8 +62,14 @@ export class AssetsComponent implements OnInit {
       console.log(res);
 
       for(let item of this.assetTable) {
-        if(item.is_active != 0) {
-          this.activeAssets = this.activeAssets + 1;
+        if(item.status == "Added") {
+          this.added.push(item);
+        } else if(item.status == "Removed") {
+          this.removed.push(item);
+        } else if(item.status == "Synced") {
+          this.synced.push(item);
+        } else if(item.status == "SentToController") {
+          this.sendToController.push(item);
         }
       }
     })
@@ -327,6 +340,10 @@ export class AssetsComponent implements OnInit {
     } else {
       x.sort((a: string, b: string) => b[label] > a[label] ? 1 : b[label] < a[label] ? -1 : 0);
     }
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(AdInfoComponent);
   }
 
 }

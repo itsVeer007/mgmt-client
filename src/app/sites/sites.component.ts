@@ -51,6 +51,9 @@ export class SitesComponent implements OnInit {
 
   tableData: any[] = [];
   searchText: any;
+  active: any[] = [];
+  inActive: any[] = [];
+  onHold: any[] = [];
 
   ngOnInit(): void {
     this.onGetSites()
@@ -83,6 +86,16 @@ export class SitesComponent implements OnInit {
     this.siteSer.getSites().subscribe((res: any) => {
       this.tableData = res.sitesList;
       console.log(res);
+
+      for(let item of res.sitesList) {
+        if(item.status == "Active") {
+          this.active.push(item);
+        } else if(item.status == "Inactive") {
+          this.inActive.push(item);
+        } else if(item.status == "Onhold") {
+          this.onHold.push(item);
+        }
+      }
     })
   }
 
@@ -98,11 +111,7 @@ export class SitesComponent implements OnInit {
   engineerView(e: any, i: any) {
     this.engineerId = i;
     var x = e.target.nextElementSibling;
-    if (x.style.display == 'none') {
-      x.style.display = 'flex';
-    } else {
-      x.style.display = 'none';
-    }
+    x.style.display == 'none' ? x.style.display = 'flex' : x.style.display = 'none';
   }
 
   onGetCentralboxDetail: any;

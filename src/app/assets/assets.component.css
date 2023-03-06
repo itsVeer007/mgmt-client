@@ -32,10 +32,16 @@
   height: 40px;
 }
 
+.vl-blue {
+  border-left: 2px solid #1b86e9;
+  height: 40px;
+}
+
 .status {
   font-size: 12px;
   color: #ABABAB;
   letter-spacing: 0.5px;
+  width: 120px;
 }
 
 .count {

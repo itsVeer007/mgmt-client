@@ -15,6 +15,11 @@ export class SiteService {
     return this.http.get(url)
   }
 
+  addDevice(payload: any) {
+    let url = this.baseUrl + "/devices/addDeviceToSite_1_0";
+    return this.http.post(url, payload)
+  }
+
   getEngineer(id: any) {
     let url = this.baseUrl + '/sites/getEngineerdetails_1_0/' + `${id}`;
     return this.http.get(url)

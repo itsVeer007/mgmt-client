@@ -1,13 +1,13 @@
 [
   {
-    "username": "tataveermotaparti@gmail.com",
+    "username": "cooper",
     "password": "Z%^gfd#12D",
     "firstname": "Veer",
     "lastname": "M",
     "roleList": [
         "default store"
     ],
-    "email": "tataveermotaparti@gmail.com",
+    "email": "cooper@gmail.com",
     "gender": "M",
     "realm": "IVISUSA",
     "contactNumber1": "+91 (999) 362-9900",
@@ -24,11 +24,12 @@
     "accesstoken": "",
     "callingUsername": "ivisus",
     "callingSystemDetail": "admin",
-    "safetyEscort": "F"
+    "safetyEscort": "F",
+    "status": "Active"
   },
 
   {
-    "username": "john@gmail.com",
+    "username": "john",
     "password": "Z%^gfd#12A",
     "firstname": "John",
     "lastname": "M",
@@ -52,11 +53,12 @@
     "accesstoken": "",
     "callingUsername": "ivisus",
     "callingSystemDetail": "admin",
-    "safetyEscort": "F"
+    "safetyEscort": "F",
+    "status": "Active"
   },
 
   {
-    "username": "mark@gmail.com",
+    "username": "mark",
     "password": "Z%^gfd#12B",
     "firstname": "Mark",
     "lastname": "M",
@@ -80,18 +82,19 @@
     "accesstoken": "",
     "callingUsername": "ivisus",
     "callingSystemDetail": "admin",
-    "safetyEscort": "F"
+    "safetyEscort": "F",
+    "status": "Active"
   },
 
   {
-    "username": "veer",
+    "username": "mike",
     "password": "Z%^gfd#12B",
     "firstname": "Mark",
     "lastname": "M",
     "roleList": [
         "default store"
     ],
-    "email": "veer@gmail.com",
+    "email": "mike@gmail.com",
     "gender": "M",
     "realm": "IVISUSA",
     "contactNumber1": "+91 (999) 362-9900",
@@ -108,6 +111,7 @@
     "accesstoken": "",
     "callingUsername": "ivisus",
     "callingSystemDetail": "admin",
-    "safetyEscort": "F"
+    "safetyEscort": "F",
+    "status": "Active"
   }
 ]

@@ -46,6 +46,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 //utilities
@@ -55,6 +56,7 @@ import { LoaderComponent } from './utilities/loader/loader.component';
 import { ChartService } from 'src/services/chart.service';
 import { SearchPipe } from './utilities/search.pipe';
 import { DatePipe } from '@angular/common';
+import { AdInfoComponent } from './assets/ad-info/ad-info.component';
 
 @NgModule({
   declarations: [
@@ -85,6 +87,7 @@ import { DatePipe } from '@angular/common';
     AddNewInventoryComponent,
     AddNewAnalyticComponent,
     AddNewTicketComponent,
+    AdInfoComponent,
   ],
   imports: [
     BrowserModule,
@@ -107,7 +110,8 @@ import { DatePipe } from '@angular/common';
     MatCheckboxModule,
     MatRadioModule,
     MatProgressBarModule,
-    MatCardModule
+    MatCardModule,
+    MatDialogModule
   ],
   providers: [
     ChartService,
