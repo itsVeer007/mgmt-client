@@ -1,8 +1,11 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { SearchPipe } from '../utilities/search.pipe';
 import { DropDownService } from 'src/services/drop-down.service';
 import { SiteService } from 'src/services/site.service';
+import { MatDialog } from '@angular/material/dialog';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { HasElementRef } from '@angular/material/core/common-behaviors/color';
 
 @Component({
   selector: 'app-sites',
@@ -47,7 +50,7 @@ export class SitesComponent implements OnInit {
     // }
   }
 
-  constructor(private http: HttpClient, private dropDown: DropDownService, private siteSer: SiteService) { }
+  constructor(private http: HttpClient, private dropDown: DropDownService, private siteSer: SiteService, public dialog: MatDialog) { }
 
   tableData: any[] = [];
   searchText: any;
@@ -365,6 +368,10 @@ export class SitesComponent implements OnInit {
       x.sort((a:string, b:string) => b[label] > a[label] ? 1 : b[label] < a[label] ? -1 : 0);
     }
   }
+
+  // openDialog() {
+  //   this.dialog.open(pop);
+  // }
 
 }
 

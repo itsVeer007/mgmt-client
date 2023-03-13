@@ -124,8 +124,8 @@
                   </p>
                 </td>
 
-                <td class="pointer">
-                  <a style="color: #084982;" (click)="addressView($event, i)">View</a>
+                <td>
+                  <a class="pointer" style="color: #084982;" (click)="addressView($event, i)">View</a>
 
                   <div class="plus-img" id="address{{i}}">
                     <p class="p-2" style="color: #ABABAB; text-align: left;">ADDRESS</p>
@@ -238,6 +238,7 @@
   <!-- </div> -->
 </div>
 
+<!-- Edit Popup -->
 <div class="modalitem max-center" [hidden]="editPopup">
   <div class="card">
     <div class="card-header d-flex justify-content-between">
@@ -254,7 +255,7 @@
           </div>
         </li>
         <li>
-          <h6 style="width: 110px">Customer Name</h6>
+          <h6 style="width: 110px">Customer</h6>
           :
           <div>
             <input type="text" class="form-control my-1" [(ngModel)]="currentItem.siteName" />
@@ -294,6 +295,7 @@
   </div>
   <!-- </div>   -->
 </div>
+<!-- /Edit Popup -->
 
 <div class="modalitem max-center" [hidden]="viewPopup">
   <div class="card">

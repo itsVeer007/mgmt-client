@@ -1,16 +1,19 @@
 <div class="login">
-    <div><a class="login-logo"><img src="assets/images/Logo.svg" /></a></div>
+    <div class="login-logo">
+      <a><img src="assets/images/Logo.svg" /></a>
+    </div>
+
     <div class="main-header">
         <div class="heading">
-            <h4>SIGN IN</h4>
+            <span>SIGN IN</span>
         </div>
-        <form>
+        <form class="sign-in">
             <input type="text" name="uname" class="form-control" placeholder="Enter UserName" [(ngModel)]="username" (keydown)="error=null"/>
             <input type="password" name="pwd" class="form-control" placeholder="Enter Password" [(ngModel)]="password"/>
-            <a><small>Forgot Password ?</small></a>
+            <a class="pointer"><small>Forgot Password ?</small></a>
             <div class="btns">
-                <div>{{error ? error:''}} &nbsp;</div>    
-                <button type="submit" class="btn" (click)="submit()">LOGIN</button>
+              <button type="submit" class="btn mt-2" (click)="submit()">LOGIN</button>
+              <div class="mt-2 text-danger">{{error ? error:''}} &nbsp;</div>
             </div>
         </form>
     </div>

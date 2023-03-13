@@ -12,7 +12,7 @@
         <div class="row">
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
-              <input matInput placeholder="Site Id" [matAutocomplete]="site" formControlName="siteId" (change)="myInput($event)">
+              <input matInput placeholder="Site Id" [matAutocomplete]="site" formControlName="siteId" (focus)="myInput($event)">
               <mat-autocomplete #site="matAutocomplete">
                 <mat-option *ngFor="let item of siteIdList | search: searchText" [value]="item.siteId">
                   {{ item.siteId }}

@@ -343,7 +343,7 @@ export class AssetsComponent implements OnInit {
   }
 
   openDialog() {
-    const dialogRef = this.dialog.open(AdInfoComponent);
+    this.dialog.open(AdInfoComponent);
   }
 
 }

@@ -7,7 +7,7 @@ import { ApiService } from 'src/services/api.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Management-Server';
+  title = 'mgmtClient';
   user=null;
 
   constructor(private apiser: ApiService){}
