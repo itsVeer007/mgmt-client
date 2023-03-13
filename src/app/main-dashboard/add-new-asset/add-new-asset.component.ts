@@ -33,6 +33,8 @@ export class AddNewAssetComponent implements OnInit {
   @Input() data: any;
   @Output() newItemEvent = new EventEmitter<boolean>();
 
+  searchText: string = '';
+
   // @Output() newUser = new EventEmitter<any>();
 
   // @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
@@ -45,7 +47,7 @@ export class AddNewAssetComponent implements OnInit {
   // }
 
   addAssetForm: any = FormGroup;
-  searchText: any;
+  // searchText: any;
   siteIdList: any
   deviceIdList: any
 
@@ -150,6 +152,11 @@ export class AddNewAssetComponent implements OnInit {
     }
     this.submit = true;
     console.log(this.addAssetForm.value);
+  }
+
+  myInput(e: Event) {
+    console.log((e.target as HTMLInputElement).value)
+    this.searchText = (e.target as HTMLInputElement).value
   }
 
 }
