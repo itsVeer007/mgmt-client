@@ -39,6 +39,7 @@ export class AssetsComponent implements OnInit {
   searchText: any;
   deviceId: string = '';
   // activeAssets: number = 0;
+  showLoader: boolean = false;
 
   added: any[] = [];
   removed: any[] = [];
@@ -56,7 +57,9 @@ export class AssetsComponent implements OnInit {
 
   tableData: any;
   getAsset() {
+    this.showLoader = true;
     this.apiser.getAssets().subscribe((res: any) => {
+      this.showLoader = false;
       this.assetTable = res.asset_details;
       this.tableData = this.assetTable;
       console.log(res);

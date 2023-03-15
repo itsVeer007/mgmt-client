@@ -32,23 +32,23 @@ import { ChartService } from 'src/services/chart.service';
 
 export class MainDashboardComponent implements OnInit {
 
-  // @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
-  //   var x = <HTMLElement>document.getElementById(`icons-site`);
-  //   if (x != null) {
-  //     if (!x.contains(e.target)) {
-  //       this.icons111 = false;
-  //     }
-  //   }
+  @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
+    // var x = <HTMLElement>document.getElementById(`icons-site`);
+    // if (x != null) {
+    //   if (!x.contains(e.target)) {
+    //     this.icons111 = false;
+    //   }
+    // }
 
-  //   var y = <HTMLElement>document.getElementById(`icons1${this.currentid}`);
-  //   if (y != null) {
-  //     if (!y.contains(e.target.parentNode.previousElementSibling)) {
-  //       if (y.style.display == 'flex' || y.style.display == 'block') {
-  //         y.style.display = 'none';
-  //       }
-  //     }
-  //   }
-  // }
+    var y = <HTMLElement>document.getElementById(`icons1${this.currentid}`);
+    if (y != null) {
+      if (!y.contains(e.target.parentNode.previousElementSibling)) {
+        if (y.style.display == 'flex' || y.style.display == 'block') {
+          y.style.display = 'none';
+        }
+      }
+    }
+  }
 
   openicons11(i: any) {
     var y = <HTMLElement>document.getElementById(`icons1${this.currentid}`);

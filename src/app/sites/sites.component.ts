@@ -54,15 +54,51 @@ export class SitesComponent implements OnInit {
 
   tableData: any[] = [];
   searchText: any;
-  active: any[] = [];
+  totalCount: any;
+  active: any;
   inActive: any[] = [];
   onHold: any[] = [];
+  showLoader: boolean = false;
+
+  showIconView: boolean = false;
+  showIconEdit: boolean = false;
+  showIconDelete: boolean = false;
+  showIconView1: boolean = false;
+  showIconEdit1: boolean = false;
+  showIconDelete1: boolean = false;
 
   ngOnInit(): void {
     this.onGetSites()
     this.ongetDeviceMode();
     // this.x = JSON.parse(localStorage.getItem('tab_length')!)
   }
+
+  onGetSites() {
+    this.showLoader = true;
+    this.siteSer.getSites().subscribe((res: any) => {
+      this.showLoader = false;
+      this.tableData = res.sitesList;
+      this.totalCount = res.counts;
+      console.log(this.totalCount)
+      console.log(res);
+
+      for(let item of res.counts) {
+        if(item.title == "Active") {
+          this.active = item.value
+        } else if(item.title == "Active") {
+          this.active = item.value
+        }
+        // if(item.status == "Active") {
+        //   this.active.push(item);
+        // } else if(item.status == "Inactive") {
+        //   this.inActive.push(item);
+        // } else if(item.status == "Onhold") {
+        //   this.onHold.push(item);
+        // }
+      }
+    })
+  }
+
 
   deviceMode: any;
   ongetDeviceMode() {
@@ -77,30 +113,6 @@ export class SitesComponent implements OnInit {
   // showIconCamera: boolean = false;
   // showIconAnalytic: boolean = false;
   // showIconUser: boolean = false;
-
-  showIconView: boolean = false;
-  showIconEdit: boolean = false;
-  showIconDelete: boolean = false;
-  showIconView1: boolean = false;
-  showIconEdit1: boolean = false;
-  showIconDelete1: boolean = false;
-
-  onGetSites() {
-    this.siteSer.getSites().subscribe((res: any) => {
-      this.tableData = res.sitesList;
-      console.log(res);
-
-      for(let item of res.sitesList) {
-        if(item.status == "Active") {
-          this.active.push(item);
-        } else if(item.status == "Inactive") {
-          this.inActive.push(item);
-        } else if(item.status == "Onhold") {
-          this.onHold.push(item);
-        }
-      }
-    })
-  }
 
   engineerDetail: any;
   onGetEngineer(id: any) {

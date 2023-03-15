@@ -20,7 +20,7 @@
 
     <div class="d-flex justify-content-between verticals">
       <div>
-        <span class="text-secondary" style="font-size: 20px; font-weight: 600;">Dashboard</span>
+        <span style="font-size: 20px; font-weight: 600; color: #ababab;">Dashboard</span>
         <h6 class="mt-4" style="font-size: 16px;"><b>verticals - <span> 8</span></b></h6>
       </div>
 
@@ -90,7 +90,7 @@
         <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12 card-menu" *ngFor="let ver of showcardReport">
             <div class="card1 my-1">
                 <div class="card-header max-center">
-                    <h6><b>{{ver.vertical}}</b></h6>
+                    <span><b>{{ver.vertical}}</b></span>
                 </div>
                 <div class="card-body ">
                     <div class="d-flex flex-row justify-content">
@@ -298,7 +298,7 @@
                     <th style="padding: 10px 0; justify-content:center;" class="text-center">Users -
                       <span class="badge">{{totalUsers}}</span>
                     </th>
-                    <th style="padding: 10px 0; justify-content:center;" class="text-center">Actions</th>
+                    <!-- <th style="padding: 10px 0; justify-content:center;" class="text-center">Actions</th> -->
                     <!-- <th></th> -->
                 </tr>
                 <tr *ngFor="let main of mainReport; let i=index">
@@ -308,12 +308,12 @@
                     <!-- <td class="pt-2 text-center">{{main.camerasCount}}</td> -->
                     <!-- <td class="pt-2 text-center">{{main.analyticsCount}}</td> -->
                     <td class="pt-2 text-center">{{main.usersCount}}</td>
-                    <td class="text-center" style="position: relative;">
+                    <!-- <td class="text-center" style="position: relative;">
                       <div class="icons1 new-icon" id="icons1{{i}}" style="display: none;">
                           <div class="d-flex align-items-center justify-content-evenly plus-img">
                               <a class="pointer" (click)="openIcon('site')"><img src="assets/images/Union 26@2x.png" width="15" height="15" /></a>
-                              <!-- <a class="pointer"><img src="assets/images/bx-cctv@2x.png" width="15" height="15" /></a>
-                              <a class="pointer"><img src="assets/images/Union 27@2x.png" width="15" height="15" /></a> -->
+                              <a class="pointer"><img src="assets/images/bx-cctv@2x.png" width="15" height="15" /></a>
+                              <a class="pointer"><img src="assets/images/Union 27@2x.png" width="15" height="15" /></a>
                               <a class="pointer" (click)="openIcon('user')"><img src="assets/images/Union 29@2x.png" width="15" height="15" /></a>
                           </div>
                       </div>
@@ -321,7 +321,7 @@
                           style="box-shadow: none !important;">
                           <img src="assets/images/add-svg.svg" width="30" height="30" />
                       </button>
-                    </td>
+                    </td> -->
                 </tr>
             </tbody>
         </table>

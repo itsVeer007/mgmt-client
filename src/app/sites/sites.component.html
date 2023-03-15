@@ -20,7 +20,7 @@
           <div class="vl-green"></div>
           <div class="mx-2">
               <div class="status">Active</div>
-              <div class="count">{{ active.length }}</div>
+              <div class="count">{{ active }}</div>
           </div>
       </div>
       <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 d-flex justify-content-start">
@@ -213,6 +213,13 @@
               </tr>
           </tbody>
       </table>
+
+      <!-- Loader -->
+      <div class="d-flex justify-content-center align-items-center mt-5">
+        <app-loader *ngIf="showLoader"></app-loader>
+      </div>
+      <!-- /Loader -->
+
   </div>
   <!-- /table-->
 
@@ -249,35 +256,30 @@
       <ul *ngIf="currentItem">
         <li>
           <h6 style="width: 110px">Site Id</h6>
-          :
           <div>
             <input type="text" class="form-control my-1" [(ngModel)]="currentItem.siteId" />
           </div>
         </li>
         <li>
           <h6 style="width: 110px">Customer</h6>
-          :
           <div>
             <input type="text" class="form-control my-1" [(ngModel)]="currentItem.siteName" />
           </div>
         </li>
         <li>
           <h6 style="width: 110px">Cust Type</h6>
-          :
           <div>
             <input type="text" class="form-control my-1" [(ngModel)]="currentItem.cntrl_Unit" />
           </div>
         </li>
         <li>
           <h6 style="width: 110px">Contact Number</h6>
-          :
           <div>
             <input type="text" class="form-control my-1" [(ngModel)]="currentItem.services" />
           </div>
         </li>
         <li>
           <h6 style="width: 110px">Status</h6>
-          :
           <div>
             <input type="text" class="form-control my-1" [(ngModel)]="currentItem.status" />
           </div>
@@ -285,7 +287,7 @@
       </ul>
     </div>
     <div class="card-footer">
-      <button type="button" class="btn btn-primary mx-2" (click)="confirmEditRow()">
+      <button type="button" class="btn mx-2" style="background-color: #084982; color: #ffffff;" (click)="confirmEditRow()">
         Update
       </button>
       <button type="button" class="btn btn-danger" (click)="closeEditPopup()">
@@ -307,23 +309,23 @@
       <ul *ngIf="currentItem">
         <li>
           <h6 style="width: 110px">Site Id</h6>
-          : {{ currentItem?.siteID }}
+          {{ currentItem?.siteID }}
         </li>
         <li>
           <h6 style="width: 110px">Asset Name</h6>
-          : {{ currentItem?.siteName }}
+          {{ currentItem?.siteName }}
         </li>
         <li>
           <h6 style="width: 110px">Device Mode</h6>
-          : {{ currentItem?.cntrl_Unit }}
+          {{ currentItem?.cntrl_Unit }}
         </li>
         <li>
           <h6 style="width: 110px">Mime Type</h6>
-          : {{ currentItem?.services }}
+          {{ currentItem?.services }}
         </li>
         <li>
           <h6 style="width: 110px">Status</h6>
-          : {{ currentItem?.status }}
+          {{ currentItem?.status }}
         </li>
       </ul>
     </div>

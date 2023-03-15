@@ -294,6 +294,16 @@ border: 1px solid #fff;
 
 
 @media only screen and (max-width: 768px) {
+  .search-form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .table-icons {
+    position: relative;
+    left: 125px;
+  }
+
   .search {
       width: 186px;
   }
@@ -311,6 +321,22 @@ border: 1px solid #fff;
 
 }
 
-/* .lists {
-  margin-top: -20px;
-} */
+/* common ng-deep */
+.mat-form-field-appearance-outline ::ng-deep .mat-form-field-outline {
+  top: 5px;
+  bottom: 5px;
+}
+
+.mat-form-field-appearance-outline ::ng-deep .mat-form-field-wrapper {
+  padding-bottom: 0.5em;
+}
+
+::ng-deep .mat-select-value {
+  position: relative;
+  bottom: 4px;
+}
+
+::ng-deep input.mat-input-element {
+  position: relative;
+  bottom: 4px;
+}

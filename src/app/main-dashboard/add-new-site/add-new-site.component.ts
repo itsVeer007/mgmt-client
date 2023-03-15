@@ -130,4 +130,19 @@ export class AddNewSiteComponent implements OnInit {
       alert('User not allowed')
     }, { timeout: 10000 })
   }
+
+  selectedFile: any = null;
+  selectedFiles:  Array<any> = [];
+
+  onFileSelected(event: any) {
+    if(typeof(event) == 'object') {
+      this.selectedFile = event.target.files[0] ?? null;
+      this.selectedFiles.push(this.selectedFile);
+    }
+  }
+
+  deleteFile() {
+    this.selectedFiles.pop();
+  }
+
 }

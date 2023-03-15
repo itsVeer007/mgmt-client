@@ -1,4 +1,4 @@
-.loader{
+/* .loader{
   position: absolute;
   top: 0;
   width: 100%;
@@ -7,4 +7,18 @@
   z-index: 49;
   background: linear-gradient(90deg, rgba(28,74,130,0.9) 0%, rgba(131,96,110,0.9) 50%, rgba(208,67,41,0.9) 100%);
   text-align: center;
+} */
+
+.loader {
+  border: 8px solid #f3f3f3; /* Light grey */
+  border-top: 8px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

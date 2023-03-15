@@ -1,4 +1,3 @@
-<!-- <app-loader *ngIf="showLoader"></app-loader> -->
 <div class="container-fluid users" id="top">
 
   <!-- header -->
@@ -224,7 +223,14 @@
         </tr>
       </tbody>
     </table>
-  </div>
+
+    <!-- Loader -->
+    <div class="d-flex justify-content-center align-items-center mt-5">
+      <app-loader *ngIf="showLoader"></app-loader>
+    </div>
+    <!-- /Loader -->
+
+    </div>
   </div>
 <!-- table ends -->
 
@@ -259,56 +265,48 @@
       <ul *ngIf="currentItem">
         <li>
           <h6 style="width: 110px">Site Id</h6>
-          :
           <div>
             <input type="text" class="form-control my-1" [(ngModel)]="currentItem.siteId" />
           </div>
         </li>
         <li>
           <h6 style="width: 110px">Customer Name</h6>
-          :
           <div>
             <input type="text" class="form-control my-1" [(ngModel)]="currentItem.customerName" />
           </div>
         </li>
         <li>
           <h6 style="width: 110px">Cust Type</h6>
-          :
           <div>
             <input type="text" class="form-control my-1" [(ngModel)]="currentItem.custType" />
           </div>
         </li>
         <li>
           <h6 style="width: 110px">Contact Number</h6>
-          :
           <div>
             <input type="text" class="form-control my-1" [(ngModel)]="currentItem.contactNumber" />
           </div>
         </li>
         <li>
           <h6 style="width: 110px">Email Id</h6>
-          :
           <div>
             <input type="text" class="form-control my-1" [(ngModel)]="currentItem.emailId" />
           </div>
         </li>
         <li>
           <h6 style="width: 110px">Contact Person</h6>
-          :
           <div>
             <input type="text" class="form-control my-1" [(ngModel)]="currentItem.contactPerson" />
           </div>
         </li>
         <li>
           <h6 style="width: 110px">Address</h6>
-          :
           <div>
             <input type="text" class="form-control my-1" [(ngModel)]="currentItem.address" />
           </div>
         </li>
         <li>
           <h6 style="width: 110px">Status</h6>
-          :
           <div>
             <input type="text" class="form-control my-1" [(ngModel)]="currentItem.status" />
           </div>
@@ -316,7 +314,7 @@
       </ul>
     </div>
     <div class="card-footer">
-      <button type="button" class="btn btn-primary mx-2" (click)="confirmEditRow()">
+      <button type="button" class="btn mx-2" style="background-color: #084982; color: #ffffff;" (click)="confirmEditRow()">
         Update
       </button>
       <button type="button" class="btn btn-danger" (click)="closeEditPopup()">
@@ -337,35 +335,35 @@
       <ul *ngIf="currentItem">
         <li>
           <h6 style="width: 110px">Site Id</h6>
-          : {{ currentItem?.siteId }}
+          {{ currentItem?.siteId }}
         </li>
         <li>
           <h6 style="width: 110px">Asset Name</h6>
-          : {{ currentItem?.assetName }}
+          {{ currentItem?.assetName }}
         </li>
         <li>
           <h6 style="width: 110px">Device Mode</h6>
-          : {{ currentItem?.deviceMode }}
+          {{ currentItem?.deviceMode }}
         </li>
         <li>
           <h6 style="width: 110px">Mime Type</h6>
-          : {{ currentItem?.mimetype }}
+          {{ currentItem?.mimetype }}
         </li>
         <li>
           <h6 style="width: 110px">Description</h6>
-          : {{ currentItem?.description }}
+          {{ currentItem?.description }}
         </li>
         <li>
           <h6 style="width: 110px">Start Date</h6>
-          : {{ currentItem?.startDate }}
+          {{ currentItem?.startDate }}
         </li>
         <li>
           <h6 style="width: 110px">End Date</h6>
-          : {{ currentItem?.endDate }}
+          {{ currentItem?.endDate }}
         </li>
         <li>
           <h6 style="width: 110px">Status</h6>
-          : {{ currentItem?.status }}
+          {{ currentItem?.status }}
         </li>
       </ul>
     </div>

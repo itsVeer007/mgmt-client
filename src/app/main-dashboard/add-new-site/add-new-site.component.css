@@ -59,6 +59,20 @@
   margin: 3px 0;
 }
 
+.file {
+  color: #c0bebe;
+  border: 1px dotted #e0e0e0;
+  border-radius: 5px;
+  text-align: center;
+  padding: 55px;
+  margin-top: 10px;
+}
+
+.file-upload a {
+  cursor: pointer;
+  text-decoration: none;
+}
+
 @media only screen and (max-width: 768px) {
   .lat, .long {
       border: 1px solid #EFEFEF;
@@ -69,22 +83,6 @@
       width: 29.5%;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* @use postcss-preset-env {
   stage: 0;
@@ -261,4 +259,24 @@ p {
 /* .mat-form-field-appearance-outline ::ng-deep .mat-form-field-flex{
   margin-top: -8px;
 } */
+
+
+
+/* only */
+::ng-deep .mat-form-field {
+  margin-top: 5px !important;
+}
+
+::ng-deep .mat-card {
+  padding: 10px !important;
+  background: #F8F8F8 !important;
+}
+
+::ng-deep .mat-stroked-button.mat-primary {
+  color: #084982;
+}
+
+::ng-deep .mat-stroked-button {
+  border: 1px solid #084982 !important;
+}
 
