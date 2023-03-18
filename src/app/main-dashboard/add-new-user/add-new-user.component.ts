@@ -80,7 +80,7 @@ export class AddNewUserComponent implements OnInit {
   ngOnInit() {
     this.UserForm = this.fb.group({
       'userName': new FormControl('', Validators.required),
-      'password': new FormControl('', [Validators.required]),
+      'password': new FormControl('', Validators.required),
       'first': new FormControl('', Validators.required),
       'last': new FormControl('', Validators.required),
       // 'gender': this.fb.group({
@@ -148,10 +148,12 @@ export class AddNewUserComponent implements OnInit {
     localStorage.setItem('opennewform', newform)
   }
 
+  isValidate: boolean = false;
   submit() {
     console.log("Userform: ",this.UserForm.value);
     console.log("Payload: ",this.user);
 
+    this.isValidate = true;
     if(this.UserForm.valid) {
       this.apiser.addUser(this.user).subscribe((res: any) => {
         if(res.Status == "Success") {

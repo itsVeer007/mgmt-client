@@ -60,7 +60,7 @@
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Site Name</mat-label>
             <mat-select>
-              <mat-option (click)="sort('asset_name')">Filter by A-Z</mat-option>
+              <mat-option *ngFor="let item of assetTable" (click)="sort('asset_name')">{{ item.asset_name }}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -235,7 +235,6 @@
 <!-- table ends -->
 
 <div class="modalitem max-center" [hidden]="deletePopup">
-  <!-- <div  class="deletePopup" > -->
   <div class="card">
     <div class="card-header d-flex justify-content-between">
       <p>Delete Row</p>
@@ -251,11 +250,9 @@
       </button>
     </div>
   </div>
-  <!-- </div> -->
 </div>
 
 <div class="modalitem max-center" [hidden]="editPopup">
-  <!-- <div  class="deletePopup" > -->
   <div class="card">
     <div class="card-header d-flex justify-content-between">
       <p>Edit</p>
@@ -270,39 +267,21 @@
           </div>
         </li>
         <li>
-          <h6 style="width: 110px">Customer Name</h6>
+          <h6 style="width: 110px">Asset Id</h6>
           <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.customerName" />
+            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.id" />
           </div>
         </li>
         <li>
-          <h6 style="width: 110px">Cust Type</h6>
+          <h6 style="width: 110px">Asset Name</h6>
           <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.custType" />
+            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.asset_name" />
           </div>
         </li>
         <li>
-          <h6 style="width: 110px">Contact Number</h6>
+          <h6 style="width: 110px">Asset Type</h6>
           <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.contactNumber" />
-          </div>
-        </li>
-        <li>
-          <h6 style="width: 110px">Email Id</h6>
-          <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.emailId" />
-          </div>
-        </li>
-        <li>
-          <h6 style="width: 110px">Contact Person</h6>
-          <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.contactPerson" />
-          </div>
-        </li>
-        <li>
-          <h6 style="width: 110px">Address</h6>
-          <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.address" />
+            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.mimetype" />
           </div>
         </li>
         <li>
@@ -322,7 +301,6 @@
       </button>
     </div>
   </div>
-  <!-- </div>   -->
 </div>
 
 <div class="modalitem max-center" [hidden]="viewPopup">
@@ -335,35 +313,31 @@
       <ul *ngIf="currentItem">
         <li>
           <h6 style="width: 110px">Site Id</h6>
-          {{ currentItem?.siteId }}
+          : {{ currentItem?.siteId }}
         </li>
         <li>
           <h6 style="width: 110px">Asset Name</h6>
-          {{ currentItem?.assetName }}
+          : {{ currentItem?.asset_name }}
         </li>
         <li>
           <h6 style="width: 110px">Device Mode</h6>
-          {{ currentItem?.deviceMode }}
+          : {{ currentItem?.deviceMode }}
         </li>
         <li>
           <h6 style="width: 110px">Mime Type</h6>
-          {{ currentItem?.mimetype }}
-        </li>
-        <li>
-          <h6 style="width: 110px">Description</h6>
-          {{ currentItem?.description }}
+          : {{ currentItem?.mimetype }}
         </li>
         <li>
           <h6 style="width: 110px">Start Date</h6>
-          {{ currentItem?.startDate }}
+          : {{ currentItem?.start_date }}
         </li>
         <li>
           <h6 style="width: 110px">End Date</h6>
-          {{ currentItem?.endDate }}
+          : {{ currentItem?.end_date }}
         </li>
         <li>
           <h6 style="width: 110px">Status</h6>
-          {{ currentItem?.status }}
+          : {{ currentItem?.status }}
         </li>
       </ul>
     </div>

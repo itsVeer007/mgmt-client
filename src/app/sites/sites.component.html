@@ -3,7 +3,7 @@
   <!-- header -->
   <div class="d-flex justify-content-between">
     <div class="sites-header">
-      <p>List of all Sites - <span>{{tableData.length}}</span></p>
+      <p>List of all Sites - <span>{{ totalCount ? totalCount : 0 }}</span></p>
     </div>
     <div style="position: relative;">
       <a class="pointer" (click)="show('site')"><img src="assets/images/add.svg" alt="" /></a>
@@ -20,7 +20,7 @@
           <div class="vl-green"></div>
           <div class="mx-2">
               <div class="status">Active</div>
-              <div class="count">{{ active }}</div>
+              <div class="count">{{ active ? active : 0 }}</div>
           </div>
       </div>
       <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 d-flex justify-content-start">
@@ -77,148 +77,147 @@
 
   <!-- table -->
   <div class="table-resp">
-      <table class="table">
-          <tbody>
-            <tr class="form1">
-              <th><input type="checkbox" class="form-check-input" [(ngModel)]="selectedAll"
-                      (change)="selectAll();" id="allcheck"
-                      style="background-color: #00000000; border-color:#fff;margin-left:10px;" />
-              </th>
-              <!-- <th><input type="checkbox" class="form-check-input"
-                  id="allcheck" [checked]="SelectAll" (click)="allchecked($event)" style="background-color: #00000000; border-color:#fff;margin-left:10px;" />
-              </th> -->
-              <th (click)="sort('siteID')">Site ID</th>
-              <th (click)="sort('siteName')">Site Name</th>
-              <th (click)="sort('customer')">Customer</th>
-              <th (click)="sort('status')">Status</th>
-              <th (click)="sort('address')">Address</th>
-              <!-- <th (click)="sort('lat-long')">Lat & Long</th> -->
-              <th (click)="sort('escl_Details')">Escl. Details</th>
-              <th (click)="sort('engr_Details')">Engr. Details</th>
-              <th>Services</th>
-              <th (click)="sort('cntrl_Unit')">Cntrl Unit</th>
-              <th>Inventory</th>
-              <th>Analytics</th>
-              <th>Devices</th>
-              <th></th>
+    <table class="table">
+        <tbody>
+          <tr class="form1">
+            <th>
+              <input type="checkbox" class="form-check-input" [(ngModel)]="selectedAll" (change)="selectAll();" id="allcheck" style="background-color: #00000000; border-color:#fff;margin-left:10px;">
+            </th>
+            <!-- <th><input type="checkbox" class="form-check-input"
+                id="allcheck" [checked]="SelectAll" (click)="allchecked($event)" style="background-color: #00000000; border-color:#fff;margin-left:10px;" />
+            </th> -->
+            <th (click)="sort('siteID')">Site ID</th>
+            <th (click)="sort('siteName')">Site Name</th>
+            <th (click)="sort('customer')">Customer</th>
+            <th (click)="sort('status')">Status</th>
+            <th (click)="sort('address')">Address</th>
+            <!-- <th (click)="sort('lat-long')">Lat & Long</th> -->
+            <th (click)="sort('escl_Details')">Escl<br> Details</th>
+            <th (click)="sort('engr_Details')">Engr<br> Details</th>
+            <th>Services</th>
+            <th (click)="sort('cntrl_Unit')">Cntrl Unit</th>
+            <th>Inventory</th>
+            <th>Analytics</th>
+            <th>Devices</th>
+            <th></th>
+          </tr>
+
+          <tr *ngFor="let data of tableData | search : searchText; let i=index">
+              <td>
+                <input type="checkbox" class="form-check-input" [(ngModel)]="data.selected" (change)="checkIfAllSelected(); deleteMultiRecords(data, i, $event); ViewByCheckbox(data, i, $event); EditByCheckbox(data, i, $event)" id="singleCheck">
+              </td>
+              <td>
+                <p>{{data.siteId}}</p>
+              </td>
+              <td>
+                <p>{{ data.siteName ? data.siteName : '--' }}</p>
+              </td>
+              <td>
+                <!-- <p>{{data.customer}}</p> -->
+                --
+              </td>
+
+              <td>
+                <p [style.color]="data.status == 'Active' ? '#00A44C': data.status == 'Onhold' ? '#F5B400': data.status == 'Inactive' ? '#fa500f': '#084982'">
+                  {{ data.status ? data.status : '--' }}
+                </p>
+              </td>
+
+              <td>
+                <a class="pointer" style="color: #084982;" (click)="addressView($event, i)">View</a>
+
+                <div class="plus-img" id="address{{i}}">
+                  <p class="p-2" style="color: #ABABAB; text-align: left;">ADDRESS</p>
+                  <div style="color: #000; text-align: left; padding: 10px;">
+                    <p>Pathur Road, Tadepally</p>
+                    <p>Guntur - 522501</p>
+                    <p>Andhra Pradesh, India</p>
+                  </div>
+                </div>
+              </td>
+
+              <td>
+                <!-- <a class="pointer" style="color: #084982;">{{data.escl_Details}}</a> -->
+                <a class="pointer" style="color: #084982;" (click)="onGetEngineer(data.siteId); engineerView($event, i)">View</a>
+
+                <div class="plus-img" style="margin-left: -388px;" id="engineer{{i}}">
+                  <p class="p-2" style="color: #ABABAB; text-align: left;">Details:</p>
+                  <div class="eng-detail" *ngFor="let item of engineerDetail">
+                    <p>
+                      <span>Name:&nbsp;</span>
+                      {{ item.name ? item.name : '--' }}
+                    </p>
+                    <p>
+                      <span>Email:&nbsp;</span>
+                      {{ item.emailId ? item.emailId : '--' }}
+                    </p>
+                    <p>
+                      <span>Contact:&nbsp;</span>
+                      {{ item.contactNo ? item.contactNo : '--' }}
+                    </p>
+                  </div>
+                </div>
+              </td>
+
+              <td>
+                <!-- <a class="pointer" style="color: #084982;">{{data.escl_Details}}</a> -->
+                <a class="pointer" style="color: #084982;">View</a>
+              </td>
+
+              <td>
+                <!-- <div [ngClass]="data.status == 'Active' ? 'dot-green': data.status == 'Onhold' ? 'dot-yellow': data.status == 'Inactive' ? 'dot-red': 'dot-red'"></div> -->
+                --
+              </td>
+              <td>
+                <a class="pointer" style="color: #000;" (click)="onGetCentralbox(data.siteId)">
+                  <img src="assets/images/add-svg.svg" *ngIf="data.centralUnitId == '' || data.centralUnitId == null" width="25" height="25">
+                  <span *ngIf="data.cntrl_Unit != '' && data.centralUnitId !=null">{{data?.centralUnitId}}</span>
+                </a>
+              </td>
+              <td>
+                --
+              </td>
+              <td>
+                <!-- <a>
+                  <img src="assets/images/add-svg.svg" *ngIf="data.centralUnitId == '' || data.centralUnitId == null " width="25" height="25">
+                  <span *ngIf="data.centralUnitId != '' && data.centralUnitId !=null">{{data?.centralUnitId}}</span>
+                </a> -->
+                --
+              </td>
+              <td>
+                <a class="pointer">
+                  <img src="assets/images/add-svg.svg" width="25" height="25" (click)="show('device'); saveSiteData(data)">
+                  <!-- <span class="ms-2" (click)="show('device'); saveSiteData(data)" *ngIf="data.cntrl_Unit != '' && data.centralUnitId !=null">1</span> -->
+                </a>
+              </td>
+              <td>
+                <a class="pointer" (click)="closeDot($event,i)"><img src="assets/images/dotlist.svg" width="30" height="12" /></a>
+
+                <div class="plus-img1" id="plus{{i}}" style="display: none;">
+                  <div class="lists" *ngIf="showIconView1" style="margin-left: -55px; margin-top: -40px;">
+                    View
+                  </div>
+                  <div class="lists" *ngIf="showIconEdit1" style="margin-left: 5px; margin-top: -40px;">
+                    Edit
+                  </div>
+                  <div class="lists" *ngIf="showIconDelete1" style="margin-left: 68px; margin-top: -40px;">
+                    Delete
+                  </div>
+
+                  <a class="mx-2"><img src="assets/images/view.svg" (click)="openViewPopup(data, i)" (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" /></a>
+                  <a class="mx-2"><img src="assets/images/edit.svg" (click)="openEditPopup(data, i)" (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" /></a>
+                  <a class="mx-2" value="Delete"><img src="assets/images/delete.svg" (click)="openDeletePopup(data, i)" (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" /></a>
+                </div>
+              </td>
             </tr>
+        </tbody>
+    </table>
 
-            <tr *ngFor="let data of tableData | search : searchText; let i=index">
-                <td>
-                  <input type="checkbox" class="form-check-input" [(ngModel)]="data.selected" (change)="checkIfAllSelected(); deleteMultiRecords(data, i, $event); ViewByCheckbox(data, i, $event); EditByCheckbox(data, i, $event)" id="singleCheck">
-                </td>
-                <td>
-                  <p>{{data.siteId}}</p>
-                </td>
-                <td>
-                  <p>{{ data.siteName ? data.siteName : '--' }}</p>
-                </td>
-                <td>
-                  <!-- <p>{{data.customer}}</p> -->
-                  --
-                </td>
-
-                <td>
-                  <p [style.color]="data.status == 'Active' ? '#00A44C': data.status == 'Onhold' ? '#F5B400': data.status == 'Inactive' ? '#fa500f': '#084982'">
-                    {{ data.status ? data.status : '--' }}
-                  </p>
-                </td>
-
-                <td>
-                  <a class="pointer" style="color: #084982;" (click)="addressView($event, i)">View</a>
-
-                  <div class="plus-img" id="address{{i}}">
-                    <p class="p-2" style="color: #ABABAB; text-align: left;">ADDRESS</p>
-                    <div style="color: #000; text-align: left; padding: 10px;">
-                      <p>Pathur Road, Tadepally</p>
-                      <p>Guntur - 522501</p>
-                      <p>Andhra Pradesh, India</p>
-                    </div>
-                  </div>
-                </td>
-
-                <td>
-                  <!-- <a class="pointer" style="color: #084982;">{{data.escl_Details}}</a> -->
-                  <a class="pointer" style="color: #084982;" (click)="onGetEngineer(data.siteId); engineerView($event, i)">View</a>
-
-                  <div class="plus-img" style="margin-left: -388px;" id="engineer{{i}}">
-                    <p class="p-2" style="color: #ABABAB; text-align: left;">Details:</p>
-                    <div class="eng-detail" *ngFor="let item of engineerDetail">
-                      <p>
-                        <span>Name:&nbsp;</span>
-                        {{ item.name ? item.name : '--' }}
-                      </p>
-                      <p>
-                        <span>Email:&nbsp;</span>
-                        {{ item.emailId ? item.emailId : '--' }}
-                      </p>
-                      <p>
-                        <span>Contact:&nbsp;</span>
-                        {{ item.contactNo ? item.contactNo : '--' }}
-                      </p>
-                    </div>
-                  </div>
-                </td>
-
-                <td>
-                  <!-- <a class="pointer" style="color: #084982;">{{data.escl_Details}}</a> -->
-                  <a class="pointer" style="color: #084982;">View</a>
-                </td>
-
-                <td>
-                  <!-- <div [ngClass]="data.status == 'Active' ? 'dot-green': data.status == 'Onhold' ? 'dot-yellow': data.status == 'Inactive' ? 'dot-red': 'dot-red'"></div> -->
-                  --
-                </td>
-                <td>
-                  <a class="pointer" style="color: #000;" (click)="onGetCentralbox(data.siteId)">
-                    <img src="assets/images/add-svg.svg" *ngIf="data.centralUnitId == '' || data.centralUnitId == null" width="25" height="25">
-                    <span *ngIf="data.cntrl_Unit != '' && data.centralUnitId !=null">{{data?.centralUnitId}}</span>
-                  </a>
-                </td>
-                <td>
-                  --
-                </td>
-                <td>
-                  <!-- <a>
-                    <img src="assets/images/add-svg.svg" *ngIf="data.centralUnitId == '' || data.centralUnitId == null " width="25" height="25">
-                    <span *ngIf="data.centralUnitId != '' && data.centralUnitId !=null">{{data?.centralUnitId}}</span>
-                  </a> -->
-                  --
-                </td>
-                <td>
-                  <a class="pointer">
-                    <img src="assets/images/add-svg.svg" width="25" height="25" (click)="show('device'); saveSiteData(data)">
-                    <!-- <span class="ms-2" (click)="show('device'); saveSiteData(data)" *ngIf="data.cntrl_Unit != '' && data.centralUnitId !=null">1</span> -->
-                  </a>
-                </td>
-                <td>
-                  <a class="pointer" (click)="closeDot($event,i)"><img src="assets/images/dotlist.svg" width="30" height="12" /></a>
-
-                  <div class="plus-img1" id="plus{{i}}" style="display: none;">
-                    <div class="lists" *ngIf="showIconView1" style="margin-left: -55px; margin-top: -40px;">
-                      View
-                    </div>
-                    <div class="lists" *ngIf="showIconEdit1" style="margin-left: 5px; margin-top: -40px;">
-                      Edit
-                    </div>
-                    <div class="lists" *ngIf="showIconDelete1" style="margin-left: 68px; margin-top: -40px;">
-                      Delete
-                    </div>
-
-                    <a class="mx-2"><img src="assets/images/view.svg" (click)="openViewPopup(data, i)" (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" /></a>
-                    <a class="mx-2"><img src="assets/images/edit.svg" (click)="openEditPopup(data, i)" (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" /></a>
-                    <a class="mx-2" value="Delete"><img src="assets/images/delete.svg" (click)="openDeletePopup(data, i)" (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" /></a>
-                  </div>
-                </td>
-              </tr>
-          </tbody>
-      </table>
-
-      <!-- Loader -->
-      <div class="d-flex justify-content-center align-items-center mt-5">
-        <app-loader *ngIf="showLoader"></app-loader>
-      </div>
-      <!-- /Loader -->
+    <!-- Loader -->
+    <div class="d-flex justify-content-center align-items-center mt-5">
+      <app-loader *ngIf="showLoader"></app-loader>
+    </div>
+    <!-- /Loader -->
 
   </div>
   <!-- /table-->
@@ -295,7 +294,6 @@
       </button>
     </div>
   </div>
-  <!-- </div>   -->
 </div>
 <!-- /Edit Popup -->
 

@@ -56,6 +56,7 @@ export class SitesComponent implements OnInit {
   searchText: any;
   totalCount: any;
   active: any;
+
   inActive: any[] = [];
   onHold: any[] = [];
   showLoader: boolean = false;
@@ -79,12 +80,11 @@ export class SitesComponent implements OnInit {
       this.showLoader = false;
       this.tableData = res.sitesList;
       this.totalCount = res.counts;
-      console.log(this.totalCount)
       console.log(res);
 
       for(let item of res.counts) {
-        if(item.title == "Active") {
-          this.active = item.value
+        if(item.title == "totalCounts") {
+          this.totalCount = item.value
         } else if(item.title == "Active") {
           this.active = item.value
         }
@@ -106,13 +106,6 @@ export class SitesComponent implements OnInit {
       this.deviceMode = res.List_Shown_By_Type_Given;
     })
   }
-
-  // showIconVertical: boolean = false;
-  // showIconCustomer: boolean = false;
-  // showIconSite: boolean = false;
-  // showIconCamera: boolean = false;
-  // showIconAnalytic: boolean = false;
-  // showIconUser: boolean = false;
 
   engineerDetail: any;
   onGetEngineer(id: any) {
@@ -136,10 +129,6 @@ export class SitesComponent implements OnInit {
     })
   }
 
-  // showAddCamera = false;
-  // showAddCustomer = false;
-  // showAddUser = false;
-  // showAddBusinessVertical = false;
   showAddSite: boolean = false;
   showAddDevice: boolean = false;
 
@@ -155,13 +144,6 @@ export class SitesComponent implements OnInit {
   closenow(type: string, value: any) {
     if (type == 'site') { this.showAddSite = value }
     if (type == 'device') { this.showAddDevice = value }
-
-    // if (type == 'camr') { this.showAddCamera = value; }
-    // if (type == 'cust') { this.showAddCustomer = value; }
-    // if (type == 'vert') { this.showAddBusinessVertical = value; }
-    // if (type == 'user') { this.showAddUser = value; }
-
-    // console.log("SITES:: ",type)
 
     // setTimeout(() => {
     //   var openform = localStorage.getItem('opennewform');
@@ -201,8 +183,8 @@ export class SitesComponent implements OnInit {
   }
 
   masterSelected: boolean = false;
-  // allcheck: boolean = false;
   SelectAll: boolean = false;
+  // allcheck: boolean = false;
 
 
   // allchecked(e:any){

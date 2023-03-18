@@ -90,28 +90,28 @@ export class AddDeviceComponent implements OnInit {
       // 'deviceId': new FormControl(''),
       // 'siteId': new FormControl(''),
       'deviceUnitId': new FormControl(''),
-      'deviceCallFreq': new FormControl(''), //default -1
-      'deviceMode': new FormControl(''), //default -bs
-      'workingDays': new FormControl(''), //default -all
+      'deviceCallFreq': new FormControl(null, this.asset.deviceMode == "ODR" ? Validators.required : []), //default -1
+      'deviceMode': new FormControl('', this.asset.deviceMode == "ODR" ? Validators.required : []), //default -bs
+      'workingDays': new FormControl('', this.asset.deviceMode == "ODR" ? Validators.required : []), //default -all
       'getlogs': new FormControl(''),
-      'width': new FormControl(''),
-      'height': new FormControl(''),
-      'modelName': new FormControl(''),
-      'resolution': new FormControl(''),
+      'width': new FormControl('', this.asset.deviceMode == "ODR" ? Validators.required : []),
+      'height': new FormControl('', this.asset.deviceMode == "ODR" ? Validators.required : []),
+      'modelName': new FormControl('', this.asset.deviceMode == "ODR" ? Validators.required : []),
+      'resolution': new FormControl('', this.asset.deviceMode == "ODR" ? Validators.required : []),
       'threshold': new FormControl(''),
       'maxNo': new FormControl(''),
-      'objectName': new FormControl(''), //default -person
+      'objectName': new FormControl('', this.asset.deviceMode == "ODR" ? Validators.required : []), //default -person
       'refreshRules': new FormControl(''), //default -false
       'displayOn': new FormControl(''), //default -false
-      'adsHours': new FormControl(''), //default -9am - 6pm
-      'weather_interval': new FormControl(''), //default -15min
-      'cameraId': new FormControl(''),
+      'adsHours': new FormControl('', Validators.required), //default -9am - 6pm
+      'weather_interval': new FormControl('', this.asset.deviceMode == "ODR" ? Validators.required : []), //default -15min
+      'cameraId': new FormControl('', this.asset.deviceMode == "ODR" ? Validators.required : []),
       'createdBy': new FormControl(''),
       'remarks': new FormControl(''),
 
       //required
       // 'siteId': new FormControl(''),
-      'deviceTypeId': new FormControl(''),
+      'deviceTypeId': new FormControl('', Validators.required),
       'deviceName': new FormControl(''),
     });
 
@@ -190,7 +190,9 @@ export class AddDeviceComponent implements OnInit {
 
   tabs: any[] = [];
   responseData: any;
-  add() {
+  isValidate: boolean = false;
+  addNewDevice() {
+    this.isValidate = true;
     this.device.siteId = this.siteData.siteId;
     if(this.addDevice.valid) {
       this.siteService.addDevice(this.device).subscribe((res: any) => {

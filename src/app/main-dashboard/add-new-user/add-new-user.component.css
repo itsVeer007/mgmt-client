@@ -97,3 +97,17 @@ like a tickmark */
 .mat-form-field-appearance-outline ::ng-deep .mat-form-field-subscript-wrapper {
   padding: 0 5px;
 }
+
+
+
+/* ::ng-deep .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick {
+  color: rgb(199, 196, 196);
+}
+
+.mat-form-field-invalid ::ng-deep .mat-input-element {
+  color: rgb(199, 196, 196);
+}
+
+::ng-deep .mat-form-field.mat-form-field-invalid .mat-form-field-label {
+  color: rgb(199, 196, 196);
+} */

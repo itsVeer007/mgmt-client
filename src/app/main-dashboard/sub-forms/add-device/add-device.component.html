@@ -23,6 +23,7 @@
       </div>
     </div>
 
+    <!-- Form -->
     <div class="mt-2">
       <mat-tab-group backgroundColor="primary">
         <mat-tab label="New Device">
@@ -32,7 +33,7 @@
               <div class="col-lg-6">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Select Device</mat-label>
-                  <mat-select required>
+                  <mat-select>
                     <mat-option *ngFor="let item of deviceType" [value]="item.value">{{ item.value }}</mat-option>
                   </mat-select>
                   <mat-error class="mt-1">Device is required</mat-error>
@@ -42,7 +43,7 @@
               <div class="col-lg-6">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Select Device Mode</mat-label>
-                  <mat-select formControlName="deviceMode" [(ngModel)]="asset.deviceMode" required>
+                  <mat-select formControlName="deviceMode" [(ngModel)]="asset.deviceMode" [required]="isValidate == true">
                     <mat-option *ngFor="let item of deviceMode" [value]="item.value">{{ item.value }}</mat-option>
                   </mat-select>
                   <mat-error class="mt-1">Device mode is required</mat-error>
@@ -75,7 +76,7 @@
                 <!-- <span class="mx-2">-</span> -->
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Ad-Hours</mat-label>
-                  <mat-select formControlName="adsHours" [(ngModel)]="asset.adsHours" required>
+                  <mat-select formControlName="adsHours" [(ngModel)]="asset.adsHours" [required]="isValidate == true">
                     <mat-option value="9am-6pm">9am-6pm</mat-option>
                   </mat-select>
                   <mat-error class="mt-1">Ad-Hours is required</mat-error>
@@ -85,7 +86,7 @@
               <div class="col-lg-6 d-flex align-items-center justify-content-between">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Ad Working Days</mat-label>
-                  <mat-select formControlName="workingDays" [(ngModel)]="asset.workingDays" required>
+                  <mat-select formControlName="workingDays" [(ngModel)]="asset.workingDays" [required]="isValidate == true">
                     <mat-option value="1">1</mat-option>
                     <mat-option value="2">2</mat-option>
                   </mat-select>
@@ -117,7 +118,7 @@
               <div class="col-lg-6">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Call Frequency</mat-label>
-                  <input matInput type="number" formControlName="deviceCallFreq" [(ngModel)]="asset.deviceCallFreq" required>
+                  <input matInput type="number" formControlName="deviceCallFreq" [(ngModel)]="asset.deviceCallFreq" [required]="isValidate == true">
                   <mat-error class="mt-1">Call Frequency is required</mat-error>
                 </mat-form-field>
               </div>
@@ -125,7 +126,7 @@
               <div class="col-lg-6 d-flex align-items-center justify-content-evenly">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Device Type Id</mat-label>
-                  <mat-select formControlName="deviceTypeId" [(ngModel)]="device.deviceTypeId" required>
+                  <mat-select formControlName="deviceTypeId" [(ngModel)]="device.deviceTypeId" [required]="isValidate == true">
                     <mat-option *ngFor="let item of deviceTypeIdList" [value]="item">{{ item }}</mat-option>
                   </mat-select>
                   <mat-error class="mt-1">Device Type Id is required</mat-error>
@@ -139,7 +140,7 @@
               <div class="col-lg-6">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Select temp range</mat-label>
-                  <mat-select required>
+                  <mat-select>
                     <mat-option *ngFor="let item of tempRange" [value]="item.value">{{ item.value }}</mat-option>
                   </mat-select>
                 </mat-form-field>
@@ -148,7 +149,7 @@
               <div class="col-lg-6">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Select age range</mat-label>
-                  <mat-select required>
+                  <mat-select>
                     <mat-option *ngFor="let item of ageRange" [value]="item.value">{{ item.value }}</mat-option>
                   </mat-select>
                 </mat-form-field>
@@ -295,7 +296,7 @@
             </div>
 
             <div class="text-center my-3">
-              <button type="submit" class="btn add-btn" (click)="add()">ADD</button>
+              <button type="submit" class="btn add-btn" (click)="addNewDevice()">ADD</button>
             </div>
           </form>
         </mat-tab>
@@ -371,6 +372,7 @@
       </mat-tab-group>
 
     </div>
+    <!-- /Form -->
 
   </div>
 </div>

@@ -55,6 +55,8 @@ export class AddNewAssetComponent implements OnInit {
 
   constructor(private router: Router, private fb: FormBuilder, private assetService: AssetService, private dropDown: DropDownService) { }
 
+
+  /* Asset Object */
   asset = {
     file: null,
     siteId: null,
@@ -72,7 +74,7 @@ export class AddNewAssetComponent implements OnInit {
 
   ngOnInit(): void {
     this.addAssetForm = this.fb.group({
-      'file': new FormControl('', Validators.required),
+      'file': new FormControl(null, Validators.required),
       'siteId': new FormControl(null, Validators.required),
       'deviceId': new FormControl('', Validators.required),
       'enabled': new FormControl(1),
@@ -96,11 +98,17 @@ export class AddNewAssetComponent implements OnInit {
     this.getId();
   };
 
-  getId() {
-      this.siteIdList = this.data;
-      this.deviceIdList = this.data;
-  }
 
+  // changeEvent() {
+  //   if(this.isValidate = true) {
+  //     this.addAssetForm.get('siteId').setValidators(Validators.required);
+  //   } else {
+  //     this.addAssetForm.get('siteId').clearValidators();
+  //   }
+  // }
+
+
+  /* File Upload Method */
   selectedFile: any = null;
   selectedFiles:  Array<any> = [];
 
@@ -111,8 +119,12 @@ export class AddNewAssetComponent implements OnInit {
     }
   }
 
-  deleteFile() {
-    this.selectedFiles.pop();
+  deleteFile(el: any) {
+    this.selectedFiles.forEach((val, index) => {
+      if(val == el) {
+        this.selectedFiles.splice(index, 1)
+      }
+    })
   }
 
   closeAddCamera() {
@@ -125,6 +137,8 @@ export class AddNewAssetComponent implements OnInit {
   //   this.closeAddCamera(false);
   // }
 
+
+  /* Metadata API */
   deviceType: any;
   ongetDeviceType() {
     this.dropDown.getDeviceType().subscribe((res: any) => {
@@ -140,21 +154,37 @@ export class AddNewAssetComponent implements OnInit {
   }
 
 
+  /* Add Asset */
+  isValidate: boolean = false;
   submit: boolean = false;
+
   addNewAsset() {
+    this.submit = true;
+    this.isValidate = true;
     if(this.addAssetForm.valid) {
       this.assetService.addAsset(this.addAssetForm.value, this.selectedFile).subscribe((res) => {
         console.log(res)
       });
-
     }
-    this.submit = true;
     console.log(this.addAssetForm.value);
   }
 
-  myInput(e: Event) {
-    console.log((e.target as HTMLInputElement).value)
-    this.searchText = (e.target as HTMLInputElement).value
+
+  /* Search for Get Site and Device Id's */
+  sit: string = '';
+  dev: string = '';
+
+  siteSer(e: Event) {
+    this.sit = (e.target as HTMLInputElement).value;
+  }
+
+  deviceSer(e: Event) {
+    this.dev = (e.target as HTMLInputElement).value;
+  }
+
+  getId() {
+    this.siteIdList = this.data;
+    this.deviceIdList = this.data;
   }
 
 }

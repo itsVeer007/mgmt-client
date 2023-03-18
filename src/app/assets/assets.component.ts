@@ -91,13 +91,6 @@ export class AssetsComponent implements OnInit {
     })
   }
 
-  // showIconVertical: boolean = false;
-  // showIconCustomer: boolean = false;
-  // showIconSite: boolean = false;
-  // showIconCamera: boolean = false;
-  // showIconAnalytic: boolean = false;
-  // showIconUser: boolean = false;
-
   showIconView: boolean = false;
   showIconEdit: boolean = false;
   showIconDelete: boolean = false;
@@ -116,30 +109,15 @@ export class AssetsComponent implements OnInit {
     }
   }
 
-  // showAddSite = false;
-  // showAddCamera = false;
-  // showAddCustomer = false;
-  // showAddUser = false;
-  // showAddBusinessVertical = false;
-  // showSite = false;
+
   showAsset: boolean = false;
 
   showAddAsset() {
     this.showAsset = true;
-    // this.showSite = false;
-    // if (type == 'site') { this.showAddSite = value; }
-    // if (type == 'camr') { this.showAddCamera = value; }
   }
 
   closenow(value: any, type: String) {
     if (type == 'asset') { this.showAsset = value; }
-
-    // if (type == 'site') { this.showAddSite = value; }
-    // if (type == 'camr') { this.showAddCamera = value; }
-    // if (type == 'cust') { this.showAddCustomer = value; }
-    // if (type == 'vert') { this.showAddBusinessVertical = value; }
-    // if (type == 'user') { this.showAddUser = value; }
-    // if(type == 'additionalSite') {this.showSite = value;}
 
     // setTimeout(() => {
     //   var openform = localStorage.getItem('opennewform');
@@ -152,6 +130,7 @@ export class AssetsComponent implements OnInit {
     //   localStorage.setItem('opennewform', '');
     // }, 100)
   }
+
 
   masterSelected: boolean = false;
 

@@ -138,8 +138,7 @@
                 margin-left: 10px;
               " />
           </th>
-          <!-- <th><input type="checkbox" class="form-check-input" id="allchecked" (click)="allchecked($event)"
-                            style="background-color: #00000000; border-color:#fff;margin-left:10px;" /></th> -->
+          <!-- <th><input type="checkbox" class="form-check-input" id="allchecked" (click)="allchecked($event)" style="background-color: #00000000; border-color:#fff;margin-left:10px;" /></th> -->
           <th (click)="sort('siteId')">Product ID</th>
           <th (click)="sort('customerName')">Product S.NO.</th>
           <th (click)="sort('custType')">Product Name</th>
@@ -194,16 +193,15 @@
             </a>
           </td>
           <td>
-            <p
-              [style.color]="cust.status == 'Active' ? '#00A44C' : cust.status == 'Onhold' ? '#F5B400' : cust.status == 'Inactive' ? '#fa500f' : '#00A44C'">
+            <p [style.color]="cust.status == 'Active' ? '#00A44C' : cust.status == 'Onhold' ? '#F5B400' : cust.status == 'Inactive' ? '#fa500f' : '#00A44C'">
               {{ cust.status }}
             </p>
           </td>
           <td style="position: relative">
-            <a (click)="closeDot($event, i)"><img src="assets/images/dotlist.svg" width="30" height="12" /></a>
-            <!-- -------------------------------- Popup for view, edit, delete --------- START     -->
+            <a (click)="closeDot($event, i)">
+              <img src="assets/images/dotlist.svg" width="30" height="12" />
+            </a>
             <div class="plus-img1" id="plus-img{{ i }}" style="display: none">
-              <!-- ---------------------------- Hover for view, edit, delete ---------------------START -->
               <div class="lists" *ngIf="showIconView1" style="margin-left: 5px; margin-top: -20px">
                 View
               </div>
@@ -213,15 +211,17 @@
               <div class="lists" *ngIf="showIconDelete1" style="margin-left: 63px; margin-top: -20px">
                 Delete
               </div>
-              <!-- ---------------------------- Hover for view, edit, delete ---------------------END -->
 
-              <a class="mx-2" (click)="openViewPopup(cust, i)"><img src="assets/images/view.svg"
-                  (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" /></a>
-              <a class="mx-2" (click)="openEditPopup(cust, i)"><img src="assets/images/edit.svg"
-                  (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" /></a>
+              <a class="mx-2" (click)="openViewPopup(cust, i)">
+                <img src="assets/images/view.svg" (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" />
+              </a>
+              <a class="mx-2" (click)="openEditPopup(cust, i)">
+                <img src="assets/images/edit.svg" (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" />
+              </a>
               <!-- <a class="mx-2" value="Delete" (click)="deleteRow1(cust, i)"><img src="assets/images/delete.svg" /></a> -->
-              <a class="mx-2" value="Delete" (click)="openDeletePopup(cust, i)"><img src="assets/images/delete.svg"
-                  (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" /></a>
+              <a class="mx-2" value="Delete" (click)="openDeletePopup(cust, i)">
+                <img src="assets/images/delete.svg" (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" />
+              </a>
             </div>
           </td>
         </tr>
@@ -232,7 +232,6 @@
 <!-- table ends -->
 
 <div class="modalitem max-center" [hidden]="deletePopup">
-  <!-- <div  class="deletePopup" > -->
   <div class="card">
     <div class="card-header d-flex justify-content-between">
       <p>Delete Row</p>
@@ -248,11 +247,9 @@
       </button>
     </div>
   </div>
-  <!-- </div> -->
 </div>
 
 <div class="modalitem max-center" [hidden]="editPopup">
-  <!-- <div  class="deletePopup" > -->
   <div class="card">
     <div class="card-header d-flex justify-content-between">
       <p>Edit</p>
@@ -262,56 +259,48 @@
       <ul *ngIf="currentItem">
         <li>
           <h6 style="width: 110px">Site Id</h6>
-          :
           <div>
             <input type="text" class="form-control my-1" [(ngModel)]="currentItem.siteId" />
           </div>
         </li>
         <li>
           <h6 style="width: 110px">Customer Name</h6>
-          :
           <div>
             <input type="text" class="form-control my-1" [(ngModel)]="currentItem.customerName" />
           </div>
         </li>
         <li>
           <h6 style="width: 110px">Cust Type</h6>
-          :
           <div>
             <input type="text" class="form-control my-1" [(ngModel)]="currentItem.custType" />
           </div>
         </li>
         <li>
           <h6 style="width: 110px">Contact Number</h6>
-          :
           <div>
             <input type="text" class="form-control my-1" [(ngModel)]="currentItem.contactNumber" />
           </div>
         </li>
         <li>
           <h6 style="width: 110px">Email Id</h6>
-          :
           <div>
             <input type="text" class="form-control my-1" [(ngModel)]="currentItem.emailId" />
           </div>
         </li>
         <li>
           <h6 style="width: 110px">Contact Person</h6>
-          :
           <div>
             <input type="text" class="form-control my-1" [(ngModel)]="currentItem.contactPerson" />
           </div>
         </li>
         <li>
           <h6 style="width: 110px">Address</h6>
-          :
           <div>
             <input type="text" class="form-control my-1" [(ngModel)]="currentItem.address" />
           </div>
         </li>
         <li>
           <h6 style="width: 110px">Status</h6>
-          :
           <div>
             <input type="text" class="form-control my-1" [(ngModel)]="currentItem.status" />
           </div>
@@ -327,7 +316,6 @@
       </button>
     </div>
   </div>
-  <!-- </div>   -->
 </div>
 
 <!-- Delete Popup -->
