@@ -47,6 +47,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatMenuModule } from '@angular/material/menu';
 
 
 //utilities
@@ -111,7 +113,9 @@ import { AdInfoComponent } from './assets/ad-info/ad-info.component';
     MatRadioModule,
     MatProgressBarModule,
     MatCardModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSidenavModule,
+    MatMenuModule
   ],
   providers: [
     ChartService,

@@ -3,18 +3,18 @@
         <h4 class="head">DASHBOARD</h4>
         <div [hidden]="icons111" class="icons1">
             <div class="d-flex flex-row justify-content icons pointer">
-                <a (click)="showAddBusinessVertical=!showAddBusinessVertical"><img src="assets/images/Union 24@2x.png" class="mx-2" width="15" height="15" /></a>
-                <a (click)="showAddCustomer=!showAddCustomer"><img src="assets/images/Union 25@2x.png" class="mx-2" width="15" height="15" /></a>
-                <a (click)="showAddSite=!showAddSite"><img src="assets/images/Union 26@2x.png" class="mx-2" width="15"
+                <a (click)="showAddBusinessVertical=!showAddBusinessVertical"><img src="assets/icons/Union 24@2x.png" class="mx-2" width="15" height="15" /></a>
+                <a (click)="showAddCustomer=!showAddCustomer"><img src="assets/icons/Union 25@2x.png" class="mx-2" width="15" height="15" /></a>
+                <a (click)="showAddSite=!showAddSite"><img src="assets/icons/Union 26@2x.png" class="mx-2" width="15"
                         height="15" /></a>
-                <a (click)="showAddCamera=!showAddCamera"><img src="assets/images/bx-cctv@2x.png" class="mx-2" width="15" height="15" /></a>
-                <a><img src="assets/images/Union 27@2x.png" class="mx-2" width="15" height="15" /></a>
-                <a (click)="showAddUser=!showAddUser"><img src="assets/images/Union 29@2x.png" class="mx-2" width="15" height="15" /></a>
+                <a (click)="showAddCamera=!showAddCamera"><img src="assets/icons/bx-cctv@2x.png" class="mx-2" width="15" height="15" /></a>
+                <a><img src="assets/icons/Union 27@2x.png" class="mx-2" width="15" height="15" /></a>
+                <a (click)="showAddUser=!showAddUser"><img src="assets/icons/Union 29@2x.png" class="mx-2" width="15" height="15" /></a>
             </div>
         </div>
         <div class="showtray">
             <button class="btn btn-default" (click)="iconssnew()" style="box-shadow: none !important; margin-top: -13px;">
-                <img src="assets/images/add-svg.svg" width="40" height="40" /></button>
+                <img src="assets/icons/add-svg.svg" width="40" height="40" /></button>
         </div>
     </div> -->
 
@@ -36,45 +36,44 @@
 
           <div class="d-flex flex-row justify-content icons pointer" style="position: absolute;">
             <a (click)="iconssnew('vert');showAddBusinessVertical=!showAddBusinessVertical">
-              <img src="assets/images/vertical.svg" class="mx-2" width="15" height="15"
+              <img src="assets/icons/vertical.svg" class="mx-2" width="15" height="15"
                 (mouseenter)="showIconVertical = true" (mouseleave)="showIconVertical = false" />
             </a>
 
             <a (click)="iconssnew('cust');showAddCustomer=!showAddCustomer">
-              <img src="assets/images/customer.svg" class="list mx-2" width="15" height="15"
+              <img src="assets/icons/customer.svg" class="list mx-2" width="15" height="15"
                 (mouseenter)="showIconCustomer = true" (mouseleave)="showIconCustomer = false" />
             </a>
 
             <a (click)="iconssnew('site');showAddSite=!showAddSite">
-              <img src="assets/images/sites.svg" class="list mx-2" width="15" height="15" (mouseenter)="showIconSite = true"
+              <img src="assets/icons/sites.svg" class="list mx-2" width="15" height="15" (mouseenter)="showIconSite = true"
                 (mouseleave)="showIconSite = false" />
             </a>
 
             <a (click)="iconssnew('camr');showAddCamera=!showAddCamera">
-              <img src="assets/images/cam.svg" class="list mx-2" width="15" height="15" (mouseenter)="showIconCamera = true"
+              <img src="assets/icons/cam.svg" class="list mx-2" width="15" height="15" (mouseenter)="showIconCamera = true"
                 (mouseleave)="showIconCamera = false" />
             </a>
 
             <a>
-              <img src="assets/images/analytic.svg" class="list mx-2" width="15" height="15"
+              <img src="assets/icons/analytic.svg" class="list mx-2" width="15" height="15"
                 (mouseenter)="showIconAnalytic = true" (mouseleave)="showIconAnalytic = false" />
             </a>
 
             <a (click)="iconssnew('user');showAddUser=!showAddUser">
-              <img src="assets/images/user-white.svg" class="list mx-2" width="15" height="15"
+              <img src="assets/icons/user-white.svg" class="list mx-2" width="15" height="15"
                 (mouseenter)="showIconUser = true" (mouseleave)="showIconUser = false" />
             </a>
           </div>
         </div>
         <div class="showtray">
           <button class="btn btn-default" (click)="iconssnew('btn')" style="box-shadow: none !important; padding: 1px; ">
-            <img src="assets/images/add-svg.svg" width="40" height="40" /></button>
+            <img src="assets/icons/add-svg.svg" width="40" height="40" /></button>
         </div>
-
         <div>
-          <img src="assets/images/Union 18@2x.png" width="20" height="10" />
+          <img src="assets/icons/Union 18@2x.png" width="20" height="10" />
           <span class="mx-3">1 - 4</span>
-          <img src="assets/images/Union 17@2x.png" width="20" height="10" />
+          <img src="assets/icons/Union 17@2x.png" width="20" height="10" />
         </div>
 
       </div> -->
@@ -85,37 +84,36 @@
     <!-- class="d-flex justify-content-between card-menu" -->
     <div class="row d-flex justify-content-between align-items-center" style="padding: 5px;">
 
-        <img src="assets/images/new-svg/next.svg" alt="" class="prevvert" (click)="prevvert()">
+        <img src="assets/icons/next.svg" alt="" class="prevvert" (click)="prevvert()">
 
         <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12 card-menu" *ngFor="let ver of showcardReport">
             <div class="card1 my-1">
-                <div class="card-header max-center">
-                    <span><b>{{ver.vertical}}</b></span>
-                </div>
-                <div class="card-body ">
-                    <div class="d-flex flex-row justify-content">
-                        <div class="d-flex flex-column justify-content-start text-center">
-                            <img src="assets/images/cust-icon.svg" />
-                            <span class="mt-2"><b>{{ver.customersCount}}</b></span>
-                        </div>
+              <div class="card-header max-center">
+                  <span><b>{{ver.vertical}}</b></span>
+              </div>
+              <div class="card-body ">
+                  <div class="d-flex flex-row justify-content">
+                      <div class="d-flex flex-column justify-content-start text-center">
+                          <img src="assets/icons/cust-icon.svg" />
+                          <span class="mt-2"><b>{{ver.customersCount}}</b></span>
+                      </div>
 
-                        <div class="d-flex flex-column justify-content-start text-center">
-                            <img src="assets/images/site-icon.svg" />
-                            <span class="mt-2"><b>{{ver.sitesCount}}</b></span>
-                        </div>
+                      <div class="d-flex flex-column justify-content-start text-center">
+                          <img src="assets/icons/site-icon.svg" />
+                          <span class="mt-2"><b>{{ver.sitesCount}}</b></span>
+                      </div>
 
-                        <div class="d-flex flex-column justify-content-start text-center">
-                            <img src="assets/images/cam-icon.svg" />
-                            <span class="mt-2"><b>{{ver.cameraCount}}</b></span>
-                        </div>
+                      <div class="d-flex flex-column justify-content-start text-center">
+                          <img src="assets/icons/cam-icon.svg" />
+                          <span class="mt-2"><b>{{ver.cameraCount}}</b></span>
+                      </div>
 
-                        <div class="d-flex flex-column justify-content-start text-center">
-                            <img src="assets/images/analy-icon.svg" />
-                            <span class="mt-2"><b>{{ver.analyticCount}}</b></span>
-                        </div>
-
-                    </div>
-                </div>
+                      <div class="d-flex flex-column justify-content-start text-center">
+                          <img src="assets/icons/analy-icon.svg" />
+                          <span class="mt-2"><b>{{ver.analyticCount}}</b></span>
+                      </div>
+                  </div>
+              </div>
             </div>
         </div>
 
@@ -127,22 +125,22 @@
                 <div class="card-body ">
                     <div class="d-flex flex-row justify-content">
                         <div class="d-flex flex-column justify-content-start text-center">
-                            <img src="assets/images/cust-icon.svg" />
+                            <img src="assets/icons/cust-icon.svg" />
                             <span class="mt-2"><b>1</b></span>
                         </div>
 
                         <div class="d-flex flex-column justify-content-start text-center">
-                            <img src="assets/images/site-icon.svg" />
+                            <img src="assets/icons/site-icon.svg" />
                             <span class="mt-2"><b>2</b></span>
                         </div>
 
                         <div class="d-flex flex-column justify-content-start text-center">
-                            <img src="assets/images/cam-icon.svg" />
+                            <img src="assets/icons/cam-icon.svg" />
                             <span class="mt-2"><b>15</b></span>
                         </div>
 
                         <div class="d-flex flex-column justify-content-start text-center">
-                            <img src="assets/images/analy-icon.svg" />
+                            <img src="assets/icons/analy-icon.svg" />
                             <span class="mt-2"><b>10</b></span>
                         </div>
 
@@ -159,22 +157,22 @@
                 <div class="card-body ">
                     <div class="d-flex flex-row justify-content">
                         <div class="d-flex flex-column justify-content-start text-center">
-                            <img src="assets/images/cust-icon.svg" />
+                            <img src="assets/icons/cust-icon.svg" />
                             <span class="mt-2"><b>1</b></span>
                         </div>
 
                         <div class="d-flex flex-column justify-content-start text-center">
-                            <img src="assets/images/site-icon.svg" />
+                            <img src="assets/icons/site-icon.svg" />
                             <span class="mt-2"><b>1</b></span>
                         </div>
 
                         <div class="d-flex flex-column justify-content-start text-center">
-                            <img src="assets/images/cam-icon.svg" />
+                            <img src="assets/icons/cam-icon.svg" />
                             <span class="mt-2"><b>7</b></span>
                         </div>
 
                         <div class="d-flex flex-column justify-content-start text-center">
-                            <img src="assets/images/analy-icon.svg" />
+                            <img src="assets/icons/analy-icon.svg" />
                             <span class="mt-2"><b>7</b></span>
                         </div>
 
@@ -191,22 +189,22 @@
                 <div class="card-body ">
                     <div class="d-flex flex-row justify-content">
                         <div class="d-flex flex-column justify-content-start text-center">
-                            <img src="assets/images/cust-icon.svg" />
+                            <img src="assets/icons/cust-icon.svg" />
                             <span class="mt-2"><b>1</b></span>
                         </div>
 
                         <div class="d-flex flex-column justify-content-start text-center">
-                            <img src="assets/images/site-icon.svg" />
+                            <img src="assets/icons/site-icon.svg" />
                             <span class="mt-2"><b>1</b></span>
                         </div>
 
                         <div class="d-flex flex-column justify-content-start text-center">
-                            <img src="assets/images/cam-icon.svg" />
+                            <img src="assets/icons/cam-icon.svg" />
                             <span class="mt-2"><b>7</b></span>
                         </div>
 
                         <div class="d-flex flex-column justify-content-start text-center">
-                            <img src="assets/images/analy-icon.svg" />
+                            <img src="assets/icons/analy-icon.svg" />
                             <span class="mt-2"><b>7</b></span>
                         </div>
 
@@ -225,22 +223,22 @@
                 <div class="card-body ">
                     <div class="d-flex flex-row justify-content">
                         <div class="d-flex flex-column justify-content-start text-center">
-                            <img src="assets/images/cust-icon.svg" />
+                            <img src="assets/icons/cust-icon.svg" />
                             <span class="mt-2"><b>3</b></span>
                         </div>
 
                         <div class="d-flex flex-column justify-content-start text-center">
-                            <img src="assets/images/site-icon.svg" />
+                            <img src="assets/icons/site-icon.svg" />
                             <span class="mt-2"><b>15</b></span>
                         </div>
 
                         <div class="d-flex flex-column justify-content-start text-center">
-                            <img src="assets/images/cam-icon.svg" />
+                            <img src="assets/icons/cam-icon.svg" />
                             <span class="mt-2"><b>20</b></span>
                         </div>
 
                         <div class="d-flex flex-column justify-content-start text-center">
-                            <img src="assets/images/analy-icon.svg" />
+                            <img src="assets/icons/analy-icon.svg" />
                             <span class="mt-2"><b>7</b></span>
                         </div>
 
@@ -248,11 +246,7 @@
                 </div>
             </div>
         </div> -->
-
-
-        <img src="assets/images/new-svg/next.svg" alt="" style="width: 62px;" class="nextvert" (click)="nextvert()">
-
-
+        <img src="assets/icons/next.svg" alt="" style="width: 62px;" class="nextvert" (click)="nextvert()">
     </div>
 
 
@@ -311,15 +305,15 @@
                     <!-- <td class="text-center" style="position: relative;">
                       <div class="icons1 new-icon" id="icons1{{i}}" style="display: none;">
                           <div class="d-flex align-items-center justify-content-evenly plus-img">
-                              <a class="pointer" (click)="openIcon('site')"><img src="assets/images/Union 26@2x.png" width="15" height="15" /></a>
-                              <a class="pointer"><img src="assets/images/bx-cctv@2x.png" width="15" height="15" /></a>
-                              <a class="pointer"><img src="assets/images/Union 27@2x.png" width="15" height="15" /></a>
-                              <a class="pointer" (click)="openIcon('user')"><img src="assets/images/Union 29@2x.png" width="15" height="15" /></a>
+                              <a class="pointer" (click)="openIcon('site')"><img src="assets/icons/Union 26@2x.png" width="15" height="15" /></a>
+                              <a class="pointer"><img src="assets/icons/bx-cctv@2x.png" width="15" height="15" /></a>
+                              <a class="pointer"><img src="assets/icons/Union 27@2x.png" width="15" height="15" /></a>
+                              <a class="pointer" (click)="openIcon('user')"><img src="assets/icons/Union 29@2x.png" width="15" height="15" /></a>
                           </div>
                       </div>
                       <button class="btn btn-default" (click)="iconss1($event, i)"
                           style="box-shadow: none !important;">
-                          <img src="assets/images/add-svg.svg" width="30" height="30" />
+                          <img src="assets/icons/add-svg.svg" width="30" height="30" />
                       </button>
                     </td> -->
                 </tr>
@@ -363,8 +357,6 @@
 <div style="position: fixed; top:0;" *ngIf="showAddSite">
     <app-add-new-site (newItemEvent)="closenow($event, 'site')" ></app-add-new-site>
 </div>
-
-
 
 <!-- <div style="position: fixed; top:0;" *ngIf="showAddCamera">
     <app-add-new-camera (newItemEvent)="closenow($event, 'camr')" ></app-add-new-camera>

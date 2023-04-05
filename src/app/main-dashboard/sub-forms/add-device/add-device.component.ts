@@ -65,7 +65,7 @@ export class AddDeviceComponent implements OnInit {
     siteId: null,
     deviceUnitId: '',
     deviceCallFreq: null,
-    deviceMode: '',
+    deviceMode: null, //change to number
     workingDays: '',
     getlogs: 0,
     width: null,
@@ -90,27 +90,26 @@ export class AddDeviceComponent implements OnInit {
       // 'deviceId': new FormControl(''),
       // 'siteId': new FormControl(''),
       'deviceUnitId': new FormControl(''),
-      'deviceCallFreq': new FormControl(null, this.asset.deviceMode == "ODR" ? Validators.required : []), //default -1
-      'deviceMode': new FormControl('', this.asset.deviceMode == "ODR" ? Validators.required : []), //default -bs
-      'workingDays': new FormControl('', this.asset.deviceMode == "ODR" ? Validators.required : []), //default -all
+      'deviceCallFreq': new FormControl(null, this.asset.deviceMode == 80 ? Validators.required : []), //default -1
+      'deviceMode': new FormControl('', this.asset.deviceMode == 80 ? Validators.required : []), //default -bs
+      'workingDays': new FormControl('', this.asset.deviceMode == 80 ? Validators.required : []), //default -all
       'getlogs': new FormControl(''),
-      'width': new FormControl('', this.asset.deviceMode == "ODR" ? Validators.required : []),
-      'height': new FormControl('', this.asset.deviceMode == "ODR" ? Validators.required : []),
-      'modelName': new FormControl('', this.asset.deviceMode == "ODR" ? Validators.required : []),
-      'resolution': new FormControl('', this.asset.deviceMode == "ODR" ? Validators.required : []),
+      'width': new FormControl('', this.asset.deviceMode == 80 ? Validators.required : []),
+      'height': new FormControl('', this.asset.deviceMode == 80 ? Validators.required : []),
+      'modelName': new FormControl('', this.asset.deviceMode == 80 ? Validators.required : []),
+      'resolution': new FormControl('', this.asset.deviceMode == 80 ? Validators.required : []),
       'threshold': new FormControl(''),
       'maxNo': new FormControl(''),
-      'objectName': new FormControl('', this.asset.deviceMode == "ODR" ? Validators.required : []), //default -person
+      'objectName': new FormControl('', this.asset.deviceMode == 80 ? Validators.required : []), //default -person
       'refreshRules': new FormControl(''), //default -false
       'displayOn': new FormControl(''), //default -false
       'adsHours': new FormControl('', Validators.required), //default -9am - 6pm
-      'weather_interval': new FormControl('', this.asset.deviceMode == "ODR" ? Validators.required : []), //default -15min
-      'cameraId': new FormControl('', this.asset.deviceMode == "ODR" ? Validators.required : []),
+      'weather_interval': new FormControl('', this.asset.deviceMode == 80 ? Validators.required : []), //default -15min
+      'cameraId': new FormControl('', this.asset.deviceMode == 80 ? Validators.required : []),
       'createdBy': new FormControl(''),
       'remarks': new FormControl(''),
 
       //required
-      // 'siteId': new FormControl(''),
       'deviceTypeId': new FormControl('', Validators.required),
       'deviceName': new FormControl(''),
     });
@@ -162,6 +161,15 @@ export class AddDeviceComponent implements OnInit {
       this.deviceMode = res.List_Shown_By_Type_Given;
     })
   }
+
+  // deviceModeId: any;
+  // forDeviceMode() {
+  //   let x = this.deviceMode
+  //   for(let item of x) {
+  //     this.deviceModeId = item.id;
+  //     console.log(this.deviceModeId)
+  //   }
+  // }
 
   tempRange: any;
   onTempRange() {

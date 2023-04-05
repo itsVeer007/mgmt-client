@@ -1,5 +1,5 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AssetService } from 'src/services/asset.service';
@@ -32,6 +32,7 @@ export class AddNewAssetComponent implements OnInit {
 
   @Input() data: any;
   @Output() newItemEvent = new EventEmitter<boolean>();
+  currentDate = new Date();
 
   // @Output() newUser = new EventEmitter<any>();
 
@@ -74,10 +75,10 @@ export class AddNewAssetComponent implements OnInit {
 
   ngOnInit(): void {
     this.addAssetForm = this.fb.group({
-      'file': new FormControl(null, Validators.required),
-      'siteId': new FormControl(null, Validators.required),
+      'file': new FormControl('', Validators.required),
+      'siteId': new FormControl('', Validators.required),
       'deviceId': new FormControl('', Validators.required),
-      'enabled': new FormControl(1),
+      'enabled': new FormControl(''),
       'mimetype': new FormControl('', Validators.required),
       // 'is_active': new FormControl(1),
       // 'duration': new FormControl('9'),
@@ -85,10 +86,10 @@ export class AddNewAssetComponent implements OnInit {
       'assetName': new FormControl('', Validators.required),
       // 'nocache': new FormControl(1),
       // 'skip_asset_check': new FormControl(1),
-      'playOrder': new FormControl(0),
+      'playOrder': new FormControl(''),
       'startDate': new FormControl('', Validators.required),
       'endDate': new FormControl('', Validators.required),
-      'createdBy': new FormControl(1),
+      'createdBy': new FormControl(''),
       'deviceMode': new FormControl('', Validators.required),
       'description': new FormControl(''),
     });
@@ -99,30 +100,25 @@ export class AddNewAssetComponent implements OnInit {
   };
 
 
-  // changeEvent() {
-  //   if(this.isValidate = true) {
-  //     this.addAssetForm.get('siteId').setValidators(Validators.required);
-  //   } else {
-  //     this.addAssetForm.get('siteId').clearValidators();
-  //   }
-  // }
-
-
   /* File Upload Method */
-  selectedFile: any = null;
+  selectedFile: any;
   selectedFiles:  Array<any> = [];
 
   onFileSelected(event: any) {
     if(typeof(event) == 'object') {
       this.selectedFile = event.target.files[0] ?? null;
       this.selectedFiles.push(this.selectedFile);
+      console.log(this.selectedFile);
     }
   }
 
-  deleteFile(el: any) {
-    this.selectedFiles.forEach((val, index) => {
-      if(val == el) {
-        this.selectedFiles.splice(index, 1)
+
+  deleteFile(el : any) {
+    this.selectedFiles.forEach((value, index) => {
+      if(value == el) {
+        this.selectedFiles.splice(index, 1);
+        this.selectedFile = null;
+        this.asset.file = null;
       }
     })
   }
@@ -132,8 +128,8 @@ export class AddNewAssetComponent implements OnInit {
   }
 
   // openAnotherForm(newform:any) {
-  //   // this.newItemEvent.emit(false);
-  //   localStorage.setItem('opennewform', newform)
+  //   this.newItemEvent.emit(false);
+  //   localStorage.setItem('opennewform', newform);
   //   this.closeAddCamera(false);
   // }
 
@@ -155,18 +151,16 @@ export class AddNewAssetComponent implements OnInit {
 
 
   /* Add Asset */
-  isValidate: boolean = false;
   submit: boolean = false;
 
   addNewAsset() {
     this.submit = true;
-    this.isValidate = true;
     if(this.addAssetForm.valid) {
-      this.assetService.addAsset(this.addAssetForm.value, this.selectedFile).subscribe((res) => {
+      this.assetService.addAsset(this.asset, this.selectedFile).subscribe((res) => {
         console.log(res)
       });
     }
-    console.log(this.addAssetForm.value);
+    console.log(this.asset);
   }
 
 

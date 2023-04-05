@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-inventory',
@@ -9,26 +9,27 @@ import { Component, OnInit } from '@angular/core';
 export class InventoryComponent implements OnInit {
 
 
-  // @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
-  //   var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);
-  //   var y = <HTMLElement>document.getElementById(`icons-site`);
+  @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
+    var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);
+    var y = <HTMLElement>document.getElementById(`address${this.addressid}`);
 
-  //   // console.log(`plus-img${this.currentid}`);
-  //   if (x != null) {
-  //     if (!x.contains(e.target)) {
-  //       if (x.style.display == 'flex' || x.style.display == 'block') {
-  //         x.style.display = 'none';
-  //       }
-  //     }
-  //   }
+    // console.log(`plus-img${this.currentid}`);
+    if (x != null) {
+      if (!x.contains(e.target)) {
+        if (x.style.display == 'flex' || x.style.display == 'block') {
+          x.style.display = 'none';
+        }
+      }
+    }
 
-  //   if (y != null) {
-  //     console.log(`icons-site`);
-  //     if (!y.contains(e.target)) {
-  //       this.icons1 = false;
-  //     }
-  //   }
-  // }
+    if (y != null) {
+      if(!y.contains(e.target)) {
+        if (y.style.display == 'flex' || y.style.display == 'block') {
+          y.style.display = 'none';
+        }
+      }
+    }
+  }
 
 
 

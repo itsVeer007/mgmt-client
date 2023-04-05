@@ -4,18 +4,18 @@
 
     <div class="d-flex flex-row justify-content-between">
       <div class="d-flex">
-        <a class="close-main pointer" (click)="closeAddCamera()"><img src="assets/images/Group 101.svg" /></a>
+        <a class="close-main pointer" (click)="closeAddCamera()"><img src="assets/icons/Group 101.svg" /></a>
         <span class="form-heading">create new</span>
       </div>
 
-      <div class="mx-5 my-4 site-icons">
-        <!-- <a (click)="openAnotherForm('showAddBusinessVertical')"><img src="assets/images/ver-icon-form.svg" class="mx-2 my-4" /></a>
-              <a (click)="openAnotherForm('showAddCustomer')"><img src="assets/images/cust-icon-form.svg" class="mx-2 my-4" /></a>
-              <a (click)="openAnotherForm('showAddSite')"><img src="assets/images/site-icon-form.svg" class="mx-2 my-4" /></a>
-              <a (click)="openAnotherForm('showAddCamera')" class="boxshadow"><img src="assets/images/cam-icon-form.svg" class="mx-2 my-4 changesvgcolor" /></a>
-              <a (click)="openAnotherForm('analytics')"><img src="assets/images/analy-icon-form.svg" class="mx-2 my-4" /></a>
-              <a (click)="openAnotherForm('showAddUser')"><img src="assets/images/user-icon-form.svg" class="mx-2 my-4" /></a> -->
-      </div>
+      <!-- <div class="mx-5 my-4 site-icons">
+        <a (click)="openAnotherForm('showAddBusinessVertical')"><img src="assets/icons/ver-icon-form.svg" class="mx-2 my-4" /></a>
+              <a (click)="openAnotherForm('showAddCustomer')"><img src="assets/icons/cust-icon-form.svg" class="mx-2 my-4" /></a>
+              <a (click)="openAnotherForm('showAddSite')"><img src="assets/icons/site-icon-form.svg" class="mx-2 my-4" /></a>
+              <a (click)="openAnotherForm('showAddCamera')" class="boxshadow"><img src="assets/icons/cam-icon-form.svg" class="mx-2 my-4 changesvgcolor" /></a>
+              <a (click)="openAnotherForm('analytics')"><img src="assets/icons/analy-icon-form.svg" class="mx-2 my-4" /></a>
+              <a (click)="openAnotherForm('showAddUser')"><img src="assets/icons/user-icon-form.svg" class="mx-2 my-4" /></a>
+      </div> -->
     </div>
 
     <!-- Form -->
@@ -24,47 +24,61 @@
         <div class="row">
 
           <div class="col-lg-6 col-md-6">
-            <select id="customer" class="form-select my-1" formControlName="siteId">
-              <option value="" selected disabled>Service Name</option>
-              <option value="Site-1">Site-1</option>
-              <option value="Site-2">Site-2</option>
-            </select>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Service Name</mat-label>
+              <mat-select>
+                <mat-option value="1">1</mat-option>
+              </mat-select>
+              <mat-error class="mt-1">Service Name is required</mat-error>
+            </mat-form-field>
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <select id="customer" class="form-select my-1" formControlName="siteId">
-              <option value="" selected disabled>Sub Service Name</option>
-              <option value="Site-1">Site-1</option>
-              <option value="Site-2">Site-2</option>
-            </select>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Sub Service Name</mat-label>
+              <mat-select>
+                <mat-option value="1">1</mat-option>
+              </mat-select>
+              <mat-error class="mt-1">Sub Service Name is required</mat-error>
+            </mat-form-field>
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <select id="customer" class="form-select my-1" formControlName="siteId">
-              <option value="" selected disabled>Priority</option>
-              <option value="Site-1">Site-1</option>
-              <option value="Site-2">Site-2</option>
-            </select>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Priority</mat-label>
+              <mat-select>
+                <mat-option value="1">1</mat-option>
+              </mat-select>
+              <mat-error class="mt-1">Priority is required</mat-error>
+            </mat-form-field>
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <input type="text" class="form-control my-1" placeholder="Description Here" formControlName="description">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Description</mat-label>
+              <input matInput>
+              <mat-error class="mt-1">Description is required</mat-error>
+            </mat-form-field>
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <select id="customer" class="form-select my-1" formControlName="siteId">
-              <option value="" selected disabled>Select Department</option>
-              <option value="Site-1">Site-1</option>
-              <option value="Site-2">Site-2</option>
-            </select>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Select Department</mat-label>
+              <mat-select>
+                <mat-option value="1">1</mat-option>
+              </mat-select>
+              <mat-error class="mt-1">Department is required</mat-error>
+            </mat-form-field>
           </div>
 
           <div class="col-lg-6 col-md-6">
-            <select id="customer" class="form-select my-1" formControlName="siteId">
-              <option value="" selected disabled>Assign to (Employee)</option>
-              <option value="Site-1">Site-1</option>
-              <option value="Site-2">Site-2</option>
-            </select>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Assign to (Employee)</mat-label>
+              <mat-select>
+                <mat-option value="1">1</mat-option>
+              </mat-select>
+              <mat-error class="mt-1">Assign is required</mat-error>
+            </mat-form-field>
           </div>
 
           <div class="col-lg-12 col-md-12 d-flex justify-content-start align-items-center my-3">
@@ -86,16 +100,21 @@
           </div>
 
           <div class="col-lg-12 col-md-12">
-            <textarea class="form-control" placeholder="Note" rows="5"></textarea>
+            <!-- <textarea class="form-control" placeholder="Note" rows="5"></textarea> -->
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Note</mat-label>
+              <input matInput>
+              <mat-error class="mt-1">Note is required</mat-error>
+            </mat-form-field>
           </div>
 
-          <div class="text-center my-5">
+          <div class="text-center my-3">
             <button class="btn add-btn" (click)="addNewAsset()">ADD</button>
           </div>
         </div>
       </form>
     </div>
-    <!-- Form -->
+    <!-- /Form -->
 
   </div>
 </div>

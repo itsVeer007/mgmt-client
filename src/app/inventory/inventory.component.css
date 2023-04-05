@@ -211,6 +211,33 @@ border: 1px solid #fff;
   border-top: 1px solid #EFEFEF;
 }
 
+
+.plus-img {
+  display: none;
+  border: 1px solid #0000000D;
+  position: absolute;
+  background-color: #fff;
+  width: fit-content;
+  margin-left: -227px;
+  margin-top: -26px;
+  box-shadow: -5px 6px 13px 0px #F3F3F3;
+}
+
+.plus-img:after{
+    content: "";
+    position: absolute;
+    top: 17px;
+    transform: rotate(45deg);
+    right: -4px;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    box-shadow: -1px -1px 1px 0 #fff;
+    color: #fff;
+    border-right: 1px solid #EFEFEF;
+    border-top: 1px solid #EFEFEF;
+}
+
 .plus-img1 {
   border: 1px solid #EFEFEF;
   width: fit-content;
@@ -231,7 +258,7 @@ border: 1px solid #fff;
   top: 17px;
   transform: rotate(45deg);
   right: -4px;
-  margin-top: -9px;
+  margin-top: -5px;
   border-width: 5px;
   border-style: solid;
   box-shadow: -1px -1px 1px 0 #fff;
@@ -239,9 +266,6 @@ border: 1px solid #fff;
   border-right: 1px solid #EFEFEF;
   border-top: 1px solid #EFEFEF;
 }
-
-
-
 
 
 /* CSS for Popup start */

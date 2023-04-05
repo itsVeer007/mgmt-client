@@ -84,13 +84,6 @@ export class UsersComponent implements OnInit {
     if (type == 'user') { this.showAddUser = value; }
     if(type == 'additionalSite') {this.showAddSite = value;}
 
-    // if (type == 'camr') { this.showAddCamera = value; }
-    // if (type == 'cust') { this.showAddCustomer = value; }
-    // if (type == 'vert') { this.showAddBusinessVertical = value; }
-    // if (type == 'user') { this.showAddUser = value; }
-    // if(type == 'additionalSite') {this.showSite = value;}
-    // console.log("SITES:: ",type)
-
     // setTimeout(() => {
     //   var openform = localStorage.getItem('opennewform');
     //   if (openform == 'showAddSite') { this.showAddSite = true; }

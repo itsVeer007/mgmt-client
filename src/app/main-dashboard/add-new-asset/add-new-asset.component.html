@@ -4,7 +4,7 @@
 
     <!-- Title -->
     <div class="d-flex justify-content-start">
-      <a class="close-main pointer" (click)="closeAddCamera()"><img src="assets/images/Group 101.svg" /></a>
+      <a class="close-main pointer" (click)="closeAddCamera()"><img src="assets/icons/Group 101.svg" /></a>
       <span class="form-heading">add asset</span>
     </div>
     <!-- /Title -->
@@ -15,7 +15,7 @@
         <div class="row">
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
-              <input matInput placeholder="Site Id" [matAutocomplete]="site" formControlName="siteId" (keyup)="siteSer($event)">
+              <input matInput placeholder="Site Id" [matAutocomplete]="site" (keyup)="siteSer($event)" formControlName="siteId" [(ngModel)]="asset.siteId">
               <mat-autocomplete #site="matAutocomplete">
                 <mat-option *ngFor="let item of siteIdList | search: sit" [value]="item.siteId">
                   {{ item.siteId }}
@@ -34,9 +34,10 @@
               <mat-error class="mt-1">Device Id is required</mat-error>
             </mat-form-field>
           </div> -->
+
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
-              <input matInput placeholder="Device Id" [matAutocomplete]="device" formControlName="deviceId" (keyup)="deviceSer($event)">
+              <input matInput placeholder="Device Id" [matAutocomplete]="device" (keyup)="deviceSer($event)" formControlName="deviceId" [(ngModel)]="asset.deviceId">
               <mat-autocomplete #device="matAutocomplete">
                 <mat-option *ngFor="let item of deviceIdList | search: dev" [value]="item.deviceId">
                   {{ item.deviceId }}
@@ -53,24 +54,44 @@
             </div>
 
             <div>
-              <input hidden (change)="onFileSelected($event)" #fileInput type="file" formControlName="file">
+              <input hidden (change)="onFileSelected($event)" #fileInput type="file" id="file-id" accept="video/*" formControlName="file" [(ngModel)]="asset.file">
               <div class="file-name" *ngFor="let item of selectedFiles">
-                <div class="d-flex align-items-center justify-content-between mt-2">
-                  <span style="width: 130px;">{{ item.name }}</span>
-                  <mat-progress-bar *ngIf="selectedFile" class="w-50" mode="determinate" value="100"></mat-progress-bar>
+                <mat-card class="d-flex align-items-center justify-content-between mt-2">
+                  <span>
+                    <span *ngIf="selectedFile?.name">{{ asset.mimetype }} {{ currentDate | date:'dd/MM/yyyy HH:mm:ss' }}</span>
+                    {{ item.name }}
+                  </span>
+                  <!-- <mat-progress-bar *ngIf="selectedFile" class="w-50" mode="determinate" value="100"></mat-progress-bar> -->
                   <a *ngIf="selectedFile" class="pointer text-end" (click)="deleteFile(item)">
-                    <img style="color: #bdb8b8;" src="assets/images/delete_black.svg" width="18" height="18">
+                    <img style="color: #bdb8b8;" src="assets/icons/delete_black.svg" width="18" height="18">
+                  </a>
+                </mat-card>
+              </div>
+              <mat-error class="mt-1" *ngIf="selectedFile?.size > 10000000">Please select video less than 10MB</mat-error>
+            </div>
+
+            <!-- <div>
+              <input hidden (change)="onFileSelected($event)" #fileInput type="file" accept="video/*" formControlName="file" [(ngModel)]="asset.file">
+              <div class="file-name">
+                <div class="d-flex align-items-center justify-content-between mt-2">
+                  <span style="width: 120px;">
+                    <span *ngIf="selectedFile?.name">{{ selectedFile?.size + asset.mimetype }}</span>
+                    {{ selectedFile?.name }}
+                  </span>
+                  <mat-progress-bar *ngIf="selectedFile" class="w-50" mode="determinate" value="100"></mat-progress-bar>
+                  <a *ngIf="selectedFile" class="pointer text-end" (click)="deleteFile()">
+                    <img style="color: #bdb8b8;" src="assets/icons/delete_black.svg" width="18" height="18">
                   </a>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
           <!-- /File Upload -->
 
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Mime type</mat-label>
-              <mat-select formControlName="mimetype">
+              <mat-select formControlName="mimetype" [(ngModel)]="asset.mimetype">
                 <mat-option *ngFor="let item of deviceType" [value]="item.value">{{ item.value }}</mat-option>
               </mat-select>
               <mat-error class="mt-1">Mime type is required</mat-error>
@@ -80,7 +101,7 @@
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Enter Asset Name</mat-label>
-              <input matInput formControlName="assetName">
+              <input matInput formControlName="assetName" [(ngModel)]="asset.assetName">
               <mat-error class="mt-1">Asset Name is required</mat-error>
             </mat-form-field>
           </div>
@@ -88,14 +109,14 @@
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Enter Description</mat-label>
-              <input matInput formControlName="description">
+              <input matInput formControlName="description" [(ngModel)]="asset.description">
             </mat-form-field>
           </div>
 
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Device Mode</mat-label>
-              <mat-select formControlName="deviceMode">
+              <mat-select formControlName="deviceMode" [(ngModel)]="asset.mimetype">
                 <mat-option *ngFor="let item of deviceMode" [value]="item.value">{{ item.value }}</mat-option>
               </mat-select>
               <mat-error class="mt-1">Device Mode is required</mat-error>
@@ -104,7 +125,7 @@
 
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
-              <input matInput [matDatepicker]="picker1" placeholder="Start Date" formControlName="startDate">
+              <input matInput [matDatepicker]="picker1" placeholder="Start Date" formControlName="startDate" [(ngModel)]="asset.startDate">
               <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
               <mat-datepicker #picker1></mat-datepicker>
               <mat-error class="mt-1">Start Date is required</mat-error>
@@ -113,7 +134,7 @@
 
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
-              <input matInput [matDatepicker]="picker2" placeholder="End Date" formControlName="endDate">
+              <input matInput [matDatepicker]="picker2" placeholder="End Date" formControlName="endDate" [(ngModel)]="asset.endDate">
               <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
               <mat-datepicker #picker2></mat-datepicker>
               <mat-error class="mt-1">End Date is required</mat-error>

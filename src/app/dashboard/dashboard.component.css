@@ -26,7 +26,7 @@
 
   .sidemenu{
     color: #fff;
-    background: url('../../assets/images/bgimg.png') top left no-repeat;
+    background: url('../../assets/icons/bgimg.png') top left no-repeat;
     background-size: cover;
     height: 100vh;
   }
@@ -155,7 +155,7 @@
   }
 
   .mobile-sidebar {
-    background: url('../../assets/images/bgimg.png') top right;
+    background: url('../../assets/icons/bgimg.png') top right;
     background-size: cover;
     top: 70px;
     position: absolute;

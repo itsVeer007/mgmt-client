@@ -1,23 +1,23 @@
 <div class="container-fluid">
     <div class="row content">
       <div class="header d-flex justify-content-between align-items-center">
-          <a class="logo pointer"><img src="assets/images/Logo.svg" /></a>
-          <a class="group88 pointer" (click)="showProfile()"><img src="assets/images/profile.svg" /></a>
-          <a class="menu-icon pointer" (click)="showMenu()"><img src="assets/images/menu.svg" /></a>
+          <a class="logo pointer"><img src="assets/icons/Logo.svg" /></a>
+          <a class="group88 pointer" (click)="showProfile()"><img src="assets/icons/profile.svg" /></a>
+          <a class="menu-icon pointer" (click)="showMenu()"><img src="assets/icons/menu.svg" /></a>
       </div>
       <div class="left-content sidemenu col-lg-2 col-md-2" style="position: sticky;">
           <nav class="collapse d-block sidebar" id="navbarToggleExternalContent">
               <div class="list-group m-3">
                   <a class="list-group-item active " [routerLink]="['/main-dashboard']" routerLinkActive="routeactive">
-                      <img src="assets/images/dashboard.svg">
+                      <img src="assets/icons/dashboard.svg">
                       <span> Dashboard</span>
                   </a>
                   <!-- <a class="list-group-item " [routerLink]="['/verticals']" routerLinkActive="routeactive">
-                      <img src="assets/images/vertical.svg">
+                      <img src="assets/icons/vertical.svg">
                       <span> Verticals</span>
                   </a> -->
                   <!-- <a class="list-group-item " [routerLink]="['/customers']" routerLinkActive="routeactive">
-                      <img src="assets/images/customer.svg">
+                      <img src="assets/icons/customer.svg">
                       <span> Customers</span>
                   </a> -->
 
@@ -27,31 +27,31 @@
                   </a> -->
 
                   <a class="list-group-item " [routerLink]="['/sites']" routerLinkActive="routeactive">
-                      <img src="assets/images/sites.svg">
+                      <img src="assets/icons/sites.svg">
                       <span> Sites</span>
                   </a>
                   <!-- <a class="list-group-item ">
-                      <img src="assets/images/cam.svg">
+                      <img src="assets/icons/cam.svg">
                       <span> Cameras</span>
                   </a> -->
                   <!-- <a class="list-group-item " [routerLink]="['/analytics']" routerLinkActive="routeactive">
-                      <img src="assets/images/analytic.svg">
+                      <img src="assets/icons/analytic.svg">
                       <span> Analytics</span>
                   </a> -->
                   <a class="list-group-item " [routerLink]="['/users']" routerLinkActive="routeactive">
-                      <img src="assets/images/user-white.svg">
+                      <img src="assets/icons/user-white.svg">
                       <span> Users</span>
                   </a>
                   <a class="list-group-item " [routerLink]="['/inventory']" routerLinkActive="routeactive">
-                    <img src="assets/images/inventory.svg">
+                    <img src="assets/icons/inventory.svg">
                     <span> Inventory</span>
                   </a>
                   <a class="list-group-item " [routerLink]="['/assets']" routerLinkActive="routeactive">
-                    <img src="assets/images/asset.svg">
+                    <img src="assets/icons/asset.svg">
                     <span> Assets(Ads)</span>
                   </a>
                   <a class="list-group-item " [routerLink]="['/tickets']" routerLinkActive="routeactive">
-                    <img src="assets/images/ticket.svg">
+                    <img src="assets/icons/ticket.svg">
                     <span> Tickets/Jobs</span>
                   </a>
               </div>
@@ -67,19 +67,19 @@
 <!-- Profile Details -->
 <div class="card profile-card" *ngIf="profile" id="profiles">
     <div class="card-header d-flex flex-column justify-content">
-        <img src="assets/images/Ellipse 25@2x.png" width="100" height="100" />
+        <img src="assets/icons/Ellipse 25@2x.png" width="100" height="100" />
         <span class="mt-2">User Name</span>
         <span>+91 XXXXX XXXXX<br>user@gmail.com</span>
     </div>
     <div class="card-body">
         <div>
-          <a class="mx-2 pointer"><img src="assets/images/edit-line@2x.png" width="15" height="15" /> <span class="mx-2">Edit Profile</span></a>
+          <a class="mx-2 pointer"><img src="assets/icons/edit-line@2x.png" width="15" height="15" /> <span class="mx-2">Edit Profile</span></a>
         </div>
         <div>
-          <a class="mx-2 pointer"><img src="assets/images/Union 48@2x.png" width="15" height="15" /> <span class="mx-2">Change Password</span></a>
+          <a class="mx-2 pointer"><img src="assets/icons/Union 48@2x.png" width="15" height="15" /> <span class="mx-2">Change Password</span></a>
         </div>
         <div>
-          <a class="mx-2 pointer"><img src="assets/images/info-outline.svg" width="15" height="15" /> <span class="mx-2">Terms & Conditions</span></a>
+          <a class="mx-2 pointer"><img src="assets/icons/info-outline.svg" width="15" height="15" /> <span class="mx-2">Terms & Conditions</span></a>
         </div>
     </div>
     <div class="card-footer">
@@ -93,42 +93,42 @@
     <nav class="d-sm-xs-block">
         <div class="list-group text-white text-center">
             <a class="list-group-item my-2 active " [routerLink]="['/main-dashboard']" routerLinkActive="routeactive">
-                <img src="assets/images/dashboard.svg" /><span> Dashboard</span>
+                <img src="assets/icons/dashboard.svg" /><span> Dashboard</span>
             </a>
 
             <!-- <a class="list-group-item my-2" >
-                <img src="assets/images/vertical.svg" /><span> Verticals</span>
+                <img src="assets/icons/vertical.svg" /><span> Verticals</span>
             </a> -->
 
             <!-- <a class="list-group-item my-2" [routerLink]="['/customers']" routerLinkActive="routeactive">
-                <img src="assets/images/customer.svg" /><span> Customers</span>
+                <img src="assets/icons/customer.svg" /><span> Customers</span>
             </a> -->
 
             <a routerLink="" class="list-group-item my-2" [routerLink]="['/sites']" routerLinkActive="routeactive">
-                <img src="assets/images/sites.svg" /><span> Sites</span>
+                <img src="assets/icons/sites.svg" /><span> Sites</span>
             </a>
 
             <!-- <a class="list-group-item my-2">
-                <img src="assets/images/cam.svg" /><span> Cameras</span>
+                <img src="assets/icons/cam.svg" /><span> Cameras</span>
             </a> -->
 
             <!-- <a class="list-group-item my-2">
-                <img src="assets/images/analytic.svg" /><span> Analytics</span>
+                <img src="assets/icons/analytic.svg" /><span> Analytics</span>
             </a> -->
             <a class="list-group-item my-2" [routerLink]="['/users']" routerLinkActive="routeactive">
-                <img src="assets/images/user-white.svg" /><span> Users</span>
+                <img src="assets/icons/user-white.svg" /><span> Users</span>
             </a>
 
             <a class="list-group-item my-2" [routerLink]="['/inventory']" routerLinkActive="routeactive">
-              <img src="assets/images/inventory.svg" /><span> Inventory</span>
+              <img src="assets/icons/inventory.svg" /><span> Inventory</span>
             </a>
 
             <a class="list-group-item my-2" [routerLink]="['/assets']" routerLinkActive="routeactive">
-                <img src="assets/images/asset.svg" /><span> Assets(Ads)</span>
+                <img src="assets/icons/asset.svg" /><span> Assets(Ads)</span>
             </a>
 
             <a class="list-group-item my-2" [routerLink]="['/tickets']" routerLinkActive="routeactive">
-              <img src="assets/images/ticket.svg" /><span> Tickets/Jobs</span>
+              <img src="assets/icons/ticket.svg" /><span> Tickets/Jobs</span>
           </a>
         </div>
     </nav>

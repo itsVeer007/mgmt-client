@@ -1,27 +1,27 @@
 <div class="row formModal">
   <div class="col-lg-2 col-md-2" style="position: relative;">
-    <!-- <div class="closebtn" (click)="closeAddSite(false)"><img src="assets/images/Group 101.svg" /></div> -->
+    <!-- <div class="closebtn" (click)="closeAddSite(false)"><img src="assets/icons/Group 101.svg" /></div> -->
   </div>
   <div class="col-lg-10 col-md-10 add-form" id="sites" @inOutPaneAnimation>
 
     <div class="d-flex flex-row justify-content-between">
       <div class="d-flex flex-row justify-content-start">
-        <a class="close-main pointer" (click)="closeAddSite()"><img src="assets/images/Group 101.svg" /></a>
+        <a class="close-main pointer" (click)="closeAddSite()"><img src="assets/icons/Group 101.svg" /></a>
         <span class="form-heading">add site</span>
       </div>
 
       <!-- <div class="col-sm-3 col-xs-3 my-4 site-icons">
-                <a (click)="openAnotherForm('showAddBusinessVertical')"><img src="assets/images/ver-icon-form.svg"
+                <a (click)="openAnotherForm('showAddBusinessVertical')"><img src="assets/icons/ver-icon-form.svg"
                         class="mx-2 my-4" /></a>
-                <a (click)="openAnotherForm('showAddCustomer')"><img src="assets/images/cust-icon-form.svg"
+                <a (click)="openAnotherForm('showAddCustomer')"><img src="assets/icons/cust-icon-form.svg"
                         class="mx-2 my-4" /></a>
-                <a (click)="openAnotherForm('showAddSite')" class="boxshadow"><img src="assets/images/site-icon-form.svg"
+                <a (click)="openAnotherForm('showAddSite')" class="boxshadow"><img src="assets/icons/site-icon-form.svg"
                         class="mx-2 my-4 changesvgcolor" /></a>
-                <a (click)="openAnotherForm('showAddCamera')"><img src="assets/images/cam-icon-form.svg"
+                <a (click)="openAnotherForm('showAddCamera')"><img src="assets/icons/cam-icon-form.svg"
                         class="mx-2 my-4" /></a>
-                <a (click)="openAnotherForm('analytics')"><img src="assets/images/analy-icon-form.svg"
+                <a (click)="openAnotherForm('analytics')"><img src="assets/icons/analy-icon-form.svg"
                         class="mx-2 my-4" /></a>
-                <a (click)="openAnotherForm('showAddUser')"><img src="assets/images/user-icon-form.svg"
+                <a (click)="openAnotherForm('showAddUser')"><img src="assets/icons/user-icon-form.svg"
                         class="mx-2 my-4" /></a>
             </div> -->
     </div>
@@ -30,10 +30,6 @@
       <form autocomplete="off">
         <div class="row">
           <div class="col-lg-4 col-md-4">
-            <!-- <select id="" class="form-select m-2">
-              <option selected>Select Vertical</option>
-              <option>...</option>
-            </select> -->
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Select Vertical</mat-label>
               <mat-select>
@@ -43,10 +39,6 @@
           </div>
 
           <div class="col-lg-4 col-md-4">
-            <!-- <select id="" class="form-select m-2">
-              <option selected>Select Customer</option>
-              <option>...</option>
-            </select> -->
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Select Customer</mat-label>
               <mat-select>
@@ -56,7 +48,6 @@
           </div>
 
           <div class="col-lg-4 col-md-4">
-            <!-- <input type="text" class="form-control m-2" placeholder="Site Name" /> -->
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Site Name</mat-label>
               <input matInput>
@@ -64,7 +55,6 @@
           </div>
 
           <div class="col-lg-4 col-md-4">
-            <!-- <input type="text" class="form-control m-2" placeholder="Contact Number" /> -->
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Contact Number</mat-label>
               <input matInput>
@@ -72,7 +62,6 @@
           </div>
 
           <div class="col-lg-4 col-md-4">
-            <!-- <input type="email" class="form-control m-2" placeholder="Email Id" /> -->
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Email Id</mat-label>
               <input matInput>
@@ -80,7 +69,6 @@
           </div>
 
           <div class="col-lg-4 col-md-4">
-            <!-- <input type="text" class="form-control m-2" placeholder="Website" /> -->
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Website</mat-label>
               <input matInput>
@@ -94,10 +82,6 @@
           </div>
 
           <div class="col-lg-4 col-md-4">
-            <!-- <select id="" class="form-select m-2" required>
-              <option selected>Country*</option>
-              <option>...</option>
-            </select> -->
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Select Country</mat-label>
               <mat-select>
@@ -107,10 +91,6 @@
           </div>
 
           <div class="col-lg-4 col-md-4">
-            <!-- <select id="" class="form-select m-2">
-              <option selected>State</option>
-              <option>...</option>
-            </select> -->
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Select State</mat-label>
               <mat-select>
@@ -120,10 +100,6 @@
           </div>
 
           <div class="col-lg-4 col-md-4">
-            <!-- <select id="" class="form-select m-2">
-              <option selected>District/City</option>
-              <option>...</option>
-            </select> -->
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Select District</mat-label>
               <mat-select>
@@ -133,14 +109,12 @@
           </div>
 
           <div class="col-lg-4 col-md-4">
-            <!-- <input type="text" class="form-control m-2" placeholder="Pincode" /> -->
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Pincode</mat-label>
               <input matInput>
             </mat-form-field>
           </div>
           <div class="col-lg-8 col-md-8">
-            <!-- <input type="text" class="form-control m-2" placeholder="Area/Street" /> -->
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Area/Street</mat-label>
               <input matInput>
@@ -171,7 +145,6 @@
           </div>
 
           <div class="col-lg-4 col-md-4" style="margin-top: 11px;">
-            <!-- <button class="btn m-2 latlong" (click)="getLocation()">Get Lat Long</button> -->
             <button class="py-1 px-3" mat-stroked-button color="primary" (click)="getLocation()">Get Lat Long</button>
           </div>
         </div>
@@ -206,7 +179,6 @@
           </div>
 
           <div class="col-lg-4 col-md-4">
-            <!-- <input type="text" class="form-control m-2" placeholder="Contact Number" /> -->
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Contact Number</mat-label>
               <input matInput>
@@ -214,7 +186,6 @@
           </div>
 
           <div class="col-lg-4 col-md-4">
-            <!-- <input type="email" class="form-control m-2" placeholder="Email Id" /> -->
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Email Id</mat-label>
               <input matInput>
@@ -252,7 +223,6 @@
           </div>
 
           <div class="col-lg-4 col-md-4">
-            <!-- <input type="text" class="form-control m-2" placeholder="Contact Number" /> -->
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Contact Number</mat-label>
               <input matInput>
@@ -260,7 +230,6 @@
           </div>
 
           <div class="col-lg-4 col-md-4">
-            <!-- <input type="email" class="form-control m-2" placeholder="Email Id" /> -->
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Email Id</mat-label>
               <input matInput>
@@ -338,7 +307,6 @@
           </div>
 
           <div class="col-lg-4 col-md-4">
-            <!-- <input type="email" class="form-control m-2" placeholder="Email Id" /> -->
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Enter Number</mat-label>
               <input matInput>
@@ -346,7 +314,6 @@
           </div>
 
           <div class="col-lg-4 col-md-4">
-            <!-- <input type="email" class="form-control m-2" placeholder="Email Id" /> -->
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Select Type</mat-label>
               <mat-select>
@@ -356,7 +323,6 @@
           </div>
 
           <div class="col-lg-4 col-md-4">
-            <!-- <input type="email" class="form-control m-2" placeholder="Email Id" /> -->
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Scan Tag Id</mat-label>
               <input matInput>
@@ -375,7 +341,6 @@
 
         <div class="row">
           <div class="col-lg-8 col-md-8">
-            <!-- <input type="email" class="form-control m-2" placeholder="Email Id" /> -->
             <mat-form-field class="example-form-field" appearance="outline" class="w-100">
               <mat-label>File Upload</mat-label>
               <input matInput type="text">
@@ -386,7 +351,6 @@
           </div>
 
           <div class="col-lg-4 col-md-4">
-            <!-- <input type="email" class="form-control m-2" placeholder="Email Id" /> -->
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>URL</mat-label>
               <input matInput>
@@ -397,7 +361,6 @@
         <p class="m-0" style="font-weight: 700;">Documents</p>
         <div class="row">
           <div class="col-lg-4 col-md-4">
-            <!-- <input type="email" class="form-control m-2" placeholder="Email Id" /> -->
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Document Type</mat-label>
               <mat-select>
@@ -419,7 +382,7 @@
                   <span style="width: 130px;">{{item.name}}</span>
                   <mat-progress-bar *ngIf="selectedFile" class="w-50" mode="determinate" value="100"></mat-progress-bar>
                   <a *ngIf="selectedFile" class="pointer text-end" (click)="deleteFile()">
-                    <img style="color: #bdb8b8;" src="assets/images/close.svg" width="20" height="20">
+                    <img style="color: #bdb8b8;" src="assets/icons/close.svg" width="20" height="20">
                   </a>
                 </div>
               </div>

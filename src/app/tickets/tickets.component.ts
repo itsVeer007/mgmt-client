@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-tickets',
@@ -8,26 +8,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TicketsComponent implements OnInit {
 
-  // @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
-  //   var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);
-  //   var y = <HTMLElement>document.getElementById(`icons-site`);
+  @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
+    var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);
+    var y = <HTMLElement>document.getElementById(`icons-site`);
 
-  //   // console.log(`plus-img${this.currentid}`);
-  //   if (x != null) {
-  //     if (!x.contains(e.target)) {
-  //       if (x.style.display == 'flex' || x.style.display == 'block') {
-  //         x.style.display = 'none';
-  //       }
-  //     }
-  //   }
+    // console.log(`plus-img${this.currentid}`);
+    if (x != null) {
+      if (!x.contains(e.target)) {
+        if (x.style.display == 'flex' || x.style.display == 'block') {
+          x.style.display = 'none';
+        }
+      }
+    }
 
-  //   if (y != null) {
-  //     console.log(`icons-site`);
-  //     if (!y.contains(e.target)) {
-  //       this.icons1 = false;
-  //     }
-  //   }
-  // }
+    // if (y != null) {
+    //   console.log(`icons-site`);
+    //   if (!y.contains(e.target)) {
+    //     this.icons1 = false;
+    //   }
+    // }
+  }
 
 
 
@@ -87,13 +87,6 @@ export class TicketsComponent implements OnInit {
   closenow(value: any, type: String) {
     if (type == 'ticket') { this.showTicket = value; }
 
-    // if (type == 'camr') { this.showAddCamera = value; }
-    // if (type == 'cust') { this.showAddCustomer = value; }
-    // if (type == 'vert') { this.showAddBusinessVertical = value; }
-    // if (type == 'user') { this.showAddUser = value; }
-    // if(type == 'additionalSite') {this.showSite = value;}
-    // console.log("SITES:: ",type)
-
     // setTimeout(() => {
     //   var openform = localStorage.getItem('opennewform');
     //   if (openform == 'showAddSite') { this.showAddSite = true; }
@@ -134,16 +127,6 @@ export class TicketsComponent implements OnInit {
 
   show(type: string) {
     if (type == 'ticket') { this.showTicket = true }
-
-    // this.icons1 = !this.icons1;
-    // this.showSite = false;
-
-    // this.showIconVertical = false;
-    // this.showIconCustomer = false;
-    // this.showIconSite = false;
-    // this.showIconCamera = false;
-    // this.showIconAnalytic = false;
-    // this.showIconUser = false;
   }
 
   masterSelected: boolean = false;
@@ -156,7 +139,7 @@ export class TicketsComponent implements OnInit {
   //   }
   // }
 
-  // -----------------Start Checkbox-----------------
+
   selectedAll: any;
 
   selectAll() {
@@ -171,9 +154,8 @@ export class TicketsComponent implements OnInit {
       return item.selected == true;
     })
   }
-  // -------------------End Checkbox----------------------
 
-  // ---------------- Start delete ---------------------
+
   deleteRow: any;
 
   deleteRow1(item: any, i: any) {
@@ -205,11 +187,7 @@ export class TicketsComponent implements OnInit {
     // console.log(this.CustomerTable.siteId);
   }
 
-  // ------- End delete ----------------
 
-
-
-  // -------Start Edit -------------
   editPopup: boolean = true;
 
   confirmEditRow() {
@@ -253,12 +231,7 @@ export class TicketsComponent implements OnInit {
     }
     this.CustomerReport();
   }
-  // -------------- End Edit ------------------
 
-
-
-
-  // ------------- start View --------------------
 
   viewPopup: boolean = true;
 
@@ -297,11 +270,8 @@ export class TicketsComponent implements OnInit {
       this.viewPopup = false;
     }
   }
-  // ------------- End View ---------------------
 
 
-
-  // ------------ Multiple Records Starts -------------------
   deletearray: any = [];
   deleteMultiRecords(item: any, i: any, e: any) {
     var checked = (e.target.checked);
@@ -336,7 +306,6 @@ export class TicketsComponent implements OnInit {
     }
   }
 
-  // ------------ Multiple Records Ends -------------------
 
   sorted = false;
   sort(label: any) {
