@@ -16,6 +16,7 @@ import { AssetsComponent } from './assets/assets.component';
 import { TicketsComponent } from './tickets/tickets.component';
 import { AnalyticsComponent } from './analytics/analytics.component';
 import { VerticalsComponent } from './verticals/verticals.component';
+import { ReportsComponent } from './reports/reports.component';
 const routes: Routes = [];
 
 @NgModule({
@@ -35,7 +36,8 @@ const routes: Routes = [];
     { path: 'users', component: UsersComponent },
     { path: 'inventory', component: InventoryComponent },
     { path: 'assets', component: AssetsComponent },
-    { path: 'tickets', component: TicketsComponent }
+    { path: 'tickets', component: TicketsComponent },
+    { path: 'reports', component: ReportsComponent }
   ])],
   exports: [RouterModule]
 })

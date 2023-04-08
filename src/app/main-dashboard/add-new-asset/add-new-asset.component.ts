@@ -1,9 +1,10 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AssetService } from 'src/services/asset.service';
 import { DropDownService } from 'src/services/drop-down.service';
+import { AlertService } from 'src/services/alert.service';
 
 @Component({
   selector: 'app-add-new-asset',
@@ -49,12 +50,9 @@ export class AddNewAssetComponent implements OnInit {
   searchText: any;
   siteIdList: any
   deviceIdList: any
-
-  // shortLink: string = "";
-  // file: File | null = null;
   // loading: boolean = false;
 
-  constructor(private router: Router, private fb: FormBuilder, private assetService: AssetService, private dropDown: DropDownService) { }
+  constructor(private router: Router, private fb: FormBuilder, private assetService: AssetService, private dropDown: DropDownService, private alertSer: AlertService) { }
 
 
   /* Asset Object */
@@ -123,7 +121,7 @@ export class AddNewAssetComponent implements OnInit {
     })
   }
 
-  closeAddCamera() {
+  closeForm() {
     this.newItemEvent.emit(false);
   }
 
@@ -155,12 +153,22 @@ export class AddNewAssetComponent implements OnInit {
 
   addNewAsset() {
     this.submit = true;
+    console.log(this.asset);
+
     if(this.addAssetForm.valid) {
-      this.assetService.addAsset(this.asset, this.selectedFile).subscribe((res) => {
-        console.log(res)
+      this.newItemEvent.emit(false);
+      this.assetService.addAsset(this.asset, this.selectedFile).subscribe((res: any) => {
+        if(res.Status == "Success") {
+          this.alertSer.success(res.Message);
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
+        } else {
+          this.alertSer.error(res.Message);
+        }
+        console.log(res);
       });
     }
-    console.log(this.asset);
   }
 
 

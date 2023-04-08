@@ -1,22 +1,18 @@
-import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, HostListener, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { DropDownService } from 'src/services/drop-down.service';
-import { AssetService } from '../../services/asset.service';
-import { AdInfoComponent } from './ad-info/ad-info.component';
 
 @Component({
-  selector: 'app-assets',
-  templateUrl: './assets.component.html',
-  styleUrls: ['./assets.component.css']
+  selector: 'app-reports',
+  templateUrl: './reports.component.html',
+  styleUrls: ['./reports.component.css']
 })
-export class AssetsComponent implements OnInit {
+export class ReportsComponent implements OnInit {
 
   @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
     var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);
     var y = <HTMLElement>document.getElementById(`icons-site`);
 
+    // console.log(`plus-img${this.currentid}`);
     if (x != null) {
       if (!x.contains(e.target)) {
         if (x.style.display == 'flex' || x.style.display == 'block') {
@@ -35,63 +31,20 @@ export class AssetsComponent implements OnInit {
 
 
 
-  assetTable: any[] = [];
-  searchText: any;
-  deviceId: string = '';
-  // activeAssets: number = 0;
-  showLoader: boolean = false;
 
-  added: any[] = [];
-  removed: any[] = [];
-  synced: any[] = [];
-  sendToController: any[] = [];
+  showLoader = false;
+  constructor(private http: HttpClient) { }
 
-  constructor(private http: HttpClient, private apiser: AssetService, private dropDown: DropDownService, public datepipe: DatePipe, public dialog: MatDialog) { }
-
-  currentDateTime: any;
   ngOnInit(): void {
-    this.currentDateTime =this.datepipe.transform(new Date, 'yyyy-MM-dd');
-    this.getAsset();
-    this.ongetDeviceMode();
+    this.CustomerReport();
   }
 
-
-  tableData: any;
-  getAsset() {
-    this.showLoader = true;
-    this.apiser.getAssets().subscribe((res: any) => {
-      this.showLoader = false;
-      this.assetTable = res.asset_details;
-      this.tableData = this.assetTable;
-      console.log(res);
-
-      //count
-      for(let item of this.assetTable) {
-        if(item.status == "Added") {
-          this.added.push(item);
-        } else if(item.status == "Removed") {
-          this.removed.push(item);
-        } else if(item.status == "Synced") {
-          this.synced.push(item);
-        } else if(item.status == "SentToController") {
-          this.sendToController.push(item);
-        }
-      }
-    })
-  }
-
-  selectMode(data: any) {
-    // this.searchText = data;
-    // let dataSome = this.tableData;
-    this.assetTable = this.tableData.filter((el: any) => el.deviceMode == data);
-  }
-
-  deviceMode: any;
-  ongetDeviceMode() {
-    this.dropDown.getDeviceMode().subscribe((res: any) => {
-      this.deviceMode = res.List_Shown_By_Type_Given;
-    })
-  }
+  showIconVertical: boolean = false;
+  showIconCustomer: boolean = false;
+  showIconSite: boolean = false;
+  showIconCamera: boolean = false;
+  showIconAnalytic: boolean = false;
+  showIconUser: boolean = false;
 
   showIconView: boolean = false;
   showIconEdit: boolean = false;
@@ -100,10 +53,20 @@ export class AssetsComponent implements OnInit {
   showIconEdit1: boolean = false;
   showIconDelete1: boolean = false;
 
+  searchText: any;
+  CustomerTable: any;
+  CustomerReport() {
+    this.http.get('assets/JSON/customerData.json').subscribe(res => {
+      this.CustomerTable = res;
+      // console.log(res)
+    });
+  }
+
   currentid = 0;
   closeDot(e: any, i: any) {
     this.currentid = i;
     var x = e.target.parentNode.nextElementSibling;
+    // console.log("THREE DOTS:: ",e.target.parentNode.nextElementSibling);
     if (x.style.display == 'none') {
       x.style.display = 'block';
     } else {
@@ -111,15 +74,18 @@ export class AssetsComponent implements OnInit {
     }
   }
 
-
-  showAsset: boolean = false;
-
-  showAddAsset() {
-    this.showAsset = true;
-  }
+  showAddSite = false;
+  showAddCamera = false;
+  showAddCustomer = false;
+  showAddUser = false;
+  showAddBusinessVertical = false;
+  showSite = false;
+  // closenow(value:any) {
+  //   this.showAddSite = value;
+  // }
 
   closenow(value: any, type: String) {
-    if (type == 'asset') { this.showAsset = value; }
+    if (type == 'ticket') { this.showTicket = value; }
 
     // setTimeout(() => {
     //   var openform = localStorage.getItem('opennewform');
@@ -133,6 +99,35 @@ export class AssetsComponent implements OnInit {
     // }, 100)
   }
 
+  // showAddCamera = false;
+
+  // closenow1(value:any) {
+  //   this.showAddCamera = value;
+  // }
+
+  // showAddCustomer = false;
+
+  // closenow2(value:any) {
+  //   this.showAddCustomer = value;
+  // }
+
+  // showAddUser = false;
+
+  // closenow3(value:any) {
+  //   this.showAddUser = value;
+  // }
+
+  // showAddBusinessVertical = false;
+
+  // closenow4(value:any) {
+  //   this.showAddBusinessVertical = value;
+  // }
+
+  showTicket: boolean = false;
+
+  show(type: string) {
+    if (type == 'ticket') { this.showTicket = true }
+  }
 
   masterSelected: boolean = false;
 
@@ -144,43 +139,38 @@ export class AssetsComponent implements OnInit {
   //   }
   // }
 
-  addNewUser(newUser: any) {
-    // newUser = JSON.parse(localStorage.getItem('userCreated')!);
-    if(newUser) {
-      this.assetTable.push(newUser)
-      // localStorage.removeItem('userCreated');
-    }
-  }
-
 
   selectedAll: any;
 
   selectAll() {
-    for (var i = 0; i < this.assetTable.length; i++) {
-      // console.log(this.assetTable[i])
-      this.assetTable[i].selected = this.selectedAll;
+    for (var i = 0; i < this.CustomerTable.length; i++) {
+      // console.log(this.CustomerTable[i])
+      this.CustomerTable[i].selected = this.selectedAll;
     }
   }
   checkIfAllSelected() {
-    this.selectedAll = this.assetTable.every(function (item: any) {
+    this.selectedAll = this.CustomerTable.every(function (item: any) {
       // console.log(item)
       return item.selected == true;
     })
   }
 
+
   deleteRow: any;
 
   deleteRow1(item: any, i: any) {
     console.log("DELETEROW:: ", item);
+    this.showLoader = true;
     setTimeout(() => {
-      this.assetTable.splice(i, 1);
+      this.showLoader = false;
+      this.CustomerTable.splice(i, 1);
     }, 1000);
   }
 
   deletePopup: boolean = true;
   confirmDeleteRow() {
     console.log("ToBE DELETED:: ", this.currentItem);
-    this.assetTable = this.assetTable.filter((item: any) => item.siteId !== this.currentItem.siteId);
+    this.CustomerTable = this.CustomerTable.filter((item: any) => item.siteId !== this.currentItem.siteId);
     this.deletePopup = true;
   }
 
@@ -194,15 +184,17 @@ export class AssetsComponent implements OnInit {
     // console.log("Selected Item:: ", item);
     this.deletePopup = false;
     // console.log("Open Delete Popup:: ",this.deletePopup);
-    // console.log(this.assetTable.siteId);
+    // console.log(this.CustomerTable.siteId);
   }
 
 
   editPopup: boolean = true;
+
   confirmEditRow() {
     console.log("TO BE EDITED:: ", this.currentItem);
-    // this.assetTable= this.assetTable.filter((item:any) => item.siteId !== this.currentItem.siteId);
+    // this.CustomerTable= this.CustomerTable.filter((item:any) => item.siteId !== this.currentItem.siteId);
     this.editPopup = true;
+    this.CustomerReport();
   }
 
   closeEditPopup() {
@@ -215,7 +207,7 @@ export class AssetsComponent implements OnInit {
     // console.log("Selected Item:: ", item);
     this.editPopup = false;
     // console.log("Open Delete Popup:: ",this.editPopup);
-    // console.log(this.assetTable.siteId);
+    // console.log(this.CustomerTable.siteId);
   }
 
   editArray: any = [];
@@ -237,10 +229,12 @@ export class AssetsComponent implements OnInit {
     if (this.editArray.length > 0) {
       this.editPopup = false;
     }
+    this.CustomerReport();
   }
 
 
   viewPopup: boolean = true;
+
   confirmViewRow() {
     console.log("ToBE Viewed:: ", this.currentItem);
     this.viewPopup = true;
@@ -302,12 +296,12 @@ export class AssetsComponent implements OnInit {
       this.deletearray.forEach((el: any) => {
         // this.currentItem = el;
         // this.confirmDeleteRow();
-        this.assetTable = this.assetTable.filter((item: any) => item.siteId !== el.siteId);
+        this.CustomerTable = this.CustomerTable.filter((item: any) => item.siteId !== el.siteId);
       });
       this.deletearray = []
     } else {
-      this.assetTable.forEach((el: any) => {
-        this.assetTable = this.assetTable.filter((item: any) => item.siteId !== el.siteId);
+      this.CustomerTable.forEach((el: any) => {
+        this.CustomerTable = this.CustomerTable.filter((item: any) => item.siteId !== el.siteId);
       });
     }
   }
@@ -316,7 +310,7 @@ export class AssetsComponent implements OnInit {
   sorted = false;
   sort(label: any) {
     this.sorted = !this.sorted;
-    var x = this.assetTable;
+    var x = this.CustomerTable;
     if (this.sorted == false) {
       x.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
     } else {
@@ -324,8 +318,19 @@ export class AssetsComponent implements OnInit {
     }
   }
 
-  openDialog() {
-    this.dialog.open(AdInfoComponent);
+  isShow: boolean = false;
+  currr: any = 0;
+
+  openPanel(e: any, i: any) {
+    // this.isShow = !this.isShow;
+    this.currr = i;
+    let x = e.target.parentNode.nextElementSibling;
+
+    if (x.style.display == 'none') {
+      x.style.display = 'block';
+    } else {
+      x.style.display = 'none';
+    }
   }
 
 }

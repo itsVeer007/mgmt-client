@@ -2,23 +2,27 @@
     <div class="row content">
       <div class="header d-flex justify-content-between align-items-center">
           <a class="logo pointer"><img src="assets/icons/Logo.svg" /></a>
-          <a class="group88 pointer" (click)="showProfile()"><img src="assets/icons/profile.svg" /></a>
-          <a class="menu-icon pointer" (click)="showMenu()"><img src="assets/icons/menu.svg" /></a>
+          <a class="group88 pointer" (click)="showProfile()">
+            <img src="assets/icons/profile.svg" />
+          </a>
+          <a class="menu-icon pointer" (click)="showMenu()">
+            <img src="assets/icons/menu.svg" />
+          </a>
       </div>
       <div class="left-content sidemenu col-lg-2 col-md-2" style="position: sticky;">
           <nav class="collapse d-block sidebar" id="navbarToggleExternalContent">
               <div class="list-group m-3">
                   <a class="list-group-item active " [routerLink]="['/main-dashboard']" routerLinkActive="routeactive">
                       <img src="assets/icons/dashboard.svg">
-                      <span> Dashboard</span>
+                      <span>Dashboard</span>
                   </a>
                   <!-- <a class="list-group-item " [routerLink]="['/verticals']" routerLinkActive="routeactive">
                       <img src="assets/icons/vertical.svg">
-                      <span> Verticals</span>
+                      <span>Verticals</span>
                   </a> -->
                   <!-- <a class="list-group-item " [routerLink]="['/customers']" routerLinkActive="routeactive">
                       <img src="assets/icons/customer.svg">
-                      <span> Customers</span>
+                      <span>Customers</span>
                   </a> -->
 
                   <!-- <a routerLink="/service-category" class="nav-link active" aria-current="page">
@@ -28,31 +32,35 @@
 
                   <a class="list-group-item " [routerLink]="['/sites']" routerLinkActive="routeactive">
                       <img src="assets/icons/sites.svg">
-                      <span> Sites</span>
+                      <span>Sites</span>
                   </a>
                   <!-- <a class="list-group-item ">
                       <img src="assets/icons/cam.svg">
-                      <span> Cameras</span>
+                      <span>Cameras</span>
                   </a> -->
                   <!-- <a class="list-group-item " [routerLink]="['/analytics']" routerLinkActive="routeactive">
                       <img src="assets/icons/analytic.svg">
-                      <span> Analytics</span>
+                      <spanAnalytics</span>
                   </a> -->
                   <a class="list-group-item " [routerLink]="['/users']" routerLinkActive="routeactive">
                       <img src="assets/icons/user-white.svg">
-                      <span> Users</span>
+                      <span>Users</span>
                   </a>
                   <a class="list-group-item " [routerLink]="['/inventory']" routerLinkActive="routeactive">
                     <img src="assets/icons/inventory.svg">
-                    <span> Inventory</span>
+                    <span>Inventory</span>
                   </a>
                   <a class="list-group-item " [routerLink]="['/assets']" routerLinkActive="routeactive">
                     <img src="assets/icons/asset.svg">
-                    <span> Assets(Ads)</span>
+                    <span>Assets(Ads)</span>
                   </a>
                   <a class="list-group-item " [routerLink]="['/tickets']" routerLinkActive="routeactive">
                     <img src="assets/icons/ticket.svg">
-                    <span> Tickets/Jobs</span>
+                    <span>Tickets/Jobs</span>
+                  </a>
+                  <a class="list-group-item " [routerLink]="['/reports']" routerLinkActive="routeactive">
+                    <img src="assets/icons/report.svg">
+                    <span>Reports</span>
                   </a>
               </div>
           </nav>
@@ -89,7 +97,7 @@
 
 <!-- Mobile View Menu -->
 
-<div class="col-sm-12 col-xs-12 mobile-sidebar" id="sidebar" *ngIf="showmenu" style="z-index: 1;">
+<div class="col-sm-12 col-xs-12 mobile-sidebar" id="sidebar" *ngIf="show" style="z-index: 1;">
     <nav class="d-sm-xs-block">
         <div class="list-group text-white text-center">
             <a class="list-group-item my-2 active " [routerLink]="['/main-dashboard']" routerLinkActive="routeactive">
@@ -116,20 +124,24 @@
                 <img src="assets/icons/analytic.svg" /><span> Analytics</span>
             </a> -->
             <a class="list-group-item my-2" [routerLink]="['/users']" routerLinkActive="routeactive">
-                <img src="assets/icons/user-white.svg" /><span> Users</span>
+                <img src="assets/icons/user-white.svg" /><span>Users</span>
             </a>
 
             <a class="list-group-item my-2" [routerLink]="['/inventory']" routerLinkActive="routeactive">
-              <img src="assets/icons/inventory.svg" /><span> Inventory</span>
+              <img src="assets/icons/inventory.svg" /><span>Inventory</span>
             </a>
 
             <a class="list-group-item my-2" [routerLink]="['/assets']" routerLinkActive="routeactive">
-                <img src="assets/icons/asset.svg" /><span> Assets(Ads)</span>
+                <img src="assets/icons/asset.svg" /><span>Assets(Ads)</span>
             </a>
 
             <a class="list-group-item my-2" [routerLink]="['/tickets']" routerLinkActive="routeactive">
-              <img src="assets/icons/ticket.svg" /><span> Tickets/Jobs</span>
-          </a>
+              <img src="assets/icons/ticket.svg" /><span>Tickets/Jobs</span>
+            </a>
+
+            <a class="list-group-item my-2" [routerLink]="['/reports']" routerLinkActive="routeactive">
+              <img src="assets/icons/report.svg" /><span>Reports</span>
+            </a>
         </div>
     </nav>
 </div>

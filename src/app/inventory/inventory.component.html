@@ -97,7 +97,8 @@
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>All</mat-label>
           <mat-select>
-            <mat-option (click)="sort('siteName')">Filter by A-Z</mat-option>
+            <!-- <mat-option (click)="sort('siteName')">Filter by A-Z</mat-option> -->
+            <mat-option *ngFor="let cust of CustomerTable">{{ cust.contactPerson }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>

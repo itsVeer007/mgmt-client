@@ -6,6 +6,9 @@ import { DatePipe } from '@angular/common';
   providedIn: 'root'
 })
 export class AssetService {
+  success(arg0: string, arg1: string) {
+    throw new Error('Method not implemented.');
+  }
 
   baseUrl = 'http://usstaging.ivisecurity.com:777/ProximityAdvertisement/';
 

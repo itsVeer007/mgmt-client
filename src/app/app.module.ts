@@ -49,7 +49,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatMenuModule } from '@angular/material/menu';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 //utilities
 import { MultiSelectSearchComponent } from './utilities/multi-select-search/multi-select-search.component';
@@ -59,6 +60,7 @@ import { ChartService } from 'src/services/chart.service';
 import { SearchPipe } from './utilities/search.pipe';
 import { DatePipe } from '@angular/common';
 import { AdInfoComponent } from './assets/ad-info/ad-info.component';
+import { ReportsComponent } from './reports/reports.component';
 
 @NgModule({
   declarations: [
@@ -90,6 +92,7 @@ import { AdInfoComponent } from './assets/ad-info/ad-info.component';
     AddNewAnalyticComponent,
     AddNewTicketComponent,
     AdInfoComponent,
+    ReportsComponent
   ],
   imports: [
     BrowserModule,
@@ -98,6 +101,8 @@ import { AdInfoComponent } from './assets/ad-info/ad-info.component';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+
+    //Mat Module
     MatFormFieldModule,
     MatSelectModule,
     MatIconModule,
@@ -115,7 +120,9 @@ import { AdInfoComponent } from './assets/ad-info/ad-info.component';
     MatCardModule,
     MatDialogModule,
     MatSidenavModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSnackBarModule,
+    MatExpansionModule
   ],
   providers: [
     ChartService,

@@ -4,14 +4,14 @@
 
     <!-- Title -->
     <div class="d-flex justify-content-start">
-      <a class="close-main pointer" (click)="closeAddCamera()"><img src="assets/icons/Group 101.svg" /></a>
+      <a class="close-main pointer" (click)="closeForm()"><img src="assets/icons/Group 101.svg" /></a>
       <span class="form-heading">add asset</span>
     </div>
     <!-- /Title -->
 
     <!-- Form -->
     <div>
-      <form autocomplete="off" [formGroup]="addAssetForm">
+      <form autocomplete="off" [formGroup]="addAssetForm" (ngSubmit)="addNewAsset()">
         <div class="row">
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
@@ -54,11 +54,11 @@
             </div>
 
             <div>
-              <input hidden (change)="onFileSelected($event)" #fileInput type="file" id="file-id" accept="video/*" formControlName="file" [(ngModel)]="asset.file">
+              <input hidden (change)="onFileSelected($event)" #fileInput type="file" formControlName="file" accept="video/*"  [(ngModel)]="asset.file">
               <div class="file-name" *ngFor="let item of selectedFiles">
                 <mat-card class="d-flex align-items-center justify-content-between mt-2">
                   <span>
-                    <span *ngIf="selectedFile?.name">{{ asset.mimetype }} {{ currentDate | date:'dd/MM/yyyy HH:mm:ss' }}</span>
+                    <span *ngIf="selectedFile?.name">{{ asset.deviceMode }} {{ currentDate | date:'dd/MM/yyyy HH:mm:ss' }}</span>
                     {{ item.name }}
                   </span>
                   <!-- <mat-progress-bar *ngIf="selectedFile" class="w-50" mode="determinate" value="100"></mat-progress-bar> -->
@@ -69,22 +69,6 @@
               </div>
               <mat-error class="mt-1" *ngIf="selectedFile?.size > 10000000">Please select video less than 10MB</mat-error>
             </div>
-
-            <!-- <div>
-              <input hidden (change)="onFileSelected($event)" #fileInput type="file" accept="video/*" formControlName="file" [(ngModel)]="asset.file">
-              <div class="file-name">
-                <div class="d-flex align-items-center justify-content-between mt-2">
-                  <span style="width: 120px;">
-                    <span *ngIf="selectedFile?.name">{{ selectedFile?.size + asset.mimetype }}</span>
-                    {{ selectedFile?.name }}
-                  </span>
-                  <mat-progress-bar *ngIf="selectedFile" class="w-50" mode="determinate" value="100"></mat-progress-bar>
-                  <a *ngIf="selectedFile" class="pointer text-end" (click)="deleteFile()">
-                    <img style="color: #bdb8b8;" src="assets/icons/delete_black.svg" width="18" height="18">
-                  </a>
-                </div>
-              </div>
-            </div> -->
           </div>
           <!-- /File Upload -->
 
@@ -116,7 +100,7 @@
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Device Mode</mat-label>
-              <mat-select formControlName="deviceMode" [(ngModel)]="asset.mimetype">
+              <mat-select formControlName="deviceMode" [(ngModel)]="asset.deviceMode">
                 <mat-option *ngFor="let item of deviceMode" [value]="item.value">{{ item.value }}</mat-option>
               </mat-select>
               <mat-error class="mt-1">Device Mode is required</mat-error>
@@ -142,12 +126,21 @@
           </div>
 
           <div class="text-center my-5">
-            <button class="btn add-btn" (click)="addNewAsset()">ADD</button>
+            <button class="btn add-btn">ADD</button>
           </div>
         </div>
       </form>
+
     </div>
     <!-- /Form -->
-
   </div>
 </div>
+
+<!-- <div #dia>
+  <h1 mat-dialog-title>Dialog with elements</h1>
+  <div mat-dialog-content>This dialog showcases the title, close, content and actions elements.</div>
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Close</button>
+  </div>
+</div> -->
+

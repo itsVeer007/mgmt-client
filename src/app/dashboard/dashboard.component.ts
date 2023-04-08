@@ -15,7 +15,7 @@ export class DashboardComponent implements OnInit {
     var x = <HTMLElement>document.getElementById(`sidebar`);
     if (x != null) {
       if (!x.contains(e.target)) {
-        this.showmenu = false;
+        this.show = false;
       }
     }
 
@@ -37,13 +37,13 @@ export class DashboardComponent implements OnInit {
   }
 
   profile: boolean = false;
-  showmenu: boolean = false;
+  show: boolean = false;
   showProfile() {
     this.profile = !this.profile;
   }
 
   showMenu() {
-    this.showmenu = !this.showmenu;
+    this.show = !this.show;
   }
 
   logout() {

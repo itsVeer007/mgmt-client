@@ -4,7 +4,6 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AssetService } from 'src/services/asset.service';
 import { DropDownService } from 'src/services/drop-down.service';
-import { FileUploadService } from 'src/services/file-upload.service';
 
 @Component({
   selector: 'app-add-new-ticket',
@@ -51,7 +50,7 @@ export class AddNewTicketComponent implements OnInit {
   file: File | null = null;
   // loading: boolean = false;
 
-  constructor(private router: Router, private fb: FormBuilder, private dropDown: DropDownService, private fileUploadService: FileUploadService) { }
+  constructor(private router: Router, private fb: FormBuilder, private dropDown: DropDownService) { }
 
   ngOnInit(): void {
     this.addAssetForm = this.fb.group({
@@ -65,20 +64,6 @@ export class AddNewTicketComponent implements OnInit {
 
   onChange(event: any) {
     this.file = event.target.files[0];
-  }
-
-  onUpload() {
-    // this.loading = !this.loading;
-    console.log(this.file);
-
-    this.fileUploadService.upload(this.file).subscribe((event: any) => {
-      if (typeof(event) === 'object') {
-        // this.shortLink = event.link;
-        let x= event.name
-        console.log(x);
-      }
-    }
-    );
   }
 
   closeAddCamera() {

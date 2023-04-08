@@ -47,7 +47,8 @@
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Site Name</mat-label>
           <mat-select>
-            <mat-option (click)="sort('siteName')">Filter by A-Z</mat-option>
+            <!-- <mat-option (click)="sort('siteName')">Filter by A-Z</mat-option> -->
+            <mat-option *ngFor="let data of tableData">{{ data.siteName }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>

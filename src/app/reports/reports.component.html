@@ -95,25 +95,24 @@
       <tbody>
         <tr class="form1">
           <th>
-            <input type="checkbox" class="form-check-input" [(ngModel)]="selectedAll" (change)="selectAll()"
-              id="allcheck" style="
-                background-color: #00000000;
-                border-color: #fff;
-                margin-left: 10px;
-              " />
+            <input type="checkbox" class="form-check-input" [(ngModel)]="selectedAll" (change)="selectAll()" id="allcheck" style="background-color: #00000000; border-color: #fff; margin-left: 10px;">
           </th>
-          <!-- <th><input type="checkbox" class="form-check-input" id="allchecked" (click)="allchecked($event)"
-                            style="background-color: #00000000; border-color:#fff;margin-left:10px;" /></th> -->
-          <th (click)="sort('siteId')">Ticket ID</th>
-          <th (click)="sort('customerName')">Description</th>
-          <th (click)="sort('custType')">Rqst ID</th>
-          <th (click)="sort('address')">Site</th>
-          <th (click)="sort('contactNumber')">Assigned To</th>
-          <th (click)="sort('emailId')">Data Created</th>
-          <th (click)="sort('contactPerson')">Data Closed</th>
-          <th (click)="sort('contactPerson')">Age (In Days)</th>
-          <th>Priority</th>
-          <th (click)="sort('status')">Status</th>
+          <th>S.NO</th>
+          <th>Unit No Installed</th>
+          <th>Installed Cameras</th>
+          <th>Site Installation Status</th>
+          <th>Siren/Strobes installed</th>
+          <!-- <th >Subscription Start date</th>
+          <th>Subscription End date</th> -->
+          <th>New Client Information Sheet</th>
+          <th>Floor Plans</th>
+          <th>Agreement Signed</th>
+          <th>Subscription Sent</th>
+          <th>Subscription Paid</th>
+          <th>US Site Thread Email</th>
+          <th>Welcome Email</th>
+          <th>Portal Credentials Sent</th>
+          <th>Portal Walkthrough</th>
           <th></th>
         </tr>
 
@@ -126,7 +125,6 @@
                 EditByCheckbox(cust, i, $event)
               " id="singleCheck" />
           </td>
-          <!-- <td><input type="checkbox" class="form-check-input" [checked]="masterSelected" /></td> -->
           <td>
             <p>{{ cust.siteId }}</p>
           </td>
@@ -180,6 +178,31 @@
                   (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" /></a>
               <a class="mx-2" value="Delete" (click)="openDeletePopup(cust, i)"><img src="assets/icons/delete.svg"
                   (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" /></a>
+            </div>
+          </td>
+
+          <td>
+            <a class="pointer" (click)="openPanel($event, i)">
+              <img src="assets/icons/dotlist.svg" width="30" height="12" />
+            </a>
+
+            <div class="plus-img" id="plus-img{{ i }}" style="display: none">
+                <div class="d-flex">
+                  <div class=" mb-3">
+                    <p class="device-title m-0">Device Name</p>
+                    <p class="device-sub m-0">--</p>
+                  </div>
+
+                  <div class=" mb-3">
+                    <p class="device-title m-0">Temp Range</p>
+                    <p class="device-sub m-0">--</p>
+                  </div>
+
+                  <div class=" mb-3">
+                    <p class="device-title m-0">Cameras</p>
+                    <p class="device-sub m-0">--</p>
+                  </div>
+              </div>
             </div>
           </td>
         </tr>

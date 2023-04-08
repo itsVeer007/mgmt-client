@@ -148,12 +148,10 @@ export class AddNewUserComponent implements OnInit {
     localStorage.setItem('opennewform', newform)
   }
 
-  isValidate: boolean = false;
-  submit() {
-    console.log("Userform: ",this.UserForm.value);
-    console.log("Payload: ",this.user);
 
-    this.isValidate = true;
+  submit() {
+    console.log(this.user);
+
     if(this.UserForm.valid) {
       this.apiser.addUser(this.user).subscribe((res: any) => {
         if(res.Status == "Success") {
