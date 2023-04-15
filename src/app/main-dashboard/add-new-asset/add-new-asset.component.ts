@@ -95,6 +95,7 @@ export class AddNewAssetComponent implements OnInit {
     this.ongetDeviceType();
     this.ongetDeviceMode()
     this.getId();
+    this.alertSer.success('res.Message');
   };
 
 

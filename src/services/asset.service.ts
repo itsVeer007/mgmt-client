@@ -6,17 +6,14 @@ import { DatePipe } from '@angular/common';
   providedIn: 'root'
 })
 export class AssetService {
-  success(arg0: string, arg1: string) {
-    throw new Error('Method not implemented.');
-  }
 
-  baseUrl = 'http://usstaging.ivisecurity.com:777/ProximityAdvertisement/';
+  baseUrl = 'http://usstaging.ivisecurity.com:777/proximityads';
 
 
   constructor(private http: HttpClient, private date: DatePipe) { }
 
   getAssets() {
-    let url = this.baseUrl + "listAssets_1_0/";
+    let url = this.baseUrl + "/listAssets_1_0";
     return this.http.get(url);
   }
 
@@ -36,7 +33,7 @@ export class AssetService {
     formData.append('deviceMode', payload.deviceMode);
     formData.append('description', payload.description);
 
-    let url = this.baseUrl + "createAsset_1_0/";
+    let url = this.baseUrl + "/createAsset_1_0/";
     return this.http.post(url, formData);
   }
 

@@ -322,13 +322,37 @@ export class ReportsComponent implements OnInit {
   currr: any = 0;
 
   openPanel(e: any, i: any) {
-    // this.isShow = !this.isShow;
+    this.isShow = !this.isShow;
     this.currr = i;
     let x = e.target.parentNode.nextElementSibling;
 
-    if (x.style.display == 'none') {
+    if(x.style.display == 'none') {
       x.style.display = 'block';
-    } else {
+    } else{
+      x.style.display = 'none';
+    }
+  }
+
+  // up(e: any, i: any) {
+  //   let f  = e.target.parentNode.firstChild;
+  //   this.currr = i;
+
+  //   if(f.style.display == 'block') {
+  //     f.style.display = 'none';
+  //   } else{
+  //     f.style.display = 'block';
+  //   }
+  // }
+
+  down(e: any, i: any) {
+    // let f  = e.target.parentNode.firstChild;
+
+    let x = e.target.nextSibling;
+    this.currr = i;
+
+    if(x.style.display == 'none') {
+      x.style.display = 'block';
+    } else{
       x.style.display = 'none';
     }
   }

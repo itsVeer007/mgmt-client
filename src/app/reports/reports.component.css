@@ -127,8 +127,8 @@ overflow-y: scroll;
 border: 1px solid #EFEFEF;
 } */
 
-.table tbody tr td {
-vertical-align: middle;
+.table tbody tr td{
+/* vertical-align: middle; */
 height: 36px;
 }
 
@@ -223,8 +223,17 @@ border: 1px solid #fff;
   border-top: 1px solid #EFEFEF;
 }
 
+.expand {
+  padding: 17px;
+  left: -3070%;
+  position: relative;
+  width: 0;
+}
 
-
+.expand .device-title {
+  width: 150px;
+  font-weight: 700;
+}
 
 
 /* CSS for Popup start */
@@ -233,9 +242,11 @@ border: 1px solid #fff;
   width: fit-content;
   margin: auto;
 } */
+
 .modalitem .card {
   border: none;
 }
+
 .modalitem{
   position: absolute;
   top: 0;
@@ -246,47 +257,57 @@ border: 1px solid #fff;
   height: 100vh;
   background-color: #0006;
 }
+
 .modalitem .card-header {
   background-color: #084982;
   color: #fff;
   height: 40px;
   font-size: 14px;
 }
+
 .modalitem .card-header img {
   margin: -24px -36px;
 }
 .modalitem .card .card-body {
   font-size: 13px;
 }
+
 .modalitem .card .card-body ul li {
   list-style-type: none;
 }
+
 .modalitem .card .card-body ul li {
   font-size: 13px;
   text-align: left;
   color: #084982;
 }
+
 .modalitem .card .card-footer button {
   float: right;
   padding: 5px;
   font-size: 10px;
 }
+
 .modalitem ul {
   padding-left: 0rem;
 }
+
 .modalitem li {
   display: flex;
 }
+
 .modalitem h6 {
   color: #363636;
   font-size: 13px;
   font-family: ms,sans-serif;
 }
+
 .modalitem .card .card-body ul li div input {
   font-size: 13px;
   padding: 5px;
   height: 30px
 }
+
 .modalitem .card .card-body ul li div {
   margin: -8px 0px 5px 5px;
 }

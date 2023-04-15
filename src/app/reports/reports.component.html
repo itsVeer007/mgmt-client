@@ -102,17 +102,12 @@
           <th>Installed Cameras</th>
           <th>Site Installation Status</th>
           <th>Siren/Strobes installed</th>
-          <!-- <th >Subscription Start date</th>
-          <th>Subscription End date</th> -->
+          <th >Subscription Start date</th>
+          <th>Subscription End date</th>
           <th>New Client Information Sheet</th>
           <th>Floor Plans</th>
           <th>Agreement Signed</th>
-          <th>Subscription Sent</th>
-          <th>Subscription Paid</th>
-          <th>US Site Thread Email</th>
-          <th>Welcome Email</th>
-          <th>Portal Credentials Sent</th>
-          <th>Portal Walkthrough</th>
+          <th></th>
           <th></th>
         </tr>
 
@@ -125,41 +120,52 @@
                 EditByCheckbox(cust, i, $event)
               " id="singleCheck" />
           </td>
+
           <td>
             <p>{{ cust.siteId }}</p>
           </td>
+
           <td>
             <p>{{ cust.contactPerson }}</p>
           </td>
+
           <td>
             <p>{{ cust.customerName }}</p>
           </td>
+
           <td>
             <button class="bg-white" style="color: #084982">{{ cust.address }}</button>
           </td>
+
           <td>
             <p>{{ cust.contactNumber }}</p>
           </td>
+
           <td>
             <p>{{ cust.emailId }}</p>
           </td>
+
           <td>
             <a class="pointer">
               <img src="assets/icons/add-svg.svg" width="25" height="25" />
             </a>
           </td>
+
           <td>
             <p>{{ cust.siteId }}</p>
           </td>
+
           <td>
             <p>{{ cust.customerName }}</p>
           </td>
+
           <td>
             <p [style.color]="cust.status == 'Active' ? '#00A44C' : cust.status == 'Onhold' ? '#F5B400' : cust.status == 'Inactive' ? '#fa500f' : '#00A44C'">
               {{ cust.status }}
             </p>
           </td>
-          <td>
+
+          <td style="position: relative;">
             <a class="pointer" (click)="closeDot($event, i)"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
             <div class="plus-img1" id="plus-img{{ i }}" style="display: none">
               <div class="lists" *ngIf="showIconView1" style="margin-left: 5px; margin-top: -20px">
@@ -183,25 +189,41 @@
 
           <td>
             <a class="pointer" (click)="openPanel($event, i)">
-              <img src="assets/icons/dotlist.svg" width="30" height="12" />
+              <img (click)="down($event, i)" src="assets/icons/expand_more.svg" width="30" height="15">
+              <img style="display: none;" src="assets/icons/expand_less.svg" width="30" height="15">
             </a>
 
-            <div class="plus-img" id="plus-img{{ i }}" style="display: none">
-                <div class="d-flex">
-                  <div class=" mb-3">
-                    <p class="device-title m-0">Device Name</p>
-                    <p class="device-sub m-0">--</p>
-                  </div>
+            <div class="expand" id="plus-img{{i}}" style="display: none">
+              <div class="d-flex justify-content-between w-100">
+                <div class="me-3">
+                  <p class="device-title m-0">Subscription Sent</p>
+                  <p class="device-sub m-0">--</p>
+                </div>
 
-                  <div class=" mb-3">
-                    <p class="device-title m-0">Temp Range</p>
-                    <p class="device-sub m-0">--</p>
-                  </div>
+                <div class="me-3">
+                  <p class="device-title m-0">Subscription Paid</p>
+                  <p class="device-sub m-0">--</p>
+                </div>
 
-                  <div class=" mb-3">
-                    <p class="device-title m-0">Cameras</p>
-                    <p class="device-sub m-0">--</p>
-                  </div>
+                <div class="me-3">
+                  <p class="device-title m-0">US Site Thread Email</p>
+                  <p class="device-sub m-0">--</p>
+                </div>
+
+                <div class="me-3">
+                  <p class="device-title m-0">Welcome Email</p>
+                  <p class="device-sub m-0">--</p>
+                </div>
+
+                <div class="me-3">
+                  <p class="device-title m-0">Portal Credentials Sent</p>
+                  <p class="device-sub m-0">--</p>
+                </div>
+
+                <div class="me-3">
+                  <p class="device-title m-0">Portal Walkthrough</p>
+                  <p class="device-sub m-0">--</p>
+                </div>
               </div>
             </div>
           </td>

@@ -46,20 +46,20 @@ export class AssetsComponent implements OnInit {
   synced: any[] = [];
   sendToController: any[] = [];
 
-  constructor(private http: HttpClient, private apiser: AssetService, private dropDown: DropDownService, public datepipe: DatePipe, public dialog: MatDialog) { }
+  constructor(private http: HttpClient, private assetService: AssetService, private dropDown: DropDownService, public datepipe: DatePipe, public dialog: MatDialog) { }
 
   currentDateTime: any;
   ngOnInit(): void {
     this.currentDateTime =this.datepipe.transform(new Date, 'yyyy-MM-dd');
-    this.getAsset();
+    this.getAssetData();
     this.ongetDeviceMode();
   }
 
 
   tableData: any;
-  getAsset() {
+  getAssetData() {
     this.showLoader = true;
-    this.apiser.getAssets().subscribe((res: any) => {
+    this.assetService.getAssets().subscribe((res: any) => {
       this.showLoader = false;
       this.assetTable = res.asset_details;
       this.tableData = this.assetTable;
@@ -154,13 +154,13 @@ export class AssetsComponent implements OnInit {
 
 
   selectedAll: any;
-
   selectAll() {
     for (var i = 0; i < this.assetTable.length; i++) {
       // console.log(this.assetTable[i])
       this.assetTable[i].selected = this.selectedAll;
     }
   }
+
   checkIfAllSelected() {
     this.selectedAll = this.assetTable.every(function (item: any) {
       // console.log(item)
@@ -168,8 +168,8 @@ export class AssetsComponent implements OnInit {
     })
   }
 
-  deleteRow: any;
 
+  deleteRow: any;
   deleteRow1(item: any, i: any) {
     console.log("DELETEROW:: ", item);
     setTimeout(() => {
@@ -255,6 +255,7 @@ export class AssetsComponent implements OnInit {
     console.log("VIEW PAGE:: ", this.currentItem);
     this.viewPopup = false;
   }
+
 
   viewArray: any = [];
   ViewByCheckbox(itemV: any, i: any, e: any) {

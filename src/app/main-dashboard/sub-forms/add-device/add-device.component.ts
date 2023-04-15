@@ -1,11 +1,9 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ApiService } from 'src/services/api.service';
 import { AssetService } from 'src/services/asset.service';
 import { DropDownService } from 'src/services/drop-down.service';
 import { SiteService } from 'src/services/site.service';
-import { AddDevice } from './add-device';
 
 @Component({
   selector: 'app-add-device',
@@ -53,7 +51,6 @@ export class AddDeviceComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private siteService: SiteService, private assetService: AssetService, private dropDown: DropDownService) { }
 
-
   device = {
     siteId: null,
     deviceTypeId: null,
@@ -72,7 +69,7 @@ export class AddDeviceComponent implements OnInit {
     height: null,
     modelName: '',
     resolution: '',
-    threshold: "",
+    threshold: '',
     maxNo: 3,
     objectName: '',
     refreshRules: null,
@@ -81,7 +78,7 @@ export class AddDeviceComponent implements OnInit {
     weather_interval: '',
     cameraId: '',
     createdBy: 1,
-    remarks: ""
+    remarks: ''
   }
 
   siteData: any;
@@ -90,22 +87,22 @@ export class AddDeviceComponent implements OnInit {
       // 'deviceId': new FormControl(''),
       // 'siteId': new FormControl(''),
       'deviceUnitId': new FormControl(''),
-      'deviceCallFreq': new FormControl(null, this.asset.deviceMode == 80 ? Validators.required : []), //default -1
-      'deviceMode': new FormControl('', this.asset.deviceMode == 80 ? Validators.required : []), //default -bs
-      'workingDays': new FormControl('', this.asset.deviceMode == 80 ? Validators.required : []), //default -all
+      'deviceCallFreq': new FormControl(null, this.asset.deviceMode == 'ODR' ? Validators.required : []), //default -1
+      'deviceMode': new FormControl('', this.asset.deviceMode == 'ODR' ? Validators.required : []), //default -bs
+      'workingDays': new FormControl('', this.asset.deviceMode == 'ODR' ? Validators.required : []), //default -all
       'getlogs': new FormControl(''),
-      'width': new FormControl('', this.asset.deviceMode == 80 ? Validators.required : []),
-      'height': new FormControl('', this.asset.deviceMode == 80 ? Validators.required : []),
-      'modelName': new FormControl('', this.asset.deviceMode == 80 ? Validators.required : []),
-      'resolution': new FormControl('', this.asset.deviceMode == 80 ? Validators.required : []),
+      'width': new FormControl('', this.asset.deviceMode == 'ODR' ? Validators.required : []),
+      'height': new FormControl('', this.asset.deviceMode == 'ODR' ? Validators.required : []),
+      'modelName': new FormControl('', this.asset.deviceMode == 'ODR' ? Validators.required : []),
+      'resolution': new FormControl('', this.asset.deviceMode == 'ODR' ? Validators.required : []),
       'threshold': new FormControl(''),
       'maxNo': new FormControl(''),
-      'objectName': new FormControl('', this.asset.deviceMode == 80 ? Validators.required : []), //default -person
-      'refreshRules': new FormControl(''), //default -false
-      'displayOn': new FormControl(''), //default -false
+      'objectName': new FormControl('', this.asset.deviceMode == 'ODR' ? Validators.required : []), //default -person
+      'refreshRules': new FormControl(''),
+      'displayOn': new FormControl(''),
       'adsHours': new FormControl('', Validators.required), //default -9am - 6pm
-      'weather_interval': new FormControl('', this.asset.deviceMode == 80 ? Validators.required : []), //default -15min
-      'cameraId': new FormControl('', this.asset.deviceMode == 80 ? Validators.required : []),
+      'weather_interval': new FormControl('', this.asset.deviceMode == 'ODR' ? Validators.required : []), //default -15min
+      'cameraId': new FormControl('', this.asset.deviceMode == 'ODR' ? Validators.required : []),
       'createdBy': new FormControl(''),
       'remarks': new FormControl(''),
 
@@ -147,7 +144,8 @@ export class AddDeviceComponent implements OnInit {
 
   deviceTypeIdList = [1, 2, 3, 4, 5];
 
-  // drop-down-service-methods //
+
+  // drop-down-service-methods
   deviceType: any;
   ongetDeviceType() {
     this.dropDown.getDeviceType().subscribe((res: any) => {
@@ -196,19 +194,18 @@ export class AddDeviceComponent implements OnInit {
   //   this.tabs.splice(index, 1);
   // }
 
+
   tabs: any[] = [];
   responseData: any;
-  isValidate: boolean = false;
   addNewDevice() {
-    this.isValidate = true;
     this.device.siteId = this.siteData.siteId;
+    console.log(this.device.siteId)
     if(this.addDevice.valid) {
       this.siteService.addDevice(this.device).subscribe((res: any) => {
         // this.responseData = res.device-types;
         console.log(res);
         if(res.Status == "Success") {
           this.tabs.push('Device');
-
           this.asset.deviceId = res.deviceUnitId;
           this.asset.siteId = res.siteId;
           this.assetService.createDeviceAdd(this.asset).subscribe((data: any) => {

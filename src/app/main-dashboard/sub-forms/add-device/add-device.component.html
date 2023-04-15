@@ -34,7 +34,7 @@
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Select Device</mat-label>
                   <mat-select>
-                    <mat-option *ngFor="let item of deviceType" [value]="item.id">{{ item.value }}</mat-option>
+                    <mat-option *ngFor="let item of deviceType" [value]="item.value">{{ item.value }}</mat-option>
                   </mat-select>
                   <mat-error class="mt-1">Device is required</mat-error>
                 </mat-form-field>
@@ -44,7 +44,7 @@
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Select Device Mode</mat-label>
                   <mat-select formControlName="deviceMode" [(ngModel)]="asset.deviceMode">
-                    <mat-option *ngFor="let item of deviceMode" [value]="item.id">{{ item.value }}</mat-option>
+                    <mat-option *ngFor="let item of deviceMode" [value]="item.value">{{ item.value }}</mat-option>
                   </mat-select>
                   <mat-error class="mt-1">Device mode is required</mat-error>
                 </mat-form-field>
@@ -181,7 +181,7 @@
             </div>
 
 
-            <div class="row" *ngIf="asset.deviceMode == 80">
+            <div class="row" *ngIf="asset.deviceMode == 'ODR'">
               <div class="my-2">
                 <h5 class="m-0" style="font-size: 15px; font-weight: 500;">CAMERA DETAILS</h5>
               </div>
@@ -189,7 +189,7 @@
               <div class="col-lg-6">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Select Camera Id</mat-label>
-                  <mat-select formControlName="cameraId" [(ngModel)]="asset.cameraId" [required]="asset.deviceMode == 80">
+                  <mat-select formControlName="cameraId" [(ngModel)]="asset.cameraId" [required]="asset.deviceMode == 'ODR'">
                     <mat-option value="01">01</mat-option>
                   </mat-select>
                   <mat-error class="mt-1">Camera Id is required</mat-error>
@@ -206,13 +206,13 @@
               <div class="col-lg-6">
                 <mat-form-field appearance="outline" [ngStyle]="{'width': 'calc(50% - 13px)'}">
                   <mat-label>Width</mat-label>
-                  <input matInput type="number" formControlName="width" [(ngModel)]="asset.width" [required]="asset.deviceMode == 80">
+                  <input matInput type="number" formControlName="width" [(ngModel)]="asset.width" [required]="asset.deviceMode == 'ODR'">
                   <mat-error class="mt-1">Width is required</mat-error>
                 </mat-form-field>
                 <span class="mx-2">X</span>
                 <mat-form-field appearance="outline" [ngStyle]="{'width': 'calc(50% - 13px)'}">
                   <mat-label>Height</mat-label>
-                  <input matInput type="number" formControlName="height" [(ngModel)]="asset.height" [required]="asset.deviceMode == 80">
+                  <input matInput type="number" formControlName="height" [(ngModel)]="asset.height" [required]="asset.deviceMode == 'ODR'">
                   <mat-error class="mt-1">Height is required</mat-error>
                 </mat-form-field>
               </div>
@@ -241,7 +241,7 @@
               <div class="col-lg-6">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Select Model Name</mat-label>
-                  <mat-select formControlName="modelName" [(ngModel)]="asset.modelName" [required]="asset.deviceMode == 80">
+                  <mat-select formControlName="modelName" [(ngModel)]="asset.modelName" [required]="asset.deviceMode == 'ODR'">
                     <mat-option value="01">01</mat-option>
                   </mat-select>
                   <mat-error class="mt-1">Model Name is required</mat-error>
@@ -251,7 +251,7 @@
               <div class="col-lg-6">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Select Resolution</mat-label>
-                  <mat-select formControlName="resolution" [(ngModel)]="asset.resolution" [required]="asset.deviceMode == 80">
+                  <mat-select formControlName="resolution" [(ngModel)]="asset.resolution" [required]="asset.deviceMode == 'ODR'">
                     <mat-option value="01">01</mat-option>
                   </mat-select>
                   <mat-error class="mt-1">Resolution is required</mat-error>
