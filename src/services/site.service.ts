@@ -8,6 +8,8 @@ export class SiteService {
 
   baseUrl = 'http://usstaging.ivisecurity.com:777/Mgmt_server-main';
 
+  deviceUrl= 'http://usstaging.ivisecurity.com:777/proximityads';
+
   constructor(private http: HttpClient) { }
 
   getSites() {
@@ -15,8 +17,13 @@ export class SiteService {
     return this.http.get(url)
   }
 
+  getDevice() {
+    let url = this.deviceUrl + '/listDeviceAdsInfo_1_0';
+    return this.http.get(url)
+  }
+
   addDevice(payload: any) {
-    let url = this.baseUrl + "/devices/addDeviceToSite_1_0";
+    let url = this.deviceUrl + "/createDeviceandAdsInfo_1_0";
     return this.http.post(url, payload)
   }
 

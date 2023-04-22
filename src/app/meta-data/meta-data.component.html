@@ -1,7 +1,6 @@
-<!-- <app-loader *ngIf="showLoader"></app-loader> -->
 <div class="container-fluid users" id="top">
   <!-- header -->
-  <div class="d-flex justify-content-between">
+  <!-- <div class="d-flex justify-content-between">
     <div class="users-header">
       <p>List of all Tickets - <span>100</span></p>
     </div>
@@ -10,48 +9,8 @@
         <img src="assets/icons/add.svg" alt="" />
       </a>
     </div>
-  </div>
+  </div> -->
   <!-- /header -->
-
-  <!-- count -->
-  <div class="row">
-    <div class="col-lg-1 col-md-1 d-flex justify-content-start">
-      <div class="vl-green"></div>
-      <div class="mx-2">
-        <div class="status">New</div>
-        <div class="count">15</div>
-      </div>
-    </div>
-    <div class="col-lg-1 col-md-1 d-flex justify-content-start">
-      <div class="vl-red"></div>
-      <div class="mx-2">
-        <div class="status">Analysis</div>
-        <div class="count">20</div>
-      </div>
-    </div>
-    <div class="col-lg-1 col-md-1 d-flex justify-content-start">
-      <div class="vl-yellow"></div>
-      <div class="mx-2">
-        <div class="status">InProgress</div>
-        <div class="count">30</div>
-      </div>
-    </div>
-    <div class="col-lg-1 col-md-1 d-flex justify-content-start">
-      <div class="vl-yellow"></div>
-      <div class="mx-2">
-        <div class="status">Rejected</div>
-        <div class="count">15</div>
-      </div>
-    </div>
-    <div class="col-lg-1 col-md-1 d-flex justify-content-start">
-      <div class="vl-yellow"></div>
-      <div class="mx-2">
-        <div class="status">Closed</div>
-        <div class="count">15</div>
-      </div>
-    </div>
-  </div>
-  <!-- /count -->
 
   <!-- form -->
   <div class="search-form d-flex align-items-center justify-content-between my-2">
@@ -60,7 +19,6 @@
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>All</mat-label>
           <mat-select>
-            <!-- <mat-option (click)="sort('siteName')">Filter by A-Z</mat-option> -->
             <mat-option *ngFor="let cust of CustomerTable">{{ cust.customerName }}</mat-option>
           </mat-select>
         </mat-form-field>
@@ -77,7 +35,8 @@
       </div>
     </div>
 
-    <div class="col-lg-2 col-md-2 table-icons">
+    <div class="d-flex align-items-center justify-content-between">
+      <div class="col-lg-2 col-md-2 table-icons">
         <div class="lists" *ngIf="showIconView" style="margin-right: 60px; margin-top: -40px;">View</div>
         <div class="lists" *ngIf="showIconEdit" style="margin-right: 30px; margin-top: -40px;">Edit</div>
         <div class="lists" *ngIf="showIconDelete" style="margin-right: -5px; margin-top: -40px;">Delete</div>
@@ -85,7 +44,16 @@
         <a class="mx-2" (click)="viewBySelectedOne()"><img src="assets/icons/view.svg" (mouseenter)="showIconView = true" (mouseleave)="showIconView = false" /></a>
         <a class="mx-2" (click)="editBySelectedOne()"><img src="assets/icons/edit.svg" (mouseenter)="showIconEdit = true" (mouseleave)="showIconEdit = false" /></a>
         <a class="mx-2" (click)="deleteSelected()"><img src="assets/icons/delete.svg" (mouseenter)="showIconDelete = true" (mouseleave)="showIconDelete = false" /></a>
+      </div>
+
+      <div>
+        <a class="pointer" (click)="show('ticket')">
+          <img src="assets/icons/add.svg" alt="" />
+        </a>
+      </div>
     </div>
+
+
   </div>
   <!-- /form -->
 
@@ -104,16 +72,12 @@
           </th>
           <!-- <th><input type="checkbox" class="form-check-input" id="allchecked" (click)="allchecked($event)"
                             style="background-color: #00000000; border-color:#fff;margin-left:10px;" /></th> -->
-          <th (click)="sort('siteId')">Ticket ID</th>
-          <th (click)="sort('customerName')">Description</th>
-          <th (click)="sort('custType')">Rqst ID</th>
+          <th (click)="sort('siteId')">Id</th>
+          <th (click)="sort('customerName')">Type</th>
+          <th (click)="sort('custType')">Search Value</th>
           <th (click)="sort('address')">Site</th>
-          <th (click)="sort('contactNumber')">Assigned To</th>
-          <th (click)="sort('emailId')">Data Created</th>
-          <th (click)="sort('contactPerson')">Data Closed</th>
-          <th (click)="sort('contactPerson')">Age (In Days)</th>
-          <th>Priority</th>
-          <th (click)="sort('status')">Status</th>
+          <th (click)="sort('contactNumber')">Status</th>
+          <th (click)="sort('emailId')">Remarks</th>
           <th></th>
         </tr>
 
@@ -131,13 +95,7 @@
             <p>{{ cust.siteId }}</p>
           </td>
           <td>
-            <p>{{ cust.contactPerson }}</p>
-          </td>
-          <td>
             <p>{{ cust.customerName }}</p>
-          </td>
-          <td>
-            <button class="bg-white" style="color: #084982">{{ cust.address }}</button>
           </td>
           <td>
             <p>{{ cust.contactNumber }}</p>
@@ -146,20 +104,12 @@
             <p>{{ cust.emailId }}</p>
           </td>
           <td>
-            <a class="pointer">
-              <img src="assets/icons/add-svg.svg" width="25" height="25" />
-            </a>
-          </td>
-          <td>
-            <p>{{ cust.siteId }}</p>
-          </td>
-          <td>
-            <p>{{ cust.customerName }}</p>
-          </td>
-          <td>
             <p [style.color]="cust.status == 'Active' ? '#00A44C' : cust.status == 'Onhold' ? '#F5B400' : cust.status == 'Inactive' ? '#fa500f' : '#00A44C'">
               {{ cust.status }}
             </p>
+          </td>
+          <td>
+            <p>{{ cust.customerName }}</p>
           </td>
           <td>
             <a class="pointer" (click)="closeDot($event, i)"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
@@ -328,5 +278,5 @@
 </div>
 
 <div style="position: fixed; top: 0" *ngIf="showTicket">
-  <app-add-new-ticket [show]="showSite" (newItemEvent)="closenow($event, 'ticket')"></app-add-new-ticket>
+  <app-add-metadata [show]="showSite" (newItemEvent)="closenow($event, 'ticket')"></app-add-metadata>
 </div>

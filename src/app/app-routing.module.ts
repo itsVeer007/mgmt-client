@@ -17,6 +17,7 @@ import { TicketsComponent } from './tickets/tickets.component';
 import { AnalyticsComponent } from './analytics/analytics.component';
 import { VerticalsComponent } from './verticals/verticals.component';
 import { ReportsComponent } from './reports/reports.component';
+import { MetaDataComponent } from './meta-data/meta-data.component';
 const routes: Routes = [];
 
 @NgModule({
@@ -37,7 +38,8 @@ const routes: Routes = [];
     { path: 'inventory', component: InventoryComponent },
     { path: 'assets', component: AssetsComponent },
     { path: 'tickets', component: TicketsComponent },
-    { path: 'reports', component: ReportsComponent }
+    { path: 'reports', component: ReportsComponent },
+    { path: 'meta', component: MetaDataComponent }
   ])],
   exports: [RouterModule]
 })

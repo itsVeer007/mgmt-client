@@ -28,6 +28,7 @@
   text-decoration: none;
 }
 
+
 /* common ng-deep */
 
 .mat-form-field-appearance-outline ::ng-deep .mat-form-field-outline {
@@ -59,10 +60,15 @@
 
 
 
+::ng-deep .wait {
+  background-color: #06619e !important;
+  /* color: white; */
+}
 
-.main {
+
+
+/* .main {
   position: relative;
-  /* height: 50vh; */
 }
 
 .dialog {
@@ -78,4 +84,4 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-}
+} */

@@ -2,11 +2,13 @@
   margin-top: 80px;
 }
 
-/* .users-header {
+
+/* need to comment after adding instock*/
+.users-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-} */
+}
 
 .users-header p {
   margin: 25px 0;

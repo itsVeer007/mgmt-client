@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, HostListener, OnInit } from '@angular/core';
+import { AssetService } from 'src/services/asset.service';
 
 @Component({
   selector: 'app-inventory',
@@ -35,7 +36,7 @@ export class InventoryComponent implements OnInit {
 
 
   showLoader = false;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private ass: AssetService) { }
 
   ngOnInit(): void {
     this.CustomerReport();
@@ -58,10 +59,10 @@ export class InventoryComponent implements OnInit {
   searchText: any;
   CustomerTable: any;
   CustomerReport() {
-    this.http.get('assets/JSON/customerData.json').subscribe(res => {
+    this.ass.get().subscribe((res) => {
       this.CustomerTable = res;
-      // console.log(res)
-    });
+      console.log(res)
+    })
   }
 
   currentid = 0;

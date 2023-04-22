@@ -48,54 +48,57 @@ export class AddNewAssetComponent implements OnInit {
 
   addAssetForm: any = FormGroup;
   searchText: any;
-  siteIdList: any
-  deviceIdList: any
   // loading: boolean = false;
 
   constructor(private router: Router, private fb: FormBuilder, private assetService: AssetService, private dropDown: DropDownService, private alertSer: AlertService) { }
 
 
   /* Asset Object */
-  asset = {
+
+  assetData = {
+    // siteId: null,
     file: null,
-    siteId: null,
-    deviceId: null,
-    enabled: 1,
-    mimetype: '',
-    assetName: '',
-    playOrder: 0,
-    startDate: '',
-    endDate: '',
-    createdBy: 1,
-    deviceMode: '',
-    description: ''
+    asset: {
+      adsDeviceId: null,
+      deviceModeId: null,
+      playOrder: 1,
+      createdBy: 1,
+    },
+    // mimeType: null,
+
+    // assetName: '',
+    // fromDate: '',
+    // toDate: '',
+    // description: '',
+    // enabled: 1,
   }
 
   ngOnInit(): void {
     this.addAssetForm = this.fb.group({
+      'siteId': new FormControl(''),
       'file': new FormControl('', Validators.required),
-      'siteId': new FormControl('', Validators.required),
-      'deviceId': new FormControl('', Validators.required),
-      'enabled': new FormControl(''),
-      'mimetype': new FormControl('', Validators.required),
+      'adsDeviceId': new FormControl('', Validators.required),
+      'deviceModeId': new FormControl('', Validators.required),
+      'playOrder': new FormControl(''),
+      'createdBy': new FormControl(''),
+
+      // 'mimeType': new FormControl(''),
+      // 'assetName': new FormControl(''),
+      // 'fromDate': new FormControl(''),
+      // 'toDate': new FormControl(''),
+      // 'description': new FormControl(''),
+
+      // 'enabled': new FormControl(''),
       // 'is_active': new FormControl(1),
       // 'duration': new FormControl('9'),
       // 'is_processing': new FormControl(1),
-      'assetName': new FormControl('', Validators.required),
       // 'nocache': new FormControl(1),
       // 'skip_asset_check': new FormControl(1),
-      'playOrder': new FormControl(''),
-      'startDate': new FormControl('', Validators.required),
-      'endDate': new FormControl('', Validators.required),
-      'createdBy': new FormControl(''),
-      'deviceMode': new FormControl('', Validators.required),
-      'description': new FormControl(''),
     });
 
     this.ongetDeviceType();
     this.ongetDeviceMode()
     this.getId();
-    this.alertSer.success('res.Message');
   };
 
 
@@ -117,7 +120,7 @@ export class AddNewAssetComponent implements OnInit {
       if(value == el) {
         this.selectedFiles.splice(index, 1);
         this.selectedFile = null;
-        this.asset.file = null;
+        this.assetData.file = null;
       }
     })
   }
@@ -136,47 +139,58 @@ export class AddNewAssetComponent implements OnInit {
   /* Metadata API */
   deviceType: any;
   ongetDeviceType() {
-    this.dropDown.getDeviceType().subscribe((res: any) => {
-      this.deviceType = res.List_Shown_By_Type_Given;
+    this.dropDown.getMetadata().subscribe((res: any) => {
+      for(let item of res) {
+        if(item.type == 'Device_Type') {
+          this.deviceType = item.metadata;
+        }
+      }
+      // console.log(res);
     })
   }
 
   deviceMode: any;
   ongetDeviceMode() {
-    this.dropDown.getDeviceMode().subscribe((res: any) => {
-      this.deviceMode = res.List_Shown_By_Type_Given;
+    this.dropDown.getMetadata().subscribe((res: any) => {
+      for(let item of res) {
+        if(item.type == 'Device_Mode') {
+          this.deviceMode = item.metadata;
+        }
+      }
+      // console.log(res);
     })
   }
 
 
-  /* Add Asset */
-  submit: boolean = false;
+  /* To get Id's of site */
 
-  addNewAsset() {
-    this.submit = true;
-    console.log(this.asset);
+  siteIdList: any
+  deviceIdList: any
+  getId() {
+    this.siteIdList = this.data.reduce((acc: any, current: any) => {
+      const x = acc.find((item: any) => item.siteId === current.siteId);
+      if (!x) {
+        return acc.concat([current]);
+      } else {
+        return acc;
+      }
+    }, []);
 
-    if(this.addAssetForm.valid) {
-      this.newItemEvent.emit(false);
-      this.assetService.addAsset(this.asset, this.selectedFile).subscribe((res: any) => {
-        if(res.Status == "Success") {
-          this.alertSer.success(res.Message);
-          setTimeout(() => {
-            window.location.reload();
-          }, 2000);
-        } else {
-          this.alertSer.error(res.Message);
-        }
-        console.log(res);
-      });
-    }
+    this.deviceIdList = this.data.reduce((acc: any, current: any) => {
+      const x = acc.find((item: any) => item.siteId === current.siteId);
+      if (!x) {
+        return acc.concat([current]);
+      } else {
+        return acc;
+      }
+    }, []);
   }
 
 
   /* Search for Get Site and Device Id's */
+
   sit: string = '';
   dev: string = '';
-
   siteSer(e: Event) {
     this.sit = (e.target as HTMLInputElement).value;
   }
@@ -185,9 +199,32 @@ export class AddNewAssetComponent implements OnInit {
     this.dev = (e.target as HTMLInputElement).value;
   }
 
-  getId() {
-    this.siteIdList = this.data;
-    this.deviceIdList = this.data;
+
+  /* Add Asset */
+
+  submit: boolean = false;
+  addNewAsset() {
+    this.submit = true;
+    console.log('assetData', this.assetData);
+
+    if(this.addAssetForm.valid) {
+      this.alertSer.wait('Please wait...');
+      this.newItemEvent.emit(false);
+      this.assetService.addAsset(this.assetData, this.selectedFile).subscribe((res: any) => {
+        if(res.statusCode == 200) {
+          this.alertSer.success(res.message);
+          this.alertSer.wait('');
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
+        }
+
+        console.log('addAsset', res);
+      }, (err) => {
+        this.alertSer.error(err.error.message);
+      });
+    }
   }
+
 
 }

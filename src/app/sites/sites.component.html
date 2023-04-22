@@ -93,8 +93,8 @@
             <th (click)="sort('status')">Status</th>
             <th (click)="sort('address')">Address</th>
             <!-- <th (click)="sort('lat-long')">Lat & Long</th> -->
-            <th (click)="sort('escl_Details')">Escl<br> Details</th>
-            <th (click)="sort('engr_Details')">Engr<br> Details</th>
+            <th (click)="sort('escl_Details')">Escl Details</th>
+            <th (click)="sort('engr_Details')">Engr Details</th>
             <th>Services</th>
             <th (click)="sort('cntrl_Unit')">Cntrl Unit</th>
             <th>Inventory</th>
@@ -186,9 +186,9 @@
                 --
               </td>
               <td>
-                <a class="pointer">
-                  <img src="assets/icons/add-svg.svg" width="25" height="25" (click)="show('device'); saveSiteData(data)">
-                  <!-- <span class="ms-2" (click)="show('device'); saveSiteData(data)" *ngIf="data.cntrl_Unit != '' && data.centralUnitId !=null">1</span> -->
+                <a class="pointer" (click)="show('device'); saveSiteData(data)">
+                  <img src="assets/icons/add-svg.svg" width="25" height="25" >
+                  <span class="ms-2" *ngIf="x">{{x}}</span>
                 </a>
               </td>
               <td>
@@ -230,7 +230,7 @@
   <div class="card">
     <div class="card-header d-flex justify-content-between">
       <p>Delete Row</p>
-      <img src="assets/icons/Group 101.svg" width="40" height="40" (click)="closeDeletePopup()" />
+      <img src="assets/icons/close_form.svg" width="40" height="40" (click)="closeDeletePopup()" />
     </div>
     <div class="card-body text-center">Do you want to delete this item?</div>
     <div class="card-footer">
@@ -250,7 +250,7 @@
   <div class="card">
     <div class="card-header d-flex justify-content-between">
       <p>Edit</p>
-      <img src="assets/icons/Group 101.svg" width="40" height="40" (click)="closeEditPopup()" />
+      <img src="assets/icons/close_form.svg" width="40" height="40" (click)="closeEditPopup()" />
     </div>
     <div class="card-body text-center">
       <ul *ngIf="currentItem">
@@ -302,7 +302,7 @@
   <div class="card">
     <div class="card-header d-flex justify-content-between">
       <p>Assets</p>
-      <img src="assets/icons/Group 101.svg" width="40" height="40" (click)="closeViewPopup()" />
+      <img src="assets/icons/close_form.svg" width="40" height="40" (click)="closeViewPopup()" />
     </div>
     <div class="card-body text-center">
       <ul *ngIf="currentItem">

@@ -78,11 +78,10 @@ export class AddNewTicketComponent implements OnInit {
 
   deviceType: Array<any> = [];
   ongetDeviceType() {
-    this.dropDown.getDeviceType().subscribe((res: any) => {
-      this.deviceType = res;
-      // console.log(res)
-      // console.log(this.deviceType);
-    })
+    // this.dropDown.getDeviceType({type: "Device_Mode"}).subscribe((res: any) => {
+    //   this.deviceType = res;
+    //   console.log(res)
+    // })
   }
 
   addNewAsset() {

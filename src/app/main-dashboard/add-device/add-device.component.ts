@@ -51,71 +51,95 @@ export class AddDeviceComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private siteService: SiteService, private assetService: AssetService, private dropDown: DropDownService) { }
 
-  device = {
-    siteId: null,
-    deviceTypeId: null,
-    deviceName: ''
-  }
+  // asset = {
+  //   siteId: null,
+  //   deviceDescription: '',
+  //   deviceTypeId: null,
+  //   deviceId: null,
+  //   deviceUnitId: '',
+  //   deviceCallFreq: 1,
+  //   deviceMode: null, //change to number
+  //   workingDays: '',
+  //   getlogs: 0,
+  //   width: null,
+  //   height: null,
+  //   modelName: '',
+  //   resolution: '',
+  //   threshold: '',
+  //   maxNo: 3,
+  //   objectName: '',
+  //   refreshRules: null,
+  //   displayOn: null,
+  //   adsHours: '',
+  //   weather_interval: '',
+  //   cameraId: '',
+  //   createdBy: 1,
+  //   remarks: ''
+  // }
 
-  asset = {
-    deviceId: null,
+
+  adInfo = {
     siteId: null,
-    deviceUnitId: '',
-    deviceCallFreq: null,
-    deviceMode: null, //change to number
-    workingDays: '',
-    getlogs: 0,
-    width: null,
-    height: null,
-    modelName: '',
-    resolution: '',
-    threshold: '',
-    maxNo: 3,
-    objectName: '',
-    refreshRules: null,
-    displayOn: null,
+    deviceDescription: '',
+    deviceTypeId: null,
+    deviceCallFreq: 1,
+    deviceModeId: null,
     adsHours: '',
-    weather_interval: '',
-    cameraId: '',
+    workingDays: '',
+    loggerFreq: null,
     createdBy: 1,
-    remarks: ''
+    softwareVersion: '',
+    socketServer: '',
+    socketPort: 4324,
+
+    weatherInterval: null, //BSR
+
+    cameraId: '', //ODR
+    modelName: '', //ODR
+    modelWidth: null, //ODR
+    modelHeight: null, //ODR
+    modelMaxResults: null, //ODR
+    modelThreshold: null, //ODR
+    modelObjectTypeId: null //ODR
   }
 
   siteData: any;
   ngOnInit() {
     this.addDevice = this.fb.group({
-      // 'deviceId': new FormControl(''),
       // 'siteId': new FormControl(''),
-      'deviceUnitId': new FormControl(''),
-      'deviceCallFreq': new FormControl(null, this.asset.deviceMode == 'ODR' ? Validators.required : []), //default -1
-      'deviceMode': new FormControl('', this.asset.deviceMode == 'ODR' ? Validators.required : []), //default -bs
-      'workingDays': new FormControl('', this.asset.deviceMode == 'ODR' ? Validators.required : []), //default -all
-      'getlogs': new FormControl(''),
-      'width': new FormControl('', this.asset.deviceMode == 'ODR' ? Validators.required : []),
-      'height': new FormControl('', this.asset.deviceMode == 'ODR' ? Validators.required : []),
-      'modelName': new FormControl('', this.asset.deviceMode == 'ODR' ? Validators.required : []),
-      'resolution': new FormControl('', this.asset.deviceMode == 'ODR' ? Validators.required : []),
-      'threshold': new FormControl(''),
-      'maxNo': new FormControl(''),
-      'objectName': new FormControl('', this.asset.deviceMode == 'ODR' ? Validators.required : []), //default -person
-      'refreshRules': new FormControl(''),
-      'displayOn': new FormControl(''),
-      'adsHours': new FormControl('', Validators.required), //default -9am - 6pm
-      'weather_interval': new FormControl('', this.asset.deviceMode == 'ODR' ? Validators.required : []), //default -15min
-      'cameraId': new FormControl('', this.asset.deviceMode == 'ODR' ? Validators.required : []),
-      'createdBy': new FormControl(''),
-      'remarks': new FormControl(''),
-
-      //required
+      'deviceDescription': new FormControl(''),
       'deviceTypeId': new FormControl('', Validators.required),
-      'deviceName': new FormControl(''),
+      'deviceCallFreq': new FormControl('', Validators.required),
+      'deviceModeId': new FormControl('', Validators.required),
+      'adsHours': new FormControl('', Validators.required),
+      'workingDays': new FormControl(''),
+      'loggerFreq': new FormControl(''),
+      'createdBy': new FormControl(''),
+      'softwareVersion': new FormControl(''),
+      'socketServer': new FormControl(''),
+      'socketPort': new FormControl(''),
+
+      'weatherInterval': new FormControl('', this.adInfo.deviceModeId == 2 ? Validators.required : []),
+
+      'cameraId': new FormControl(''),
+      'modelName': new FormControl(''),
+      'modelWidth': new FormControl('', this.adInfo.deviceModeId == 2 ? Validators.required : []),
+      'modelHeight': new FormControl('', this.adInfo.deviceModeId == 2 ? Validators.required : []),
+      'modelMaxResults': new FormControl(''),
+      'modelThreshold': new FormControl(''),
+      'remarks': new FormControl(''),
+      'modelObjectTypeId': new FormControl(''),
     });
+
+    this.getDeviceDetail();
 
     this.ongetDeviceType();
     this.ongetDeviceMode();
     this.onTempRange();
     this.onAgeRange();
     this.siteData = JSON.parse(localStorage.getItem('device_temp')!);
+    // localStorage.setItem('tab_length', this.addDeviceLength);
+    // console.log(this.addDeviceLength)
   }
 
   // getSiteDetails(){
@@ -132,6 +156,21 @@ export class AddDeviceComponent implements OnInit {
   //   })
   // }
 
+  deviceData: any
+  addDeviceLength: any;
+  getDeviceDetail() {
+    this.siteService.getDevice().subscribe((res: any) => {
+      for(let item of res) {
+        this.addDeviceLength = item.adsDevices.length;
+        if(this.siteData.siteId == item.siteId) {
+          this.deviceData = item.adsDevices;
+        }
+        // console.log(item)
+      }
+      // console.log(res)
+    })
+  }
+
   isShown: boolean = false; // hidden by default
 
   toggleShowOnOff() {
@@ -142,21 +181,29 @@ export class AddDeviceComponent implements OnInit {
     this.newItemEvent.emit(false);
   }
 
-  deviceTypeIdList = [1, 2, 3, 4, 5];
+  // deviceTypeIdList = [1, 2, 3, 4, 5];
 
 
   // drop-down-service-methods
   deviceType: any;
   ongetDeviceType() {
-    this.dropDown.getDeviceType().subscribe((res: any) => {
-      this.deviceType = res.List_Shown_By_Type_Given;
+    this.dropDown.getMetadata().subscribe((res: any) => {
+      for(let item of res) {
+        if(item.type == 'Device_Type') {
+          this.deviceType = item.metadata;
+        }
+      }
     })
   }
 
   deviceMode: any;
   ongetDeviceMode() {
     this.dropDown.getDeviceMode().subscribe((res: any) => {
-      this.deviceMode = res.List_Shown_By_Type_Given;
+      for(let item of res) {
+        if(item.type == 'Device_Mode') {
+          this.deviceMode = item.metadata;
+        }
+      }
     })
   }
 
@@ -171,16 +218,16 @@ export class AddDeviceComponent implements OnInit {
 
   tempRange: any;
   onTempRange() {
-    this.dropDown.tempRange().subscribe((res: any) => {
-      this.tempRange = res.List_Shown_By_Type_Given;
-    })
+    // this.dropDown.tempRange().subscribe((res: any) => {
+    //   this.tempRange = res.List_Shown_By_Type_Given;
+    // })
   }
 
   ageRange: any;
   onAgeRange() {
-    this.dropDown.ageRange().subscribe((res: any) => {
-      this.ageRange = res.List_Shown_By_Type_Given;
-    })
+    // this.dropDown.ageRange().subscribe((res: any) => {
+    //   this.ageRange = res.List_Shown_By_Type_Given;
+    // })
   }
 
 
@@ -195,28 +242,19 @@ export class AddDeviceComponent implements OnInit {
   // }
 
 
-  tabs: any[] = [];
+  // tabs: any[] = [];
   responseData: any;
   addNewDevice() {
-    this.device.siteId = this.siteData.siteId;
-    console.log(this.device.siteId)
+    this.adInfo.siteId = this.siteData.siteId;
     if(this.addDevice.valid) {
-      this.siteService.addDevice(this.device).subscribe((res: any) => {
-        // this.responseData = res.device-types;
+      this.newItemEvent.emit(false);
+      this.siteService.addDevice(this.adInfo).subscribe((res: any) => {
+        window.location.reload();
         console.log(res);
-        if(res.Status == "Success") {
-          this.tabs.push('Device');
-          this.asset.deviceId = res.deviceUnitId;
-          this.asset.siteId = res.siteId;
-          this.assetService.createDeviceAdd(this.asset).subscribe((data: any) => {
-            console.log(data);
-          })
-        }
         // localStorage.setItem('tab_length', JSON.stringify(this.tabs.length));
       })
     }
-    console.log(this.device);
-    console.log(this.asset);
+    console.log(this.adInfo);
   }
 
 }

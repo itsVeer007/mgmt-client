@@ -6,7 +6,7 @@
 
     <!-- count -->
     <div class="col-lg-6">
-      <p>Total Inventory - <span>500</span></p>
+      <p>Total Inventory - <span>100</span></p>
       <div class="row">
         <div class="col-lg-2 d-flex justify-content-start">
           <div class="vl-yellow"></div>
@@ -19,7 +19,7 @@
           <div class="vl-green"></div>
           <div class="mx-2">
             <div class="status">Installed</div>
-            <div class="count">400</div>
+            <div class="count">40</div>
           </div>
         </div>
         <div class="col-lg-2 d-flex justify-content-start">
@@ -55,7 +55,7 @@
     <!-- /count -->
 
     <!-- stock total -->
-    <div class="mt-2 col-lg-4">
+    <!-- <div class="mt-2 col-lg-4">
       <div class="card bg-light" style="width: 18rem;">
         <div class="d-flex justify-content-between m-2">
           <img class="pointer" src="assets/icons/Union 18@2x.png" alt="" width="15px" height="15px">
@@ -74,7 +74,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- /stock total -->
 
     <div class="col-lg-2 text-end inve-add" style="position: relative">
@@ -146,7 +146,7 @@
           <th (click)="sort('address')">Product Brand</th>
           <th (click)="sort('contactNumber')">Product Category</th>
           <th (click)="sort('emailId')">Details</th>
-          <th (click)="sort('contactPerson')">Site Name</th>
+          <!-- <th (click)="sort('contactPerson')">Site Name</th> -->
           <th (click)="sort('status')">Status</th>
           <th></th>
         </tr>
@@ -162,22 +162,22 @@
           </td>
           <!-- <td><input type="checkbox" class="form-check-input" [checked]="masterSelected" /></td> -->
           <td>
-            <p>{{ cust.siteId }}</p>
+            <p>{{ cust.productID }}</p>
           </td>
           <td>
-            <p>{{ cust.contactPerson }}</p>
+            <p>{{ cust.productSerialNo }}</p>
           </td>
           <td>
-            <p>{{ cust.customerName }}</p>
+            <p>{{ cust.productName }}</p>
           </td>
           <td>
-            <p>{{ cust.contactNumber }}</p>
+            <p>{{ cust.productBrand }}</p>
           </td>
           <td>
-            <p>{{ cust.siteId }}</p>
+            <p>{{ cust.productCat }}</p>
           </td>
           <td>
-            <a class="pointer" style="color: #084982;" (click)="addressView($event,i)">{{cust.address}}</a>
+            <a class="pointer" style="color: #084982;" (click)="addressView($event,i)">{{cust.productDetails}}</a>
             <div style="display: none;"
                 class="plus-img" id="address{{i}}">
                 <p class="p-2" style="color: #ABABAB; text-align: left;">ADDRESS</p>
@@ -188,11 +188,11 @@
                 </div>
             </div>
         </td>
-          <td>
+          <!-- <td>
             <a class="pointer" (click)="show('inventory')">
               <img src="assets/icons/add-svg.svg" width="25" height="25" />
             </a>
-          </td>
+          </td> -->
           <td>
             <p [style.color]="cust.status == 'Active' ? '#00A44C' : cust.status == 'Onhold' ? '#F5B400' : cust.status == 'Inactive' ? '#fa500f' : '#00A44C'">
               {{ cust.status }}
@@ -236,7 +236,7 @@
   <div class="card">
     <div class="card-header d-flex justify-content-between">
       <p>Delete Row</p>
-      <img src="assets/icons/Group 101.svg" width="40" height="40" (click)="closeDeletePopup()" />
+      <img src="assets/icons/close_form.svg" width="40" height="40" (click)="closeDeletePopup()" />
     </div>
     <div class="card-body text-center">Do you want to delete this item?</div>
     <div class="card-footer">
@@ -254,7 +254,7 @@
   <div class="card">
     <div class="card-header d-flex justify-content-between">
       <p>Edit</p>
-      <img src="assets/icons/Group 101.svg" width="40" height="40" (click)="closeEditPopup()" />
+      <img src="assets/icons/close_form.svg" width="40" height="40" (click)="closeEditPopup()" />
     </div>
     <div class="card-body text-center">
       <ul *ngIf="currentItem">
@@ -324,7 +324,7 @@
   <div class="card">
     <div class="card-header d-flex justify-content-between">
       <p>Customers</p>
-      <img src="assets/icons/Group 101.svg" width="40" height="40" (click)="closeViewPopup()" />
+      <img src="assets/icons/close_form.svg" width="40" height="40" (click)="closeViewPopup()" />
     </div>
     <div class="card-body text-center">
       <ul *ngIf="currentItem">

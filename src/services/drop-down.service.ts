@@ -6,17 +6,17 @@ import { Injectable } from '@angular/core';
 })
 export class DropDownService {
 
-  metadata = 'http://usstaging.ivisecurity.com:777/common/getValuesListByType_1_0?type=';
+  metadata = 'http://usstaging.ivisecurity.com:777/common/getValuesListByType_1_0';
 
   constructor(private http: HttpClient) { }
 
-  getDeviceType() {
-    let url = this.metadata + 'Device_Type'
-    return this.http.get(url);
+  getMetadata() {
+    let url = this.metadata;
+    return this.http.get(this.metadata);
   }
 
   getDeviceMode() {
-    let url = this.metadata + 'Device_Mode'
+    let url = this.metadata;
     return this.http.get(url);
   }
 

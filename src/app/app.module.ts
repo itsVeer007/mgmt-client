@@ -18,11 +18,11 @@ import { SitesComponent } from './sites/sites.component';
 import { CustomersComponent } from './customers/customers.component';
 import { LoginComponent } from './login/login.component';
 import { UsersComponent } from './users/users.component';
-import { AddAdditionalSiteComponent } from './main-dashboard/sub-forms/add-additional-site/add-additional-site.component';
+import { AddAdditionalSiteComponent } from './main-dashboard/add-additional-site/add-additional-site.component';
 import { AssetsComponent } from './assets/assets.component';
 import { TicketsComponent } from './tickets/tickets.component';
 import { InventoryComponent } from './inventory/inventory.component';
-import { AddDeviceComponent } from './main-dashboard/sub-forms/add-device/add-device.component';
+import { AddDeviceComponent } from './main-dashboard/add-device/add-device.component';
 import { AddNewAssetComponent } from './main-dashboard/add-new-asset/add-new-asset.component';
 import { VerticalsComponent } from './verticals/verticals.component';
 import { AnalyticsComponent } from './analytics/analytics.component';
@@ -61,6 +61,8 @@ import { SearchPipe } from './utilities/search.pipe';
 import { DatePipe } from '@angular/common';
 import { AdInfoComponent } from './assets/ad-info/ad-info.component';
 import { ReportsComponent } from './reports/reports.component';
+import { MetaDataComponent } from './meta-data/meta-data.component';
+import { AddMetadataComponent } from './main-dashboard/add-metadata/add-metadata.component';
 
 @NgModule({
   declarations: [
@@ -92,7 +94,9 @@ import { ReportsComponent } from './reports/reports.component';
     AddNewAnalyticComponent,
     AddNewTicketComponent,
     AdInfoComponent,
-    ReportsComponent
+    ReportsComponent,
+    MetaDataComponent,
+    AddMetadataComponent
   ],
   imports: [
     BrowserModule,

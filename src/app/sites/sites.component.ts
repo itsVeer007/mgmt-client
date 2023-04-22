@@ -4,8 +4,6 @@ import { SearchPipe } from '../utilities/search.pipe';
 import { DropDownService } from 'src/services/drop-down.service';
 import { SiteService } from 'src/services/site.service';
 import { MatDialog } from '@angular/material/dialog';
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { HasElementRef } from '@angular/material/core/common-behaviors/color';
 
 @Component({
   selector: 'app-sites',
@@ -50,12 +48,15 @@ export class SitesComponent implements OnInit {
     // }
   }
 
+  showFiller = false;
+
   constructor(private http: HttpClient, private dropDown: DropDownService, private siteSer: SiteService, public dialog: MatDialog) { }
 
   tableData: any[] = [];
   searchText: any;
   totalCount: any;
   active: any;
+  x: any
 
   inActive: any[] = [];
   onHold: any[] = [];
@@ -71,7 +72,8 @@ export class SitesComponent implements OnInit {
   ngOnInit(): void {
     this.onGetSites()
     this.ongetDeviceMode();
-    // this.x = JSON.parse(localStorage.getItem('tab_length')!)
+    // this.get(this.tableData);
+    // this.x = (localStorage.getItem('tab_length')!)
   }
 
   onGetSites() {
@@ -100,11 +102,24 @@ export class SitesComponent implements OnInit {
   }
 
 
+  // deviceData: any
+  // get(el: any) {
+  //   this.siteSer.getDevice().subscribe((res: any) => {
+  //     for(let item of res) {
+  //       if(el == item.siteId) {
+  //         this.deviceData = item.adsDevices.length;
+  //       }
+  //       console.log(item)
+  //     }
+  //   })
+  // }
+
+
   deviceMode: any;
   ongetDeviceMode() {
-    this.dropDown.getDeviceMode().subscribe((res: any) => {
-      this.deviceMode = res.List_Shown_By_Type_Given;
-    })
+    // this.dropDown.getDeviceMode({type: 'Device_Mode'}).subscribe((res: any) => {
+    //   this.deviceMode = res.List_Shown_By_Type_Given;
+    // })
   }
 
   engineerDetail: any;

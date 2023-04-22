@@ -15,14 +15,26 @@ export class AlertService {
   }
 
   success(message: string) {
-    this.config.panelClass = ["snackbar-container", "success"];
+    this.config.panelClass = ["success"];
     this.show(message);
   }
 
   error(message: string) {
-    this.config.panelClass = ["snackbar-container", "error"];
+    this.config.panelClass = ["error"];
     this.show(message);
   }
+
+  wait(message: string, config?: MatSnackBarConfig) {
+    this.config.panelClass = ["wait"];
+
+    config = config || this.config;
+    this.zone.run(() => {
+      this.snackbar.open(message, '', config);
+    });
+
+    this.config.duration = 10000;
+  }
+
 
   show(message: string, config?: MatSnackBarConfig) {
     config = config || this.config;

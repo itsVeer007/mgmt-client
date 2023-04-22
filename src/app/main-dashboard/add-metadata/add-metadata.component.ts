@@ -2,24 +2,23 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AssetService } from 'src/services/asset.service';
 import { DropDownService } from 'src/services/drop-down.service';
 
 @Component({
-  selector: 'app-add-new-analytic',
-  templateUrl: './add-new-analytic.component.html',
-  styleUrls: ['./add-new-analytic.component.css'],
+  selector: 'app-add-metadata',
+  templateUrl: './add-metadata.component.html',
+  styleUrls: ['./add-metadata.component.css'],
   animations:[
     trigger("inOutPaneAnimation", [
       transition(":enter", [
-        style({ opacity: 0, transform: "translateX(100%)", }), //apply default styles before animation starts
+        style({ opacity: 0, transform: "translateX(100%)" }), //apply default styles before animation starts
         animate(
           "750ms ease-in-out",
           style({ opacity: 1, transform: "translateX(0)" })
         )
       ]),
       transition(":leave", [
-        style({ opacity: 1, transform: "translateX(0)", }), //apply default styles before animation starts
+        style({ opacity: 1, transform: "translateX(0)" }), //apply default styles before animation starts
         animate(
           "600ms ease-in-out",
           style({ opacity: 0, transform: "translateX(100%)" })
@@ -28,10 +27,9 @@ import { DropDownService } from 'src/services/drop-down.service';
     ])
   ]
 })
-export class AddNewAnalyticComponent implements OnInit {
+export class AddMetadataComponent implements OnInit {
 
-
-  // @Input() show:any;
+  @Input() show:any;
   @Output() newItemEvent = new EventEmitter<boolean>();
 
   // @Output() newUser = new EventEmitter<any>();
@@ -77,14 +75,13 @@ export class AddNewAnalyticComponent implements OnInit {
   //   this.closeAddCamera(false);
   // }
 
-  // deviceType: Array<any> = [];
-  // ongetDeviceType() {
-  //   this.dropDown.getDeviceType().subscribe((res: any) => {
-  //     this.deviceType = res;
-  //     console.log(res)
-  //     console.log(this.deviceType);
-  //   })
-  // }
+  deviceType: Array<any> = [];
+  ongetDeviceType() {
+    // this.dropDown.getDeviceType({type: "Device_Mode"}).subscribe((res: any) => {
+    //   this.deviceType = res;
+    //   console.log(res)
+    // })
+  }
 
   addNewAsset() {
     // this.assetService.addAsset(formPayload).subscribe((res) => {

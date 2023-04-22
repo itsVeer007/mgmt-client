@@ -8,7 +8,7 @@
       <feComposite in="SourceGraphic"/>
     </filter>
   </defs>
-  <g id="Group_101" data-name="close_form" transform="translate(-719.734 -929.038) rotate(45)">
+  <g id="Group_101" data-name="Group 101" transform="translate(-719.734 -929.038) rotate(45)">
     <g transform="matrix(0.71, -0.71, 0.71, 0.71, 1165.86, 148)" filter="url(#Rectangle_130)">
       <g id="Rectangle_130-2" data-name="Rectangle 130" transform="translate(38.28 10) rotate(45)" fill="#fff" stroke="#efefef" stroke-width="1">
         <rect width="40" height="40" rx="20" stroke="none"/>
