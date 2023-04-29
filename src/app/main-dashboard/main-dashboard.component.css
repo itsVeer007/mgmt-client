@@ -93,19 +93,24 @@
 .card1{
     border: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: 5px;
-    margin: 5px;
     min-width: 100%;
-    /* padding: 5px; */
     box-shadow: 5px 5px 10px #0000000D;
 }
 
 .card-header {
-    height: 45px;
+    padding: 18px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: none;
 }
-.card-header h6{margin: 0;}
+
+.card-header h6 {
+    margin: 0;
+}
+
 .card-body {
     height: 70px;
-
 }
 
 .table-resp {
@@ -205,7 +210,7 @@ tbody tr th {
 }
 
 .table > :not(caption) > * > * {
-    padding: 0;
+    padding: 10px;
     background-color: var(--bs-table-bg);
     border-bottom-width: 1px;
     box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
@@ -279,12 +284,14 @@ table tbody tr th .badge {
 */
 
 .prevvert {
-  width: 62px;
+  width: 55px;
   transform: rotate(180deg);
+  cursor: pointer;
 }
 
 .nextvert {
-  width: 62px;
+  width: 55px;
+  cursor: pointer;
 }
 
 @media only screen and (max-width: 1440px) {
@@ -292,12 +299,6 @@ table tbody tr th .badge {
     .card {
         height: 120px;
         box-shadow: 5px 5px 10px #0000000D;
-    }
-
-    .card-header {
-        /* height: 60px; */
-        text-align: left;
-        padding-left: 15%;
     }
 
     .card-body {
@@ -325,15 +326,6 @@ table tbody tr th .badge {
         border-radius: 5px;
         box-shadow: 5px 5px 10px #0000000D;
         /* margin: 15px; */
-    }
-
-    .form1 {
-        background-image: linear-gradient(to right, #084982, #D34124);
-        background-size: cover;
-        border-radius: 5px;
-        margin-top: 20px;
-        /* width: 98.9%; */
-        /* height: 70px; */
     }
 
     .form-select {
@@ -366,12 +358,6 @@ table tbody tr th .badge {
         box-shadow: 5px 5px 10px #0000000D;
     }
 
-    .card-header {
-        height: 40px;
-        text-align: left;
-        padding-left: 15%;
-    }
-
     .card-body {
         height: 80px;
     }
@@ -397,15 +383,6 @@ table tbody tr th .badge {
         border-radius: 5px;
         box-shadow: 5px 5px 10px #0000000D;
         /* margin: 15px; */
-    }
-
-    .form1 {
-        background-image: linear-gradient(to right, #084982, #AA4337);
-        background-size: cover;
-        border-radius: 5px;
-        margin-top: 10px;
-        /* width: 98.9%; */
-        /* height: 70px; */
     }
 
     .form-select {

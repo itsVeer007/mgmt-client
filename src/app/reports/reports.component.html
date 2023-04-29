@@ -188,9 +188,9 @@
           </td>
 
           <td>
-            <a class="pointer" (click)="openPanel($event, i)">
-              <img (click)="down($event, i)" src="assets/icons/expand_more.svg" width="30" height="15">
-              <img style="display: none;" src="assets/icons/expand_less.svg" width="30" height="15">
+            <a class="pointer">
+              <img (click)="openPanel($event, i)" src="assets/icons/expand_more.svg" width="30" height="15">
+              <img (click)="closePanel($event, i)" style="display: none;" src="assets/icons/expand_less.svg" width="30" height="15">
             </a>
 
             <div class="expand" id="plus-img{{i}}" style="display: none">
@@ -372,6 +372,6 @@
   </div>
 </div>
 
-<div style="position: fixed; top: 0" *ngIf="showTicket">
+<div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showTicket">
   <app-add-new-ticket [show]="showSite" (newItemEvent)="closenow($event, 'ticket')"></app-add-new-ticket>
 </div>

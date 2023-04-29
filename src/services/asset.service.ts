@@ -37,10 +37,12 @@ export class AssetService {
     //formData.append('mimeType', payload.mimeType);
 
     let test = {
-      'adsDeviceId': payload.asset.adsDeviceId,
+      'deviceId': payload.asset.deviceId,
       'deviceModeId': payload.asset.deviceModeId,
       'playOrder': payload.asset.playOrder,
-      'createdBy': payload.asset.createdBy
+      'createdBy': payload.asset.createdBy,
+      'name': payload.asset.name,
+      'status': payload.asset.status
     }
 
     const blobOverrides = new Blob([JSON.stringify(test)], {

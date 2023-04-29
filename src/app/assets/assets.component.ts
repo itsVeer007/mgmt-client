@@ -71,6 +71,13 @@ export class AssetsComponent implements OnInit {
       this.assetTable = assets;
       this.tableData = this.assetTable;
 
+      /* for site id's */
+      const site_id = res.flatMap((item: any) => item);
+      console.log('site_id', site_id);
+      for(let id of site_id) {
+        this.inputToAsset = id.siteId;
+      }
+
       //status count
       for(let item of this.assetTable) {
         if(item.status == "Added") {
@@ -343,6 +350,8 @@ export class AssetsComponent implements OnInit {
     }
   }
 
+
+  //Ad info popup
   openDialog() {
     this.dialog.open(AdInfoComponent);
   }

@@ -13,13 +13,13 @@
   <!-- /header -->
 
   <!-- form -->
-  <div class="search-form d-flex align-items-center justify-content-between my-2">
+  <div class="d-flex align-items-center justify-content-between my-2">
     <div class="row col-lg-10 col-md-10">
       <div class="col-lg-3 col-md-3 col-sm-12">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>All</mat-label>
+          <mat-label>Type</mat-label>
           <mat-select>
-            <mat-option *ngFor="let cust of CustomerTable">{{ cust.customerName }}</mat-option>
+            <mat-option>--</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -35,25 +35,21 @@
       </div>
     </div>
 
-    <div class="d-flex align-items-center justify-content-between">
-      <div class="col-lg-2 col-md-2 table-icons">
-        <div class="lists" *ngIf="showIconView" style="margin-right: 60px; margin-top: -40px;">View</div>
-        <div class="lists" *ngIf="showIconEdit" style="margin-right: 30px; margin-top: -40px;">Edit</div>
-        <div class="lists" *ngIf="showIconDelete" style="margin-right: -5px; margin-top: -40px;">Delete</div>
-
-        <a class="mx-2" (click)="viewBySelectedOne()"><img src="assets/icons/view.svg" (mouseenter)="showIconView = true" (mouseleave)="showIconView = false" /></a>
-        <a class="mx-2" (click)="editBySelectedOne()"><img src="assets/icons/edit.svg" (mouseenter)="showIconEdit = true" (mouseleave)="showIconEdit = false" /></a>
-        <a class="mx-2" (click)="deleteSelected()"><img src="assets/icons/delete.svg" (mouseenter)="showIconDelete = true" (mouseleave)="showIconDelete = false" /></a>
-      </div>
-
-      <div>
-        <a class="pointer" (click)="show('ticket')">
-          <img src="assets/icons/add.svg" alt="" />
-        </a>
-      </div>
+    <div>
+      <a class="pointer" (click)="show('ticket')">
+        <img src="assets/icons/add.svg" alt="">
+      </a>
     </div>
+  </div>
 
+  <div class="table-icons mb-3">
+    <!-- <div class="lists" *ngIf="showIconView" style="margin-right: 60px; margin-top: -40px;">View</div> -->
+    <div class="lists" *ngIf="showIconEdit" style="margin-right: 30px; margin-top: -40px;">Edit</div>
+    <div class="lists" *ngIf="showIconDelete" style="margin-right: -5px; margin-top: -40px;">Delete</div>
 
+    <!-- <a class="mx-2" (click)="viewBySelectedOne()"><img src="assets/icons/view.svg" (mouseenter)="showIconView = true" (mouseleave)="showIconView = false" /></a> -->
+    <a class="mx-2" (click)="editBySelectedOne()"><img src="assets/icons/edit.svg" (mouseenter)="showIconEdit = true" (mouseleave)="showIconEdit = false" /></a>
+    <a class="mx-2" (click)="deleteSelected()"><img src="assets/icons/delete.svg" (mouseenter)="showIconDelete = true" (mouseleave)="showIconDelete = false" /></a>
   </div>
   <!-- /form -->
 
@@ -74,61 +70,61 @@
                             style="background-color: #00000000; border-color:#fff;margin-left:10px;" /></th> -->
           <th (click)="sort('siteId')">Id</th>
           <th (click)="sort('customerName')">Type</th>
-          <th (click)="sort('custType')">Search Value</th>
-          <th (click)="sort('address')">Site</th>
+          <th (click)="sort('custType')">Key Id</th>
+          <th (click)="sort('custType')">Value</th>
           <th (click)="sort('contactNumber')">Status</th>
           <th (click)="sort('emailId')">Remarks</th>
           <th></th>
         </tr>
 
-        <tr *ngFor="let cust of CustomerTable | search : searchText; let i = index">
+        <tr *ngFor="let item of metaData | search : searchText; let i = index">
           <td>
-            <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="cust.selected" (change)="
+            <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="item.selected" (change)="
                 checkIfAllSelected();
-                deleteMultiRecords(cust, i, $event);
-                ViewByCheckbox(cust, i, $event);
-                EditByCheckbox(cust, i, $event)
+                deleteMultiRecords(item, i, $event);
+                ViewByCheckbox(item, i, $event);
+                EditByCheckbox(item, i, $event)
               " id="singleCheck" />
           </td>
           <!-- <td><input type="checkbox" class="form-check-input" [checked]="masterSelected" /></td> -->
           <td>
-            <p>{{ cust.siteId }}</p>
+            <p>--</p>
           </td>
           <td>
-            <p>{{ cust.customerName }}</p>
+            <p>{{metadataType}}</p>
           </td>
           <td>
-            <p>{{ cust.contactNumber }}</p>
+            <p>{{item.keyId}}</p>
           </td>
           <td>
-            <p>{{ cust.emailId }}</p>
+            <p>{{item.value}}</p>
           </td>
           <td>
-            <p [style.color]="cust.status == 'Active' ? '#00A44C' : cust.status == 'Onhold' ? '#F5B400' : cust.status == 'Inactive' ? '#fa500f' : '#00A44C'">
-              {{ cust.status }}
+            <p [style.color]="item.status == 'Active' ? '#00A44C' : item.status == 'Onhold' ? '#F5B400' : item.status == 'Inactive' ? '#fa500f' : '#00A44C'">
+              {{item.active}}
             </p>
           </td>
           <td>
-            <p>{{ cust.customerName }}</p>
+            <p>{{item.remarks}}</p>
           </td>
-          <td>
+          <td style="position: relative;">
             <a class="pointer" (click)="closeDot($event, i)"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
             <div class="plus-img1" id="plus-img{{ i }}" style="display: none">
-              <div class="lists" *ngIf="showIconView1" style="margin-left: 5px; margin-top: -20px">
+              <!-- <div class="lists" *ngIf="showIconView1" style="margin-left: 5px; margin-top: -20px">
                 View
-              </div>
-              <div class="lists" *ngIf="showIconEdit1" style="margin-left: 38px; margin-top: -20px">
+              </div> -->
+              <div class="lists" *ngIf="showIconEdit1" style="margin-left: 8px; margin-top: -25px">
                 Edit
               </div>
-              <div class="lists" *ngIf="showIconDelete1" style="margin-left: 63px; margin-top: -20px">
+              <div class="lists" *ngIf="showIconDelete1" style="margin-left: 28px; margin-top: -25px">
                 Delete
               </div>
 
-              <a class="mx-2" (click)="openViewPopup(cust, i)"><img src="assets/icons/view.svg"
-                  (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" /></a>
-              <a class="mx-2" (click)="openEditPopup(cust, i)"><img src="assets/icons/edit.svg"
+              <!-- <a class="mx-2" (click)="openViewPopup(item, i)"><img src="assets/icons/view.svg"
+                  (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" /></a> -->
+              <a class="mx-2" (click)="openEditPopup(item, i)"><img src="assets/icons/edit.svg"
                   (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" /></a>
-              <a class="mx-2" value="Delete" (click)="openDeletePopup(cust, i)"><img src="assets/icons/delete.svg"
+              <a class="mx-2" value="Delete" (click)="openDeletePopup(item, i)"><img src="assets/icons/delete.svg"
                   (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" /></a>
             </div>
           </td>
@@ -138,6 +134,12 @@
   </div>
 </div>
 <!-- /table -->
+
+<!-- Loader -->
+<div *ngIf="showLoader" class="d-flex justify-content-center align-items-center" style="height: 50vh;">
+  <app-loader></app-loader>
+</div>
+<!-- /Loader -->
 
 <div class="modalitem max-center" [hidden]="deletePopup">
   <div class="card">
@@ -277,6 +279,7 @@
   </div>
 </div>
 
-<div style="position: fixed; top: 0" *ngIf="showTicket">
-  <app-add-metadata [show]="showSite" (newItemEvent)="closenow($event, 'ticket')"></app-add-metadata>
+
+<div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showTicket">
+  <app-add-metadata [metadataDetail]="metaData" (newItemEvent)="closenow($event, 'ticket')"></app-add-metadata>
 </div>

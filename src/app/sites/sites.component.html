@@ -188,7 +188,7 @@
               <td>
                 <a class="pointer" (click)="show('device'); saveSiteData(data)">
                   <img src="assets/icons/add-svg.svg" width="25" height="25" >
-                  <span class="ms-2" *ngIf="x">{{x}}</span>
+                  <span class="ms-2" *ngIf="deviceLength">{{deviceLength}}</span>
                 </a>
               </td>
               <td>
@@ -225,7 +225,7 @@
 
 </div>
 
-<!--  Popup -->
+<!-- Delete Popup -->
 <div class="modalitem max-center" [hidden]="deletePopup">
   <div class="card">
     <div class="card-header d-flex justify-content-between">
@@ -296,8 +296,8 @@
     </div>
   </div>
 </div>
-<!-- /Edit Popup -->
 
+<!-- /Hide Popup -->
 <div class="modalitem max-center" [hidden]="viewPopup">
   <div class="card">
     <div class="card-header d-flex justify-content-between">
@@ -338,13 +338,13 @@
   </div>
   <!-- </div> -->
 </div>
-<!-- /Popup -->
 
 
-<div style="position: fixed; top:0;" *ngIf="showAddSite">
+
+<div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showAddSite">
     <app-add-new-site (newItemEvent)="closenow('site', $event)"></app-add-new-site>
 </div>
 
-<div style="position: fixed; top:0;" *ngIf="showAddDevice">
+<div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showAddDevice">
   <app-add-device (newItemEvent)="closenow('device', $event)"></app-add-device>
 </div>

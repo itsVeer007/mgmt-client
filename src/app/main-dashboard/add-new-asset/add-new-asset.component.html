@@ -5,7 +5,7 @@
     <!-- Title -->
     <div class="d-flex justify-content-start">
       <a class="close-main pointer" (click)="closeForm()"><img src="assets/icons/close_form.svg" /></a>
-      <span class="form-heading">add asset</span>
+      <span class="form-heading">add advertisement</span>
     </div>
     <!-- /Title -->
 
@@ -27,10 +27,13 @@
 
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
-              <input matInput placeholder="Device Id" [matAutocomplete]="device" (keyup)="deviceSer($event)" formControlName="adsDeviceId" [(ngModel)]="assetData.asset.adsDeviceId" required>
+              <input matInput placeholder="Device Id" [matAutocomplete]="device" (keyup)="deviceSer($event)" formControlName="deviceId" [(ngModel)]="assetData.asset.deviceId" required>
               <mat-autocomplete #device="matAutocomplete">
-                <mat-option *ngFor="let item of deviceIdList | search: dev" [value]="item.adsDeviceId">
+                <!-- <mat-option *ngFor="let item of deviceIdList | search: dev" [value]="item.adsDeviceId">
                   {{ item.adsDeviceId }}
+                </mat-option> -->
+                <mat-option value="IVISDUM0002DV1">
+                  IVISDUM0002DV1
                 </mat-option>
               </mat-autocomplete>
               <mat-error class="mt-1">Device Id is required</mat-error>
@@ -75,7 +78,7 @@
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Enter Asset Name</mat-label>
-              <input matInput>
+              <input matInput formControlName="name"  [(ngModel)]="assetData.asset.name">
               <mat-error class="mt-1">Asset Name is required</mat-error>
             </mat-form-field>
           </div>

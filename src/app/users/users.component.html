@@ -351,11 +351,11 @@
   <!-- </div> -->
 </div>
 
-<div style="position: fixed; top: 0" *ngIf="showAddUser">
-  <app-add-new-user (newItemEvent)="closenow($event, 'user')" (newUser)="addNewUser($event)"></app-add-new-user>
+<div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showAddUser">
+  <app-add-new-user (newItemEvent)="closenow($event, 'user')"></app-add-new-user>
 </div>
 
 
-<div style="position: fixed; top: 0" *ngIf="showAddSite">
+<div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showAddSite">
   <app-add-additional-site (newItemEvent)="closenow($event, 'additionalSite')"></app-add-additional-site>
 </div>

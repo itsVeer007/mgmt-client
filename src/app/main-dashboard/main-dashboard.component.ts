@@ -7,27 +7,25 @@ import { ChartService } from 'src/services/chart.service';
   selector: 'app-main-dashboard',
   templateUrl: './main-dashboard.component.html',
   styleUrls: ['./main-dashboard.component.css'],
-  animations: [
-    trigger("inOutPaneAnimation", [
-      transition(":enter", [
-        style({ opacity: 0, transform: "translateX(100%)" }), //apply default styles before animation starts
-        animate(
-          "750ms ease-in-out",
-          style({ opacity: 1, transform: "translateX(0)" })
-        )
-      ]),
-      transition(":leave", [
-        style({ opacity: 1, transform: "translateX(0)" }), //apply default styles before animation starts
-        animate(
-          "600ms ease-in-out",
-          style({ opacity: 0, transform: "translateX(100%)" })
-        )
-      ])
-    ])
-  ]
+  // animations: [
+  //   trigger("inOutPaneAnimation", [
+  //     transition(":enter", [
+  //       style({ opacity: 0, transform: "translateX(100%)" }), //apply default styles before animation starts
+  //       animate(
+  //         "750ms ease-in-out",
+  //         style({ opacity: 1, transform: "translateX(0)" })
+  //       )
+  //     ]),
+  //     transition(":leave", [
+  //       style({ opacity: 1, transform: "translateX(0)" }), //apply default styles before animation starts
+  //       animate(
+  //         "600ms ease-in-out",
+  //         style({ opacity: 0, transform: "translateX(100%)" })
+  //       )
+  //     ])
+  //   ])
+  // ]
 })
-
-
 
 
 export class MainDashboardComponent implements OnInit {
@@ -97,10 +95,10 @@ export class MainDashboardComponent implements OnInit {
   ngOnInit(): void {
     this.getMainDashboardCardReport();
     this.getMainDashboardReport();
-    // this.mychart();
+    this.mychart();
     this.mychart1();
-    // this.mychart2();
-    // this.mychart3();
+    this.mychart2();
+    this.mychart3();
     this.mychart4();
   }
   showIconVertical: boolean = false;
@@ -291,7 +289,7 @@ export class MainDashboardComponent implements OnInit {
   }
 
   // icons111: boolean = false;
-  openIcon(type:any) {
+  openIcon(type: any) {
     if(type == 'site') {this.showAddSite = true};
     if(type == 'user') {this.showAddUser = true};
 
@@ -330,16 +328,24 @@ export class MainDashboardComponent implements OnInit {
 
   showcardReport: any;
   prevvert() {
-    var indexOfFirstElem = this.cardReport.map(function (item: any) { return item.id; }).indexOf(this.showcardReport[0].id);
+    var indexOfFirstElem = this.cardReport.map((item: any) => {
+      return item.id
+    }).indexOf(this.showcardReport[0].id);
+
+    // console.log(indexOfFirstElem, (this.cardReport.length - 1))
     if (indexOfFirstElem != 0) {
       indexOfFirstElem = indexOfFirstElem -= 1;
       var a = JSON.parse(JSON.stringify(this.cardReport))
       this.showcardReport = a.splice(indexOfFirstElem, this.noOfCards);
     }
   }
+
   nextvert() {
-    var indexOfFirstElem = this.cardReport.map(function (item: any) { return item.id; }).indexOf(this.showcardReport[0].id);
-    console.log(indexOfFirstElem, (this.cardReport.length - 1))
+    var indexOfFirstElem = this.cardReport.map((item: any) => {
+      return item.id
+    }).indexOf(this.showcardReport[0].id);
+
+    // console.log(indexOfFirstElem, (this.cardReport.length - 1))
     if ((indexOfFirstElem + this.noOfCards) < (this.cardReport.length)) {
       indexOfFirstElem = indexOfFirstElem += 1;
       var a = JSON.parse(JSON.stringify(this.cardReport))

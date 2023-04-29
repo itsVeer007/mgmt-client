@@ -318,42 +318,41 @@ export class ReportsComponent implements OnInit {
     }
   }
 
-  isShow: boolean = false;
-  currr: any = 0;
 
+  //for table dropdown data
+
+  present: any = 0;
   openPanel(e: any, i: any) {
-    this.isShow = !this.isShow;
-    this.currr = i;
-    let x = e.target.parentNode.nextElementSibling;
+    this.present = i;
 
-    if(x.style.display == 'none') {
+    let par = e.target.parentNode.nextElementSibling;
+    let x = e.target.nextSibling;
+    let y = e.currentTarget;
+
+    y.style.display = 'none';
+
+    if(par.style.display == 'none') {
+      par.style.display = 'block';
       x.style.display = 'block';
     } else{
-      x.style.display = 'none';
+      par.style.display = 'none';
     }
   }
 
-  // up(e: any, i: any) {
-  //   let f  = e.target.parentNode.firstChild;
-  //   this.currr = i;
+  closePanel(e: any, i: any) {
+    this.present = i;
 
-  //   if(f.style.display == 'block') {
-  //     f.style.display = 'none';
-  //   } else{
-  //     f.style.display = 'block';
-  //   }
-  // }
+    let par = e.target.parentNode.nextElementSibling;
+    let x = e.target.previousSibling;
+    let y = e.currentTarget;
 
-  down(e: any, i: any) {
-    // let f  = e.target.parentNode.firstChild;
+    y.style.display = 'none';
+    x.style.display = 'block';
 
-    let x = e.target.nextSibling;
-    this.currr = i;
-
-    if(x.style.display == 'none') {
-      x.style.display = 'block';
+    if(par.style.display == 'none') {
+      par.style.display = 'block';
     } else{
-      x.style.display = 'none';
+      par.style.display = 'none';
     }
   }
 

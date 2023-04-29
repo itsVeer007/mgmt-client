@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, HostListener, OnInit } from '@angular/core';
+import { DropDownService } from 'src/services/drop-down.service';
 
 @Component({
   selector: 'app-meta-data',
@@ -33,7 +34,7 @@ export class MetaDataComponent implements OnInit {
 
 
   showLoader = false;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private dropDown: DropDownService) { }
 
   ngOnInit(): void {
     this.CustomerReport();
@@ -54,19 +55,31 @@ export class MetaDataComponent implements OnInit {
   showIconDelete1: boolean = false;
 
   searchText: any;
-  CustomerTable: any;
+  metaData: any;
+  metadataType: any
   CustomerReport() {
-    this.http.get('assets/JSON/customerData.json').subscribe(res => {
-      this.CustomerTable = res;
-      // console.log(res)
-    });
+    this.showLoader = true;
+    this.dropDown.getMetadata().subscribe((res: any) => {
+      console.log(res);
+      this.showLoader = false;
+
+      const data = res.flatMap((item: any) => item.metadata);
+      this.metaData = data;
+      // console.log(data);
+
+      const dataType = res.flatMap((item: any) => item.type);
+      console.log('dataType', dataType)
+      for(let id of dataType) {
+        this.metadataType = id;
+        console.log(this.metadataType)
+      }
+    })
   }
 
   currentid = 0;
   closeDot(e: any, i: any) {
     this.currentid = i;
     var x = e.target.parentNode.nextElementSibling;
-    // console.log("THREE DOTS:: ",e.target.parentNode.nextElementSibling);
     if (x.style.display == 'none') {
       x.style.display = 'block';
     } else {
@@ -80,48 +93,10 @@ export class MetaDataComponent implements OnInit {
   showAddUser = false;
   showAddBusinessVertical = false;
   showSite = false;
-  // closenow(value:any) {
-  //   this.showAddSite = value;
-  // }
 
   closenow(value: any, type: String) {
     if (type == 'ticket') { this.showTicket = value; }
-
-    // setTimeout(() => {
-    //   var openform = localStorage.getItem('opennewform');
-    //   if (openform == 'showAddSite') { this.showAddSite = true; }
-    //   if (openform == 'showAddCamera') { this.showAddCamera = true; }
-    //   if (openform == 'showAddCustomer') { this.showAddCustomer = true; }
-    //   if (openform == 'showAddBusinessVertical') { this.showAddBusinessVertical = true; }
-    //   if (openform == 'showAddUser') { this.showAddUser = true; }
-    //   if (openform == 'additionalSite') { this.showSite = true; }
-    //   localStorage.setItem('opennewform', '');
-    // }, 100)
   }
-
-  // showAddCamera = false;
-
-  // closenow1(value:any) {
-  //   this.showAddCamera = value;
-  // }
-
-  // showAddCustomer = false;
-
-  // closenow2(value:any) {
-  //   this.showAddCustomer = value;
-  // }
-
-  // showAddUser = false;
-
-  // closenow3(value:any) {
-  //   this.showAddUser = value;
-  // }
-
-  // showAddBusinessVertical = false;
-
-  // closenow4(value:any) {
-  //   this.showAddBusinessVertical = value;
-  // }
 
   showTicket: boolean = false;
 
@@ -143,13 +118,13 @@ export class MetaDataComponent implements OnInit {
   selectedAll: any;
 
   selectAll() {
-    for (var i = 0; i < this.CustomerTable.length; i++) {
-      // console.log(this.CustomerTable[i])
-      this.CustomerTable[i].selected = this.selectedAll;
+    for (var i = 0; i < this.metaData.length; i++) {
+      // console.log(this.metaData[i])
+      this.metaData[i].selected = this.selectedAll;
     }
   }
   checkIfAllSelected() {
-    this.selectedAll = this.CustomerTable.every(function (item: any) {
+    this.selectedAll = this.metaData.every(function (item: any) {
       // console.log(item)
       return item.selected == true;
     })
@@ -163,14 +138,14 @@ export class MetaDataComponent implements OnInit {
     this.showLoader = true;
     setTimeout(() => {
       this.showLoader = false;
-      this.CustomerTable.splice(i, 1);
+      this.metaData.splice(i, 1);
     }, 1000);
   }
 
   deletePopup: boolean = true;
   confirmDeleteRow() {
     console.log("ToBE DELETED:: ", this.currentItem);
-    this.CustomerTable = this.CustomerTable.filter((item: any) => item.siteId !== this.currentItem.siteId);
+    this.metaData = this.metaData.filter((item: any) => item.siteId !== this.currentItem.siteId);
     this.deletePopup = true;
   }
 
@@ -184,7 +159,7 @@ export class MetaDataComponent implements OnInit {
     // console.log("Selected Item:: ", item);
     this.deletePopup = false;
     // console.log("Open Delete Popup:: ",this.deletePopup);
-    // console.log(this.CustomerTable.siteId);
+    // console.log(this.metaData.siteId);
   }
 
 
@@ -192,7 +167,7 @@ export class MetaDataComponent implements OnInit {
 
   confirmEditRow() {
     console.log("TO BE EDITED:: ", this.currentItem);
-    // this.CustomerTable= this.CustomerTable.filter((item:any) => item.siteId !== this.currentItem.siteId);
+    // this.metaData= this.metaData.filter((item:any) => item.siteId !== this.currentItem.siteId);
     this.editPopup = true;
     this.CustomerReport();
   }
@@ -207,7 +182,7 @@ export class MetaDataComponent implements OnInit {
     // console.log("Selected Item:: ", item);
     this.editPopup = false;
     // console.log("Open Delete Popup:: ",this.editPopup);
-    // console.log(this.CustomerTable.siteId);
+    // console.log(this.metaData.siteId);
   }
 
   editArray: any = [];
@@ -234,7 +209,6 @@ export class MetaDataComponent implements OnInit {
 
 
   viewPopup: boolean = true;
-
   confirmViewRow() {
     console.log("ToBE Viewed:: ", this.currentItem);
     this.viewPopup = true;
@@ -296,12 +270,12 @@ export class MetaDataComponent implements OnInit {
       this.deletearray.forEach((el: any) => {
         // this.currentItem = el;
         // this.confirmDeleteRow();
-        this.CustomerTable = this.CustomerTable.filter((item: any) => item.siteId !== el.siteId);
+        this.metaData = this.metaData.filter((item: any) => item.siteId !== el.siteId);
       });
       this.deletearray = []
     } else {
-      this.CustomerTable.forEach((el: any) => {
-        this.CustomerTable = this.CustomerTable.filter((item: any) => item.siteId !== el.siteId);
+      this.metaData.forEach((el: any) => {
+        this.metaData = this.metaData.filter((item: any) => item.siteId !== el.siteId);
       });
     }
   }
@@ -310,7 +284,7 @@ export class MetaDataComponent implements OnInit {
   sorted = false;
   sort(label: any) {
     this.sorted = !this.sorted;
-    var x = this.CustomerTable;
+    var x = this.metaData;
     if (this.sorted == false) {
       x.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
     } else {

@@ -14,26 +14,48 @@ export class SiteService {
 
   getSites() {
     let url = this.baseUrl + '/sites/listSites_1_0';
-    return this.http.get(url)
-  }
-
-  getDevice() {
-    let url = this.deviceUrl + '/listDeviceAdsInfo_1_0';
-    return this.http.get(url)
-  }
-
-  addDevice(payload: any) {
-    let url = this.deviceUrl + "/createDeviceandAdsInfo_1_0";
-    return this.http.post(url, payload)
+    return this.http.get(url);
   }
 
   getEngineer(id: any) {
     let url = this.baseUrl + '/sites/getEngineerdetails_1_0/' + `${id}`;
-    return this.http.get(url)
+    return this.http.get(url);
   }
 
   getCentralbox(id: any) {
     let url = this.baseUrl + '/sites/getcentralBox_1_0/' + `${id}`;
-    return this.http.get(url)
+    return this.http.get(url);
   }
+
+
+  //device service
+
+  getDeviceList() {
+    let url = this.deviceUrl + '/listDeviceAdsInfo_1_0';
+    return this.http.get(url);
+  }
+
+  addDevice(payload: any) {
+    let url = this.deviceUrl + '/createDeviceandAdsInfo_1_0';
+    return this.http.post(url, payload);
+  }
+
+  getDevice(deviceId: string) {
+    var payload = {
+      "deviceId": deviceId,
+    }
+
+    let url = this.deviceUrl + '/listDeviceAdsInfo_1_0';
+    return this.http.post(url, payload);
+  }
+
+  updateDevice(payload: any, devId: any) {
+    let data = {
+      "deviceId": devId
+    }
+
+    let url = this.deviceUrl + '/updateDeviceAdsInfo_1_0';
+    return this.http.put(url, data);
+  }
+
 }

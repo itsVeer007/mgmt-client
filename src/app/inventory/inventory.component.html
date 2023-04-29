@@ -390,6 +390,6 @@
     (newItemEvent)="closenow($event, 'additionalSite')"></app-add-additional-site>
 </div> -->
 
-<div style="position: fixed; top: 0" *ngIf="showInventory">
+<div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showInventory">
   <app-add-new-inventory [show]="showInventory" (newItemEvent)="closenow($event, 'inventory')"></app-add-new-inventory>
 </div>

@@ -1,3 +1,54 @@
+.addListBtn {
+  position: relative;
+  top: 17px;
+  right: 7px;
+  font-weight: 600;
+  color: #084982 !important;
+  border: 1px solid #084982;
+  border-radius: 5px;
+  padding: 12px;
+  cursor: pointer;
+}
+
+
+/* ::ng-deep .mat-tab-body-content {
+  overflow-x: hidden !important;
+} */
+
+
+/* ::ng-deep .mat-form-field-infix {
+  width: auto;
+} */
+
+
+
+
+::ng-deep .device-title{
+  font-size: 14px;
+  color: black;
+  font-weight: 600;
+}
+
+::ng-deep .device-sub {
+  font-size: 15px;
+  color: #383838;
+}
+
+/* ::ng-deep .mat-card {
+  box-shadow: none;
+  border: 1px solid rgb(230, 230, 230);
+  border: none !important;
+}
+
+::ng-deep .mat-form-field-wrapper {
+  padding-bottom: 0 !important;
+}
+
+::ng-deep .mat-card:not([class*=mat-elevation-z]) {
+  box-shadow: none !important;
+} */
+
+
 /* common ng-deep */
 
 .mat-form-field-appearance-outline ::ng-deep .mat-form-field-outline {
@@ -19,6 +70,10 @@
   bottom: 4px;
 }
 
-::ng-deep .mat-tab-body-content {
-  overflow-x: hidden !important;
+::ng-deep .mat-form-field-outline {
+  background: #F8F8F8;
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: #084982!important;
 }

@@ -98,13 +98,13 @@ export class UsersComponent implements OnInit {
   }
 
 
-  addNewUser(newUser: any) {
-    newUser = JSON.parse(localStorage.getItem('userCreated')!);
-    if(newUser) {
-      this.CustomerTable.push(newUser)
-      localStorage.removeItem('userCreated');
-    }
-  }
+  // addNewUser(newUser: any) {
+  //   newUser = JSON.parse(localStorage.getItem('userCreated')!);
+  //   if(newUser) {
+  //     this.CustomerTable.push(newUser)
+  //     localStorage.removeItem('userCreated');
+  //   }
+  // }
 
   // showAddCamera = false;
 

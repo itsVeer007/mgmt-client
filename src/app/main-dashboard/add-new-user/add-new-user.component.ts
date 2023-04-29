@@ -35,7 +35,7 @@ export class AddNewUserComponent implements OnInit {
 
   @Output() newItemEvent = new EventEmitter<boolean>();
 
-  @Output() newUser = new EventEmitter<any>();
+  // @Output() newUser = new EventEmitter<any>();
 
   // @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
   //   var x = <HTMLElement>document.getElementById(`user`);
@@ -113,7 +113,7 @@ export class AddNewUserComponent implements OnInit {
       console.log(res)
       if(res.Status == 'Success'){
         this.user.username= "";
-        this.user.password= res.password;
+        // this.user.password= res.password;
         this.user.firstname= res.firstName;
         this.user.lastname= res.lastName;
         this.user.roleList = res.roleList;

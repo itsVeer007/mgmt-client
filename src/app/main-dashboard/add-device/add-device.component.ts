@@ -1,6 +1,7 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { AssetService } from 'src/services/asset.service';
 import { DropDownService } from 'src/services/drop-down.service';
 import { SiteService } from 'src/services/site.service';
@@ -29,7 +30,6 @@ import { SiteService } from 'src/services/site.service';
   ]
 })
 
-
 export class AddDeviceComponent implements OnInit {
   // @Input() data: any;
   @Output() newItemEvent = new EventEmitter<boolean>();
@@ -43,71 +43,16 @@ export class AddDeviceComponent implements OnInit {
   //   }
   // }
 
-
   addDevice: any =  FormGroup;
   searchText: any;
 
-  items = ['john', 'mark', 'cooper', 'henry', 'roben'];
-
-  constructor(private fb: FormBuilder, private siteService: SiteService, private assetService: AssetService, private dropDown: DropDownService) { }
-
-  // asset = {
-  //   siteId: null,
-  //   deviceDescription: '',
-  //   deviceTypeId: null,
-  //   deviceId: null,
-  //   deviceUnitId: '',
-  //   deviceCallFreq: 1,
-  //   deviceMode: null, //change to number
-  //   workingDays: '',
-  //   getlogs: 0,
-  //   width: null,
-  //   height: null,
-  //   modelName: '',
-  //   resolution: '',
-  //   threshold: '',
-  //   maxNo: 3,
-  //   objectName: '',
-  //   refreshRules: null,
-  //   displayOn: null,
-  //   adsHours: '',
-  //   weather_interval: '',
-  //   cameraId: '',
-  //   createdBy: 1,
-  //   remarks: ''
-  // }
-
-
-  adInfo = {
-    siteId: null,
-    deviceDescription: '',
-    deviceTypeId: null,
-    deviceCallFreq: 1,
-    deviceModeId: null,
-    adsHours: '',
-    workingDays: '',
-    loggerFreq: null,
-    createdBy: 1,
-    softwareVersion: '',
-    socketServer: '',
-    socketPort: 4324,
-
-    weatherInterval: null, //BSR
-
-    cameraId: '', //ODR
-    modelName: '', //ODR
-    modelWidth: null, //ODR
-    modelHeight: null, //ODR
-    modelMaxResults: null, //ODR
-    modelThreshold: null, //ODR
-    modelObjectTypeId: null //ODR
-  }
+  constructor(private fb: FormBuilder, private siteService: SiteService, private assetService: AssetService, private dropDown: DropDownService, public dialog: MatDialog) { }
 
   siteData: any;
   ngOnInit() {
     this.addDevice = this.fb.group({
       // 'siteId': new FormControl(''),
-      'deviceDescription': new FormControl(''),
+      'deviceDescription': new FormControl('', Validators.required),
       'deviceTypeId': new FormControl('', Validators.required),
       'deviceCallFreq': new FormControl('', Validators.required),
       'deviceModeId': new FormControl('', Validators.required),
@@ -132,15 +77,41 @@ export class AddDeviceComponent implements OnInit {
     });
 
     this.getDeviceDetail();
-
     this.ongetDeviceType();
     this.ongetDeviceMode();
     this.onTempRange();
     this.onAgeRange();
     this.siteData = JSON.parse(localStorage.getItem('device_temp')!);
-    // localStorage.setItem('tab_length', this.addDeviceLength);
-    // console.log(this.addDeviceLength)
   }
+
+  adInfo = {
+    siteId: null,
+    deviceDescription: '',
+    deviceTypeId: null,
+    deviceCallFreq: 1,
+    deviceModeId: null,
+    adsHours: '',
+    workingDays: '',
+    loggerFreq: null,
+    createdBy: 1,
+    softwareVersion: '1.0.0',
+    socketServer: 'staging',
+    socketPort: 4324,
+
+    weatherInterval: null, //BSR
+
+    cameraId: '', //ODR
+    modelName: '', //ODR
+    modelWidth: null, //ODR
+    modelHeight: null, //ODR
+    modelMaxResults: null, //ODR
+    modelThreshold: null, //ODR
+    modelObjectTypeId: null //ODR
+  }
+
+  updProps = [
+    'remarks'
+  ]
 
   // getSiteDetails(){
   //   this.apiser.getUser().subscribe((res:any)=>{
@@ -156,35 +127,32 @@ export class AddDeviceComponent implements OnInit {
   //   })
   // }
 
-  deviceData: any
-  addDeviceLength: any;
+  deviceData: any;
+  // addDeviceLength: any;
   getDeviceDetail() {
-    this.siteService.getDevice().subscribe((res: any) => {
+    this.siteService.getDeviceList().subscribe((res: any) => {
       for(let item of res) {
-        this.addDeviceLength = item.adsDevices.length;
         if(this.siteData.siteId == item.siteId) {
           this.deviceData = item.adsDevices;
+          // console.log(this.deviceData);
         }
-        // console.log(item)
       }
-      // console.log(res)
+      console.log('devices-res', res);
     })
   }
 
-  isShown: boolean = false; // hidden by default
 
+  isShown: boolean = false; // hidden by default
   toggleShowOnOff() {
     this.isShown = !this.isShown;
   }
 
-  closeAddAdditionalSite() {
+  closeAddDevice() {
     this.newItemEvent.emit(false);
   }
 
-  // deviceTypeIdList = [1, 2, 3, 4, 5];
+  /* drop-down methods */
 
-
-  // drop-down-service-methods
   deviceType: any;
   ongetDeviceType() {
     this.dropDown.getMetadata().subscribe((res: any) => {
@@ -207,15 +175,6 @@ export class AddDeviceComponent implements OnInit {
     })
   }
 
-  // deviceModeId: any;
-  // forDeviceMode() {
-  //   let x = this.deviceMode
-  //   for(let item of x) {
-  //     this.deviceModeId = item.id;
-  //     console.log(this.deviceModeId)
-  //   }
-  // }
-
   tempRange: any;
   onTempRange() {
     // this.dropDown.tempRange().subscribe((res: any) => {
@@ -230,7 +189,6 @@ export class AddDeviceComponent implements OnInit {
     // })
   }
 
-
   // selected = new FormControl();
   // addTab() {
   //   this.tabs.push('Device');
@@ -241,20 +199,42 @@ export class AddDeviceComponent implements OnInit {
   //   this.tabs.splice(index, 1);
   // }
 
+  @ViewChild('myCityDialog') cityDialog = {} as TemplateRef<any>;
+  currentItem: any;
+  openDialog(item: any, i: any) {
+    this.dialog.open(this.cityDialog);
+    this.currentItem = item;
 
-  // tabs: any[] = [];
-  responseData: any;
-  addNewDevice() {
+    // for(let item of this.deviceData) {
+
+    // }
+
+    this.siteService.getDevice("IVISIND1102DV1").subscribe((res:any) => {
+      console.log(res);
+    })
+    console.log(this.deviceData)
+  }
+
+  confirmEditRow() {
+
+
+    console.log("TO BE EDITED:: ", this.currentItem);
+  }
+
+  /* add device */
+
+  addDeviceDtl() {
     this.adInfo.siteId = this.siteData.siteId;
     if(this.addDevice.valid) {
       this.newItemEvent.emit(false);
       this.siteService.addDevice(this.adInfo).subscribe((res: any) => {
         window.location.reload();
         console.log(res);
-        // localStorage.setItem('tab_length', JSON.stringify(this.tabs.length));
       })
     }
-    console.log(this.adInfo);
+    console.log('addNewDevice', this.adInfo);
   }
+
+  updateDeviceDtl() {}
 
 }

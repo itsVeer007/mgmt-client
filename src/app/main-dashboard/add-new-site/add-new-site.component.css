@@ -231,36 +231,9 @@ p {
   margin-right: -50px;
 }
 
-/* common ng-deep */
-
-.mat-form-field-appearance-outline ::ng-deep .mat-form-field-outline {
-  top: 5px;
-  bottom: 5px;
-}
-
-.mat-form-field-appearance-outline ::ng-deep .mat-form-field-wrapper {
-  padding-bottom: 0.5em;
-}
-
-::ng-deep .mat-select-value {
-  position: relative;
-  bottom: 4px;
-}
-
-::ng-deep input.mat-input-element {
-  position: relative;
-  bottom: 4px;
-}
-
-::ng-deep .mat-form-field-outline {
-  background: #F8F8F8;
-}
-
 /* .mat-form-field-appearance-outline ::ng-deep .mat-form-field-flex{
   margin-top: -8px;
 } */
-
-
 
 /* only */
 ::ng-deep .mat-form-field {
@@ -278,5 +251,37 @@ p {
 
 ::ng-deep .mat-stroked-button {
   border: 1px solid #084982 !important;
+}
+
+
+
+/* common ng-deep */
+
+.mat-form-field-appearance-outline ::ng-deep .mat-form-field-outline {
+  top: 5px;
+  bottom: 5px;
+  background: #F8F8F8;
+}
+
+.mat-form-field-appearance-outline ::ng-deep .mat-form-field-wrapper {
+  padding-bottom: 0.5em;
+}
+
+::ng-deep .mat-select-value {
+  position: relative;
+  bottom: 4px;
+}
+
+::ng-deep input.mat-input-element {
+  position: relative;
+  bottom: 4px;
+}
+
+.mat-form-field-appearance-outline ::ng-deep .mat-form-field-subscript-wrapper {
+  padding: 0 5px;
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: #084982!important;
 }
 

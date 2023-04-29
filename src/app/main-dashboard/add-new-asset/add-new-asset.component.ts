@@ -59,13 +59,15 @@ export class AddNewAssetComponent implements OnInit {
     // siteId: null,
     file: null,
     asset: {
-      adsDeviceId: null,
+      deviceId: '',
       deviceModeId: null,
       playOrder: 1,
       createdBy: 1,
+      name: '',
+      status: 1
     },
-    // mimeType: null,
 
+    // mimeType: null,
     // assetName: '',
     // fromDate: '',
     // toDate: '',
@@ -77,10 +79,11 @@ export class AddNewAssetComponent implements OnInit {
     this.addAssetForm = this.fb.group({
       'siteId': new FormControl(''),
       'file': new FormControl('', Validators.required),
-      'adsDeviceId': new FormControl('', Validators.required),
+      'deviceId': new FormControl('', Validators.required),
       'deviceModeId': new FormControl('', Validators.required),
       'playOrder': new FormControl(''),
       'createdBy': new FormControl(''),
+      'name': new FormControl(''),
 
       // 'mimeType': new FormControl(''),
       // 'assetName': new FormControl(''),
@@ -137,6 +140,7 @@ export class AddNewAssetComponent implements OnInit {
 
 
   /* Metadata API */
+
   deviceType: any;
   ongetDeviceType() {
     this.dropDown.getMetadata().subscribe((res: any) => {
@@ -203,6 +207,7 @@ export class AddNewAssetComponent implements OnInit {
   /* Add Asset */
 
   submit: boolean = false;
+  x: any
   addNewAsset() {
     this.submit = true;
     console.log('assetData', this.assetData);
@@ -221,7 +226,10 @@ export class AddNewAssetComponent implements OnInit {
 
         console.log('addAsset', res);
       }, (err) => {
-        this.alertSer.error(err.error.message);
+        // this.alertSer.error(err.error.message);
+        if(err.statusCode == 404) {
+          console.log(err.message)
+        }
       });
     }
   }

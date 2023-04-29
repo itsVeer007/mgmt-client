@@ -56,7 +56,7 @@ export class SitesComponent implements OnInit {
   searchText: any;
   totalCount: any;
   active: any;
-  x: any
+  // x: any
 
   inActive: any[] = [];
   onHold: any[] = [];
@@ -69,12 +69,15 @@ export class SitesComponent implements OnInit {
   showIconEdit1: boolean = false;
   showIconDelete1: boolean = false;
 
+  siteData: any
+  deviceLength: any;
   ngOnInit(): void {
     this.onGetSites()
     this.ongetDeviceMode();
     // this.get(this.tableData);
-    // this.x = (localStorage.getItem('tab_length')!)
+    this.siteData = JSON.parse(localStorage.getItem('device_temp')!);
   }
+
 
   onGetSites() {
     this.showLoader = true;
@@ -84,6 +87,7 @@ export class SitesComponent implements OnInit {
       this.totalCount = res.counts;
       console.log(res);
 
+      //table count
       for(let item of res.counts) {
         if(item.title == "totalCounts") {
           this.totalCount = item.value

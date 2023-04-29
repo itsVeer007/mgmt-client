@@ -8,10 +8,11 @@ export class DropDownService {
 
   metadata = 'http://usstaging.ivisecurity.com:777/common/getValuesListByType_1_0';
 
+  new = 'http://usstaging.ivisecurity.com:777/common';
+
   constructor(private http: HttpClient) { }
 
   getMetadata() {
-    let url = this.metadata;
     return this.http.get(this.metadata);
   }
 
@@ -53,6 +54,11 @@ export class DropDownService {
   weatherApi() {
     let url = this.metadata + 'Weather_API_Key'
     return this.http.get(url);
+  }
+
+  add(payload: any) {
+    let url = this.new + '/addMetadataKeyValue_1_0'
+    return this.http.post(url, payload);
   }
 
 }

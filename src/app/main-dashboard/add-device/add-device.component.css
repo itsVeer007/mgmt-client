@@ -19,7 +19,7 @@
 
 
 .added-device {
-  padding: 10px 85px;
+  padding: 0 50px;
 }
 
 .device-title{
@@ -145,10 +145,6 @@
   background-color: #084982;
 }
 
-::ng-deep .mat-tab-header{
-  width: 800px;
-}
-
 .mat-form-field-appearance-outline ::ng-deep .mat-form-field-subscript-wrapper {
   padding: 0 5px;
 }
@@ -177,4 +173,8 @@
 
 ::ng-deep .mat-tab-body-content {
   overflow-x: hidden !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: #084982!important;
 }

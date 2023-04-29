@@ -5,10 +5,11 @@
     <div class="users-header">
       <p>List of Assets - <span>{{ assetTable.length }}</span></p>
     </div>
+
     <div style="position: relative">
-      <a class="pointer" (click)="showAddAsset()">
-        <img src="assets/icons/add.svg" alt="" />
-      </a>
+      <button style="background: transparent; border: none;" (click)="showAddAsset()">
+        <img src="assets/icons/add.svg" alt="">
+      </button>
       <a class="pointer">
         <img src="assets/icons/sites-img.svg" alt=""
           style="border-radius: 24px; box-shadow: 7px 7px 7px 0px #f3f3f3; margin-top: -9px;">
@@ -165,7 +166,7 @@
           </td>
 
           <td>
-            <p>{{ item.siteId + ' ' + '--'}}</p>
+            <p>{{ inputToAsset + ' ' + '--'}}</p>
           </td>
 
           <!-- <td>
@@ -173,7 +174,7 @@
           </td> -->
 
           <td>
-            <p>{{ item.adsDeviceId + ' ' + '--'}}</p>
+            <p>{{ item.deviceId + ' ' + '--'}}</p>
           </td>
 
           <!-- <td>
@@ -212,7 +213,7 @@
 
           <td>
             <p [style.color]="item.status == 'Added' ? '#00A44C' : item.status == 'Sync' ? '#F5B400' : item.status == 'Removed' ? '#fa500f' : '#00A44C'">
-              <span style="display: inline-flex; width: 50px;">{{ item.status }}</span>
+              <span style="display: inline-flex; width: 50px;">{{ item.status == 1 ? 'Added' : 'Removed' }}</span>
               <a class="pointer" [matMenuTriggerFor]="menu" #menuTrigger>
                 <img src="assets/icons/edit.svg"  width="13">
               </a>
@@ -227,10 +228,6 @@
                 </mat-form-field>
                 <!-- <button mat-raised-button color="primary">Edit Status</button> -->
               </mat-menu>
-
-              <!-- <mat-dialog-content>
-                This is a dialog
-              </mat-dialog-content> -->
             </p>
           </td>
 
@@ -302,38 +299,38 @@
   <div class="card">
     <div class="card-header d-flex justify-content-between">
       <p>Edit</p>
-      <img src="assets/icons/close_form.svg" width="40" height="40" (click)="closeEditPopup()" />
+      <img src="assets/icons/close_form.svg" width="40" height="40" (click)="closeEditPopup()">
     </div>
     <div class="card-body text-center">
       <ul *ngIf="currentItem">
         <li>
           <h6 style="width: 110px">Site Id</h6>
           <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.siteId" />
+            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.id">
           </div>
         </li>
         <li>
-          <h6 style="width: 110px">Asset Id</h6>
+          <h6 style="width: 110px">Device mode</h6>
           <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.id" />
+            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.deviceModeId">
           </div>
         </li>
         <li>
-          <h6 style="width: 110px">Asset Name</h6>
+          <h6 style="width: 110px">From date</h6>
           <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.asset_name" />
+            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.fromDate">
           </div>
         </li>
         <li>
-          <h6 style="width: 110px">Asset Type</h6>
+          <h6 style="width: 110px">To date</h6>
           <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.mimetype" />
+            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.toDate">
           </div>
         </li>
         <li>
           <h6 style="width: 110px">Status</h6>
           <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.status" />
+            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.status">
           </div>
         </li>
       </ul>
@@ -397,8 +394,8 @@
   </div>
   <!-- </div> -->
 </div>
-<!-- <app-ad-info></app-ad-info> -->
 
-<div style="position: fixed; top: 0" *ngIf="showAsset">
+
+<div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showAsset">
   <app-add-new-asset [data]="assetTable"  (newItemEvent)="closenow($event, 'asset')"></app-add-new-asset>
 </div>
