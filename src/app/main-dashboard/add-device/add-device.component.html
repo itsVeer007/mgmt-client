@@ -357,6 +357,10 @@
               <p>Edit</p>
             </div>
 
+            <div>
+              <h1>{{currentItem.deviceId}}</h1>
+            </div>
+
             <div *ngIf="currentItem">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Call Frequency</mat-label>
@@ -382,7 +386,7 @@
                 Close
               </button> -->
               <div mat-dialog-actions>
-                <button mat-button mat-dialog-close>Update</button>
+                <button mat-button mat-dialog-close (click)="updateDeviceDtl(currentItem.deviceId)">Update</button>
               </div>
               <div mat-dialog-actions>
                 <button mat-button mat-dialog-close>Close</button>

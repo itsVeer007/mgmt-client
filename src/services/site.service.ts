@@ -40,16 +40,16 @@ export class SiteService {
     return this.http.post(url, payload);
   }
 
-  getDevice(deviceId: string) {
+  getDevice(deviceId: any) {
     var payload = {
-      "deviceId": deviceId,
+      "siteId": deviceId
     }
 
     let url = this.deviceUrl + '/listDeviceAdsInfo_1_0';
-    return this.http.post(url, payload);
+    return this.http.get(url, {params: payload});
   }
 
-  updateDevice(payload: any, devId: any) {
+  updateDevice(devId: any) {
     let data = {
       "deviceId": devId
     }

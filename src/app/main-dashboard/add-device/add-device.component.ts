@@ -201,23 +201,30 @@ export class AddDeviceComponent implements OnInit {
 
   @ViewChild('myCityDialog') cityDialog = {} as TemplateRef<any>;
   currentItem: any;
+  newdeviceId: any
   openDialog(item: any, i: any) {
     this.dialog.open(this.cityDialog);
     this.currentItem = item;
 
+    // let yy;
     // for(let item of this.deviceData) {
-
+    //     yy = item;
     // }
+    // console.log(yy);
 
-    this.siteService.getDevice("IVISIND1102DV1").subscribe((res:any) => {
-      console.log(res);
-    })
-    console.log(this.deviceData)
+    // this.siteService.getDevice(this.newdeviceId).subscribe((res: any) => {
+    //   console.log(res);
+    //     let x = res.flatMap((item: any) => item.adsDevices);
+    //     for(let item of x) {
+    //       this.newdeviceId = item;
+    //     }
+    //     console.log(this.newdeviceId)
+    // })
+
+    // console.log(this.deviceData);
   }
 
   confirmEditRow() {
-
-
     console.log("TO BE EDITED:: ", this.currentItem);
   }
 
@@ -235,6 +242,17 @@ export class AddDeviceComponent implements OnInit {
     console.log('addNewDevice', this.adInfo);
   }
 
-  updateDeviceDtl() {}
+  updateDeviceDtl(id: any) {
+    let z = this.deviceData.find((item: any) => {
+      return item.deviceId == id;
+    })
+    this.newdeviceId = id;
+    console.log(z)
+
+    // this.siteService.updateDevice().subscribe((res: any) => {
+    //   console.log(res)
+    // })
+  }
+
 
 }
