@@ -109,10 +109,6 @@ export class AddDeviceComponent implements OnInit {
     modelObjectTypeId: null //ODR
   }
 
-  updProps = [
-    'remarks'
-  ]
-
   // getSiteDetails(){
   //   this.apiser.getUser().subscribe((res:any)=>{
   //     // console.log(res)
@@ -128,13 +124,12 @@ export class AddDeviceComponent implements OnInit {
   // }
 
   deviceData: any;
-  // addDeviceLength: any;
   getDeviceDetail() {
     this.siteService.getDeviceList().subscribe((res: any) => {
       for(let item of res) {
         if(this.siteData.siteId == item.siteId) {
           this.deviceData = item.adsDevices;
-          // console.log(this.deviceData);
+          console.log('deviceData', this.deviceData);
         }
       }
       console.log('devices-res', res);
@@ -200,32 +195,58 @@ export class AddDeviceComponent implements OnInit {
   // }
 
   @ViewChild('myCityDialog') cityDialog = {} as TemplateRef<any>;
+
   currentItem: any;
-  newdeviceId: any
-  openDialog(item: any, i: any) {
+  newdeviceId: any;
+  // deviceInfo: any;
+  openDialog(item: any, i: any, id: any) {
     this.dialog.open(this.cityDialog);
     this.currentItem = item;
 
-    // let yy;
-    // for(let item of this.deviceData) {
-    //     yy = item;
-    // }
-    // console.log(yy);
-
-    // this.siteService.getDevice(this.newdeviceId).subscribe((res: any) => {
-    //   console.log(res);
-    //     let x = res.flatMap((item: any) => item.adsDevices);
-    //     for(let item of x) {
-    //       this.newdeviceId = item;
-    //     }
-    //     console.log(this.newdeviceId)
+    // let filterDevice = this.deviceData.find((item: any) => {
+    //   return item.deviceId == id;
     // })
+    // this.deviceInfo = filterDevice;
 
-    // console.log(this.deviceData);
+    this.newdeviceId = id;
+    console.log(this.currentItem);
+  }
+
+  updateDeviceDtl() {
+
+    let originalObject: any = {
+      "deviceId": this.newdeviceId,
+      "deviceModeId": this.currentItem.deviceModeId,
+      "modifiedBy": 1,
+      "remarks": this.currentItem.remarks,
+      "adsHours": this.adInfo.adsHours
+    }
+
+    let updatedObject: any = {
+      "deviceId": this.newdeviceId,
+      "deviceModeId": this.currentItem.deviceModeId,
+      "modifiedBy": 1,
+      "remarks": this.currentItem.remarks,
+      "adsHours": this.currentItem.adsHours
+    };
+
+    let changedKeys: any[] = [];
+
+    for (let key in updatedObject) {
+      if (updatedObject.hasOwnProperty(key) && updatedObject[key] !== originalObject[key]) {
+        changedKeys.push(key);
+      }
+    }
+
+    console.log(changedKeys);
+
+    this.siteService.updateDevice({adsDevice: originalObject, updProps: changedKeys}).subscribe((res: any) => {
+      console.log(res);
+    })
   }
 
   confirmEditRow() {
-    console.log("TO BE EDITED:: ", this.currentItem);
+    console.log(this.currentItem);
   }
 
   /* add device */
@@ -240,18 +261,6 @@ export class AddDeviceComponent implements OnInit {
       })
     }
     console.log('addNewDevice', this.adInfo);
-  }
-
-  updateDeviceDtl(id: any) {
-    let z = this.deviceData.find((item: any) => {
-      return item.deviceId == id;
-    })
-    this.newdeviceId = id;
-    console.log(z)
-
-    // this.siteService.updateDevice().subscribe((res: any) => {
-    //   console.log(res)
-    // })
   }
 
 

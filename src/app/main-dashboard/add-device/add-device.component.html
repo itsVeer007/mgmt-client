@@ -311,7 +311,7 @@
 
         <mat-tab class="mat-tab" *ngFor="let item of deviceData; let i=index" [label]="siteData?.centralUnitId">
           <div class="d-flex justify-content-end">
-            <button class="m-2" mat-button (click)="openDialog(item, i)">Edit</button>
+            <button class="m-2" mat-button (click)="openDialog(item, i, item.deviceId)">Edit</button>
           </div>
 
           <div class="row added-device w-100">
@@ -386,7 +386,7 @@
                 Close
               </button> -->
               <div mat-dialog-actions>
-                <button mat-button mat-dialog-close (click)="updateDeviceDtl(currentItem.deviceId)">Update</button>
+                <button mat-button mat-dialog-close (click)="updateDeviceDtl()">Update</button>
               </div>
               <div mat-dialog-actions>
                 <button mat-button mat-dialog-close>Close</button>

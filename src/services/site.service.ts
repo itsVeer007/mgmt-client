@@ -49,13 +49,20 @@ export class SiteService {
     return this.http.get(url, {params: payload});
   }
 
-  updateDevice(devId: any) {
-    let data = {
-      "deviceId": devId
-    }
+  updateDevice(payload: any) {
+    // let adsDevice = {
+    //   "deviceId": devId,
+    //   "deviceModeId": payload.deviceModeId,
+    //   "modifiedBy": 1,
+    //   "remarks": payload.remarks
+    // }
+
+    // let updProps = [
+    //   "remarks"
+    // ]
 
     let url = this.deviceUrl + '/updateDeviceAdsInfo_1_0';
-    return this.http.put(url, data);
+    return this.http.put(url, payload);
   }
 
 }
