@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { VjsPlayerService } from './vjs-player.service';
+import { DeviceService } from './device.service';
 
-describe('VjsPlayerService', () => {
-  let service: VjsPlayerService;
+describe('DeviceService', () => {
+  let service: DeviceService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(VjsPlayerService);
+    service = TestBed.inject(DeviceService);
   });
 
   it('should be created', () => {

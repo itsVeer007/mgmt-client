@@ -9,23 +9,37 @@ export class AssetService {
 
   baseUrl = 'http://usstaging.ivisecurity.com:777/proximityads';
 
-  newUrl = 'http://192.168.0.115:8080/listOfInventories';
+  // baseUrl = 'http://192.168.0.135:8080';
 
   constructor(private http: HttpClient, private date: DatePipe) { }
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'multipart/form-data'
-    })
-  }
-
-  get() {
-    return this.http.get(this.newUrl);
-  }
+  // httpOptions = {
+  //   headers: new HttpHeaders({
+  //     'Content-Type': 'multipart/form-data'
+  //   })
+  // }
 
   getAssets() {
     let url = this.baseUrl + "/listAssets_1_0";
     return this.http.get(url);
+  }
+
+  getAsset() {
+    let url = this.baseUrl + "/listAssets_1_0";
+
+    const myObj = { deviceId: 'IVISIND1102DV3', siteId: 1102, active: 0 };
+
+    // const body = JSON.stringify(myObj);
+
+    // const httpOptions = {
+    //   headers: new HttpHeaders({
+    //     "Content-Type": "application/json",
+    //     "Accept": "application/json"
+    //   })
+    // };
+
+
+    return this.http.get(url, { params: myObj });
   }
 
 
@@ -33,23 +47,40 @@ export class AssetService {
     let formData: any = new FormData();
 
     // formData.append('siteId', payload.siteId);
-    formData.append('file', file  );
+    formData.append('file', file);
     //formData.append('mimeType', payload.mimeType);
 
-    let test = {
+    let assetData = {
       'deviceId': payload.asset.deviceId,
       'deviceModeId': payload.asset.deviceModeId,
       'playOrder': payload.asset.playOrder,
       'createdBy': payload.asset.createdBy,
       'name': payload.asset.name,
-      'status': payload.asset.status
+      'status': payload.asset.status,
+      'splRuleId': 0
     }
 
-    const blobOverrides = new Blob([JSON.stringify(test)], {
+    const ass = new Blob([JSON.stringify(assetData)], {
       type: 'application/json',
     });
 
-    formData.append('asset', blobOverrides);
+    formData.append('asset', ass);
+
+    let paramData = {
+      'adsTimeId': payload.nameParams.adsTimeId,
+      'adsTempId': payload.nameParams.adsTempId,
+      'adsMaleCount': payload.nameParams.adsMaleCount,
+      'adsFemaleCount': payload.nameParams.adsFemaleCount,
+      'adsKidsCount': payload.nameParams.adsKidsCount,
+      'adsYouthCount': payload.nameParams.adsYouthCount,
+      'adsEldersCount': payload.nameParams.adsEldersCount
+    }
+
+    const param = new Blob([JSON.stringify(paramData)], {
+      type: 'application/json',
+    });
+
+    formData.append('nameParams', param);
 
 
     // formData.append('adsDeviceId', payload.adsDeviceId);
@@ -68,9 +99,9 @@ export class AssetService {
     return this.http.post(url, formData);
   }
 
-  createDeviceAdd(payload: any) {
-    let url = this.baseUrl + '/createDeviceAdsInfo_1_0';
-    return this.http.post(url, payload)
-  }
+  // createDeviceAdd(payload: any) {
+  //   let url = this.baseUrl + '/createDeviceAdsInfo_1_0';
+  //   return this.http.post(url, payload)
+  // }
 
 }

@@ -3,8 +3,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AssetService } from 'src/services/asset.service';
-import { DropDownService } from 'src/services/drop-down.service';
 import { AlertService } from 'src/services/alert.service';
+import { SiteService } from 'src/services/site.service';
+import { MetadataService } from 'src/services/metadata.service';
+import { DeviceService } from 'src/services/device.service';
 
 @Component({
   selector: 'app-add-new-asset',
@@ -31,7 +33,7 @@ import { AlertService } from 'src/services/alert.service';
 })
 export class AddNewAssetComponent implements OnInit {
 
-  @Input() data: any;
+  // @Input() data: any;
   @Output() newItemEvent = new EventEmitter<boolean>();
   currentDate = new Date();
 
@@ -50,7 +52,15 @@ export class AddNewAssetComponent implements OnInit {
   searchText: any;
   // loading: boolean = false;
 
-  constructor(private router: Router, private fb: FormBuilder, private assetService: AssetService, private dropDown: DropDownService, private alertSer: AlertService) { }
+  constructor(
+    private router: Router,
+    private fb: FormBuilder,
+    private assetService: AssetService,
+    private dropDown: MetadataService,
+    private alertSer: AlertService,
+    private siteService: SiteService,
+    private devService: DeviceService
+    ) { }
 
 
   /* Asset Object */
@@ -61,11 +71,22 @@ export class AddNewAssetComponent implements OnInit {
     asset: {
       deviceId: '',
       deviceModeId: null,
-      playOrder: 1,
-      createdBy: 1,
       name: '',
-      status: 1
+      playOrder: 1,
+      status: 1,
+      createdBy: 1,
+      splRuleId: 0
     },
+
+    nameParams: {
+      adsTimeId: 1,
+      adsTempId: 1,
+      adsMaleCount: 1,
+      adsFemaleCount: 1,
+      adsKidsCount: 1,
+      adsYouthCount: 1,
+      adsEldersCount: 1
+    }
 
     // mimeType: null,
     // assetName: '',
@@ -99,16 +120,39 @@ export class AddNewAssetComponent implements OnInit {
       // 'skip_asset_check': new FormControl(1),
     });
 
-    this.ongetDeviceType();
-    this.ongetDeviceMode()
+    this.onMetadataChange()
     this.getId();
+    this.getRes();
   };
+
+  data: any;
+  siteIdList: any;
+  deviceIdList: any;
+  // x: any;
+
+  getRes() {
+    this.siteService.getSites().subscribe((res: any) => {
+      // console.log(res);
+      this.siteIdList = res.sitesList;
+    })
+
+
+    this.devService.getDeviceList().subscribe((res: any) => {
+      const assets = res.flatMap((item: any) => item.adsDevices);
+      console.log(assets);
+
+      // for(let item of assets) {
+      //   this.x = item.siteId;
+      // }
+      this.deviceIdList = assets
+    })
+  }
 
 
   /* File Upload Method */
+
   selectedFile: any;
   selectedFiles:  Array<any> = [];
-
   onFileSelected(event: any) {
     if(typeof(event) == 'object') {
       this.selectedFile = event.target.files[0] ?? null;
@@ -116,7 +160,6 @@ export class AddNewAssetComponent implements OnInit {
       console.log(this.selectedFile);
     }
   }
-
 
   deleteFile(el : any) {
     this.selectedFiles.forEach((value, index) => {
@@ -127,6 +170,7 @@ export class AddNewAssetComponent implements OnInit {
       }
     })
   }
+
 
   closeForm() {
     this.newItemEvent.emit(false);
@@ -139,55 +183,59 @@ export class AddNewAssetComponent implements OnInit {
   // }
 
 
-  /* Metadata API */
+  /* metadata methods */
 
   deviceType: any;
-  ongetDeviceType() {
+  deviceMode: any;
+  // workingDay: any;
+  // tempRange: any;
+  // ageRange: any;
+  onMetadataChange() {
     this.dropDown.getMetadata().subscribe((res: any) => {
       for(let item of res) {
         if(item.type == 'Device_Type') {
           this.deviceType = item.metadata;
         }
-      }
-      // console.log(res);
-    })
-  }
-
-  deviceMode: any;
-  ongetDeviceMode() {
-    this.dropDown.getMetadata().subscribe((res: any) => {
-      for(let item of res) {
-        if(item.type == 'Device_Mode') {
+        else if(item.type == 'Device_Mode') {
           this.deviceMode = item.metadata;
         }
+        // else if(item.type == 'Working_Day') {
+        //   this.workingDay = item.metadata;
+        // }
+        // else if(item.type == 'Ads_Temp_Range') {
+        //   this.tempRange = item.metadata;
+        // }
+        // else if(item.type == 'Ads_Age_Range') {
+        //   this.ageRange = item.metadata;
+        // }
       }
-      // console.log(res);
     })
   }
 
 
   /* To get Id's of site */
 
-  siteIdList: any
-  deviceIdList: any
+  // siteIdList: any
+  // deviceIdList: any
   getId() {
-    this.siteIdList = this.data.reduce((acc: any, current: any) => {
-      const x = acc.find((item: any) => item.siteId === current.siteId);
-      if (!x) {
-        return acc.concat([current]);
-      } else {
-        return acc;
-      }
-    }, []);
+    // this.siteIdList = this.data.reduce((acc: any, current: any) => {
+    //   const x = acc.find((item: any) => item.siteId == current.siteId);
+    //   if (!x) {
+    //     return acc.concat([current]);
+    //   } else {
+    //     return acc;
+    //   }
+    // }, []);
+    // console.log(this.data)
 
-    this.deviceIdList = this.data.reduce((acc: any, current: any) => {
-      const x = acc.find((item: any) => item.siteId === current.siteId);
-      if (!x) {
-        return acc.concat([current]);
-      } else {
-        return acc;
-      }
-    }, []);
+    // this.deviceIdList = this.data.reduce((acc: any, current: any) => {
+    //   const x = acc.find((item: any) => item.siteId == current.siteId);
+    //   if (!x) {
+    //     return acc.concat([current]);
+    //   } else {
+    //     return acc;
+    //   }
+    // }, []);
   }
 
 
@@ -207,7 +255,7 @@ export class AddNewAssetComponent implements OnInit {
   /* Add Asset */
 
   submit: boolean = false;
-  x: any
+  // x: any
   addNewAsset() {
     this.submit = true;
     console.log('assetData', this.assetData);

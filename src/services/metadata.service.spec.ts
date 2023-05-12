@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DropDownService } from './drop-down.service';
+import { MetadataService } from './metadata.service';
 
-describe('DropDownService', () => {
-  let service: DropDownService;
+describe('MetadataService', () => {
+  let service: MetadataService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(DropDownService);
+    service = TestBed.inject(MetadataService);
   });
 
   it('should be created', () => {

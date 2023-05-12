@@ -6,17 +6,16 @@
       <p>List of Assets - <span>{{ assetTable.length }}</span></p>
     </div>
 
-    <div style="position: relative">
-      <button style="background: transparent; border: none;" (click)="showAddAsset()">
-        <img src="assets/icons/add.svg" alt="">
-      </button>
+    <div>
       <a class="pointer">
         <img src="assets/icons/sites-img.svg" alt=""
-          style="border-radius: 24px; box-shadow: 7px 7px 7px 0px #f3f3f3; margin-top: -9px;">
+          style="border-radius: 24px; box-shadow: 7px 7px 7px 0px #f3f3f3">
       </a>
     </div>
   </div>
   <!-- /header -->
+
+  <!-- <video class="video-js" data-setup=""></video> -->
 
   <!-- status -->
   <div class="row">
@@ -41,6 +40,14 @@
       <div class="mx-2">
         <div class="status">Synced</div>
         <div class="count">{{ synced.length }}</div>
+      </div>
+    </div>
+
+    <div class="col-lg-1 col-md-1 d-flex justify-content-start">
+      <div class="vl-yellow"></div>
+      <div class="mx-2">
+        <div class="status">Pending</div>
+        <div class="count">{{ pending.length }}</div>
       </div>
     </div>
   </div>
@@ -105,177 +112,214 @@
         Delete
       </div>
 
-      <a class="mx-2" (click)="viewBySelectedOne()"><img src="assets/icons/view.svg" (mouseenter)="showIconView = true" (mouseleave)="showIconView = false" /></a>
-      <a class="mx-2" (click)="editBySelectedOne()"><img src="assets/icons/edit.svg" (mouseenter)="showIconEdit = true" (mouseleave)="showIconEdit = false" /></a>
-      <a class="mx-2" (click)="deleteSelected()"><img src="assets/icons/delete.svg" (mouseenter)="showIconDelete = true" (mouseleave)="showIconDelete = false" /></a>
+      <a class="mx-2" (click)="viewBySelectedOne()"><img src="assets/icons/view.svg" (mouseenter)="showIconView=true" (mouseleave)="showIconView=false"></a>
+      <a class="mx-2" (click)="editBySelectedOne()"><img src="assets/icons/edit.svg" (mouseenter)="showIconEdit=true" (mouseleave)="showIconEdit=false"></a>
+      <a class="mx-2" (click)="deleteSelected()"><img src="assets/icons/delete.svg" (mouseenter)="showIconDelete=true" (mouseleave)="showIconDelete=false"></a>
     </div>
   </div>
   <!-- /form -->
 
-  <!-- table -->
-  <div class="table-resp">
-    <table class="table" id="mytable">
-      <thead>
-        <tr class="form1">
-          <th>
-            <input type="checkbox" class="form-check-input" [(ngModel)]="selectedAll" (change)="selectAll()" id="allcheck"
-                style="
-                    background-color: #00000000;
-                    border-color: #fff;
-                    margin-left: 10px;
-                  " />
-            </th>
-            <th (click)="sort('siteId')">Id</th>
-            <th (click)="sort('customerName')">Name</th>
-            <th  (click)="sort('siteId')">
-              <div class="d-flex align-items-center">
-                Site details<img class="pointer ms-1" (mouseover)="showDetail()" (mouseout)="hideDetail()" src="assets/icons/info_white.svg">
-              </div>
-              <div class="info" *ngIf="info">Device Id + Device Name</div>
-            </th>
-            <th (click)="sort('siteId')">
-              <div class="d-flex align-items-center">
-                Device details<img class="pointer ms-1" src="assets/icons/info_white.svg">
-              </div>
-            </th>
-            <th (click)="sort('address')">Device mode</th>
-            <!-- <th (click)="sort('address')">Mime Type</th> -->
-            <th (click)="sort('address')">Duration</th>
-            <th (click)="sort('address')">Start date</th>
-            <th (click)="sort('address')">End date</th>
-            <!-- <th (click)="sort('address')">Details</th> -->
-            <th (click)="sort('status')">Status</th>
-            <th (click)="sort('status')" class="text-center">Ads details</th>
-            <th (click)="sort('status')" class="text-center">Play</th>
-            <th></th>
-        </tr>
-      </thead>
+  <!-- <div class="example-action-buttons">
+    <button mat-button (click)="accordion.openAll()">Expand All</button>
+    <button mat-button (click)="accordion.closeAll()">Collapse All</button>
+  </div> -->
 
-      <tbody>
-        <tr *ngFor="let item of assetTable | search: searchText; let i = index">
-          <td>
-            <input type="checkbox" class="form-check-input" [(ngModel)]="item.selected" (change)="checkIfAllSelected(); deleteMultiRecords(item, i, $event); ViewByCheckbox(item, i, $event); EditByCheckbox(item, i, $event)" id="singleCheck">
-          </td>
+  <div>
+    <mat-accordion class="example-headers-align">
+      <mat-expansion-panel *ngFor="let item of siteIdToTable">
+        <mat-expansion-panel-header (click)="getDevices(item)">
+          <mat-panel-title>
+            {{item}}
+          </mat-panel-title>
+          <!-- <mat-panel-description>
+            {{item}}
+          </mat-panel-description> -->
+        </mat-expansion-panel-header>
 
-          <td>
-            <p>{{ item.id }}</p>
-          </td>
+        <mat-accordion>
+          <mat-expansion-panel *ngFor="let item of siteIds[0]">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{item.deviceId}}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+                    <!-- table -->
+        <div class="table-resp extra w-100">
+          <table class="table" id="mytable">
+            <thead>
+              <tr class="form1">
+                <th>
+                  <input type="checkbox" class="form-check-input" [(ngModel)]="selectedAll" (change)="selectAll()" id="allcheck"
+                    style="background-color: #00000000; border-color: #fff; margin-left: 10px;">
+                </th>
+                <th (click)="sort('siteId')">Id</th>
+                <th (click)="sort('customerName')">Name</th>
+                <!-- <th  (click)="sort('siteId')">
+                  <div class="d-flex align-items-center">
+                    Site details<img class="pointer ms-1" (mouseover)="showDetail()" (mouseout)="hideDetail()" src="assets/icons/info_white.svg">
+                  </div>
+                  <div class="info" *ngIf="info">Device Id + Device Name</div>
+                </th> -->
+                <th (click)="sort('siteId')">
+                  <div class="d-flex align-items-center">
+                    Device details<img class="pointer ms-1" src="assets/icons/info_white.svg">
+                  </div>
+                </th>
+                <th (click)="sort('address')">Device mode</th>
+                <!-- <th (click)="sort('address')">Mime Type</th> -->
+                <th (click)="sort('address')">Duration</th>
+                <th (click)="sort('address')">Start date</th>
+                <th (click)="sort('address')">End date</th>
+                <!-- <th (click)="sort('address')">Details</th> -->
+                <th (click)="sort('status')">Status</th>
+                <th (click)="sort('status')">Add</th>
+                <th (click)="sort('status')" class="text-center">Ads details</th>
+                <th (click)="sort('status')" class="text-center">Play</th>
+                <th></th>
+              </tr>
+            </thead>
 
-          <td>
-            <p>{{ item.asset_name ? item.asset_name : '--' }}</p>
-          </td>
+            <tbody>
+              <tr *ngFor="let item of assetTable | search: searchText; let i=index;">
+                <td>
+                  <input type="checkbox" class="form-check-input" [(ngModel)]="item.selected" (change)="checkIfAllSelected(); deleteMultiRecords(item, i, $event); ViewByCheckbox(item, i, $event); EditByCheckbox(item, i, $event)" id="singleCheck">
+                </td>
 
-          <td>
-            <p>{{ inputToAsset + ' ' + '--'}}</p>
-          </td>
+                <td>
+                  <p>{{ item.id }}</p>
+                </td>
 
-          <!-- <td>
-            <p>{{ item.siteId }}</p>
-          </td> -->
+                <td>
+                  <p>{{ item.asset_name ? item.asset_name : '--' }}</p>
+                </td>
 
-          <td>
-            <p>{{ item.deviceId + ' ' + '--'}}</p>
-          </td>
+                <!-- <td>
+                  <p>{{ siteIdList + ' ' + '--'}}</p>
+                </td> -->
 
-          <!-- <td>
-            <p>--</p>
-          </td> -->
+                <td>
+                  <p>{{ item.deviceId + ' ' + '--'}}</p>
+                </td>
 
-          <td>
-            <p *ngIf="item.deviceModeId == 1">BS</p>
-            <p *ngIf="item.deviceModeId == 2">BSR</p>
-            <p *ngIf="item.deviceModeId == 3">ODR</p>
-            <!-- <p>{{item.deviceModeId}}</p> -->
-          </td>
+                <td>
+                  <p *ngIf="item.deviceModeId == 1">BS</p>
+                  <p *ngIf="item.deviceModeId == 2">BSR</p>
+                  <p *ngIf="item.deviceModeId == 3">ODR</p>
+                  <!-- <p>{{item.deviceModeId}}</p> -->
+                </td>
 
-          <!-- <td>
-              <p>{{ item.mimetype }}</p>
-            </td> -->
+                <!-- <td>
+                    <p>{{ item.mimetype }}</p>
+                  </td> -->
 
-          <td>
-            <p>{{item.duration}}</p>
-          </td>
+                <td>
+                  <p>{{item.duration}}</p>
+                </td>
 
-          <td>
-            <p>{{item.start_date ? item.start_date : currentDateTime}}</p>
-          </td>
+                <td>
+                  <p>{{item.start_date ? item.start_date : currentDateTime}}</p>
+                </td>
 
-          <td>
-            <p>{{item.end_date ? item.end_date : endDateTime}}</p>
-          </td>
+                <td>
+                  <p>{{item.end_date ? item.end_date : endDateTime}}</p>
+                </td>
 
-          <!-- <td>
-            <p>{{item.description}}</p>
-          </td> -->
-          <!-- <td>
-              <button class="bg-white" style="color: #084982">{{ item.address }}</button>
-            </td> -->
+                <!-- <td>
+                  <p>{{item.description}}</p>
+                </td> -->
+                <!-- <td>
+                    <button class="bg-white" style="color: #084982">{{ item.address }}</button>
+                  </td> -->
 
-          <td>
-            <p [style.color]="item.status == 'Added' ? '#00A44C' : item.status == 'Sync' ? '#F5B400' : item.status == 'Removed' ? '#fa500f' : '#00A44C'">
-              <span style="display: inline-flex; width: 50px;">{{ item.status == 1 ? 'Added' : 'Removed' }}</span>
-              <a class="pointer" [matMenuTriggerFor]="menu" #menuTrigger>
-                <img src="assets/icons/edit.svg"  width="13">
-              </a>
-              <!-- <button mat-button color="primary" [matMenuTriggerFor]="menu" #menuTrigger>Edit</button> -->
-              <mat-menu #menu="matMenu">
-                <mat-form-field appearance="outline" class="w-100">
-                  <mat-label>Edit Status</mat-label>
-                  <mat-select>
-                    <mat-option>SentToController</mat-option>
-                    <mat-option>Synced</mat-option>
-                  </mat-select>
-                </mat-form-field>
-                <!-- <button mat-raised-button color="primary">Edit Status</button> -->
-              </mat-menu>
-            </p>
-          </td>
+                <td>
+                  <p [style.color]="item.status == 1 ? '#F5B400' : item.status == 2 ? '#00A44C' : item.status == 5 ? '#fa500f' : '#00A44C'">
 
-          <td class="text-center">
-            <a class="pointer" (click)="openDialog()">
-              <img style="color: #bdb8b8;" src="assets/icons/live_tv.svg" width="20" height="20" />
-            </a>
-          </td>
+                    <span class="d-flex justify-content-between">
+                      <span>
+                        {{ item.status == 1 ? "Pending": item.status == 2 ? "Added" : item.status == 3 ? '' : item.status == 4 ? "Synced" : item.status == 5 ? "Removed" : '--'}}
+                      </span>
+                      <a class="pointer" [matMenuTriggerFor]="menu" #menuTrigger>
+                        <img src="assets/icons/edit.svg"  width="13">
+                      </a>
+                    </span>
 
-          <td class="text-center">
-            <a class="pointer" [href]="item.url" target="_blank">
-              <img style="color: #bdb8b8;" src="assets/icons/play.svg" width="25" height="25" />
-            </a>
-          </td>
 
-          <td style="position: relative;">
-            <a class="pointer" (click)="closeDot($event, i)"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
+                    <!-- <button mat-button color="primary" [matMenuTriggerFor]="menu" #menuTrigger>Edit</button> -->
+                    <mat-menu #menu="matMenu">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Edit Status</mat-label>
+                        <mat-select>
+                          <mat-option>SentToController</mat-option>
+                          <mat-option>Synced</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <!-- <button mat-raised-button color="primary">Edit Status</button> -->
+                    </mat-menu>
+                  </p>
+                </td>
 
-            <div class="plus-img1" id="plus-img{{i}}" style="display: none">
-              <div class="lists" *ngIf="showIconView1" style="margin-left: 5px; margin-top: -20px">
-                View
-              </div>
-              <div class="lists" *ngIf="showIconEdit1" style="margin-left: 38px; margin-top: -20px">
-                Edit
-              </div>
-              <div class="lists" *ngIf="showIconDelete1" style="margin-left: 63px; margin-top: -20px">
-                Delete
-              </div>
+                <td class="text-center">
+                  <button style="background: transparent; border: none;" (click)="showAddAsset()">
+                    <img src="assets/icons/add.svg" alt="" width="30" height="30">
+                  </button>
+                </td>
 
-              <a class="mx-2" (click)="openViewPopup(item, i)"><img src="assets/icons/view.svg" (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" /></a>
-              <a class="mx-2" (click)="openEditPopup(item, i)"><img src="assets/icons/edit.svg" (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" /></a>
-              <!-- <a class="mx-2" value="Delete" (click)="deleteRow1(item, i)"><img src="assets/icons/delete.svg" /></a> -->
-              <a class="mx-2" value="Delete" (click)="openDeletePopup(item, i)"><img src="assets/icons/delete.svg" (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" /></a>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+                <td class="text-center">
+                  <a class="pointer" (click)="openDialog()">
+                    <img style="color: #bdb8b8;" src="assets/icons/live_tv.svg" width="20" height="20" />
+                  </a>
+                </td>
 
-    <!-- Loader -->
-    <div *ngIf="showLoader" class="d-flex justify-content-center align-items-center" style="height: 50vh;">
-      <app-loader></app-loader>
-    </div>
-    <!-- /Loader -->
+                <td class="text-center">
+                  <a class="pointer" href="http://192.168.0.135:8080/getAssetFile_1_0?assetName=anand_test_99.mp4&deviceId=IVISIND1102DV1" target="_blank">
+                    <img style="color: #bdb8b8;" src="assets/icons/play.svg" width="25" height="25" />
+                  </a>
+                </td>
 
-    </div>
+                <!-- <td>
+                  <video autoplay controls src="http://192.168.0.135:8080/getAssetFile_1_0?assetName=anand_test_99.mp4&deviceId=IVISIND1102DV1" type="video/mp4"></video>
+                </td> -->
+
+                <td style="position: relative;">
+                  <a class="pointer" (click)="closeDot($event, i)"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
+
+                  <div class="plus-img1" id="plus-img{{i}}" style="display: none">
+                    <div class="lists" *ngIf="showIconView1" style="margin-left: 5px; margin-top: -20px">
+                      View
+                    </div>
+                    <div class="lists" *ngIf="showIconEdit1" style="margin-left: 38px; margin-top: -20px">
+                      Edit
+                    </div>
+                    <div class="lists" *ngIf="showIconDelete1" style="margin-left: 63px; margin-top: -20px">
+                      Delete
+                    </div>
+
+                    <a class="mx-2" (click)="openViewPopup(item, i)"><img src="assets/icons/view.svg" (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" /></a>
+                    <a class="mx-2" (click)="openEditPopup(item, i)"><img src="assets/icons/edit.svg" (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" /></a>
+                    <a class="mx-2" value="Delete" (click)="openDeletePopup(item, i)"><img src="assets/icons/delete.svg" (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" /></a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- Loader -->
+          <div *ngIf="showLoader" class="d-flex justify-content-center align-items-center" style="height: 50vh;">
+            <app-loader></app-loader>
+          </div>
+          <!-- /Loader -->
+
+        </div>
+        <!-- table -->
+          </mat-expansion-panel>
+        </mat-accordion>
+
+      </mat-expansion-panel>
+    </mat-accordion>
   </div>
-<!-- table ends -->
+
+
+</div>
 
 <div class="modalitem max-center" [hidden]="deletePopup">
   <div class="card">
@@ -397,5 +441,5 @@
 
 
 <div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showAsset">
-  <app-add-new-asset [data]="assetTable"  (newItemEvent)="closenow($event, 'asset')"></app-add-new-asset>
+  <app-add-new-asset  (newItemEvent)="closenow($event, 'asset')"></app-add-new-asset>
 </div>

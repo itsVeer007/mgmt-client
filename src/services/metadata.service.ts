@@ -1,14 +1,16 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DropDownService {
+export class MetadataService {
 
   metadata = 'http://usstaging.ivisecurity.com:777/common/getValuesListByType_1_0';
 
-  new = 'http://usstaging.ivisecurity.com:777/common';
+  // new = 'http://usstaging.ivisecurity.com:777/common/downloadFile_1_0?assetName=BS-AMR1G11A111-Test001.mp4&requestName=av_assets&levels=IVISDUM0001DV1';
+
+  // x = 'http://192.168.0.135:8080/getAssetFile_1_0?assetName=BS-AMR1G11A111-Test001.mp4&deviceId=IVISDUM0001DV1'
 
   constructor(private http: HttpClient) { }
 
@@ -16,9 +18,15 @@ export class DropDownService {
     return this.http.get(this.metadata);
   }
 
+
+  //download
+  // downloadFile() {
+  //   let getATestVideoURL = this.new;
+  //   return this.http.get(getATestVideoURL)
+  // }
+
   getDeviceMode() {
-    let url = this.metadata;
-    return this.http.get(url);
+    return this.http.get(this.metadata);
   }
 
   tempRange() {
@@ -57,8 +65,7 @@ export class DropDownService {
   }
 
   add(payload: any) {
-    let url = this.new + '/addMetadataKeyValue_1_0'
+    let url = this.metadata + '/addMetadataKeyValue_1_0'
     return this.http.post(url, payload);
   }
-
 }

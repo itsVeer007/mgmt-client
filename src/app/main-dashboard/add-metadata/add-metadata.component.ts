@@ -2,7 +2,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DropDownService } from 'src/services/drop-down.service';
+import { MetadataService } from 'src/services/metadata.service';
 import swal from 'sweetalert2';
 // import * as swal from 'sweetalert2';
 
@@ -48,7 +48,7 @@ export class AddMetadataComponent implements OnInit {
   metadataForm: any = FormGroup;
   ng: any;
 
-  constructor(private router: Router, private fb: FormBuilder, private dropDown: DropDownService) { }
+  constructor(private router: Router, private fb: FormBuilder, private dropDown: MetadataService) { }
 
   metaDataBody = {
     createdBy: 1,

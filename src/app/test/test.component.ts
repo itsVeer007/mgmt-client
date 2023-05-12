@@ -1,21 +1,18 @@
+import { Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { AdInfoComponent } from '../assets/ad-info/ad-info.component';
 import { DatePipe } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { AssetService } from '../../services/asset.service';
-import { AdInfoComponent } from './ad-info/ad-info.component';
+import { MatDialog } from '@angular/material/dialog';
+import { AssetService } from 'src/services/asset.service';
 import { MetadataService } from 'src/services/metadata.service';
+import { HttpClient } from '@angular/common/http';
 import { DeviceService } from 'src/services/device.service';
-import { MatAccordion } from '@angular/material/expansion';
-import videojs from 'video.js';
-import { VideoJsPlayerOptions } from 'video.js';
 
 @Component({
-  selector: 'app-assets',
-  templateUrl: './assets.component.html',
-  styleUrls: ['./assets.component.css']
+  selector: 'app-test',
+  templateUrl: './test.component.html',
+  styleUrls: ['./test.component.css']
 })
-export class AssetsComponent implements OnInit {
+export class TestComponent implements OnInit {
 
   @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
     var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);
@@ -67,6 +64,8 @@ export class AssetsComponent implements OnInit {
     this.getAssetData();
     this.ongetDeviceMode();
     this.ongetStatus();
+    this.getDevices();
+    this.toGetSitesList();
   }
 
 
@@ -84,11 +83,21 @@ export class AssetsComponent implements OnInit {
       this.inputToAddAsset = res;
       const assets = res.flatMap((item: any) => item.assets);
       this.assetTable = assets;
-      this.tableData = this.assetTable;
-      // console.log('inputToAddAsset', this.inputToAddAsset);
 
-      // const sId = res.flatMap((item: any) => item.siteId);
-      // console.log(sId)
+      // for(let item of res) {
+      //   for(let el of item.assets) {
+      //     console.log(el)
+      //   }
+      // }
+      // this.assetTable.push(res.assets)
+
+      this.tableData = this.assetTable;
+
+
+
+      // let x = res.filter((el: any) => {
+
+      // })
 
       /* for site id's */
       const site_id = res.flatMap((item: any) => item.siteId);
@@ -113,21 +122,52 @@ export class AssetsComponent implements OnInit {
     })
   }
 
+  /* Main */
+  siteNameId: any;
+  toGetSitesList() {
+    // this.devSercice.getSitesList().subscribe((res: any) => {
+    //   console.log(res);
+    //   this.siteNameId = res;
+    // })
+  }
+
+
+  /* Select Filter */
+  adsDevicesBySite: any;
+  getAdsDevicesBySite(siteId: any) {
+    // this.devSercice.getAdsDevicesBySite(siteId).subscribe((res: any) => {
+    //   console.log(res);
+    //   this.adsDevicesBySite = res;
+    // })
+  }
+
+  assetsByDevice(devId: any) {
+    // this.devSercice.getAssetsByDevice(devId).subscribe((res: any) => {
+    //   console.log(res)
+    // })
+  }
+
 
   siteIds: any = [];
-  getDevices(siteId: any) {
-    this.devSercice.getDeviceList().subscribe((res: any) => {
-      console.log(res)
-      let x = res.flatMap((item: any) => item.adsDevices);
+  data: any
+  getDevices() {
+    // this.devSercice.getDeviceList().subscribe((res: any) => {
+    //   this.data = res;
+    //   for(let item of res) {
+    //     this.siteIds.push(item.siteId)
+    //   }
+    // })
+  }
 
-      let y = x.filter((item: any) => {
-        return item.siteId == siteId;
-      })
-
-      this.siteIds=[];
-      this.siteIds.push(y)
-      // console.log(this.siteIds);
-    })
+  devIds: any = [];
+  filterDevices(siteId: any) {
+    // let x = this.data.filter((el: any) => {
+    //   return el.siteId == siteId
+    // })
+    // this.devIds=[];
+    // for(let item of x[0].adsDevices) {
+    //   this.devIds.push(item.deviceId)
+    // }
   }
 
 
@@ -446,25 +486,4 @@ export class AssetsComponent implements OnInit {
   //   this.curr = item;
   //   // console.log(this.curr)
   // }
-
-  @ViewChild(MatAccordion) accordion!: MatAccordion;
-
-  // player!: videojs.Player;
-  // ngAfterViewInit() {
-  //   const options: VideoJsPlayerOptions = {
-  //     controls: true,
-  //     sourceOrder: true,
-  //     sources: [{
-  //       // type: "video/mp4",
-  //       type: "application/x-mpegURL",
-  //       src: "rtsp://admin:xx2317xx2317@192.168.5.62:554/Streaming/channels/102",
-  //     }],
-  //     autoplay: false,
-  //     techOrder: ['html5'],
-  //     html5: { hls: { withCredentials: false } },
-
-  //   };
-  //   this.player = videojs(document.querySelector('.video-js')!, options);
-  // }
-
 }

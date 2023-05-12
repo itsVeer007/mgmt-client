@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, HostListener, OnInit } from '@angular/core';
-import { DropDownService } from 'src/services/drop-down.service';
+import { MetadataService } from 'src/services/metadata.service';
 
 @Component({
   selector: 'app-meta-data',
@@ -34,7 +34,7 @@ export class MetaDataComponent implements OnInit {
 
 
   showLoader = false;
-  constructor(private http: HttpClient, private dropDown: DropDownService) { }
+  constructor(private http: HttpClient, private dropDown: MetadataService) { }
 
   ngOnInit(): void {
     this.CustomerReport();
@@ -71,7 +71,7 @@ export class MetaDataComponent implements OnInit {
       console.log('dataType', dataType)
       for(let id of dataType) {
         this.metadataType = id;
-        console.log(this.metadataType)
+        // console.log(this.metadataType);
       }
     })
   }

@@ -92,7 +92,7 @@
   <!-- table starts -->
   <div class="table-resp">
     <table class="table" id="mytable">
-      <tbody>
+      <thead>
         <tr class="form1">
           <th>
             <input type="checkbox" class="form-check-input" [(ngModel)]="selectedAll" (change)="selectAll()" id="allcheck" style="background-color: #00000000; border-color: #fff; margin-left: 10px;">
@@ -110,7 +110,9 @@
           <th></th>
           <th></th>
         </tr>
+      </thead>
 
+      <tbody>
         <tr *ngFor="let cust of CustomerTable | search : searchText; let i = index">
           <td>
             <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="cust.selected" (change)="

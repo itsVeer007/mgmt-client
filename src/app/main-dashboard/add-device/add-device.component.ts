@@ -2,9 +2,8 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { AssetService } from 'src/services/asset.service';
-import { DropDownService } from 'src/services/drop-down.service';
-import { SiteService } from 'src/services/site.service';
+import { DeviceService } from 'src/services/device.service';
+import { MetadataService } from 'src/services/metadata.service';
 
 @Component({
   selector: 'app-add-device',
@@ -46,7 +45,12 @@ export class AddDeviceComponent implements OnInit {
   addDevice: any =  FormGroup;
   searchText: any;
 
-  constructor(private fb: FormBuilder, private siteService: SiteService, private assetService: AssetService, private dropDown: DropDownService, public dialog: MatDialog) { }
+  constructor(
+    private fb: FormBuilder,
+    private devService: DeviceService,
+    private dropDown: MetadataService,
+    public dialog: MatDialog
+  ) { }
 
   siteData: any;
   ngOnInit() {
@@ -77,10 +81,7 @@ export class AddDeviceComponent implements OnInit {
     });
 
     this.getDeviceDetail();
-    this.ongetDeviceType();
-    this.ongetDeviceMode();
-    this.onTempRange();
-    this.onAgeRange();
+    this.onMetadataChange();
     this.siteData = JSON.parse(localStorage.getItem('device_temp')!);
   }
 
@@ -125,14 +126,14 @@ export class AddDeviceComponent implements OnInit {
 
   deviceData: any;
   getDeviceDetail() {
-    this.siteService.getDeviceList().subscribe((res: any) => {
+    this.devService.getDeviceList().subscribe((res: any) => {
       for(let item of res) {
         if(this.siteData.siteId == item.siteId) {
           this.deviceData = item.adsDevices;
           console.log('deviceData', this.deviceData);
         }
       }
-      console.log('devices-res', res);
+      // console.log(this.deviceData[0].deviceDescription);
     })
   }
 
@@ -146,43 +147,35 @@ export class AddDeviceComponent implements OnInit {
     this.newItemEvent.emit(false);
   }
 
-  /* drop-down methods */
+  /* metadata methods */
 
   deviceType: any;
-  ongetDeviceType() {
+  deviceMode: any;
+  workingDay: any;
+  tempRange: any;
+  ageRange: any;
+  onMetadataChange() {
     this.dropDown.getMetadata().subscribe((res: any) => {
       for(let item of res) {
         if(item.type == 'Device_Type') {
           this.deviceType = item.metadata;
         }
-      }
-    })
-  }
-
-  deviceMode: any;
-  ongetDeviceMode() {
-    this.dropDown.getDeviceMode().subscribe((res: any) => {
-      for(let item of res) {
-        if(item.type == 'Device_Mode') {
+        else if(item.type == 'Device_Mode') {
           this.deviceMode = item.metadata;
+        }
+        else if(item.type == 'Working_Day') {
+          this.workingDay = item.metadata;
+        }
+        else if(item.type == 'Ads_Temp_Range') {
+          this.tempRange = item.metadata;
+        }
+        else if(item.type == 'Ads_Age_Range') {
+          this.ageRange = item.metadata;
         }
       }
     })
   }
 
-  tempRange: any;
-  onTempRange() {
-    // this.dropDown.tempRange().subscribe((res: any) => {
-    //   this.tempRange = res.List_Shown_By_Type_Given;
-    // })
-  }
-
-  ageRange: any;
-  onAgeRange() {
-    // this.dropDown.ageRange().subscribe((res: any) => {
-    //   this.ageRange = res.List_Shown_By_Type_Given;
-    // })
-  }
 
   // selected = new FormControl();
   // addTab() {
@@ -199,7 +192,8 @@ export class AddDeviceComponent implements OnInit {
   currentItem: any;
   newdeviceId: any;
   // deviceInfo: any;
-  openDialog(item: any, i: any, id: any) {
+  devDataToEdit: any
+  openDialog(item: any, id: any) {
     this.dialog.open(this.cityDialog);
     this.currentItem = item;
 
@@ -209,38 +203,52 @@ export class AddDeviceComponent implements OnInit {
     // this.deviceInfo = filterDevice;
 
     this.newdeviceId = id;
-    console.log(this.currentItem);
+    // console.log(this.currentItem);
+
+    for(let item of this.deviceData) {
+      // console.log(item);
+      if(this.currentItem == item) {
+        this.devDataToEdit = item;
+      }
+    }
+
+    // console.log(this.devDataToEdit);
+    console.log(this.currentItem.remarks);
+    console.log(this.devDataToEdit.remarks);
   }
 
   updateDeviceDtl() {
 
+
     let originalObject: any = {
       "deviceId": this.newdeviceId,
-      "deviceModeId": this.currentItem.deviceModeId,
+      "deviceModeId": this.devDataToEdit.deviceModeId,
       "modifiedBy": 1,
-      "remarks": this.currentItem.remarks,
-      "adsHours": this.adInfo.adsHours
-    }
+      "remarks": this.devDataToEdit.remarks,
+      "adsHours": this.devDataToEdit.adsHours,
+      "deviceDescription": this.devDataToEdit.deviceDescription
+    };
 
     let updatedObject: any = {
       "deviceId": this.newdeviceId,
       "deviceModeId": this.currentItem.deviceModeId,
       "modifiedBy": 1,
       "remarks": this.currentItem.remarks,
-      "adsHours": this.currentItem.adsHours
+      "adsHours": this.currentItem.adsHours,
+      "deviceDescription": this.currentItem.deviceDescription
     };
 
     let changedKeys: any[] = [];
 
-    for (let key in updatedObject) {
-      if (updatedObject.hasOwnProperty(key) && updatedObject[key] !== originalObject[key]) {
+    for(let key in updatedObject) {
+      if (updatedObject.hasOwnProperty(key) && updatedObject[key] != originalObject[key]) {
         changedKeys.push(key);
       }
     }
 
     console.log(changedKeys);
 
-    this.siteService.updateDevice({adsDevice: originalObject, updProps: changedKeys}).subscribe((res: any) => {
+    this.devService.updateDevice({adsDevice: originalObject, updProps: changedKeys}).subscribe((res: any) => {
       console.log(res);
     })
   }
@@ -255,7 +263,7 @@ export class AddDeviceComponent implements OnInit {
     this.adInfo.siteId = this.siteData.siteId;
     if(this.addDevice.valid) {
       this.newItemEvent.emit(false);
-      this.siteService.addDevice(this.adInfo).subscribe((res: any) => {
+      this.devService.addDevice(this.adInfo).subscribe((res: any) => {
         window.location.reload();
         console.log(res);
       })

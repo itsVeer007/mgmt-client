@@ -2,8 +2,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AssetService } from 'src/services/asset.service';
-import { DropDownService } from 'src/services/drop-down.service';
+import { MetadataService } from 'src/services/metadata.service';
 
 @Component({
   selector: 'app-add-new-analytic',
@@ -51,7 +50,7 @@ export class AddNewAnalyticComponent implements OnInit {
   file: File | null = null;
   // loading: boolean = false;
 
-  constructor(private router: Router, private fb: FormBuilder, private dropDown: DropDownService) { }
+  constructor(private router: Router, private fb: FormBuilder, private dropDown: MetadataService) { }
 
   ngOnInit(): void {
     this.addAssetForm = this.fb.group({
@@ -87,9 +86,6 @@ export class AddNewAnalyticComponent implements OnInit {
   // }
 
   addNewAsset() {
-    // this.assetService.addAsset(formPayload).subscribe((res) => {
-    //   console.log(res)
-    // })
     console.log(this.addAssetForm.value);
   }
 

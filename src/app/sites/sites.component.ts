@@ -1,9 +1,9 @@
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { SearchPipe } from '../utilities/search.pipe';
-import { DropDownService } from 'src/services/drop-down.service';
 import { SiteService } from 'src/services/site.service';
 import { MatDialog } from '@angular/material/dialog';
+import { MetadataService } from 'src/services/metadata.service';
+import { DeviceService } from 'src/services/device.service';
 
 @Component({
   selector: 'app-sites',
@@ -50,7 +50,13 @@ export class SitesComponent implements OnInit {
 
   showFiller = false;
 
-  constructor(private http: HttpClient, private dropDown: DropDownService, private siteSer: SiteService, public dialog: MatDialog) { }
+  constructor(
+    private http: HttpClient,
+    private dropDown: MetadataService,
+    private siteSer: SiteService,
+    private devService: DeviceService,
+    public dialog: MatDialog
+  ) { }
 
   tableData: any[] = [];
   searchText: any;
@@ -74,7 +80,7 @@ export class SitesComponent implements OnInit {
   ngOnInit(): void {
     this.onGetSites()
     this.ongetDeviceMode();
-    // this.get(this.tableData);
+    this.get(this.tableData);
     this.siteData = JSON.parse(localStorage.getItem('device_temp')!);
   }
 
@@ -106,17 +112,17 @@ export class SitesComponent implements OnInit {
   }
 
 
-  // deviceData: any
-  // get(el: any) {
-  //   this.siteSer.getDevice().subscribe((res: any) => {
-  //     for(let item of res) {
-  //       if(el == item.siteId) {
-  //         this.deviceData = item.adsDevices.length;
-  //       }
-  //       console.log(item)
-  //     }
-  //   })
-  // }
+  deviceData: any
+  get(el: any) {
+    this.devService.getDevice(1102).subscribe((res: any) => {
+      for(let item of res) {
+        if(el == item.siteId) {
+          this.deviceData = item.adsDevices.length;
+        }
+        // console.log(item)
+      }
+    })
+  }
 
 
   deviceMode: any;

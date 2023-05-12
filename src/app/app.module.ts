@@ -63,6 +63,7 @@ import { AdInfoComponent } from './assets/ad-info/ad-info.component';
 import { ReportsComponent } from './reports/reports.component';
 import { MetaDataComponent } from './meta-data/meta-data.component';
 import { AddMetadataComponent } from './main-dashboard/add-metadata/add-metadata.component';
+import { TestComponent } from './test/test.component';
 
 @NgModule({
   declarations: [
@@ -96,7 +97,8 @@ import { AddMetadataComponent } from './main-dashboard/add-metadata/add-metadata
     AdInfoComponent,
     ReportsComponent,
     MetaDataComponent,
-    AddMetadataComponent
+    AddMetadataComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,

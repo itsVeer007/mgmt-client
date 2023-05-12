@@ -59,10 +59,10 @@ export class InventoryComponent implements OnInit {
   searchText: any;
   CustomerTable: any;
   CustomerReport() {
-    this.ass.get().subscribe((res) => {
+    this.http.get('assets/JSON/inventory.json').subscribe(res => {
       this.CustomerTable = res;
-      console.log(res)
-    })
+      // console.log(res)
+    });
   }
 
   currentid = 0;
@@ -188,11 +188,9 @@ export class InventoryComponent implements OnInit {
       return item.selected == true;
     })
   }
-  // -------------------End Checkbox----------------------
 
-  // ---------------- Start delete ---------------------
+
   deleteRow: any;
-
   deleteRow1(item: any, i: any) {
     console.log("DELETEROW:: ", item);
     this.showLoader = true;
@@ -222,11 +220,8 @@ export class InventoryComponent implements OnInit {
     // console.log(this.CustomerTable.siteId);
   }
 
-  // ------- End delete ----------------
 
 
-
-  // -------Start Edit -------------
   editPopup: boolean = true;
 
   confirmEditRow() {
@@ -270,15 +265,9 @@ export class InventoryComponent implements OnInit {
     }
     this.CustomerReport();
   }
-  // -------------- End Edit ------------------
 
-
-
-
-  // ------------- start View --------------------
 
   viewPopup: boolean = true;
-
   confirmViewRow() {
     console.log("ToBE Viewed:: ", this.currentItem);
     this.viewPopup = true;
@@ -314,11 +303,8 @@ export class InventoryComponent implements OnInit {
       this.viewPopup = false;
     }
   }
-  // ------------- End View ---------------------
 
 
-
-  // ------------ Multiple Records Starts -------------------
   deletearray: any = [];
   deleteMultiRecords(item: any, i: any, e: any) {
     var checked = (e.target.checked);
@@ -353,7 +339,7 @@ export class InventoryComponent implements OnInit {
     }
   }
 
-  // ------------ Multiple Records Ends -------------------
+
 
   sorted = false;
   sort(label: any) {
