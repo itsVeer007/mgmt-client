@@ -194,7 +194,7 @@ export class TestComponent implements OnInit {
 
   deviceMode: any;
   ongetDeviceMode() {
-    this.dropDown.getDeviceMode().subscribe((res: any) => {
+    this.dropDown.getMetadata().subscribe((res: any) => {
       for(let item of res) {
         if(item.type == 'Device_Mode') {
           this.deviceMode = item.metadata;

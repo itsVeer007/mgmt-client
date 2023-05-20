@@ -342,6 +342,17 @@
     margin-top: -20px;
 } */
 
+::ng-deep .mat-badge-medium .mat-badge-content {
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+}
+
+::ng-deep .mat-badge-medium .mat-badge-content {
+  font-weight: 100;
+  font-size: 10px;
+}
+
 /* common ng-deep */
 .mat-form-field-appearance-outline ::ng-deep .mat-form-field-outline {
   top: 5px;

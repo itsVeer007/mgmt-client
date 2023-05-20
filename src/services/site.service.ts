@@ -10,7 +10,7 @@ export class SiteService {
 
   constructor(private http: HttpClient) { }
 
-  getSites() {
+  listSites() {
     let url = this.baseUrl + '/sites/listSites_1_0';
     return this.http.get(url);
   }

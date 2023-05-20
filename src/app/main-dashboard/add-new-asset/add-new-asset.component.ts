@@ -7,6 +7,7 @@ import { AlertService } from 'src/services/alert.service';
 import { SiteService } from 'src/services/site.service';
 import { MetadataService } from 'src/services/metadata.service';
 import { DeviceService } from 'src/services/device.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-new-asset',
@@ -96,6 +97,9 @@ export class AddNewAssetComponent implements OnInit {
     // enabled: 1,
   }
 
+  for: any = null;
+
+  deviceIdFromStorage: any
   ngOnInit(): void {
     this.addAssetForm = this.fb.group({
       'siteId': new FormControl(''),
@@ -105,6 +109,8 @@ export class AddNewAssetComponent implements OnInit {
       'playOrder': new FormControl(''),
       'createdBy': new FormControl(''),
       'name': new FormControl(''),
+
+      'for': new FormControl(''),
 
       // 'mimeType': new FormControl(''),
       // 'assetName': new FormControl(''),
@@ -120,6 +126,8 @@ export class AddNewAssetComponent implements OnInit {
       // 'skip_asset_check': new FormControl(1),
     });
 
+    this.deviceIdFromStorage = JSON.parse(localStorage.getItem('device_temp')!);
+
     this.onMetadataChange()
     this.getId();
     this.getRes();
@@ -131,20 +139,20 @@ export class AddNewAssetComponent implements OnInit {
   // x: any;
 
   getRes() {
-    this.siteService.getSites().subscribe((res: any) => {
+    this.siteService.listSites().subscribe((res: any) => {
       // console.log(res);
       this.siteIdList = res.sitesList;
     })
 
 
-    this.devService.getDeviceList().subscribe((res: any) => {
+    this.devService.listDeviceAdsInfo().subscribe((res: any) => {
       const assets = res.flatMap((item: any) => item.adsDevices);
-      console.log(assets);
+      // console.log(assets);
 
       // for(let item of assets) {
       //   this.x = item.siteId;
       // }
-      this.deviceIdList = assets
+      this.deviceIdList = assets;
     })
   }
 
@@ -187,9 +195,14 @@ export class AddNewAssetComponent implements OnInit {
 
   deviceType: any;
   deviceMode: any;
-  // workingDay: any;
-  // tempRange: any;
-  // ageRange: any;
+  workingDay: any;
+  tempRange: any;
+  ageRange: any;
+  modelObjectType: any;
+  model: any;
+  modelResolution: any;
+  softwareVersion: any;
+  weatherInterval: any;
   onMetadataChange() {
     this.dropDown.getMetadata().subscribe((res: any) => {
       for(let item of res) {
@@ -199,15 +212,30 @@ export class AddNewAssetComponent implements OnInit {
         else if(item.type == 'Device_Mode') {
           this.deviceMode = item.metadata;
         }
-        // else if(item.type == 'Working_Day') {
-        //   this.workingDay = item.metadata;
-        // }
-        // else if(item.type == 'Ads_Temp_Range') {
-        //   this.tempRange = item.metadata;
-        // }
-        // else if(item.type == 'Ads_Age_Range') {
-        //   this.ageRange = item.metadata;
-        // }
+        else if(item.type == 'Working_Day') {
+          this.workingDay = item.metadata;
+        }
+        else if(item.type == 'Ads_Temp_Range') {
+          this.tempRange = item.metadata;
+        }
+        else if(item.type == 'Ads_Age_Range') {
+          this.ageRange = item.metadata;
+        }
+        else if(item.type == 'model_object_type') {
+          this.modelObjectType = item.metadata;
+        }
+        else if(item.type == 'Model') {
+          this.model = item.metadata;
+        }
+        else if(item.type == 'Model Resolution') {
+          this.modelResolution = item.metadata;
+        }
+        else if(item.type == 'Ads_Software_Version') {
+          this.softwareVersion = item.metadata;
+        }
+        else if(item.type == 'Weather_Interval') {
+          this.weatherInterval = item.metadata;
+        }
       }
     })
   }
@@ -255,26 +283,41 @@ export class AddNewAssetComponent implements OnInit {
   /* Add Asset */
 
   submit: boolean = false;
-  // x: any
+  succesAlert: any = null;
+  waitAlert: any = null;
   addNewAsset() {
+    this.assetData.asset.deviceId = this.deviceIdFromStorage.deviceId;
     this.submit = true;
     console.log('assetData', this.assetData);
 
     if(this.addAssetForm.valid) {
-      this.alertSer.wait('Please wait...');
       this.newItemEvent.emit(false);
-      this.assetService.addAsset(this.assetData, this.selectedFile).subscribe((res: any) => {
-        if(res.statusCode == 200) {
-          this.alertSer.success(res.message);
-          this.alertSer.wait('');
-          setTimeout(() => {
-            window.location.reload();
-          }, 2000);
-        }
 
+      this.assetService.addAsset(this.assetData, this.selectedFile).subscribe((res: any) => {
         console.log('addAsset', res);
+
+          if(res) {
+            this.succesAlert = Swal.fire(
+              'Done!',
+              'Asset Added Successfully!',
+              'success'
+            )
+          } else {
+            this.waitAlert = Swal.fire(
+              'Please Wait!',
+            )
+          }
+
+          if(this.succesAlert) {
+            setTimeout(() => {
+              // clearTimeout(this.succesAlert);
+              // clearTimeout(this.succesAlert);
+              this.succesAlert = null;
+              this.waitAlert = null;
+              window.location.reload();
+            }, 3000);
+          }
       }, (err) => {
-        // this.alertSer.error(err.error.message);
         if(err.statusCode == 404) {
           console.log(err.message)
         }

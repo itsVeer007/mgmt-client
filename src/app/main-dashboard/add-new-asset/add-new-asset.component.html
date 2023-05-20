@@ -13,7 +13,7 @@
     <div>
       <form autocomplete="off" [formGroup]="addAssetForm" (ngSubmit)="addNewAsset()">
         <div class="row">
-          <div class="col-lg-6 col-md-6">
+          <!-- <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
               <input matInput placeholder="Site Id" [matAutocomplete]="site" (keyup)="siteSer($event)" formControlName="siteId">
               <mat-autocomplete #site="matAutocomplete">
@@ -32,11 +32,23 @@
                 <mat-option *ngFor="let item of deviceIdList | search: dev" [value]="item.deviceId">
                   {{ item.deviceId }}
                 </mat-option>
-                <!-- <mat-option value="IVISDUM0002DV1">
-                  IVISDUM0002DV1
-                </mat-option> -->
               </mat-autocomplete>
               <mat-error class="mt-1">Device Id is required</mat-error>
+            </mat-form-field>
+          </div> -->
+
+          <div class="col-lg-6 col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Enter Asset Name</mat-label>
+              <input matInput formControlName="name"  [(ngModel)]="assetData.asset.name">
+              <mat-error class="mt-1">Asset Name is required</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-6 col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Enter Description</mat-label>
+              <input matInput>
             </mat-form-field>
           </div>
 
@@ -77,21 +89,6 @@
 
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Enter Asset Name</mat-label>
-              <input matInput formControlName="name"  [(ngModel)]="assetData.asset.name">
-              <mat-error class="mt-1">Asset Name is required</mat-error>
-            </mat-form-field>
-          </div>
-
-          <div class="col-lg-6 col-md-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Enter Description</mat-label>
-              <input matInput>
-            </mat-form-field>
-          </div>
-
-          <div class="col-lg-6 col-md-6">
-            <mat-form-field appearance="outline" class="w-100">
               <mat-label>Device Mode</mat-label>
               <mat-select formControlName="deviceModeId" [(ngModel)]="assetData.asset.deviceModeId" required>
                 <mat-option *ngFor="let item of deviceMode" [value]="item.keyId">{{ item.value }}</mat-option>
@@ -100,23 +97,109 @@
             </mat-form-field>
           </div>
 
+          <div class="col-lg-6 my-3" style="font-size: 12px;">
+            <mat-radio-group name="radioOpt1" class="w-100">
+              <mat-label>Special Rule</mat-label>
+              <mat-radio-button class="ms-3" name="rule" [value]="1">Yes</mat-radio-button>
+              <mat-radio-button class="ms-3" name="rule" [value]="0" checked>No</mat-radio-button>
+            </mat-radio-group>
+          </div>
+
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
-              <input matInput [matDatepicker]="picker1" placeholder="Start Date">
+              <input matInput [matDatepicker]="picker1" placeholder="From Date">
               <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
               <mat-datepicker #picker1></mat-datepicker>
-              <mat-error class="mt-1">Start Date is required</mat-error>
+              <mat-error class="mt-1">From Date is required</mat-error>
             </mat-form-field>
           </div>
 
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
-              <input matInput [matDatepicker]="picker2" placeholder="End Date">
+              <input matInput [matDatepicker]="picker2" placeholder="To Date">
               <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
               <mat-datepicker #picker2></mat-datepicker>
-              <mat-error class="mt-1">End Date is required</mat-error>
+              <mat-error class="mt-1">To Date is required</mat-error>
             </mat-form-field>
           </div>
+
+          <div class="col-lg-6" *ngIf="assetData.asset.deviceModeId == 2">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Select temp range</mat-label>
+              <mat-select>
+                <mat-option *ngFor="let item of tempRange" [value]="item.value">{{ item.value }}</mat-option>
+                <mat-option value="Other">Other</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-6" *ngIf="assetData.asset.deviceModeId == 2">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Select age range</mat-label>
+              <mat-select>
+                <mat-option *ngFor="let item of ageRange" [value]="item.value">{{ item.value }}</mat-option>
+                <mat-option value="Other">Other</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <span class="row" *ngIf="assetData.asset.deviceModeId == 3">
+            <div class="col-lg-12 mb-3 mt-2" style="font-size: 12px;">
+              <mat-radio-group name="radioOpt2" class="w-100" formControlName="for" [(ngModel)]="for">
+                <mat-label>Advertisement For</mat-label>
+                <mat-radio-button class="ms-3" name="for" [value]="1">Person</mat-radio-button>
+                <mat-radio-button class="ms-3" name="for" [value]="2">Vehicle</mat-radio-button>
+                <mat-radio-button class="ms-3" name="for" [value]="3">Both</mat-radio-button>
+              </mat-radio-group>
+            </div>
+
+            <div class="col-lg-12 mb-3 mt-2" style="font-size: 12px;" *ngIf="for == 1 || for == 3">
+              <mat-radio-group name="radioOpt3" class="w-100">
+                <mat-label>Gender</mat-label>
+                <mat-radio-button class="ms-3" name="gender" [value]="1">Male</mat-radio-button>
+                <mat-radio-button class="ms-3" name="gender" [value]="2">Female</mat-radio-button>
+                <!-- <mat-radio-button class="ms-3" name="gender" [value]="3">Both</mat-radio-button> -->
+              </mat-radio-group>
+            </div>
+
+            <div class="col-lg-4 col-md-4" *ngIf="for == 1 || for == 3">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Kids</mat-label>
+                <input matInput>
+                <mat-error class="mt-1">Count is required</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-4 col-md-4" *ngIf="for == 1 || for == 3">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Youth</mat-label>
+                <input matInput>
+                <mat-error class="mt-1">Count is required</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-4 col-md-4" *ngIf="for == 1 || for == 3">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Adult</mat-label>
+                <input matInput>
+                <mat-error class="mt-1">Count is required</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-6 col-md-6" *ngIf="for == 2 || for == 3">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Count</mat-label>
+                <mat-select>
+                  <mat-option value="1">1</mat-option>
+                  <mat-option value="2">2</mat-option>
+                  <mat-option value="3">3</mat-option>
+                  <mat-option value="4">4</mat-option>
+                  <mat-option value="5">5</mat-option>
+                </mat-select>
+                <mat-error class="mt-1">Count is required</mat-error>
+              </mat-form-field>
+            </div>
+          </span>
 
           <div class="text-center my-5">
             <button class="btn add-btn">ADD</button>

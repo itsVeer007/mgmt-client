@@ -169,15 +169,18 @@
                 <!-- <div [ngClass]="data.status == 'Active' ? 'dot-green': data.status == 'Onhold' ? 'dot-yellow': data.status == 'Inactive' ? 'dot-red': 'dot-red'"></div> -->
                 --
               </td>
+
               <td>
                 <a class="pointer" style="color: #000;" (click)="onGetCentralbox(data.siteId)">
                   <img src="assets/icons/add-svg.svg" *ngIf="data.centralUnitId == '' || data.centralUnitId == null" width="25" height="25">
                   <span *ngIf="data.cntrl_Unit != '' && data.centralUnitId !=null">{{data?.centralUnitId}}</span>
                 </a>
               </td>
+
               <td>
                 --
               </td>
+
               <td>
                 <!-- <a>
                   <img src="assets/icons/add-svg.svg" *ngIf="data.centralUnitId == '' || data.centralUnitId == null " width="25" height="25">
@@ -185,12 +188,14 @@
                 </a> -->
                 --
               </td>
+
               <td>
                 <a class="pointer" (click)="show('device'); saveSiteData(data)">
-                  <img src="assets/icons/add-svg.svg" width="25" height="25" >
-                  <span class="ms-2" *ngIf="deviceLength">{{deviceLength}}</span>
+                    <img src="assets/icons/add-svg.svg" width="25" height="25" >
+                  <span class="ms-2">{{ deviceLength }}</span>
                 </a>
               </td>
+
               <td>
                 <a class="pointer" (click)="closeDot($event,i)"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
 

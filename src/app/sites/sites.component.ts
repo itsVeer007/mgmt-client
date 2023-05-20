@@ -52,21 +52,20 @@ export class SitesComponent implements OnInit {
 
   constructor(
     private http: HttpClient,
-    private dropDown: MetadataService,
+    private metaService: MetadataService,
     private siteSer: SiteService,
     private devService: DeviceService,
     public dialog: MatDialog
   ) { }
 
-  tableData: any[] = [];
+  tableData: any = [];
+  showLoader: boolean = false;
   searchText: any;
+
   totalCount: any;
   active: any;
-  // x: any
-
-  inActive: any[] = [];
-  onHold: any[] = [];
-  showLoader: boolean = false;
+  inActive: any = [];
+  onHold: any = [];
 
   showIconView: boolean = false;
   showIconEdit: boolean = false;
@@ -76,18 +75,19 @@ export class SitesComponent implements OnInit {
   showIconDelete1: boolean = false;
 
   siteData: any
-  deviceLength: any;
+  deviceLength: any = [];
   ngOnInit(): void {
-    this.onGetSites()
+    this.getlistSites()
     this.ongetDeviceMode();
     this.get(this.tableData);
-    this.siteData = JSON.parse(localStorage.getItem('device_temp')!);
+    this.siteData = JSON.parse(localStorage.getItem('temp_sites')!);
+    this.myFun();
   }
 
 
-  onGetSites() {
+  getlistSites() {
     this.showLoader = true;
-    this.siteSer.getSites().subscribe((res: any) => {
+    this.siteSer.listSites().subscribe((res: any) => {
       this.showLoader = false;
       this.tableData = res.sitesList;
       this.totalCount = res.counts;
@@ -111,6 +111,30 @@ export class SitesComponent implements OnInit {
     })
   }
 
+  new: any = [];
+  myFun() {
+    this.siteSer.listSites().subscribe((res: any) => {
+      for(let item of res.sitesList) {
+        this.new.push(item.siteId)
+      }
+    })
+
+    this.devService.listDeviceAdsInfo().subscribe((res: any) => {
+      console.log(res);
+      for(let item of res) {
+        // console.log(item.siteId);
+        // if(item.siteId == this.)
+      }
+      // let x = res.flatMap((item: any) => item.adsDevices);
+      // console.log(x);
+
+      // for(let item of res) {
+      //     this.deviceLength.push(item.adsDevices.length);
+      // }
+      // console.log(this.deviceLength);
+    });
+  }
+
 
   deviceData: any
   get(el: any) {
@@ -127,7 +151,7 @@ export class SitesComponent implements OnInit {
 
   deviceMode: any;
   ongetDeviceMode() {
-    // this.dropDown.getDeviceMode({type: 'Device_Mode'}).subscribe((res: any) => {
+    // this.metaService.getDeviceMode({type: 'Device_Mode'}).subscribe((res: any) => {
     //   this.deviceMode = res.List_Shown_By_Type_Given;
     // })
   }
@@ -163,7 +187,7 @@ export class SitesComponent implements OnInit {
   }
 
   saveSiteData(site: any) {
-    localStorage.setItem('device_temp', JSON.stringify(site));
+    localStorage.setItem('temp_sites', JSON.stringify(site));
   }
 
   closenow(type: string, value: any) {

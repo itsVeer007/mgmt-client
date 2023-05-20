@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialog } from '@angular/material/dialog';
 import { DeviceService } from 'src/services/device.service';
 import { MetadataService } from 'src/services/metadata.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-device',
@@ -53,51 +54,20 @@ export class AddDeviceComponent implements OnInit {
   ) { }
 
   siteData: any;
-  ngOnInit() {
-    this.addDevice = this.fb.group({
-      // 'siteId': new FormControl(''),
-      'deviceDescription': new FormControl('', Validators.required),
-      'deviceTypeId': new FormControl('', Validators.required),
-      'deviceCallFreq': new FormControl('', Validators.required),
-      'deviceModeId': new FormControl('', Validators.required),
-      'adsHours': new FormControl('', Validators.required),
-      'workingDays': new FormControl(''),
-      'loggerFreq': new FormControl(''),
-      'createdBy': new FormControl(''),
-      'softwareVersion': new FormControl(''),
-      'socketServer': new FormControl(''),
-      'socketPort': new FormControl(''),
-
-      'weatherInterval': new FormControl('', this.adInfo.deviceModeId == 2 ? Validators.required : []),
-
-      'cameraId': new FormControl(''),
-      'modelName': new FormControl(''),
-      'modelWidth': new FormControl('', this.adInfo.deviceModeId == 2 ? Validators.required : []),
-      'modelHeight': new FormControl('', this.adInfo.deviceModeId == 2 ? Validators.required : []),
-      'modelMaxResults': new FormControl(''),
-      'modelThreshold': new FormControl(''),
-      'remarks': new FormControl(''),
-      'modelObjectTypeId': new FormControl(''),
-    });
-
-    this.getDeviceDetail();
-    this.onMetadataChange();
-    this.siteData = JSON.parse(localStorage.getItem('device_temp')!);
-  }
 
   adInfo = {
     siteId: null,
     deviceDescription: '',
     deviceTypeId: null,
-    deviceCallFreq: 1,
+    deviceCallFreq: null,
     deviceModeId: null,
     adsHours: '',
     workingDays: '',
-    loggerFreq: null,
     createdBy: 1,
-    softwareVersion: '1.0.0',
-    socketServer: 'staging',
-    socketPort: 4324,
+    softwareVersion: '',
+    socketServer: 'ec2-18-213-63-73.compute-1.amazonaws.com',
+    socketPort: 6666,
+    remarks: '',
 
     weatherInterval: null, //BSR
 
@@ -107,7 +77,49 @@ export class AddDeviceComponent implements OnInit {
     modelHeight: null, //ODR
     modelMaxResults: null, //ODR
     modelThreshold: null, //ODR
-    modelObjectTypeId: null //ODR
+    modelObjectTypeId: null, //ODR
+
+    refreshRules: 1,  //ODR
+    debugOn: 0,  //ODR
+    debugLogs: 1, //ODR
+    loggerFreq: 60,  //ODR
+  }
+
+
+  ngOnInit() {
+    this.addDevice = this.fb.group({
+      // 'siteId': new FormControl(''),
+      'deviceDescription': new FormControl('', Validators.required),
+      'deviceTypeId': new FormControl('', Validators.required),
+      'deviceCallFreq': new FormControl('', Validators.required),
+      'deviceModeId': new FormControl('', Validators.required),
+      'adsHours': new FormControl('', Validators.required),
+      'workingDays': new FormControl('', Validators.required),
+      'createdBy': new FormControl(''),
+      'softwareVersion': new FormControl(''),
+      'socketServer': new FormControl(''),
+      'socketPort': new FormControl(''),
+
+      'weatherInterval': new FormControl(''),
+
+      'cameraId': new FormControl('', this.adInfo.deviceModeId == 3 ? Validators.required : []),
+      'modelName': new FormControl('', this.adInfo.deviceModeId == 3 ? Validators.required : []),
+      'modelWidth': new FormControl('', this.adInfo.deviceModeId == 3 ? Validators.required : []),
+      'modelHeight': new FormControl('', this.adInfo.deviceModeId == 3 ? Validators.required : []),
+      'modelMaxResults': new FormControl('', this.adInfo.deviceModeId == 3 ? Validators.required : []),
+      'modelThreshold': new FormControl('', this.adInfo.deviceModeId == 3 ? Validators.required : []),
+      'modelObjectTypeId': new FormControl('', this.adInfo.deviceModeId == 3 ? Validators.required : []),
+
+      "loggerFreq": new FormControl(''),
+      "refreshRules": new FormControl(''),
+      "debugOn": new FormControl(''),
+      "debugLogs": new FormControl(''),
+      'remarks': new FormControl(''),
+    });
+
+    this.getDeviceDetail();
+    this.onMetadataChange();
+    this.siteData = JSON.parse(localStorage.getItem('temp_sites')!);
   }
 
   // getSiteDetails(){
@@ -125,20 +137,23 @@ export class AddDeviceComponent implements OnInit {
   // }
 
   deviceData: any;
+  deviceLength: any;
   getDeviceDetail() {
-    this.devService.getDeviceList().subscribe((res: any) => {
+    this.devService.listDeviceAdsInfo().subscribe((res: any) => {
+      // console.log(res);
       for(let item of res) {
         if(this.siteData.siteId == item.siteId) {
           this.deviceData = item.adsDevices;
+          this.deviceLength = this.deviceData.length;
           console.log('deviceData', this.deviceData);
         }
       }
-      // console.log(this.deviceData[0].deviceDescription);
+      console.log('deviceData', this.deviceLength);
     })
   }
 
 
-  isShown: boolean = false; // hidden by default
+  isShown: boolean = false;
   toggleShowOnOff() {
     this.isShown = !this.isShown;
   }
@@ -154,6 +169,11 @@ export class AddDeviceComponent implements OnInit {
   workingDay: any;
   tempRange: any;
   ageRange: any;
+  modelObjectType: any;
+  model: any;
+  modelResolution: any;
+  softwareVersion: any;
+  weatherInterval: any;
   onMetadataChange() {
     this.dropDown.getMetadata().subscribe((res: any) => {
       for(let item of res) {
@@ -171,6 +191,21 @@ export class AddDeviceComponent implements OnInit {
         }
         else if(item.type == 'Ads_Age_Range') {
           this.ageRange = item.metadata;
+        }
+        else if(item.type == 'model_object_type') {
+          this.modelObjectType = item.metadata;
+        }
+        else if(item.type == 'Model') {
+          this.model = item.metadata;
+        }
+        else if(item.type == 'Model Resolution') {
+          this.modelResolution = item.metadata;
+        }
+        else if(item.type == 'Ads_Software_Version') {
+          this.softwareVersion = item.metadata;
+        }
+        else if(item.type == 'Weather_Interval') {
+          this.weatherInterval = item.metadata;
         }
       }
     })
@@ -203,18 +238,14 @@ export class AddDeviceComponent implements OnInit {
     // this.deviceInfo = filterDevice;
 
     this.newdeviceId = id;
-    // console.log(this.currentItem);
+    console.log(this.currentItem);
 
     for(let item of this.deviceData) {
-      // console.log(item);
-      if(this.currentItem == item) {
+      if(this.currentItem.deviceId == item.deviceId) {
         this.devDataToEdit = item;
       }
     }
-
-    // console.log(this.devDataToEdit);
-    console.log(this.currentItem.remarks);
-    console.log(this.devDataToEdit.remarks);
+    console.log(this.devDataToEdit);
   }
 
   updateDeviceDtl() {
@@ -248,7 +279,7 @@ export class AddDeviceComponent implements OnInit {
 
     console.log(changedKeys);
 
-    this.devService.updateDevice({adsDevice: originalObject, updProps: changedKeys}).subscribe((res: any) => {
+    this.devService.updateDeviceAdsInfo({adsDevice: originalObject, updProps: changedKeys}).subscribe((res: any) => {
       console.log(res);
     })
   }
@@ -259,17 +290,58 @@ export class AddDeviceComponent implements OnInit {
 
   /* add device */
 
+  succesAlert: any = null;
+  waitAlert: any = null;
   addDeviceDtl() {
     this.adInfo.siteId = this.siteData.siteId;
+
     if(this.addDevice.valid) {
       this.newItemEvent.emit(false);
-      this.devService.addDevice(this.adInfo).subscribe((res: any) => {
-        window.location.reload();
+
+      this.devService.createDeviceandAdsInfo(this.adInfo).subscribe((res: any) => {
         console.log(res);
+
+        if(res) {
+          this.succesAlert = Swal.fire(
+            'Done!',
+            'Device Added Successfully!',
+            'success'
+          )
+        } else {
+          this.waitAlert = Swal.fire(
+            'Please Wait!',
+          )
+        }
+
+        if(this.succesAlert) {
+          setTimeout(() => {
+            // clearTimeout(this.succesAlert);
+            // clearTimeout(this.succesAlert);
+            this.succesAlert = null;
+            this.waitAlert = null;
+            window.location.reload();
+          }, 3000);
+        }
+
       })
     }
+
+    // let arr = JSON.parse(JSON.stringify(this.adInfo.workingDays)).join(',')
+    // this.adInfo.workingDays = arr;
     console.log('addNewDevice', this.adInfo);
   }
 
+  // showAdsHours: boolean = false;
+  // showAdsHoursTxt: any = '...more'
+  // showAd() {
+  //   this.showAdsHours = !this.showAdsHours;
+
+  //   if(this.showAdsHours == false) {
+  //     this.showAdsHoursTxt = '...more';
+  //   } else {
+  //     this.showAdsHoursTxt = '...less'
+  //   }
+  // }
 
 }
+

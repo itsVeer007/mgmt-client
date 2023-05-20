@@ -68,7 +68,7 @@ export class MetaDataComponent implements OnInit {
       // console.log(data);
 
       const dataType = res.flatMap((item: any) => item.type);
-      console.log('dataType', dataType)
+      // console.log('dataType', dataType)
       for(let id of dataType) {
         this.metadataType = id;
         // console.log(this.metadataType);

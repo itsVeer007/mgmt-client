@@ -1,21 +1,23 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { DeviceService } from 'src/services/device.service';
+import { MetadataService } from 'src/services/metadata.service';
+import { SiteService } from 'src/services/site.service';
 import { AssetService } from '../../services/asset.service';
 import { AdInfoComponent } from './ad-info/ad-info.component';
-import { MetadataService } from 'src/services/metadata.service';
-import { DeviceService } from 'src/services/device.service';
-import { MatAccordion } from '@angular/material/expansion';
-import videojs from 'video.js';
-import { VideoJsPlayerOptions } from 'video.js';
+import { MatTabGroup } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-assets',
   templateUrl: './assets.component.html',
-  styleUrls: ['./assets.component.css']
+  styleUrls: ['./assets.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AssetsComponent implements OnInit {
+  @ViewChild("tabgroup", { static: true }) tabGroup!: MatTabGroup ;
+
 
   @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
     var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);
@@ -57,48 +59,57 @@ export class AssetsComponent implements OnInit {
     public datepipe: DatePipe,
     public dialog: MatDialog,
     private devSercice: DeviceService,
+    private siteService: SiteService,
+    public cdr:ChangeDetectorRef
   ) { }
 
   currentDateTime: any;
   endDateTime: any;
+  devDevId: any
   ngOnInit(): void {
     this.currentDateTime =this.datepipe.transform(new Date().toLocaleString('en-us',{month:'short', day: 'numeric', year:'numeric'}));
     this.endDateTime =this.datepipe.transform(new Date('9999-12-31').toLocaleString('en-us',{month:'short', day: 'numeric', year:'numeric'}));
+    this.getSiteData();
     this.getAssetData();
     this.ongetDeviceMode();
-    this.ongetStatus();
+    this.openTable();
+    // this.getAssets();
+
+    this.devDevId = JSON.parse(localStorage.getItem('device_temp')!);
   }
 
 
-  assetTable: any[] = [];
+  assetTable: any = [];
   inputToAddAsset: any;
   tableData: any;
-  siteIdList: any;
-  siteIdToTable: any
+  siteIdToTable: any;
+
+  deviceIds: any;
+  newTableData: Array<any>=[];
+
+  getSiteData() {
+    this.siteService.listSites().subscribe((res: any) => {
+      // console.log(res);
+      this.siteIdToTable = res.sitesList;
+      this.cdr.detectChanges();
+    })
+  }
+
   getAssetData() {
     this.showLoader = true;
     this.assetService.getAssets().subscribe((res: any) => {
-      console.log('res', res);
+      // console.log('res', res);
       this.showLoader = false;
 
       this.inputToAddAsset = res;
       const assets = res.flatMap((item: any) => item.assets);
+      // console.log(assets)
+
+
       this.assetTable = assets;
       this.tableData = this.assetTable;
-      // console.log('inputToAddAsset', this.inputToAddAsset);
 
-      // const sId = res.flatMap((item: any) => item.siteId);
-      // console.log(sId)
-
-      /* for site id's */
-      const site_id = res.flatMap((item: any) => item.siteId);
-      this.siteIdToTable = site_id;
-      for(let id of site_id) {
-        this.siteIdList = id;
-      }
-      // console.log('site_id', this.siteIdList);
-
-      //status count
+      /* status count */
       for(let item of this.assetTable) {
         if(item.status == 1) {
           this.pending.push(item);
@@ -110,24 +121,80 @@ export class AssetsComponent implements OnInit {
           this.removed.push(item);
         }
       }
-    })
+    });
+    this.cdr.detectChanges();
   }
 
 
-  siteIds: any = [];
+
   getDevices(siteId: any) {
-    this.devSercice.getDeviceList().subscribe((res: any) => {
-      console.log(res)
-      let x = res.flatMap((item: any) => item.adsDevices);
+    this.showLoader = true;
+    this.newTableData=[];
 
-      let y = x.filter((item: any) => {
-        return item.siteId == siteId;
+      this.devSercice.getDevice(siteId).subscribe((res: any) => {
+        // console.log(res);
+        this.showLoader = false;
+        if(res.length>0){
+
+        this.deviceIds = res[0]?.adsDevices;
+        // this.getAssetss(this.deviceIds[0]);
+
+        // this.deviceIds = [];
+        // this.deviceIds.push(x);
+        // console.log(this.deviceIds);
+        this.cdr.detectChanges();
+        }
       })
+  }
 
-      this.siteIds=[];
-      this.siteIds.push(y)
-      // console.log(this.siteIds);
+  assetMsg:string='Assets are not available';
+
+  getAssetss(dev: any) {
+    // this.showLoader=true
+    this.assetMsg='Loading...'
+    this.newTableData=[];
+    this.assetService.getAsset(dev.deviceId).subscribe((res: any) => {
+      if(res===undefined){this.newTableData=[]}
+      else {
+        if(res.length==0){
+          this.newTableData=[];
+          this.assetMsg='Assets are not available';
+          this.cdr.detectChanges();
+        }
+        else{
+          this.newTableData = res[0]?.assets;
+          if(this.newTableData.length===0){this.assetMsg='Assets are not available'}
+        }
+        this.cdr.detectChanges();
+      }
+      this.cdr.detectChanges();
+      // this.newTableData = [];
+      // this.newTableData.push(x); no
     })
+  }
+  changeTableData(e:any){
+    var selectedId=(e.tab.textLabel);
+    var dev = this.deviceIds.filter((elem:any)=> elem.deviceId== selectedId)[0];
+    this.newTableData=[];
+    this.getAssetss(dev);
+    console.log(e)
+  }
+
+  statusObj = {
+    status: null,
+    modifiedBy: 1
+  }
+
+  changeDevStatus(id: any) {
+    this.assetService.updateAssetStatus(id, this.statusObj).subscribe((res: any) => {
+      console.log(res)
+    })
+  }
+
+  @ViewChild('editStatus') cityDialog = {} as TemplateRef<any>;
+  openDialo() {
+    this.dialog.open(this.cityDialog);
+    // this.dialog.closeAll();
   }
 
 
@@ -153,28 +220,17 @@ export class AssetsComponent implements OnInit {
 
 
   deviceMode: any;
+  assetStatus: any;
   ongetDeviceMode() {
-    this.dropDown.getDeviceMode().subscribe((res: any) => {
+    this.dropDown.getMetadata().subscribe((res: any) => {
       for(let item of res) {
         if(item.type == 'Device_Mode') {
           this.deviceMode = item.metadata;
         }
-      }
-      // console.log(this.deviceMode);
-    })
-  }
-
-
-  assetStatus: any;
-  ongetStatus() {
-    this.dropDown.getMetadata().subscribe((res: any) => {
-      for(let item of res) {
-        if(item.type == 'Asset_Status') {
+        else if(item.type == 'Asset_Status') {
           this.assetStatus = item.metadata;
         }
       }
-
-      // console.log(this.assetStatus);
     })
   }
 
@@ -200,9 +256,10 @@ export class AssetsComponent implements OnInit {
 
   showAsset: boolean = false;
 
-  showAddAsset() {
+  showAddAsset(devData: any) {
     this.showAsset = true;
     this.dialog.closeAll();
+    localStorage.setItem('device_temp', JSON.stringify(devData));
   }
 
   closenow(value: any, type: String) {
@@ -414,40 +471,34 @@ export class AssetsComponent implements OnInit {
   showDetail() {
     this.info = true;
   }
+
   hideDetail() {
     this.info = false;
   }
 
-  // @ViewChild('videoElement') videoElement = {} as ElementRef<any>;
+
   videoElement: any;
   toDownload() {
-    // this.dropDown.downloadFile().subscribe((res: any) => {
-    //   console.log(res);
-    //   this.videoElement.nativeElement.src = URL.createObjectURL(res);
-    // })
-
-    // this.dropDown.downloadFile().subscribe(
-    //   (result: any) => {
-    //     this.videoElement.nativeElement.src = URL.createObjectURL(result);
-    //     this.videoElement.nativeElement.load();
-    //   }
-    // );
-
+    this.dropDown.dw().subscribe((res: any) => {
+      console.log(res);
+      this.videoElement = res.url;
+      console.log(this.videoElement);
+    })
   }
 
   // @ViewChild('myCityDialog') cityDialog!: TemplateRef<any>;
 
-  // curr: any
-  // openTable(item: any) {
-  //   this.dialog.open(this.cityDialog);
-  //   this.assetService.getAsset().subscribe((res: any) => {
-  //     console.log(res)
-  //   })
-  //   this.curr = item;
-  //   // console.log(this.curr)
-  // }
+  curr: any
+  openTable() {
+    // this.dialog.open(this.cityDialog);
+    // this.assetService.getAsset().subscribe((res: any) => {
+    //   console.log(res)
+    // })
+    // this.curr = item;
+    // console.log(this.curr)
+  }
 
-  @ViewChild(MatAccordion) accordion!: MatAccordion;
+  // @ViewChild(MatAccordion) accordion!: MatAccordion;
 
   // player!: videojs.Player;
   // ngAfterViewInit() {

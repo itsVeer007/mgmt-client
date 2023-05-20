@@ -16,6 +16,7 @@
   <!-- /header -->
 
   <!-- <video class="video-js" data-setup=""></video> -->
+  <!-- <img src="http://usstaging.ivisecurity.com:777/common/downloadFile_1_0?assetName=IVISTEST001&requestName=snapshots&levels=IVISTEST001" alt=""> -->
 
   <!-- status -->
   <div class="row">
@@ -66,9 +67,9 @@
         <mat-form-field appearance="outline" class="w-100">
           <input matInput placeholder="Site Name" [matAutocomplete]="site" (keyup)="searchForSiteInput($event)">
           <mat-autocomplete #site="matAutocomplete">
-            <mat-option *ngFor="let item of assetTable | search: siteSearch" [value]="item.id" (click)="searchForSiteOption(item.id)">
+            <!-- <mat-option *ngFor="let item of assetTable | search: siteSearch" [value]="item.id" (click)="searchForSiteOption(item.id)">
               {{ item.id }}
-            </mat-option>
+            </mat-option> -->
           </mat-autocomplete>
         </mat-form-field>
       </div>
@@ -83,9 +84,9 @@
         <mat-form-field appearance="outline" class="w-100">
           <input matInput placeholder="Device Mode" [matAutocomplete]="mode" (keyup)="searchForModeInput($event)">
           <mat-autocomplete #mode="matAutocomplete">
-            <mat-option *ngFor="let item of deviceMode | search: modeSearch" [value]="item.value" (click)="searchForModeOption(item.keyId)">
+            <!-- <mat-option *ngFor="let item of deviceMode | search: modeSearch" [value]="item.value" (click)="searchForModeOption(item.keyId)">
               {{ item.value }}
-            </mat-option>
+            </mat-option> -->
           </mat-autocomplete>
         </mat-form-field>
       </div>
@@ -126,193 +127,203 @@
 
   <div>
     <mat-accordion class="example-headers-align">
-      <mat-expansion-panel *ngFor="let item of siteIdToTable">
-        <mat-expansion-panel-header (click)="getDevices(item)">
+      <mat-expansion-panel *ngFor="let id of siteIdToTable">
+        <mat-expansion-panel-header (click)="getDevices(id.siteId)">
           <mat-panel-title>
-            {{item}}
+            {{id.siteId}}
           </mat-panel-title>
           <!-- <mat-panel-description>
             {{item}}
           </mat-panel-description> -->
         </mat-expansion-panel-header>
 
-        <mat-accordion>
-          <mat-expansion-panel *ngFor="let item of siteIds[0]">
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                {{item.deviceId}}
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-                    <!-- table -->
-        <div class="table-resp extra w-100">
-          <table class="table" id="mytable">
-            <thead>
-              <tr class="form1">
-                <th>
-                  <input type="checkbox" class="form-check-input" [(ngModel)]="selectedAll" (change)="selectAll()" id="allcheck"
-                    style="background-color: #00000000; border-color: #fff; margin-left: 10px;">
-                </th>
-                <th (click)="sort('siteId')">Id</th>
-                <th (click)="sort('customerName')">Name</th>
-                <!-- <th  (click)="sort('siteId')">
-                  <div class="d-flex align-items-center">
-                    Site details<img class="pointer ms-1" (mouseover)="showDetail()" (mouseout)="hideDetail()" src="assets/icons/info_white.svg">
-                  </div>
-                  <div class="info" *ngIf="info">Device Id + Device Name</div>
-                </th> -->
-                <th (click)="sort('siteId')">
-                  <div class="d-flex align-items-center">
-                    Device details<img class="pointer ms-1" src="assets/icons/info_white.svg">
-                  </div>
-                </th>
-                <th (click)="sort('address')">Device mode</th>
-                <!-- <th (click)="sort('address')">Mime Type</th> -->
-                <th (click)="sort('address')">Duration</th>
-                <th (click)="sort('address')">Start date</th>
-                <th (click)="sort('address')">End date</th>
-                <!-- <th (click)="sort('address')">Details</th> -->
-                <th (click)="sort('status')">Status</th>
-                <th (click)="sort('status')">Add</th>
-                <th (click)="sort('status')" class="text-center">Ads details</th>
-                <th (click)="sort('status')" class="text-center">Play</th>
-                <th></th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <tr *ngFor="let item of assetTable | search: searchText; let i=index;">
-                <td>
-                  <input type="checkbox" class="form-check-input" [(ngModel)]="item.selected" (change)="checkIfAllSelected(); deleteMultiRecords(item, i, $event); ViewByCheckbox(item, i, $event); EditByCheckbox(item, i, $event)" id="singleCheck">
-                </td>
-
-                <td>
-                  <p>{{ item.id }}</p>
-                </td>
-
-                <td>
-                  <p>{{ item.asset_name ? item.asset_name : '--' }}</p>
-                </td>
-
-                <!-- <td>
-                  <p>{{ siteIdList + ' ' + '--'}}</p>
-                </td> -->
-
-                <td>
-                  <p>{{ item.deviceId + ' ' + '--'}}</p>
-                </td>
-
-                <td>
-                  <p *ngIf="item.deviceModeId == 1">BS</p>
-                  <p *ngIf="item.deviceModeId == 2">BSR</p>
-                  <p *ngIf="item.deviceModeId == 3">ODR</p>
-                  <!-- <p>{{item.deviceModeId}}</p> -->
-                </td>
-
-                <!-- <td>
-                    <p>{{ item.mimetype }}</p>
-                  </td> -->
-
-                <td>
-                  <p>{{item.duration}}</p>
-                </td>
-
-                <td>
-                  <p>{{item.start_date ? item.start_date : currentDateTime}}</p>
-                </td>
-
-                <td>
-                  <p>{{item.end_date ? item.end_date : endDateTime}}</p>
-                </td>
-
-                <!-- <td>
-                  <p>{{item.description}}</p>
-                </td> -->
-                <!-- <td>
-                    <button class="bg-white" style="color: #084982">{{ item.address }}</button>
-                  </td> -->
-
-                <td>
-                  <p [style.color]="item.status == 1 ? '#F5B400' : item.status == 2 ? '#00A44C' : item.status == 5 ? '#fa500f' : '#00A44C'">
-
-                    <span class="d-flex justify-content-between">
-                      <span>
-                        {{ item.status == 1 ? "Pending": item.status == 2 ? "Added" : item.status == 3 ? '' : item.status == 4 ? "Synced" : item.status == 5 ? "Removed" : '--'}}
-                      </span>
-                      <a class="pointer" [matMenuTriggerFor]="menu" #menuTrigger>
-                        <img src="assets/icons/edit.svg"  width="13">
-                      </a>
-                    </span>
-
-
-                    <!-- <button mat-button color="primary" [matMenuTriggerFor]="menu" #menuTrigger>Edit</button> -->
-                    <mat-menu #menu="matMenu">
-                      <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Edit Status</mat-label>
-                        <mat-select>
-                          <mat-option>SentToController</mat-option>
-                          <mat-option>Synced</mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                      <!-- <button mat-raised-button color="primary">Edit Status</button> -->
-                    </mat-menu>
-                  </p>
-                </td>
-
-                <td class="text-center">
-                  <button style="background: transparent; border: none;" (click)="showAddAsset()">
-                    <img src="assets/icons/add.svg" alt="" width="30" height="30">
-                  </button>
-                </td>
-
-                <td class="text-center">
-                  <a class="pointer" (click)="openDialog()">
-                    <img style="color: #bdb8b8;" src="assets/icons/live_tv.svg" width="20" height="20" />
-                  </a>
-                </td>
-
-                <td class="text-center">
-                  <a class="pointer" href="http://192.168.0.135:8080/getAssetFile_1_0?assetName=anand_test_99.mp4&deviceId=IVISIND1102DV1" target="_blank">
-                    <img style="color: #bdb8b8;" src="assets/icons/play.svg" width="25" height="25" />
-                  </a>
-                </td>
-
-                <!-- <td>
-                  <video autoplay controls src="http://192.168.0.135:8080/getAssetFile_1_0?assetName=anand_test_99.mp4&deviceId=IVISIND1102DV1" type="video/mp4"></video>
-                </td> -->
-
-                <td style="position: relative;">
-                  <a class="pointer" (click)="closeDot($event, i)"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
-
-                  <div class="plus-img1" id="plus-img{{i}}" style="display: none">
-                    <div class="lists" *ngIf="showIconView1" style="margin-left: 5px; margin-top: -20px">
-                      View
-                    </div>
-                    <div class="lists" *ngIf="showIconEdit1" style="margin-left: 38px; margin-top: -20px">
-                      Edit
-                    </div>
-                    <div class="lists" *ngIf="showIconDelete1" style="margin-left: 63px; margin-top: -20px">
-                      Delete
-                    </div>
-
-                    <a class="mx-2" (click)="openViewPopup(item, i)"><img src="assets/icons/view.svg" (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" /></a>
-                    <a class="mx-2" (click)="openEditPopup(item, i)"><img src="assets/icons/edit.svg" (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" /></a>
-                    <a class="mx-2" value="Delete" (click)="openDeletePopup(item, i)"><img src="assets/icons/delete.svg" (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" /></a>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
-          <!-- Loader -->
-          <div *ngIf="showLoader" class="d-flex justify-content-center align-items-center" style="height: 50vh;">
-            <app-loader></app-loader>
-          </div>
-          <!-- /Loader -->
-
+        <!-- Loader -->
+        <div *ngIf="showLoader" class="d-flex justify-content-center align-items-center" style="height: 25vh;">
+          <app-loader></app-loader>
         </div>
-        <!-- table -->
-          </mat-expansion-panel>
-        </mat-accordion>
+        <!-- /Loader -->
+
+        <mat-tab-group animationDuration="200ms"  (focusChange)="changeTableData($event)"
+        [style.opacity]="showLoader ? '0':'1'"
+        >
+          <mat-tab *ngFor="let dev of deviceIds" [label]="dev.deviceId">
+            <!-- this is that tab right? yes -->
+            <h1 *ngIf="newTableData.length===0">{{assetMsg}}</h1>
+            <div class="d-flex justify-content-end my-2">
+              <button mat-stroked-button color="primary" *ngIf="newTableData.length>0" (click)="getAssetss(dev)">show</button>
+              <button mat-stroked-button color="primary" *ngIf="newTableData.length>0" (click)="showAddAsset(dev)">ADD</button>
+            </div>
+            <!-- table -->
+            <div class="table-resp extra w-100" *ngIf="newTableData.length>0">
+              <!-- this should show up, lets check -->
+              <table class="table" id="mytable">
+                <thead>
+                  <tr class="form1">
+                    <th>
+                      <input type="checkbox" class="form-check-input" [(ngModel)]="selectedAll" (change)="selectAll()" id="allcheck"
+                        style="background-color: #00000000; border-color: #fff; margin-left: 10px;">
+                    </th>
+                    <th (click)="sort('siteId')">Id</th>
+                    <th (click)="sort('customerName')">Name</th>
+                    <!-- <th  (click)="sort('siteId')">
+                      <div class="d-flex align-items-center">
+                        Site details<img class="pointer ms-1" (mouseover)="showDetail()" (mouseout)="hideDetail()" src="assets/icons/info_white.svg">
+                      </div>
+                      <div class="info" *ngIf="info">Device Id + Device Name</div>
+                    </th> -->
+                    <!-- <th (click)="sort('siteId')">
+                      <div class="d-flex align-items-center">
+                        Device details<img class="pointer ms-1" src="assets/icons/info_white.svg" (mouseover)="showDetail()" (mouseout)="hideDetail()">
+                        <div class="info" *ngIf="info">Device Id + Device Name</div>
+                      </div>
+                    </th> -->
+                    <th (click)="sort('address')">Device mode</th>
+                    <!-- <th (click)="sort('address')">Mime Type</th> -->
+                    <th (click)="sort('address')">Duration</th>
+                    <th (click)="sort('address')">Start date</th>
+                    <th (click)="sort('address')">End date</th>
+                    <!-- <th (click)="sort('address')">Details</th> -->
+                    <th (click)="sort('status')">Status</th>
+                    <!-- <th (click)="sort('status')">Add</th> -->
+                    <th (click)="sort('status')" class="text-center">Ads details</th>
+                    <th (click)="sort('status')" class="text-center">Play</th>
+                    <th></th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr *ngFor="let item of newTableData | search: searchText; let i=index;">
+                    <td>
+                      <input type="checkbox" class="form-check-input" [(ngModel)]="item.selected" (change)="checkIfAllSelected(); deleteMultiRecords(item, i, $event); ViewByCheckbox(item, i, $event); EditByCheckbox(item, i, $event)" id="singleCheck">
+                    </td>
+
+                    <td>
+                      <p>{{ item.id }}</p>
+                    </td>
+
+                    <td>
+                      <p>{{ item.asset_name ? item.asset_name : '--' }}</p>
+                    </td>
+
+                    <!-- <td>
+                      <p>{{ siteIdList + ' ' + '--'}}</p>
+                    </td> -->
+
+                    <!-- <td>
+                      <p>{{ item.deviceId + ' ' + '--'}}</p>
+                    </td> -->
+
+                    <td>
+                      <p *ngIf="item.deviceModeId == 1">BS</p>
+                      <p *ngIf="item.deviceModeId == 2">BSR</p>
+                      <p *ngIf="item.deviceModeId == 3">ODR</p>
+                      <!-- <p>{{item.deviceModeId}}</p> -->
+                    </td>
+
+                    <!-- <td>
+                        <p>{{ item.mimetype }}</p>
+                      </td> -->
+
+                    <td>
+                      <p>{{item.duration}}</p>
+                    </td>
+
+                    <td>
+                      <p>{{item.start_date ? item.start_date : currentDateTime}}</p>
+                    </td>
+
+                    <td>
+                      <p>{{item.end_date ? item.end_date : endDateTime}}</p>
+                    </td>
+
+                    <!-- <td>
+                      <p>{{item.description}}</p>
+                    </td> -->
+                    <!-- <td>
+                        <button class="bg-white" style="color: #084982">{{ item.address }}</button>
+                      </td> -->
+
+                    <td>
+                      <p [style.color]="item.status == 1 ? '#F5B400' : item.status == 2 ? '#00A44C' : item.status == 5 ? '#fa500f' : '#00A44C'">
+
+                        <span class="d-flex">
+                          <span style="width: 50px;">
+                            {{ item.status == 1 ? "Pending": item.status == 2 ? "Added" : item.status == 3 ? '' : item.status == 4 ? "Synced" : item.status == 5 ? "Removed" : '--'}}
+                          </span>
+
+                          <a (click)="openDialo()" class="ms-2 pointer">
+                            <img src="assets/icons/edit.svg"  width="13">
+                          </a>
+                        </span>
+
+                        <ng-template #editStatus>
+                          <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Edit Status</mat-label>
+                            <mat-select [(ngModel)]="statusObj.status">
+                              <mat-option [value]="2">Added</mat-option>
+                              <mat-option [value]="5">Removed</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                          <button mat-raised-button color="primary" (click)="changeDevStatus(item.id)">Submit</button>
+                        </ng-template>
+                      </p>
+                    </td>
+
+                    <!-- <td>
+                      <button style="background: transparent; border: none;" (click)="showAddAsset()">
+                        <img src="assets/icons/add.svg" alt="" width="30" height="30">
+                      </button>
+                    </td> -->
+
+                    <td class="text-center">
+                      <a class="pointer" (click)="openDialog()">
+                        <img style="color: #bdb8b8;" src="assets/icons/live_tv.svg" width="20" height="20" />
+                      </a>
+                    </td>
+
+                    <td class="text-center">
+                      <a class="pointer" (click)="toDownload()" href=" pro" target="_blank">
+                        <img style="color: #bdb8b8;" src="assets/icons/play.svg" width="25" height="25" />
+                      </a>
+                    </td>
+
+                    <!-- <td>
+                      <video autoplay controls src="http://usstaging.ivisecurity.com:777/common/downloadFile_1_0?assetName=test19-May001&requestName=av_assets&levels=JTTEST001" type="video/mp4"></video>
+                    </td> -->
+
+                    <td style="position: relative;">
+                      <a class="pointer" (click)="closeDot($event, i)"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
+
+                      <div class="plus-img1" id="plus-img{{i}}" style="display: none">
+                        <div class="lists" *ngIf="showIconView1" style="margin-left: 5px; margin-top: -20px">
+                          View
+                        </div>
+                        <div class="lists" *ngIf="showIconEdit1" style="margin-left: 38px; margin-top: -20px">
+                          Edit
+                        </div>
+                        <div class="lists" *ngIf="showIconDelete1" style="margin-left: 63px; margin-top: -20px">
+                          Delete
+                        </div>
+
+                        <a class="mx-2" (click)="openViewPopup(item, i)"><img src="assets/icons/view.svg" (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" /></a>
+                        <a class="mx-2" (click)="openEditPopup(item, i)"><img src="assets/icons/edit.svg" (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" /></a>
+                        <a class="mx-2" value="Delete" (click)="openDeletePopup(item, i)"><img src="assets/icons/delete.svg" (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" /></a>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <!-- Loader -->
+              <div *ngIf="showLoader" class="d-flex justify-content-center align-items-center" style="height: 50vh;">
+                <app-loader></app-loader>
+              </div>
+              <!-- /Loader -->
+
+            </div>
+            <!-- table -->
+          </mat-tab>
+        </mat-tab-group>
 
       </mat-expansion-panel>
     </mat-accordion>

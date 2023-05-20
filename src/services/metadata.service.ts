@@ -8,7 +8,7 @@ export class MetadataService {
 
   metadata = 'http://usstaging.ivisecurity.com:777/common/getValuesListByType_1_0';
 
-  // new = 'http://usstaging.ivisecurity.com:777/common/downloadFile_1_0?assetName=BS-AMR1G11A111-Test001.mp4&requestName=av_assets&levels=IVISDUM0001DV1';
+  new = 'http://usstaging.ivisecurity.com:777/common/downloadFile_1_0?assetName=test19-May001&requestName=av_assets&levels=JTTEST001';
 
   // x = 'http://192.168.0.135:8080/getAssetFile_1_0?assetName=BS-AMR1G11A111-Test001.mp4&deviceId=IVISDUM0001DV1'
 
@@ -19,14 +19,21 @@ export class MetadataService {
   }
 
 
-  //download
-  // downloadFile() {
-  //   let getATestVideoURL = this.new;
-  //   return this.http.get(getATestVideoURL)
-  // }
 
-  getDeviceMode() {
-    return this.http.get(this.metadata);
+  downloadFile(id: any) {
+    let getATestVideoURL = 'http://usstaging.ivisecurity.com:777/common/downloadFile_1_0?';
+
+    let myObj = {
+      'assetName': 'test19-May001',
+      'requestName': 'av_assets',
+      'levels': id,
+    }
+
+    return this.http.get(getATestVideoURL, { params: myObj });
+  }
+
+  dw() {
+    return this.http.get(this.new);
   }
 
   tempRange() {

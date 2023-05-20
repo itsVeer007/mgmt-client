@@ -25,6 +25,7 @@
 .device-title{
   font-size: 14px;
   font-weight: 400;
+  width: 300px;
 }
 
 .device-sub {
@@ -147,6 +148,10 @@
 
 .mat-form-field-appearance-outline ::ng-deep .mat-form-field-subscript-wrapper {
   padding: 0 5px;
+}
+
+::ng-deep .mat-form-field label {
+  width: 100px;
 }
 
 

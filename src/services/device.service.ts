@@ -27,26 +27,37 @@ export class DeviceService {
   //   return this.http.get(url);
   // }
 
-  getDeviceList() {
+  listDeviceAdsInfo() {
     let url = this.deviceUrl + '/listDeviceAdsInfo_1_0';
     return this.http.get(url);
   }
 
-  addDevice(payload: any) {
+  getDevice(siteId: any) {
+    let url = this.deviceUrl + '/listDeviceAdsInfo_1_0';
+
+    var payload = {
+      siteId: siteId
+    }
+
+    return this.http.get(url, {params: payload});
+  }
+
+  // listDevice(siteId: any) {
+  //   let url = this.deviceUrl + '/listDeviceAdsInfo_1_0';
+
+  //   let myObj = {
+  //     deviceId: siteId
+  //   };
+
+  //   return this.http.get(url, { params: myObj });
+  // }
+
+  createDeviceandAdsInfo(payload: any) {
     let url = this.deviceUrl + '/createDeviceandAdsInfo_1_0';
     return this.http.post(url, payload);
   }
 
-  getDevice(deviceId: any) {
-    var payload = {
-      "siteId": deviceId
-    }
-
-    let url = this.deviceUrl + '/listDeviceAdsInfo_1_0';
-    return this.http.get(url, {params: payload});
-  }
-
-  updateDevice(payload: any) {
+  updateDeviceAdsInfo(payload: any) {
     // let adsDevice = {
     //   "deviceId": devId,
     //   "deviceModeId": payload.deviceModeId,

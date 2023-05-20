@@ -24,20 +24,12 @@ export class AssetService {
     return this.http.get(url);
   }
 
-  getAsset() {
+  getAsset(devId: any) {
     let url = this.baseUrl + "/listAssets_1_0";
 
-    const myObj = { deviceId: 'IVISIND1102DV3', siteId: 1102, active: 0 };
-
-    // const body = JSON.stringify(myObj);
-
-    // const httpOptions = {
-    //   headers: new HttpHeaders({
-    //     "Content-Type": "application/json",
-    //     "Accept": "application/json"
-    //   })
-    // };
-
+    let myObj = {
+      deviceId: devId
+    };
 
     return this.http.get(url, { params: myObj });
   }
@@ -103,5 +95,17 @@ export class AssetService {
   //   let url = this.baseUrl + '/createDeviceAdsInfo_1_0';
   //   return this.http.post(url, payload)
   // }
+
+  updateAssetStatus(id: any, payload: any) {
+    let url = this.baseUrl + "/updateAssetStatus_1_0";
+
+    let myObj = {
+      'id': id,
+      'status': payload.status,
+      'modifiedBy': payload.modifiedBy
+    }
+
+    return this.http.put(url, myObj);
+  }
 
 }

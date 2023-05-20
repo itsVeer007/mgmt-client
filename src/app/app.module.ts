@@ -51,6 +51,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatBadgeModule } from '@angular/material/badge';
 
 //utilities
 import { MultiSelectSearchComponent } from './utilities/multi-select-search/multi-select-search.component';
@@ -128,7 +129,8 @@ import { TestComponent } from './test/test.component';
     MatSidenavModule,
     MatMenuModule,
     MatSnackBarModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatBadgeModule
   ],
   providers: [
     ChartService,
