@@ -6,37 +6,37 @@
 
     <!-- count -->
     <div class="col-lg-6">
-      <p>Total Inventory - <span>100</span></p>
+      <p>Total Inventory - <span>{{ inventoryTable.length }}</span></p>
       <div class="row">
         <div class="col-lg-2 d-flex justify-content-start">
           <div class="vl-yellow"></div>
           <div class="mx-2">
             <div class="status">In-Stock</div>
-            <div class="count">20</div>
+            <div class="count">{{ inStock.length }}</div>
           </div>
         </div>
         <div class="col-lg-2 d-flex justify-content-start">
           <div class="vl-green"></div>
           <div class="mx-2">
             <div class="status">Installed</div>
-            <div class="count">40</div>
+            <div class="count">{{ installed.length }}</div>
           </div>
         </div>
         <div class="col-lg-2 d-flex justify-content-start">
           <div class="vl-red"></div>
           <div class="mx-2">
             <div class="status">Scrap</div>
-            <div class="count">5</div>
+            <div class="count">{{ scrap.length }}</div>
           </div>
         </div>
         <div class="col-lg-2 d-flex justify-content-start">
           <div class="vl-greay"></div>
           <div class="mx-2">
             <div class="status">Reuse</div>
-            <div class="count">5</div>
+            <div class="count">{{ redyToUse.length }}</div>
           </div>
         </div>
-        <div class="col-lg-2 d-flex justify-content-start">
+        <!-- <div class="col-lg-2 d-flex justify-content-start">
           <div class="vl-orange"></div>
           <div class="mx-2">
             <div class="status">Returned</div>
@@ -49,7 +49,7 @@
             <div class="status">Removed</div>
             <div class="count">20</div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
     <!-- /count -->
@@ -98,7 +98,7 @@
           <mat-label>All</mat-label>
           <mat-select>
             <!-- <mat-option (click)="sort('siteName')">Filter by A-Z</mat-option> -->
-            <mat-option *ngFor="let cust of CustomerTable">{{ cust.contactPerson }}</mat-option>
+            <mat-option *ngFor="let cust of inventoryTable">{{ cust.contactPerson }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -151,7 +151,7 @@
           <th></th>
         </tr>
 
-        <tr *ngFor="let cust of CustomerTable | search : searchText; let i = index">
+        <tr *ngFor="let cust of inventoryTable | search : searchText; let i = index">
           <td>
             <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="cust.selected" (change)="
                 checkIfAllSelected();
@@ -162,7 +162,7 @@
           </td>
           <!-- <td><input type="checkbox" class="form-check-input" [checked]="masterSelected" /></td> -->
           <td>
-            <p>{{ cust.productID }}</p>
+            <p>{{ cust.productId }}</p>
           </td>
           <td>
             <p>{{ cust.productSerialNo }}</p>
@@ -174,10 +174,11 @@
             <p>{{ cust.productBrand }}</p>
           </td>
           <td>
-            <p>{{ cust.productCat }}</p>
+            <p>{{ cust.productCategory }}</p>
           </td>
           <td>
-            <a class="pointer" style="color: #084982;" (click)="addressView($event,i)">{{cust.productDetails}}</a>
+            <p>{{ cust.details }}</p>
+            <!-- <a class="pointer" style="color: #084982;" (click)="addressView($event,i)">{{cust.details}}</a>
             <div style="display: none;"
                 class="plus-img" id="address{{i}}">
                 <p class="p-2" style="color: #ABABAB; text-align: left;">ADDRESS</p>
@@ -186,8 +187,8 @@
                     <p>Guntur - 522501</p>
                     <p>Andhra Pradesh, India</p>
                 </div>
-            </div>
-        </td>
+            </div> -->
+          </td>
           <!-- <td>
             <a class="pointer" (click)="show('inventory')">
               <img src="assets/icons/add-svg.svg" width="25" height="25" />

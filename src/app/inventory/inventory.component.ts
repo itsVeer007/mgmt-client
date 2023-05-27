@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { AssetService } from 'src/services/asset.service';
+import { InventoryService } from 'src/services/inventory.service';
 
 @Component({
   selector: 'app-inventory',
@@ -36,10 +37,10 @@ export class InventoryComponent implements OnInit {
 
 
   showLoader = false;
-  constructor(private http: HttpClient, private ass: AssetService) { }
+  constructor(private http: HttpClient, private ass: AssetService, private inventorySer: InventoryService) { }
 
   ngOnInit(): void {
-    this.CustomerReport();
+    this.getInventory();
   }
 
   showIconVertical: boolean = false;
@@ -57,11 +58,28 @@ export class InventoryComponent implements OnInit {
   showIconDelete1: boolean = false;
 
   searchText: any;
-  CustomerTable: any;
-  CustomerReport() {
-    this.http.get('assets/JSON/inventory.json').subscribe(res => {
-      this.CustomerTable = res;
-      // console.log(res)
+  inventoryTable: any = [];
+
+  installed: any = [];
+  inStock: any = [];
+  scrap: any = [];
+  redyToUse: any = [];
+  getInventory() {
+    this.inventorySer.getListing().subscribe((res: any) => {
+      console.log(res);
+      this.inventoryTable = res;
+
+      for(let item of this.inventoryTable) {
+        if(item.status == 'Installed') {
+          this.installed.push(item);
+        } else if(item.status == 'In-Stock') {
+          this.inStock.push(item);
+        } else if(item.status == 'Scrap') {
+          this.scrap.push(item);
+        } else if(item.status == 'ReadyToReuse') {
+          this.redyToUse.push(item);
+        }
+      }
     });
   }
 
@@ -89,25 +107,6 @@ export class InventoryComponent implements OnInit {
 
   closenow(value: any, type: String) {
     if (type == 'inventory') { this.showInventory = value; }
-
-
-    // if (type == 'camr') { this.showAddCamera = value; }
-    // if (type == 'cust') { this.showAddCustomer = value; }
-    // if (type == 'vert') { this.showAddBusinessVertical = value; }
-    // if (type == 'user') { this.showAddUser = value; }
-    // if(type == 'additionalSite') {this.showSite = value;}
-    // console.log("SITES:: ",type)
-
-    // setTimeout(() => {
-    //   var openform = localStorage.getItem('opennewform');
-    //   if (openform == 'showAddSite') { this.showAddSite = true; }
-    //   if (openform == 'showAddCamera') { this.showAddCamera = true; }
-    //   if (openform == 'showAddCustomer') { this.showAddCustomer = true; }
-    //   if (openform == 'showAddBusinessVertical') { this.showAddBusinessVertical = true; }
-    //   if (openform == 'showAddUser') { this.showAddUser = true; }
-    //   if (openform == 'additionalSite') { this.showSite = true; }
-    //   localStorage.setItem('opennewform', '');
-    // }, 100)
   }
 
   // showAddCamera = false;
@@ -177,13 +176,13 @@ export class InventoryComponent implements OnInit {
   selectedAll: any;
 
   selectAll() {
-    for (var i = 0; i < this.CustomerTable.length; i++) {
-      // console.log(this.CustomerTable[i])
-      this.CustomerTable[i].selected = this.selectedAll;
+    for (var i = 0; i < this.inventoryTable.length; i++) {
+      // console.log(this.inventoryTable[i])
+      this.inventoryTable[i].selected = this.selectedAll;
     }
   }
   checkIfAllSelected() {
-    this.selectedAll = this.CustomerTable.every(function (item: any) {
+    this.selectedAll = this.inventoryTable.every(function (item: any) {
       // console.log(item)
       return item.selected == true;
     })
@@ -196,14 +195,14 @@ export class InventoryComponent implements OnInit {
     this.showLoader = true;
     setTimeout(() => {
       this.showLoader = false;
-      this.CustomerTable.splice(i, 1);
+      this.inventoryTable.splice(i, 1);
     }, 1000);
   }
 
   deletePopup: boolean = true;
   confirmDeleteRow() {
     console.log("ToBE DELETED:: ", this.currentItem);
-    this.CustomerTable = this.CustomerTable.filter((item: any) => item.siteId !== this.currentItem.siteId);
+    this.inventoryTable = this.inventoryTable.filter((item: any) => item.siteId !== this.currentItem.siteId);
     this.deletePopup = true;
   }
 
@@ -217,7 +216,7 @@ export class InventoryComponent implements OnInit {
     // console.log("Selected Item:: ", item);
     this.deletePopup = false;
     // console.log("Open Delete Popup:: ",this.deletePopup);
-    // console.log(this.CustomerTable.siteId);
+    // console.log(this.inventoryTable.siteId);
   }
 
 
@@ -226,9 +225,9 @@ export class InventoryComponent implements OnInit {
 
   confirmEditRow() {
     console.log("TO BE EDITED:: ", this.currentItem);
-    // this.CustomerTable= this.CustomerTable.filter((item:any) => item.siteId !== this.currentItem.siteId);
+    // this.inventoryTable= this.inventoryTable.filter((item:any) => item.siteId !== this.currentItem.siteId);
     this.editPopup = true;
-    this.CustomerReport();
+    this.getInventory();
   }
 
   closeEditPopup() {
@@ -241,7 +240,7 @@ export class InventoryComponent implements OnInit {
     // console.log("Selected Item:: ", item);
     this.editPopup = false;
     // console.log("Open Delete Popup:: ",this.editPopup);
-    // console.log(this.CustomerTable.siteId);
+    // console.log(this.inventoryTable.siteId);
   }
 
   editArray: any = [];
@@ -263,7 +262,7 @@ export class InventoryComponent implements OnInit {
     if (this.editArray.length > 0) {
       this.editPopup = false;
     }
-    this.CustomerReport();
+    this.getInventory();
   }
 
 
@@ -329,12 +328,12 @@ export class InventoryComponent implements OnInit {
       this.deletearray.forEach((el: any) => {
         // this.currentItem = el;
         // this.confirmDeleteRow();
-        this.CustomerTable = this.CustomerTable.filter((item: any) => item.siteId !== el.siteId);
+        this.inventoryTable = this.inventoryTable.filter((item: any) => item.siteId !== el.siteId);
       });
       this.deletearray = []
     } else {
-      this.CustomerTable.forEach((el: any) => {
-        this.CustomerTable = this.CustomerTable.filter((item: any) => item.siteId !== el.siteId);
+      this.inventoryTable.forEach((el: any) => {
+        this.inventoryTable = this.inventoryTable.filter((item: any) => item.siteId !== el.siteId);
       });
     }
   }
@@ -344,7 +343,7 @@ export class InventoryComponent implements OnInit {
   sorted = false;
   sort(label: any) {
     this.sorted = !this.sorted;
-    var x = this.CustomerTable;
+    var x = this.inventoryTable;
     if (this.sorted == false) {
       x.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
     } else {

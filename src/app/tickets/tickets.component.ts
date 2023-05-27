@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, HostListener, OnInit } from '@angular/core';
+import { TicketService } from 'src/services/ticket.service';
 
 @Component({
   selector: 'app-tickets',
@@ -33,7 +34,7 @@ export class TicketsComponent implements OnInit {
 
 
   showLoader = false;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private ticketSer: TicketService) { }
 
   ngOnInit(): void {
     this.CustomerReport();
@@ -56,10 +57,13 @@ export class TicketsComponent implements OnInit {
   searchText: any;
   CustomerTable: any;
   CustomerReport() {
-    this.http.get('assets/JSON/customerData.json').subscribe(res => {
-      this.CustomerTable = res;
-      // console.log(res)
-    });
+    // this.http.get('assets/JSON/customerData.json').subscribe(res => {
+    //   this.CustomerTable = res;
+    //   // console.log(res)
+    // });
+    this.ticketSer.getTickets().subscribe((res: any) => {
+      console.log(res)
+    })
   }
 
   currentid = 0;

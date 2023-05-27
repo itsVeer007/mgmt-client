@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-ad-info',
@@ -7,9 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdInfoComponent implements OnInit {
 
-  constructor() { }
+  @Input() myData: any;
+
+  constructor() {
+
+  }
 
   ngOnInit(): void {
+    // console.log(this.myData);
+  }
+
+  ngOnChanges() {
+    console.log(this.myData)
   }
 
 }

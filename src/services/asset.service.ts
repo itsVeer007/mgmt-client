@@ -9,8 +9,6 @@ export class AssetService {
 
   baseUrl = 'http://usstaging.ivisecurity.com:777/proximityads';
 
-  // baseUrl = 'http://192.168.0.135:8080';
-
   constructor(private http: HttpClient, private date: DatePipe) { }
 
   // httpOptions = {
@@ -18,6 +16,16 @@ export class AssetService {
   //     'Content-Type': 'multipart/form-data'
   //   })
   // }
+
+  download(id: any) {
+    let url = this.baseUrl + '/getAssetFile_1_0'
+
+    let myObj = {
+      'assetName': 'BS-C001.mp4',
+      'deviceId': id,
+    }
+    return this.http.get(url, {params: myObj});
+  }
 
   getAssets() {
     let url = this.baseUrl + "/listAssets_1_0";
@@ -38,9 +46,7 @@ export class AssetService {
   addAsset(payload: any, file: any) {
     let formData: any = new FormData();
 
-    // formData.append('siteId', payload.siteId);
     formData.append('file', file);
-    //formData.append('mimeType', payload.mimeType);
 
     let assetData = {
       'deviceId': payload.asset.deviceId,
@@ -49,7 +55,7 @@ export class AssetService {
       'createdBy': payload.asset.createdBy,
       'name': payload.asset.name,
       'status': payload.asset.status,
-      'splRuleId': 0
+      'splRuleId': payload.asset.splRuleId
     }
 
     const ass = new Blob([JSON.stringify(assetData)], {
@@ -74,19 +80,6 @@ export class AssetService {
 
     formData.append('nameParams', param);
 
-
-    // formData.append('adsDeviceId', payload.adsDeviceId);
-    // formData.append('deviceModeId', payload.deviceModeId);
-    // formData.append('playOrder', payload.playOrder);
-    // formData.append('createdBy', payload.createdBy);
-    // formData.append('assetName', payload.assetName);
-
-    // formData.append('startDate', this.date.transform(payload.startDate, 'yyyy-MM-dd'));
-    // formData.append('endDate', this.date.transform(payload.endDate, 'yyyy-MM-dd'));
-
-    // formData.append('enabled', payload.enabled);
-    // formData.append('description', payload.description);
-
     let url = this.baseUrl + "/createAssetforDevice_1_0";
     return this.http.post(url, formData);
   }
@@ -95,6 +88,11 @@ export class AssetService {
   //   let url = this.baseUrl + '/createDeviceAdsInfo_1_0';
   //   return this.http.post(url, payload)
   // }
+
+  modifyAssetForDevice(payload: any) {
+    let url = this.baseUrl + '/modifyAssetForDevice_1_0';
+    return this.http.put(url, payload);
+  }
 
   updateAssetStatus(id: any, payload: any) {
     let url = this.baseUrl + "/updateAssetStatus_1_0";

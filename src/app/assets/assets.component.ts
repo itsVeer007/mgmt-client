@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, HostListener, OnInit, QueryList, TemplateRef, ViewChild, ViewChildren, ViewContainerRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DeviceService } from 'src/services/device.service';
 import { MetadataService } from 'src/services/metadata.service';
@@ -8,6 +8,7 @@ import { SiteService } from 'src/services/site.service';
 import { AssetService } from '../../services/asset.service';
 import { AdInfoComponent } from './ad-info/ad-info.component';
 import { MatTabGroup } from '@angular/material/tabs';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-assets',
@@ -45,12 +46,13 @@ export class AssetsComponent implements OnInit {
   // deviceId: string = '';
   // activeAssets: number = 0;
   showLoader: boolean = false;
+  // inputToAdinfo: any;
 
-  pending: any[] = [];
-  added: any[] = [];
-  removed: any[] = [];
-  synced: any[] = [];
-  sendToController: any[] = [];
+  pending: any = [];
+  added: any = [];
+  removed: any = [];
+  synced: any = [];
+  sendToController: any = [];
 
   constructor(
     private http: HttpClient,
@@ -72,7 +74,7 @@ export class AssetsComponent implements OnInit {
     this.getSiteData();
     this.getAssetData();
     this.ongetDeviceMode();
-    this.openTable();
+    // this.openTable();
     // this.getAssets();
 
     this.devDevId = JSON.parse(localStorage.getItem('device_temp')!);
@@ -82,32 +84,46 @@ export class AssetsComponent implements OnInit {
   assetTable: any = [];
   inputToAddAsset: any;
   tableData: any;
+  siteMap: any
   siteIdToTable: any;
 
-  deviceIds: any;
-  newTableData: Array<any>=[];
+  deviceIds: any = [];
+  newTableData: any = [];
 
+  // myFun() {
+    // this.newTableData = [];
+    // this.assetMsg = '';
+    // this.cdr.detectChanges();
+  // }
+
+  assetMsg: string = '';
   getSiteData() {
-    this.siteService.listSites().subscribe((res: any) => {
+    this.devSercice.listDeviceAdsInfo().subscribe((res: any) => {
       // console.log(res);
-      this.siteIdToTable = res.sitesList;
+      this.siteMap = res.sort((a: any, b: any) => a.siteId < b.siteId ? -1 : a.siteId > b.siteId ? 1 : 0);
+      // console.log(this.siteMap[0].adsDevices);
+      this.siteIdToTable = this.siteMap.flatMap((item: any) => item.siteId);
+      // console.log(this.siteIdToTable);
+      this.tableData = this.siteIdToTable;
       this.cdr.detectChanges();
     })
   }
 
+
+
+  x: any
   getAssetData() {
     this.showLoader = true;
     this.assetService.getAssets().subscribe((res: any) => {
-      // console.log('res', res);
+      console.log('res', res);
       this.showLoader = false;
 
       this.inputToAddAsset = res;
       const assets = res.flatMap((item: any) => item.assets);
-      // console.log(assets)
-
+      // console.log(assets);
 
       this.assetTable = assets;
-      this.tableData = this.assetTable;
+      // this.tableData = this.assetTable;
 
       /* status count */
       for(let item of this.assetTable) {
@@ -125,87 +141,51 @@ export class AssetsComponent implements OnInit {
     this.cdr.detectChanges();
   }
 
+  getAssetss(e: any) {
+    // console.log(e);
 
+    var selectedId = e?.tab?.textLabel;
+    this.assetMsg = '';
+    this.cdr.detectChanges();
+    this.newTableData = [];
+    this.assetService.getAsset(selectedId).subscribe((res: any) => {
+      // console.log(res);
 
-  getDevices(siteId: any) {
-    this.showLoader = true;
-    this.newTableData=[];
-
-      this.devSercice.getDevice(siteId).subscribe((res: any) => {
-        // console.log(res);
-        this.showLoader = false;
-        if(res.length>0){
-
-        this.deviceIds = res[0]?.adsDevices;
-        // this.getAssetss(this.deviceIds[0]);
-
-        // this.deviceIds = [];
-        // this.deviceIds.push(x);
-        // console.log(this.deviceIds);
-        this.cdr.detectChanges();
-        }
-      })
-  }
-
-  assetMsg:string='Assets are not available';
-
-  getAssetss(dev: any) {
-    // this.showLoader=true
-    this.assetMsg='Loading...'
-    this.newTableData=[];
-    this.assetService.getAsset(dev.deviceId).subscribe((res: any) => {
-      if(res===undefined){this.newTableData=[]}
-      else {
-        if(res.length==0){
-          this.newTableData=[];
-          this.assetMsg='Assets are not available';
-          this.cdr.detectChanges();
-        }
-        else{
-          this.newTableData = res[0]?.assets;
-          if(this.newTableData.length===0){this.assetMsg='Assets are not available'}
-        }
+      if(res == undefined || res.length == 0) {
+        this.newTableData = [];
+        this.assetMsg = 'No assets';
         this.cdr.detectChanges();
       }
-      this.cdr.detectChanges();
-      // this.newTableData = [];
-      // this.newTableData.push(x); no
+      else {
+        this.newTableData = res[0]?.assets;
+        this.x = this.newTableData;
+        this.assetMsg = '';
+        this.cdr.detectChanges();
+      }
+      console.log(this.newTableData);
+
     })
-  }
-  changeTableData(e:any){
-    var selectedId=(e.tab.textLabel);
-    var dev = this.deviceIds.filter((elem:any)=> elem.deviceId== selectedId)[0];
-    this.newTableData=[];
-    this.getAssetss(dev);
-    console.log(e)
-  }
-
-  statusObj = {
-    status: null,
-    modifiedBy: 1
-  }
-
-  changeDevStatus(id: any) {
-    this.assetService.updateAssetStatus(id, this.statusObj).subscribe((res: any) => {
-      console.log(res)
-    })
-  }
-
-  @ViewChild('editStatus') cityDialog = {} as TemplateRef<any>;
-  openDialo() {
-    this.dialog.open(this.cityDialog);
-    // this.dialog.closeAll();
   }
 
 
   siteSearch: any;
-  searchForSiteInput(e: Event) {
+  searchForSiteInput(e: any) {
     this.siteSearch = (e.target as HTMLInputElement).value;
   }
 
   searchForSiteOption(data: any) {
     let dataSome = this.tableData;
-      this.assetTable = dataSome.filter((el: any) => el.id == data);
+    this.siteIdToTable = dataSome.filter((el: any) => el == data);
+  }
+
+  deviceSearch: any;
+  deviceForSiteInput(e: any) {
+    this.deviceSearch = (e.target as HTMLInputElement).value;
+  }
+
+  deviceForSiteOption(data: any) {
+    let dataSome = this.x;
+    this.newTableData = dataSome.filter((el: any) => el.deviceId == data);
   }
 
   modeSearch: any;
@@ -215,7 +195,7 @@ export class AssetsComponent implements OnInit {
 
   searchForModeOption(data: any) {
     let dataSome = this.tableData;
-      this.assetTable = dataSome.filter((el: any) => el.deviceModeId == data);
+    this.siteIdToTable = dataSome.filter((el: any) => el.deviceModeId == data);
   }
 
 
@@ -258,23 +238,12 @@ export class AssetsComponent implements OnInit {
 
   showAddAsset(devData: any) {
     this.showAsset = true;
-    this.dialog.closeAll();
+    // this.dialog.closeAll();
     localStorage.setItem('device_temp', JSON.stringify(devData));
   }
 
   closenow(value: any, type: String) {
     if (type == 'asset') { this.showAsset = value; }
-
-    // setTimeout(() => {
-    //   var openform = localStorage.getItem('opennewform');
-    //   if (openform == 'showAddSite') { this.showAddSite = true; }
-    //   if (openform == 'showAddCamera') { this.showAddCamera = true; }
-    //   if (openform == 'showAddCustomer') { this.showAddCustomer = true; }
-    //   if (openform == 'showAddBusinessVertical') { this.showAddBusinessVertical = true; }
-    //   if (openform == 'showAddUser') { this.showAddUser = true; }
-    //   if (openform == 'additionalSite') { this.showSite = true; }
-    //   localStorage.setItem('opennewform', '');
-    // }, 100)
   }
 
 
@@ -334,25 +303,209 @@ export class AssetsComponent implements OnInit {
   }
 
 
+
+    /* Edit Asset Status */
+
+    @ViewChild('editStatusDialog') editStatus = {} as TemplateRef<any>;
+
+    currentStatusId: any
+    openEditStatus(id: any) {
+      this.dialog.open(this.editStatus);
+      this.currentStatusId = id;
+      // console.log(id);
+      // this.dialog.closeAll();
+    }
+
+
+    statusObj = {
+      status: null,
+      modifiedBy: 1
+    }
+
+    statusUpdate0: any;
+    statusUpdate1: any;
+    statusUpdate2: any;
+    changeAssetStatus() {
+      // this.dialog.closeAll();
+
+      this.statusUpdate2 = Swal.fire({
+        text: "Please wait",
+        imageUrl: "assets/gif/ajax-loading-gif.gif",
+        showConfirmButton: false,
+        allowOutsideClick: false
+      });
+
+      this.assetService.updateAssetStatus(this.currentStatusId, this.statusObj).subscribe((res: any) => {
+        console.log(res);
+        console.log(this.currentStatusId);
+
+        if(res.statusCode == 200) {
+          this.statusUpdate1 = Swal.fire({
+            icon: 'success',
+            title: 'Done!',
+            text: `${res.message}`,
+            // timer: 3000,
+            // buttons: false,
+          });
+        };
+
+        setTimeout(() => {
+          // window.location.reload();
+        }, 3000);
+
+      }, (err: any) => {
+        console.log(err);
+        if(err) {
+          this.statusUpdate0 = Swal.fire({
+            icon: 'warning',
+            title: 'Failed!',
+            text: 'Updating Asset failed',
+            // timer: 3000,
+          });
+        };
+      });
+    }
+
+
+    /* View Asset */
+
+    @ViewChild('viewAssetDialog') addAsset = {} as TemplateRef<any>;
+    viewPopup: boolean = true;
+
+    openViewPopup(item: any, i: any) {
+      this.currentItem = item;
+      this.dialog.open(this.addAsset);
+
+      console.log("VIEW PAGE:: ", this.currentItem);
+      // this.viewPopup = false;
+    }
+
+    confirmViewRow() {
+      console.log("ToBE Viewed:: ", this.currentItem);
+      this.viewPopup = true;
+    }
+
+    closeViewPopup() {
+      this.viewPopup = true;
+    }
+
+
+
+
+    viewArray: any = [];
+    ViewByCheckbox(itemV: any, i: any, e: any) {
+      var checked = (e.target.checked);
+      // console.log("View By Checkbox:: ",itemV);
+      // console.log("View Array::" ,this.viewArray);
+      // console.log("present in array : "+this.viewArray.includes(itemV),  " checked : "+ checked)
+      if (checked == true && this.viewArray.includes(itemV) == false) {
+        this.viewArray.push(itemV);
+        this.currentItem = this.viewArray[(this.viewArray.length - 1)];
+      }
+      if (checked == false && this.viewArray.includes(itemV) == true) {
+        this.viewArray.splice(this.viewArray.indexOf(itemV), 1)
+      }
+    }
+
+    viewBySelectedOne() {
+      if (this.viewArray.length > 0) {
+        // this.viewPopup = false;
+        this.dialog.open(this.addAsset);
+      }
+    }
+
+
+
+  /* Edit Asset */
+
+  @ViewChild('editAssetDialog') editAsset = {} as TemplateRef<any>;
   editPopup: boolean = true;
-  confirmEditRow() {
-    console.log("TO BE EDITED:: ", this.currentItem);
-    // this.assetTable= this.assetTable.filter((item:any) => item.siteId !== this.currentItem.siteId);
-    this.editPopup = true;
-  }
 
-  closeEditPopup() {
-    this.editPopup = true;
-  }
+  openEditPopupp(item: any, i: any) {
+    this.dialog.open(this.editAsset);
 
-  openEditPopup(item: any, i: any) {
     this.currentItem = JSON.parse(JSON.stringify(item));
-    // this.currentItem = item;
-    // console.log("Selected Item:: ", item);
-    this.editPopup = false;
-    // console.log("Open Delete Popup:: ",this.editPopup);
-    // console.log(this.assetTable.siteId);
+    console.log(item);
   }
+
+
+
+  originalObject: any;
+  changedKeys: any[] = [];
+
+  on(event: any) {
+    let x = event.source.ngControl.name;
+
+    if(!(this.changedKeys.includes(x))) {
+      this.changedKeys.push(x);
+      // this.originalObject[x] = Event.target.value;
+    }
+  }
+
+  onDateChange(e: any) {
+    // console.log(e.targetElement.name);
+    let x = e.targetElement.name;
+    this.changedKeys.push(x);
+  }
+
+  onChange(event: any) {
+    this.originalObject = {
+      "id": this.currentItem.id,
+      "deviceModeId": this.currentItem.deviceModeId,
+      "playOrder": this.currentItem.playOrder,
+      "modifiedBy": 1,
+      "fromDate": this.currentItem.fromDate,
+      "toDate": this.currentItem.toDate,
+      "active": this.currentItem.active,
+      "status": this.currentItem.status
+    };
+
+    let x = event.target['name'];
+    if(!(this.changedKeys.includes(x))) {
+      this.changedKeys.push(x);
+      // this.originalObject[x] = event.target.value;
+    }
+    console.log(this.changedKeys);
+    console.log(this.originalObject);
+  }
+
+  assetUpdate0: any;
+  assetUpdate1: any;
+  assetUpdate2: any;
+  confirmEditRow() {
+    this.assetUpdate2 = Swal.fire({
+      text: "Please wait",
+      imageUrl: "assets/gif/ajax-loading-gif.gif",
+      showConfirmButton: false,
+      allowOutsideClick: false
+    });
+
+    this.assetService.modifyAssetForDevice({asset: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
+      console.log(res);
+      if(res) {
+        this.assetUpdate1 = Swal.fire({
+          icon: 'success',
+          title: 'Done!',
+          text: 'Asset Updated Successfully!',
+        });
+      }
+
+      setTimeout(() => {
+        // window.location.reload();
+      }, 3000);
+
+    }, (err: any) => {
+      if(err) {
+        this.assetUpdate0 = Swal.fire({
+          icon: 'warning',
+          title: 'Failed!',
+          text: 'Updating asset failed',
+          // timer: 3000,
+        });
+      };
+    })
+  }
+
 
   editArray: any = [];
   EditByCheckbox(itemE: any, i: any, e: any) {
@@ -371,46 +524,8 @@ export class AssetsComponent implements OnInit {
 
   editBySelectedOne() {
     if (this.editArray.length > 0) {
-      this.editPopup = false;
-    }
-  }
-
-
-  viewPopup: boolean = true;
-  confirmViewRow() {
-    console.log("ToBE Viewed:: ", this.currentItem);
-    this.viewPopup = true;
-  }
-
-  closeViewPopup() {
-    this.viewPopup = true;
-  }
-
-  openViewPopup(item: any, i: any) {
-    this.currentItem = item;
-    console.log("VIEW PAGE:: ", this.currentItem);
-    this.viewPopup = false;
-  }
-
-
-  viewArray: any = [];
-  ViewByCheckbox(itemV: any, i: any, e: any) {
-    var checked = (e.target.checked);
-    // console.log("View By Checkbox:: ",itemV);
-    // console.log("View Array::" ,this.viewArray);
-    // console.log("present in array : "+this.viewArray.includes(itemV),  " checked : "+ checked)
-    if (checked == true && this.viewArray.includes(itemV) == false) {
-      this.viewArray.push(itemV);
-      this.currentItem = this.viewArray[(this.viewArray.length - 1)];
-    }
-    if (checked == false && this.viewArray.includes(itemV) == true) {
-      this.viewArray.splice(this.viewArray.indexOf(itemV), 1)
-    }
-  }
-
-  viewBySelectedOne() {
-    if (this.viewArray.length > 0) {
-      this.viewPopup = false;
+      // this.editPopup = false;
+      this.dialog.open(this.editAsset);
     }
   }
 
@@ -478,44 +593,12 @@ export class AssetsComponent implements OnInit {
 
 
   videoElement: any;
-  toDownload() {
-    this.dropDown.dw().subscribe((res: any) => {
+  toDownload(id: any) {
+    this.assetService.download(id).subscribe((res: any) => {
       console.log(res);
       this.videoElement = res.url;
-      console.log(this.videoElement);
+      // console.log(this.videoElement);
     })
   }
-
-  // @ViewChild('myCityDialog') cityDialog!: TemplateRef<any>;
-
-  curr: any
-  openTable() {
-    // this.dialog.open(this.cityDialog);
-    // this.assetService.getAsset().subscribe((res: any) => {
-    //   console.log(res)
-    // })
-    // this.curr = item;
-    // console.log(this.curr)
-  }
-
-  // @ViewChild(MatAccordion) accordion!: MatAccordion;
-
-  // player!: videojs.Player;
-  // ngAfterViewInit() {
-  //   const options: VideoJsPlayerOptions = {
-  //     controls: true,
-  //     sourceOrder: true,
-  //     sources: [{
-  //       // type: "video/mp4",
-  //       type: "application/x-mpegURL",
-  //       src: "rtsp://admin:xx2317xx2317@192.168.5.62:554/Streaming/channels/102",
-  //     }],
-  //     autoplay: false,
-  //     techOrder: ['html5'],
-  //     html5: { hls: { withCredentials: false } },
-
-  //   };
-  //   this.player = videojs(document.querySelector('.video-js')!, options);
-  // }
 
 }

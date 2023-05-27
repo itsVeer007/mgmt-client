@@ -40,7 +40,7 @@
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Enter Asset Name</mat-label>
-              <input matInput formControlName="name"  [(ngModel)]="assetData.asset.name">
+              <input matInput formControlName="name"  [(ngModel)]="assetData.asset.name" required>
               <mat-error class="mt-1">Asset Name is required</mat-error>
             </mat-form-field>
           </div>
@@ -98,7 +98,7 @@
           </div>
 
           <div class="col-lg-6 my-3" style="font-size: 12px;">
-            <mat-radio-group name="radioOpt1" class="w-100">
+            <mat-radio-group name="radioOpt1" class="w-100" formControlName="splRuleId" [(ngModel)]="assetData.asset.splRuleId">
               <mat-label>Special Rule</mat-label>
               <mat-radio-button class="ms-3" name="rule" [value]="1">Yes</mat-radio-button>
               <mat-radio-button class="ms-3" name="rule" [value]="0" checked>No</mat-radio-button>
@@ -125,9 +125,9 @@
 
           <div class="col-lg-6" *ngIf="assetData.asset.deviceModeId == 2">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Select temp range</mat-label>
-              <mat-select>
-                <mat-option *ngFor="let item of tempRange" [value]="item.value">{{ item.value }}</mat-option>
+              <mat-label>Select time range</mat-label>
+              <mat-select formControlName="adsTimeId" [(ngModel)]="assetData.nameParams.adsTimeId"s>
+                <mat-option *ngFor="let item of adsTime" [value]="item.keyId">{{ item.value }}</mat-option>
                 <mat-option value="Other">Other</mat-option>
               </mat-select>
             </mat-form-field>
@@ -135,9 +135,9 @@
 
           <div class="col-lg-6" *ngIf="assetData.asset.deviceModeId == 2">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Select age range</mat-label>
-              <mat-select>
-                <mat-option *ngFor="let item of ageRange" [value]="item.value">{{ item.value }}</mat-option>
+              <mat-label>Select temp range</mat-label>
+              <mat-select formControlName="adsTempId" [(ngModel)]="assetData.nameParams.adsTempId">
+                <mat-option *ngFor="let item of tempRange" [value]="item.value">{{ item.value }}</mat-option>
                 <mat-option value="Other">Other</mat-option>
               </mat-select>
             </mat-form-field>
@@ -165,24 +165,25 @@
             <div class="col-lg-4 col-md-4" *ngIf="for == 1 || for == 3">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Kids</mat-label>
-                <input matInput>
-                <mat-error class="mt-1">Count is required</mat-error>
+                <input matInput formControlName="adsKidsCount" [(ngModel)]="assetData.nameParams.adsKidsCount" (keydown)="selectedAccessType($event)">
+                <mat-error class="mt-1">Count Should not be zero</mat-error>
               </mat-form-field>
+              <!-- <span *ngIf="kid.value == '0'" class="mt-1" style="color: #f44336; font-size: 12px; position: relative; top: -12px;">Count Should not be zero</span> -->
             </div>
 
             <div class="col-lg-4 col-md-4" *ngIf="for == 1 || for == 3">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Youth</mat-label>
-                <input matInput>
-                <mat-error class="mt-1">Count is required</mat-error>
+                <input matInput formControlName="adsYouthCount" [(ngModel)]="assetData.nameParams.adsYouthCount">
+                <mat-error class="mt-1">Youth Count is required</mat-error>
               </mat-form-field>
             </div>
 
             <div class="col-lg-4 col-md-4" *ngIf="for == 1 || for == 3">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Adult</mat-label>
-                <input matInput>
-                <mat-error class="mt-1">Count is required</mat-error>
+                <input matInput formControlName="adsEldersCount" [(ngModel)]="assetData.nameParams.adsEldersCount">
+                <mat-error class="mt-1">Adult Count is required</mat-error>
               </mat-form-field>
             </div>
 

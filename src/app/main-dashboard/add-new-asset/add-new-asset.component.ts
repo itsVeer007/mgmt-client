@@ -80,21 +80,14 @@ export class AddNewAssetComponent implements OnInit {
     },
 
     nameParams: {
-      adsTimeId: 1,
-      adsTempId: 1,
-      adsMaleCount: 1,
-      adsFemaleCount: 1,
-      adsKidsCount: 1,
-      adsYouthCount: 1,
-      adsEldersCount: 1
+      adsTimeId: '',
+      adsTempId: '',
+      adsMaleCount: '',
+      adsFemaleCount: '',
+      adsKidsCount: '',
+      adsYouthCount: '',
+      adsEldersCount: ''
     }
-
-    // mimeType: null,
-    // assetName: '',
-    // fromDate: '',
-    // toDate: '',
-    // description: '',
-    // enabled: 1,
   }
 
   for: any = null;
@@ -102,28 +95,23 @@ export class AddNewAssetComponent implements OnInit {
   deviceIdFromStorage: any
   ngOnInit(): void {
     this.addAssetForm = this.fb.group({
-      'siteId': new FormControl(''),
       'file': new FormControl('', Validators.required),
-      'deviceId': new FormControl('', Validators.required),
+
       'deviceModeId': new FormControl('', Validators.required),
+      'name': new FormControl('', Validators.required),
       'playOrder': new FormControl(''),
       'createdBy': new FormControl(''),
-      'name': new FormControl(''),
+      'splRuleId': new FormControl(''),
 
       'for': new FormControl(''),
 
-      // 'mimeType': new FormControl(''),
-      // 'assetName': new FormControl(''),
-      // 'fromDate': new FormControl(''),
-      // 'toDate': new FormControl(''),
-      // 'description': new FormControl(''),
-
-      // 'enabled': new FormControl(''),
-      // 'is_active': new FormControl(1),
-      // 'duration': new FormControl('9'),
-      // 'is_processing': new FormControl(1),
-      // 'nocache': new FormControl(1),
-      // 'skip_asset_check': new FormControl(1),
+      'adsTimeId': new FormControl(''),
+      'adsTempId': new FormControl(''),
+      'adsMaleCount': new FormControl(''),
+      'adsFemaleCount': new FormControl(''),
+      'adsKidsCount': new FormControl(''),
+      'adsYouthCount': new FormControl(''),
+      'adsEldersCount': new FormControl('')
     });
 
     this.deviceIdFromStorage = JSON.parse(localStorage.getItem('device_temp')!);
@@ -132,6 +120,25 @@ export class AddNewAssetComponent implements OnInit {
     this.getId();
     this.getRes();
   };
+
+  selectedAccessType(event: any) {
+    console.log(event.target.value);
+    // switch (event.target.value) {
+    //     case '0':
+    //         this.addAssetForm.get('adsKidsCount').setValidators([Validators.required]);
+    //         this.addAssetForm.get('adsKidsCount').updateValueAndValidity();
+    //         break
+    //     default:
+    //         this.addAssetForm.get('adsKidsCount').clearValidators();
+    //         this.addAssetForm.get('adsKidsCount').updateValueAndValidity();
+    // }
+    if(event.target.value == '0') {
+      this.addAssetForm.get('adsKidsCount').setValidators([Validators.required]);
+    } else {
+      this.addAssetForm.get('adsKidsCount').clearValidators();
+            this.addAssetForm.get('adsKidsCount').updateValueAndValidity();
+    }
+  }
 
   data: any;
   siteIdList: any;
@@ -203,6 +210,7 @@ export class AddNewAssetComponent implements OnInit {
   modelResolution: any;
   softwareVersion: any;
   weatherInterval: any;
+  adsTime: any;
   onMetadataChange() {
     this.dropDown.getMetadata().subscribe((res: any) => {
       for(let item of res) {
@@ -235,6 +243,9 @@ export class AddNewAssetComponent implements OnInit {
         }
         else if(item.type == 'Weather_Interval') {
           this.weatherInterval = item.metadata;
+        }
+        else if(item.type == 'Ads_Time') {
+          this.adsTime = item.metadata;
         }
       }
     })
@@ -283,8 +294,10 @@ export class AddNewAssetComponent implements OnInit {
   /* Add Asset */
 
   submit: boolean = false;
-  succesAlert: any = null;
-  waitAlert: any = null;
+
+  addAsset0: any;
+  addAsset1: any;
+  addAsset2: any;
   addNewAsset() {
     this.assetData.asset.deviceId = this.deviceIdFromStorage.deviceId;
     this.submit = true;
@@ -293,35 +306,38 @@ export class AddNewAssetComponent implements OnInit {
     if(this.addAssetForm.valid) {
       this.newItemEvent.emit(false);
 
+      this.addAsset0 = Swal.fire({
+        text: "Please wait",
+        imageUrl: "assets/gif/ajax-loading-gif.gif",
+        showConfirmButton: false,
+        allowOutsideClick: false
+      })
+
       this.assetService.addAsset(this.assetData, this.selectedFile).subscribe((res: any) => {
         console.log('addAsset', res);
-
           if(res) {
-            this.succesAlert = Swal.fire(
-              'Done!',
-              'Asset Added Successfully!',
-              'success'
-            )
-          } else {
-            this.waitAlert = Swal.fire(
-              'Please Wait!',
-            )
+            this.addAsset1 = Swal.fire({
+              icon: 'success',
+              title: 'Done!',
+              text: 'Asset Added Successfully!',
+            });
           }
 
-          if(this.succesAlert) {
             setTimeout(() => {
-              // clearTimeout(this.succesAlert);
-              // clearTimeout(this.succesAlert);
-              this.succesAlert = null;
-              this.waitAlert = null;
-              window.location.reload();
+              // window.location.reload();
             }, 3000);
-          }
-      }, (err) => {
-        if(err.statusCode == 404) {
-          console.log(err.message)
-        }
-      });
+
+          }, (err: any) => {
+            console.log(err);
+            if(err) {
+              this.addAsset0 = Swal.fire({
+                icon: 'warning',
+                title: 'Failed!',
+                text: 'Adding Asset failed',
+                // timer: 3000,
+              });
+            };
+          });
     }
   }
 

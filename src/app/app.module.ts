@@ -66,6 +66,9 @@ import { MetaDataComponent } from './meta-data/meta-data.component';
 import { AddMetadataComponent } from './main-dashboard/add-metadata/add-metadata.component';
 import { TestComponent } from './test/test.component';
 
+import { AccordionModule } from '@syncfusion/ej2-angular-navigations';
+import { SortPipe } from './utilities/sort.pipe';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -99,7 +102,8 @@ import { TestComponent } from './test/test.component';
     ReportsComponent,
     MetaDataComponent,
     AddMetadataComponent,
-    TestComponent
+    TestComponent,
+    SortPipe
   ],
   imports: [
     BrowserModule,
@@ -130,7 +134,9 @@ import { TestComponent } from './test/test.component';
     MatMenuModule,
     MatSnackBarModule,
     MatExpansionModule,
-    MatBadgeModule
+    MatBadgeModule,
+
+    AccordionModule
   ],
   providers: [
     ChartService,

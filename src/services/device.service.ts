@@ -6,44 +6,42 @@ import { Injectable } from '@angular/core';
 })
 export class DeviceService {
 
-    deviceUrl= 'http://usstaging.ivisecurity.com:777/proximityads';
-
-    // deviceUrl= 'http://192.168.0.135:8080';
+    baseUrl= 'http://usstaging.ivisecurity.com:777/proximityads';
 
   constructor(private http: HttpClient) { }
 
   // getSitesList() {
-  //   let url = this.deviceUrl + '/sitesByCustomer_1_0?customerId=4602';
+  //   let url = this.baseUrl + '/sitesByCustomer_1_0?customerId=4602';
   //   return this.http.get(url);
   // }
 
   // getAdsDevicesBySite(id: any) {
-  //   let url = this.deviceUrl + "/adsDevicesBySite_1_0?siteId=" + `${id}`;
+  //   let url = this.baseUrl + "/adsDevicesBySite_1_0?siteId=" + `${id}`;
   //   return this.http.get(url);
   // }
 
   // getAssetsByDevice(deviceId: any) {
-  //   let url = this.deviceUrl + "/assetsByDevice_1_0?deviceId=" + `${deviceId}`;
+  //   let url = this.baseUrl + "/assetsByDevice_1_0?deviceId=" + `${deviceId}`;
   //   return this.http.get(url);
   // }
 
   listDeviceAdsInfo() {
-    let url = this.deviceUrl + '/listDeviceAdsInfo_1_0';
+    let url = this.baseUrl + '/listDeviceAdsInfo_1_0';
     return this.http.get(url);
   }
 
   getDevice(siteId: any) {
-    let url = this.deviceUrl + '/listDeviceAdsInfo_1_0';
+    let url = this.baseUrl + '/listDeviceAdsInfo_1_0';
 
     var payload = {
-      siteId: siteId
+      deviceId: siteId
     }
 
     return this.http.get(url, {params: payload});
   }
 
   // listDevice(siteId: any) {
-  //   let url = this.deviceUrl + '/listDeviceAdsInfo_1_0';
+  //   let url = this.baseUrl + '/listDeviceAdsInfo_1_0';
 
   //   let myObj = {
   //     deviceId: siteId
@@ -53,24 +51,23 @@ export class DeviceService {
   // }
 
   createDeviceandAdsInfo(payload: any) {
-    let url = this.deviceUrl + '/createDeviceandAdsInfo_1_0';
+    let url = this.baseUrl + '/createDeviceandAdsInfo_1_0';
     return this.http.post(url, payload);
   }
 
   updateDeviceAdsInfo(payload: any) {
-    // let adsDevice = {
-    //   "deviceId": devId,
-    //   "deviceModeId": payload.deviceModeId,
-    //   "modifiedBy": 1,
-    //   "remarks": payload.remarks
-    // }
-
-    // let updProps = [
-    //   "remarks"
-    // ]
-
-    let url = this.deviceUrl + '/updateDeviceAdsInfo_1_0';
+    let url = this.baseUrl + '/updateDeviceAdsInfo_1_0';
     return this.http.put(url, payload);
+  }
+
+  deleteDeviceAdsInfo(payload: any) {
+    let url = this.baseUrl + '/deleteDeviceAdsInfo_1_0';
+
+    let myObj = {
+      'deviceId': payload,
+      'modifiedBy': payload
+    }
+    return this.http.delete(url, {body: myObj})
   }
 
 }

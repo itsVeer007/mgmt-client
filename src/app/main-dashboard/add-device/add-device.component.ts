@@ -1,7 +1,9 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatOption } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSelect } from '@angular/material/select';
 import { DeviceService } from 'src/services/device.service';
 import { MetadataService } from 'src/services/metadata.service';
 import Swal from 'sweetalert2';
@@ -88,7 +90,6 @@ export class AddDeviceComponent implements OnInit {
 
   ngOnInit() {
     this.addDevice = this.fb.group({
-      // 'siteId': new FormControl(''),
       'deviceDescription': new FormControl('', Validators.required),
       'deviceTypeId': new FormControl('', Validators.required),
       'deviceCallFreq': new FormControl('', Validators.required),
@@ -122,20 +123,6 @@ export class AddDeviceComponent implements OnInit {
     this.siteData = JSON.parse(localStorage.getItem('temp_sites')!);
   }
 
-  // getSiteDetails(){
-  //   this.apiser.getUser().subscribe((res:any)=>{
-  //     // console.log(res)
-  //     if(res.Status == 'Success'){
-  //       this.site.userId= "";
-  //       this.site.userName= "";
-  //       this.site.verticals= res.verticals ;
-  //       this.site.customers= res.customers ;
-  //       this.site.selectSite= res.selectSite;
-
-  //     }
-  //   })
-  // }
-
   deviceData: any;
   deviceLength: any;
   getDeviceDetail() {
@@ -145,10 +132,10 @@ export class AddDeviceComponent implements OnInit {
         if(this.siteData.siteId == item.siteId) {
           this.deviceData = item.adsDevices;
           this.deviceLength = this.deviceData.length;
-          console.log('deviceData', this.deviceData);
+          // console.log('deviceData', this.deviceData);
         }
       }
-      console.log('deviceData', this.deviceLength);
+      // console.log('deviceData', this.deviceLength);
     })
   }
 
@@ -222,112 +209,159 @@ export class AddDeviceComponent implements OnInit {
   //   this.tabs.splice(index, 1);
   // }
 
-  @ViewChild('myCityDialog') cityDialog = {} as TemplateRef<any>;
+  @ViewChild('editDeviceDialog') editDevice = {} as TemplateRef<any>;
 
   currentItem: any;
   newdeviceId: any;
-  // deviceInfo: any;
   devDataToEdit: any
-  openDialog(item: any, id: any) {
-    this.dialog.open(this.cityDialog);
+  openEditDevice(item: any) {
+    this.dialog.open(this.editDevice);
     this.currentItem = item;
 
-    // let filterDevice = this.deviceData.find((item: any) => {
-    //   return item.deviceId == id;
-    // })
-    // this.deviceInfo = filterDevice;
-
-    this.newdeviceId = id;
+    this.newdeviceId = item.deviceId;
     console.log(this.currentItem);
-
-    for(let item of this.deviceData) {
-      if(this.currentItem.deviceId == item.deviceId) {
-        this.devDataToEdit = item;
-      }
-    }
-    console.log(this.devDataToEdit);
   }
 
-  updateDeviceDtl() {
+  originalObject: any;
 
+  changedKeys: any[] = [];
 
-    let originalObject: any = {
-      "deviceId": this.newdeviceId,
-      "deviceModeId": this.devDataToEdit.deviceModeId,
-      "modifiedBy": 1,
-      "remarks": this.devDataToEdit.remarks,
-      "adsHours": this.devDataToEdit.adsHours,
-      "deviceDescription": this.devDataToEdit.deviceDescription
-    };
+  on(event: any) {
+    let x = event.source.ngControl.name;
 
-    let updatedObject: any = {
+    if(!(this.changedKeys.includes(x))) {
+      this.changedKeys.push(x);
+      // this.originalObject[x] = Event.target.value;
+    }
+  }
+
+  onChange(event: any) {
+    this.originalObject = {
       "deviceId": this.newdeviceId,
       "deviceModeId": this.currentItem.deviceModeId,
-      "modifiedBy": 1,
-      "remarks": this.currentItem.remarks,
+      "deviceCallFreq": this.currentItem.deviceCallFreq,
       "adsHours": this.currentItem.adsHours,
-      "deviceDescription": this.currentItem.deviceDescription
+      "workingDays": this.currentItem.workingDays,
+      "deviceDescription": this.currentItem.deviceDescription,
+      "remarks": this.currentItem.remarks,
+      "weatherInterval": this.currentItem.weatherInterval,
+      "loggerFreq": this.currentItem.loggerFreq,
+      "modelWidth": this.currentItem.modelWidth,
+      "modelHeight": this.currentItem.modelHeight,
+      "modelName": this.currentItem.modelName,
+      "modelObjectTypeId": this.currentItem.modelObjectTypeId,
+      "modifiedBy": 1,
     };
 
-    let changedKeys: any[] = [];
+    let x = event.target['name'];
 
-    for(let key in updatedObject) {
-      if (updatedObject.hasOwnProperty(key) && updatedObject[key] != originalObject[key]) {
-        changedKeys.push(key);
-      }
+    if(!(this.changedKeys.includes(x))) {
+      this.changedKeys.push(x);
+      // this.originalObject[x] = Event.target.value;
     }
+    console.log(this.changedKeys);
+    console.log(this.originalObject);
+  }
 
-    console.log(changedKeys);
+  deviceUpdate0: any;
+  deviceUpdate1: any;
+  deviceUpdate2: any;
+  updateDeviceDtl() {
+    this.deviceUpdate2 = Swal.fire({
+      text: "Please wait",
+      imageUrl: "assets/gif/ajax-loading-gif.gif",
+      showConfirmButton: false,
+      allowOutsideClick: false
+    });
 
-    this.devService.updateDeviceAdsInfo({adsDevice: originalObject, updProps: changedKeys}).subscribe((res: any) => {
+    this.devService.updateDeviceAdsInfo({adsDevice: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
       console.log(res);
+      if(res) {
+        this.deviceUpdate1 = Swal.fire({
+          icon: 'success',
+          title: 'Done!',
+          text: 'Asset Updated Successfully!',
+      });
+      }
+
+      setTimeout(() => {
+        // window.location.reload();
+      }, 3000);
+
+    }, (err: any) => {
+      if(err) {
+        this.deviceUpdate0 = Swal.fire({
+          icon: 'warning',
+          title: 'Failed!',
+          text: 'Updating Device failed',
+          // timer: 3000,
+        });
+      };
     })
   }
+
+
+
 
   confirmEditRow() {
     console.log(this.currentItem);
   }
 
+  tar: any;
+  onFocus(e: any) {
+    this.tar = e
+  }
+
   /* add device */
 
-  succesAlert: any = null;
-  waitAlert: any = null;
+  addDevice0: any;
+  addDevice1: any;
+  addDevice2: any;
   addDeviceDtl() {
     this.adInfo.siteId = this.siteData.siteId;
 
+    // if(this.tar) {
+    //   let arr = JSON.parse(JSON.stringify(this.adInfo.workingDays)).join(',');
+    //   this.adInfo.workingDays = arr;
+    // }
+
     if(this.addDevice.valid) {
       this.newItemEvent.emit(false);
+
+      this.addDevice2 = Swal.fire({
+        text: "Please wait",
+        imageUrl: "assets/gif/ajax-loading-gif.gif",
+        showConfirmButton: false,
+        allowOutsideClick: false
+      })
 
       this.devService.createDeviceandAdsInfo(this.adInfo).subscribe((res: any) => {
         console.log(res);
 
         if(res) {
-          this.succesAlert = Swal.fire(
-            'Done!',
-            'Device Added Successfully!',
-            'success'
-          )
-        } else {
-          this.waitAlert = Swal.fire(
-            'Please Wait!',
-          )
+          this.addDevice1 = Swal.fire({
+            icon: 'success',
+            title: 'Done!',
+            text: 'Asset Added Successfully!',
+          });
         }
 
-        if(this.succesAlert) {
-          setTimeout(() => {
-            // clearTimeout(this.succesAlert);
-            // clearTimeout(this.succesAlert);
-            this.succesAlert = null;
-            this.waitAlert = null;
-            window.location.reload();
-          }, 3000);
-        }
+        setTimeout(() => {
+          // window.location.reload();
+        }, 3000);
 
+      }, (err: any) => {
+        console.log(err);
+        if(err) {
+          this.addDevice0 = Swal.fire({
+            icon: 'warning',
+            title: 'Failed!',
+            text: 'Adding Device failed',
+            // timer: 3000,
+          });
+        };
       })
     }
-
-    // let arr = JSON.parse(JSON.stringify(this.adInfo.workingDays)).join(',')
-    // this.adInfo.workingDays = arr;
     console.log('addNewDevice', this.adInfo);
   }
 
@@ -342,6 +376,28 @@ export class AddDeviceComponent implements OnInit {
   //     this.showAdsHoursTxt = '...less'
   //   }
   // }
+
+  @ViewChild('select') select!: MatSelect;
+
+  allSelected=false;
+
+  toggleAllSelection() {
+    if (this.allSelected) {
+      this.select.options.forEach((item: MatOption) => item.select());
+    } else {
+      this.select.options.forEach((item: MatOption) => item.deselect());
+    }
+  }
+
+  optionClick() {
+    let newStatus = true;
+    this.select.options.forEach((item: MatOption) => {
+      if (!item.selected) {
+        newStatus = false;
+      }
+    });
+    this.allSelected = newStatus;
+  }
 
 }
 
