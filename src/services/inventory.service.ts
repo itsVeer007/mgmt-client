@@ -14,4 +14,21 @@ export class InventoryService {
     let url = this.baseUrl + "/listing_1_0";
     return this.http.get(url);
   }
+
+  createInventory(payload: any) {
+    let url = this.baseUrl + '/creating_1_0';
+    return this.http.post(url, payload)
+  }
+
+  UpdateInventory(payload: any) {
+    let url = this.baseUrl + '/updatingall_1_0';
+    return this.http.put(url, payload)
+  }
+
+  deleteInventory(payload: any) {
+    let url = this.baseUrl + `/deleting_1_0?productId=${payload.productId}`;
+
+    return this.http.delete(url);
+  }
+
 }

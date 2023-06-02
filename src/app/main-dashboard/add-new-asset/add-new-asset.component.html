@@ -40,7 +40,7 @@
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Enter Asset Name</mat-label>
-              <input matInput formControlName="name"  [(ngModel)]="assetData.asset.name" required>
+              <input matInput formControlName="name"  [(ngModel)]="assetData.asset.name">
               <mat-error class="mt-1">Asset Name is required</mat-error>
             </mat-form-field>
           </div>
@@ -72,7 +72,7 @@
                   </a>
                 </mat-card>
               </div>
-              <mat-error class="mt-1" *ngIf="selectedFile?.size > 10000000">Please select video less than 10MB</mat-error>
+              <mat-error class="mt-1" *ngIf="selectedFile?.size > 10485760">Please select video less than 10MB</mat-error>
             </div>
           </div>
           <!-- /File Upload -->
@@ -90,7 +90,7 @@
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Device Mode</mat-label>
-              <mat-select formControlName="deviceModeId" [(ngModel)]="assetData.asset.deviceModeId" required>
+              <mat-select formControlName="deviceModeId" [(ngModel)]="assetData.asset.deviceModeId">
                 <mat-option *ngFor="let item of deviceMode" [value]="item.keyId">{{ item.value }}</mat-option>
               </mat-select>
               <mat-error class="mt-1">Device Mode is required</mat-error>
@@ -165,8 +165,9 @@
             <div class="col-lg-4 col-md-4" *ngIf="for == 1 || for == 3">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Kids</mat-label>
-                <input matInput formControlName="adsKidsCount" [(ngModel)]="assetData.nameParams.adsKidsCount" (keydown)="selectedAccessType($event)">
-                <mat-error class="mt-1">Count Should not be zero</mat-error>
+                <input matInput name="inputValue" formControlName="adsKidsCount" [(ngModel)]="assetData.nameParams.adsKidsCount">
+                <!-- <mat-error class="mt-1">Count is required</mat-error> -->
+                <!-- <mat-error *ngIf="assetData.nameParams.adsKidsCount == '0'">Count Should not be zero</mat-error> -->
               </mat-form-field>
               <!-- <span *ngIf="kid.value == '0'" class="mt-1" style="color: #f44336; font-size: 12px; position: relative; top: -12px;">Count Should not be zero</span> -->
             </div>

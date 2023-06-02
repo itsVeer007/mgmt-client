@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { AssetService } from 'src/services/asset.service';
 import { InventoryService } from 'src/services/inventory.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-inventory',
@@ -37,7 +39,7 @@ export class InventoryComponent implements OnInit {
 
 
   showLoader = false;
-  constructor(private http: HttpClient, private ass: AssetService, private inventorySer: InventoryService) { }
+  constructor(private http: HttpClient, private ass: AssetService, private inventorySer: InventoryService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getInventory();
@@ -109,44 +111,10 @@ export class InventoryComponent implements OnInit {
     if (type == 'inventory') { this.showInventory = value; }
   }
 
-  // showAddCamera = false;
-
-  // closenow1(value:any) {
-  //   this.showAddCamera = value;
-  // }
-
-  // showAddCustomer = false;
-
-  // closenow2(value:any) {
-  //   this.showAddCustomer = value;
-  // }
-
-  // showAddUser = false;
-
-  // closenow3(value:any) {
-  //   this.showAddUser = value;
-  // }
-
-  // showAddBusinessVertical = false;
-
-  // closenow4(value:any) {
-  //   this.showAddBusinessVertical = value;
-  // }
-
   showInventory: boolean = false;
 
   show(type: string) {
     if (type == 'inventory') { this.showInventory = true; }
-
-    // this.icons1 = !this.icons1;
-    // this.showSite = false;
-
-    // this.showIconVertical = false;
-    // this.showIconCustomer = false;
-    // this.showIconSite = false;
-    // this.showIconCamera = false;
-    // this.showIconAnalytic = false;
-    // this.showIconUser = false;
   }
 
   addressid = 0;
@@ -200,47 +168,126 @@ export class InventoryComponent implements OnInit {
   }
 
   deletePopup: boolean = true;
+  currentItem: any;
+
+  openDeletePopup(item: any, i: any) {
+    this.currentItem = item;
+    this.deletePopup = false;
+    // console.log("Selected Item:: ", item);
+  }
+
+  deleteInventory0: any;
+  deleteInventory1: any;
+  deleteInventory2: any;
   confirmDeleteRow() {
     console.log("ToBE DELETED:: ", this.currentItem);
-    this.inventoryTable = this.inventoryTable.filter((item: any) => item.siteId !== this.currentItem.siteId);
+
+    this.deleteInventory2 = Swal.fire({
+      text: "Please wait",
+      imageUrl: "assets/gif/ajax-loading-gif.gif",
+      showConfirmButton: false,
+      allowOutsideClick: false
+    });
     this.deletePopup = true;
+    // this.inventoryTable = this.inventoryTable.filter((item: any) => item.siteId !== this.currentItem.siteId);
+
+    this.inventorySer.deleteInventory(this.currentItem).subscribe((res: any) => {
+      console.log(res);
+      if(res) {
+        this.deleteInventory1 = Swal.fire({
+          icon: 'success',
+          title: 'Done!',
+          text: 'Deleted Successfully!',
+        });
+      }
+    }, (err: any) => {
+      if(err) {
+        this.deleteInventory0 = Swal.fire({
+          icon: 'error',
+          title: 'Failed!',
+          text: 'failed',
+          // timer: 3000,
+        });
+      };
+    });
   }
 
   closeDeletePopup() {
     this.deletePopup = true;
   }
 
-  currentItem: any;
-  openDeletePopup(item: any, i: any) {
-    this.currentItem = item;
-    // console.log("Selected Item:: ", item);
-    this.deletePopup = false;
-    // console.log("Open Delete Popup:: ",this.deletePopup);
-    // console.log(this.inventoryTable.siteId);
-  }
-
-
 
   editPopup: boolean = true;
+  originalObject: any;
 
+  @ViewChild('editInventoryDialog') editStatus = {} as TemplateRef<any>;
+
+  openEditPopup(item: any) {
+    this.currentItem = JSON.parse(JSON.stringify(item));
+    this.dialog.open(this.editStatus);
+    // this.editPopup = false;
+    console.log(item);
+  }
+
+  updateInventory0: any;
+  updateInventory1: any;
+  updateInventory2: any;
   confirmEditRow() {
     console.log("TO BE EDITED:: ", this.currentItem);
     // this.inventoryTable= this.inventoryTable.filter((item:any) => item.siteId !== this.currentItem.siteId);
     this.editPopup = true;
     this.getInventory();
+
+    this.originalObject = {
+      "inv": {
+        "productId": this.currentItem.productId,
+        "productSerialNo": this.currentItem.productSerialNo,
+        "productName": this.currentItem.productName,
+        "productBrand": this.currentItem.productBrand,
+        "productCategory": this.currentItem.productCategory,
+        "status": this.currentItem.status,
+        "cost": this.currentItem.cost,
+        "price": this.currentItem.price
+      },
+      "warr": {
+        "warrantyStartDate": this.currentItem.warrantyStartDate,
+        "warrantyEndDate": this.currentItem.warrantyEndDate,
+        "vendor": this.currentItem.vendor,
+        "remarks": this.currentItem.remarks
+      }
+    }
+
+    this.updateInventory2 = Swal.fire({
+      text: "Please wait",
+      imageUrl: "assets/gif/ajax-loading-gif.gif",
+      showConfirmButton: false,
+      allowOutsideClick: false
+    });
+
+    this.inventorySer.UpdateInventory(this.originalObject).subscribe((res: any) => {
+      console.log(res);
+
+      if(res) {
+        this.updateInventory1 = Swal.fire({
+          icon: 'success',
+          title: 'Done!',
+          text: 'Updated Inventory Successfully!',
+        });
+      }
+    }, (err: any) => {
+      if(err) {
+        this.updateInventory0 = Swal.fire({
+          icon: 'error',
+          title: 'Failed!',
+          text: 'Ticket Updation failed',
+          // timer: 3000,
+        });
+      };
+    });
   }
 
   closeEditPopup() {
     this.editPopup = true;
-  }
-
-  openEditPopup(item: any, i: any) {
-    this.currentItem = JSON.parse(JSON.stringify(item));
-    // this.currentItem = item;
-    // console.log("Selected Item:: ", item);
-    this.editPopup = false;
-    // console.log("Open Delete Popup:: ",this.editPopup);
-    // console.log(this.inventoryTable.siteId);
   }
 
   editArray: any = [];

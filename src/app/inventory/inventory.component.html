@@ -145,7 +145,7 @@
           <th (click)="sort('custType')">Product Name</th>
           <th (click)="sort('address')">Product Brand</th>
           <th (click)="sort('contactNumber')">Product Category</th>
-          <th (click)="sort('emailId')">Details</th>
+          <!-- <th (click)="sort('emailId')">Details</th> -->
           <!-- <th (click)="sort('contactPerson')">Site Name</th> -->
           <th (click)="sort('status')">Status</th>
           <th></th>
@@ -176,8 +176,8 @@
           <td>
             <p>{{ cust.productCategory }}</p>
           </td>
-          <td>
-            <p>{{ cust.details }}</p>
+          <!-- <td> -->
+            <!-- <p>{{ cust.details }}</p> -->
             <!-- <a class="pointer" style="color: #084982;" (click)="addressView($event,i)">{{cust.details}}</a>
             <div style="display: none;"
                 class="plus-img" id="address{{i}}">
@@ -188,7 +188,7 @@
                     <p>Andhra Pradesh, India</p>
                 </div>
             </div> -->
-          </td>
+          <!-- </td> -->
           <!-- <td>
             <a class="pointer" (click)="show('inventory')">
               <img src="assets/icons/add-svg.svg" width="25" height="25" />
@@ -199,7 +199,7 @@
               {{ cust.status }}
             </p>
           </td>
-          <td>
+          <td style="position: relative;">
             <a (click)="closeDot($event, i)" class="pointer">
               <img src="assets/icons/dotlist.svg" width="30" height="12" />
             </a>
@@ -217,7 +217,7 @@
               <a class="mx-2" (click)="openViewPopup(cust, i)">
                 <img src="assets/icons/view.svg" (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" />
               </a>
-              <a class="mx-2" (click)="openEditPopup(cust, i)">
+              <a class="mx-2" (click)="openEditPopup(cust)">
                 <img src="assets/icons/edit.svg" (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" />
               </a>
               <!-- <a class="mx-2" value="Delete" (click)="deleteRow1(cust, i)"><img src="assets/icons/delete.svg" /></a> -->
@@ -251,74 +251,93 @@
   </div>
 </div>
 
-<div class="modalitem max-center" [hidden]="editPopup">
-  <div class="card">
-    <div class="card-header d-flex justify-content-between">
-      <p>Edit</p>
-      <img src="assets/icons/close_form.svg" width="40" height="40" (click)="closeEditPopup()" />
+<ng-template #editInventoryDialog>
+    <div *ngIf="currentItem">
+      <div>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Product Name</mat-label>
+          <input matInput [(ngModel)]="currentItem.productName">
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Serial No</mat-label>
+          <input matInput [(ngModel)]="currentItem.productSerialNo">
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Product Brand</mat-label>
+          <mat-select [(ngModel)]="currentItem.productBrand">
+            <mat-option value="Rasberry">Rasberry</mat-option>
+            <mat-option value="Jetson">Jetson</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Product Category</mat-label>
+          <mat-select [(ngModel)]="currentItem.productCategory">
+            <mat-option value="Modules">Modules</mat-option>
+            <mat-option value="Server">Server</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Status</mat-label>
+          <mat-select [(ngModel)]="currentItem.status">
+            <mat-option value="Installed">Installed</mat-option>
+            <mat-option value="In-Stock">In-Stock</mat-option>
+            <mat-option value="Scrap">Scrap</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <!-- <div>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Cost</mat-label>
+          <input matInput [(ngModel)]="currentItem.cost">
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Price</mat-label>
+          <input matInput [(ngModel)]="currentItem.price">
+        </mat-form-field>
+      </div> -->
+
+      <!-- <div>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Product Category</mat-label>
+          <mat-select [(ngModel)]="currentItem.vendor">
+            <mat-option></mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Product Name</mat-label>
+          <input matInput [(ngModel)]="currentItem.remarks">
+        </mat-form-field>
+      </div> -->
+
     </div>
-    <div class="card-body text-center">
-      <ul *ngIf="currentItem">
-        <li>
-          <h6 style="width: 110px">Site Id</h6>
-          <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.siteId" />
-          </div>
-        </li>
-        <li>
-          <h6 style="width: 110px">Customer Name</h6>
-          <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.customerName" />
-          </div>
-        </li>
-        <li>
-          <h6 style="width: 110px">Cust Type</h6>
-          <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.custType" />
-          </div>
-        </li>
-        <li>
-          <h6 style="width: 110px">Contact Number</h6>
-          <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.contactNumber" />
-          </div>
-        </li>
-        <li>
-          <h6 style="width: 110px">Email Id</h6>
-          <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.emailId" />
-          </div>
-        </li>
-        <li>
-          <h6 style="width: 110px">Contact Person</h6>
-          <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.contactPerson" />
-          </div>
-        </li>
-        <li>
-          <h6 style="width: 110px">Address</h6>
-          <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.address" />
-          </div>
-        </li>
-        <li>
-          <h6 style="width: 110px">Status</h6>
-          <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.status" />
-          </div>
-        </li>
-      </ul>
+
+    <div class="d-flex align-items-center justify-content-end">
+      <div mat-dialog-actions class="me-2">
+        <button mat-stroked-button style="color: #D34124 ;" mat-dialog-close>Close</button>
+      </div>
+      <div mat-dialog-actions>
+        <button mat-stroked-button style="color: #084982 ;" mat-dialog-close (click)="confirmEditRow()">Update</button>
+      </div>
     </div>
-    <div class="card-footer">
-      <button type="button" class="btn btn-primary mx-2" (click)="confirmEditRow()">
-        Update
-      </button>
-      <button type="button" class="btn btn-danger" (click)="closeEditPopup()">
-        Close
-      </button>
-    </div>
-  </div>
-</div>
+</ng-template>
 
 <!-- Delete Popup -->
 <div class="modalitem max-center" [hidden]="viewPopup">
@@ -330,32 +349,24 @@
     <div class="card-body text-center">
       <ul *ngIf="currentItem">
         <li>
-          <h6 style="width: 110px">Site Id</h6>
-          : {{ currentItem?.siteId }}
+          <h6 style="width: 110px">Product Id</h6>
+          : {{ currentItem?.productId }}
         </li>
         <li>
-          <h6 style="width: 110px">Customer Name</h6>
-          : {{ currentItem?.customerName }}
+          <h6 style="width: 110px">Product Name</h6>
+          : {{ currentItem?.productName }}
         </li>
         <li>
-          <h6 style="width: 110px">Cust Type</h6>
-          : {{ currentItem?.custType }}
+          <h6 style="width: 110px">Serial No</h6>
+          : {{ currentItem?.productSerialNo }}
         </li>
         <li>
-          <h6 style="width: 110px">Contact Number</h6>
-          : {{ currentItem?.contactNumber }}
+          <h6 style="width: 110px">Product Brand</h6>
+          : {{ currentItem?.productBrand }}
         </li>
         <li>
-          <h6 style="width: 110px">Email Id</h6>
-          : {{ currentItem?.emailId }}
-        </li>
-        <li>
-          <h6 style="width: 110px">Contact Person</h6>
-          : {{ currentItem?.contactPerson }}
-        </li>
-        <li>
-          <h6 style="width: 110px">Address</h6>
-          : {{ currentItem?.address }}
+          <h6 style="width: 110px">Product Category</h6>
+          : {{ currentItem?.productCategory }}
         </li>
         <li>
           <h6 style="width: 110px">Status</h6>

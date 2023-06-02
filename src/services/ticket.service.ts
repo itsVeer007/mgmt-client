@@ -14,4 +14,35 @@ export class TicketService {
     let url = this.baseUrl + "/GetTickets";
     return this.http.get(url);
   }
+
+  createTicket(payload: any) {
+    let url = this.baseUrl + '/CreateTicket';
+    return this.http.post(url, payload);
+  }
+
+  assignPerson(payload: any) {
+    let url = this.baseUrl + '/assignperson';
+    return this.http.put(url, payload);
+  }
+
+  updateStatus(payload: any) {
+    let url = this.baseUrl + '/updateStatus';
+    return this.http.put(url, payload);
+  }
+
+
+  updateTicket(payload: any) {
+    let url = this.baseUrl + '/updateTicket1';
+    return this.http.put(url, payload);
+  }
+
+  deleteTicket(payload: any) {
+    let url = this.baseUrl + `/DeleteTicket?ticketId=${payload.ticketId}`;
+
+    // let myObj = {
+    //   'ticketId': payload.ticketId,
+    // }
+
+    return this.http.delete(url);
+  }
 }

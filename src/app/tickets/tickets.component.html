@@ -61,7 +61,7 @@
           <mat-label>All</mat-label>
           <mat-select>
             <!-- <mat-option (click)="sort('siteName')">Filter by A-Z</mat-option> -->
-            <mat-option *ngFor="let cust of CustomerTable">{{ cust.customerName }}</mat-option>
+            <mat-option *ngFor="let cust of ticketData">{{ cust.customerName }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -111,13 +111,13 @@
           <th (click)="sort('contactNumber')">Assigned To</th>
           <th (click)="sort('emailId')">Data Created</th>
           <th (click)="sort('contactPerson')">Data Closed</th>
-          <th (click)="sort('contactPerson')">Age (In Days)</th>
+          <!-- <th (click)="sort('contactPerson')">Age (In Days)</th> -->
           <th>Priority</th>
           <th (click)="sort('status')">Status</th>
           <th></th>
         </tr>
 
-        <tr *ngFor="let cust of CustomerTable | search : searchText; let i = index">
+        <tr *ngFor="let cust of ticketData | search : searchText; let i = index">
           <td>
             <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="cust.selected" (change)="
                 checkIfAllSelected();
@@ -128,37 +128,61 @@
           </td>
           <!-- <td><input type="checkbox" class="form-check-input" [checked]="masterSelected" /></td> -->
           <td>
-            <p>{{ cust.siteId }}</p>
+            <p>{{ cust.ticketId }}</p>
           </td>
           <td>
-            <p>{{ cust.contactPerson }}</p>
+            <p>{{ cust.description }}</p>
           </td>
           <td>
-            <p>{{ cust.customerName }}</p>
+            <p>{{ cust.requestId }}</p>
           </td>
           <td>
-            <button class="bg-white" style="color: #084982">{{ cust.address }}</button>
+            <p>{{ cust.site }}</p>
           </td>
           <td>
-            <p>{{ cust.contactNumber }}</p>
+            <p (click)="openAssigned(cust)" *ngIf="cust.assignedTo != '' || cust.assignedTo != null">{{ cust.assignedTo }}</p>
+            <a class="pointer" (click)="openAssigned(cust)"><img src="assets/icons/add-svg.svg" *ngIf="cust.assignedTo == '' || cust.assignedTo == null" width="25" height="25"></a>
           </td>
           <td>
-            <p>{{ cust.emailId }}</p>
+            <p>{{ cust.dateCreated }}</p>
           </td>
           <td>
-            <a class="pointer">
+            <!-- <a class="pointer">
               <img src="assets/icons/add-svg.svg" width="25" height="25" />
-            </a>
+            </a> -->
+            <p>{{ cust.dateClosed ?  cust.dateClosed : '--'}}</p>
+          </td>
+          <!-- <td>
+            <p>{{ cust.ageInDays }}</p>
+          </td> -->
+          <td>
+            <p>{{ cust.priority }}</p>
           </td>
           <td>
-            <p>{{ cust.siteId }}</p>
-          </td>
-          <td>
-            <p>{{ cust.customerName }}</p>
-          </td>
-          <td>
-            <p [style.color]="cust.status == 'Active' ? '#00A44C' : cust.status == 'Onhold' ? '#F5B400' : cust.status == 'Inactive' ? '#fa500f' : '#00A44C'">
+            <!-- <p [style.color]="cust.status == 'Active' ? '#00A44C' : cust.status == 'Onhold' ? '#F5B400' : cust.status == 'Inactive' ? '#fa500f' : '#00A44C'">
               {{ cust.status }}
+            </p> -->
+            <p [style.color]="cust.status == 'active' ? '#00A44C' : cust.status == 'Inprogress' ? '#F5B400' : cust.status == 'closed' ? '#fa500f' : '#00A44C'">
+
+              <span class="d-flex">
+                <span style="width: 50px;">
+                  {{ cust.status }}
+                </span>
+
+                <a (click)="openEditStatus(cust)" class="ms-2 pointer">
+                  <img src="assets/icons/edit.svg"  width="13">
+                </a>
+              </span>
+
+              <ng-template #editStatusDialog>
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Edit Status</mat-label>
+                  <mat-select [(ngModel)]="staObj.status">
+                    <mat-option value="closed">closed</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <button mat-stroked-button style="color: #084982" (click)="changeAssetStatus()">Submit</button>
+              </ng-template>
             </p>
           </td>
           <td>
@@ -189,11 +213,23 @@
 </div>
 <!-- /table -->
 
+<ng-template #assignedDialog>
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Assign To</mat-label>
+    <mat-select [(ngModel)]="assignedObj.assignedTo">
+      <mat-option value="Rajesh">Rajesh</mat-option>
+      <mat-option value="Sai">Sai</mat-option>
+      <mat-option value="Kiran">Kiran</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-stroked-button style="color: #084982;" (click)="toAssigned()">Submit</button>
+</ng-template>
+
 <div class="modalitem max-center" [hidden]="deletePopup">
   <div class="card">
     <div class="card-header d-flex justify-content-between">
       <p>Delete Row</p>
-      <img src="assets/icons/close_form.svg" width="40" height="40" (click)="closeDeletePopup()" />
+      <img src="assets/icons/close_form.svg" width="40" height="40" (click)="closeDeletePopup()">
     </div>
     <div class="card-body text-center">Do you want to delete this item?</div>
     <div class="card-footer">
@@ -214,59 +250,54 @@
       <img src="assets/icons/close_form.svg" width="40" height="40" (click)="closeEditPopup()" />
     </div>
     <div class="card-body text-center">
-      <ul *ngIf="currentItem">
-        <li>
-          <h6 style="width: 110px">Site Id</h6>
-          <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.siteId" />
-          </div>
-        </li>
-        <li>
-          <h6 style="width: 110px">Customer Name</h6>
-          <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.customerName" />
-          </div>
-        </li>
-        <li>
-          <h6 style="width: 110px">Cust Type</h6>
-          <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.custType" />
-          </div>
-        </li>
-        <li>
-          <h6 style="width: 110px">Contact Number</h6>
-          <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.contactNumber" />
-          </div>
-        </li>
-        <li>
-          <h6 style="width: 110px">Email Id</h6>
-          <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.emailId" />
-          </div>
-        </li>
-        <li>
-          <h6 style="width: 110px">Contact Person</h6>
-          <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.contactPerson" />
-          </div>
-        </li>
-        <li>
-          <h6 style="width: 110px">Address</h6>
-          <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.address" />
-          </div>
-        </li>
-        <li>
-          <h6 style="width: 110px">Status</h6>
-          <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.status" />
-          </div>
-        </li>
-      </ul>
+      <div *ngIf="currentItem">
+        <!-- <div>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Product Brand</mat-label>
+            <mat-select [(ngModel)]="currentItem.site">
+              <mat-option></mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div> -->
+
+        <div>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Ticket Id</mat-label>
+            <input matInput [(ngModel)]="currentItem.ticketId">
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Site</mat-label>
+            <input matInput [(ngModel)]="currentItem.site">
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Description</mat-label>
+            <input matInput [(ngModel)]="currentItem.description">
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Priority</mat-label>
+            <input matInput [(ngModel)]="currentItem.priority">
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Status</mat-label>
+            <input matInput [(ngModel)]="currentItem.status">
+          </mat-form-field>
+        </div>
+      </div>
     </div>
     <div class="card-footer">
-      <button type="button" class="btn mx-2" style="background-color: #084982; color: #ffffff;" (click)="confirmEditRow()">
+      <button type="button" class="btn mx-2" style="background-color: #084982; color: #ffffff;" (click)="updateTicket(currentItem)">
         Update
       </button>
       <button type="button" class="btn btn-danger" (click)="closeEditPopup()">

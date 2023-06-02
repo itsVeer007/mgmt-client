@@ -21,33 +21,38 @@
     <!-- Form -->
     <div>
       <form autocomplete="off" [formGroup]="addAssetForm">
-        <div class="row">
+        <div class="row" *ngFor="let item of x.tasks; let i = index">
 
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Service Name</mat-label>
-              <mat-select>
-                <mat-option value="1">1</mat-option>
+              <mat-label>Site Id</mat-label>
+              <mat-select formControlName="siteId" [(ngModel)]="x.ticket.siteId">
+                <mat-option [value]="1101">1101</mat-option>
+                <mat-option [value]="1102">1102</mat-option>
+                <mat-option [value]="1103">1103</mat-option>
               </mat-select>
-              <mat-error class="mt-1">Service Name is required</mat-error>
+              <mat-error class="mt-1">Site Id is required</mat-error>
             </mat-form-field>
           </div>
 
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Sub Service Name</mat-label>
-              <mat-select>
-                <mat-option value="1">1</mat-option>
+              <mat-label>Site Name</mat-label>
+              <mat-select formControlName="site" [(ngModel)]="x.ticket.site">
+                <mat-option value="Pharmacy">Pharmacy</mat-option>
+                <mat-option value="Gas Station">Gas Station</mat-option>
+                <mat-option value="Restaurant">Restaurant</mat-option>
               </mat-select>
-              <mat-error class="mt-1">Sub Service Name is required</mat-error>
+              <mat-error class="mt-1">Site Name is required</mat-error>
             </mat-form-field>
           </div>
 
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Priority</mat-label>
-              <mat-select>
-                <mat-option value="1">1</mat-option>
+              <mat-select formControlName="priority" [(ngModel)]="x.ticket.priority">
+                <mat-option value="Low">Low</mat-option>
+                <mat-option value="High">High</mat-option>
               </mat-select>
               <mat-error class="mt-1">Priority is required</mat-error>
             </mat-form-field>
@@ -56,12 +61,64 @@
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Description</mat-label>
-              <input matInput>
+              <mat-select formControlName="description" [(ngModel)]="x.ticket.description">
+                <mat-option value="Software Issue">Software Issue</mat-option>
+                <mat-option value="Footage Required">Footage Required</mat-option>
+                <mat-option value="Site Installation">Site Installation</mat-option>
+                <mat-option value="Hard disk Problem">Hard disk Problem</mat-option>
+                <mat-option value="Other">Other</mat-option>
+              </mat-select>
+              <mat-error class="mt-1">Description is required</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="d-flex justify-content-start align-items-center my-2">
+            <h2 class="m-0">Tasks</h2>
+          </div>
+
+          <div class="col-lg-6 col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Task Name</mat-label>
+              <mat-select formControlName="taskName" [(ngModel)]="x.tasks[i].taskName">
+                <mat-option value="Technical Issue">Technical Issue</mat-option>
+                <mat-option value="Management Issue">Management Issue</mat-option>
+                <mat-option value="Other">Other</mat-option>
+              </mat-select>
+              <mat-error class="mt-1">Task is required</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-6 col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Description</mat-label>
+              <input matInput formControlName="desc" [(ngModel)]="x.tasks[i].description">
               <mat-error class="mt-1">Description is required</mat-error>
             </mat-form-field>
           </div>
 
           <div class="col-lg-6 col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Remarks</mat-label>
+              <input matInput formControlName="remarks" [(ngModel)]="x.tasks[i].remarks">
+              <mat-error class="mt-1">Remarks is required</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-6 col-md-6">
+            <button mat-stroked-button class="mt-2" style="color: #084982" (click)="onTaskAdd(item)">Add</button>
+          </div>
+
+          <div class="col-lg-12 col-md-12">
+            <div *ngFor="let item of taskss" class="d-flex justify-content-between">
+              <p>Task Name: {{item.taskName}}</p>
+              <p>Description: {{item.description}}</p>
+              <p>Remarks: {{item.remarks}}</p>
+            </div>
+          </div>
+
+
+
+          <!-- <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Select Department</mat-label>
               <mat-select>
@@ -81,7 +138,29 @@
             </mat-form-field>
           </div>
 
-          <div class="col-lg-12 col-md-12 d-flex justify-content-start align-items-center my-3">
+          <div class="col-lg-6 col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Tasks</mat-label>
+              <mat-select>
+                <mat-option value="1">1</mat-option>
+                <mat-option value="1">1</mat-option>
+              </mat-select>
+              <mat-error class="mt-1">Assign is required</mat-error>
+            </mat-form-field>
+          </div> -->
+
+
+
+          <!-- <div class="col-lg-6 col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <input matInput [matDatepicker]="picker1" placeholder="Date">
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+              <mat-error class="mt-1">Date is required</mat-error>
+            </mat-form-field>
+          </div> -->
+
+          <!-- <div class="col-lg-12 col-md-12 d-flex justify-content-start align-items-center my-3">
             <p class="px-2 m-0">Attachments</p>
 
             <div class="on-off-toggle">
@@ -97,16 +176,15 @@
               <input class="on-off-toggle__input" type="checkbox" id="inventory">
               <label for="inventory" class="on-off-toggle__slider"></label>
             </div>
-          </div>
+          </div> -->
 
-          <div class="col-lg-12 col-md-12">
-            <!-- <textarea class="form-control" placeholder="Note" rows="5"></textarea> -->
+          <!-- <div class="col-lg-12 col-md-12">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Note</mat-label>
               <input matInput>
               <mat-error class="mt-1">Note is required</mat-error>
             </mat-form-field>
-          </div>
+          </div> -->
 
           <div class="text-center my-3">
             <button class="btn add-btn" (click)="addNewAsset()">ADD</button>

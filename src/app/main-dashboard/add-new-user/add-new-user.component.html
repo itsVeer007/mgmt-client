@@ -166,6 +166,7 @@
               <input type="checkbox"  [ngModel]="user.safetyEscort=='true' ? true : false" (ngModelChange)="user.safetyEscort = $event ? 'T' : 'F'" formControlName="safetyEscort">
               <span class="geekmark"></span>
             </label>
+            <!-- <mat-checkbox class="example-margin">Safety Escort</mat-checkbox> -->
 
             <!-- <label class="main col-lg-4">Employee
               <input type="checkbox" [ngModel]="user.employee=='true' ? true : false" (ngModelChange)="user.employee=$event ? 'T' : 'F'" formControlName="employee" (click)="onCheck()">

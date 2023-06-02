@@ -3,6 +3,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/services/api.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-new-user',
@@ -149,16 +150,50 @@ export class AddNewUserComponent implements OnInit {
   }
 
 
+  addUser0: any;
+  addUser1: any;
+  addUser2: any;
   submit() {
-    console.log(this.user);
-
     if(this.UserForm.valid) {
+      this.newItemEvent.emit(false);
+
+      this.addUser2 = Swal.fire({
+        text: "Please wait",
+        imageUrl: "assets/gif/ajax-loading-gif.gif",
+        showConfirmButton: false,
+        allowOutsideClick: false
+      });
+
       this.apiser.addUser(this.user).subscribe((res: any) => {
         if(res.Status == "Success") {
           localStorage.setItem('userCreated', JSON.stringify(res));
         }
+
+        if(res) {
+          this.addUser1 = Swal.fire({
+            icon: 'success',
+            title: 'Done!',
+            text: 'Created User Successfully!',
+          });
+        }
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
+
+      }, (err: any) => {
+        if(err) {
+          this.addUser0 = Swal.fire({
+            icon: 'error',
+            title: 'Failed!',
+            text: 'User Creation failed',
+            // timer: 3000,
+          });
+        };
       });
     }
+
+    console.log(this.user);
   }
 
 

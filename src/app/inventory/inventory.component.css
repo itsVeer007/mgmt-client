@@ -139,7 +139,7 @@ text-align: left;
 }
 
 .table-resp{
-max-height: calc(100vh - (280px));
+max-height: calc(100vh - (292px));
 overflow-y: scroll;
 }
 

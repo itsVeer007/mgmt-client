@@ -99,9 +99,8 @@ export class AssetsComponent implements OnInit {
   assetMsg: string = '';
   getSiteData() {
     this.devSercice.listDeviceAdsInfo().subscribe((res: any) => {
-      // console.log(res);
+      console.log(res);
       this.siteMap = res.sort((a: any, b: any) => a.siteId < b.siteId ? -1 : a.siteId > b.siteId ? 1 : 0);
-      // console.log(this.siteMap[0].adsDevices);
       this.siteIdToTable = this.siteMap.flatMap((item: any) => item.siteId);
       // console.log(this.siteIdToTable);
       this.tableData = this.siteIdToTable;
@@ -171,6 +170,7 @@ export class AssetsComponent implements OnInit {
   siteSearch: any;
   searchForSiteInput(e: any) {
     this.siteSearch = (e.target as HTMLInputElement).value;
+    console.log(this.siteSearch);
   }
 
   searchForSiteOption(data: any) {
@@ -357,7 +357,7 @@ export class AssetsComponent implements OnInit {
         console.log(err);
         if(err) {
           this.statusUpdate0 = Swal.fire({
-            icon: 'warning',
+            icon: 'error',
             title: 'Failed!',
             text: 'Updating Asset failed',
             // timer: 3000,
@@ -486,7 +486,7 @@ export class AssetsComponent implements OnInit {
         this.assetUpdate1 = Swal.fire({
           icon: 'success',
           title: 'Done!',
-          text: 'Asset Updated Successfully!',
+          text: `${res.message}`,
         });
       }
 
@@ -497,7 +497,7 @@ export class AssetsComponent implements OnInit {
     }, (err: any) => {
       if(err) {
         this.assetUpdate0 = Swal.fire({
-          icon: 'warning',
+          icon: 'error',
           title: 'Failed!',
           text: 'Updating asset failed',
           // timer: 3000,

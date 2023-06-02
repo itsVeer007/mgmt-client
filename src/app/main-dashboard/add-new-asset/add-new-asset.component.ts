@@ -119,26 +119,19 @@ export class AddNewAssetComponent implements OnInit {
     this.onMetadataChange()
     this.getId();
     this.getRes();
-  };
 
-  selectedAccessType(event: any) {
-    console.log(event.target.value);
-    // switch (event.target.value) {
-    //     case '0':
-    //         this.addAssetForm.get('adsKidsCount').setValidators([Validators.required]);
-    //         this.addAssetForm.get('adsKidsCount').updateValueAndValidity();
-    //         break
-    //     default:
-    //         this.addAssetForm.get('adsKidsCount').clearValidators();
-    //         this.addAssetForm.get('adsKidsCount').updateValueAndValidity();
-    // }
-    if(event.target.value == '0') {
-      this.addAssetForm.get('adsKidsCount').setValidators([Validators.required]);
-    } else {
-      this.addAssetForm.get('adsKidsCount').clearValidators();
-            this.addAssetForm.get('adsKidsCount').updateValueAndValidity();
-    }
-  }
+    // this.addAssetForm.get('adsKidsCount').valueChanges.subscribe((val: any) => {
+    //   console.log(val)
+
+    //   if(val == '0') {
+    //     this.addAssetForm.get('adsKidsCount').setValidators(Validators.required);
+    //   } else {
+    //     this.addAssetForm.get('adsKidsCount').clearValidators();
+    //   }
+
+    //   this.addAssetForm.get('adsKidsCount').updateValueAndValidity();
+    // })
+  };
 
   data: any;
   siteIdList: any;
@@ -319,7 +312,7 @@ export class AddNewAssetComponent implements OnInit {
             this.addAsset1 = Swal.fire({
               icon: 'success',
               title: 'Done!',
-              text: 'Asset Added Successfully!',
+              text: `${res.message}`,
             });
           }
 
@@ -333,7 +326,7 @@ export class AddNewAssetComponent implements OnInit {
               this.addAsset0 = Swal.fire({
                 icon: 'warning',
                 title: 'Failed!',
-                text: 'Adding Asset failed',
+                text: 'Creating Advertisement failed',
                 // timer: 3000,
               });
             };

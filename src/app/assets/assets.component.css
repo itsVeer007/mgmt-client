@@ -1,4 +1,4 @@
-@import '~video.js/dist/video-js.css';
+/* @import '~video.js/dist/video-js.css'; */
 
 .table>:not(:first-child) {
   border-top: none;
@@ -6,7 +6,6 @@
 
 .users {
   margin-top: 80px;
-  max-height: 60vh;
 }
 
 .users-header {
@@ -370,9 +369,13 @@ border: 1px solid #EFEFEF;
   font-size: 14px;
 }
 
-::ng-deep .frmDate .mat-form-field-appearance-outline .mat-form-field-infix {
+::ng-deep .from-date .mat-form-field-appearance-outline .mat-form-field-infix {
   padding: 0;
   display: inline-flex;
+}
+
+.device-mode-search .mat-form-field-appearance-outline ::ng-deep .mat-form-field-wrapper {
+  padding-bottom: 0;
 }
 
 

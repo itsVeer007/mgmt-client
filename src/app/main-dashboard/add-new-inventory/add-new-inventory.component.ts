@@ -3,6 +3,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/services/api.service';
+import { InventoryService } from 'src/services/inventory.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-new-inventory',
@@ -28,7 +30,7 @@ import { ApiService } from 'src/services/api.service';
   ]
 })
 export class AddNewInventoryComponent implements OnInit {
-  constructor(private router: Router, private apiser: ApiService, private fb: FormBuilder) { }
+  constructor(private router: Router, private inventorySer: InventoryService, private apiser: ApiService, private fb: FormBuilder) { }
 
   @Input() show:any;
 
@@ -49,94 +51,41 @@ export class AddNewInventoryComponent implements OnInit {
 
   UserForm: any =  FormGroup;
 
-  user = {
-    username: "",
-    password: "",
-    firstname: "",
-    lastname: "",
-    roleList: [],
-    email: "",
-    gender: "",
-    realm: "",
-    contactNumber1: "",
-    contactNumber2: "",
-    country: "",
-    addressLine1: "",
-    addressLine2: "",
-    district: "",
-    state: "",
-    city: "",
-    pin: "",
-    employee: "F",
-    employeeId: "",
-    accesstoken: "",
-    callingUsername: "",
-    callingSystemDetail: "admin",
-    safetyEscort: "F"
+  x = {
+    inv: {
+      productSerialNo: "",
+      productName: "",
+      productBrand: "",
+      productCategory: "",
+      details: "",
+      status: "Installed",
+      cost: null,
+      price: null
+    },
+    warr: {
+        warrantyStartDate: "",
+        warrantyEndDate: "",
+        vendor: "",
+        remarks: ""
+    }
   }
 
-  email: string = "";
-
+  // email: string = "";
 
   ngOnInit() {
     this.UserForm = this.fb.group({
-      'userName': new FormControl('', Validators.required),
-      'password': new FormControl('', [Validators.required]),
-      'first': new FormControl('', Validators.required),
-      'last': new FormControl('', Validators.required),
-      // 'gender': this.fb.group({
-      //        cityName: ['']
-      //       }),
-      'employeeId': new FormControl(''),
-      'role': new FormControl('', Validators.required),
-      'gender': new FormControl('', Validators.required),
-      'realm': new FormControl('', Validators.required),
-      'email': new FormControl('', Validators.required),
-      'contact_1': new FormControl('', Validators.required),
-      'contact_2': new FormControl(''),
-      'address_1': new FormControl('', Validators.required),
-      'address_2': new FormControl(''),
-      'country': new FormControl('', Validators.required),
-      'state': new FormControl('', Validators.required),
-      'city': new FormControl('', Validators.required),
-      'pincode': new FormControl('', Validators.required),
-      'district': new FormControl('', Validators.required),
-      'safetyEscort': new FormControl(''),
-      'employee': new FormControl('')
+      'productSerialNo': new FormControl('', Validators.required),
+      'productName': new FormControl('', Validators.required),
+      'productBrand': new FormControl('', Validators.required),
+      'productCategory': new FormControl('', Validators.required),
+      // 'status': new FormControl(''),
+      'cost': new FormControl(''),
+      'price': new FormControl(''),
+      'warrantyStartDate': new FormControl(''),
+      'warrantyEndDate': new FormControl(''),
+      'vendor': new FormControl('', Validators.required),
+      'remarks': new FormControl('')
     });
-
-    // this.getUserDetails();
-  }
-
-  getUserDetails(){
-    this.apiser.getUser(this.email).subscribe((res:any)=>{
-      console.log(res)
-      if(res.Status == 'Success'){
-        this.user.username= "";
-        // this.user.password= res.;
-        this.user.firstname= res.firstName;
-        this.user.lastname= res.lastName;
-        // this.user.roleList = res.Roles;
-        this.user.email= res.email;
-        this.user.gender= res.gender;
-        this.user.realm= res.realm;
-        this.user.contactNumber1= res.contactNo1;
-        this.user.contactNumber2= res.contactNo2;
-        this.user.country= res.country;
-        this.user.addressLine1= res.address_line1;
-        this.user.addressLine2= res.address_line2;
-        this.user.district= res.district;
-        this.user.state= res.state;
-        this.user.city= res.city;
-        this.user.pin= res.pin;
-        this.user.employee= res.employee;
-        this.user.employeeId= res.empId;
-        this.user.accesstoken= res.access_token;
-        this.user.callingUsername= res.callingUsername;
-        this.user.callingSystemDetail = "portal";
-        this.user.safetyEscort = res.safetyescort;
-      }
-    })
   }
 
   closeAddUser() {
@@ -150,21 +99,39 @@ export class AddNewInventoryComponent implements OnInit {
 
   submitted!: boolean;
 
+  addInventory0: any;
+  addInventory1: any;
+  addInventory2: any;
   submit() {
-    console.log("Userform: ",this.UserForm.value);
-    console.log("Payload: ",this.user);
-
+    console.log(this.x);
     if(this.UserForm.valid) {
-      this.apiser.addUser(this.user).subscribe((res: any) => {
-        if(res.Status == "Success") {
-          localStorage.setItem('userCreated', JSON.stringify(res));
-          console.log('status');
-        }
+      this.addInventory2 = Swal.fire({
+        text: "Please wait",
+        imageUrl: "assets/gif/ajax-loading-gif.gif",
+        showConfirmButton: false,
+        allowOutsideClick: false
       });
-      console.log('valid');
-      this.submitted = false;
+      this.inventorySer.createInventory(this.x).subscribe((res: any) => {
+        console.log(res);
+
+        if(res) {
+          this.addInventory1 = Swal.fire({
+            icon: 'success',
+            title: 'Done!',
+            text: `${res.message}`,
+          });
+        }
+      }, (err: any) => {
+        if(err) {
+          this.addInventory0 = Swal.fire({
+            icon: 'warning',
+            title: 'Failed!',
+            text: 'Creating Inventory failed',
+            // timer: 3000,
+          });
+        };
+      })
     }
-    this.submitted = true;
   }
 
 

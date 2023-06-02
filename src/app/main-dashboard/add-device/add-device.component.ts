@@ -103,13 +103,13 @@ export class AddDeviceComponent implements OnInit {
 
       'weatherInterval': new FormControl(''),
 
-      'cameraId': new FormControl('', this.adInfo.deviceModeId == 3 ? Validators.required : []),
-      'modelName': new FormControl('', this.adInfo.deviceModeId == 3 ? Validators.required : []),
-      'modelWidth': new FormControl('', this.adInfo.deviceModeId == 3 ? Validators.required : []),
-      'modelHeight': new FormControl('', this.adInfo.deviceModeId == 3 ? Validators.required : []),
-      'modelMaxResults': new FormControl('', this.adInfo.deviceModeId == 3 ? Validators.required : []),
-      'modelThreshold': new FormControl('', this.adInfo.deviceModeId == 3 ? Validators.required : []),
-      'modelObjectTypeId': new FormControl('', this.adInfo.deviceModeId == 3 ? Validators.required : []),
+      'cameraId': new FormControl(''),
+      'modelName': new FormControl(''),
+      'modelWidth': new FormControl(''),
+      'modelHeight': new FormControl(''),
+      'modelMaxResults': new FormControl(''),
+      'modelThreshold': new FormControl(''),
+      'modelObjectTypeId': new FormControl(''),
 
       "loggerFreq": new FormControl(''),
       "refreshRules": new FormControl(''),
@@ -121,21 +121,51 @@ export class AddDeviceComponent implements OnInit {
     this.getDeviceDetail();
     this.onMetadataChange();
     this.siteData = JSON.parse(localStorage.getItem('temp_sites')!);
+
+    this.addDevice.get('deviceModeId').valueChanges.subscribe((val: any) => {
+      if(val == 3) {
+        this.addDevice.get('cameraId').setValidators(Validators.required);
+        this.addDevice.get('modelName').setValidators(Validators.required);
+        this.addDevice.get('modelWidth').setValidators(Validators.required);
+        this.addDevice.get('modelHeight').setValidators(Validators.required);
+        this.addDevice.get('modelMaxResults').setValidators(Validators.required);
+        this.addDevice.get('modelThreshold').setValidators(Validators.required);
+        this.addDevice.get('modelObjectTypeId').setValidators(Validators.required);
+      } else {
+        this.addDevice.get('cameraId').clearValidators();
+        this.addDevice.get('modelName').clearValidators();
+        this.addDevice.get('modelWidth').clearValidators();
+        this.addDevice.get('modelHeight').clearValidators();
+        this.addDevice.get('modelMaxResults').clearValidators();
+        this.addDevice.get('modelThreshold').clearValidators();
+        this.addDevice.get('modelObjectTypeId').clearValidators();
+      }
+
+      this.addDevice.get('cameraId').updateValueAndValidity();
+      this.addDevice.get('modelName').updateValueAndValidity();
+      this.addDevice.get('modelWidth').updateValueAndValidity();
+      this.addDevice.get('modelHeight').updateValueAndValidity();
+      this.addDevice.get('modelMaxResults').updateValueAndValidity();
+      this.addDevice.get('modelThreshold').updateValueAndValidity();
+      this.addDevice.get('modelObjectTypeId').updateValueAndValidity();
+    })
   }
 
   deviceData: any;
   deviceLength: any;
+  deviceMap: any;
   getDeviceDetail() {
     this.devService.listDeviceAdsInfo().subscribe((res: any) => {
       // console.log(res);
       for(let item of res) {
         if(this.siteData.siteId == item.siteId) {
           this.deviceData = item.adsDevices;
+
           this.deviceLength = this.deviceData.length;
           // console.log('deviceData', this.deviceData);
         }
       }
-      // console.log('deviceData', this.deviceLength);
+
     })
   }
 
@@ -161,6 +191,7 @@ export class AddDeviceComponent implements OnInit {
   modelResolution: any;
   softwareVersion: any;
   weatherInterval: any;
+  deviceStatus: any
   onMetadataChange() {
     this.dropDown.getMetadata().subscribe((res: any) => {
       for(let item of res) {
@@ -194,6 +225,9 @@ export class AddDeviceComponent implements OnInit {
         else if(item.type == 'Weather_Interval') {
           this.weatherInterval = item.metadata;
         }
+        else if(item.type == 'Device_Status') {
+          this.deviceStatus = item.metadata;
+        }
       }
     })
   }
@@ -220,7 +254,15 @@ export class AddDeviceComponent implements OnInit {
 
     this.newdeviceId = item.deviceId;
     console.log(this.currentItem);
+
+    // console.log(this.deviceStatus);
   }
+
+  // toChild: any
+  // onMat(e: any) {
+  //   this.toChild = this.deviceData.filter((el: any) => el.deviceId == e.tab.textLabel);
+  //   console.log(this.toChild)
+  // }
 
   originalObject: any;
 
@@ -232,6 +274,7 @@ export class AddDeviceComponent implements OnInit {
     if(!(this.changedKeys.includes(x))) {
       this.changedKeys.push(x);
       // this.originalObject[x] = Event.target.value;
+      console.log(this.changedKeys);
     }
   }
 
@@ -280,7 +323,7 @@ export class AddDeviceComponent implements OnInit {
         this.deviceUpdate1 = Swal.fire({
           icon: 'success',
           title: 'Done!',
-          text: 'Asset Updated Successfully!',
+          text: 'Device Updated Successfully!',
       });
       }
 
@@ -307,10 +350,10 @@ export class AddDeviceComponent implements OnInit {
     console.log(this.currentItem);
   }
 
-  tar: any;
-  onFocus(e: any) {
-    this.tar = e
-  }
+  // tar: any;
+  // onFocus(e: any) {
+  //   this.tar = e
+  // }
 
   /* add device */
 
@@ -320,12 +363,11 @@ export class AddDeviceComponent implements OnInit {
   addDeviceDtl() {
     this.adInfo.siteId = this.siteData.siteId;
 
-    // if(this.tar) {
-    //   let arr = JSON.parse(JSON.stringify(this.adInfo.workingDays)).join(',');
-    //   this.adInfo.workingDays = arr;
-    // }
-
     if(this.addDevice.valid) {
+      let arr = JSON.parse(JSON.stringify(this.adInfo.workingDays)).join(',');
+      var myString = arr.substring(1);
+      this.adInfo.workingDays = myString;
+
       this.newItemEvent.emit(false);
 
       this.addDevice2 = Swal.fire({
@@ -341,8 +383,8 @@ export class AddDeviceComponent implements OnInit {
         if(res) {
           this.addDevice1 = Swal.fire({
             icon: 'success',
-            title: 'Done!',
-            text: 'Asset Added Successfully!',
+            title: `Device Id: ${res.deviceId}`,
+            text: 'Device Created Successfully!'
           });
         }
 
@@ -354,9 +396,9 @@ export class AddDeviceComponent implements OnInit {
         console.log(err);
         if(err) {
           this.addDevice0 = Swal.fire({
-            icon: 'warning',
+            icon: 'error',
             title: 'Failed!',
-            text: 'Adding Device failed',
+            text: 'Creating Device failed',
             // timer: 3000,
           });
         };
@@ -377,26 +419,38 @@ export class AddDeviceComponent implements OnInit {
   //   }
   // }
 
-  @ViewChild('select') select!: MatSelect;
+  // @ViewChild('select') select!: MatSelect;
 
-  allSelected=false;
+  allSelected = false;
+
+  // toggleAllSelection() {
+  //   if (this.allSelected) {
+  //     this.select.options.forEach((item: MatOption) => item.select());
+  //   } else {
+  //     this.select.options.forEach((item: MatOption) => item.deselect());
+  //   }
+  // }
+
+  // optionClick() {
+  //   let newStatus = true;
+  //   this.select.options.forEach((item: MatOption) => {
+  //     if (!item.selected) {
+  //       newStatus = false;
+  //     }
+  //   });
+  //   this.allSelected = newStatus;
+  // }
+
+  @ViewChild('mySel') skillSel!: MatSelect;
 
   toggleAllSelection() {
-    if (this.allSelected) {
-      this.select.options.forEach((item: MatOption) => item.select());
-    } else {
-      this.select.options.forEach((item: MatOption) => item.deselect());
-    }
-  }
+    this.allSelected = !this.allSelected;
 
-  optionClick() {
-    let newStatus = true;
-    this.select.options.forEach((item: MatOption) => {
-      if (!item.selected) {
-        newStatus = false;
-      }
-    });
-    this.allSelected = newStatus;
+    if (this.allSelected) {
+      this.skillSel.options.forEach( (item : MatOption) => item.select());
+    } else {
+      this.skillSel.options.forEach( (item : MatOption) => {item.deselect()});
+    }
   }
 
 }

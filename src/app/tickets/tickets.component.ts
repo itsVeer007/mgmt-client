@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { TicketService } from 'src/services/ticket.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-tickets',
@@ -34,7 +36,7 @@ export class TicketsComponent implements OnInit {
 
 
   showLoader = false;
-  constructor(private http: HttpClient, private ticketSer: TicketService) { }
+  constructor(private http: HttpClient, private ticketSer: TicketService, public dialog: MatDialog,) { }
 
   ngOnInit(): void {
     this.CustomerReport();
@@ -55,14 +57,15 @@ export class TicketsComponent implements OnInit {
   showIconDelete1: boolean = false;
 
   searchText: any;
-  CustomerTable: any;
+  ticketData: any;
   CustomerReport() {
     // this.http.get('assets/JSON/customerData.json').subscribe(res => {
-    //   this.CustomerTable = res;
+    //   this.ticketData = res;
     //   // console.log(res)
     // });
     this.ticketSer.getTickets().subscribe((res: any) => {
-      console.log(res)
+      console.log(res);
+      this.ticketData = res;
     })
   }
 
@@ -143,17 +146,16 @@ export class TicketsComponent implements OnInit {
   //   }
   // }
 
-
   selectedAll: any;
 
   selectAll() {
-    for (var i = 0; i < this.CustomerTable.length; i++) {
-      // console.log(this.CustomerTable[i])
-      this.CustomerTable[i].selected = this.selectedAll;
+    for (var i = 0; i < this.ticketData.length; i++) {
+      // console.log(this.ticketData[i])
+      this.ticketData[i].selected = this.selectedAll;
     }
   }
   checkIfAllSelected() {
-    this.selectedAll = this.CustomerTable.every(function (item: any) {
+    this.selectedAll = this.ticketData.every(function (item: any) {
       // console.log(item)
       return item.selected == true;
     })
@@ -167,51 +169,161 @@ export class TicketsComponent implements OnInit {
     this.showLoader = true;
     setTimeout(() => {
       this.showLoader = false;
-      this.CustomerTable.splice(i, 1);
+      this.ticketData.splice(i, 1);
     }, 1000);
   }
 
   deletePopup: boolean = true;
+  currentItem: any;
+
+
+  editPopup: boolean = true;
+  originalObject: any;
+  // changedKeys: any[] = [];
+
+  openEditPopup(item: any, i: any) {
+    this.currentItem = JSON.parse(JSON.stringify(item));
+    this.editPopup = false;
+    console.log(this.currentItem);
+  }
+
+  // confirmEditRow(event: any) {
+  //   this.originalObject = {
+  //     "ticketId": this.currentItem.ticketId,
+  //     "site": this.currentItem.site,
+  //     "description": this.currentItem.description,
+  //     "priority": this.currentItem.priority,
+  //     "status": this.currentItem.status,
+  //   };
+
+  //   let x = event.target['name'];
+
+  //   if(!(this.changedKeys.includes(x))) {
+  //     this.changedKeys.push(x);
+  //   }
+  //   console.log(this.changedKeys);
+  //   console.log(this.originalObject);
+  //   console.log( this.currentItem);
+  //   this.editPopup = true;
+  //   this.CustomerReport();
+  // }
+
+
+  updateTicket0: any;
+  updateTicket1: any;
+  updateTicket2: any;
+  updateTicket(el: any) {
+
+    this.originalObject = {
+      "ticketId": el.ticketId,
+      "site": el.site,
+      "siteId": 1102,
+      "description": el.description,
+      "priority": el.priority,
+      "status": el.status,
+    };
+
+    this.updateTicket2 = Swal.fire({
+      text: "Please wait",
+      imageUrl: "assets/gif/ajax-loading-gif.gif",
+      showConfirmButton: false,
+      allowOutsideClick: false
+    });
+
+    this.ticketSer.updateTicket(this.originalObject).subscribe((res: any) => {
+      console.log(res);
+
+      if(res) {
+        this.updateTicket1 = Swal.fire({
+          icon: 'success',
+          title: 'Done!',
+          text: 'Updated Ticket Successfully!',
+        });
+      }
+    }, (err: any) => {
+      if(err) {
+        this.updateTicket0 = Swal.fire({
+          icon: 'error',
+          title: 'Failed!',
+          text: 'Ticket Updation failed',
+          // timer: 3000,
+        });
+      };
+    });
+  }
+
+  assignedObj = {
+    assignedTo: ""
+  }
+
+  @ViewChild('assignedDialog') assignedDialog = {} as TemplateRef<any>;
+
+  x: any
+  openAssigned(item: any) {
+    // console.log(item);
+    this.x = item;
+    this.dialog.open(this.assignedDialog);
+  }
+
+  toAssigned() {
+    let myObj = {
+      'ticketId': this.x.ticketId,
+      'assignedTo': this.assignedObj.assignedTo
+    }
+
+    this.ticketSer.assignPerson(myObj).subscribe((res: any) => {
+      console.log(res)
+    })
+  }
+
+  @ViewChild('editStatusDialog') editStatusDialog = {} as TemplateRef<any>;
+
+  y: any
+  openEditStatus(id: any) {
+    console.log(id);
+    this.y = id;
+    this.dialog.open(this.editStatusDialog);
+  }
+
+  staObj = {
+    status: ""
+  }
+
+
+  changeAssetStatus() {
+    let statusObj = {
+      ticketId: this.y.ticketId,
+      status: this.staObj.status
+    }
+
+    this.ticketSer.updateStatus(statusObj).subscribe((res: any) => {
+      console.log(res);
+    })
+  }
+
+
+  openDeletePopup(item: any, i: any) {
+    this.currentItem = item;
+    this.deletePopup = false;
+    console.log(item);
+  }
+
   confirmDeleteRow() {
-    console.log("ToBE DELETED:: ", this.currentItem);
-    this.CustomerTable = this.CustomerTable.filter((item: any) => item.siteId !== this.currentItem.siteId);
+    // console.log(this.currentItem);
+    // this.ticketData = this.ticketData.filter((item: any) => item.siteId !== this.currentItem.siteId);
     this.deletePopup = true;
+
+    this.ticketSer.deleteTicket(this.currentItem).subscribe((res: any) => {
+      console.log(res);
+    })
   }
 
   closeDeletePopup() {
     this.deletePopup = true;
   }
 
-  currentItem: any;
-  openDeletePopup(item: any, i: any) {
-    this.currentItem = item;
-    // console.log("Selected Item:: ", item);
-    this.deletePopup = false;
-    // console.log("Open Delete Popup:: ",this.deletePopup);
-    // console.log(this.CustomerTable.siteId);
-  }
-
-
-  editPopup: boolean = true;
-
-  confirmEditRow() {
-    console.log("TO BE EDITED:: ", this.currentItem);
-    // this.CustomerTable= this.CustomerTable.filter((item:any) => item.siteId !== this.currentItem.siteId);
-    this.editPopup = true;
-    this.CustomerReport();
-  }
-
   closeEditPopup() {
     this.editPopup = true;
-  }
-
-  openEditPopup(item: any, i: any) {
-    this.currentItem = JSON.parse(JSON.stringify(item));
-    // this.currentItem = item;
-    // console.log("Selected Item:: ", item);
-    this.editPopup = false;
-    // console.log("Open Delete Popup:: ",this.editPopup);
-    // console.log(this.CustomerTable.siteId);
   }
 
   editArray: any = [];
@@ -300,12 +412,12 @@ export class TicketsComponent implements OnInit {
       this.deletearray.forEach((el: any) => {
         // this.currentItem = el;
         // this.confirmDeleteRow();
-        this.CustomerTable = this.CustomerTable.filter((item: any) => item.siteId !== el.siteId);
+        this.ticketData = this.ticketData.filter((item: any) => item.siteId !== el.siteId);
       });
       this.deletearray = []
     } else {
-      this.CustomerTable.forEach((el: any) => {
-        this.CustomerTable = this.CustomerTable.filter((item: any) => item.siteId !== el.siteId);
+      this.ticketData.forEach((el: any) => {
+        this.ticketData = this.ticketData.filter((item: any) => item.siteId !== el.siteId);
       });
     }
   }
@@ -314,7 +426,7 @@ export class TicketsComponent implements OnInit {
   sorted = false;
   sort(label: any) {
     this.sorted = !this.sorted;
-    var x = this.CustomerTable;
+    var x = this.ticketData;
     if (this.sorted == false) {
       x.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
     } else {
