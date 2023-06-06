@@ -69,6 +69,7 @@ import { TestComponent } from './test/test.component';
 import { AccordionModule } from '@syncfusion/ej2-angular-navigations';
 import { SortPipe } from './utilities/sort.pipe';
 import { DeviceViewComponent } from './main-dashboard/add-device/device-view/device-view.component';
+import { DevicesComponent } from './devices/devices.component';
 
 @NgModule({
   declarations: [
@@ -105,7 +106,8 @@ import { DeviceViewComponent } from './main-dashboard/add-device/device-view/dev
     AddMetadataComponent,
     TestComponent,
     SortPipe,
-    DeviceViewComponent
+    DeviceViewComponent,
+    DevicesComponent
   ],
   imports: [
     BrowserModule,

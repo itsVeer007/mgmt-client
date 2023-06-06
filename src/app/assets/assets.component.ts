@@ -9,6 +9,8 @@ import { AssetService } from '../../services/asset.service';
 import { AdInfoComponent } from './ad-info/ad-info.component';
 import { MatTabGroup } from '@angular/material/tabs';
 import Swal from 'sweetalert2';
+import { FormControl } from '@angular/forms';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-assets',
@@ -42,7 +44,7 @@ export class AssetsComponent implements OnInit {
 
 
 
-  searchText: any;
+  searchText!: string;
   // deviceId: string = '';
   // activeAssets: number = 0;
   showLoader: boolean = false;
@@ -83,20 +85,14 @@ export class AssetsComponent implements OnInit {
 
   assetTable: any = [];
   inputToAddAsset: any;
-  tableData: any;
+  tableData: number[] = [];
   siteMap: any
   siteIdToTable: any;
 
-  deviceIds: any = [];
+  // deviceIds: any = [];
   newTableData: any = [];
-
-  // myFun() {
-    // this.newTableData = [];
-    // this.assetMsg = '';
-    // this.cdr.detectChanges();
-  // }
-
   assetMsg: string = '';
+
   getSiteData() {
     this.devSercice.listDeviceAdsInfo().subscribe((res: any) => {
       console.log(res);
@@ -104,6 +100,7 @@ export class AssetsComponent implements OnInit {
       this.siteIdToTable = this.siteMap.flatMap((item: any) => item.siteId);
       // console.log(this.siteIdToTable);
       this.tableData = this.siteIdToTable;
+      // console.log(this.tableData);
       this.cdr.detectChanges();
     })
   }
@@ -141,8 +138,6 @@ export class AssetsComponent implements OnInit {
   }
 
   getAssetss(e: any) {
-    // console.log(e);
-
     var selectedId = e?.tab?.textLabel;
     this.assetMsg = '';
     this.cdr.detectChanges();
@@ -167,26 +162,52 @@ export class AssetsComponent implements OnInit {
   }
 
 
-  siteSearch: any;
-  searchForSiteInput(e: any) {
-    this.siteSearch = (e.target as HTMLInputElement).value;
-    console.log(this.siteSearch);
+  filteredOptions!: number[];
+  searchControl = new FormControl();
+  searchTex!: string;
+
+  filterOptions(value: string): number[] {
+    const filterValue = value.toString().toLowerCase();
+    return this.tableData.filter(option => option.toString().toLowerCase().includes(filterValue));
   }
+
+  searchForSiteInput() {
+    this.filteredOptions = this.tableData;
+    this.searchControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this.filterOptions(value))
+    ).subscribe(filtered => {
+      this.filteredOptions = filtered;
+      // console.log(this.searchControl);
+    });
+
+    if(this.searchControl.value == "" || this.searchControl.value == null) {
+      this.siteIdToTable = this.tableData;
+      this.cdr.detectChanges();
+    } else {
+      this.cdr.detectChanges();
+    }
+  }
+
+  // siteSearch: any;
+  // searchForSiteInput(e: any) {
+  //   this.siteSearch = (e.target as HTMLInputElement).value;
+  // }
 
   searchForSiteOption(data: any) {
-    let dataSome = this.tableData;
-    this.siteIdToTable = dataSome.filter((el: any) => el == data);
+    this.siteIdToTable = this.tableData.filter((el: any) => el == data);
+    this.cdr.detectChanges();
   }
 
-  deviceSearch: any;
-  deviceForSiteInput(e: any) {
-    this.deviceSearch = (e.target as HTMLInputElement).value;
-  }
+  // deviceSearch: any;
+  // deviceForSiteInput(e: any) {
+  //   this.deviceSearch = (e.target as HTMLInputElement).value;
+  // }
 
-  deviceForSiteOption(data: any) {
-    let dataSome = this.x;
-    this.newTableData = dataSome.filter((el: any) => el.deviceId == data);
-  }
+  // deviceForSiteOption(data: any) {
+  //   let dataSome = this.x;
+  //   this.newTableData = dataSome.filter((el: any) => el.deviceId == data);
+  // }
 
   modeSearch: any;
   searchForModeInput(e: Event) {
@@ -194,8 +215,30 @@ export class AssetsComponent implements OnInit {
   }
 
   searchForModeOption(data: any) {
-    let dataSome = this.tableData;
-    this.siteIdToTable = dataSome.filter((el: any) => el.deviceModeId == data);
+    let dataSome = this.x;
+    this.newTableData = dataSome.filter((el: any) => el.deviceModeId == data);
+    this.cdr.detectChanges();
+
+    // if(this.modeSearch == '' || this.modeSearch == null) {
+    //   this.newTableData = [];
+    //   this.cdr.detectChanges();
+    // }
+  }
+
+  statusSearch: any;
+  searchForStatus(e: Event) {
+    this.statusSearch = (e.target as HTMLInputElement).value;
+  }
+
+  searchForStatusOption(data: any) {
+    let dataSome = this.x;
+    this.newTableData = dataSome.filter((el: any) => el.status == data);
+    this.cdr.detectChanges();
+
+    // if(this.modeSearch == '' || this.modeSearch == null) {
+    //   this.newTableData = [];
+    //   this.cdr.detectChanges();
+    // }
   }
 
 
@@ -350,7 +393,7 @@ export class AssetsComponent implements OnInit {
         };
 
         setTimeout(() => {
-          // window.location.reload();
+          window.location.reload();
         }, 3000);
 
       }, (err: any) => {
@@ -434,11 +477,21 @@ export class AssetsComponent implements OnInit {
   changedKeys: any[] = [];
 
   on(event: any) {
+    this.originalObject = {
+      "id": this.currentItem.id,
+      "deviceModeId": this.currentItem.deviceModeId,
+      "playOrder": this.currentItem.playOrder,
+      "modifiedBy": 1,
+      "fromDate": this.currentItem.fromDate,
+      "toDate": this.currentItem.toDate,
+      "active": this.currentItem.active,
+      "status": this.currentItem.status
+    };
+
     let x = event.source.ngControl.name;
 
     if(!(this.changedKeys.includes(x))) {
       this.changedKeys.push(x);
-      // this.originalObject[x] = Event.target.value;
     }
   }
 
@@ -491,7 +544,7 @@ export class AssetsComponent implements OnInit {
       }
 
       setTimeout(() => {
-        // window.location.reload();
+        window.location.reload();
       }, 3000);
 
     }, (err: any) => {

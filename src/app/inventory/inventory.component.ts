@@ -61,6 +61,7 @@ export class InventoryComponent implements OnInit {
 
   searchText: any;
   inventoryTable: any = [];
+  newInventoryTable: any = [];
 
   installed: any = [];
   inStock: any = [];
@@ -70,6 +71,7 @@ export class InventoryComponent implements OnInit {
     this.inventorySer.getListing().subscribe((res: any) => {
       console.log(res);
       this.inventoryTable = res;
+      this.newInventoryTable = this.inventoryTable;
 
       for(let item of this.inventoryTable) {
         if(item.status == 'Installed') {
@@ -83,6 +85,63 @@ export class InventoryComponent implements OnInit {
         }
       }
     });
+  }
+
+  filterBrand(val: any) {
+    if(val == 'none') {
+      this.newInventoryTable = this.inventoryTable;
+    } else {
+      this.newInventoryTable = this.inventoryTable.filter((el: any) => el.productBrand == val);
+    }
+  }
+
+  filterCategory(val: any) {
+    if(val == 'none') {
+      this.newInventoryTable = this.inventoryTable;
+    } else {
+      this.newInventoryTable = this.inventoryTable.filter((el: any) => el.productCategory == val);
+    }
+  }
+
+  filterStatus(val: any) {
+    if(val == 'none') {
+      this.newInventoryTable = this.inventoryTable;
+    } else {
+      this.newInventoryTable = this.inventoryTable.filter((el: any) => el.status == val);
+    }
+  }
+
+
+  brandNames: any;
+  categoryTypes: any;
+  statusVal: any;
+  removeDuplicates() {
+    this.brandNames = this.inventoryTable.reduce((acc: any, current: any) => {
+      const x = acc.find((item: any) => item.productBrand == current.productBrand);
+      if (!x) {
+        return acc.concat([current]);
+      } else {
+        return acc;
+      }
+    }, []);
+
+    this.categoryTypes = this.inventoryTable.reduce((acc: any, current: any) => {
+      const x = acc.find((item: any) => item.productCategory == current.productCategory);
+      if (!x) {
+        return acc.concat([current]);
+      } else {
+        return acc;
+      }
+    }, []);
+
+    this.statusVal = this.inventoryTable.reduce((acc: any, current: any) => {
+      const x = acc.find((item: any) => item.status == current.status);
+      if (!x) {
+        return acc.concat([current]);
+      } else {
+        return acc;
+      }
+    }, []);
   }
 
   currentid = 0;

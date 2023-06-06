@@ -1,15 +1,15 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TicketService } from 'src/services/ticket.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-tickets',
-  templateUrl: './tickets.component.html',
-  styleUrls: ['./tickets.component.css']
+  selector: 'app-devices',
+  templateUrl: './devices.component.html',
+  styleUrls: ['./devices.component.css']
 })
-export class TicketsComponent implements OnInit {
+export class DevicesComponent implements OnInit {
 
   @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
     var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);
@@ -40,7 +40,6 @@ export class TicketsComponent implements OnInit {
 
   ngOnInit(): void {
     this.CustomerReport();
-    // this.getSites();
   }
 
   showIconVertical: boolean = false;
@@ -58,76 +57,28 @@ export class TicketsComponent implements OnInit {
   showIconDelete1: boolean = false;
 
   searchText: any;
-  ticketData: any = [];
-  newTicketData: any = [];
+  deviceData: any;
   CustomerReport() {
-    // this.http.get('assets/JSON/customerData.json').subscribe(res => {
-    //   this.ticketData = res;
-    //   // console.log(res)
-    // });
-
-    this.ticketSer.getTickets().subscribe((res: any) => {
-      console.log(res);
-      this.ticketData = res;
-      this.newTicketData = this.ticketData;
-    })
+    this.http.get('assets/JSON/devicesData.json').subscribe((res: any) => {
+      this.deviceData = res;
+      // console.log(res)
+    });
+    // this.ticketSer.getTickets().subscribe((res: any) => {
+    //   console.log(res);
+    //   this.deviceData = res;
+    // })
   }
 
-  filterBySite(val: any) {
-    if(val == 'none') {
-      this.newTicketData = this.ticketData;
-    } else {
-      this.newTicketData = this.ticketData.filter((el: any) => el.site == val);
-    }
+  filterSiteId: any
+  filterSiteId_Name(value: any) {
+    this.filterSiteId = this.deviceData.filter((el: any) => el.siteId_Name == value)
   }
 
-  filterByPriority(val: any) {
-    if(val == 'none') {
-      this.newTicketData = this.ticketData;
-    } else {
-      this.newTicketData = this.ticketData.filter((el: any) => el.priority == val)
-    }
+  filterDevice: any
+  filterDeviceType(value: any) {
+    this.filterDevice = this.deviceData.filter((el: any) => el.deviceType == value)
   }
 
-  filterByStatus(val: any) {
-    if(val == 'none') {
-      this.newTicketData = this.ticketData;
-    } else {
-      this.newTicketData = this.ticketData.filter((el: any) => el.status == val)
-    }
-  }
-
-  siteNames: any;
-  priorityVal: any;
-  statusVal: any;
-  removeDuplicates() {
-    this.siteNames = this.ticketData.reduce((acc: any, current: any) => {
-      const x = acc.find((item: any) => item.site == current.site);
-      if (!x) {
-        return acc.concat([current]);
-      } else {
-        return acc;
-      }
-    }, []);
-
-    this.priorityVal = this.ticketData.reduce((acc: any, current: any) => {
-      const x = acc.find((item: any) => item.priority == current.priority);
-      if (!x) {
-        return acc.concat([current]);
-      } else {
-        return acc;
-      }
-    }, []);
-
-    this.statusVal = this.ticketData.reduce((acc: any, current: any) => {
-      const x = acc.find((item: any) => item.status == current.status);
-      if (!x) {
-        return acc.concat([current]);
-      } else {
-        return acc;
-      }
-    }, []);
-  }
 
   currentid = 0;
   closeDot(e: any, i: any) {
@@ -153,6 +104,17 @@ export class TicketsComponent implements OnInit {
 
   closenow(value: any, type: String) {
     if (type == 'ticket') { this.showTicket = value; }
+
+    // setTimeout(() => {
+    //   var openform = localStorage.getItem('opennewform');
+    //   if (openform == 'showAddSite') { this.showAddSite = true; }
+    //   if (openform == 'showAddCamera') { this.showAddCamera = true; }
+    //   if (openform == 'showAddCustomer') { this.showAddCustomer = true; }
+    //   if (openform == 'showAddBusinessVertical') { this.showAddBusinessVertical = true; }
+    //   if (openform == 'showAddUser') { this.showAddUser = true; }
+    //   if (openform == 'additionalSite') { this.showSite = true; }
+    //   localStorage.setItem('opennewform', '');
+    // }, 100)
   }
 
   showTicket: boolean = false;
@@ -174,13 +136,13 @@ export class TicketsComponent implements OnInit {
   selectedAll: any;
 
   selectAll() {
-    for (var i = 0; i < this.ticketData.length; i++) {
-      // console.log(this.ticketData[i])
-      this.ticketData[i].selected = this.selectedAll;
+    for (var i = 0; i < this.deviceData.length; i++) {
+      // console.log(this.deviceData[i])
+      this.deviceData[i].selected = this.selectedAll;
     }
   }
   checkIfAllSelected() {
-    this.selectedAll = this.ticketData.every(function (item: any) {
+    this.selectedAll = this.deviceData.every(function (item: any) {
       // console.log(item)
       return item.selected == true;
     })
@@ -194,7 +156,7 @@ export class TicketsComponent implements OnInit {
     this.showLoader = true;
     setTimeout(() => {
       this.showLoader = false;
-      this.ticketData.splice(i, 1);
+      this.deviceData.splice(i, 1);
     }, 1000);
   }
 
@@ -314,39 +276,15 @@ export class TicketsComponent implements OnInit {
     status: ""
   }
 
-  ticketStatus0: any;
-  ticketStatus1: any;
-  ticketStatus2: any;
+
   changeAssetStatus() {
     let statusObj = {
       ticketId: this.y.ticketId,
       status: this.staObj.status
     }
 
-    this.ticketStatus2 = Swal.fire({
-      text: "Please wait",
-      imageUrl: "assets/gif/ajax-loading-gif.gif",
-      showConfirmButton: false,
-      allowOutsideClick: false
-    });
     this.ticketSer.updateStatus(statusObj).subscribe((res: any) => {
       console.log(res);
-      if(res) {
-        this.ticketStatus1 = Swal.fire({
-          icon: 'success',
-          title: 'Done!',
-          text: 'Status Updated Successfully!',
-        });
-      }
-    }, (err: any) => {
-      if(err) {
-        this.ticketStatus0 = Swal.fire({
-          icon: 'error',
-          title: 'Failed!',
-          text: 'Status Updation failed',
-          // timer: 3000,
-        });
-      };
     })
   }
 
@@ -359,7 +297,7 @@ export class TicketsComponent implements OnInit {
 
   confirmDeleteRow() {
     // console.log(this.currentItem);
-    // this.ticketData = this.ticketData.filter((item: any) => item.siteId !== this.currentItem.siteId);
+    // this.deviceData = this.deviceData.filter((item: any) => item.siteId !== this.currentItem.siteId);
     this.deletePopup = true;
 
     this.ticketSer.deleteTicket(this.currentItem).subscribe((res: any) => {
@@ -461,12 +399,12 @@ export class TicketsComponent implements OnInit {
       this.deletearray.forEach((el: any) => {
         // this.currentItem = el;
         // this.confirmDeleteRow();
-        this.ticketData = this.ticketData.filter((item: any) => item.siteId !== el.siteId);
+        this.deviceData = this.deviceData.filter((item: any) => item.siteId !== el.siteId);
       });
       this.deletearray = []
     } else {
-      this.ticketData.forEach((el: any) => {
-        this.ticketData = this.ticketData.filter((item: any) => item.siteId !== el.siteId);
+      this.deviceData.forEach((el: any) => {
+        this.deviceData = this.deviceData.filter((item: any) => item.siteId !== el.siteId);
       });
     }
   }
@@ -475,7 +413,7 @@ export class TicketsComponent implements OnInit {
   sorted = false;
   sort(label: any) {
     this.sorted = !this.sorted;
-    var x = this.ticketData;
+    var x = this.deviceData;
     if (this.sorted == false) {
       x.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
     } else {

@@ -19,6 +19,7 @@ import { VerticalsComponent } from './verticals/verticals.component';
 import { ReportsComponent } from './reports/reports.component';
 import { MetaDataComponent } from './meta-data/meta-data.component';
 import { TestComponent } from './test/test.component';
+import { DevicesComponent } from './devices/devices.component';
 const routes: Routes = [];
 
 @NgModule({
@@ -33,6 +34,7 @@ const routes: Routes = [];
     { path: 'add-new-user', component: AddNewUserComponent },
     { path: 'add-new-business', component: AddNewBusinessVerticalComponent },
     { path: 'sites', component: SitesComponent },
+    { path: 'devices', component: DevicesComponent },
     { path: 'analytics', component: AnalyticsComponent },
     { path: 'customers', component: CustomersComponent },
     { path: 'users', component: UsersComponent },

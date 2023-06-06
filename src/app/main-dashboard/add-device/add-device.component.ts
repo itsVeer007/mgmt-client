@@ -265,10 +265,27 @@ export class AddDeviceComponent implements OnInit {
   // }
 
   originalObject: any;
-
   changedKeys: any[] = [];
 
   on(event: any) {
+    this.originalObject = {
+      "deviceId": this.newdeviceId,
+      "deviceModeId": this.currentItem.deviceModeId,
+      "deviceCallFreq": this.currentItem.deviceCallFreq,
+      "adsHours": this.currentItem.adsHours,
+      "workingDays": this.currentItem.workingDays,
+      "deviceDescription": this.currentItem.deviceDescription,
+      "remarks": this.currentItem.remarks,
+      "status": this.currentItem.status,
+      "weatherInterval": this.currentItem.weatherInterval,
+      "loggerFreq": this.currentItem.loggerFreq,
+      "modelWidth": this.currentItem.modelWidth,
+      "modelHeight": this.currentItem.modelHeight,
+      "modelName": this.currentItem.modelName,
+      "modelObjectTypeId": this.currentItem.modelObjectTypeId,
+      "modifiedBy": 1,
+    };
+
     let x = event.source.ngControl.name;
 
     if(!(this.changedKeys.includes(x))) {
@@ -287,6 +304,7 @@ export class AddDeviceComponent implements OnInit {
       "workingDays": this.currentItem.workingDays,
       "deviceDescription": this.currentItem.deviceDescription,
       "remarks": this.currentItem.remarks,
+      "status": this.currentItem.status,
       "weatherInterval": this.currentItem.weatherInterval,
       "loggerFreq": this.currentItem.loggerFreq,
       "modelWidth": this.currentItem.modelWidth,
@@ -303,7 +321,7 @@ export class AddDeviceComponent implements OnInit {
       // this.originalObject[x] = Event.target.value;
     }
     console.log(this.changedKeys);
-    console.log(this.originalObject);
+    // console.log(this.originalObject);
   }
 
   deviceUpdate0: any;
@@ -319,6 +337,7 @@ export class AddDeviceComponent implements OnInit {
 
     this.devService.updateDeviceAdsInfo({adsDevice: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
       console.log(res);
+
       if(res) {
         this.deviceUpdate1 = Swal.fire({
           icon: 'success',
@@ -328,7 +347,7 @@ export class AddDeviceComponent implements OnInit {
       }
 
       setTimeout(() => {
-        // window.location.reload();
+        window.location.reload();
       }, 3000);
 
     }, (err: any) => {
@@ -357,6 +376,13 @@ export class AddDeviceComponent implements OnInit {
 
   /* add device */
 
+  toAddDevice: any;
+
+  onToAddDevice(e: any) {
+    this.toAddDevice = e.value.length;
+    console.log(e.value.length)
+  }
+
   addDevice0: any;
   addDevice1: any;
   addDevice2: any;
@@ -364,11 +390,15 @@ export class AddDeviceComponent implements OnInit {
     this.adInfo.siteId = this.siteData.siteId;
 
     if(this.addDevice.valid) {
-      let arr = JSON.parse(JSON.stringify(this.adInfo.workingDays)).join(',');
-      var myString = arr.substring(1);
-      this.adInfo.workingDays = myString;
-
       this.newItemEvent.emit(false);
+
+      let arr = JSON.parse(JSON.stringify(this.adInfo.workingDays)).join(',');
+      if(this.toAddDevice == 8) {
+        var myString = arr.substring(1);
+        this.adInfo.workingDays = myString;
+      } else {
+        this.adInfo.workingDays = arr;
+      }
 
       this.addDevice2 = Swal.fire({
         text: "Please wait",
@@ -389,7 +419,7 @@ export class AddDeviceComponent implements OnInit {
         }
 
         setTimeout(() => {
-          // window.location.reload();
+          window.location.reload();
         }, 3000);
 
       }, (err: any) => {
