@@ -56,7 +56,8 @@ export class AddNewTicketComponent implements OnInit {
 
   x = {
     ticket: {
-      description: '',
+      ticketType: '',
+      ticketReason: '',
       site: '',
       siteId: '',
       dateCreated: '',
@@ -91,7 +92,8 @@ export class AddNewTicketComponent implements OnInit {
 
   ngOnInit(): void {
     this.addAssetForm = this.fb.group({
-      'description': new FormControl(''),
+      'ticketType': new FormControl(''),
+      'ticketReason': new FormControl(''),
       'site': new FormControl('', Validators.required),
       'siteId': new FormControl('', Validators.required),
       'dateCreated': new FormControl(''),
@@ -142,7 +144,7 @@ export class AddNewTicketComponent implements OnInit {
         }
 
         setTimeout(() => {
-          window.location.reload();
+          // window.location.reload();
         }, 3000);
       }, (err: any) => {
         if(err) {

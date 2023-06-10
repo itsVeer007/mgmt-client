@@ -245,18 +245,22 @@ export class AddDeviceComponent implements OnInit {
 
   @ViewChild('editDeviceDialog') editDevice = {} as TemplateRef<any>;
 
+  // newdeviceId: any;
+  // devDataToEdit: any
   currentItem: any;
-  newdeviceId: any;
-  devDataToEdit: any
   openEditDevice(item: any) {
     this.dialog.open(this.editDevice);
     this.currentItem = item;
 
-    this.newdeviceId = item.deviceId;
-    console.log(this.currentItem);
+    let x = this.currentItem.workingDays.toString().split(',')
+    this.currentItem.workingDays = x;
 
-    // console.log(this.deviceStatus);
+    // this.newdeviceId = item.deviceId;
+    console.log(this.currentItem);
   }
+
+
+  /* dynamic device view */
 
   // toChild: any
   // onMat(e: any) {
@@ -267,22 +271,68 @@ export class AddDeviceComponent implements OnInit {
   originalObject: any;
   changedKeys: any[] = [];
 
-  on(event: any) {
+  o(event: any) {
+    console.log(event);
+
     this.originalObject = {
-      "deviceId": this.newdeviceId,
-      "deviceModeId": this.currentItem.deviceModeId,
+      "deviceId": this.currentItem.deviceId,
+
+      "debugOn": this.currentItem.debugOn,
+      "debugLogs": this.currentItem.debugLogs,
+      "refreshRules": this.currentItem.refreshRules,
+
       "deviceCallFreq": this.currentItem.deviceCallFreq,
-      "adsHours": this.currentItem.adsHours,
-      "workingDays": this.currentItem.workingDays,
       "deviceDescription": this.currentItem.deviceDescription,
       "remarks": this.currentItem.remarks,
-      "status": this.currentItem.status,
       "weatherInterval": this.currentItem.weatherInterval,
       "loggerFreq": this.currentItem.loggerFreq,
       "modelWidth": this.currentItem.modelWidth,
       "modelHeight": this.currentItem.modelHeight,
+
+      "deviceModeId": this.currentItem.deviceModeId,
+      "deviceTypeId": this.currentItem.deviceTypeId,
+      "adsHours": this.currentItem.adsHours,
+      "workingDays": this.currentItem.workingDays,
+      "status": this.currentItem.status,
       "modelName": this.currentItem.modelName,
       "modelObjectTypeId": this.currentItem.modelObjectTypeId,
+
+      "modifiedBy": 1,
+    };
+
+    let x = event.source.name;
+
+    if(!(this.changedKeys.includes(x))) {
+      this.changedKeys.push(x);
+    }
+
+    console.log(this.changedKeys);
+  }
+
+  on(event: any) {
+    this.originalObject = {
+      "deviceId": this.currentItem.deviceId,
+
+      "deviceModeId": this.currentItem.deviceModeId,
+      "deviceTypeId": this.currentItem.deviceTypeId,
+      "adsHours": this.currentItem.adsHours,
+      "workingDays": this.currentItem.workingDays,
+      "status": this.currentItem.status,
+      "modelName": this.currentItem.modelName,
+      "modelObjectTypeId": this.currentItem.modelObjectTypeId,
+
+      "deviceCallFreq": this.currentItem.deviceCallFreq,
+      "deviceDescription": this.currentItem.deviceDescription,
+      "remarks": this.currentItem.remarks,
+      "weatherInterval": this.currentItem.weatherInterval,
+      "loggerFreq": this.currentItem.loggerFreq,
+      "modelWidth": this.currentItem.modelWidth,
+      "modelHeight": this.currentItem.modelHeight,
+
+      "debugOn": this.currentItem.debugOn,
+      "debugLogs": this.currentItem.debugLogs,
+      "refreshRules": this.currentItem.refreshRules,
+
       "modifiedBy": 1,
     };
 
@@ -290,27 +340,36 @@ export class AddDeviceComponent implements OnInit {
 
     if(!(this.changedKeys.includes(x))) {
       this.changedKeys.push(x);
-      // this.originalObject[x] = Event.target.value;
-      console.log(this.changedKeys);
     }
+
+    console.log(this.changedKeys);
+    // console.log(this.originalObject);
   }
 
   onChange(event: any) {
     this.originalObject = {
-      "deviceId": this.newdeviceId,
-      "deviceModeId": this.currentItem.deviceModeId,
+      "deviceId": this.currentItem.deviceId,
+
       "deviceCallFreq": this.currentItem.deviceCallFreq,
-      "adsHours": this.currentItem.adsHours,
-      "workingDays": this.currentItem.workingDays,
       "deviceDescription": this.currentItem.deviceDescription,
       "remarks": this.currentItem.remarks,
-      "status": this.currentItem.status,
       "weatherInterval": this.currentItem.weatherInterval,
       "loggerFreq": this.currentItem.loggerFreq,
       "modelWidth": this.currentItem.modelWidth,
       "modelHeight": this.currentItem.modelHeight,
+
+      "deviceModeId": this.currentItem.deviceModeId,
+      "deviceTypeId": this.currentItem.deviceTypeId,
+      "adsHours": this.currentItem.adsHours,
+      "workingDays": this.currentItem.workingDays,
+      "status": this.currentItem.status,
       "modelName": this.currentItem.modelName,
       "modelObjectTypeId": this.currentItem.modelObjectTypeId,
+
+      "debugOn": this.currentItem.debugOn,
+      "debugLogs": this.currentItem.debugLogs,
+      "refreshRules": this.currentItem.refreshRules,
+
       "modifiedBy": 1,
     };
 
@@ -321,7 +380,6 @@ export class AddDeviceComponent implements OnInit {
       // this.originalObject[x] = Event.target.value;
     }
     console.log(this.changedKeys);
-    // console.log(this.originalObject);
   }
 
   deviceUpdate0: any;
@@ -335,6 +393,15 @@ export class AddDeviceComponent implements OnInit {
       allowOutsideClick: false
     });
 
+    let arr = this.currentItem.workingDays.join(',');
+
+    if(this.toAddDevice == 8) {
+      var myString = arr.substring(1);
+      this.originalObject.workingDays = myString;
+    } else {
+      this.originalObject.workingDays = arr;
+    }
+
     this.devService.updateDeviceAdsInfo({adsDevice: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
       console.log(res);
 
@@ -347,7 +414,7 @@ export class AddDeviceComponent implements OnInit {
       }
 
       setTimeout(() => {
-        window.location.reload();
+        // window.location.reload();
       }, 3000);
 
     }, (err: any) => {
@@ -363,24 +430,12 @@ export class AddDeviceComponent implements OnInit {
   }
 
 
-
-
-  confirmEditRow() {
-    console.log(this.currentItem);
-  }
-
-  // tar: any;
-  // onFocus(e: any) {
-  //   this.tar = e
-  // }
-
   /* add device */
 
   toAddDevice: any;
-
   onToAddDevice(e: any) {
     this.toAddDevice = e.value.length;
-    console.log(e.value.length)
+    // console.log(e.value.length)
   }
 
   addDevice0: any;
@@ -419,7 +474,7 @@ export class AddDeviceComponent implements OnInit {
         }
 
         setTimeout(() => {
-          window.location.reload();
+          // window.location.reload();
         }, 3000);
 
       }, (err: any) => {
@@ -449,37 +504,25 @@ export class AddDeviceComponent implements OnInit {
   //   }
   // }
 
-  // @ViewChild('select') select!: MatSelect;
+
+  @ViewChild('mySel') mySel!: MatSelect;
+
+  @ViewChild('mySell') mySell!: MatSelect;
 
   allSelected = false;
-
-  // toggleAllSelection() {
-  //   if (this.allSelected) {
-  //     this.select.options.forEach((item: MatOption) => item.select());
-  //   } else {
-  //     this.select.options.forEach((item: MatOption) => item.deselect());
-  //   }
-  // }
-
-  // optionClick() {
-  //   let newStatus = true;
-  //   this.select.options.forEach((item: MatOption) => {
-  //     if (!item.selected) {
-  //       newStatus = false;
-  //     }
-  //   });
-  //   this.allSelected = newStatus;
-  // }
-
-  @ViewChild('mySel') skillSel!: MatSelect;
-
   toggleAllSelection() {
     this.allSelected = !this.allSelected;
 
     if (this.allSelected) {
-      this.skillSel.options.forEach( (item : MatOption) => item.select());
+      this.mySel.options.forEach( (item : MatOption) => item.select());
     } else {
-      this.skillSel.options.forEach( (item : MatOption) => {item.deselect()});
+      this.mySel.options.forEach( (item : MatOption) => {item.deselect()});
+    }
+
+    if (this.allSelected) {
+      this.mySell.options.forEach( (item : MatOption) => item.select());
+    } else {
+      this.mySell.options.forEach( (item : MatOption) => {item.deselect()});
     }
   }
 

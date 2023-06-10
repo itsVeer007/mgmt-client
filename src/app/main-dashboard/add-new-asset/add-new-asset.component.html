@@ -5,7 +5,7 @@
     <!-- Title -->
     <div class="d-flex justify-content-start">
       <a class="close-main pointer" (click)="closeForm()"><img src="assets/icons/close_form.svg" /></a>
-      <span class="form-heading">add advertisement</span>
+      <span class="form-heading">create advertisement</span>
     </div>
     <!-- /Title -->
 
@@ -77,16 +77,6 @@
           </div>
           <!-- /File Upload -->
 
-          <!-- <div class="col-lg-6 col-md-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Mime type</mat-label>
-              <mat-select>
-                <mat-option *ngFor="let item of deviceType" [value]="item.keyId">{{ item.value }}</mat-option>
-              </mat-select>
-              <mat-error class="mt-1">Mime type is required</mat-error>
-            </mat-form-field>
-          </div> -->
-
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Device Mode</mat-label>
@@ -123,29 +113,27 @@
             </mat-form-field>
           </div>
 
-          <div class="col-lg-6" *ngIf="assetData.asset.deviceModeId == 2">
+          <div class="col-lg-6" *ngIf="assetData.asset.deviceModeId == 2 || assetData.asset.deviceModeId == 3">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Select time range</mat-label>
-              <mat-select formControlName="adsTimeId" [(ngModel)]="assetData.nameParams.adsTimeId"s>
+              <mat-select formControlName="timeId" [(ngModel)]="assetData.nameParams.timeId">
                 <mat-option *ngFor="let item of adsTime" [value]="item.keyId">{{ item.value }}</mat-option>
-                <mat-option value="Other">Other</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
 
-          <div class="col-lg-6" *ngIf="assetData.asset.deviceModeId == 2">
+          <div class="col-lg-6" *ngIf="assetData.asset.deviceModeId == 2 || assetData.asset.deviceModeId == 3">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Select temp range</mat-label>
-              <mat-select formControlName="adsTempId" [(ngModel)]="assetData.nameParams.adsTempId">
-                <mat-option *ngFor="let item of tempRange" [value]="item.value">{{ item.value }}</mat-option>
-                <mat-option value="Other">Other</mat-option>
+              <mat-select formControlName="tempId" [(ngModel)]="assetData.nameParams.tempId">
+                <mat-option *ngFor="let item of tempRange" [value]="item.keyId">{{ item.value }}&nbsp;&nbsp;({{item.remarks}})</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
 
           <span class="row" *ngIf="assetData.asset.deviceModeId == 3">
             <div class="col-lg-12 mb-3 mt-2" style="font-size: 12px;">
-              <mat-radio-group name="radioOpt2" class="w-100" formControlName="for" [(ngModel)]="for">
+              <mat-radio-group name="radioOpt2" class="w-100" formControlName="adFor" [(ngModel)]="adFor">
                 <mat-label>Advertisement For</mat-label>
                 <mat-radio-button class="ms-3" name="for" [value]="1">Person</mat-radio-button>
                 <mat-radio-button class="ms-3" name="for" [value]="2">Vehicle</mat-radio-button>
@@ -153,50 +141,74 @@
               </mat-radio-group>
             </div>
 
-            <div class="col-lg-12 mb-3 mt-2" style="font-size: 12px;" *ngIf="for == 1 || for == 3">
-              <mat-radio-group name="radioOpt3" class="w-100">
+            <!-- <div class="col-lg-12 mb-3 mt-2" style="font-size: 12px;" *ngIf="adFor == 1 || adFor == 3">
+              <mat-radio-group name="radioOpt3" class="w-100" formControlName="genderFor" [(ngModel)]="genderFor">
                 <mat-label>Gender</mat-label>
                 <mat-radio-button class="ms-3" name="gender" [value]="1">Male</mat-radio-button>
                 <mat-radio-button class="ms-3" name="gender" [value]="2">Female</mat-radio-button>
-                <!-- <mat-radio-button class="ms-3" name="gender" [value]="3">Both</mat-radio-button> -->
+                <mat-radio-button class="ms-3" name="gender" [value]="3">Both</mat-radio-button>
               </mat-radio-group>
-            </div>
+            </div> -->
 
-            <div class="col-lg-4 col-md-4" *ngIf="for == 1 || for == 3">
+            <div class="col-lg-4 col-md-4" *ngIf="adFor == 1 || adFor == 3">
               <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Kids</mat-label>
-                <input matInput name="inputValue" formControlName="adsKidsCount" [(ngModel)]="assetData.nameParams.adsKidsCount">
-                <!-- <mat-error class="mt-1">Count is required</mat-error> -->
+                <mat-label>Male Kids</mat-label>
+                <input matInput name="inputValue" type="number" formControlName="maleKids" [(ngModel)]="assetData.nameParams.maleKids">
+                <mat-error class="mt-1">Count is required</mat-error>
                 <!-- <mat-error *ngIf="assetData.nameParams.adsKidsCount == '0'">Count Should not be zero</mat-error> -->
               </mat-form-field>
-              <!-- <span *ngIf="kid.value == '0'" class="mt-1" style="color: #f44336; font-size: 12px; position: relative; top: -12px;">Count Should not be zero</span> -->
             </div>
 
-            <div class="col-lg-4 col-md-4" *ngIf="for == 1 || for == 3">
+            <div class="col-lg-4 col-md-4" *ngIf="adFor == 1 || adFor == 3">
               <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Youth</mat-label>
-                <input matInput formControlName="adsYouthCount" [(ngModel)]="assetData.nameParams.adsYouthCount">
-                <mat-error class="mt-1">Youth Count is required</mat-error>
+                <mat-label>Female Kids</mat-label>
+                <input matInput name="inputValue" type="number" formControlName="femaleKids" [(ngModel)]="assetData.nameParams.femaleKids">
+                <mat-error class="mt-1">Count is required</mat-error>
+                <!-- <mat-error *ngIf="assetData.nameParams.adsKidsCount == '0'">Count Should not be zero</mat-error> -->
               </mat-form-field>
             </div>
 
-            <div class="col-lg-4 col-md-4" *ngIf="for == 1 || for == 3">
+            <div class="col-lg-4 col-md-4" *ngIf="adFor == 1 || adFor == 3">
               <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Adult</mat-label>
-                <input matInput formControlName="adsEldersCount" [(ngModel)]="assetData.nameParams.adsEldersCount">
-                <mat-error class="mt-1">Adult Count is required</mat-error>
+                <mat-label>Male Youth</mat-label>
+                <input matInput type="number" formControlName="maleYouth" [(ngModel)]="assetData.nameParams.maleYouth">
+                <mat-error class="mt-1">Count is required</mat-error>
               </mat-form-field>
             </div>
 
-            <div class="col-lg-6 col-md-6" *ngIf="for == 2 || for == 3">
+            <div class="col-lg-4 col-md-4" *ngIf="adFor == 1 || adFor == 3">
               <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Count</mat-label>
-                <mat-select>
-                  <mat-option value="1">1</mat-option>
-                  <mat-option value="2">2</mat-option>
-                  <mat-option value="3">3</mat-option>
-                  <mat-option value="4">4</mat-option>
-                  <mat-option value="5">5</mat-option>
+                <mat-label>Female Youth</mat-label>
+                <input matInput type="number" formControlName="femaleYouth" [(ngModel)]="assetData.nameParams.femaleYouth">
+                <mat-error class="mt-1">Count is required</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-4 col-md-4" *ngIf="adFor == 1 || adFor == 3">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Male Adult</mat-label>
+                <input matInput type="number" formControlName="maleAdults" [(ngModel)]="assetData.nameParams.maleAdults">
+                <mat-error class="mt-1">Count is required</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-4 col-md-4" *ngIf="adFor == 1 || adFor == 3">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Female Adult</mat-label>
+                <input matInput type="number" formControlName="femaleAdults" [(ngModel)]="assetData.nameParams.femaleAdults">
+                <mat-error class="mt-1">Count is required</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-6 col-md-6" *ngIf="adFor == 2 || adFor == 3">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Vehicles</mat-label>
+                <mat-select formControlName="vehicles" [(ngModel)]="assetData.nameParams.vehicles">
+                  <mat-option [value]="1">1</mat-option>
+                  <mat-option [value]="2">2</mat-option>
+                  <mat-option [value]="3">3</mat-option>
+                  <mat-option [value]="4">4</mat-option>
+                  <mat-option [value]="5">5</mat-option>
                 </mat-select>
                 <mat-error class="mt-1">Count is required</mat-error>
               </mat-form-field>
@@ -213,12 +225,4 @@
     <!-- /Form -->
   </div>
 </div>
-
-<!-- <div #dia>
-  <h1 mat-dialog-title>Dialog with elements</h1>
-  <div mat-dialog-content>This dialog showcases the title, close, content and actions elements.</div>
-  <div mat-dialog-actions>
-    <button mat-button mat-dialog-close>Close</button>
-  </div>
-</div> -->
 

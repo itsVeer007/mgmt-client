@@ -60,6 +60,7 @@ export class InventoryComponent implements OnInit {
   showIconDelete1: boolean = false;
 
   searchText: any;
+  searchTx: any;
   inventoryTable: any = [];
   newInventoryTable: any = [];
 
@@ -144,6 +145,25 @@ export class InventoryComponent implements OnInit {
     }, []);
   }
 
+  prBrand: any = null;
+  sta: any = null;
+  prCat: any = null;
+
+  applyFilter() {
+    let myObj = {
+      productBrand: this.prBrand,
+      status: this.sta,
+      productCategory: this.prCat,
+    }
+
+    console.log(myObj)
+
+    this.inventorySer.filteBody(myObj).subscribe((res: any) => {
+      console.log(res);
+      this.newInventoryTable = res;
+    })
+  }
+
   currentid = 0;
   closeDot(e: any, i: any) {
     this.currentid = i;
@@ -199,102 +219,50 @@ export class InventoryComponent implements OnInit {
   //   }
   // }
 
-  // -----------------Start Checkbox-----------------
+
   selectedAll: any;
 
   selectAll() {
     for (var i = 0; i < this.inventoryTable.length; i++) {
-      // console.log(this.inventoryTable[i])
       this.inventoryTable[i].selected = this.selectedAll;
     }
   }
+
   checkIfAllSelected() {
     this.selectedAll = this.inventoryTable.every(function (item: any) {
-      // console.log(item)
       return item.selected == true;
     })
   }
 
-
-  deleteRow: any;
-  deleteRow1(item: any, i: any) {
-    console.log("DELETEROW:: ", item);
-    this.showLoader = true;
-    setTimeout(() => {
-      this.showLoader = false;
-      this.inventoryTable.splice(i, 1);
-    }, 1000);
-  }
-
-  deletePopup: boolean = true;
   currentItem: any;
-
-  openDeletePopup(item: any, i: any) {
-    this.currentItem = item;
-    this.deletePopup = false;
-    // console.log("Selected Item:: ", item);
-  }
-
-  deleteInventory0: any;
-  deleteInventory1: any;
-  deleteInventory2: any;
-  confirmDeleteRow() {
-    console.log("ToBE DELETED:: ", this.currentItem);
-
-    this.deleteInventory2 = Swal.fire({
-      text: "Please wait",
-      imageUrl: "assets/gif/ajax-loading-gif.gif",
-      showConfirmButton: false,
-      allowOutsideClick: false
-    });
-    this.deletePopup = true;
-    // this.inventoryTable = this.inventoryTable.filter((item: any) => item.siteId !== this.currentItem.siteId);
-
-    this.inventorySer.deleteInventory(this.currentItem).subscribe((res: any) => {
-      console.log(res);
-      if(res) {
-        this.deleteInventory1 = Swal.fire({
-          icon: 'success',
-          title: 'Done!',
-          text: 'Deleted Successfully!',
-        });
-      }
-    }, (err: any) => {
-      if(err) {
-        this.deleteInventory0 = Swal.fire({
-          icon: 'error',
-          title: 'Failed!',
-          text: 'failed',
-          // timer: 3000,
-        });
-      };
-    });
-  }
-
-  closeDeletePopup() {
-    this.deletePopup = true;
-  }
-
-
-  editPopup: boolean = true;
   originalObject: any;
 
-  @ViewChild('editInventoryDialog') editStatus = {} as TemplateRef<any>;
+  /* view inventory */
+
+  @ViewChild('viewInventoryDialog') viewInventoryDialog = {} as TemplateRef<any>;
+
+  openViewPopup(item: any) {
+    this.currentItem = item;
+    this.dialog.open(this.viewInventoryDialog);
+    console.log(this.currentItem);
+  }
+
+  /* update inventory */
+
+  @ViewChild('editInventoryDialog') editInventoryDialog = {} as TemplateRef<any>;
 
   openEditPopup(item: any) {
     this.currentItem = JSON.parse(JSON.stringify(item));
-    this.dialog.open(this.editStatus);
-    // this.editPopup = false;
+    this.dialog.open(this.editInventoryDialog);
     console.log(item);
   }
 
   updateInventory0: any;
   updateInventory1: any;
   updateInventory2: any;
-  confirmEditRow() {
-    console.log("TO BE EDITED:: ", this.currentItem);
+  editInventory() {
+    console.log(this.currentItem);
     // this.inventoryTable= this.inventoryTable.filter((item:any) => item.siteId !== this.currentItem.siteId);
-    this.editPopup = true;
     this.getInventory();
 
     this.originalObject = {
@@ -345,8 +313,82 @@ export class InventoryComponent implements OnInit {
     });
   }
 
-  closeEditPopup() {
-    this.editPopup = true;
+
+  // deleteRow: any;
+  // deleteRow1(item: any, i: any) {
+  //   this.showLoader = true;
+  //   setTimeout(() => {
+  //     this.showLoader = false;
+  //     this.inventoryTable.splice(i, 1);
+  //   }, 1000);
+  // }
+
+
+  @ViewChild('deleteInventoryDialog') deleteInventoryDialog = {} as TemplateRef<any>;
+
+  openDeletePopup(item: any) {
+    this.currentItem = item;
+    this.dialog.open(this.deleteInventoryDialog);
+    // console.log("Selected Item:: ", item);
+  }
+
+  deleteInventory0: any;
+  deleteInventory1: any;
+  deleteInventory2: any;
+  deleteInventory() {
+    console.log(this.currentItem);
+
+    this.deleteInventory2 = Swal.fire({
+      text: "Please wait",
+      imageUrl: "assets/gif/ajax-loading-gif.gif",
+      showConfirmButton: false,
+      allowOutsideClick: false
+    });
+    // this.inventoryTable = this.inventoryTable.filter((item: any) => item.siteId !== this.currentItem.siteId);
+
+    this.inventorySer.deleteInventory(this.currentItem).subscribe((res: any) => {
+      console.log(res);
+      if(res) {
+        this.deleteInventory1 = Swal.fire({
+          icon: 'success',
+          title: 'Done!',
+          text: 'Deleted Successfully!',
+        });
+      }
+    }, (err: any) => {
+      if(err) {
+        this.deleteInventory0 = Swal.fire({
+          icon: 'error',
+          title: 'Failed!',
+          text: 'failed',
+          // timer: 3000,
+        });
+      };
+    });
+  }
+
+
+/* checkbox control */
+
+  viewArray: any = [];
+  ViewByCheckbox(itemV: any, i: any, e: any) {
+    var checked = (e.target.checked);
+    // console.log("View By Checkbox:: ",itemV);
+    // console.log("View Array::" ,this.viewArray);
+    // console.log("present in array : "+this.viewArray.includes(itemV),  " checked : "+ checked)
+    if (checked == true && this.viewArray.includes(itemV) == false) {
+      this.viewArray.push(itemV);
+      this.currentItem = this.viewArray[(this.viewArray.length - 1)];
+    }
+    if (checked == false && this.viewArray.includes(itemV) == true) {
+      this.viewArray.splice(this.viewArray.indexOf(itemV), 1)
+    }
+  }
+
+  viewBySelectedOne() {
+    if (this.viewArray.length > 0) {
+      this.dialog.open(this.viewInventoryDialog)
+    }
   }
 
   editArray: any = [];
@@ -366,47 +408,9 @@ export class InventoryComponent implements OnInit {
 
   editBySelectedOne() {
     if (this.editArray.length > 0) {
-      this.editPopup = false;
+      this.dialog.open(this.editInventoryDialog)
     }
     this.getInventory();
-  }
-
-
-  viewPopup: boolean = true;
-  confirmViewRow() {
-    console.log("ToBE Viewed:: ", this.currentItem);
-    this.viewPopup = true;
-  }
-
-  closeViewPopup() {
-    this.viewPopup = true;
-  }
-
-  openViewPopup(item: any, i: any) {
-    this.currentItem = item;
-    console.log("VIEW PAGE:: ", this.currentItem);
-    this.viewPopup = false;
-  }
-
-  viewArray: any = [];
-  ViewByCheckbox(itemV: any, i: any, e: any) {
-    var checked = (e.target.checked);
-    // console.log("View By Checkbox:: ",itemV);
-    // console.log("View Array::" ,this.viewArray);
-    // console.log("present in array : "+this.viewArray.includes(itemV),  " checked : "+ checked)
-    if (checked == true && this.viewArray.includes(itemV) == false) {
-      this.viewArray.push(itemV);
-      this.currentItem = this.viewArray[(this.viewArray.length - 1)];
-    }
-    if (checked == false && this.viewArray.includes(itemV) == true) {
-      this.viewArray.splice(this.viewArray.indexOf(itemV), 1)
-    }
-  }
-
-  viewBySelectedOne() {
-    if (this.viewArray.length > 0) {
-      this.viewPopup = false;
-    }
   }
 
 
@@ -433,7 +437,7 @@ export class InventoryComponent implements OnInit {
     if (this.selectedAll == false) {
       this.deletearray.forEach((el: any) => {
         // this.currentItem = el;
-        // this.confirmDeleteRow();
+        // this.deleteInventory();
         this.inventoryTable = this.inventoryTable.filter((item: any) => item.siteId !== el.siteId);
       });
       this.deletearray = []

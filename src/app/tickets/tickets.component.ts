@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { TicketService } from 'src/services/ticket.service';
 import Swal from 'sweetalert2';
@@ -102,7 +103,7 @@ export class TicketsComponent implements OnInit {
   statusVal: any;
   removeDuplicates() {
     this.siteNames = this.ticketData.reduce((acc: any, current: any) => {
-      const x = acc.find((item: any) => item.site == current.site);
+      const x = acc.find((item: any) => item.requestId == current.requestId);
       if (!x) {
         return acc.concat([current]);
       } else {
@@ -129,6 +130,29 @@ export class TicketsComponent implements OnInit {
     }, []);
   }
 
+  rqsId: any = 0;
+  sta: any = '';
+  prior: any = '';
+
+  filterMsg: string = '';
+
+  applyFilter() {
+    let myObj = {
+      requestId: this.rqsId,
+      status: this.sta,
+      priority: this.prior,
+    }
+
+    this.ticketSer.filteBody(myObj).subscribe((res: any) => {
+      console.log(res);
+      this.newTicketData = res;
+
+      if(res == null) {
+        this.filterMsg = 'No Data';
+      }
+    })
+  }
+
   currentid = 0;
   closeDot(e: any, i: any) {
     this.currentid = i;
@@ -147,9 +171,6 @@ export class TicketsComponent implements OnInit {
   showAddUser = false;
   showAddBusinessVertical = false;
   showSite = false;
-  // closenow(value:any) {
-  //   this.showAddSite = value;
-  // }
 
   closenow(value: any, type: String) {
     if (type == 'ticket') { this.showTicket = value; }
@@ -171,8 +192,8 @@ export class TicketsComponent implements OnInit {
   //   }
   // }
 
-  selectedAll: any;
 
+  selectedAll: any;
   selectAll() {
     for (var i = 0; i < this.ticketData.length; i++) {
       // console.log(this.ticketData[i])
@@ -187,52 +208,36 @@ export class TicketsComponent implements OnInit {
   }
 
 
-  deleteRow: any;
-
-  deleteRow1(item: any, i: any) {
-    console.log("DELETEROW:: ", item);
-    this.showLoader = true;
-    setTimeout(() => {
-      this.showLoader = false;
-      this.ticketData.splice(i, 1);
-    }, 1000);
-  }
-
-  deletePopup: boolean = true;
   currentItem: any;
-
-
-  editPopup: boolean = true;
   originalObject: any;
-  // changedKeys: any[] = [];
 
-  openEditPopup(item: any, i: any) {
-    this.currentItem = JSON.parse(JSON.stringify(item));
-    this.editPopup = false;
+  @ViewChild('viewTicketDialog') viewTicketDialog = {} as TemplateRef<any>;
+
+  openViewPopup(item: any) {
+    this.currentItem = item;
+    this.dialog.open(this.viewTicketDialog);
     console.log(this.currentItem);
   }
 
-  // confirmEditRow(event: any) {
-  //   this.originalObject = {
-  //     "ticketId": this.currentItem.ticketId,
-  //     "site": this.currentItem.site,
-  //     "description": this.currentItem.description,
-  //     "priority": this.currentItem.priority,
-  //     "status": this.currentItem.status,
-  //   };
 
-  //   let x = event.target['name'];
-
-  //   if(!(this.changedKeys.includes(x))) {
-  //     this.changedKeys.push(x);
-  //   }
-  //   console.log(this.changedKeys);
-  //   console.log(this.originalObject);
-  //   console.log( this.currentItem);
-  //   this.editPopup = true;
-  //   this.CustomerReport();
+  // deleteRow1(item: any, i: any) {
+  //   console.log("DELETEROW:: ", item);
+  //   this.showLoader = true;
+  //   setTimeout(() => {
+  //     this.showLoader = false;
+  //     this.ticketData.splice(i, 1);
+  //   }, 1000);
   // }
 
+
+
+  @ViewChild('editTicketDialog') editTicketDialog = {} as TemplateRef<any>;
+
+  openEditPopup(item: any) {
+    this.currentItem = JSON.parse(JSON.stringify(item));
+    this.dialog.open(this.editTicketDialog);
+    console.log(this.currentItem);
+  }
 
   updateTicket0: any;
   updateTicket1: any;
@@ -277,6 +282,52 @@ export class TicketsComponent implements OnInit {
     });
   }
 
+
+  @ViewChild('deleteTicketDialog') deleteTicketDialog = {} as TemplateRef<any>;
+
+  openDeletePopup(item: any) {
+    this.currentItem = item;
+    this.dialog.open(this.deleteTicketDialog)
+    console.log(item);
+  }
+
+  deleteTicket0: any;
+  deleteTicket1: any;
+  deleteTicket2: any;
+  confirmDeleteRow() {
+
+    this.deleteTicket2 = Swal.fire({
+      text: "Please wait",
+      imageUrl: "assets/gif/ajax-loading-gif.gif",
+      showConfirmButton: false,
+      allowOutsideClick: false
+    });
+
+    // this.ticketData = this.ticketData.filter((item: any) => item.siteId !== this.currentItem.siteId);
+
+    this.ticketSer.deleteTicket(this.currentItem).subscribe((res: any) => {
+      console.log(res);
+
+      if(res) {
+        this.deleteTicket1 = Swal.fire({
+          icon: 'success',
+          title: 'Done!',
+          text: 'Deleted Successfully!',
+        });
+      }
+    }, (err: any) => {
+      if(err) {
+        this.deleteTicket0 = Swal.fire({
+          icon: 'error',
+          title: 'Failed!',
+          text: 'failed',
+          // timer: 3000,
+        });
+      };
+    })
+  }
+
+
   assignedObj = {
     assignedTo: ""
   }
@@ -285,7 +336,6 @@ export class TicketsComponent implements OnInit {
 
   x: any
   openAssigned(item: any) {
-    // console.log(item);
     this.x = item;
     this.dialog.open(this.assignedDialog);
   }
@@ -351,31 +401,34 @@ export class TicketsComponent implements OnInit {
   }
 
 
-  openDeletePopup(item: any, i: any) {
-    this.currentItem = item;
-    this.deletePopup = false;
-    console.log(item);
+ /* checkbox control */
+
+  viewArray: any = [];
+  viewBySelectedOne() {
+    if (this.viewArray.length > 0) {
+      this.dialog.open(this.viewTicketDialog)
+    }
   }
 
-  confirmDeleteRow() {
-    // console.log(this.currentItem);
-    // this.ticketData = this.ticketData.filter((item: any) => item.siteId !== this.currentItem.siteId);
-    this.deletePopup = true;
-
-    this.ticketSer.deleteTicket(this.currentItem).subscribe((res: any) => {
-      console.log(res);
-    })
-  }
-
-  closeDeletePopup() {
-    this.deletePopup = true;
-  }
-
-  closeEditPopup() {
-    this.editPopup = true;
+  ViewByCheckbox(itemV: any, i: any, e: any) {
+    var checked = (e.target.checked);
+    if (checked == true && this.viewArray.includes(itemV) == false) {
+      this.viewArray.push(itemV);
+      this.currentItem = this.viewArray[(this.viewArray.length - 1)];
+    }
+    if (checked == false && this.viewArray.includes(itemV) == true) {
+      this.viewArray.splice(this.viewArray.indexOf(itemV), 1)
+    }
   }
 
   editArray: any = [];
+  editBySelectedOne() {
+    if (this.editArray.length > 0) {
+      this.dialog.open(this.editTicketDialog)
+    }
+    this.CustomerReport();
+  }
+
   EditByCheckbox(itemE: any, i: any, e: any) {
     var checked = (e.target.checked);
     // console.log("Edit By Checkbox:: ",itemE);
@@ -389,53 +442,6 @@ export class TicketsComponent implements OnInit {
       this.editArray.splice(this.editArray.indexOf(itemE), 1)
     }
   }
-
-  editBySelectedOne() {
-    if (this.editArray.length > 0) {
-      this.editPopup = false;
-    }
-    this.CustomerReport();
-  }
-
-
-  viewPopup: boolean = true;
-
-  confirmViewRow() {
-    console.log("ToBE Viewed:: ", this.currentItem);
-    this.viewPopup = true;
-  }
-
-  closeViewPopup() {
-    this.viewPopup = true;
-  }
-
-  openViewPopup(item: any, i: any) {
-    this.currentItem = item;
-    console.log("VIEW PAGE:: ", this.currentItem);
-    this.viewPopup = false;
-  }
-
-  viewArray: any = [];
-  ViewByCheckbox(itemV: any, i: any, e: any) {
-    var checked = (e.target.checked);
-    // console.log("View By Checkbox:: ",itemV);
-    // console.log("View Array::" ,this.viewArray);
-    // console.log("present in array : "+this.viewArray.includes(itemV),  " checked : "+ checked)
-    if (checked == true && this.viewArray.includes(itemV) == false) {
-      this.viewArray.push(itemV);
-      this.currentItem = this.viewArray[(this.viewArray.length - 1)];
-    }
-    if (checked == false && this.viewArray.includes(itemV) == true) {
-      this.viewArray.splice(this.viewArray.indexOf(itemV), 1)
-    }
-  }
-
-  viewBySelectedOne() {
-    if (this.viewArray.length > 0) {
-      this.viewPopup = false;
-    }
-  }
-
 
   deletearray: any = [];
   deleteMultiRecords(item: any, i: any, e: any) {

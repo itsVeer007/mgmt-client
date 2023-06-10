@@ -85,9 +85,9 @@ export class AssetsComponent implements OnInit {
 
   assetTable: any = [];
   inputToAddAsset: any;
-  tableData: number[] = [];
-  siteMap: any
   siteIdToTable: any;
+  newSiteIdToTable: any;
+  siteMap: any
 
   // deviceIds: any = [];
   newTableData: any = [];
@@ -97,14 +97,12 @@ export class AssetsComponent implements OnInit {
     this.devSercice.listDeviceAdsInfo().subscribe((res: any) => {
       console.log(res);
       this.siteMap = res.sort((a: any, b: any) => a.siteId < b.siteId ? -1 : a.siteId > b.siteId ? 1 : 0);
+      this.devSearch = this.siteMap;
       this.siteIdToTable = this.siteMap.flatMap((item: any) => item.siteId);
-      // console.log(this.siteIdToTable);
-      this.tableData = this.siteIdToTable;
-      // console.log(this.tableData);
+      this.newSiteIdToTable = this.siteIdToTable;
       this.cdr.detectChanges();
     })
   }
-
 
 
   x: any
@@ -156,8 +154,8 @@ export class AssetsComponent implements OnInit {
         this.assetMsg = '';
         this.cdr.detectChanges();
       }
-      console.log(this.newTableData);
 
+      console.log(this.newTableData);
     })
   }
 
@@ -168,35 +166,38 @@ export class AssetsComponent implements OnInit {
 
   filterOptions(value: string): number[] {
     const filterValue = value.toString().toLowerCase();
-    return this.tableData.filter(option => option.toString().toLowerCase().includes(filterValue));
+    return this.siteIdToTable.filter((option: any) => option.toString().toLowerCase().includes(filterValue));
   }
 
   searchForSiteInput() {
-    this.filteredOptions = this.tableData;
+    // this.filteredOptions = this.siteIdToTable;
     this.searchControl.valueChanges.pipe(
       startWith(''),
       map(value => this.filterOptions(value))
     ).subscribe(filtered => {
       this.filteredOptions = filtered;
-      // console.log(this.searchControl);
     });
 
     if(this.searchControl.value == "" || this.searchControl.value == null) {
-      this.siteIdToTable = this.tableData;
+      this.newSiteIdToTable = this.siteIdToTable;
       this.cdr.detectChanges();
     } else {
       this.cdr.detectChanges();
     }
   }
 
-  // siteSearch: any;
-  // searchForSiteInput(e: any) {
-  //   this.siteSearch = (e.target as HTMLInputElement).value;
-  // }
 
+  devSearch: any
   searchForSiteOption(data: any) {
-    this.siteIdToTable = this.tableData.filter((el: any) => el == data);
+    this.newSiteIdToTable = this.siteIdToTable.filter((el: any) => el == data);
+
+    this.devSercice.getDevice(data).subscribe((res: any) => {
+      console.log(res.flatMap((item: any) => item.adsDevices));
+      // this.devSearch = res.flatMap((item: any) => item.adsDevices);
+    })
+
     this.cdr.detectChanges();
+    console.log(this.newSiteIdToTable);
   }
 
   // deviceSearch: any;
@@ -215,14 +216,8 @@ export class AssetsComponent implements OnInit {
   }
 
   searchForModeOption(data: any) {
-    let dataSome = this.x;
-    this.newTableData = dataSome.filter((el: any) => el.deviceModeId == data);
+    this.newTableData = this.x.filter((el: any) => el.deviceModeId == data);
     this.cdr.detectChanges();
-
-    // if(this.modeSearch == '' || this.modeSearch == null) {
-    //   this.newTableData = [];
-    //   this.cdr.detectChanges();
-    // }
   }
 
   statusSearch: any;
@@ -231,14 +226,8 @@ export class AssetsComponent implements OnInit {
   }
 
   searchForStatusOption(data: any) {
-    let dataSome = this.x;
-    this.newTableData = dataSome.filter((el: any) => el.status == data);
+    this.newTableData = this.x.filter((el: any) => el.status == data);
     this.cdr.detectChanges();
-
-    // if(this.modeSearch == '' || this.modeSearch == null) {
-    //   this.newTableData = [];
-    //   this.cdr.detectChanges();
-    // }
   }
 
 
@@ -290,7 +279,7 @@ export class AssetsComponent implements OnInit {
   }
 
 
-  masterSelected: boolean = false;
+  // masterSelected: boolean = false;
 
   // allchecked(e:any){
   //   if(document.querySelector('#allchecked:checked')){
@@ -301,170 +290,26 @@ export class AssetsComponent implements OnInit {
   // }
 
 
-  selectedAll: any;
-  selectAll() {
-    for (var i = 0; i < this.assetTable.length; i++) {
-      // console.log(this.assetTable[i])
-      this.assetTable[i].selected = this.selectedAll;
-    }
-  }
-
-  checkIfAllSelected() {
-    this.selectedAll = this.assetTable.every(function (item: any) {
-      // console.log(item)
-      return item.selected == true;
-    })
-  }
-
-
-  deleteRow: any;
-  deleteRow1(item: any, i: any) {
-    console.log("DELETEROW:: ", item);
-    setTimeout(() => {
-      this.assetTable.splice(i, 1);
-    }, 1000);
-  }
-
-  deletePopup: boolean = true;
-  confirmDeleteRow() {
-    console.log("ToBE DELETED:: ", this.currentItem);
-    this.assetTable = this.assetTable.filter((item: any) => item.siteId !== this.currentItem.siteId);
-    this.deletePopup = true;
-  }
-
-  closeDeletePopup() {
-    this.deletePopup = true;
-  }
-
   currentItem: any;
-  openDeletePopup(item: any, i: any) {
+
+  /* View Asset */
+
+  @ViewChild('viewAssetDialog') viewAssetDialog = {} as TemplateRef<any>;
+
+  openViewPopup(item: any) {
     this.currentItem = item;
-    // console.log("Selected Item:: ", item);
-    this.deletePopup = false;
-    // console.log("Open Delete Popup:: ",this.deletePopup);
-    // console.log(this.assetTable.siteId);
+    this.dialog.open(this.viewAssetDialog);
+
+    console.log("VIEW PAGE:: ", this.currentItem);
   }
-
-
-
-    /* Edit Asset Status */
-
-    @ViewChild('editStatusDialog') editStatus = {} as TemplateRef<any>;
-
-    currentStatusId: any
-    openEditStatus(id: any) {
-      this.dialog.open(this.editStatus);
-      this.currentStatusId = id;
-      // console.log(id);
-      // this.dialog.closeAll();
-    }
-
-
-    statusObj = {
-      status: null,
-      modifiedBy: 1
-    }
-
-    statusUpdate0: any;
-    statusUpdate1: any;
-    statusUpdate2: any;
-    changeAssetStatus() {
-      // this.dialog.closeAll();
-
-      this.statusUpdate2 = Swal.fire({
-        text: "Please wait",
-        imageUrl: "assets/gif/ajax-loading-gif.gif",
-        showConfirmButton: false,
-        allowOutsideClick: false
-      });
-
-      this.assetService.updateAssetStatus(this.currentStatusId, this.statusObj).subscribe((res: any) => {
-        console.log(res);
-        console.log(this.currentStatusId);
-
-        if(res.statusCode == 200) {
-          this.statusUpdate1 = Swal.fire({
-            icon: 'success',
-            title: 'Done!',
-            text: `${res.message}`,
-            // timer: 3000,
-            // buttons: false,
-          });
-        };
-
-        setTimeout(() => {
-          window.location.reload();
-        }, 3000);
-
-      }, (err: any) => {
-        console.log(err);
-        if(err) {
-          this.statusUpdate0 = Swal.fire({
-            icon: 'error',
-            title: 'Failed!',
-            text: 'Updating Asset failed',
-            // timer: 3000,
-          });
-        };
-      });
-    }
-
-
-    /* View Asset */
-
-    @ViewChild('viewAssetDialog') addAsset = {} as TemplateRef<any>;
-    viewPopup: boolean = true;
-
-    openViewPopup(item: any, i: any) {
-      this.currentItem = item;
-      this.dialog.open(this.addAsset);
-
-      console.log("VIEW PAGE:: ", this.currentItem);
-      // this.viewPopup = false;
-    }
-
-    confirmViewRow() {
-      console.log("ToBE Viewed:: ", this.currentItem);
-      this.viewPopup = true;
-    }
-
-    closeViewPopup() {
-      this.viewPopup = true;
-    }
-
-
-
-
-    viewArray: any = [];
-    ViewByCheckbox(itemV: any, i: any, e: any) {
-      var checked = (e.target.checked);
-      // console.log("View By Checkbox:: ",itemV);
-      // console.log("View Array::" ,this.viewArray);
-      // console.log("present in array : "+this.viewArray.includes(itemV),  " checked : "+ checked)
-      if (checked == true && this.viewArray.includes(itemV) == false) {
-        this.viewArray.push(itemV);
-        this.currentItem = this.viewArray[(this.viewArray.length - 1)];
-      }
-      if (checked == false && this.viewArray.includes(itemV) == true) {
-        this.viewArray.splice(this.viewArray.indexOf(itemV), 1)
-      }
-    }
-
-    viewBySelectedOne() {
-      if (this.viewArray.length > 0) {
-        // this.viewPopup = false;
-        this.dialog.open(this.addAsset);
-      }
-    }
 
 
 
   /* Edit Asset */
 
   @ViewChild('editAssetDialog') editAsset = {} as TemplateRef<any>;
-  editPopup: boolean = true;
 
-  openEditPopupp(item: any, i: any) {
+  openEditPopupp(item: any) {
     this.dialog.open(this.editAsset);
 
     this.currentItem = JSON.parse(JSON.stringify(item));
@@ -544,7 +389,7 @@ export class AssetsComponent implements OnInit {
       }
 
       setTimeout(() => {
-        window.location.reload();
+        // window.location.reload();
       }, 3000);
 
     }, (err: any) => {
@@ -559,9 +404,75 @@ export class AssetsComponent implements OnInit {
     })
   }
 
+  @ViewChild('deleteAssetDialog') deleteAssetDialog = {} as TemplateRef<any>;
+
+  deleteRow: any;
+
+  openDeletePopup(item: any) {
+    this.currentItem = item;
+    this.dialog.open(this.deleteAssetDialog)
+  }
+
+  deleteRow1(item: any, i: any) {
+    console.log("DELETEROW:: ", item);
+    setTimeout(() => {
+      this.assetTable.splice(i, 1);
+    }, 1000);
+  }
+
+  confirmDeleteRow() {
+    console.log(this.currentItem);
+    // this.assetTable = this.assetTable.filter((item: any) => item.siteId !== this.currentItem.siteId);
+  }
+
+
+
+  /* checkbox control */
+
+  selectedAll: any;
+  selectAll() {
+    for (var i = 0; i < this.newTableData.length; i++) {
+      this.newTableData[i].selected = this.selectedAll;
+    }
+  }
+
+  checkIfAllSelected() {
+    this.selectedAll = this.newTableData.every(function (item: any) {
+      return item.selected == true;
+    })
+  }
+
+
+  viewArray: any = [];
+  viewBySelectedOne() {
+    if (this.viewArray.length > 0) {
+      this.dialog.open(this.viewAssetDialog);
+    }
+  }
+
+  ViewByCheckbox(item: any, e: any) {
+    var checked = (e.target.checked);
+    // console.log("View By Checkbox:: ",item);
+    // console.log("View Array::" ,this.viewArray);
+    // console.log("present in array : "+this.viewArray.includes(item),  " checked : "+ checked)
+    if (checked == true && this.viewArray.includes(item) == false) {
+      this.viewArray.push(item);
+      this.currentItem = this.viewArray[(this.viewArray.length - 1)];
+    }
+    if (checked == false && this.viewArray.includes(item) == true) {
+      this.viewArray.splice(this.viewArray.indexOf(item), 1)
+    }
+  }
+
 
   editArray: any = [];
-  EditByCheckbox(itemE: any, i: any, e: any) {
+  editBySelectedOne() {
+    if (this.editArray.length > 0) {
+      this.dialog.open(this.editAsset);
+    }
+  }
+
+  EditByCheckbox(itemE: any, e: any) {
     var checked = (e.target.checked);
     // console.log("Edit By Checkbox:: ",itemE);
     // console.log("Edit Array::" ,this.editArray);
@@ -575,16 +486,25 @@ export class AssetsComponent implements OnInit {
     }
   }
 
-  editBySelectedOne() {
-    if (this.editArray.length > 0) {
-      // this.editPopup = false;
-      this.dialog.open(this.editAsset);
+
+  deletearray: any = [];
+  deleteSelected() {
+    if (this.selectedAll == false) {
+      this.dialog.open(this.deleteAssetDialog);
+      this.deletearray.forEach((el: any) => {
+        // this.currentItem = el;
+        // this.confirmDeleteRow();
+        this.assetTable = this.assetTable.filter((item: any) => item.siteId !== el.siteId);
+      });
+      this.deletearray = []
+    } else {
+      this.assetTable.forEach((el: any) => {
+        this.assetTable = this.assetTable.filter((item: any) => item.siteId !== el.siteId);
+      });
     }
   }
 
-
-  deletearray: any = [];
-  deleteMultiRecords(item: any, i: any, e: any) {
+  deleteMultiRecords(item: any, e: any) {
     var checked = (e.target.checked);
     // console.log("Delete Multiple Records:: ", item);
     if (this.deletearray.length == 0) { this.deletearray.push(item) }
@@ -602,19 +522,64 @@ export class AssetsComponent implements OnInit {
     // console.log(this.deletearray)
   }
 
-  deleteSelected() {
-    if (this.selectedAll == false) {
-      this.deletearray.forEach((el: any) => {
-        // this.currentItem = el;
-        // this.confirmDeleteRow();
-        this.assetTable = this.assetTable.filter((item: any) => item.siteId !== el.siteId);
-      });
-      this.deletearray = []
-    } else {
-      this.assetTable.forEach((el: any) => {
-        this.assetTable = this.assetTable.filter((item: any) => item.siteId !== el.siteId);
-      });
-    }
+
+  /* Edit Asset Status */
+
+  @ViewChild('editStatusDialog') editStatus = {} as TemplateRef<any>;
+
+  currentStatusId: any
+  openEditStatus(id: any) {
+    this.dialog.open(this.editStatus);
+    this.currentStatusId = id;
+    console.log(id);
+    // this.dialog.closeAll();
+  }
+
+  statusObj = {
+    status: null,
+    modifiedBy: 1
+  }
+
+  statusUpdate0: any;
+  statusUpdate1: any;
+  statusUpdate2: any;
+  changeAssetStatus() {
+
+    this.statusUpdate2 = Swal.fire({
+      text: "Please wait",
+      imageUrl: "assets/gif/ajax-loading-gif.gif",
+      showConfirmButton: false,
+      allowOutsideClick: false
+    });
+
+    this.assetService.updateAssetStatus(this.currentStatusId, this.statusObj).subscribe((res: any) => {
+      console.log(res);
+
+      if(res) {
+        this.statusUpdate1 = Swal.fire({
+          icon: 'success',
+          title: 'Done!',
+          text: `${res.message}`,
+          // timer: 3000,
+          // buttons: false,
+        });
+      };
+
+      setTimeout(() => {
+        // window.location.reload();
+      }, 3000);
+
+    }, (err: any) => {
+      console.log(err);
+      if(err) {
+        this.statusUpdate0 = Swal.fire({
+          icon: 'error',
+          title: 'Failed!',
+          text: 'Updating Asset failed',
+          // timer: 3000,
+        });
+      };
+    });
   }
 
 
@@ -645,13 +610,13 @@ export class AssetsComponent implements OnInit {
   }
 
 
-  videoElement: any;
-  toDownload(id: any) {
-    this.assetService.download(id).subscribe((res: any) => {
-      console.log(res);
-      this.videoElement = res.url;
-      // console.log(this.videoElement);
-    })
-  }
+  // videoElement: any;
+  // toDownload(id: any) {
+  //   this.assetService.download(id).subscribe((res: any) => {
+  //     console.log(res);
+  //     this.videoElement = res.url;
+  //     // console.log(this.videoElement);
+  //   })
+  // }
 
 }

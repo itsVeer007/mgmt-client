@@ -20,6 +20,7 @@
             <mat-select formControlName="productCategory" [(ngModel)]="x.inv.productCategory">
               <mat-option value="Modules">Modules</mat-option>
               <mat-option value="Server">Server</mat-option>
+              <mat-option value="Camera">Camera</mat-option>
             </mat-select>
             <mat-error class="mt-1">Category is required</mat-error>
           </mat-form-field>
@@ -31,6 +32,9 @@
             <mat-select formControlName="productBrand" [(ngModel)]="x.inv.productBrand">
               <mat-option value="Rasberry">Rasberry</mat-option>
               <mat-option value="Jetson">Jetson</mat-option>
+              <mat-option value="AXIS">AXIS</mat-option>
+              <mat-option value="HIKVISON">HIKVISON</mat-option>
+              <mat-option value="Grandstream">Grandstream</mat-option>
             </mat-select>
             <mat-error class="mt-1">Brand is required</mat-error>
           </mat-form-field>

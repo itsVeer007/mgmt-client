@@ -31,4 +31,16 @@ export class InventoryService {
     return this.http.delete(url);
   }
 
+  filteBody(payload: any) {
+    let url = this.baseUrl + `/getListBySearch_1_0?`;
+
+    let myObj = {
+      productBrand: payload?.productBrand,
+      status: payload?.status,
+      productCategory: payload?.productCategory,
+    }
+
+    return this.http.get(url, {params: myObj});
+  }
+
 }

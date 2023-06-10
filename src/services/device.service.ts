@@ -30,11 +30,11 @@ export class DeviceService {
     return this.http.get(url);
   }
 
-  getDevice(siteId: any) {
+  getDevice(id: any) {
     let url = this.baseUrl + '/listDeviceAdsInfo_1_0';
 
     var payload = {
-      deviceId: siteId
+      'siteId': id
     }
 
     return this.http.get(url, {params: payload});

@@ -1,0 +1,514 @@
+[
+  {
+    "countryName": "Australia",
+    "states": [
+      {
+        "stateName": "Andhra Pradesh",
+        "cities": ["Amaravati", "Anantapur", "Chandragiri"]
+      },
+
+      {
+        "stateName": "Arunachal Pradesh",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "Assam",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "Bihar",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "Chhattisgarh",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      }
+    ]
+  },
+
+  {
+    "countryName": "Bangladesh",
+    "states": [
+      {
+        "stateName": "Alaska",
+        "cities": ["Anchorage", "Juneau", "Fairbanks "]
+      },
+
+      {
+        "stateName": "Texas",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "California",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "Montana",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "Arizona",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      }
+    ]
+  },
+
+  {
+    "countryName": "Belgium",
+    "states": [
+      {
+        "stateName": "New South Wales",
+        "cities": ["Armidale", "Ballina", "Balranald"]
+      },
+
+      {
+        "stateName": "Northern Territory",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "Queensland",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "South Australia",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "Tasmania",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      }
+    ]
+  },
+
+  {
+    "countryName": "Brazil",
+    "states": [
+      {
+        "stateName": "New South Wales",
+        "cities": ["Armidale", "Ballina", "Balranald"]
+      },
+
+      {
+        "stateName": "Northern Territory",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "Queensland",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "South Australia",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "Tasmania",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      }
+    ]
+  },
+
+  {
+    "countryName": "Canada",
+    "states": [
+      {
+        "stateName": "New South Wales",
+        "cities": ["Armidale", "Ballina", "Balranald"]
+      },
+
+      {
+        "stateName": "Northern Territory",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "Queensland",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "South Australia",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "Tasmania",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      }
+    ]
+  },
+
+  {
+    "countryName": "China",
+    "states": [
+      {
+        "stateName": "New South Wales",
+        "cities": ["Armidale", "Ballina", "Balranald"]
+      },
+
+      {
+        "stateName": "Northern Territory",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "Queensland",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "South Australia",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "Tasmania",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      }
+    ]
+  },
+
+  {
+    "countryName": "France",
+    "states": [
+      {
+        "stateName": "New South Wales",
+        "cities": ["Armidale", "Ballina", "Balranald"]
+      },
+
+      {
+        "stateName": "Northern Territory",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "Queensland",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "South Australia",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "Tasmania",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      }
+    ]
+  },
+
+  {
+    "countryName": "Germany",
+    "states": [
+      {
+        "stateName": "New South Wales",
+        "cities": ["Armidale", "Ballina", "Balranald"]
+      },
+
+      {
+        "stateName": "Northern Territory",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "Queensland",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "South Australia",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "Tasmania",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      }
+    ]
+  },
+
+  {
+    "countryName": "Greece",
+    "states": [
+      {
+        "stateName": "New South Wales",
+        "cities": ["Armidale", "Ballina", "Balranald"]
+      },
+
+      {
+        "stateName": "Northern Territory",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "Queensland",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "South Australia",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "Tasmania",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      }
+    ]
+  },
+
+  {
+    "countryName": "India",
+    "states": [
+      {
+        "stateName": "New South Wales",
+        "cities": ["Armidale", "Ballina", "Balranald"]
+      },
+
+      {
+        "stateName": "Northern Territory",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "Queensland",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "South Australia",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "Tasmania",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      }
+    ]
+  },
+
+  {
+    "countryName": "Italy",
+    "states": [
+      {
+        "stateName": "New South Wales",
+        "cities": ["Armidale", "Ballina", "Balranald"]
+      },
+
+      {
+        "stateName": "Northern Territory",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "Queensland",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "South Australia",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "Tasmania",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      }
+    ]
+  },
+
+  {
+    "countryName": "Japan",
+    "states": [
+      {
+        "stateName": "New South Wales",
+        "cities": ["Armidale", "Ballina", "Balranald"]
+      },
+
+      {
+        "stateName": "Northern Territory",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "Queensland",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "South Australia",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "Tasmania",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      }
+    ]
+  },
+
+  {
+    "countryName": "Malaysia",
+    "states": [
+      {
+        "stateName": "New South Wales",
+        "cities": ["Armidale", "Ballina", "Balranald"]
+      },
+
+      {
+        "stateName": "Northern Territory",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "Queensland",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "South Australia",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "Tasmania",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      }
+    ]
+  },
+
+  {
+    "countryName": "Nepal",
+    "states": [
+      {
+        "stateName": "New South Wales",
+        "cities": ["Armidale", "Ballina", "Balranald"]
+      },
+
+      {
+        "stateName": "Northern Territory",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "Queensland",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "South Australia",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "Tasmania",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      }
+    ]
+  },
+
+  {
+    "countryName": "Pakistan",
+    "states": [
+      {
+        "stateName": "New South Wales",
+        "cities": ["Armidale", "Ballina", "Balranald"]
+      },
+
+      {
+        "stateName": "Northern Territory",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "Queensland",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "South Australia",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "Tasmania",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      }
+    ]
+  },
+
+  {
+    "countryName": "Singapore",
+    "states": [
+      {
+        "stateName": "New South Wales",
+        "cities": ["Armidale", "Ballina", "Balranald"]
+      },
+
+      {
+        "stateName": "Northern Territory",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "Queensland",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "South Australia",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "Tasmania",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      }
+    ]
+  },
+
+  {
+    "countryName": "United Kingdom",
+    "states": [
+      {
+        "stateName": "New South Wales",
+        "cities": ["Armidale", "Ballina", "Balranald"]
+      },
+
+      {
+        "stateName": "Northern Territory",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "Queensland",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "South Australia",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "Tasmania",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      }
+    ]
+  },
+
+  {
+    "countryName": "United States",
+    "states": [
+      {
+        "stateName": "New South Wales",
+        "cities": ["Armidale", "Ballina", "Balranald"]
+      },
+
+      {
+        "stateName": "Northern Territory",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "Queensland",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "South Australia",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "Tasmania",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      }
+    ]
+  },
+
+  {
+    "countryName": "Zimbabwe",
+    "states": [
+      {
+        "stateName": "New South Wales",
+        "cities": ["Armidale", "Ballina", "Balranald"]
+      },
+
+      {
+        "stateName": "Northern Territory",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "Queensland",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "South Australia",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      },
+      {
+        "stateName": "Tasmania",
+        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+      }
+    ]
+  }
+]

@@ -66,10 +66,11 @@ import { MetaDataComponent } from './meta-data/meta-data.component';
 import { AddMetadataComponent } from './main-dashboard/add-metadata/add-metadata.component';
 import { TestComponent } from './test/test.component';
 
-import { AccordionModule } from '@syncfusion/ej2-angular-navigations';
 import { SortPipe } from './utilities/sort.pipe';
 import { DeviceViewComponent } from './main-dashboard/add-device/device-view/device-view.component';
 import { DevicesComponent } from './devices/devices.component';
+
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -138,14 +139,13 @@ import { DevicesComponent } from './devices/devices.component';
     MatMenuModule,
     MatSnackBarModule,
     MatExpansionModule,
-    MatBadgeModule,
-
-    AccordionModule
+    MatBadgeModule
   ],
   providers: [
     ChartService,
     SearchPipe,
-    DatePipe
+    DatePipe,
+    {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   bootstrap: [AppComponent]
 })

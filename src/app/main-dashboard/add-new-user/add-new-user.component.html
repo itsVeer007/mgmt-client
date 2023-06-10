@@ -118,8 +118,7 @@
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Select country</mat-label>
               <mat-select formControlName="country" [(ngModel)]="user.country">
-                <mat-option value="India">India</mat-option>
-                <mat-option value="US">US</mat-option>
+                <mat-option *ngFor="let country of countryList" [value]="country.countryName" (click)="filterState(country.countryName)">{{ country.countryName }}</mat-option>
               </mat-select>
               <mat-error class="mt-1">Country is required</mat-error>
             </mat-form-field>
@@ -129,7 +128,7 @@
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Select state</mat-label>
               <mat-select formControlName="state" [(ngModel)]="user.state">
-                <mat-option value="AP">AP</mat-option>
+                <mat-option *ngFor="let state of stateList" [value]="state.stateName" (click)="filterCity(state.stateName)">{{ state.stateName }}</mat-option>
               </mat-select>
               <mat-error class="mt-1">State is required</mat-error>
             </mat-form-field>
@@ -139,9 +138,9 @@
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Select district</mat-label>
               <mat-select formControlName="district" [(ngModel)]="user.district">
-                <mat-option value="Krishna">Krishna</mat-option>
+                <mat-option *ngFor="let city of cityList" [value]="city">{{ city }}</mat-option>
               </mat-select>
-              <mat-error class="mt-1">District is required</mat-error>
+              <mat-error class="mt-1">City is required</mat-error>
             </mat-form-field>
           </div>
 

@@ -17,15 +17,15 @@ export class AssetService {
   //   })
   // }
 
-  download(id: any) {
-    let url = this.baseUrl + '/getAssetFile_1_0'
+  // download(id: any) {
+  //   let url = this.baseUrl + '/getAssetFile_1_0'
 
-    let myObj = {
-      'assetName': 'BS-C001.mp4',
-      'deviceId': id,
-    }
-    return this.http.get(url, {params: myObj});
-  }
+  //   let myObj = {
+  //     'assetName': 'BS-C001.mp4',
+  //     'deviceId': id,
+  //   }
+  //   return this.http.get(url, {params: myObj});
+  // }
 
   getAssets() {
     let url = this.baseUrl + "/listAssets_1_0";
@@ -54,8 +54,9 @@ export class AssetService {
       'playOrder': payload.asset.playOrder,
       'createdBy': payload.asset.createdBy,
       'name': payload.asset.name,
-      'status': payload.asset.status,
-      'splRuleId': payload.asset.splRuleId
+      'splRuleId': payload.asset.splRuleId,
+
+      'status': payload.asset.status
     }
 
     const ass = new Blob([JSON.stringify(assetData)], {
@@ -64,14 +65,17 @@ export class AssetService {
 
     formData.append('asset', ass);
 
+
     let paramData = {
-      'adsTimeId': payload.nameParams.adsTimeId,
-      'adsTempId': payload.nameParams.adsTempId,
-      'adsMaleCount': payload.nameParams.adsMaleCount,
-      'adsFemaleCount': payload.nameParams.adsFemaleCount,
-      'adsKidsCount': payload.nameParams.adsKidsCount,
-      'adsYouthCount': payload.nameParams.adsYouthCount,
-      'adsEldersCount': payload.nameParams.adsEldersCount
+      'timeId': payload.nameParams.timeId,
+      'tempId': payload.nameParams.tempId,
+      'maleKids': payload.nameParams.maleKids,
+      'femaleKids': payload.nameParams.femaleKids,
+      'maleYouth': payload.nameParams.maleYouth,
+      'femaleYouth': payload.nameParams.femaleYouth,
+      'maleAdults': payload.nameParams.maleAdults,
+      'femaleAdults': payload.nameParams.femaleAdults,
+      'vehicles': payload.nameParams.vehicles
     }
 
     const param = new Blob([JSON.stringify(paramData)], {

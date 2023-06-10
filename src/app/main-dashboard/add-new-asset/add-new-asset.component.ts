@@ -74,23 +74,26 @@ export class AddNewAssetComponent implements OnInit {
       deviceModeId: null,
       name: '',
       playOrder: 1,
-      status: 1,
       createdBy: 1,
-      splRuleId: 0
+      splRuleId: 0,
+
+      status: 1
     },
 
     nameParams: {
-      adsTimeId: '',
-      adsTempId: '',
-      adsMaleCount: '',
-      adsFemaleCount: '',
-      adsKidsCount: '',
-      adsYouthCount: '',
-      adsEldersCount: ''
+      timeId: 0,
+      tempId: 0,
+      maleKids: 0,
+      femaleKids: 0,
+      maleYouth: 0,
+      femaleYouth: 0,
+      maleAdults: 0,
+      femaleAdults: 0,
+      vehicles: 0
     }
   }
 
-  for: any = null;
+  adFor: any = null;
 
   deviceIdFromStorage: any
   ngOnInit(): void {
@@ -103,15 +106,17 @@ export class AddNewAssetComponent implements OnInit {
       'createdBy': new FormControl(''),
       'splRuleId': new FormControl(''),
 
-      'for': new FormControl(''),
+      'adFor': new FormControl(''),
 
-      'adsTimeId': new FormControl(''),
-      'adsTempId': new FormControl(''),
-      'adsMaleCount': new FormControl(''),
-      'adsFemaleCount': new FormControl(''),
-      'adsKidsCount': new FormControl(''),
-      'adsYouthCount': new FormControl(''),
-      'adsEldersCount': new FormControl('')
+      'timeId': new FormControl(''),
+      'tempId': new FormControl(''),
+      'maleKids': new FormControl(''),
+      'femaleKids': new FormControl(''),
+      'maleYouth': new FormControl(''),
+      'femaleYouth': new FormControl(''),
+      'maleAdults': new FormControl(''),
+      'femaleAdults': new FormControl(''),
+      'vehicles': new FormControl('')
     });
 
     this.deviceIdFromStorage = JSON.parse(localStorage.getItem('device_temp')!);
@@ -317,7 +322,7 @@ export class AddNewAssetComponent implements OnInit {
           }
 
             setTimeout(() => {
-              window.location.reload();
+              // window.location.reload();
             }, 3000);
 
           }, (err: any) => {

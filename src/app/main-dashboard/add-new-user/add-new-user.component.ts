@@ -4,6 +4,7 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { ApiService } from 'src/services/api.service';
 import Swal from 'sweetalert2';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-add-new-user',
@@ -30,7 +31,7 @@ import Swal from 'sweetalert2';
 })
 export class AddNewUserComponent implements OnInit {
 
-  constructor(private router:Router, private apiser: ApiService, private fb: FormBuilder) { }
+  constructor(private router:Router, private apiser: ApiService, private fb: FormBuilder, private http: HttpClient) { }
 
   // @Input() show:any;
 
@@ -106,6 +107,28 @@ export class AddNewUserComponent implements OnInit {
     });
 
     // this.getUserDetails();
+    this.getCountry();
+  }
+
+  countryList: any;
+  getCountry() {
+    this.http.get("assets/JSON/countryList.json").subscribe((res: any) => {
+      this.countryList = res;
+    })
+  }
+
+  stateList: any = [];
+  filterState(val: any) {
+    let x = this.countryList.filter((el: any) => el.countryName == val);
+    let y = x.flatMap((el: any) => el.states);
+    this.stateList = y;
+  }
+
+  cityList: any
+  filterCity(val: any) {
+    let x = this.stateList.filter((el: any) => el.stateName == val);
+    let y = x.flatMap((el: any) => el.cities);
+    this.cityList = y;
   }
 
   email: string = "";
@@ -178,7 +201,7 @@ export class AddNewUserComponent implements OnInit {
         }
 
         setTimeout(() => {
-          window.location.reload();
+          // window.location.reload();
         }, 3000);
 
       }, (err: any) => {

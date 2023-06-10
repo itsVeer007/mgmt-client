@@ -39,10 +39,25 @@ export class TicketService {
   deleteTicket(payload: any) {
     let url = this.baseUrl + `/DeleteTicket?ticketId=${payload.ticketId}`;
 
-    // let myObj = {
-    //   'ticketId': payload.ticketId,
-    // }
-
     return this.http.delete(url);
   }
+
+  // filterNobody() {
+  //   let url = this.baseUrl + '/get';
+
+  //   return this.http.get(url);
+  // }
+
+  filteBody(payload: any) {
+    let url = this.baseUrl + `/get?`;
+
+    let myObj = {
+      requestId: payload.requestId,
+      status: payload.status,
+      priority: payload.priority,
+    }
+
+    return this.http.get(url, {params: myObj});
+  }
+
 }

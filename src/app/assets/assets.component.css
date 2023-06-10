@@ -378,6 +378,10 @@ border: 1px solid #EFEFEF;
   padding-bottom: 0;
 }
 
+::ng-deep .mat-dialog-container {
+  max-width: 700px;
+}
+
 
 /* common ng-deep */
 

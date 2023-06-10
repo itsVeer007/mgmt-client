@@ -55,7 +55,7 @@
       background-color: transparent;
       color: #fff;
       border: none;
-      margin: 10px;
+      margin: 8px;
       display: flex;
       align-items: center;
   }
@@ -70,7 +70,7 @@
     padding-left: 0;
     margin-bottom: 0;
     border-radius: 0.25rem;
-    margin-top: 30px!important;
+    /* margin-top: 30px!important; */
 }
 
 .list-group :hover {
