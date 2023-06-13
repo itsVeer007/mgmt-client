@@ -94,7 +94,7 @@
 }
 
 .table-resp {
-  max-height: calc(100vh - (280px));
+  max-height: calc(100vh - (250px));
   overflow-y: scroll;
 }
 

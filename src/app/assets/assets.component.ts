@@ -42,20 +42,6 @@ export class AssetsComponent implements OnInit {
     // }
   }
 
-
-
-  searchText!: string;
-  // deviceId: string = '';
-  // activeAssets: number = 0;
-  showLoader: boolean = false;
-  // inputToAdinfo: any;
-
-  pending: any = [];
-  added: any = [];
-  removed: any = [];
-  synced: any = [];
-  sendToController: any = [];
-
   constructor(
     private http: HttpClient,
     private assetService: AssetService,
@@ -67,101 +53,59 @@ export class AssetsComponent implements OnInit {
     public cdr:ChangeDetectorRef
   ) { }
 
+  searchText!: string;
+  showLoader: boolean = false;
+
+  pending: any = [];
+  added: any = [];
+  removed: any = [];
+  synced: any = [];
+  sendToController: any = [];
+
   currentDateTime: any;
   endDateTime: any;
-  devDevId: any
+
+  devDevId: any;
+
   ngOnInit(): void {
     this.currentDateTime =this.datepipe.transform(new Date().toLocaleString('en-us',{month:'short', day: 'numeric', year:'numeric'}));
     this.endDateTime =this.datepipe.transform(new Date('9999-12-31').toLocaleString('en-us',{month:'short', day: 'numeric', year:'numeric'}));
     this.getSiteData();
-    this.getAssetData();
     this.ongetDeviceMode();
-    // this.openTable();
-    // this.getAssets();
 
     this.devDevId = JSON.parse(localStorage.getItem('device_temp')!);
   }
 
 
-  assetTable: any = [];
   inputToAddAsset: any;
+
+  assetTable: any = [];
+  newAssetTable: any = [];
+
   siteIdToTable: any;
   newSiteIdToTable: any;
-  siteMap: any
 
-  // deviceIds: any = [];
-  newTableData: any = [];
+  deviceId: any;
+  newDeviceId: any;
+
   assetMsg: string = '';
+
+
+
+  /* search for site id */
 
   getSiteData() {
     this.devSercice.listDeviceAdsInfo().subscribe((res: any) => {
       console.log(res);
-      this.siteMap = res.sort((a: any, b: any) => a.siteId < b.siteId ? -1 : a.siteId > b.siteId ? 1 : 0);
-      this.devSearch = this.siteMap;
-      this.siteIdToTable = this.siteMap.flatMap((item: any) => item.siteId);
+      let sites = res.sort((a: any, b: any) => a.siteId < b.siteId ? -1 : a.siteId > b.siteId ? 1 : 0);
+
+      this.siteIdToTable = sites.flatMap((item: any) => item.siteId);
       this.newSiteIdToTable = this.siteIdToTable;
-      this.cdr.detectChanges();
     })
   }
-
-
-  x: any
-  getAssetData() {
-    this.showLoader = true;
-    this.assetService.getAssets().subscribe((res: any) => {
-      console.log('res', res);
-      this.showLoader = false;
-
-      this.inputToAddAsset = res;
-      const assets = res.flatMap((item: any) => item.assets);
-      // console.log(assets);
-
-      this.assetTable = assets;
-      // this.tableData = this.assetTable;
-
-      /* status count */
-      for(let item of this.assetTable) {
-        if(item.status == 1) {
-          this.pending.push(item);
-        } else if(item.status == 2) {
-          this.added.push(item);
-        } else if(item.status == 4) {
-          this.synced.push(item);
-        } else if(item.status == 5) {
-          this.removed.push(item);
-        }
-      }
-    });
-    this.cdr.detectChanges();
-  }
-
-  getAssetss(e: any) {
-    var selectedId = e?.tab?.textLabel;
-    this.assetMsg = '';
-    this.cdr.detectChanges();
-    this.newTableData = [];
-    this.assetService.getAsset(selectedId).subscribe((res: any) => {
-      // console.log(res);
-
-      if(res == undefined || res.length == 0) {
-        this.newTableData = [];
-        this.assetMsg = 'No assets';
-        this.cdr.detectChanges();
-      }
-      else {
-        this.newTableData = res[0]?.assets;
-        this.x = this.newTableData;
-        this.assetMsg = '';
-        this.cdr.detectChanges();
-      }
-
-      console.log(this.newTableData);
-    })
-  }
-
 
   filteredOptions!: number[];
-  searchControl = new FormControl();
+  siteIdSearch = new FormControl();
   searchTex!: string;
 
   filterOptions(value: string): number[] {
@@ -169,67 +113,124 @@ export class AssetsComponent implements OnInit {
     return this.siteIdToTable.filter((option: any) => option.toString().toLowerCase().includes(filterValue));
   }
 
-  searchForSiteInput() {
-    // this.filteredOptions = this.siteIdToTable;
-    this.searchControl.valueChanges.pipe(
+  searchSiteId() {
+    this.siteIdSearch.valueChanges.pipe(
       startWith(''),
       map(value => this.filterOptions(value))
     ).subscribe(filtered => {
       this.filteredOptions = filtered;
     });
 
-    if(this.searchControl.value == "" || this.searchControl.value == null) {
-      this.newSiteIdToTable = this.siteIdToTable;
-      this.cdr.detectChanges();
-    } else {
-      this.cdr.detectChanges();
-    }
+    // if(this.searchControl.value == "" || this.searchControl.value == null) {
+    //   this.newSiteIdToTable = this.siteIdToTable;
+    // }
   }
 
-
-  devSearch: any
-  searchForSiteOption(data: any) {
-    this.newSiteIdToTable = this.siteIdToTable.filter((el: any) => el == data);
-
+  myData: any;
+  filterSiteId(data: any) {
     this.devSercice.getDevice(data).subscribe((res: any) => {
-      console.log(res.flatMap((item: any) => item.adsDevices));
-      // this.devSearch = res.flatMap((item: any) => item.adsDevices);
+
+      this.deviceId = res.flatMap((item: any) => item.adsDevices);
+      this.newDeviceId = this.deviceId;
+    });
+
+    this.assetService.getAssetBySiteId(data).subscribe((res: any) => {
+
+      let x  = res.flatMap((item: any) => item.assets);
+      this.newAssetTable = x;
+      this.myData = this.newAssetTable;
+      this.cdr.detectChanges();
+
+      if(this.newAssetTable.length == 0) {
+        this.assetMsg = 'No Data';
+        this.cdr.detectChanges();
+      } else {
+        this.assetMsg = '';
+        this.cdr.detectChanges();
+      }
     })
 
-    this.cdr.detectChanges();
-    console.log(this.newSiteIdToTable);
+
+    // for(let item of this.newAssetTable) {
+    //   if(item.status == 1) {
+    //     this.pending = [];
+    //     this.pending.push(item);
+    //   } else if(item.status == 2) {
+    //     this.added = [];
+    //     this.added.push(item);
+    //   } else if(item.status == 4) {
+    //     this.synced = [];
+    //     this.synced.push(item);
+    //   } else if(item.status == 5) {
+    //     this.removed = [];
+    //     this.removed.push(item);
+    //   } else if(item.status == 3) {
+    //     this.sendToController = [];
+    //     this.sendToController.push(item);
+    //   }
+    //   this.cdr.detectChanges();
+    // }
+
   }
 
-  // deviceSearch: any;
-  // deviceForSiteInput(e: any) {
-  //   this.deviceSearch = (e.target as HTMLInputElement).value;
-  // }
 
-  // deviceForSiteOption(data: any) {
-  //   let dataSome = this.x;
-  //   this.newTableData = dataSome.filter((el: any) => el.deviceId == data);
-  // }
+  /* search for device id */
 
-  modeSearch: any;
-  searchForModeInput(e: Event) {
-    this.modeSearch = (e.target as HTMLInputElement).value;
+  deviceSearch: any;
+  searchDevices(e: any) {
+    this.deviceSearch = (e.target as HTMLInputElement).value;
   }
 
-  searchForModeOption(data: any) {
-    this.newTableData = this.x.filter((el: any) => el.deviceModeId == data);
+  filterDevices(data: any) {
+    this.assetService.getAssetByDevId(data).subscribe((res: any) => {
+      if(data != 'All') {
+        const assets = res.flatMap((item: any) => item.assets);
+        this.assetTable = assets;
+        this.newAssetTable = this.assetTable;
+        console.log(this.assetTable);
+        this.cdr.detectChanges();
+      } else if(data == 'All') {
+        this.newAssetTable = this.myData;
+      }
+
+
+      if(this.newAssetTable.length == 0) {
+        this.assetMsg = 'No Data';
+        this.cdr.detectChanges();
+      } else {
+        this.assetMsg = '';
+        this.cdr.detectChanges();
+      }
+    })
+  }
+
+
+  /* table filters */
+
+  devMode: any;
+  searchDeviceMode(e: Event) {
+    this.devMode = (e.target as HTMLInputElement).value;
+  }
+
+  newFilteredDevices: any;
+  filterDeviceMode(data: any) {
+    this.newAssetTable = this.assetTable.filter((el: any) => el.deviceModeId == data);
+    this.newFilteredDevices = this.newAssetTable;
     this.cdr.detectChanges();
   }
 
   statusSearch: any;
-  searchForStatus(e: Event) {
+  searchStatus(e: Event) {
     this.statusSearch = (e.target as HTMLInputElement).value;
   }
 
-  searchForStatusOption(data: any) {
-    this.newTableData = this.x.filter((el: any) => el.status == data);
+  filterStatus(data: any) {
+    this.newAssetTable = this.assetTable.filter((el: any) => el.status == data);
     this.cdr.detectChanges();
   }
 
+
+  /* metadata filter */
 
   deviceMode: any;
   assetStatus: any;
@@ -270,12 +271,13 @@ export class AssetsComponent implements OnInit {
 
   showAddAsset(devData: any) {
     this.showAsset = true;
-    // this.dialog.closeAll();
     localStorage.setItem('device_temp', JSON.stringify(devData));
   }
 
   closenow(value: any, type: String) {
-    if (type == 'asset') { this.showAsset = value; }
+    if (type == 'asset') {
+      this.showAsset = value
+    }
   }
 
 
@@ -431,13 +433,13 @@ export class AssetsComponent implements OnInit {
 
   selectedAll: any;
   selectAll() {
-    for (var i = 0; i < this.newTableData.length; i++) {
-      this.newTableData[i].selected = this.selectedAll;
+    for (var i = 0; i < this.newAssetTable.length; i++) {
+      this.newAssetTable[i].selected = this.selectedAll;
     }
   }
 
   checkIfAllSelected() {
-    this.selectedAll = this.newTableData.every(function (item: any) {
+    this.selectedAll = this.newAssetTable.every(function (item: any) {
       return item.selected == true;
     })
   }
@@ -586,7 +588,7 @@ export class AssetsComponent implements OnInit {
   sorted = false;
   sort(label: any) {
     this.sorted = !this.sorted;
-    var x = this.assetTable;
+    var x = this.newAssetTable;
     if (this.sorted == false) {
       x.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
     } else {

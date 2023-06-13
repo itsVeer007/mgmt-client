@@ -75,9 +75,7 @@ export class AddNewAssetComponent implements OnInit {
       name: '',
       playOrder: 1,
       createdBy: 1,
-      splRuleId: 0,
-
-      status: 1
+      splRuleId: 0
     },
 
     nameParams: {
@@ -89,11 +87,14 @@ export class AddNewAssetComponent implements OnInit {
       femaleYouth: 0,
       maleAdults: 0,
       femaleAdults: 0,
-      vehicles: 0
+      vehicles: 0,
+
+      persons: 0
     }
   }
 
   adFor: any = null;
+  enableDemo: boolean = false;
 
   deviceIdFromStorage: any
   ngOnInit(): void {
@@ -107,6 +108,7 @@ export class AddNewAssetComponent implements OnInit {
       'splRuleId': new FormControl(''),
 
       'adFor': new FormControl(''),
+      'enableDemo': new FormControl(''),
 
       'timeId': new FormControl(''),
       'tempId': new FormControl(''),
@@ -116,7 +118,9 @@ export class AddNewAssetComponent implements OnInit {
       'femaleYouth': new FormControl(''),
       'maleAdults': new FormControl(''),
       'femaleAdults': new FormControl(''),
-      'vehicles': new FormControl('')
+      'vehicles': new FormControl(''),
+
+      'persons': new FormControl('')
     });
 
     this.deviceIdFromStorage = JSON.parse(localStorage.getItem('device_temp')!);
@@ -297,7 +301,7 @@ export class AddNewAssetComponent implements OnInit {
   addAsset1: any;
   addAsset2: any;
   addNewAsset() {
-    this.assetData.asset.deviceId = this.deviceIdFromStorage.deviceId;
+    this.assetData.asset.deviceId = this.deviceIdFromStorage;
     this.submit = true;
     console.log('assetData', this.assetData);
 
@@ -309,7 +313,7 @@ export class AddNewAssetComponent implements OnInit {
         imageUrl: "assets/gif/ajax-loading-gif.gif",
         showConfirmButton: false,
         allowOutsideClick: false
-      })
+      });
 
       this.assetService.addAsset(this.assetData, this.selectedFile).subscribe((res: any) => {
         console.log('addAsset', res);
@@ -338,6 +342,15 @@ export class AddNewAssetComponent implements OnInit {
           });
     }
   }
+
+  // isChecked = true;
+  // formGroup = this.fb.group({
+  //   enableWifi: '',
+  // });
+
+  // alertFormValues(formGroup: FormGroup) {
+  //   alert(JSON.stringify(formGroup.value, null, 2));
+  // }
 
 
 }

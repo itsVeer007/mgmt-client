@@ -290,7 +290,7 @@ export class AddDeviceComponent implements OnInit {
       "modelHeight": this.currentItem.modelHeight,
 
       "deviceModeId": this.currentItem.deviceModeId,
-      "deviceTypeId": this.currentItem.deviceTypeId,
+      // "deviceTypeId": this.currentItem.deviceTypeId,
       "adsHours": this.currentItem.adsHours,
       "workingDays": this.currentItem.workingDays,
       "status": this.currentItem.status,
@@ -314,7 +314,7 @@ export class AddDeviceComponent implements OnInit {
       "deviceId": this.currentItem.deviceId,
 
       "deviceModeId": this.currentItem.deviceModeId,
-      "deviceTypeId": this.currentItem.deviceTypeId,
+      // "deviceTypeId": this.currentItem.deviceTypeId,
       "adsHours": this.currentItem.adsHours,
       "workingDays": this.currentItem.workingDays,
       "status": this.currentItem.status,
@@ -359,7 +359,7 @@ export class AddDeviceComponent implements OnInit {
       "modelHeight": this.currentItem.modelHeight,
 
       "deviceModeId": this.currentItem.deviceModeId,
-      "deviceTypeId": this.currentItem.deviceTypeId,
+      // "deviceTypeId": this.currentItem.deviceTypeId,
       "adsHours": this.currentItem.adsHours,
       "workingDays": this.currentItem.workingDays,
       "status": this.currentItem.status,
@@ -402,6 +402,7 @@ export class AddDeviceComponent implements OnInit {
       this.originalObject.workingDays = arr;
     }
 
+    this.newItemEvent.emit(false);
     this.devService.updateDeviceAdsInfo({adsDevice: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
       console.log(res);
 

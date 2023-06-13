@@ -74,29 +74,29 @@ export class TicketsComponent implements OnInit {
     })
   }
 
-  filterBySite(val: any) {
-    if(val == 'none') {
-      this.newTicketData = this.ticketData;
-    } else {
-      this.newTicketData = this.ticketData.filter((el: any) => el.site == val);
-    }
-  }
+  // filterBySite(val: any) {
+  //   if(val == 'none') {
+  //     this.newTicketData = this.ticketData;
+  //   } else {
+  //     this.newTicketData = this.ticketData.filter((el: any) => el.site == val);
+  //   }
+  // }
 
-  filterByPriority(val: any) {
-    if(val == 'none') {
-      this.newTicketData = this.ticketData;
-    } else {
-      this.newTicketData = this.ticketData.filter((el: any) => el.priority == val)
-    }
-  }
+  // filterByPriority(val: any) {
+  //   if(val == 'none') {
+  //     this.newTicketData = this.ticketData;
+  //   } else {
+  //     this.newTicketData = this.ticketData.filter((el: any) => el.priority == val)
+  //   }
+  // }
 
-  filterByStatus(val: any) {
-    if(val == 'none') {
-      this.newTicketData = this.ticketData;
-    } else {
-      this.newTicketData = this.ticketData.filter((el: any) => el.status == val)
-    }
-  }
+  // filterByStatus(val: any) {
+  //   if(val == 'none') {
+  //     this.newTicketData = this.ticketData;
+  //   } else {
+  //     this.newTicketData = this.ticketData.filter((el: any) => el.status == val)
+  //   }
+  // }
 
   siteNames: any;
   priorityVal: any;
@@ -130,17 +130,17 @@ export class TicketsComponent implements OnInit {
     }, []);
   }
 
-  rqsId: any = 0;
-  sta: any = '';
-  prior: any = '';
+  rqsId: any;
+  sta: any;
+  prior: any;
 
   filterMsg: string = '';
 
   applyFilter() {
     let myObj = {
-      requestId: this.rqsId,
-      status: this.sta,
-      priority: this.prior,
+      requestId: this.rqsId ? this.rqsId : 0,
+      status: this.sta ? this.sta : '',
+      priority: this.prior ? this.prior : '',
     }
 
     this.ticketSer.filteBody(myObj).subscribe((res: any) => {

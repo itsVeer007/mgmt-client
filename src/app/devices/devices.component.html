@@ -150,6 +150,7 @@
           <th (click)="sort('customerName')">Device Type</th>
           <th (click)="sort('custType')">Site Id - Name</th>
           <th (click)="sort('status')">Status</th>
+          <th (click)="sort('status')">Reboot</th>
           <th class="text-center" (click)="sort('address')">
             <span>Uptime</span>
             <div class="d-flex justify-content-evenly">
@@ -205,6 +206,10 @@
                 <button mat-stroked-button style="color: #084982" (click)="changeAssetStatus()">Submit</button>
               </ng-template>
             </p> -->
+          </td>
+
+          <td>
+            <img style="color: #bdb8b8;" src="assets/icons/play.svg" width="25" height="25" />
           </td>
 
           <td class="d-flex justify-content-evenly align-items-center">

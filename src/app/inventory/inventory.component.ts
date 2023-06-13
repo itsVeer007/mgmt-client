@@ -88,29 +88,29 @@ export class InventoryComponent implements OnInit {
     });
   }
 
-  filterBrand(val: any) {
-    if(val == 'none') {
-      this.newInventoryTable = this.inventoryTable;
-    } else {
-      this.newInventoryTable = this.inventoryTable.filter((el: any) => el.productBrand == val);
-    }
-  }
+  // filterBrand(val: any) {
+  //   if(val == 'none') {
+  //     this.newInventoryTable = this.inventoryTable;
+  //   } else {
+  //     this.newInventoryTable = this.inventoryTable.filter((el: any) => el.productBrand == val);
+  //   }
+  // }
 
-  filterCategory(val: any) {
-    if(val == 'none') {
-      this.newInventoryTable = this.inventoryTable;
-    } else {
-      this.newInventoryTable = this.inventoryTable.filter((el: any) => el.productCategory == val);
-    }
-  }
+  // filterCategory(val: any) {
+  //   if(val == 'none') {
+  //     this.newInventoryTable = this.inventoryTable;
+  //   } else {
+  //     this.newInventoryTable = this.inventoryTable.filter((el: any) => el.productCategory == val);
+  //   }
+  // }
 
-  filterStatus(val: any) {
-    if(val == 'none') {
-      this.newInventoryTable = this.inventoryTable;
-    } else {
-      this.newInventoryTable = this.inventoryTable.filter((el: any) => el.status == val);
-    }
-  }
+  // filterStatus(val: any) {
+  //   if(val == 'none') {
+  //     this.newInventoryTable = this.inventoryTable;
+  //   } else {
+  //     this.newInventoryTable = this.inventoryTable.filter((el: any) => el.status == val);
+  //   }
+  // }
 
 
   brandNames: any;
@@ -151,9 +151,9 @@ export class InventoryComponent implements OnInit {
 
   applyFilter() {
     let myObj = {
-      productBrand: this.prBrand,
-      status: this.sta,
-      productCategory: this.prCat,
+      productBrand: this.prBrand ? this.prBrand : '',
+      status: this.sta ? this.sta : '',
+      productCategory: this.prCat ? this.prCat : '',
     }
 
     console.log(myObj)
@@ -175,16 +175,6 @@ export class InventoryComponent implements OnInit {
       x.style.display = 'none';
     }
   }
-
-  // showAddSite = false;
-  // showAddCamera = false;
-  // showAddCustomer = false;
-  // showAddUser = false;
-  // showAddBusinessVertical = false;
-  // showSite = false;
-  // closenow(value:any) {
-  //   this.showAddSite = value;
-  // }
 
   closenow(value: any, type: String) {
     if (type == 'inventory') { this.showInventory = value; }

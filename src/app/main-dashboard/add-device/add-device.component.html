@@ -597,7 +597,7 @@
               <div class="col-lg-6" *ngIf="currentItem.deviceModeId == 3">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Model Object Type</mat-label>
-                  <mat-select name="modelObjectTypeId" [(ngModel)]="currentItem.modelObjectTypeId" (selectionChange)="o($event)">
+                  <mat-select name="modelObjectTypeId" [(ngModel)]="currentItem.modelObjectTypeId" (selectionChange)="on($event)">
                     <mat-option *ngFor="let item of modelObjectType" [value]="item.keyId">{{ item.value }}</mat-option>
                   </mat-select>
                 </mat-form-field>

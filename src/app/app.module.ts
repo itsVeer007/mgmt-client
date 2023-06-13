@@ -52,6 +52,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 //utilities
 import { MultiSelectSearchComponent } from './utilities/multi-select-search/multi-select-search.component';
@@ -139,7 +140,8 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     MatMenuModule,
     MatSnackBarModule,
     MatExpansionModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatSlideToggleModule
   ],
   providers: [
     ChartService,

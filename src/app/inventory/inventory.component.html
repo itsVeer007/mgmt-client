@@ -137,7 +137,7 @@
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Product Brand</mat-label>
           <mat-select (focus)="removeDuplicates()" [(ngModel)]="prBrand">
-            <mat-option (click)="filterBrand('none')">none</mat-option>
+            <mat-option value="">All</mat-option>
             <mat-option *ngFor="let item of brandNames" [value]="item.productBrand">{{ item.productBrand }}</mat-option>
           </mat-select>
         </mat-form-field>
@@ -147,7 +147,7 @@
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Product Category</mat-label>
           <mat-select (focus)="removeDuplicates()" [(ngModel)]="prCat">
-            <mat-option (click)="filterBrand('none')">none</mat-option>
+            <mat-option value="">All</mat-option>
             <mat-option *ngFor="let item of categoryTypes" [value]="item.productCategory">{{ item.productCategory }}</mat-option>
           </mat-select>
         </mat-form-field>
@@ -157,7 +157,7 @@
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Status</mat-label>
           <mat-select (focus)="removeDuplicates()" [(ngModel)]="sta">
-            <mat-option (click)="filterBrand('none')">none</mat-option>
+            <mat-option value="">All</mat-option>
             <mat-option *ngFor="let item of statusVal" [value]="item.status">{{ item.status }}</mat-option>
           </mat-select>
         </mat-form-field>
@@ -204,18 +204,25 @@
               " />
           </th>
 
-          <th (click)="sort('productId')">
+          <th>
             <span>Product Id</span>
-            <img class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <img (click)="sort('productId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
             <span>Product S.NO</span>
+            <img (click)="sort('productSerialNo')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
-          <th (click)="sort('productName')">Product Name</th>
+          <th>
+            <span>Product Name</span>
+            <img (click)="sort('productName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+          </th>
 
-          <th (click)="sort('address')">Product Brand</th>
+          <th>
+            <span>Product Brand</span>
+            <img (click)="sort('productBrand')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+          </th>
 
           <th (click)="sort('contactNumber')">Product Category</th>
 

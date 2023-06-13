@@ -42,11 +42,6 @@ export class TicketService {
     return this.http.delete(url);
   }
 
-  // filterNobody() {
-  //   let url = this.baseUrl + '/get';
-
-  //   return this.http.get(url);
-  // }
 
   filteBody(payload: any) {
     let url = this.baseUrl + `/get?`;

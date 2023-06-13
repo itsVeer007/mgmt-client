@@ -32,11 +32,21 @@ export class AssetService {
     return this.http.get(url);
   }
 
-  getAsset(devId: any) {
+  getAssetByDevId(devId: any) {
     let url = this.baseUrl + "/listAssets_1_0";
 
     let myObj = {
       deviceId: devId
+    };
+
+    return this.http.get(url, { params: myObj });
+  }
+
+  getAssetBySiteId(siteId: any) {
+    let url = this.baseUrl + "/listAssets_1_0";
+
+    let myObj = {
+      siteId: siteId
     };
 
     return this.http.get(url, { params: myObj });
@@ -54,9 +64,7 @@ export class AssetService {
       'playOrder': payload.asset.playOrder,
       'createdBy': payload.asset.createdBy,
       'name': payload.asset.name,
-      'splRuleId': payload.asset.splRuleId,
-
-      'status': payload.asset.status
+      'splRuleId': payload.asset.splRuleId
     }
 
     const ass = new Blob([JSON.stringify(assetData)], {
@@ -75,7 +83,9 @@ export class AssetService {
       'femaleYouth': payload.nameParams.femaleYouth,
       'maleAdults': payload.nameParams.maleAdults,
       'femaleAdults': payload.nameParams.femaleAdults,
-      'vehicles': payload.nameParams.vehicles
+      'vehicles': payload.nameParams.vehicles,
+
+      'persons': payload.nameParams.persons
     }
 
     const param = new Blob([JSON.stringify(paramData)], {
