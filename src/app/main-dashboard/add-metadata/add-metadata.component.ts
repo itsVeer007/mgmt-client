@@ -78,7 +78,7 @@ export class AddMetadataComponent implements OnInit {
   getDeviceType() {
     this.dropDown.getMetadata().subscribe((res: any) => {
       this.type = res;
-      console.log(res)
+      // console.log(res)
     })
   }
 
@@ -115,10 +115,10 @@ export class AddMetadataComponent implements OnInit {
   addNewAsset() {
     if(this.metadataForm.valid) {
       this.dropDown.add(this.metaDataBody).subscribe((res) => {
-        console.log(res)
+        // console.log(res)
       })
     }
-    console.log(this.metaDataBody);
+    // console.log(this.metaDataBody);
   }
 
 }

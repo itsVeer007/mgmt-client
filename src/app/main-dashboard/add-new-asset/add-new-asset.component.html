@@ -13,30 +13,6 @@
     <div>
       <form autocomplete="off" [formGroup]="addAssetForm" (ngSubmit)="addNewAsset()">
         <div class="row">
-          <!-- <div class="col-lg-6 col-md-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <input matInput placeholder="Site Id" [matAutocomplete]="site" (keyup)="siteSer($event)" formControlName="siteId">
-              <mat-autocomplete #site="matAutocomplete">
-                <mat-option *ngFor="let item of siteIdList | search: sit" [value]="item.siteId">
-                  {{ item.siteId }}
-                </mat-option>
-              </mat-autocomplete>
-              <mat-error class="mt-1">Site Id is required</mat-error>
-            </mat-form-field>
-          </div>
-
-          <div class="col-lg-6 col-md-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <input matInput placeholder="Device Id" [matAutocomplete]="device" (keyup)="deviceSer($event)" formControlName="deviceId" [(ngModel)]="assetData.asset.deviceId" required>
-              <mat-autocomplete #device="matAutocomplete">
-                <mat-option *ngFor="let item of deviceIdList | search: dev" [value]="item.deviceId">
-                  {{ item.deviceId }}
-                </mat-option>
-              </mat-autocomplete>
-              <mat-error class="mt-1">Device Id is required</mat-error>
-            </mat-form-field>
-          </div> -->
-
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Enter Asset Name</mat-label>
@@ -60,14 +36,13 @@
 
             <div>
               <input hidden (change)="onFileSelected($event)" #fileInput type="file" formControlName="file"  [(ngModel)]="assetData.file">
-              <div class="file-name" *ngFor="let item of selectedFiles">
+              <div class="file-name" *ngIf="selectedFile">
                 <mat-card class="d-flex align-items-center justify-content-between mt-2">
                   <span>
-                    <!-- <span *ngIf="selectedFile?.name">{{ asset.adsDeviceId }} {{ currentDate | date:'dd/MM/yyyy HH:mm:ss' }}</span> -->
-                    {{ item.name }}
+                    {{ selectedFile?.name }}
                   </span>
                   <!-- <mat-progress-bar *ngIf="selectedFile" class="w-50" mode="determinate" value="100"></mat-progress-bar> -->
-                  <a *ngIf="selectedFile" class="pointer text-end" (click)="deleteFile(item)">
+                  <a *ngIf="selectedFile" class="pointer text-end" (click)="deleteFile()">
                     <img style="color: #bdb8b8;" src="assets/icons/delete_black.svg" width="18" height="18">
                   </a>
                 </mat-card>

@@ -79,13 +79,13 @@ export class AddNewCustomerComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.productForm.value);
+    // console.log(this.productForm.value);
   }
 
   address2: boolean = false;
   closeimg(e:any) {
     var x = e.target.parentNode.parentNode.parentNode;
-    console.log(x.children);
+    // console.log(x.children);
     x.style.display = 'none'
     // this.address2 = !this.address2;
   }

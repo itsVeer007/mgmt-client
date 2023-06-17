@@ -33,7 +33,7 @@ import Swal from 'sweetalert2';
 })
 
 export class AddDeviceComponent implements OnInit {
-  // @Input() data: any;
+  @Input() fromSites: any;
   @Output() newItemEvent = new EventEmitter<boolean>();
 
   // @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
@@ -118,10 +118,6 @@ export class AddDeviceComponent implements OnInit {
       'remarks': new FormControl(''),
     });
 
-    this.getDeviceDetail();
-    this.onMetadataChange();
-    this.siteData = JSON.parse(localStorage.getItem('temp_sites')!);
-
     this.addDevice.get('deviceModeId').valueChanges.subscribe((val: any) => {
       if(val == 3) {
         this.addDevice.get('cameraId').setValidators(Validators.required);
@@ -148,25 +144,29 @@ export class AddDeviceComponent implements OnInit {
       this.addDevice.get('modelMaxResults').updateValueAndValidity();
       this.addDevice.get('modelThreshold').updateValueAndValidity();
       this.addDevice.get('modelObjectTypeId').updateValueAndValidity();
-    })
+    });
+
+    this.getDeviceDetail();
+    this.onMetadataChange();
+    this.siteData = JSON.parse(localStorage.getItem('temp_sites')!);
   }
 
-  deviceData: any;
+  deviceData: any = [];
   deviceLength: any;
-  deviceMap: any;
+  // deviceMap: any;
   getDeviceDetail() {
     this.devService.listDeviceAdsInfo().subscribe((res: any) => {
-      // console.log(res);
       for(let item of res) {
-        if(this.siteData.siteId == item.siteId) {
+        if(this.siteData.siteid == item.siteId) {
           this.deviceData = item.adsDevices;
-
           this.deviceLength = this.deviceData.length;
-          // console.log('deviceData', this.deviceData);
         }
       }
-
     })
+
+    // this.deviceData = this.fromSites;
+    // this.deviceLength = this.deviceData.length;
+    // console.log(this.deviceData);
   }
 
 
@@ -233,15 +233,7 @@ export class AddDeviceComponent implements OnInit {
   }
 
 
-  // selected = new FormControl();
-  // addTab() {
-  //   this.tabs.push('Device');
-  //   this.selected.setValue(this.tabs.length - 1);
-  // }
-
-  // removeTab(index: number) {
-  //   this.tabs.splice(index, 1);
-  // }
+  /* popup */
 
   @ViewChild('editDeviceDialog') editDevice = {} as TemplateRef<any>;
 
@@ -256,7 +248,7 @@ export class AddDeviceComponent implements OnInit {
     this.currentItem.workingDays = x;
 
     // this.newdeviceId = item.deviceId;
-    console.log(this.currentItem);
+    // console.log(this.currentItem);
   }
 
 
@@ -271,15 +263,11 @@ export class AddDeviceComponent implements OnInit {
   originalObject: any;
   changedKeys: any[] = [];
 
-  o(event: any) {
-    console.log(event);
+  onRadioChange(event: any) {
+    // console.log(event);
 
     this.originalObject = {
       "deviceId": this.currentItem.deviceId,
-
-      "debugOn": this.currentItem.debugOn,
-      "debugLogs": this.currentItem.debugLogs,
-      "refreshRules": this.currentItem.refreshRules,
 
       "deviceCallFreq": this.currentItem.deviceCallFreq,
       "deviceDescription": this.currentItem.deviceDescription,
@@ -296,6 +284,10 @@ export class AddDeviceComponent implements OnInit {
       "status": this.currentItem.status,
       "modelName": this.currentItem.modelName,
       "modelObjectTypeId": this.currentItem.modelObjectTypeId,
+
+      "debugOn": this.currentItem.debugOn,
+      "debugLogs": this.currentItem.debugLogs,
+      "refreshRules": this.currentItem.refreshRules,
 
       "modifiedBy": 1,
     };
@@ -306,20 +298,12 @@ export class AddDeviceComponent implements OnInit {
       this.changedKeys.push(x);
     }
 
-    console.log(this.changedKeys);
+    // console.log(this.changedKeys);
   }
 
-  on(event: any) {
+  onSelectChange(event: any) {
     this.originalObject = {
       "deviceId": this.currentItem.deviceId,
-
-      "deviceModeId": this.currentItem.deviceModeId,
-      // "deviceTypeId": this.currentItem.deviceTypeId,
-      "adsHours": this.currentItem.adsHours,
-      "workingDays": this.currentItem.workingDays,
-      "status": this.currentItem.status,
-      "modelName": this.currentItem.modelName,
-      "modelObjectTypeId": this.currentItem.modelObjectTypeId,
 
       "deviceCallFreq": this.currentItem.deviceCallFreq,
       "deviceDescription": this.currentItem.deviceDescription,
@@ -328,6 +312,14 @@ export class AddDeviceComponent implements OnInit {
       "loggerFreq": this.currentItem.loggerFreq,
       "modelWidth": this.currentItem.modelWidth,
       "modelHeight": this.currentItem.modelHeight,
+
+      "deviceModeId": this.currentItem.deviceModeId,
+      // "deviceTypeId": this.currentItem.deviceTypeId,
+      "adsHours": this.currentItem.adsHours,
+      "workingDays": this.currentItem.workingDays,
+      "status": this.currentItem.status,
+      "modelName": this.currentItem.modelName,
+      "modelObjectTypeId": this.currentItem.modelObjectTypeId,
 
       "debugOn": this.currentItem.debugOn,
       "debugLogs": this.currentItem.debugLogs,
@@ -342,11 +334,11 @@ export class AddDeviceComponent implements OnInit {
       this.changedKeys.push(x);
     }
 
-    console.log(this.changedKeys);
+    // console.log(this.changedKeys);
     // console.log(this.originalObject);
   }
 
-  onChange(event: any) {
+  onInputChange(event: any) {
     this.originalObject = {
       "deviceId": this.currentItem.deviceId,
 
@@ -377,10 +369,11 @@ export class AddDeviceComponent implements OnInit {
 
     if(!(this.changedKeys.includes(x))) {
       this.changedKeys.push(x);
-      // this.originalObject[x] = Event.target.value;
     }
-    console.log(this.changedKeys);
+    // console.log(this.changedKeys);
   }
+
+  /* update device */
 
   deviceUpdate0: any;
   deviceUpdate1: any;
@@ -404,7 +397,7 @@ export class AddDeviceComponent implements OnInit {
 
     this.newItemEvent.emit(false);
     this.devService.updateDeviceAdsInfo({adsDevice: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
 
       if(res) {
         this.deviceUpdate1 = Swal.fire({
@@ -431,7 +424,7 @@ export class AddDeviceComponent implements OnInit {
   }
 
 
-  /* add device */
+  /* create device */
 
   toAddDevice: any;
   onToAddDevice(e: any) {
@@ -443,7 +436,7 @@ export class AddDeviceComponent implements OnInit {
   addDevice1: any;
   addDevice2: any;
   addDeviceDtl() {
-    this.adInfo.siteId = this.siteData.siteId;
+    this.adInfo.siteId = this.siteData.siteid;
 
     if(this.addDevice.valid) {
       this.newItemEvent.emit(false);
@@ -464,7 +457,7 @@ export class AddDeviceComponent implements OnInit {
       })
 
       this.devService.createDeviceandAdsInfo(this.adInfo).subscribe((res: any) => {
-        console.log(res);
+        // console.log(res);
 
         if(res) {
           this.addDevice1 = Swal.fire({
@@ -479,7 +472,7 @@ export class AddDeviceComponent implements OnInit {
         }, 3000);
 
       }, (err: any) => {
-        console.log(err);
+        // console.log(err);
         if(err) {
           this.addDevice0 = Swal.fire({
             icon: 'error',
@@ -490,7 +483,7 @@ export class AddDeviceComponent implements OnInit {
         };
       })
     }
-    console.log('addNewDevice', this.adInfo);
+    // console.log('addNewDevice', this.adInfo);
   }
 
   // showAdsHours: boolean = false;
@@ -514,13 +507,13 @@ export class AddDeviceComponent implements OnInit {
   toggleAllSelection() {
     this.allSelected = !this.allSelected;
 
-    if (this.allSelected) {
+    if(this.allSelected) {
       this.mySel.options.forEach( (item : MatOption) => item.select());
     } else {
       this.mySel.options.forEach( (item : MatOption) => {item.deselect()});
     }
 
-    if (this.allSelected) {
+    if(this.allSelected) {
       this.mySell.options.forEach( (item : MatOption) => item.select());
     } else {
       this.mySell.options.forEach( (item : MatOption) => {item.deselect()});

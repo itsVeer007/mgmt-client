@@ -83,7 +83,7 @@ export class AddNewTicketComponent implements OnInit {
     }
 
     this.taskss.push(x);
-    console.log(this.taskss);
+    // console.log(this.taskss);
 
     // this.x.tasks[0].taskName = '';
     // this.x.tasks[0].description = '';
@@ -133,7 +133,7 @@ export class AddNewTicketComponent implements OnInit {
       });
 
       this.ticketSer.createTicket(this.x).subscribe((res) => {
-        console.log(res);
+        // console.log(res);
 
         if(res) {
           this.addTicket1 = Swal.fire({
@@ -157,7 +157,7 @@ export class AddNewTicketComponent implements OnInit {
         };
       });
     }
-    console.log(this.x);
+    // console.log(this.x);
   }
 
 }

@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 
+import { environment } from '../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AssetService {
 
-  baseUrl = 'http://usstaging.ivisecurity.com:777/proximityads';
+  baseUrl = `${environment.baseUrl}/proximityads`;
 
   constructor(private http: HttpClient, private date: DatePipe) { }
 

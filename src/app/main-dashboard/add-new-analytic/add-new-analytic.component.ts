@@ -86,7 +86,7 @@ export class AddNewAnalyticComponent implements OnInit {
   // }
 
   addNewAsset() {
-    console.log(this.addAssetForm.value);
+    // console.log(this.addAssetForm.value);
   }
 
 }

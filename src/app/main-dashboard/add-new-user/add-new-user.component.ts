@@ -134,7 +134,7 @@ export class AddNewUserComponent implements OnInit {
   email: string = "";
   getUserDetails(){
     this.apiser.getUser(this.email).subscribe((res:any)=>{
-      console.log(res)
+      // console.log(res)
       if(res.Status == 'Success'){
         this.user.username= "";
         // this.user.password= res.password;
@@ -216,7 +216,7 @@ export class AddNewUserComponent implements OnInit {
       });
     }
 
-    console.log(this.user);
+    // console.log(this.user);
   }
 
 

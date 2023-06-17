@@ -173,7 +173,7 @@ export class CustomersComponent implements OnInit {
   deleteRow: any;
 
   deleteRow1(item: any, i: any) {
-    console.log("DELETEROW:: ", item);
+    // console.log(item);
     this.showLoader = true;
     setTimeout(() => {
       this.showLoader = false;
@@ -183,7 +183,7 @@ export class CustomersComponent implements OnInit {
 
   deletePopup: boolean = true;
   confirmDeleteRow() {
-    console.log("ToBE DELETED:: ", this.currentItem);
+    // console.log(this.currentItem);
     this.CustomerTable = this.CustomerTable.filter((item: any) => item.siteId !== this.currentItem.siteId);
     this.deletePopup = true;
   }
@@ -209,7 +209,7 @@ export class CustomersComponent implements OnInit {
   editPopup: boolean = true;
 
   confirmEditRow() {
-    console.log("TO BE EDITED:: ", this.currentItem);
+    // console.log(this.currentItem);
     // this.CustomerTable= this.CustomerTable.filter((item:any) => item.siteId !== this.currentItem.siteId);
     this.editPopup = true;
     this.CustomerReport();
@@ -259,7 +259,7 @@ export class CustomersComponent implements OnInit {
   viewPopup: boolean = true;
 
   confirmViewRow() {
-    console.log("ToBE Viewed:: ", this.currentItem);
+    // console.log(this.currentItem);
     this.viewPopup = true;
   }
 
@@ -269,7 +269,7 @@ export class CustomersComponent implements OnInit {
 
   openViewPopup(item: any, i: any) {
     this.currentItem = item;
-    console.log("VIEW PAGE:: ", this.currentItem);
+    // console.log(this.currentItem);
     this.viewPopup = false;
   }
 

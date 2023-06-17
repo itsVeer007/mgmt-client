@@ -2,8 +2,6 @@
   margin-top: 80px;
 }
 
-
-/* need to comment after adding instock*/
 .users-header {
   display: flex;
   align-items: center;
@@ -11,7 +9,6 @@
 }
 
 .users-header p {
-  margin: 25px 0;
   color: #ABABAB;
   font-size: 20px;
 }
@@ -84,7 +81,7 @@ form .search {
 
 form input, button {
   border: none;
-  padding: 10px;
+  padding: 11px;
   font-size: 12px;
 }
 
@@ -336,17 +333,37 @@ border: 1px solid #fff;
 }
 /* CSS for Popup end */
 
+.search-form {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.filter-search-btn button{
+  margin-bottom: 10px;
+  background-color: #084982;
+  color: #ffffff;
+  border-radius: 5px;
+}
+
+.filter-search-btn button:hover{
+  opacity: 0.9;
+}
+
 
 @media only screen and (max-width: 768px) {
   .search-form {
     display: flex;
     flex-direction: column;
+    align-items: stretch;
   }
 
-  .table-icons {
+  /* .table-icons {
     position: relative;
     left: 125px;
-  }
+  } */
 
   .inve-add {
     top: -422px;
@@ -391,6 +408,14 @@ border: 1px solid #fff;
 .lists {
   margin-top: -20px;
 }
+
+::ng-deep .mat-flat-button.mat-primary {
+  background-color: #084982;
+}
+
+/* .mat-form-field-appearance-outline ::ng-deep .mat-form-field-flex {
+  padding: 5px 5px;
+} */
 
 /* common ng-deep */
 

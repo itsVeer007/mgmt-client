@@ -18,7 +18,7 @@ export class AdInfoComponent implements OnInit {
   }
 
   ngOnChanges() {
-    console.log(this.myData)
+    // console.log(this.myData)
   }
 
 }

@@ -98,7 +98,7 @@ export class AddAdditionalSiteComponent implements OnInit {
   }
 
   submit(){
-    console.log("Entered in AddUser:: ", this.addSiteForm.value);
+    // console.log(this.addSiteForm.value);
   }
 
 }

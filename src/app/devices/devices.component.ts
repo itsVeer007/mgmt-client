@@ -152,7 +152,7 @@ export class DevicesComponent implements OnInit {
   deleteRow: any;
 
   deleteRow1(item: any, i: any) {
-    console.log("DELETEROW:: ", item);
+    // console.log(item);
     this.showLoader = true;
     setTimeout(() => {
       this.showLoader = false;
@@ -171,7 +171,7 @@ export class DevicesComponent implements OnInit {
   openEditPopup(item: any, i: any) {
     this.currentItem = JSON.parse(JSON.stringify(item));
     this.editPopup = false;
-    console.log(this.currentItem);
+    // console.log(this.currentItem);
   }
 
   // confirmEditRow(event: any) {
@@ -218,7 +218,7 @@ export class DevicesComponent implements OnInit {
     });
 
     this.ticketSer.updateTicket(this.originalObject).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
 
       if(res) {
         this.updateTicket1 = Swal.fire({
@@ -259,7 +259,7 @@ export class DevicesComponent implements OnInit {
     }
 
     this.ticketSer.assignPerson(myObj).subscribe((res: any) => {
-      console.log(res)
+      // console.log(res)
     })
   }
 
@@ -267,7 +267,7 @@ export class DevicesComponent implements OnInit {
 
   y: any
   openEditStatus(id: any) {
-    console.log(id);
+    // console.log(id);
     this.y = id;
     this.dialog.open(this.editStatusDialog);
   }
@@ -284,7 +284,7 @@ export class DevicesComponent implements OnInit {
     }
 
     this.ticketSer.updateStatus(statusObj).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
     })
   }
 
@@ -292,7 +292,7 @@ export class DevicesComponent implements OnInit {
   openDeletePopup(item: any, i: any) {
     this.currentItem = item;
     this.deletePopup = false;
-    console.log(item);
+    // console.log(item);
   }
 
   confirmDeleteRow() {
@@ -301,7 +301,7 @@ export class DevicesComponent implements OnInit {
     this.deletePopup = true;
 
     this.ticketSer.deleteTicket(this.currentItem).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
     })
   }
 
@@ -339,7 +339,7 @@ export class DevicesComponent implements OnInit {
   viewPopup: boolean = true;
 
   confirmViewRow() {
-    console.log("ToBE Viewed:: ", this.currentItem);
+    // console.log(this.currentItem);
     this.viewPopup = true;
   }
 
@@ -349,7 +349,7 @@ export class DevicesComponent implements OnInit {
 
   openViewPopup(item: any, i: any) {
     this.currentItem = item;
-    console.log("VIEW PAGE:: ", this.currentItem);
+    // console.log(this.currentItem);
     this.viewPopup = false;
   }
 

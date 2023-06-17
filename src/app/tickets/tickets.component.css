@@ -291,19 +291,39 @@ border: 1px solid #fff;
 .modalitem .card .card-body ul li div {
   margin: -8px 0px 5px 5px;
 }
-/* CSS for Popup end */
+
+.search-form {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.filter-search-btn button{
+  margin-bottom: 10px;
+  background-color: #084982;
+  color: #ffffff;
+  border-radius: 5px;
+}
+
+.filter-search-btn button:hover{
+  opacity: 0.9;
+}
 
 
 @media only screen and (max-width: 768px) {
   .search-form {
     display: flex;
     flex-direction: column;
+    align-items: stretch;
   }
 
-  .table-icons {
+
+  /* .table-icons {
     position: relative;
     left: 125px;
-  }
+  } */
 
   .search {
       width: 186px;
@@ -322,7 +342,12 @@ border: 1px solid #fff;
 
 }
 
+::ng-deep .mat-flat-button.mat-primary {
+  background-color: #084982;
+}
+
 /* common ng-deep */
+
 .mat-form-field-appearance-outline ::ng-deep .mat-form-field-outline {
   top: 5px;
   bottom: 5px;
@@ -341,3 +366,8 @@ border: 1px solid #fff;
   position: relative;
   bottom: 4px;
 }
+
+::ng-deep .mat-form-field-outline {
+  background: #F8F8F8;
+}
+

@@ -68,7 +68,7 @@ export class TicketsComponent implements OnInit {
     // });
 
     this.ticketSer.getTickets().subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       this.ticketData = res;
       this.newTicketData = this.ticketData;
     })
@@ -144,7 +144,7 @@ export class TicketsComponent implements OnInit {
     }
 
     this.ticketSer.filteBody(myObj).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       this.newTicketData = res;
 
       if(res == null) {
@@ -216,7 +216,7 @@ export class TicketsComponent implements OnInit {
   openViewPopup(item: any) {
     this.currentItem = item;
     this.dialog.open(this.viewTicketDialog);
-    console.log(this.currentItem);
+    // console.log(this.currentItem);
   }
 
 
@@ -236,7 +236,7 @@ export class TicketsComponent implements OnInit {
   openEditPopup(item: any) {
     this.currentItem = JSON.parse(JSON.stringify(item));
     this.dialog.open(this.editTicketDialog);
-    console.log(this.currentItem);
+    // console.log(this.currentItem);
   }
 
   updateTicket0: any;
@@ -261,7 +261,7 @@ export class TicketsComponent implements OnInit {
     });
 
     this.ticketSer.updateTicket(this.originalObject).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
 
       if(res) {
         this.updateTicket1 = Swal.fire({
@@ -288,7 +288,7 @@ export class TicketsComponent implements OnInit {
   openDeletePopup(item: any) {
     this.currentItem = item;
     this.dialog.open(this.deleteTicketDialog)
-    console.log(item);
+    // console.log(item);
   }
 
   deleteTicket0: any;
@@ -306,7 +306,7 @@ export class TicketsComponent implements OnInit {
     // this.ticketData = this.ticketData.filter((item: any) => item.siteId !== this.currentItem.siteId);
 
     this.ticketSer.deleteTicket(this.currentItem).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
 
       if(res) {
         this.deleteTicket1 = Swal.fire({
@@ -347,7 +347,7 @@ export class TicketsComponent implements OnInit {
     }
 
     this.ticketSer.assignPerson(myObj).subscribe((res: any) => {
-      console.log(res)
+      // console.log(res)
     })
   }
 
@@ -355,7 +355,7 @@ export class TicketsComponent implements OnInit {
 
   y: any
   openEditStatus(id: any) {
-    console.log(id);
+    // console.log(id);
     this.y = id;
     this.dialog.open(this.editStatusDialog);
   }
@@ -380,7 +380,7 @@ export class TicketsComponent implements OnInit {
       allowOutsideClick: false
     });
     this.ticketSer.updateStatus(statusObj).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       if(res) {
         this.ticketStatus1 = Swal.fire({
           icon: 'success',

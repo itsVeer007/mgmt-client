@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { SiteService } from 'src/services/site.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -79,72 +79,43 @@ export class SitesComponent implements OnInit {
   ngOnInit(): void {
     this.getlistSites()
     this.ongetDeviceMode();
-    this.get(this.tableData);
     this.siteData = JSON.parse(localStorage.getItem('temp_sites')!);
-    this.myFun();
+    // this.myFun();
   }
 
 
   getlistSites() {
     this.showLoader = true;
     this.siteSer.listSites().subscribe((res: any) => {
+      // console.log(res);
       this.showLoader = false;
-      this.tableData = res.sitesList;
-      this.totalCount = res.counts;
-      console.log(res);
 
-      //table count
-      for(let item of res.counts) {
-        if(item.title == "totalCounts") {
-          this.totalCount = item.value
-        } else if(item.title == "Active") {
-          this.active = item.value
-        }
-        // if(item.status == "Active") {
-        //   this.active.push(item);
-        // } else if(item.status == "Inactive") {
-        //   this.inActive.push(item);
-        // } else if(item.status == "Onhold") {
-        //   this.onHold.push(item);
-        // }
-      }
+      this.tableData = res.siteList;
+      // this.totalCount = res.counts;
     })
   }
 
-  new: any = [];
-  myFun() {
-    this.siteSer.listSites().subscribe((res: any) => {
-      for(let item of res.sitesList) {
-        this.new.push(item.siteId)
-      }
-    })
+  // new: any = [];
+  // myFun() {
+  //   this.siteSer.listSites().subscribe((res: any) => {
+  //     for(let item of res.sitesList) {
+  //       this.new.push(item.siteId)
+  //     }
+  //   })
 
-    this.devService.listDeviceAdsInfo().subscribe((res: any) => {
-      console.log(res);
-      for(let item of res) {
-        // console.log(item.siteId);
-        // if(item.siteId == this.)
-      }
-      // let x = res.flatMap((item: any) => item.adsDevices);
-      // console.log(x);
-
-      // for(let item of res) {
-      //     this.deviceLength.push(item.adsDevices.length);
-      // }
-      // console.log(this.deviceLength);
-    });
-  }
+  //   this.devService.listDeviceAdsInfo().subscribe((res: any) => {
+  //     console.log(res);
+  //   });
+  // }
 
 
-  deviceData: any
-  get(el: any) {
-    this.devService.getDevice(1102).subscribe((res: any) => {
-      for(let item of res) {
-        if(el == item.siteId) {
-          this.deviceData = item.adsDevices.length;
-        }
-        // console.log(item)
-      }
+  deviceData: any;
+  inputToDevices: any;
+  getDevices(siteId: any) {
+    this.devService.listDeviceBySiteId(siteId).subscribe((res: any) => {
+      this.deviceData = res.flatMap((item: any) => item.adsDevices);
+      this.inputToDevices = this.deviceData;
+      // console.log('site',this.inputToDevices);
     })
   }
 
@@ -160,7 +131,7 @@ export class SitesComponent implements OnInit {
   onGetEngineer(id: any) {
     this.siteSer.getEngineer(id).subscribe((res: any) => {
       this.engineerDetail = res.Engineer_details;
-      console.log(this.engineerDetail);
+      // console.log(this.engineerDetail);
     })
   }
 
@@ -174,7 +145,7 @@ export class SitesComponent implements OnInit {
   onGetCentralboxDetail: any;
   onGetCentralbox(id: any) {
     this.siteSer.getCentralbox(id).subscribe((res: any) => {
-      console.log(res)
+      // console.log(res)
     })
   }
 
@@ -258,8 +229,8 @@ export class SitesComponent implements OnInit {
   //   }
   // }
 
-  selectedAll: any;
 
+  selectedAll: any;
   selectAll() {
     for (var i = 0; i < this.tableData.length; i++) {
       // console.log(this.tableData[i])
@@ -274,24 +245,85 @@ export class SitesComponent implements OnInit {
     })
   }
 
+
   currentItem: any;
 
-  //delete
-  deletePopup: boolean = true;
+  @ViewChild('viewSiteDialog') viewSiteDialog = {} as TemplateRef<any>;
+
+  openViewPopup(item: any, i: any) {
+    this.currentItem = item;
+    this.dialog.open(this.viewSiteDialog);
+    // console.log(this.currentItem);
+  }
+
+  confirmViewRow() {
+    // console.log(this.currentItem);
+  }
+
+  @ViewChild('editSiteDialog') editSiteDialog = {} as TemplateRef<any>;
+
+  openEditPopup(item: any, i: any) {
+    this.currentItem = JSON.parse(JSON.stringify(item));
+    this.dialog.open(this.editSiteDialog);
+  }
+
+  confirmEditRow() {
+    // console.log(this.currentItem);
+  }
+
+
+  @ViewChild('deleteSiteDialog') deleteSiteDialog = {} as TemplateRef<any>;
 
   openDeletePopup(item: any, i: any) {
     this.currentItem = item;
-    this.deletePopup = false;
+    this.dialog.open(this.deleteSiteDialog);
   }
 
   confirmDeleteRow() {
-    console.log("ToBE DELETED:: ", this.currentItem);
+    // console.log(this.currentItem);
     this.tableData = this.tableData.filter((item: any) => item.siteId !== this.currentItem.siteId);
-    this.deletePopup = true;
   }
 
-  closeDeletePopup() {
-    this.deletePopup = true;
+
+  /* checkbox control */
+
+  viewArray: any = [];
+  viewBySelectedOne() {
+    if (this.viewArray.length > 0) {
+      this.dialog.open(this.viewSiteDialog)
+    }
+  }
+
+  ViewByCheckbox(itemV: any, i: any, e: any) {
+    var checked = (e.target.checked);
+    // console.log("View By Checkbox:: ",itemV);
+    // console.log("View Array::" ,this.viewArray);
+    // console.log("present in array : "+this.viewArray.includes(itemV),  " checked : "+ checked)
+    if (checked == true && this.viewArray.includes(itemV) == false) {
+      this.viewArray.push(itemV);
+      this.currentItem = this.viewArray[(this.viewArray.length - 1)];
+    }
+    if (checked == false && this.viewArray.includes(itemV) == true) {
+      this.viewArray.splice(this.viewArray.indexOf(itemV), 1)
+    }
+  }
+
+  editArray: any = [];
+  editBySelectedOne() {
+    if (this.editArray.length > 0) {
+      this.dialog.open(this.editSiteDialog);
+    }
+  }
+
+  EditByCheckbox(itemE: any, i: any, e: any) {
+    var checked = (e.target.checked);
+    if (checked == true && this.editArray.includes(itemE) == false) {
+      this.editArray.push(itemE);
+      this.currentItem = this.editArray[(this.editArray.length - 1)];
+    }
+    if (checked == false && this.editArray.includes(itemE) == true) {
+      this.editArray.splice(this.editArray.indexOf(itemE), 1)
+    }
   }
 
   deletearray: any = [];
@@ -310,7 +342,6 @@ export class SitesComponent implements OnInit {
         this.deletearray.splice(currentindex, 1)
       }
     });
-    // console.log(this.deletearray)
   }
 
   deleteSelected() {
@@ -327,80 +358,6 @@ export class SitesComponent implements OnInit {
   }
 
 
-  //edit
-  editPopup: boolean = true;
-
-  openEditPopup(item: any, i: any) {
-    this.currentItem = JSON.parse(JSON.stringify(item));
-    this.editPopup = false;
-  }
-
-  confirmEditRow() {
-    console.log("TO BE EDITED:: ", this.currentItem);
-    this.editPopup = true;
-  }
-
-  closeEditPopup() {
-    this.editPopup = true;
-  }
-
-  editArray: any = [];
-  EditByCheckbox(itemE: any, i: any, e: any) {
-    var checked = (e.target.checked);
-    if (checked == true && this.editArray.includes(itemE) == false) {
-      this.editArray.push(itemE);
-      this.currentItem = this.editArray[(this.editArray.length - 1)];
-    }
-    if (checked == false && this.editArray.includes(itemE) == true) {
-      this.editArray.splice(this.editArray.indexOf(itemE), 1)
-    }
-  }
-
-  editBySelectedOne() {
-    if (this.editArray.length > 0) {
-      this.editPopup = false;
-    }
-  }
-
-  //view
-  viewPopup: boolean = true;
-
-  openViewPopup(item: any, i: any) {
-    this.currentItem = item;
-    console.log("VIEW PAGE:: ", this.currentItem);
-    this.viewPopup = false;
-  }
-
-  confirmViewRow() {
-    console.log("ToBE Viewed:: ", this.currentItem);
-    this.viewPopup = true;
-  }
-
-  closeViewPopup() {
-    this.viewPopup = true;
-  }
-
-  viewArray: any = [];
-  ViewByCheckbox(itemV: any, i: any, e: any) {
-    var checked = (e.target.checked);
-    // console.log("View By Checkbox:: ",itemV);
-    // console.log("View Array::" ,this.viewArray);
-    // console.log("present in array : "+this.viewArray.includes(itemV),  " checked : "+ checked)
-    if (checked == true && this.viewArray.includes(itemV) == false) {
-      this.viewArray.push(itemV);
-      this.currentItem = this.viewArray[(this.viewArray.length - 1)];
-    }
-    if (checked == false && this.viewArray.includes(itemV) == true) {
-      this.viewArray.splice(this.viewArray.indexOf(itemV), 1)
-    }
-  }
-
-  viewBySelectedOne() {
-    if (this.viewArray.length > 0) {
-      this.viewPopup = false;
-    }
-  }
-
   sorted = false;
   sort(label:any){
     this.sorted = !this.sorted;
@@ -411,10 +368,6 @@ export class SitesComponent implements OnInit {
       x.sort((a:string, b:string) => b[label] > a[label] ? 1 : b[label] < a[label] ? -1 : 0);
     }
   }
-
-  // openDialog() {
-  //   this.dialog.open(pop);
-  // }
 
 }
 

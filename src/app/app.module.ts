@@ -65,13 +65,14 @@ import { AdInfoComponent } from './assets/ad-info/ad-info.component';
 import { ReportsComponent } from './reports/reports.component';
 import { MetaDataComponent } from './meta-data/meta-data.component';
 import { AddMetadataComponent } from './main-dashboard/add-metadata/add-metadata.component';
-import { TestComponent } from './test/test.component';
 
 import { SortPipe } from './utilities/sort.pipe';
 import { DeviceViewComponent } from './main-dashboard/add-device/device-view/device-view.component';
 import { DevicesComponent } from './devices/devices.component';
 
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { ProductMasterComponent } from './product-master/product-master.component';
+import { AddProductMasterComponent } from './main-dashboard/add-product-master/add-product-master.component';
 
 @NgModule({
   declarations: [
@@ -106,10 +107,11 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     ReportsComponent,
     MetaDataComponent,
     AddMetadataComponent,
-    TestComponent,
     SortPipe,
     DeviceViewComponent,
-    DevicesComponent
+    DevicesComponent,
+    ProductMasterComponent,
+    AddProductMasterComponent
   ],
   imports: [
     BrowserModule,

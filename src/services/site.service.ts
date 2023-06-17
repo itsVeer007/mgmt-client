@@ -1,18 +1,29 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+import { environment } from '../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class SiteService {
 
-  baseUrl = 'http://usstaging.ivisecurity.com:777/Mgmt_server-main';
+  baseUrl = `${environment.baseUrl}/businessInterface/sites`;
 
   constructor(private http: HttpClient) { }
 
   listSites() {
-    let url = this.baseUrl + '/sites/listSites_1_0';
-    return this.http.get(url);
+    let x = JSON.parse(localStorage.getItem('user')!);
+
+    let payload = {
+      userName : x.UserName,
+      accessToken : x.access_token,
+      calling_System_Detail: "portal",
+    }
+
+    let url = this.baseUrl + '/sitesList_2_0';
+
+    return this.http.post(url, payload);
   }
 
   getEngineer(id: any) {

@@ -1,15 +1,15 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/services/api.service';
-import { InventoryService } from 'src/services/inventory.service';
+import { ProductMasterService } from 'src/services/product-master.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-add-new-inventory',
-  templateUrl: './add-new-inventory.component.html',
-  styleUrls: ['./add-new-inventory.component.css'],
+  selector: 'app-add-product-master',
+  templateUrl: './add-product-master.component.html',
+  styleUrls: ['./add-product-master.component.css'],
   animations:[
     trigger("inOutPaneAnimation", [
       transition(":enter", [
@@ -29,8 +29,9 @@ import Swal from 'sweetalert2';
     ])
   ]
 })
-export class AddNewInventoryComponent implements OnInit {
-  constructor(private router: Router, private inventorySer: InventoryService, private apiser: ApiService, private fb: FormBuilder) { }
+export class AddProductMasterComponent implements OnInit {
+
+  constructor(private router: Router, private productMasterSer: ProductMasterService, private apiser: ApiService, private fb: FormBuilder) { }
 
   @Input() show:any;
 
@@ -51,39 +52,37 @@ export class AddNewInventoryComponent implements OnInit {
 
   UserForm: any =  FormGroup;
 
-  x = {
-    inv: {
-      productSerialNo: "",
-      productName: "",
-      productBrand: "",
-      productCategory: "",
-      details: "",
-      status: "Installed",
-      cost: null,
-      price: null
-    },
-    warr: {
-        warrantyStartDate: "",
-        warrantyEndDate: "",
-        vendor: "",
-        remarks: ""
-    }
+  prductMasterObj = {
+    productCategoryId: null,
+    name: "",
+    description: "",
+    uomId: null,
+    productModelId: null,
+    productTypeId: null,
+    cost: "",
+    purchaseVendorId: null,
+    purchaseLink: "",
+    returnable: "N",
+    maintenanceRequired: "N",
+    productStatusId: 1,
+    remarks: ""
   }
 
-  // email: string = "";
 
   ngOnInit() {
     this.UserForm = this.fb.group({
-      'productSerialNo': new FormControl('', Validators.required),
-      'productName': new FormControl('', Validators.required),
-      'productBrand': new FormControl('', Validators.required),
-      'productCategory': new FormControl('', Validators.required),
-      // 'status': new FormControl(''),
+      'productCategoryId': new FormControl(''),
+      'name': new FormControl(''),
+      'description': new FormControl(''),
+      'uomId': new FormControl(''),
+      'productModelId': new FormControl(''),
+      'productTypeId': new FormControl(''),
       'cost': new FormControl(''),
-      'price': new FormControl(''),
-      'warrantyStartDate': new FormControl(''),
-      'warrantyEndDate': new FormControl(''),
-      'vendor': new FormControl('', Validators.required),
+      'purchaseVendorId': new FormControl(''),
+      'purchaseLink': new FormControl(''),
+      'returnable': new FormControl(''),
+      'maintenanceRequired': new FormControl(''),
+      // 'productStatusId': new FormControl(''),
       'remarks': new FormControl('')
     });
   }
@@ -103,7 +102,7 @@ export class AddNewInventoryComponent implements OnInit {
   addInventory1: any;
   addInventory2: any;
   submit() {
-    // console.log(this.x);
+    // console.log(this.prductMasterObj);
     if(this.UserForm.valid) {
       this.addInventory2 = Swal.fire({
         text: "Please wait",
@@ -111,7 +110,7 @@ export class AddNewInventoryComponent implements OnInit {
         showConfirmButton: false,
         allowOutsideClick: false
       });
-      this.inventorySer.createInventory(this.x).subscribe((res: any) => {
+      this.productMasterSer.addingproduct(this.prductMasterObj).subscribe((res: any) => {
         // console.log(res);
 
         if(res) {

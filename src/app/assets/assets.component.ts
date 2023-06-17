@@ -74,6 +74,12 @@ export class AssetsComponent implements OnInit {
     this.ongetDeviceMode();
 
     this.devDevId = JSON.parse(localStorage.getItem('device_temp')!);
+    // this.refreshList()
+  }
+
+  refreshList(newData: any) {
+    // this.filterDevices(newData);
+    // console.log(newData)
   }
 
 
@@ -96,7 +102,7 @@ export class AssetsComponent implements OnInit {
 
   getSiteData() {
     this.devSercice.listDeviceAdsInfo().subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       let sites = res.sort((a: any, b: any) => a.siteId < b.siteId ? -1 : a.siteId > b.siteId ? 1 : 0);
 
       this.siteIdToTable = sites.flatMap((item: any) => item.siteId);
@@ -114,10 +120,7 @@ export class AssetsComponent implements OnInit {
   }
 
   searchSiteId() {
-    this.siteIdSearch.valueChanges.pipe(
-      startWith(''),
-      map(value => this.filterOptions(value))
-    ).subscribe(filtered => {
+    this.siteIdSearch.valueChanges.pipe(startWith(''),map((value: any) => this.filterOptions(value))).subscribe(filtered => {
       this.filteredOptions = filtered;
     });
 
@@ -128,26 +131,16 @@ export class AssetsComponent implements OnInit {
 
   myData: any;
   filterSiteId(data: any) {
-    this.devSercice.getDevice(data).subscribe((res: any) => {
-
+    this.devSercice.listDeviceBySiteId(data).subscribe((res: any) => {
       this.deviceId = res.flatMap((item: any) => item.adsDevices);
       this.newDeviceId = this.deviceId;
     });
 
     this.assetService.getAssetBySiteId(data).subscribe((res: any) => {
-
       let x  = res.flatMap((item: any) => item.assets);
       this.newAssetTable = x;
       this.myData = this.newAssetTable;
       this.cdr.detectChanges();
-
-      if(this.newAssetTable.length == 0) {
-        this.assetMsg = 'No Data';
-        this.cdr.detectChanges();
-      } else {
-        this.assetMsg = '';
-        this.cdr.detectChanges();
-      }
     })
 
 
@@ -187,19 +180,10 @@ export class AssetsComponent implements OnInit {
         const assets = res.flatMap((item: any) => item.assets);
         this.assetTable = assets;
         this.newAssetTable = this.assetTable;
-        console.log(this.assetTable);
+        // console.log(this.assetTable);
         this.cdr.detectChanges();
       } else if(data == 'All') {
         this.newAssetTable = this.myData;
-      }
-
-
-      if(this.newAssetTable.length == 0) {
-        this.assetMsg = 'No Data';
-        this.cdr.detectChanges();
-      } else {
-        this.assetMsg = '';
-        this.cdr.detectChanges();
       }
     })
   }
@@ -302,7 +286,7 @@ export class AssetsComponent implements OnInit {
     this.currentItem = item;
     this.dialog.open(this.viewAssetDialog);
 
-    console.log("VIEW PAGE:: ", this.currentItem);
+    // console.log(this.currentItem);
   }
 
 
@@ -315,7 +299,7 @@ export class AssetsComponent implements OnInit {
     this.dialog.open(this.editAsset);
 
     this.currentItem = JSON.parse(JSON.stringify(item));
-    console.log(item);
+    // console.log(item);
   }
 
 
@@ -323,7 +307,28 @@ export class AssetsComponent implements OnInit {
   originalObject: any;
   changedKeys: any[] = [];
 
-  on(event: any) {
+  onDateChange(e: any) {
+    this.originalObject = {
+      "id": this.currentItem.id,
+      "deviceModeId": this.currentItem.deviceModeId,
+      "playOrder": this.currentItem.playOrder,
+      "modifiedBy": 1,
+      "fromDate": this.currentItem.fromDate,
+      "toDate": this.currentItem.toDate,
+      "active": this.currentItem.active,
+      "status": this.currentItem.status
+    };
+
+    let x = e.targetElement.name;
+
+    if(!(this.changedKeys.includes(x))) {
+      this.changedKeys.push(x);
+    }
+
+    // console.log(this.changedKeys);
+  }
+
+  onSelectChange(event: any) {
     this.originalObject = {
       "id": this.currentItem.id,
       "deviceModeId": this.currentItem.deviceModeId,
@@ -340,15 +345,11 @@ export class AssetsComponent implements OnInit {
     if(!(this.changedKeys.includes(x))) {
       this.changedKeys.push(x);
     }
+
+    // console.log(this.changedKeys);
   }
 
-  onDateChange(e: any) {
-    // console.log(e.targetElement.name);
-    let x = e.targetElement.name;
-    this.changedKeys.push(x);
-  }
-
-  onChange(event: any) {
+  onInputChange(event: any) {
     this.originalObject = {
       "id": this.currentItem.id,
       "deviceModeId": this.currentItem.deviceModeId,
@@ -361,18 +362,22 @@ export class AssetsComponent implements OnInit {
     };
 
     let x = event.target['name'];
+
     if(!(this.changedKeys.includes(x))) {
       this.changedKeys.push(x);
       // this.originalObject[x] = event.target.value;
     }
-    console.log(this.changedKeys);
-    console.log(this.originalObject);
+
+    // console.log(this.changedKeys);
   }
 
   assetUpdate0: any;
   assetUpdate1: any;
   assetUpdate2: any;
   confirmEditRow() {
+    this.originalObject.fromDate = this.datepipe.transform(this.currentItem.fromDate, 'yyyy-MM-dd');
+    this.originalObject.toDate = this.datepipe.transform(this.currentItem.toDate, 'yyyy-MM-dd');
+
     this.assetUpdate2 = Swal.fire({
       text: "Please wait",
       imageUrl: "assets/gif/ajax-loading-gif.gif",
@@ -381,7 +386,7 @@ export class AssetsComponent implements OnInit {
     });
 
     this.assetService.modifyAssetForDevice({asset: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       if(res) {
         this.assetUpdate1 = Swal.fire({
           icon: 'success',
@@ -416,14 +421,14 @@ export class AssetsComponent implements OnInit {
   }
 
   deleteRow1(item: any, i: any) {
-    console.log("DELETEROW:: ", item);
+    // console.log(item);
     setTimeout(() => {
       this.assetTable.splice(i, 1);
     }, 1000);
   }
 
   confirmDeleteRow() {
-    console.log(this.currentItem);
+    // console.log(this.currentItem);
     // this.assetTable = this.assetTable.filter((item: any) => item.siteId !== this.currentItem.siteId);
   }
 
@@ -533,7 +538,7 @@ export class AssetsComponent implements OnInit {
   openEditStatus(id: any) {
     this.dialog.open(this.editStatus);
     this.currentStatusId = id;
-    console.log(id);
+    // console.log(id);
     // this.dialog.closeAll();
   }
 
@@ -555,7 +560,7 @@ export class AssetsComponent implements OnInit {
     });
 
     this.assetService.updateAssetStatus(this.currentStatusId, this.statusObj).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
 
       if(res) {
         this.statusUpdate1 = Swal.fire({
@@ -572,7 +577,7 @@ export class AssetsComponent implements OnInit {
       }, 3000);
 
     }, (err: any) => {
-      console.log(err);
+      // console.log(err);
       if(err) {
         this.statusUpdate0 = Swal.fire({
           icon: 'error',
@@ -610,15 +615,5 @@ export class AssetsComponent implements OnInit {
   hideDetail() {
     this.info = false;
   }
-
-
-  // videoElement: any;
-  // toDownload(id: any) {
-  //   this.assetService.download(id).subscribe((res: any) => {
-  //     console.log(res);
-  //     this.videoElement = res.url;
-  //     // console.log(this.videoElement);
-  //   })
-  // }
 
 }

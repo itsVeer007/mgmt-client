@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -10,7 +11,8 @@ export class ApiService {
   user$ = new BehaviorSubject(null);
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) { }
 
   baseUrl = "http://usmgmt.iviscloud.net:777/businessInterface/";
@@ -20,10 +22,14 @@ export class ApiService {
     return this.http.post(url, payload);
   }
 
+  logout() {
+    this.router.navigate(['/login']);
+  }
+
   addUser(payload: any) {
     let url = this.baseUrl+"User/addUser_1_0";
     var user = JSON.parse(localStorage.getItem('user')!);
-    console.log(user);
+    // console.log(user);
     payload.accesstoken = user.access_token;
     payload.callingUsername = user.UserName;
     return this.http.post(url, payload);
@@ -32,7 +38,7 @@ export class ApiService {
   getUser(email: string) {
     let url = this.baseUrl+"/User/getUser_1_0";
     var user = JSON.parse(localStorage.getItem('user')!);
-    console.log('user', user);
+    // console.log('user', user);
 
     var payload = {
       "email": email,
@@ -40,7 +46,7 @@ export class ApiService {
       "accesstoken": user.access_token,
       "callingSystemDetail":"portal"
     }
-    console.log('pay', payload)
+    // console.log(payload)
     return this.http.post(url, payload);
   }
 

@@ -18,8 +18,8 @@ import { AnalyticsComponent } from './analytics/analytics.component';
 import { VerticalsComponent } from './verticals/verticals.component';
 import { ReportsComponent } from './reports/reports.component';
 import { MetaDataComponent } from './meta-data/meta-data.component';
-import { TestComponent } from './test/test.component';
 import { DevicesComponent } from './devices/devices.component';
+import { ProductMasterComponent } from './product-master/product-master.component';
 const routes: Routes = [];
 
 @NgModule({
@@ -39,12 +39,11 @@ const routes: Routes = [];
     { path: 'customers', component: CustomersComponent },
     { path: 'users', component: UsersComponent },
     { path: 'inventory', component: InventoryComponent },
+    { path: 'product-master', component: ProductMasterComponent },
     { path: 'assets', component: AssetsComponent },
     { path: 'tickets', component: TicketsComponent },
     { path: 'reports', component: ReportsComponent },
     { path: 'meta', component: MetaDataComponent },
-
-    { path: 'test', component: TestComponent }
   ])],
   exports: [RouterModule]
 })

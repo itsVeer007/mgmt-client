@@ -108,10 +108,10 @@
                 <input type="checkbox" class="form-check-input" [(ngModel)]="data.selected" (change)="checkIfAllSelected(); deleteMultiRecords(data, i, $event); ViewByCheckbox(data, i, $event); EditByCheckbox(data, i, $event)" id="singleCheck">
               </td>
               <td>
-                <p>{{data.siteId}}</p>
+                <p>{{ data.siteid }}</p>
               </td>
               <td>
-                <p>{{ data.siteName ? data.siteName : '--' }}</p>
+                <p>{{ data.sitename ? data.sitename : '--' }}</p>
               </td>
               <td>
                 <!-- <p>{{data.customer}}</p> -->
@@ -190,13 +190,13 @@
               </td>
 
               <td>
-                <a class="pointer" (click)="show('device'); saveSiteData(data)">
+                <a class="pointer" (click)="show('device'); getDevices(data.siteid); saveSiteData(data)">
                     <img src="assets/icons/add-svg.svg" width="25" height="25" >
-                  <span class="ms-2">{{ deviceLength }}</span>
+                  <!-- <span class="ms-2">{{ deviceLength }}</span> -->
                 </a>
               </td>
 
-              <td>
+              <td style="position: relative;">
                 <a class="pointer" (click)="closeDot($event,i)"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
 
                 <div class="plus-img1" id="plus{{i}}" style="display: none;">
@@ -230,126 +230,105 @@
 
 </div>
 
-<!-- Delete Popup -->
-<div class="modalitem max-center" [hidden]="deletePopup">
-  <div class="card">
-    <div class="card-header d-flex justify-content-between">
-      <p>Delete Row</p>
-      <img src="assets/icons/close_form.svg" width="40" height="40" (click)="closeDeletePopup()" />
+<!-- delete popup -->
+<ng-template #deleteSiteDialog>
+  <div class="d-flex justify-content-between">
+    <p>Delete Row</p>
+  </div>
+  <div class="text-center">Do you want to delete this item?</div>
+
+  <div class="d-flex align-items-center justify-content-end">
+    <div mat-dialog-actions class="me-2">
+      <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124;" mat-dialog-close>Close</button>
     </div>
-    <div class="card-body text-center">Do you want to delete this item?</div>
-    <div class="card-footer">
-      <button type="button" class="btn btn-primary mx-2" (click)="confirmDeleteRow()">
-        OK
-      </button>
-      <button type="button" class="btn btn-danger" (click)="closeDeletePopup()">
-        Close
-      </button>
+    <div mat-dialog-actions>
+      <button mat-stroked-button style="color: #084982; border: 1px solid #084982;" mat-dialog-close (click)="confirmDeleteRow()">OK</button>
     </div>
   </div>
-  <!-- </div> -->
-</div>
+</ng-template>
+<!-- delete popup -->
 
-<!-- Edit Popup -->
-<div class="modalitem max-center" [hidden]="editPopup">
-  <div class="card">
-    <div class="card-header d-flex justify-content-between">
-      <p>Edit</p>
-      <img src="assets/icons/close_form.svg" width="40" height="40" (click)="closeEditPopup()" />
+<!-- edit popup -->
+<ng-template #editSiteDialog>
+  <div>
+    <p style="font-weight: 600; color: #ABABAB;">MODIFY SITE</p>
+  </div>
+
+  <div class="mb-3">
+    <span style="font-size: 16px">Asset Id: </span>
+    <span style="font-size: 16px; font-weight: 700;">{{ currentItem.siteid }}</span>
+  </div>
+
+  <div class="row" *ngIf="currentItem">
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Site Name</mat-label>
+        <input name="deviceDescription" matInput [(ngModel)]="currentItem.sitename">
+      </mat-form-field>
     </div>
-    <div class="card-body text-center">
-      <ul *ngIf="currentItem">
-        <li>
-          <h6 style="width: 110px">Site Id</h6>
-          <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.siteId" />
-          </div>
-        </li>
-        <li>
-          <h6 style="width: 110px">Customer</h6>
-          <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.siteName" />
-          </div>
-        </li>
-        <li>
-          <h6 style="width: 110px">Cust Type</h6>
-          <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.cntrl_Unit" />
-          </div>
-        </li>
-        <li>
-          <h6 style="width: 110px">Contact Number</h6>
-          <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.services" />
-          </div>
-        </li>
-        <li>
-          <h6 style="width: 110px">Status</h6>
-          <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.status" />
-          </div>
-        </li>
-      </ul>
-    </div>
-    <div class="card-footer">
-      <button type="button" class="btn mx-2" style="background-color: #084982; color: #ffffff;" (click)="confirmEditRow()">
-        Update
-      </button>
-      <button type="button" class="btn btn-danger" (click)="closeEditPopup()">
-        Close
-      </button>
+
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Location Type</mat-label>
+        <input name="deviceDescription" matInput [(ngModel)]="currentItem.LocationType">
+      </mat-form-field>
     </div>
   </div>
-</div>
 
-<!-- /Hide Popup -->
-<div class="modalitem max-center" [hidden]="viewPopup">
-  <div class="card">
-    <div class="card-header d-flex justify-content-between">
-      <p>Assets</p>
-      <img src="assets/icons/close_form.svg" width="40" height="40" (click)="closeViewPopup()" />
+  <div class="d-flex align-items-center justify-content-end">
+    <div mat-dialog-actions class="me-2">
+      <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124;" mat-dialog-close>Close</button>
     </div>
-    <div class="card-body text-center">
-      <ul *ngIf="currentItem">
-        <li>
-          <h6 style="width: 110px">Site Id</h6>
-          {{ currentItem?.siteID }}
-        </li>
-        <li>
-          <h6 style="width: 110px">Asset Name</h6>
-          {{ currentItem?.siteName }}
-        </li>
-        <li>
-          <h6 style="width: 110px">Device Mode</h6>
-          {{ currentItem?.cntrl_Unit }}
-        </li>
-        <li>
-          <h6 style="width: 110px">Mime Type</h6>
-          {{ currentItem?.services }}
-        </li>
-        <li>
-          <h6 style="width: 110px">Status</h6>
-          {{ currentItem?.status }}
-        </li>
-      </ul>
-    </div>
-
-    <div class="card-footer">
-      <!-- <button type="button" class="btn btn-primary" (click)="confirmViewRow()">OK</button> -->
-      <button type="button" class="btn btn-danger" (click)="closeViewPopup()">
-        Close
-      </button>
+    <div mat-dialog-actions>
+      <button mat-stroked-button style="color: #084982; border: 1px solid #084982;" mat-dialog-close (click)="confirmEditRow()">Update</button>
     </div>
   </div>
-  <!-- </div> -->
-</div>
+</ng-template>
+<!-- edit popup -->
+
+<!-- view popup -->
+<ng-template #viewSiteDialog>
+  <div *ngIf="currentItem">
+    <div>
+      <mat-list>
+        <mat-list-item>
+          <span style="width: 130px; color: #ABABAB;">Site Id:</span> {{ currentItem.siteid ? currentItem.siteid : '--' }}
+        </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item>
+          <span style="width: 130px; color: #ABABAB;">Site Name:</span> {{ currentItem.sitename ? currentItem.sitename : '--' }}
+        </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item>
+          <span style="width: 130px; color: #ABABAB;">Short Name:</span> {{ currentItem.siteShortName ? currentItem.siteShortName : '--' }}
+        </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item>
+          <span style="width: 130px; color: #ABABAB;">Device External Id:</span> {{ currentItem.deviceExternalId ? currentItem.deviceExternalId : '--' }}
+        </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item>
+          <span style="width: 130px; color: #ABABAB;">Location Type:</span> {{ currentItem.LocationType ? currentItem.LocationType : '--' }}
+        </mat-list-item>
+      </mat-list>
+    </div>
+    <div mat-dialog-actions>
+      <button mat-stroked-button style="color: #D34124 ;" mat-dialog-close>Close</button>
+    </div>
+  </div>
+</ng-template>
+<!-- view popup-->
 
 
 
 <div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showAddSite">
-    <app-add-new-site (newItemEvent)="closenow('site', $event)"></app-add-new-site>
+  <app-add-new-site (newItemEvent)="closenow('site', $event)"></app-add-new-site>
 </div>
 
 <div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showAddDevice">
-  <app-add-device (newItemEvent)="closenow('device', $event)"></app-add-device>
+  <app-add-device [fromSites]="inputToDevices" (newItemEvent)="closenow('device', $event)"></app-add-device>
 </div>

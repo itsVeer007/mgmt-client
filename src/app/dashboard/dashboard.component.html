@@ -55,6 +55,11 @@
             <span>Inventory</span>
           </a>
 
+          <a class="list-group-item " [routerLink]="['/product-master']" routerLinkActive="routeactive">
+            <img src="assets/icons/inventory.svg">
+            <span>Product Master</span>
+          </a>
+
           <a class="list-group-item " [routerLink]="['/devices']" routerLinkActive="routeactive">
             <img src="assets/icons/devices.svg">
             <span>Devices</span>
@@ -98,29 +103,44 @@
 
 <!-- Profile Details -->
 <div class="card profile-card" *ngIf="profile" id="profiles">
-    <div class="card-header d-flex flex-column justify-content">
-        <img src="assets/icons/Ellipse 25@2x.png" width="100" height="100" />
-        <span class="mt-2">User Name</span>
-        <span>+91 XXXXX XXXXX<br>user@gmail.com</span>
+  <div class="card-header d-flex flex-column justify-content">
+    <div class="text-center">
+      <img src="assets/icons/Ellipse 25@2x.png" width="100">
     </div>
-    <div class="card-body">
-        <div>
-          <a class="mx-2 pointer"><img src="assets/icons/edit-line@2x.png" width="15" height="15" /> <span class="mx-2">Edit Profile</span></a>
-        </div>
-        <div>
-          <a class="mx-2 pointer"><img src="assets/icons/Union 48@2x.png" width="15" height="15" /> <span class="mx-2">Change Password</span></a>
-        </div>
-        <div>
-          <a class="mx-2 pointer"><img src="assets/icons/info-outline.svg" width="15" height="15" /> <span class="mx-2">Terms & Conditions</span></a>
-        </div>
+
+    <div class="d-flex justify-content-center my-2">
+      <div class="d-flex flex-column">
+        <span>User Name</span>
+        <span>Contact</span>
+        <span>Email</span>
+      </div>
+
+      <div class="d-flex flex-column ms-3">
+        <span style="font-weight: 600;">: {{ user?.UserName }}</span>
+        <span style="font-weight: 600;">: {{ user?.contact }}</span>
+        <span style="font-weight: 600;">: {{ user?.email }}</span>
+      </div>
     </div>
-    <div class="card-footer">
-        <button class="btn text-white" (click)="logout()"> LOG OUT</button>
-    </div>
+  </div>
+
+  <div class="card-body">
+      <div>
+        <a class="mx-2 pointer"><img src="assets/icons/edit-line@2x.png" width="15" height="15" /> <span class="mx-2">Edit Profile</span></a>
+      </div>
+      <div>
+        <a class="mx-2 pointer"><img src="assets/icons/Union 48@2x.png" width="15" height="15" /> <span class="mx-2">Change Password</span></a>
+      </div>
+      <div>
+        <a class="mx-2 pointer"><img src="assets/icons/info-outline.svg" width="15" height="15" /> <span class="mx-2">Terms & Conditions</span></a>
+      </div>
+  </div>
+  <div class="card-footer">
+      <button class="btn text-white" (click)="logout()"> LOG OUT</button>
+  </div>
 </div>
 
-<!-- Mobile View Menu -->
 
+<!-- Mobile View Menu -->
 <div class="col-sm-12 col-xs-12 mobile-sidebar" id="sidebar" *ngIf="show" style="z-index: 1;">
     <nav class="d-sm-xs-block">
         <div class="list-group text-white text-center">
@@ -155,6 +175,10 @@
               <img src="assets/icons/inventory.svg" /><span>Inventory</span>
             </a>
 
+            <a class="list-group-item my-2" [routerLink]="['/product-master']" routerLinkActive="routeactive">
+              <img src="assets/icons/inventory.svg" /><span>Product Master</span>
+            </a>
+
             <a class="list-group-item my-2" [routerLink]="['/devices']" routerLinkActive="routeactive">
               <img src="assets/icons/devices.svg" /><span>Devices</span>
             </a>
@@ -177,3 +201,4 @@
         </div>
     </nav>
 </div>
+<!-- /Mobile View Menu -->

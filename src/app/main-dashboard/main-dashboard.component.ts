@@ -157,7 +157,7 @@ export class MainDashboardComponent implements OnInit {
 
   showmenu(event: any) {
     var x = event.target.parentNode.previousElementSibling;
-    console.log(x.style)
+    // console.log(x.style)
     // var x = <HTMLElement>document.getElementById("icons");
     // x.style.display = "flex";
     // x.style.opacity = "1";
@@ -316,7 +316,7 @@ export class MainDashboardComponent implements OnInit {
   iconss1(e: any, i: any) {
     this.currentid = i;
     var x = e.target.parentNode.previousElementSibling;
-    console.log("MainDashboard:: ", x.id)
+    // console.log(x.id)
     if (x.id.includes("icons1")) {
       if (x.style.display == 'none') {
         x.style.display = 'block';

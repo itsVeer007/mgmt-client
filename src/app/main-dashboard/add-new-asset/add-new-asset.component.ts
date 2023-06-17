@@ -35,22 +35,23 @@ import Swal from 'sweetalert2';
 export class AddNewAssetComponent implements OnInit {
 
   // @Input() data: any;
-  @Output() newItemEvent = new EventEmitter<boolean>();
-  currentDate = new Date();
+  @Output() newItemEvent = new EventEmitter<any>();
+  // @Output() dataAdded = new EventEmitter<any>();
 
   // @Output() newUser = new EventEmitter<any>();
 
   // @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
-  //   var x = <HTMLElement>document.getElementById(`camera`);
-  //   if (x != null) {
-  //     if (!x.contains(e.target)) {
-  //       this.closeAddCamera(false);
-  //     }
-  //   }
-  // }
+    //   var x = <HTMLElement>document.getElementById(`camera`);
+    //   if (x != null) {
+      //     if (!x.contains(e.target)) {
+        //       this.closeAddCamera(false);
+        //     }
+        //   }
+        // }
 
   addAssetForm: any = FormGroup;
   searchText: any;
+  currentDate = new Date();
   // loading: boolean = false;
 
   constructor(
@@ -67,7 +68,6 @@ export class AddNewAssetComponent implements OnInit {
   /* Asset Object */
 
   assetData = {
-    // siteId: null,
     file: null,
     asset: {
       deviceId: '',
@@ -126,20 +126,7 @@ export class AddNewAssetComponent implements OnInit {
     this.deviceIdFromStorage = JSON.parse(localStorage.getItem('device_temp')!);
 
     this.onMetadataChange()
-    this.getId();
     this.getRes();
-
-    // this.addAssetForm.get('adsKidsCount').valueChanges.subscribe((val: any) => {
-    //   console.log(val)
-
-    //   if(val == '0') {
-    //     this.addAssetForm.get('adsKidsCount').setValidators(Validators.required);
-    //   } else {
-    //     this.addAssetForm.get('adsKidsCount').clearValidators();
-    //   }
-
-    //   this.addAssetForm.get('adsKidsCount').updateValueAndValidity();
-    // })
   };
 
   data: any;
@@ -169,23 +156,22 @@ export class AddNewAssetComponent implements OnInit {
   /* File Upload Method */
 
   selectedFile: any;
-  selectedFiles:  Array<any> = [];
+  // selectedFiles:  Array<any> = [];
   onFileSelected(event: any) {
     if(typeof(event) == 'object') {
       this.selectedFile = event.target.files[0] ?? null;
-      this.selectedFiles.push(this.selectedFile);
-      console.log(this.selectedFile);
+      // console.log(this.selectedFile);
     }
   }
 
-  deleteFile(el : any) {
-    this.selectedFiles.forEach((value, index) => {
-      if(value == el) {
-        this.selectedFiles.splice(index, 1);
-        this.selectedFile = null;
-        this.assetData.file = null;
-      }
-    })
+  deleteFile() {
+    // this.selectedFiles.forEach((value, index) => {
+    //   if(value == el) {
+    //     this.selectedFiles.splice(index, 1);
+    //   }
+    // })
+    this.selectedFile = null;
+    this.assetData.file = null;
   }
 
 
@@ -254,32 +240,6 @@ export class AddNewAssetComponent implements OnInit {
   }
 
 
-  /* To get Id's of site */
-
-  // siteIdList: any
-  // deviceIdList: any
-  getId() {
-    // this.siteIdList = this.data.reduce((acc: any, current: any) => {
-    //   const x = acc.find((item: any) => item.siteId == current.siteId);
-    //   if (!x) {
-    //     return acc.concat([current]);
-    //   } else {
-    //     return acc;
-    //   }
-    // }, []);
-    // console.log(this.data)
-
-    // this.deviceIdList = this.data.reduce((acc: any, current: any) => {
-    //   const x = acc.find((item: any) => item.siteId == current.siteId);
-    //   if (!x) {
-    //     return acc.concat([current]);
-    //   } else {
-    //     return acc;
-    //   }
-    // }, []);
-  }
-
-
   /* Search for Get Site and Device Id's */
 
   sit: string = '';
@@ -302,8 +262,9 @@ export class AddNewAssetComponent implements OnInit {
   addAsset2: any;
   addNewAsset() {
     this.assetData.asset.deviceId = this.deviceIdFromStorage;
+    this.newItemEvent.emit(this.deviceIdFromStorage);
     this.submit = true;
-    console.log('assetData', this.assetData);
+    // console.log('assetData', this.assetData);
 
     if(this.addAssetForm.valid) {
       this.newItemEvent.emit(false);
@@ -315,8 +276,9 @@ export class AddNewAssetComponent implements OnInit {
         allowOutsideClick: false
       });
 
+
       this.assetService.addAsset(this.assetData, this.selectedFile).subscribe((res: any) => {
-        console.log('addAsset', res);
+        // console.log('addAsset', res);
           if(res) {
             this.addAsset1 = Swal.fire({
               icon: 'success',
@@ -330,7 +292,7 @@ export class AddNewAssetComponent implements OnInit {
             }, 3000);
 
           }, (err: any) => {
-            console.log(err);
+            // console.log(err);
             if(err) {
               this.addAsset0 = Swal.fire({
                 icon: 'warning',
@@ -342,15 +304,5 @@ export class AddNewAssetComponent implements OnInit {
           });
     }
   }
-
-  // isChecked = true;
-  // formGroup = this.fb.group({
-  //   enableWifi: '',
-  // });
-
-  // alertFormValues(formGroup: FormGroup) {
-  //   alert(JSON.stringify(formGroup.value, null, 2));
-  // }
-
 
 }

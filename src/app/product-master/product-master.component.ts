@@ -2,16 +2,15 @@ import { HttpClient } from '@angular/common/http';
 import { Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AssetService } from 'src/services/asset.service';
-import { InventoryService } from 'src/services/inventory.service';
+import { ProductMasterService } from 'src/services/product-master.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-inventory',
-  templateUrl: './inventory.component.html',
-  styleUrls: ['./inventory.component.css']
+  selector: 'app-product-master',
+  templateUrl: './product-master.component.html',
+  styleUrls: ['./product-master.component.css']
 })
-export class InventoryComponent implements OnInit {
-
+export class ProductMasterComponent implements OnInit {
 
   @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
     var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);
@@ -39,7 +38,7 @@ export class InventoryComponent implements OnInit {
 
 
   showLoader = false;
-  constructor(private http: HttpClient, private ass: AssetService, private inventorySer: InventoryService, public dialog: MatDialog) { }
+  constructor(private http: HttpClient, private ass: AssetService, private productMasterSer: ProductMasterService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getInventory();
@@ -61,54 +60,57 @@ export class InventoryComponent implements OnInit {
 
   searchText: any;
   searchTx: any;
-  inventoryTable: any = [];
-  newInventoryTable: any = [];
+  productMaster: any = [];
+  newProductMaster: any = [];
 
   installed: any = [];
   inStock: any = [];
   scrap: any = [];
   redyToUse: any = [];
   getInventory() {
-    this.inventorySer.getListing().subscribe((res: any) => {
+    this.productMasterSer.list().subscribe((res: any) => {
       // console.log(res);
-      this.inventoryTable = res;
-      this.newInventoryTable = this.inventoryTable;
+      this.productMasterSer.mySub = res;
+      // console.log(this.productMasterSer.mySub);
 
-      for(let item of this.inventoryTable) {
-        if(item.status == 'Installed') {
-          this.installed.push(item);
-        } else if(item.status == 'In-Stock') {
-          this.inStock.push(item);
-        } else if(item.status == 'Scrap') {
-          this.scrap.push(item);
-        } else if(item.status == 'ReadyToReuse') {
-          this.redyToUse.push(item);
-        }
-      }
+      this.productMaster = res;
+      this.newProductMaster = this.productMaster;
+
+      // for(let item of this.productMaster) {
+      //   if(item.status == 'Installed') {
+      //     this.installed.push(item);
+      //   } else if(item.status == 'In-Stock') {
+      //     this.inStock.push(item);
+      //   } else if(item.status == 'Scrap') {
+      //     this.scrap.push(item);
+      //   } else if(item.status == 'ReadyToReuse') {
+      //     this.redyToUse.push(item);
+      //   }
+      // }
     });
   }
 
   // filterBrand(val: any) {
   //   if(val == 'none') {
-  //     this.newInventoryTable = this.inventoryTable;
+  //     this.newProductMaster = this.productMaster;
   //   } else {
-  //     this.newInventoryTable = this.inventoryTable.filter((el: any) => el.productBrand == val);
+  //     this.newProductMaster = this.productMaster.filter((el: any) => el.productBrand == val);
   //   }
   // }
 
   // filterCategory(val: any) {
   //   if(val == 'none') {
-  //     this.newInventoryTable = this.inventoryTable;
+  //     this.newProductMaster = this.productMaster;
   //   } else {
-  //     this.newInventoryTable = this.inventoryTable.filter((el: any) => el.productCategory == val);
+  //     this.newProductMaster = this.productMaster.filter((el: any) => el.productCategory == val);
   //   }
   // }
 
   // filterStatus(val: any) {
   //   if(val == 'none') {
-  //     this.newInventoryTable = this.inventoryTable;
+  //     this.newProductMaster = this.productMaster;
   //   } else {
-  //     this.newInventoryTable = this.inventoryTable.filter((el: any) => el.status == val);
+  //     this.newProductMaster = this.productMaster.filter((el: any) => el.status == val);
   //   }
   // }
 
@@ -117,7 +119,7 @@ export class InventoryComponent implements OnInit {
   categoryTypes: any;
   statusVal: any;
   removeDuplicates() {
-    this.brandNames = this.inventoryTable.reduce((acc: any, current: any) => {
+    this.brandNames = this.productMaster.reduce((acc: any, current: any) => {
       const x = acc.find((item: any) => item.productBrand == current.productBrand);
       if (!x) {
         return acc.concat([current]);
@@ -126,7 +128,7 @@ export class InventoryComponent implements OnInit {
       }
     }, []);
 
-    this.categoryTypes = this.inventoryTable.reduce((acc: any, current: any) => {
+    this.categoryTypes = this.productMaster.reduce((acc: any, current: any) => {
       const x = acc.find((item: any) => item.productCategory == current.productCategory);
       if (!x) {
         return acc.concat([current]);
@@ -135,7 +137,7 @@ export class InventoryComponent implements OnInit {
       }
     }, []);
 
-    this.statusVal = this.inventoryTable.reduce((acc: any, current: any) => {
+    this.statusVal = this.productMaster.reduce((acc: any, current: any) => {
       const x = acc.find((item: any) => item.status == current.status);
       if (!x) {
         return acc.concat([current]);
@@ -156,11 +158,11 @@ export class InventoryComponent implements OnInit {
       productCategory: this.prCat ? this.prCat : '',
     }
 
-    // console.log(myObj)
+    // console.log(myObj);
 
-    this.inventorySer.filteBody(myObj).subscribe((res: any) => {
+    this.productMasterSer.filteBody(myObj).subscribe((res: any) => {
       // console.log(res);
-      this.newInventoryTable = res;
+      this.newProductMaster = res;
     })
   }
 
@@ -213,13 +215,13 @@ export class InventoryComponent implements OnInit {
   selectedAll: any;
 
   selectAll() {
-    for (var i = 0; i < this.inventoryTable.length; i++) {
-      this.inventoryTable[i].selected = this.selectedAll;
+    for (var i = 0; i < this.productMaster.length; i++) {
+      this.productMaster[i].selected = this.selectedAll;
     }
   }
 
   checkIfAllSelected() {
-    this.selectedAll = this.inventoryTable.every(function (item: any) {
+    this.selectedAll = this.productMaster.every(function (item: any) {
       return item.selected == true;
     })
   }
@@ -252,7 +254,7 @@ export class InventoryComponent implements OnInit {
   updateInventory2: any;
   editInventory() {
     // console.log(this.currentItem);
-    // this.inventoryTable= this.inventoryTable.filter((item:any) => item.siteId !== this.currentItem.siteId);
+    // this.productMaster= this.productMaster.filter((item:any) => item.siteId !== this.currentItem.siteId);
     this.getInventory();
 
     this.originalObject = {
@@ -281,7 +283,7 @@ export class InventoryComponent implements OnInit {
       allowOutsideClick: false
     });
 
-    this.inventorySer.UpdateInventory(this.originalObject).subscribe((res: any) => {
+    this.productMasterSer.UpdateInventory(this.originalObject).subscribe((res: any) => {
       // console.log(res);
 
       if(res) {
@@ -309,7 +311,7 @@ export class InventoryComponent implements OnInit {
   //   this.showLoader = true;
   //   setTimeout(() => {
   //     this.showLoader = false;
-  //     this.inventoryTable.splice(i, 1);
+  //     this.productMaster.splice(i, 1);
   //   }, 1000);
   // }
 
@@ -334,9 +336,9 @@ export class InventoryComponent implements OnInit {
       showConfirmButton: false,
       allowOutsideClick: false
     });
-    // this.inventoryTable = this.inventoryTable.filter((item: any) => item.siteId !== this.currentItem.siteId);
+    // this.productMaster = this.productMaster.filter((item: any) => item.siteId !== this.currentItem.siteId);
 
-    this.inventorySer.deleteInventory(this.currentItem).subscribe((res: any) => {
+    this.productMasterSer.deleteInventory(this.currentItem).subscribe((res: any) => {
       // console.log(res);
       if(res) {
         this.deleteInventory1 = Swal.fire({
@@ -428,12 +430,12 @@ export class InventoryComponent implements OnInit {
       this.deletearray.forEach((el: any) => {
         // this.currentItem = el;
         // this.deleteInventory();
-        this.inventoryTable = this.inventoryTable.filter((item: any) => item.siteId !== el.siteId);
+        this.productMaster = this.productMaster.filter((item: any) => item.siteId !== el.siteId);
       });
       this.deletearray = []
     } else {
-      this.inventoryTable.forEach((el: any) => {
-        this.inventoryTable = this.inventoryTable.filter((item: any) => item.siteId !== el.siteId);
+      this.productMaster.forEach((el: any) => {
+        this.productMaster = this.productMaster.filter((item: any) => item.siteId !== el.siteId);
       });
     }
   }
@@ -443,7 +445,7 @@ export class InventoryComponent implements OnInit {
   sorted = false;
   sort(label: any) {
     this.sorted = !this.sorted;
-    var x = this.inventoryTable;
+    var x = this.productMaster;
     if (this.sorted == false) {
       x.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
     } else {

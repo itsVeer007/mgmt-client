@@ -97,18 +97,16 @@
 
 .profile-card .card-header {
   background-image: linear-gradient(to top, #AA4337, #274874);
-  text-align: center;
   color: #fff;
-  padding: 40px;
-  width: 250px;
-  height: 200px;
+  /* width: 250px;
+  height: 200px; */
   border-radius: 5px 5px 0px 0px;
 }
 
-.profile-card .card-header img {
+/* .profile-card .card-header img {
   margin-left: 35px;
   margin-top: -25px;
-}
+} */
 
 .profile-card .card-body {
   background-color: #ABABAB1A;
