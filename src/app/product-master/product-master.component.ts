@@ -44,13 +44,6 @@ export class ProductMasterComponent implements OnInit {
     this.getInventory();
   }
 
-  // showIconVertical: boolean = false;
-  // showIconCustomer: boolean = false;
-  // showIconSite: boolean = false;
-  // showIconCamera: boolean = false;
-  // showIconAnalytic: boolean = false;
-  // showIconUser: boolean = false;
-
   showIconView: boolean = false;
   showIconEdit: boolean = false;
   showIconDelete: boolean = false;
@@ -246,7 +239,7 @@ export class ProductMasterComponent implements OnInit {
   openEditPopup(item: any) {
     this.currentItem = JSON.parse(JSON.stringify(item));
     this.dialog.open(this.editInventoryDialog);
-    // console.log(item);
+    console.log(item);
   }
 
   updateInventory0: any;
@@ -255,25 +248,23 @@ export class ProductMasterComponent implements OnInit {
   editInventory() {
     // console.log(this.currentItem);
     // this.productMaster= this.productMaster.filter((item:any) => item.siteId !== this.currentItem.siteId);
-    this.getInventory();
+    // this.getInventory();
 
     this.originalObject = {
-      "inv": {
-        "productId": this.currentItem.productId,
-        "productSerialNo": this.currentItem.productSerialNo,
-        "productName": this.currentItem.productName,
-        "productBrand": this.currentItem.productBrand,
-        "productCategory": this.currentItem.productCategory,
-        "status": this.currentItem.status,
-        "cost": this.currentItem.cost,
-        "price": this.currentItem.price
-      },
-      "warr": {
-        "warrantyStartDate": this.currentItem.warrantyStartDate,
-        "warrantyEndDate": this.currentItem.warrantyEndDate,
-        "vendor": this.currentItem.vendor,
-        "remarks": this.currentItem.remarks
-      }
+      "id": this.currentItem.id,
+      "productCategoryId": this.currentItem.productCategoryId,
+      "name": this.currentItem.name,
+      "description": this.currentItem.description,
+      "uomId": this.currentItem.uomId,
+      "productModelId": this.currentItem.productModelId,
+      "productTypeId": this.currentItem.productTypeId,
+      "cost": this.currentItem.cost,
+      "purchaseVendorId": this.currentItem.purchaseVendorId,
+      "purchaseLink": this.currentItem.purchaseLink,
+      "returnable": this.currentItem.returnable,
+      "maintenanceRequired": this.currentItem.maintenanceRequired,
+      "productStatusId": this.currentItem.productStatusId,
+      "remarks": this.currentItem.remarks
     }
 
     this.updateInventory2 = Swal.fire({
@@ -283,7 +274,7 @@ export class ProductMasterComponent implements OnInit {
       allowOutsideClick: false
     });
 
-    this.productMasterSer.UpdateInventory(this.originalObject).subscribe((res: any) => {
+    this.productMasterSer.updateProductMaster(this.originalObject).subscribe((res: any) => {
       // console.log(res);
 
       if(res) {
@@ -328,17 +319,14 @@ export class ProductMasterComponent implements OnInit {
   deleteInventory1: any;
   deleteInventory2: any;
   deleteInventory() {
-    // console.log(this.currentItem);
-
     this.deleteInventory2 = Swal.fire({
       text: "Please wait",
       imageUrl: "assets/gif/ajax-loading-gif.gif",
       showConfirmButton: false,
       allowOutsideClick: false
     });
-    // this.productMaster = this.productMaster.filter((item: any) => item.siteId !== this.currentItem.siteId);
 
-    this.productMasterSer.deleteInventory(this.currentItem).subscribe((res: any) => {
+    this.productMasterSer.deleteProduct(this.currentItem).subscribe((res: any) => {
       // console.log(res);
       if(res) {
         this.deleteInventory1 = Swal.fire({

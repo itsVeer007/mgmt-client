@@ -329,7 +329,7 @@
 
             <div class="col-lg-12 d-flex mb-3">
               <p class="device-title m-0">Device Type</p>
-              <p class="device-sub m-0">: {{ item.deviceTypeId == 1 ? 'Audio' : item.deviceTypeId == 2 ? 'Video' : '--' }}</p>
+              <p class="device-sub m-0">: {{ item.deviceTypeId == 1 ? 'Audio' : item.deviceTypeId == 2 ? 'Video' : item.deviceTypeId == 3 ? 'WIFI' : '--' }}</p>
             </div>
 
             <div class="col-lg-12 d-flex mb-3">
@@ -439,7 +439,7 @@
             </div>
 
             <div class="col-lg-12 d-flex mb-3" *ngIf="item.deviceModeId == 3">
-              <p class="device-title m-0">Debug Logs</p>
+              <p class="device-title m-0">Refresh Rules</p>
               <p class="device-sub m-0">: {{ item.refreshRules == 0 ? 'False' : item.refreshRules == 1 ? 'True' : 'False'}}</p>
             </div>
             <!-- /ODR -->

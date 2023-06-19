@@ -45,7 +45,7 @@
               <spanAnalytics</span>
           </a> -->
 
-          <a class="list-group-item " [routerLink]="['/users']" routerLinkActive="routeactive">
+          <a *ngIf="isAdmin == true" class="list-group-item " [routerLink]="['/users']" routerLinkActive="routeactive">
               <img src="assets/icons/user-white.svg">
               <span>Users</span>
           </a>
@@ -171,7 +171,7 @@
                 <img src="assets/icons/user-white.svg" /><span>Users</span>
             </a>
 
-            <a class="list-group-item my-2" [routerLink]="['/inventory']" routerLinkActive="routeactive">
+            <a *ngIf="isAdmin == true" class="list-group-item my-2" [routerLink]="['/inventory']" routerLinkActive="routeactive">
               <img src="assets/icons/inventory.svg" /><span>Inventory</span>
             </a>
 

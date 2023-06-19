@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { ChartService } from 'src/services/chart.service';
+import { SiteService } from 'src/services/site.service';
 
 @Component({
   selector: 'app-main-dashboard',
@@ -48,6 +49,35 @@ export class MainDashboardComponent implements OnInit {
     }
   }
 
+  constructor(private chartservice: ChartService, private http: HttpClient, private siteSer: SiteService,) { }
+
+
+  showAddCamera = false;
+  showAddCustomer = false;
+  showAddUser = false;
+  showAddBusinessVertical = false;
+
+  ngOnInit(): void {
+    this.getMainDashboardCardReport();
+    this.getMainDashboardReport();
+    this.mychart();
+    this.mychart1();
+    this.mychart2();
+    this.mychart3();
+    this.mychart4();
+
+    this.getlistSites();
+  }
+
+  tableData: any
+  inputToAssets: any;
+  getlistSites() {
+    this.siteSer.listSites().subscribe((res: any) => {
+      this.tableData = res.siteList;
+      this.inputToAssets = localStorage.setItem('siteIds', JSON.stringify(this.tableData))
+    })
+  }
+
   openicons11(i: any) {
     var y = <HTMLElement>document.getElementById(`icons1${this.currentid}`);
     if (y.style.display == 'flex' || y.style.display == 'block') {
@@ -85,22 +115,6 @@ export class MainDashboardComponent implements OnInit {
   }
 
 
-  showAddCamera = false;
-  showAddCustomer = false;
-  showAddUser = false;
-  showAddBusinessVertical = false;
-
-  constructor(private chartservice: ChartService, private http: HttpClient) { }
-
-  ngOnInit(): void {
-    this.getMainDashboardCardReport();
-    this.getMainDashboardReport();
-    this.mychart();
-    this.mychart1();
-    this.mychart2();
-    this.mychart3();
-    this.mychart4();
-  }
   showIconVertical: boolean = false;
   showIconCustomer: boolean = false;
   showIconSite: boolean = false;

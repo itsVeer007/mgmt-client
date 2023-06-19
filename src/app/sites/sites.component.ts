@@ -76,6 +76,7 @@ export class SitesComponent implements OnInit {
 
   siteData: any
   deviceLength: any = [];
+  // inputToAssets: any;
   ngOnInit(): void {
     this.getlistSites()
     this.ongetDeviceMode();
@@ -91,6 +92,7 @@ export class SitesComponent implements OnInit {
       this.showLoader = false;
 
       this.tableData = res.siteList;
+      // this.inputToAssets = localStorage.setItem('siteIds', JSON.stringify(this.tableData))
       // this.totalCount = res.counts;
     })
   }
@@ -164,17 +166,6 @@ export class SitesComponent implements OnInit {
   closenow(type: string, value: any) {
     if (type == 'site') { this.showAddSite = value }
     if (type == 'device') { this.showAddDevice = value }
-
-    // setTimeout(() => {
-    //   var openform = localStorage.getItem('opennewform');
-    //   if (openform == 'showAddSite') { this.showAddSite = true; }
-    //   if (openform == 'showAddDevice') { this.showAddDevice = true; }
-    //   if (openform == 'showAddCamera') { this.showAddCamera = true; }
-    //   if (openform == 'showAddCustomer') { this.showAddCustomer = true; }
-    //   if (openform == 'showAddBusinessVertical') { this.showAddBusinessVertical = true; }
-    //   if (openform == 'showAddUser') { this.showAddUser = true; }
-    //   localStorage.setItem('opennewform', '');
-    // }, 100)
   }
 
   addressid = 0;
@@ -204,30 +195,6 @@ export class SitesComponent implements OnInit {
 
   masterSelected: boolean = false;
   SelectAll: boolean = false;
-  // allcheck: boolean = false;
-
-
-  // allchecked(e:any){
-
-  //   if(document.querySelector('#allcheck:checked')){
-  //     this.masterSelected = true;
-  //     this.SelectAll =true;
-  //   }else{
-  //     this.masterSelected = false;
-  //   }
-  // }
-
-  // itemchecked(e:any){
-  //   if(document.querySelector('#allcheck:checked')){
-  //     var x = (e.target.checked);
-  //     console.log("ItemChecked:: ",x);
-  //     if(x){
-  //       this.SelectAll = true;
-  //     }else{
-  //       this.SelectAll = false;
-  //     }
-  //   }
-  // }
 
 
   selectedAll: any;

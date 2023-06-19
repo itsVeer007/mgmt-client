@@ -5,7 +5,7 @@
 
     <!-- count -->
     <div class="col-lg-6">
-      <p>Total Inventory - <span>{{ newProductMaster.length }}</span></p>
+      <p>Total Products - <span>{{ newProductMaster.length }}</span></p>
       <div class="row">
         <div class="col-lg-2 d-flex justify-content-start">
           <div class="vl-yellow"></div>
@@ -167,17 +167,17 @@
 
           <th>
             <span>Id</span>
-            <img (click)="sort('productId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
             <span>Product Category Id</span>
-            <img (click)="sort('productSerialNo')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <img (click)="sort('productCategoryId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
             <span>Name</span>
-            <img (click)="sort('productBrand')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <img (click)="sort('name')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <!-- <th>
@@ -187,28 +187,28 @@
 
           <th>
             <span>UOM Id</span>
-            <img (click)="sort('status')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <img (click)="sort('uomId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
 
           <th>
             <span>Product Model</span>
-            <img (click)="sort('productName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <img (click)="sort('productModelId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
             <span>Product Type</span>
-            <img (click)="sort('productName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <img (click)="sort('productTypeId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
             <span>Cost</span>
-            <img (click)="sort('productName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <img (click)="sort('cost')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
             <span>Purchase Vendor Id</span>
-            <img (click)="sort('productName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <img (click)="sort('purchaseVendorId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <!-- <th>
@@ -228,7 +228,7 @@
 
           <th>
             <span>Status</span>
-            <img (click)="sort('productName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <img (click)="sort('productStatusId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th></th>
@@ -292,8 +292,8 @@
           </td> -->
 
           <td>
-            <p [style.color]="cust.productStatusId == 'Active' ? '#00A44C' : cust.productStatusId == 'Onhold' ? '#F5B400' : cust.productStatusId == 'Inactive' ? '#fa500f' : '#00A44C'">
-              {{ cust.productStatusId }}
+            <p [style.color]="cust.productStatusId == '1' ? '#00A44C' : cust.productStatusId == '2' ? '#F5B400' : cust.productStatusId == '3' ? '#fa500f' : '#00A44C'">
+              {{ cust.productStatusId == 1 ? 'Active' : cust.productStatusId == 2 ? 'Inactive' : cust.productStatusId == 3 ? 'Removed' : '--' }}
             </p>
           </td>
 
@@ -376,54 +376,119 @@
 
 <!-- edit Popup -->
 <ng-template #editInventoryDialog>
-  <div *ngIf="currentItem">
-    <div>
+  <div>
+    <p style="font-weight: 600; color: #ABABAB;">MODIFY PRODUCT</p>
+  </div>
+
+  <div class="row" *ngIf="currentItem">
+    <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Product Id</mat-label>
-        <input matInput [(ngModel)]="currentItem.productName" disabled>
+        <mat-label>Id</mat-label>
+        <input matInput [(ngModel)]="currentItem.id" disabled>
       </mat-form-field>
     </div>
 
-    <div>
+    <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Product Name</mat-label>
-        <input matInput [(ngModel)]="currentItem.productName">
-      </mat-form-field>
-    </div>
-
-    <div>
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Serial No</mat-label>
-        <input matInput [(ngModel)]="currentItem.productSerialNo">
-      </mat-form-field>
-    </div>
-    <div>
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Product Brand</mat-label>
-        <mat-select [(ngModel)]="currentItem.productBrand">
-          <mat-option value="Rasberry">Rasberry</mat-option>
-          <mat-option value="Jetson">Jetson</mat-option>
+        <mat-label>Category Id</mat-label>
+        <mat-select [(ngModel)]="currentItem.productCategoryId">
+          <mat-option [value]="55">55</mat-option>
+          <mat-option [value]="33">33</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
 
-    <div>
+    <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Product Category</mat-label>
-        <mat-select [(ngModel)]="currentItem.productCategory">
-          <mat-option value="Modules">Modules</mat-option>
-          <mat-option value="Server">Server</mat-option>
+        <mat-label>Name</mat-label>
+        <input matInput [(ngModel)]="currentItem.name">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Description</mat-label>
+        <input matInput [(ngModel)]="currentItem.description">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Uom Id</mat-label>
+        <mat-select [(ngModel)]="currentItem.uomId">
+          <mat-option [value]="11">11</mat-option>
+          <mat-option [value]="21">21</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
 
-    <div>
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Model Id</mat-label>
+        <mat-select [(ngModel)]="currentItem.productModelId">
+          <mat-option [value]="2">2</mat-option>
+          <mat-option [value]="13">13</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Type Id</mat-label>
+        <mat-select [(ngModel)]="currentItem.productTypeId">
+          <mat-option [value]="2">2</mat-option>
+          <mat-option [value]="13">13</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Cost</mat-label>
+        <input matInput [(ngModel)]="currentItem.cost">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Vendor Id</mat-label>
+        <mat-select [(ngModel)]="currentItem.purchaseVendorId">
+          <mat-option [value]="1">1</mat-option>
+          <mat-option [value]="2">2</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Purchase Link</mat-label>
+        <input matInput [(ngModel)]="currentItem.purchaseLink">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-6 mt-2" style="font-size: 10px; font-weight: 700;">
+      <mat-radio-group name="debugOn" class="w-50" [(ngModel)]="currentItem.returnable">
+        <mat-label>Returnable</mat-label>
+        <mat-radio-button class="ms-3" name="return" value="Y">Yes</mat-radio-button>
+        <mat-radio-button class="ms-3" name="return" value="N" checked>No</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <div class="col-lg-6 mt-2" style="font-size: 10px; font-weight: 700;">
+      <mat-radio-group name="debugLogs" class="w-50" [(ngModel)]="currentItem.maintenanceRequired">
+        <mat-label>Maintenance Required</mat-label>
+        <mat-radio-button class="ms-3" name="maintenance" value='Y'>Yes</mat-radio-button>
+        <mat-radio-button class="ms-3" name="maintenance" value='N' checked>No</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Status</mat-label>
         <mat-select [(ngModel)]="currentItem.status">
-          <mat-option value="Installed">Installed</mat-option>
-          <mat-option value="In-Stock">In-Stock</mat-option>
-          <mat-option value="Scrap">Scrap</mat-option>
+          <mat-option value="Installed">Active</mat-option>
+          <mat-option value="In-Stock">Inactive</mat-option>
+          <mat-option value="Scrap">Removed</mat-option>
         </mat-select>
       </mat-form-field>
     </div>

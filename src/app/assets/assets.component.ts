@@ -66,6 +66,7 @@ export class AssetsComponent implements OnInit {
   endDateTime: any;
 
   devDevId: any;
+  siteIds: any
 
   ngOnInit(): void {
     this.currentDateTime =this.datepipe.transform(new Date().toLocaleString('en-us',{month:'short', day: 'numeric', year:'numeric'}));
@@ -74,6 +75,7 @@ export class AssetsComponent implements OnInit {
     this.ongetDeviceMode();
 
     this.devDevId = JSON.parse(localStorage.getItem('device_temp')!);
+    this.siteIds = JSON.parse(localStorage.getItem('siteIds')!);
     // this.refreshList()
   }
 
@@ -107,20 +109,21 @@ export class AssetsComponent implements OnInit {
 
       this.siteIdToTable = sites.flatMap((item: any) => item.siteId);
       this.newSiteIdToTable = this.siteIdToTable;
+      // console.log(this.siteIds)
     })
   }
 
-  filteredOptions!: number[];
+  filteredOptions!: any[];
   siteIdSearch = new FormControl();
   searchTex!: string;
 
-  filterOptions(value: string): number[] {
+  filterOptions(value: string): any[] {
     const filterValue = value.toString().toLowerCase();
-    return this.siteIdToTable.filter((option: any) => option.toString().toLowerCase().includes(filterValue));
+    return this.siteIds.filter((option: any) => option.siteid.toString().toLowerCase().includes(filterValue));
   }
 
   searchSiteId() {
-    this.siteIdSearch.valueChanges.pipe(startWith(''),map((value: any) => this.filterOptions(value))).subscribe(filtered => {
+    this.siteIdSearch.valueChanges.pipe(startWith(''),map((value: any) => this.filterOptions(value))).subscribe((filtered: any) => {
       this.filteredOptions = filtered;
     });
 
@@ -396,7 +399,7 @@ export class AssetsComponent implements OnInit {
       }
 
       setTimeout(() => {
-        // window.location.reload();
+        window.location.reload();
       }, 3000);
 
     }, (err: any) => {
@@ -573,7 +576,7 @@ export class AssetsComponent implements OnInit {
       };
 
       setTimeout(() => {
-        // window.location.reload();
+        window.location.reload();
       }, 3000);
 
     }, (err: any) => {

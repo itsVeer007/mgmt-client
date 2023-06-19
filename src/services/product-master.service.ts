@@ -23,23 +23,28 @@ export class ProductMasterService {
     return this.http.post(url, payload)
   }
 
-
-
-
-
-
-
-
-  UpdateInventory(payload: any) {
-    let url = this.baseUrl + '/updatingall_1_0';
+  updateProductMaster(payload: any) {
+    let url = this.baseUrl + '/updatingproduct_1_0';
     return this.http.put(url, payload)
   }
 
-  deleteInventory(payload: any) {
-    let url = this.baseUrl + `/deleting_1_0?productId=${payload.productId}`;
+  deleteProduct(payload: any) {
+    let url = this.baseUrl + `/deletion_1_0?Id=${payload.id}`;
 
     return this.http.delete(url);
   }
+
+
+
+
+
+
+
+
+
+
+
+  ////////////////////
 
   filteBody(payload: any) {
     let url = this.baseUrl + `/getListBySearch_1_0?`;

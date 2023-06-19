@@ -379,20 +379,24 @@ export class AddDeviceComponent implements OnInit {
   deviceUpdate1: any;
   deviceUpdate2: any;
   updateDeviceDtl() {
-    this.deviceUpdate2 = Swal.fire({
-      text: "Please wait",
-      imageUrl: "assets/gif/ajax-loading-gif.gif",
-      showConfirmButton: false,
-      allowOutsideClick: false
-    });
+    console.log(this.changedKeys.length)
 
-    let arr = this.currentItem.workingDays.join(',');
+    if(this.changedKeys.length > 0) {
+      this.deviceUpdate2 = Swal.fire({
+        text: "Please wait",
+        imageUrl: "assets/gif/ajax-loading-gif.gif",
+        showConfirmButton: false,
+        allowOutsideClick: false
+      });
 
-    if(this.toAddDevice == 8) {
-      var myString = arr.substring(1);
-      this.originalObject.workingDays = myString;
-    } else {
-      this.originalObject.workingDays = arr;
+      let arr = this.currentItem.workingDays.join(',');
+
+      if(this.toAddDevice == 8) {
+        var myString = arr.substring(1);
+        this.originalObject.workingDays = myString;
+      } else {
+        this.originalObject.workingDays = arr;
+      }
     }
 
     this.newItemEvent.emit(false);
@@ -408,10 +412,11 @@ export class AddDeviceComponent implements OnInit {
       }
 
       setTimeout(() => {
-        // window.location.reload();
+        window.location.reload();
       }, 3000);
 
     }, (err: any) => {
+      // console.log(err)
       if(err) {
         this.deviceUpdate0 = Swal.fire({
           icon: 'warning',
@@ -468,7 +473,7 @@ export class AddDeviceComponent implements OnInit {
         }
 
         setTimeout(() => {
-          // window.location.reload();
+          window.location.reload();
         }, 3000);
 
       }, (err: any) => {

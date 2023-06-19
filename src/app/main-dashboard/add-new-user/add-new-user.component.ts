@@ -201,7 +201,7 @@ export class AddNewUserComponent implements OnInit {
         }
 
         setTimeout(() => {
-          // window.location.reload();
+          window.location.reload();
         }, 3000);
 
       }, (err: any) => {

@@ -84,22 +84,49 @@
             <th>
               <input type="checkbox" class="form-check-input" [(ngModel)]="selectedAll" (change)="selectAll();" id="allcheck" style="background-color: #00000000; border-color:#fff;margin-left:10px;">
             </th>
-            <!-- <th><input type="checkbox" class="form-check-input"
-                id="allcheck" [checked]="SelectAll" (click)="allchecked($event)" style="background-color: #00000000; border-color:#fff;margin-left:10px;" />
-            </th> -->
-            <th (click)="sort('siteId')">Site Id</th>
-            <th (click)="sort('siteName')">Site Name</th>
-            <th (click)="sort('customer')">Customer</th>
-            <th (click)="sort('status')">Status</th>
+            <th>
+
+              <span>Site Id</span>
+              <img (click)="sort('siteid')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </th>
+
+            <th>
+              <span>Site Name</span>
+              <img (click)="sort('sitename')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </th>
+
+            <th>
+              <span>Customer</span>
+              <!-- <img (click)="sort('deviceModeId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
+            </th>
+
+            <th>
+              <span>Status</span>
+              <!-- <img (click)="sort('status')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
+            </th>
+
+
+            <th>
+              <span>QR</span>
+              <!-- <img (click)="sort('status')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
+            </th>
+
             <th (click)="sort('address')">Address</th>
-            <!-- <th (click)="sort('lat-long')">Lat & Long</th> -->
+
             <th (click)="sort('escl_Details')">Escl Details</th>
+
             <th (click)="sort('engr_Details')">Engr Details</th>
+
             <th>Services</th>
+
             <th (click)="sort('cntrl_Unit')">Cntrl Unit</th>
+
             <th>Inventory</th>
+
             <th>Analytics</th>
+
             <th>Devices</th>
+
             <th></th>
           </tr>
 
@@ -122,6 +149,10 @@
                 <p [style.color]="data.status == 'Active' ? '#00A44C': data.status == 'Onhold' ? '#F5B400': data.status == 'Inactive' ? '#fa500f': '#084982'">
                   {{ data.status ? data.status : '--' }}
                 </p>
+              </td>
+
+              <td>
+                <p>--</p>
               </td>
 
               <td>
