@@ -94,6 +94,7 @@
               <mat-select formControlName="timeId" [(ngModel)]="assetData.nameParams.timeId">
                 <mat-option *ngFor="let item of adsTime" [value]="item.keyId">{{ item.value }}</mat-option>
               </mat-select>
+              <mat-error class="mt-1">Time is required</mat-error>
             </mat-form-field>
           </div>
 
@@ -103,6 +104,7 @@
               <mat-select formControlName="tempId" [(ngModel)]="assetData.nameParams.tempId">
                 <mat-option *ngFor="let item of tempRange" [value]="item.keyId">{{ item.value }}&nbsp;&nbsp;({{item.remarks}})</mat-option>
               </mat-select>
+              <mat-error class="mt-1">Temp is required</mat-error>
             </mat-form-field>
           </div>
 

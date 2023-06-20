@@ -60,7 +60,7 @@ export class MetaDataComponent implements OnInit {
   CustomerReport() {
     this.showLoader = true;
     this.dropDown.getMetadata().subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       this.showLoader = false;
 
       const data = res.flatMap((item: any) => item.metadata);

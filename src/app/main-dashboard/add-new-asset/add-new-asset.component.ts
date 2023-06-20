@@ -79,8 +79,8 @@ export class AddNewAssetComponent implements OnInit {
     },
 
     nameParams: {
-      timeId: 0,
-      tempId: 0,
+      timeId: null,
+      tempId: null,
       maleKids: 0,
       femaleKids: 0,
       maleYouth: 0,
@@ -121,6 +121,18 @@ export class AddNewAssetComponent implements OnInit {
       'vehicles': new FormControl(''),
 
       'persons': new FormControl('')
+    });
+
+    this.addAssetForm.get('deviceModeId').valueChanges.subscribe((val: any) => {
+      if(val == 2 || val == 3) {
+        this.addAssetForm.get('timeId').setValidators(Validators.required);
+        this.addAssetForm.get('tempId').setValidators(Validators.required);
+      } else {
+        this.addAssetForm.get('timeId').clearValidators();
+        this.addAssetForm.get('tempId').clearValidators();
+      }
+      this.addAssetForm.get('timeId').updateValueAndValidity();
+      this.addAssetForm.get('tempId').updateValueAndValidity();
     });
 
     this.deviceIdFromStorage = JSON.parse(localStorage.getItem('device_temp')!);

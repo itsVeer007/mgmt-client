@@ -148,7 +148,7 @@
           </th>
           <th (click)="sort('siteId')">Device Id</th>
           <th (click)="sort('customerName')">Device Type</th>
-          <th (click)="sort('custType')">Site Id - Name</th>
+          <th (click)="sort('custType')">Site Details</th>
           <th (click)="sort('status')">Status</th>
           <th (click)="sort('status')">Reboot</th>
           <th class="text-center" (click)="sort('address')">
@@ -175,14 +175,14 @@
             <p>{{ cust.deviceId }}</p>
           </td>
           <td>
-            <p>{{ cust.deviceType }}</p>
+            <p>{{ cust.deviceTypeId == 1 ? 'Audio' : cust.deviceTypeId == 2 ? 'Video': cust.deviceTypeId == 3 ? 'Wifi' : '--'}}</p>
           </td>
           <td>
-            <p>{{ cust.siteId_Name }}</p>
+            <p>{{ cust.siteId }}</p>
           </td>
           <td>
-            <p [style.color]="cust.status == 'Online' ? '#00A44C' : cust.status == 'Offline' ? '#fa500f' : '#00A44C'">
-              {{ cust.status }}
+            <p [style.color]="cust.status == 1 ? '#00A44C' : cust.status == 2 ? '#fa500f' : '#00A44C'">
+              {{ cust.status == 1 ? 'Online' : 'Offline' }}
             </p>
             <!-- <p [style.color]="cust.status == 'active' ? '#00A44C' : cust.status == 'Inprogress' ? '#F5B400' : cust.status == 'closed' ? '#fa500f' : '#00A44C'">
 

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { DeviceService } from 'src/services/device.service';
 import { TicketService } from 'src/services/ticket.service';
 import Swal from 'sweetalert2';
 
@@ -36,7 +37,7 @@ export class DevicesComponent implements OnInit {
 
 
   showLoader = false;
-  constructor(private http: HttpClient, private ticketSer: TicketService, public dialog: MatDialog,) { }
+  constructor(private http: HttpClient, private ticketSer: TicketService, public dialog: MatDialog, private devService: DeviceService,) { }
 
   ngOnInit(): void {
     this.CustomerReport();
@@ -59,14 +60,11 @@ export class DevicesComponent implements OnInit {
   searchText: any;
   deviceData: any;
   CustomerReport() {
-    this.http.get('assets/JSON/devicesData.json').subscribe((res: any) => {
-      this.deviceData = res;
-      // console.log(res)
-    });
-    // this.ticketSer.getTickets().subscribe((res: any) => {
-    //   console.log(res);
-    //   this.deviceData = res;
-    // })
+    this.devService.listDeviceAdsInfo().subscribe((res: any) => {
+      // console.log(res);
+      this.deviceData = res.flatMap((item: any) => item.adsDevices)
+        // this.deviceData = item.adsDevices;
+    })
   }
 
   filterSiteId: any

@@ -13,7 +13,7 @@ export class AppComponent {
   constructor(private apiser: ApiService){}
   ngOnInit(){
     if (isDevMode()) {
-      console.log('Development!');
+      console.log('Stagging!');
     } else {
       console.log('Production!');
     }
