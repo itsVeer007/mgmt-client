@@ -1,11 +1,12 @@
 .users {
-  margin-top:80px;
+  margin-top: 80px;
 }
 
-  .users-header {
-    display: flex;
-    align-items: center;
-  }
+.users-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
 .users-header p {
   color: #ABABAB;
@@ -32,8 +33,23 @@
   height: 40px;
 }
 
+.vl-orange {
+  border-left: 2px solid #EF6000;
+  height: 40px;
+}
+
+.vl-greay {
+  border-left: 2px solid #ABABAB;
+  height: 40px;
+}
+
+.vl-violet {
+  border-left: 2px solid #ABABAB;
+  height: 40px;
+}
+
 .status {
-  font-size: 12px;
+  font-size: 11px;
   color: #ABABAB;
   letter-spacing: 0.5px;
 }
@@ -65,7 +81,7 @@ form .search {
 
 form input, button {
   border: none;
-  padding: 10px;
+  padding: 11px;
   font-size: 12px;
 }
 
@@ -82,8 +98,16 @@ form button {
   background: none;
 }
 
+.search-form {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
 .filter-search-btn button{
-  margin-top: 8px;
+  margin-bottom: 10px;
   background-color: #084982;
   color: #ffffff;
   border-radius: 5px;
@@ -112,56 +136,51 @@ form button {
 }
 
 .form1 {
-background-image: linear-gradient(to right, #084982, #D34124);
-background-size: cover;
-border-radius: 5px;
-margin-top: 20px;
-position: -webkit-sticky;
-position: sticky;
-top: 0;
-font-weight: 100;
-z-index: 1;
+  background-image: linear-gradient(to right, #084982, #D34124);
+  background-size: cover;
+  border-radius: 5px;
+  margin-top: 20px;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  font-weight: 100;
+  z-index: 1;
 }
 
 .form1 th{
-color: #fff;
-padding: 10px 0;
-font-size: 12px;
-text-align: left;
-vertical-align: middle;
+  color: #fff;
+  padding: 10px 0;
+  font-size: 12px;
+  text-align: left;
 }
 
 .table-resp{
-max-height: calc(100vh - (358px));
-overflow-y: scroll;
+  max-height: calc(100vh - (292px));
+  overflow-y: scroll;
 }
 
-/* .table-resp table{
-border: 1px solid #EFEFEF;
-} */
-
 .table tbody tr td {
-vertical-align: middle;
-height: 36px;
+  vertical-align: middle;
+  height: 36px;
 }
 
 .table tbody tr td p {
-margin: 2px 0;
+  margin: 2px 0;
 }
 
 .table tbody tr td input {
-margin: 2px 10px;
+  margin: 2px 10px;
 }
 
 .dot {
-content: "";
-width: 16px;
-height: 16px;
-border-radius: 8px;
-background-color: red;
-margin: auto;
-box-shadow: 0px 0px 5px 2px rgba(207,39,39,0.61);
-border: 1px solid #fff;
+  content: "";
+  width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  background-color: red;
+  margin: auto;
+  box-shadow: 0px 0px 5px 2px rgba(207,39,39,0.61);
+  border: 1px solid #fff;
 }
 
 .form-check-input{
@@ -200,7 +219,33 @@ border: 1px solid #fff;
   margin-top: -5px;
   border-width: 5px;
   border-style: solid;
-  /* border-color: transparent transparent transparent #EFEFEF; */
+  box-shadow: -1px -1px 1px 0 #fff;
+  color: #fff;
+  border-right: 1px solid #EFEFEF;
+  border-top: 1px solid #EFEFEF;
+}
+
+
+.plus-img {
+  display: none;
+  border: 1px solid #0000000D;
+  position: absolute;
+  background-color: #fff;
+  width: fit-content;
+  margin-left: -227px;
+  margin-top: -26px;
+  box-shadow: -5px 6px 13px 0px #F3F3F3;
+}
+
+.plus-img:after{
+  content: "";
+  position: absolute;
+  top: 17px;
+  transform: rotate(45deg);
+  right: -4px;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
   box-shadow: -1px -1px 1px 0 #fff;
   color: #fff;
   border-right: 1px solid #EFEFEF;
@@ -227,7 +272,7 @@ border: 1px solid #fff;
   top: 17px;
   transform: rotate(45deg);
   right: -4px;
-  margin-top: -9px;
+  margin-top: -5px;
   border-width: 5px;
   border-style: solid;
   box-shadow: -1px -1px 1px 0 #fff;
@@ -237,109 +282,64 @@ border: 1px solid #fff;
 }
 
 
-
-
-
-/* CSS for Popup start */
-
-/* .deletePopup {
-  width: fit-content;
-  margin: auto;
-} */
-.modalitem .card {
-  border: none;
-}
-.modalitem{
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 999999;
-  margin: auto;
-  width: 100vw;
-  height: 100vh;
-  background-color: #0006;
-}
-.modalitem .card-header {
-  background-color: #084982;
-  color: #fff;
-  height: 40px;
-  font-size: 14px;
-}
-.modalitem .card-header img {
-  margin: -24px -36px;
-}
-.modalitem .card .card-body {
-  font-size: 13px;
-}
-.modalitem .card .card-body ul li {
-  list-style-type: none;
-}
-.modalitem .card .card-body ul li {
-  font-size: 13px;
-  text-align: left;
-  color: #084982;
-}
-.modalitem .card .card-footer button {
-  float: right;
-  padding: 5px;
-  font-size: 10px;
-}
-.modalitem ul {
-  padding-left: 0rem;
-}
-.modalitem li {
-  display: flex;
-}
-.modalitem h6 {
-  color: #363636;
-  font-size: 13px;
-  font-family: ms,sans-serif;
-}
-.modalitem .card .card-body ul li div input {
-  font-size: 13px;
-  padding: 5px;
-  height: 30px
-}
-.modalitem .card .card-body ul li div {
-  margin: -8px 0px 5px 5px;
-}
-/* CSS for Popup end */
-
-
 @media only screen and (max-width: 768px) {
   .search-form {
     display: flex;
     flex-direction: column;
+    align-items: stretch;
   }
 
-  .table-icons {
+  /* .table-icons {
     position: relative;
     left: 125px;
+  } */
+
+  .inve-add {
+    top: -422px;
   }
 
   .search {
-      width: 186px;
+    width: 186px;
   }
+
   form {
-      display: flex;
-      flex-wrap: nowrap;
-      margin-bottom: 10px;
+    display: flex;
+    flex-wrap: nowrap;
+    margin-bottom: 10px;
   }
+
+  form .select {
+    width: 165px;
+    height: 40px;
+  }
+
+  form .search {
+    border: 1px solid #EFEFEF;
+    border-radius: 30px;
+    width: 175px;
+    height: 45px;
+  }
+
   .table-resp {
-      font-size: 10px;
+    font-size: 10px;
   }
+
   .table tbody tr th, .table tbody tr td {
-      padding: 5px;
+    padding: 5px;
   }
 
 }
 
-::ng-deep .mat-stroked-button {
-  border: 1px solid #084982 !important;
-  padding: 2px !important;
+.lists {
+  margin-top: -20px;
+}
+
+::ng-deep .mat-flat-button.mat-primary {
+  background-color: #084982;
 }
 
 /* common ng-deep */
+
 .mat-form-field-appearance-outline ::ng-deep .mat-form-field-outline {
   top: 5px;
   bottom: 5px;
@@ -357,4 +357,8 @@ border: 1px solid #fff;
 ::ng-deep input.mat-input-element {
   position: relative;
   bottom: 4px;
+}
+
+::ng-deep .mat-form-field-outline {
+  background: #F8F8F8;
 }

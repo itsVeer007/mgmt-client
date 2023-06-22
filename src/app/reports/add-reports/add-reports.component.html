@@ -5,7 +5,7 @@
 
     <!-- count -->
     <div class="col-lg-6">
-      <p>Total Products - <span>{{ newProductMaster.length }}</span></p>
+      <p>Total Data - <span>{{ newProductMaster.length }}</span></p>
       <div class="row">
         <div class="col-lg-2 d-flex justify-content-start">
           <div class="vl-yellow"></div>
@@ -32,7 +32,7 @@
     </div>
     <!-- /count -->
 
-    <div class="col-lg-2 text-end inve-add" style="position: relative">
+    <!-- <div class="col-lg-2 text-end inve-add" style="position: relative">
       <a class="pointer" (click)="show('inventory')">
         <img src="assets/icons/add.svg" alt="">
       </a>
@@ -40,7 +40,7 @@
         <img src="assets/icons/sites-img.svg" alt=""
           style="border-radius: 24px; box-shadow: 7px 7px 7px 0px #f3f3f3; margin-top: -9px;">
       </a>
-    </div>
+    </div> -->
 
   </div>
   <!-- /header -->
@@ -89,7 +89,7 @@
 
       <div class="col-lg-2 col-sm-12">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Select Category</mat-label>
+          <mat-label>Select Mode</mat-label>
           <mat-select (focus)="removeDuplicates()" [(ngModel)]="productCategoryId">
             <mat-option value="">All</mat-option>
             <mat-option *ngFor="let item of brandNames" [value]="item.productCategoryId">{{ item.productCategoryId }}</mat-option>
@@ -99,7 +99,7 @@
 
       <div class="col-lg-2 col-sm-12">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Product Type</mat-label>
+          <mat-label>Select Device</mat-label>
           <mat-select (focus)="removeDuplicates()" [(ngModel)]="productTypeId">
             <mat-option value="">All</mat-option>
             <mat-option *ngFor="let item of categoryTypes" [value]="item.productTypeId">{{ item.productTypeId }}</mat-option>
@@ -109,7 +109,7 @@
 
       <div class="col-lg-2 col-sm-12">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Status</mat-label>
+          <mat-label>Select Location</mat-label>
           <mat-select (focus)="removeDuplicates()" [(ngModel)]="productStatusId">
             <mat-option value="">All</mat-option>
             <mat-option *ngFor="let item of statusVal" [value]="item.productStatusId">{{ item.productStatusId }}</mat-option>
@@ -128,11 +128,10 @@
       </div>
 
       <div class="filter-search-btn col-lg-2 col-sm-12">
-        <!-- <button mat-flat-button color="primary" class="p-0" (click)="applyFilter()">Submit</button> -->
         <button (click)="applyFilter()">Submit</button>
       </div>
 
-      <div class="table-icons">
+      <!-- <div class="table-icons">
         <div class="lists" *ngIf="showIconView" style="margin-right: 60px; margin-top: -40px;">View</div>
         <div class="lists" *ngIf="showIconEdit" style="margin-right: 30px; margin-top: -40px;">Edit</div>
         <div class="lists" *ngIf="showIconDelete" style="margin-right: -5px; margin-top: -40px;">Delete</div>
@@ -140,7 +139,7 @@
         <a class="mx-2" (click)="viewBySelectedOne()"><img src="assets/icons/view.svg" (mouseenter)="showIconView = true" (mouseleave)="showIconView = false"></a>
         <a class="mx-2" (click)="editBySelectedOne()"><img src="assets/icons/edit.svg" (mouseenter)="showIconEdit = true" (mouseleave)="showIconEdit = false"></a>
         <a class="mx-2" (click)="deleteSelected()"><img src="assets/icons/delete.svg" (mouseenter)="showIconDelete = true" (mouseleave)="showIconDelete = false"></a>
-      </div>
+      </div> -->
   </div>
   <!-- /form -->
 
@@ -159,72 +158,45 @@
           </th>
 
           <th>
-            <span>Id</span>
-            <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <span>url</span>
+            <img (click)="sort('url')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
-            <span>Product Category Id</span>
-            <img (click)="sort('productCategoryId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <span>mode</span>
+            <img (click)="sort('mode')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
-            <span>Name</span>
-            <img (click)="sort('name')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <span>user_device</span>
+            <img (click)="sort('user_device')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
-          <!-- <th>
-            <span>Description</span>
-            <img (click)="sort('productCategory')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-          </th> -->
-
           <th>
-            <span>UOM Id</span>
-            <img (click)="sort('uomId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <span>chrome_data</span>
+            <img (click)="sort('chrome_data')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
 
           <th>
-            <span>Product Model Id</span>
-            <img (click)="sort('productModelId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <span>ip_address</span>
+            <img (click)="sort('ip_address')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
-            <span>Product Type</span>
-            <img (click)="sort('productTypeId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <span>user_location</span>
+            <img (click)="sort('user_location')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
-            <span>Cost</span>
-            <img (click)="sort('cost')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <span>scan_time</span>
+            <img (click)="sort('scan_time')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
-            <span>Vendor Id</span>
-            <img (click)="sort('purchaseVendorId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <span>hit_count</span>
+            <img (click)="sort('hit_count')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
-
-          <!-- <th>
-            <span>Purchase Link</span>
-            <img (click)="sort('productName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-          </th> -->
-
-          <th>
-            <span>Returnable</span>
-            <img (click)="sort('productName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-          </th>
-
-          <th>
-            <span>Maintenance Req</span>
-            <img (click)="sort('productName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-          </th>
-
-          <th>
-            <span>Status</span>
-            <img (click)="sort('productStatusId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-          </th>
-
-          <th></th>
         </tr>
       </thead>
 
@@ -240,84 +212,35 @@
           </td>
 
           <td>
-            <p>{{ cust.id }}</p>
+            <p>{{ cust.url }}</p>
           </td>
 
           <td>
-            <p>{{ cust.productCategoryId }}</p>
-          </td>
-          <td>
-            <p>{{ cust.name }}</p>
+            <p>{{ cust.mode }}</p>
           </td>
 
-          <!-- <td>
-            <p>{{ cust.description }}</p>
-          </td> -->
-
-          <td>
-            <p>{{ cust.uomId }}</p>
+          <td style="width: 120px;">
+            <p>{{ cust.user_device }}</p>
           </td>
 
           <td>
-            <p>{{ cust.productModelId }}</p>
+            <p>{{ cust.chrome_data }}</p>
           </td>
 
           <td>
-            <p>{{ cust.productTypeId }}</p>
+            <p>{{ cust.ip_address }}</p>
           </td>
 
           <td>
-            <p>{{ cust.cost }}</p>
+            <p>{{ cust.user_location }}</p>
           </td>
 
           <td>
-            <p>{{ cust.purchaseVendorId }}</p>
-          </td>
-
-          <!-- <td>
-            <p>{{ cust.purchaseLink }}</p>
-          </td> -->
-
-          <td>
-            <p>{{ cust.returnable }}</p>
+            <p>{{ cust.scan_time }}</p>
           </td>
 
           <td>
-            <p>{{ cust.maintenanceRequired }}</p>
-          </td>
-
-          <td>
-            <p [style.color]="cust.productStatusId == '1' ? '#00A44C' : cust.productStatusId == '2' ? '#F5B400' : cust.productStatusId == '3' ? '#fa500f' : '#00A44C'">
-              {{ cust.productStatusId == 1 ? 'Active' : cust.productStatusId == 2 ? 'Inactive' : cust.productStatusId == 3 ? 'Removed' : '--' }}
-            </p>
-          </td>
-
-          <td style="position: relative;">
-            <a (click)="closeDot($event, i)" class="pointer">
-              <img src="assets/icons/dotlist.svg" width="30" height="12" />
-            </a>
-            <div class="plus-img1" id="plus-img{{i}}" style="display: none">
-              <div class="lists" *ngIf="showIconView1" style="margin-left: 5px; margin-top: -20px">
-                View
-              </div>
-              <div class="lists" *ngIf="showIconEdit1" style="margin-left: 38px; margin-top: -20px">
-                Edit
-              </div>
-              <div class="lists" *ngIf="showIconDelete1" style="margin-left: 63px; margin-top: -20px">
-                Delete
-              </div>
-
-              <a class="mx-2" (click)="openViewPopup(cust)">
-                <img src="assets/icons/view.svg" (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" />
-              </a>
-              <a class="mx-2" (click)="openEditPopup(cust)">
-                <img src="assets/icons/edit.svg" (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" />
-              </a>
-              <!-- <a class="mx-2" value="Delete" (click)="deleteRow1(cust, i)"><img src="assets/icons/delete.svg" /></a> -->
-              <a class="mx-2" value="Delete" (click)="openDeletePopup(cust)">
-                <img src="assets/icons/delete.svg" (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" />
-              </a>
-            </div>
+            <p>{{ cust.hit_count }}</p>
           </td>
         </tr>
       </tbody>

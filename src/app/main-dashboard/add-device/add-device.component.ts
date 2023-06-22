@@ -379,7 +379,7 @@ export class AddDeviceComponent implements OnInit {
   deviceUpdate1: any;
   deviceUpdate2: any;
   updateDeviceDtl() {
-    console.log(this.changedKeys.length)
+    // console.log(this.changedKeys.length);
 
     if(this.changedKeys.length > 0) {
       this.deviceUpdate2 = Swal.fire({
@@ -441,6 +441,7 @@ export class AddDeviceComponent implements OnInit {
   addDevice1: any;
   addDevice2: any;
   addDeviceDtl() {
+    // console.log(this.addDevice);
     this.adInfo.siteId = this.siteData.siteid;
 
     if(this.addDevice.valid) {
@@ -526,4 +527,3 @@ export class AddDeviceComponent implements OnInit {
   }
 
 }
-

@@ -50,15 +50,41 @@
               <span>Users</span>
           </a>
 
-          <a class="list-group-item " [routerLink]="['/inventory']" routerLinkActive="routeactive">
+          <nav>
+            <ul>
+              <li>
+                <a class="ms-2 pointer">
+                  <img src="assets/icons/inventory_2.svg">
+                  Inventory Manager
+                </a>
+                <ul style="position: relative; margin: 0 0 0 20px;">
+                  <li>
+                    <a class="list-group-item " [routerLink]="['/product-master']" routerLinkActive="routeactive">
+                      <img src="assets/icons/checklist.svg">
+                      <span>Product Master</span>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a class="list-group-item " [routerLink]="['/inventory']" routerLinkActive="routeactive">
+                      <img src="assets/icons/inventory.svg">
+                      <span>Inventory</span>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+
+          <!-- <a class="list-group-item " [routerLink]="['/inventory']" routerLinkActive="routeactive">
             <img src="assets/icons/inventory.svg">
             <span>Inventory</span>
-          </a>
+          </a> -->
 
-          <a class="list-group-item " [routerLink]="['/product-master']" routerLinkActive="routeactive">
+          <!-- <a class="list-group-item " [routerLink]="['/product-master']" routerLinkActive="routeactive">
             <img src="assets/icons/inventory.svg">
             <span>Product Master</span>
-          </a>
+          </a> -->
 
           <a class="list-group-item " [routerLink]="['/devices']" routerLinkActive="routeactive">
             <img src="assets/icons/devices.svg">
@@ -80,10 +106,36 @@
             <span>Metadata</span>
           </a>
 
-          <a class="list-group-item " [routerLink]="['/reports']" routerLinkActive="routeactive">
+          <!-- <a class="list-group-item " [routerLink]="['/reports']" routerLinkActive="routeactive">
             <img src="assets/icons/report.svg">
             <span>Reports</span>
-          </a>
+          </a> -->
+
+          <nav>
+            <ul>
+              <li>
+                <a class="ms-2 pointer">
+                  <img src="assets/icons/report.svg">
+                  Reports
+                </a>
+
+                <ul style="position: relative; margin: 0 0 0 20px;">
+                  <li>
+                    <a class="pointer">Advertisements</a>
+
+                    <ul style="position: relative; margin: 0 0 0 20px;">
+                      <li><a class="list-group-item " [routerLink]="['/ad-reports']" routerLinkActive="routeactive">QR Ads</a></li>
+                      <li><a class="list-group-item " [routerLink]="['/wifi-ads']" routerLinkActive="routeactive">Wifi Ads</a></li>
+                    </ul>
+                  </li>
+
+                  <li>
+                    <a class="pointer">Tickets</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
 
           <!-- <a class="list-group-item " [routerLink]="['/test']" routerLinkActive="routeactive">
             <img src="assets/icons/report.svg">

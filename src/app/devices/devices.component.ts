@@ -41,6 +41,7 @@ export class DevicesComponent implements OnInit {
 
   ngOnInit(): void {
     this.CustomerReport();
+    this.getStatus()
   }
 
   showIconVertical: boolean = false;
@@ -62,8 +63,17 @@ export class DevicesComponent implements OnInit {
   CustomerReport() {
     this.devService.listDeviceAdsInfo().subscribe((res: any) => {
       // console.log(res);
-      this.deviceData = res.flatMap((item: any) => item.adsDevices)
-        // this.deviceData = item.adsDevices;
+      let x = res.flatMap((item: any) => item.adsDevices);
+      this.deviceData = x;
+      // localStorage.setItem('deviceData', JSON.stringify(x));
+    })
+  }
+
+  z: any
+  getStatus() {
+    // this.z = JSON.parse(localStorage.getItem('deviceData')!);
+    this.devService.getHealth(this.z).subscribe((res: any) => {
+      // console.log(res)
     })
   }
 
@@ -75,6 +85,38 @@ export class DevicesComponent implements OnInit {
   filterDevice: any
   filterDeviceType(value: any) {
     this.filterDevice = this.deviceData.filter((el: any) => el.deviceType == value)
+  }
+
+  rebootDevice0: any;
+  rebootDevice1: any;
+  rebootDevice2: any;
+  rebootDevice(id: any) {
+    this.rebootDevice2 = Swal.fire({
+      text: "Please wait",
+      imageUrl: "assets/gif/ajax-loading-gif.gif",
+      showConfirmButton: false,
+      allowOutsideClick: false
+    });
+
+    this.devService.updateRebootDevice(id).subscribe((res: any) => {
+      // console.log(res)
+
+      if(res) {
+        this.rebootDevice1 = Swal.fire({
+          icon: 'success',
+          title: 'Done!',
+          text: `${res.message}`,
+        });
+      }
+    }, (err: any) => {
+      if(err) {
+        this.rebootDevice0 = Swal.fire({
+          icon: 'error',
+          title: 'Failed!',
+          text: 'Rebooting Device failed'
+        });
+      };
+    });
   }
 
 

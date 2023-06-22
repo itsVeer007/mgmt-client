@@ -48,7 +48,7 @@
           <mat-label>Site Name</mat-label>
           <mat-select>
             <!-- <mat-option (click)="sort('siteName')">Filter by A-Z</mat-option> -->
-            <mat-option *ngFor="let data of tableData">{{ data.siteName }}</mat-option>
+            <mat-option *ngFor="let data of siteIds">{{ data.siteid }} - {{ data.siteShortName }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -90,7 +90,7 @@
               <img (click)="sort('siteid')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </th>
 
-            <th>
+            <th style="width: 120px;">
               <span>Site Name</span>
               <img (click)="sort('sitename')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </th>

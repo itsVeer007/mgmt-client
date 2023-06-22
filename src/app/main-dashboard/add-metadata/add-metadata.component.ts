@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MetadataService } from 'src/services/metadata.service';
+import Swal from 'sweetalert2';
 import swal from 'sweetalert2';
 // import * as swal from 'sweetalert2';
 
@@ -48,26 +49,26 @@ export class AddMetadataComponent implements OnInit {
   metadataForm: any = FormGroup;
   ng: any;
 
-  constructor(private router: Router, private fb: FormBuilder, private dropDown: MetadataService) { }
+  constructor(private router: Router, private fb: FormBuilder, private metaDataSer: MetadataService) { }
 
   metaDataBody = {
     createdBy: 1,
     type: '',
     value: '',
-    remarks: ''
-
+    // remarks: ''
   }
 
+  metaType: any
   ngOnInit(): void {
     this.metadataForm = this.fb.group({
       'createdBy': new FormControl(''),
-      'type': new FormControl('', this.ng == 'Create New' ? Validators.required : []),
+      'type': new FormControl(''),
       'value': new FormControl('', Validators.required),
-      'remarks': new FormControl(''),
-      'ng': new FormControl(''),
+      // 'remarks': new FormControl('')
     });
 
     this.getDeviceType();
+    this.metaType = JSON.parse(JSON.stringify(localStorage.getItem('metaType')!));
   }
 
   closeAddCamera() {
@@ -76,7 +77,7 @@ export class AddMetadataComponent implements OnInit {
 
   type: Array<any> = [];
   getDeviceType() {
-    this.dropDown.getMetadata().subscribe((res: any) => {
+    this.metaDataSer.getMetadata().subscribe((res: any) => {
       this.type = res;
       // console.log(res)
     })
@@ -91,7 +92,7 @@ export class AddMetadataComponent implements OnInit {
   showType = false;
   showValueAndRemark = false;
   openNew(type: any) {
-    this.dropDown.getMetadata().subscribe((res: any) => {
+    this.metaDataSer.getMetadata().subscribe((res: any) => {
       for(let item of res) {
         if(type == '') {
           this.showType = true
@@ -112,36 +113,54 @@ export class AddMetadataComponent implements OnInit {
   }
 
 
-  addNewAsset() {
-    if(this.metadataForm.valid) {
-      this.dropDown.add(this.metaDataBody).subscribe((res) => {
-        // console.log(res)
-      })
+  addData0: any;
+  addData1: any;
+  addData2: any;
+  addMetadata() {
+    console.log(this.metaDataBody);
+
+    if(this.metaType == 'Create_New') {
+      this.metaDataBody.type =  this.metaDataBody.type;
+    } else {
+      this.metaDataBody.type = this.metaType;
     }
-    // console.log(this.metaDataBody);
+
+    if(this.metadataForm.valid) {
+      this.addData2 = Swal.fire({
+        text: "Please wait",
+        imageUrl: "assets/gif/ajax-loading-gif.gif",
+        showConfirmButton: false,
+        allowOutsideClick: false
+      })
+
+      this.metaDataSer.add(this.metaDataBody).subscribe((res: any) => {
+        console.log(res);
+
+        if(res) {
+          this.addData1 = Swal.fire({
+            icon: 'success',
+            title: `Done!`,
+            text: 'Data Created Successfully!'
+          });
+        }
+
+        setTimeout(() => {
+          // window.location.reload();
+        }, 3000);
+
+      }, (err: any) => {
+        if(err) {
+          this.addData0 = Swal.fire({
+            icon: 'error',
+            title: 'Failed!',
+            text: 'Creating Data failed',
+          });
+        };
+      });
+    }
   }
 
 }
 
-
-
-  //   swal.fire({
-  //     title: 'Your Title',
-  //     text: "You won't be able to revert this!",
-  //     input: 'textarea',
-  //     inputAttributes: {
-  //         autocapitalize: 'off'
-  //     },
-  //     showCancelButton: true,
-  //     confirmButtonText: 'ok',
-  //     cancelButtonText: 'cancel',
-  //     allowOutsideClick: false
-  //   }).then((result: any) => {
-  //     if (result.dismiss !== 'cancel') {
-  //       swal.fire({
-  //         title: 'Deleted',
-  //       })
-  //     }
-  // })
 
 

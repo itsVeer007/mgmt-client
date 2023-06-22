@@ -69,7 +69,7 @@
         </button>
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option *ngFor="let option of filteredOptions" [value]="option.siteid" (click)="filterSiteId(option.siteid)">
-            {{ option.siteid }}
+            {{ option.siteid }} - {{ option.siteShortName }}
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
@@ -162,7 +162,7 @@
             </th>
 
             <th>
-              <span>Asset Id</span>
+              <span>Add Id</span>
               <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </th>
 

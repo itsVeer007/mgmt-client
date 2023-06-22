@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { environment } from '../environments/environment';
@@ -25,6 +25,24 @@ export class DeviceService {
     }
 
     return this.http.get(url, {params: payload});
+  }
+
+  getHealth(deviceId: any) {
+    let url = this.baseUrl + '/getHealth_1_0';
+
+    var payload = {
+      'deviceId': deviceId
+    }
+
+    return this.http.get(url, {params: payload});
+  }
+
+  updateRebootDevice(id: any) {
+    let url = this.baseUrl + '/updateRebootDevice_1_0';
+
+    const params = new HttpParams().set('deviceId', id.toString()).set('modifiedBy', 1);
+
+    return this.http.put(url, null, { params: params });
   }
 
   createDeviceandAdsInfo(payload: any) {

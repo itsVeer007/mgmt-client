@@ -74,13 +74,15 @@ export class SitesComponent implements OnInit {
   showIconEdit1: boolean = false;
   showIconDelete1: boolean = false;
 
-  siteData: any
+  siteData: any;
+  siteIds: any;
   deviceLength: any = [];
   // inputToAssets: any;
   ngOnInit(): void {
     this.getlistSites()
     this.ongetDeviceMode();
     this.siteData = JSON.parse(localStorage.getItem('temp_sites')!);
+    this.siteIds = JSON.parse(localStorage.getItem('siteIds')!).sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
     // this.myFun();
   }
 
@@ -91,7 +93,7 @@ export class SitesComponent implements OnInit {
       // console.log(res);
       this.showLoader = false;
 
-      this.tableData = res.siteList;
+      this.tableData = res.siteList.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
       // this.inputToAssets = localStorage.setItem('siteIds', JSON.stringify(this.tableData))
       // this.totalCount = res.counts;
     })

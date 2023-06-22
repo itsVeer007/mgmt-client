@@ -2,15 +2,15 @@ import { HttpClient } from '@angular/common/http';
 import { Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AssetService } from 'src/services/asset.service';
-import { ProductMasterService } from 'src/services/product-master.service';
+import { ReportService } from 'src/services/report.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-product-master',
-  templateUrl: './product-master.component.html',
-  styleUrls: ['./product-master.component.css']
+  selector: 'app-wifi-ads',
+  templateUrl: './wifi-ads.component.html',
+  styleUrls: ['./wifi-ads.component.css']
 })
-export class ProductMasterComponent implements OnInit {
+export class WifiAdsComponent implements OnInit {
 
   @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
     var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);
@@ -38,7 +38,7 @@ export class ProductMasterComponent implements OnInit {
 
 
   showLoader = false;
-  constructor(private http: HttpClient, private ass: AssetService, private productMasterSer: ProductMasterService, public dialog: MatDialog) { }
+  constructor(private http: HttpClient, private ass: AssetService, private reportSer: ReportService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getInventory();
@@ -61,26 +61,19 @@ export class ProductMasterComponent implements OnInit {
   scrap: any = [];
   redyToUse: any = [];
   getInventory() {
-    this.productMasterSer.list().subscribe((res: any) => {
+    this.reportSer.list().subscribe((res: any) => {
       // console.log(res);
-      // this.productMasterSer.mySub = res;
-      // console.log(this.productMasterSer.mySub);
 
       this.productMaster = res;
       this.newProductMaster = this.productMaster;
 
-      // for(let item of this.productMaster) {
-      //   if(item.status == 'Installed') {
-      //     this.installed.push(item);
-      //   } else if(item.status == 'In-Stock') {
-      //     this.inStock.push(item);
-      //   } else if(item.status == 'Scrap') {
-      //     this.scrap.push(item);
-      //   } else if(item.status == 'ReadyToReuse') {
-      //     this.redyToUse.push(item);
-      //   }
-      // }
     });
+
+    this.http.get('assets/JSON/addReport.json').subscribe((res: any) => {
+      // console.log(res);
+      this.productMaster = res;
+      this.newProductMaster = this.productMaster;
+    })
   }
 
   // filterBrand(val: any) {
@@ -151,7 +144,7 @@ export class ProductMasterComponent implements OnInit {
       'productStatusId': this.productStatusId ? this.productStatusId : '',
     }
 
-    this.productMasterSer.filteBody(myObj).subscribe((res: any) => {
+    this.reportSer.filteBody(myObj).subscribe((res: any) => {
       // console.log(res);
       this.newProductMaster = res;
     })
@@ -272,7 +265,7 @@ export class ProductMasterComponent implements OnInit {
       allowOutsideClick: false
     });
 
-    this.productMasterSer.updateProductMaster(this.originalObject).subscribe((res: any) => {
+    this.reportSer.updateProductMaster(this.originalObject).subscribe((res: any) => {
       // console.log(res);
 
       if(res) {
@@ -282,11 +275,6 @@ export class ProductMasterComponent implements OnInit {
           text: 'Updated Inventory Successfully!',
         });
       }
-
-      setTimeout(() => {
-        window.location.reload();
-      }, 3000)
-
     }, (err: any) => {
       if(err) {
         this.updateInventory0 = Swal.fire({
@@ -329,7 +317,7 @@ export class ProductMasterComponent implements OnInit {
       allowOutsideClick: false
     });
 
-    this.productMasterSer.deleteProduct(this.currentItem).subscribe((res: any) => {
+    this.reportSer.deleteProduct(this.currentItem).subscribe((res: any) => {
       // console.log(res);
       if(res) {
         this.deleteInventory1 = Swal.fire({

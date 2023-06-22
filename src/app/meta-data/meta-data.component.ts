@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MetadataService } from 'src/services/metadata.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-meta-data',
@@ -34,7 +36,7 @@ export class MetaDataComponent implements OnInit {
 
 
   showLoader = false;
-  constructor(private http: HttpClient, private dropDown: MetadataService) { }
+  constructor(private http: HttpClient, private metaDataSer: MetadataService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.CustomerReport();
@@ -55,24 +57,32 @@ export class MetaDataComponent implements OnInit {
   showIconDelete1: boolean = false;
 
   searchText: any;
-  metaData: any;
-  metadataType: any
+  metaData: any = []
+  newMetaData: any = [];
+  typeToTable: any
   CustomerReport() {
-    this.showLoader = true;
-    this.dropDown.getMetadata().subscribe((res: any) => {
+    this.metaDataSer.getMetadata().subscribe((res: any) => {
       // console.log(res);
-      this.showLoader = false;
+
+      const x = res.flatMap((item: any) => item.metadata);
+      this.metaData = x;
+
+      const y = res.flatMap((item: any) => item.type);
+      this.typeToTable = y;
+    })
+  }
+
+  deviceSearch: any;
+  searchDevices(e: any) {
+    this.deviceSearch = (e.target as HTMLInputElement).value;
+  }
+
+  filterDevices(data: any) {
+    this.metaDataSer.getMetadataByType(data).subscribe((res: any) => {
+      // console.log(res);
 
       const data = res.flatMap((item: any) => item.metadata);
-      this.metaData = data;
-      // console.log(data);
-
-      const dataType = res.flatMap((item: any) => item.type);
-      // console.log('dataType', dataType)
-      for(let id of dataType) {
-        this.metadataType = id;
-        // console.log(this.metadataType);
-      }
+      this.newMetaData = data;
     })
   }
 
@@ -100,8 +110,9 @@ export class MetaDataComponent implements OnInit {
 
   showTicket: boolean = false;
 
-  show(type: string) {
+  show(type: string, val: any) {
     if (type == 'ticket') { this.showTicket = true }
+    localStorage.setItem('metaType', val)
   }
 
   masterSelected: boolean = false;
@@ -118,72 +129,129 @@ export class MetaDataComponent implements OnInit {
   selectedAll: any;
 
   selectAll() {
-    for (var i = 0; i < this.metaData.length; i++) {
+    for (var i = 0; i < this.newMetaData.length; i++) {
       // console.log(this.metaData[i])
-      this.metaData[i].selected = this.selectedAll;
+      this.newMetaData[i].selected = this.selectedAll;
     }
   }
   checkIfAllSelected() {
-    this.selectedAll = this.metaData.every(function (item: any) {
+    this.selectedAll = this.newMetaData.every(function (item: any) {
       // console.log(item)
       return item.selected == true;
     })
   }
 
+  currentItem: any;
 
-  deleteRow: any;
+  @ViewChild('viewDataDialog') viewDataDialog = {} as TemplateRef<any>;
+
+  openViewPopup(item: any, i: any) {
+    this.currentItem = item;
+    this.dialog.open(this.viewDataDialog);
+    // console.log(this.currentItem);
+  }
+
+  @ViewChild('editDataDialog') editDataDialog = {} as TemplateRef<any>;
+
+  typeFromLocal: any;
+  openEditPopup(item: any, val: any) {
+    localStorage.setItem('metaType', val);
+    this.typeFromLocal = localStorage.getItem('metaType');
+    // console.log(this.typeFromLocal);
+
+    this.currentItem = JSON.parse(JSON.stringify(item));
+    this.dialog.open(this.editDataDialog);
+    // console.log(this.currentItem);
+  }
+
+  updateData0: any;
+  updateData1: any;
+  updateData2: any
+  confirmEditRow() {
+    let myObj = {
+      "keyId": this.currentItem.keyId,
+      "type": this.typeFromLocal,
+      "value": this.currentItem.value,
+      "modifiedBy": 1,
+      "remarks": this.currentItem.remarks
+    }
+
+    // this.updateData2 = Swal.fire({
+    //   text: "Please wait",
+    //   imageUrl: "assets/gif/ajax-loading-gif.gif",
+    //   showConfirmButton: false,
+    //   allowOutsideClick: false
+    // });
+
+    this.metaDataSer.updateMetadataKeyValue(myObj).subscribe((res: any) => {
+      // console.log(res);
+
+      if(res) {
+        this.updateData1 = Swal.fire({
+          icon: 'success',
+          title: 'Done!',
+          text: `${res.message}`,
+        });
+      }
+    }, (err: any) => {
+      if(err) {
+        this.updateData0 = Swal.fire({
+          icon: 'error',
+          title: 'Failed!',
+          text: 'Updating Data failed',
+          // timer: 3000,
+        });
+      };
+    })
+  }
+
+
+  @ViewChild('deleteDataDialog') deleteDataDialog = {} as TemplateRef<any>;
+
+  openDeletePopup(item: any, i: any) {
+    this.currentItem = item;
+    this.dialog.open(this.deleteDataDialog);
+  }
+
 
   deleteRow1(item: any, i: any) {
     // console.log(item);
     this.showLoader = true;
     setTimeout(() => {
       this.showLoader = false;
-      this.metaData.splice(i, 1);
+      this.newMetaData.splice(i, 1);
     }, 1000);
   }
 
-  deletePopup: boolean = true;
   confirmDeleteRow() {
     // console.log(this.currentItem);
-    this.metaData = this.metaData.filter((item: any) => item.siteId !== this.currentItem.siteId);
-    this.deletePopup = true;
-  }
-
-  closeDeletePopup() {
-    this.deletePopup = true;
-  }
-
-  currentItem: any;
-  openDeletePopup(item: any, i: any) {
-    this.currentItem = item;
-    // console.log("Selected Item:: ", item);
-    this.deletePopup = false;
-    // console.log("Open Delete Popup:: ",this.deletePopup);
-    // console.log(this.metaData.siteId);
+    this.newMetaData = this.newMetaData.filter((item: any) => item.siteId !== this.currentItem.siteId);
   }
 
 
-  editPopup: boolean = true;
+  /* checkbox control */
 
-  confirmEditRow() {
-    // console.log(this.currentItem);
-    // this.metaData= this.metaData.filter((item:any) => item.siteId !== this.currentItem.siteId);
-    this.editPopup = true;
-    this.CustomerReport();
+  viewArray: any = [];
+  viewBySelectedOne() {
+    if (this.viewArray.length > 0) {
+      this.dialog.open(this.viewDataDialog);
+    }
   }
 
-  closeEditPopup() {
-    this.editPopup = true;
+  ViewByCheckbox(itemV: any, i: any, e: any) {
+    var checked = (e.target.checked);
+    // console.log("View By Checkbox:: ",itemV);
+    // console.log("View Array::" ,this.viewArray);
+    // console.log("present in array : "+this.viewArray.includes(itemV),  " checked : "+ checked)
+    if (checked == true && this.viewArray.includes(itemV) == false) {
+      this.viewArray.push(itemV);
+      this.currentItem = this.viewArray[(this.viewArray.length - 1)];
+    }
+    if (checked == false && this.viewArray.includes(itemV) == true) {
+      this.viewArray.splice(this.viewArray.indexOf(itemV), 1)
+    }
   }
 
-  openEditPopup(item: any, i: any) {
-    this.currentItem = JSON.parse(JSON.stringify(item));
-    // this.currentItem = item;
-    // console.log("Selected Item:: ", item);
-    this.editPopup = false;
-    // console.log("Open Delete Popup:: ",this.editPopup);
-    // console.log(this.metaData.siteId);
-  }
 
   editArray: any = [];
   EditByCheckbox(itemE: any, i: any, e: any) {
@@ -202,47 +270,9 @@ export class MetaDataComponent implements OnInit {
 
   editBySelectedOne() {
     if (this.editArray.length > 0) {
-      this.editPopup = false;
+      this.dialog.open(this.editDataDialog);
     }
     this.CustomerReport();
-  }
-
-
-  viewPopup: boolean = true;
-  confirmViewRow() {
-    // console.log(this.currentItem);
-    this.viewPopup = true;
-  }
-
-  closeViewPopup() {
-    this.viewPopup = true;
-  }
-
-  openViewPopup(item: any, i: any) {
-    this.currentItem = item;
-    // console.log(this.currentItem);
-    this.viewPopup = false;
-  }
-
-  viewArray: any = [];
-  ViewByCheckbox(itemV: any, i: any, e: any) {
-    var checked = (e.target.checked);
-    // console.log("View By Checkbox:: ",itemV);
-    // console.log("View Array::" ,this.viewArray);
-    // console.log("present in array : "+this.viewArray.includes(itemV),  " checked : "+ checked)
-    if (checked == true && this.viewArray.includes(itemV) == false) {
-      this.viewArray.push(itemV);
-      this.currentItem = this.viewArray[(this.viewArray.length - 1)];
-    }
-    if (checked == false && this.viewArray.includes(itemV) == true) {
-      this.viewArray.splice(this.viewArray.indexOf(itemV), 1)
-    }
-  }
-
-  viewBySelectedOne() {
-    if (this.viewArray.length > 0) {
-      this.viewPopup = false;
-    }
   }
 
 
@@ -270,12 +300,12 @@ export class MetaDataComponent implements OnInit {
       this.deletearray.forEach((el: any) => {
         // this.currentItem = el;
         // this.confirmDeleteRow();
-        this.metaData = this.metaData.filter((item: any) => item.siteId !== el.siteId);
+        this.newMetaData = this.newMetaData.filter((item: any) => item.siteId !== el.siteId);
       });
       this.deletearray = []
     } else {
-      this.metaData.forEach((el: any) => {
-        this.metaData = this.metaData.filter((item: any) => item.siteId !== el.siteId);
+      this.newMetaData.forEach((el: any) => {
+        this.newMetaData = this.newMetaData.filter((item: any) => item.siteId !== el.siteId);
       });
     }
   }
@@ -284,7 +314,7 @@ export class MetaDataComponent implements OnInit {
   sorted = false;
   sort(label: any) {
     this.sorted = !this.sorted;
-    var x = this.metaData;
+    var x = this.newMetaData;
     if (this.sorted == false) {
       x.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
     } else {

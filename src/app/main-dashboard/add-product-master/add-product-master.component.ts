@@ -64,8 +64,9 @@ export class AddProductMasterComponent implements OnInit {
     purchaseLink: "",
     returnable: "N",
     maintenanceRequired: "N",
-    productStatusId: 1,
-    remarks: ""
+    productStatusId: null,
+    remarks: "",
+    createdBy: 1
   }
 
 
@@ -104,6 +105,8 @@ export class AddProductMasterComponent implements OnInit {
   submit() {
     // console.log(this.prductMasterObj);
     if(this.UserForm.valid) {
+      this.newItemEvent.emit(false);
+
       this.addInventory2 = Swal.fire({
         text: "Please wait",
         imageUrl: "assets/gif/ajax-loading-gif.gif",
@@ -120,6 +123,11 @@ export class AddProductMasterComponent implements OnInit {
             text: `${res.message}`,
           });
         }
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
+
       }, (err: any) => {
         if(err) {
           this.addInventory0 = Swal.fire({

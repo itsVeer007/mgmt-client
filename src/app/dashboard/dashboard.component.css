@@ -64,6 +64,7 @@
       background-color: #084982;
       border-radius: 5px;
   }
+
   .list-group {
     display: flex;
     flex-direction: column;
@@ -77,6 +78,7 @@
     background-color: #084982;
     border-radius: 5px;
 }
+
 .routeactive{
   background-color: #084982;
   border-radius: 5px;
@@ -176,6 +178,66 @@
     display: flex;
     align-items: center;
     justify-content: center;
-}
+  }
 
 }
+
+
+
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav ul li:hover {
+  display: inline-block;
+}
+
+nav ul li a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: #ffffff;
+}
+
+nav ul li:hover > a {
+  background-color: transparent;
+}
+
+nav ul li ul {
+  display: none;
+  position: absolute;
+  /* min-width: 200px; */
+}
+
+nav ul li:hover > ul {
+  display: inherit;
+}
+
+nav ul li ul li {
+  /* min-width: 200px; */
+  display: list-item;
+  position: relative;
+}
+
+nav ul li ul li ul {
+  position: absolute;
+  top: 0;
+  right: 0;
+  /* left: 100%; */
+}
+
+/* Styling for submenus */
+nav ul li ul li a {
+  /* padding: 5px 15px; */
+  /* background-color: #f2f2f2; */
+  color: #fff;
+}
+
+nav ul li ul li:hover > a {
+  background-color: #AA4337;
+}
+
+

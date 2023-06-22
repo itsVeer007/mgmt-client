@@ -1,27 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductMasterService {
+export class ReportService {
 
   constructor(private http: HttpClient) { }
 
-  baseUrl = 'http://192.168.0.119:8080';
-
-  mySub = new Subject();
+  baseUrl = 'http://192.168.0.124:8000';
 
   list() {
-    let url = this.baseUrl + "/list_1_0";
+    let url = this.baseUrl + "/search/119";
     return this.http.get(url);
   }
 
-  addingproduct(payload: any) {
-    let url = this.baseUrl + '/addingproduct_1_0';
-    return this.http.post(url, payload)
-  }
 
   updateProductMaster(payload: any) {
     let url = this.baseUrl + '/updatingproduct_1_0';
@@ -57,4 +50,5 @@ export class ProductMasterService {
 
     return this.http.get(url, {params: payload});
   }
+
 }

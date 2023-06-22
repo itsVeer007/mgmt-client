@@ -124,7 +124,7 @@ export class AssetsComponent implements OnInit {
 
   searchSiteId() {
     this.siteIdSearch.valueChanges.pipe(startWith(''),map((value: any) => this.filterOptions(value))).subscribe((filtered: any) => {
-      this.filteredOptions = filtered;
+      this.filteredOptions = filtered.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
     });
 
     // if(this.searchControl.value == "" || this.searchControl.value == null) {
@@ -135,12 +135,15 @@ export class AssetsComponent implements OnInit {
   myData: any;
   filterSiteId(data: any) {
     this.devSercice.listDeviceBySiteId(data).subscribe((res: any) => {
-      this.deviceId = res.flatMap((item: any) => item.adsDevices);
+      let y =  res.flatMap((item: any) => item.adsDevices);
+      // console.log(y);
+      this.deviceId = y;
       this.newDeviceId = this.deviceId;
     });
 
     this.assetService.getAssetBySiteId(data).subscribe((res: any) => {
-      let x  = res.flatMap((item: any) => item.assets);
+      let x = res.flatMap((item: any) => item.assets);
+      // console.log(x);
       this.newAssetTable = x;
       this.myData = this.newAssetTable;
       this.cdr.detectChanges();
