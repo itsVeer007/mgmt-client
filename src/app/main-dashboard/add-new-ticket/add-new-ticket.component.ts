@@ -54,21 +54,22 @@ export class AddNewTicketComponent implements OnInit {
 
   constructor(private router: Router, private fb: FormBuilder, private ticketSer: TicketService, private dropDown: MetadataService) { }
 
-  x = {
+  ticketBody = {
     ticket: {
-      ticketType: '',
-      ticketReason: '',
-      site: '',
-      siteId: '',
-      dateCreated: '',
-      priority: '',
-      status: 'active',
+      // description: "",
+      ticketType: null,
+      requestedBy: null,
+      createdBy: 1,
+      sourceOfRequest: null,
+      priority: null,
+      // status: null
     },
+
     tasks: [
       {
-        taskName: "",
+        categoryId: null,
+        subCategoryId: null,
         description: "",
-        remarks: ""
       }
     ]
   }
@@ -92,21 +93,94 @@ export class AddNewTicketComponent implements OnInit {
 
   ngOnInit(): void {
     this.addAssetForm = this.fb.group({
-      'ticketType': new FormControl(''),
-      'ticketReason': new FormControl(''),
-      'site': new FormControl('', Validators.required),
-      'siteId': new FormControl('', Validators.required),
-      'dateCreated': new FormControl(''),
+      'ticketType': new FormControl('', Validators.required),
+      'sourceOfRequest': new FormControl('', Validators.required),
+      'requestedBy': new FormControl(''),
       'priority': new FormControl(''),
-      'status': new FormControl(''),
 
+      // 'status': new FormControl(''),
       // 'tasks': this.fb.group({
-        'taskName': new FormControl(''),
-        'desc': new FormControl(''),
-        'remarks': new FormControl(''),
+        'categoryId': new FormControl(''),
+        'subCategoryId': new FormControl(''),
+        'description': new FormControl(''),
       // }),
     });
+
+    this.onMetadataChange();
   }
+
+    /* metadata methods */
+
+    deviceType: any;
+    deviceMode: any;
+    workingDay: any;
+    tempRange: any;
+    ageRange: any;
+    modelObjectType: any;
+    model: any;
+    modelResolution: any;
+    softwareVersion: any;
+    weatherInterval: any;
+    deviceStatus: any;
+    ticketType: any;
+    sourceOfRequest: any;
+    ticketPriority: any;
+    ticketCategory: any;
+    ticketSubCategory: any;
+    onMetadataChange() {
+      this.dropDown.getMetadata().subscribe((res: any) => {
+        for(let item of res) {
+          if(item.type == 'Device_Type') {
+            this.deviceType = item.metadata;
+          }
+          else if(item.type == 'Device_Mode') {
+            this.deviceMode = item.metadata;
+          }
+          else if(item.type == 'Working_Day') {
+            this.workingDay = item.metadata;
+          }
+          else if(item.type == 'Ads_Temp_Range') {
+            this.tempRange = item.metadata;
+          }
+          else if(item.type == 'Ads_Age_Range') {
+            this.ageRange = item.metadata;
+          }
+          else if(item.type == 'model_object_type') {
+            this.modelObjectType = item.metadata;
+          }
+          else if(item.type == 'Model') {
+            this.model = item.metadata;
+          }
+          else if(item.type == 'Model Resolution') {
+            this.modelResolution = item.metadata;
+          }
+          else if(item.type == 'Ads_Software_Version') {
+            this.softwareVersion = item.metadata;
+          }
+          else if(item.type == 'Weather_Interval') {
+            this.weatherInterval = item.metadata;
+          }
+          else if(item.type == 'Device_Status') {
+            this.deviceStatus = item.metadata;
+          }
+          else if(item.type == 'Ticket_Type') {
+            this.ticketType = item.metadata;
+          }
+          else if(item.type == 'Source_of_Request') {
+            this.sourceOfRequest = item.metadata;
+          }
+          else if(item.type == 'Ticket_Priority') {
+            this.ticketPriority = item.metadata;
+          }
+          else if(item.type == 'Ticket_Category') {
+            this.ticketCategory = item.metadata;
+          }
+          else if(item.type == 'Ticket_Sub_Category') {
+            this.ticketSubCategory = item.metadata;
+          }
+        }
+      })
+    }
 
   closeAddCamera() {
     this.newItemEvent.emit(false);
@@ -132,7 +206,7 @@ export class AddNewTicketComponent implements OnInit {
         allowOutsideClick: false
       });
 
-      this.ticketSer.createTicket(this.x).subscribe((res) => {
+      this.ticketSer.createTicket(this.ticketBody).subscribe((res) => {
         // console.log(res);
 
         if(res) {

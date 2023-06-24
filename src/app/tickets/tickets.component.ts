@@ -68,7 +68,7 @@ export class TicketsComponent implements OnInit {
     // });
 
     this.ticketSer.getTickets().subscribe((res: any) => {
-      // console.log(res);
+      console.log(res);
       this.ticketData = res;
       this.newTicketData = this.ticketData;
     })
@@ -103,7 +103,7 @@ export class TicketsComponent implements OnInit {
   statusVal: any;
   removeDuplicates() {
     this.siteNames = this.ticketData.reduce((acc: any, current: any) => {
-      const x = acc.find((item: any) => item.requestId == current.requestId);
+      const x = acc.find((item: any) => item.requestedBy == current.requestedBy);
       if (!x) {
         return acc.concat([current]);
       } else {
@@ -112,7 +112,7 @@ export class TicketsComponent implements OnInit {
     }, []);
 
     this.priorityVal = this.ticketData.reduce((acc: any, current: any) => {
-      const x = acc.find((item: any) => item.priority == current.priority);
+      const x = acc.find((item: any) => item.priorityId == current.priorityId);
       if (!x) {
         return acc.concat([current]);
       } else {
@@ -121,7 +121,7 @@ export class TicketsComponent implements OnInit {
     }, []);
 
     this.statusVal = this.ticketData.reduce((acc: any, current: any) => {
-      const x = acc.find((item: any) => item.status == current.status);
+      const x = acc.find((item: any) => item.statusId == current.statusId);
       if (!x) {
         return acc.concat([current]);
       } else {
@@ -213,10 +213,22 @@ export class TicketsComponent implements OnInit {
 
   @ViewChild('viewTicketDialog') viewTicketDialog = {} as TemplateRef<any>;
 
+  ticketTasks: any;
+  ticketComments: any;
   openViewPopup(item: any) {
     this.currentItem = item;
     this.dialog.open(this.viewTicketDialog);
     // console.log(this.currentItem);
+
+    this.ticketSer.getTasks(item.ticketId).subscribe((res: any) => {
+      console.log(res);
+      this.ticketTasks = res;
+    });
+
+    this.ticketSer.getcomments(item.ticketId).subscribe((res: any) => {
+      console.log(res);
+      this.ticketComments = res;
+    })
   }
 
 

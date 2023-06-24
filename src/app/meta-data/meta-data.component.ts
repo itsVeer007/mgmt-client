@@ -193,6 +193,11 @@ export class MetaDataComponent implements OnInit {
           text: `${res.message}`,
         });
       }
+
+      setTimeout(()=> {
+        window.location.reload()
+      }, 3000);
+
     }, (err: any) => {
       if(err) {
         this.updateData0 = Swal.fire({

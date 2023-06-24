@@ -93,7 +93,7 @@ export class SitesComponent implements OnInit {
       // console.log(res);
       this.showLoader = false;
 
-      this.tableData = res.siteList.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
+      this.tableData = res?.siteList?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
       // this.inputToAssets = localStorage.setItem('siteIds', JSON.stringify(this.tableData))
       // this.totalCount = res.counts;
     })

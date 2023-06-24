@@ -159,43 +159,43 @@
           </th>
 
           <th>
-            <span>url</span>
+            <span>siteId</span>
             <img (click)="sort('url')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
-            <span>mode</span>
+            <span>qrcodeImage</span>
             <img (click)="sort('mode')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
-            <span>user_device</span>
+            <span>qrcodeUrl</span>
             <img (click)="sort('user_device')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
-            <span>chrome_data</span>
+            <span>validFromdate</span>
             <img (click)="sort('chrome_data')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
 
           <th>
-            <span>ip_address</span>
+            <span>Device Id</span>
             <img (click)="sort('ip_address')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
-          <th>
+          <!-- <th>
             <span>user_location</span>
             <img (click)="sort('user_location')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-          </th>
+          </th> -->
 
           <th>
-            <span>scan_time</span>
+            <span>status</span>
             <img (click)="sort('scan_time')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
-            <span>hit_count</span>
+            <span>createDate</span>
             <img (click)="sort('hit_count')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
         </tr>
@@ -213,35 +213,31 @@
           </td>
 
           <td>
-            <p>{{ cust.url }}</p>
+            <p>{{ cust.siteid }}</p>
           </td>
 
           <td>
-            <p>{{ cust.mode }}</p>
+            <p>{{ cust.mac_address }}</p>
           </td>
 
           <td style="width: 120px;">
-            <p>{{ cust.user_device }}</p>
+            <p>{{ cust.device_type }}</p>
           </td>
 
           <td>
-            <p>{{ cust.chrome_data }}</p>
+            <p>{{ cust.datetime }}</p>
+          </td>
+
+          <!-- <td>
+            <p>{{ cust.validToDate }}</p>
+          </td> -->
+
+          <td>
+            <p>{{ cust.device_id }}</p>
           </td>
 
           <td>
-            <p>{{ cust.ip_address }}</p>
-          </td>
-
-          <td>
-            <p>{{ cust.user_location }}</p>
-          </td>
-
-          <td>
-            <p>{{ cust.scan_time }}</p>
-          </td>
-
-          <td>
-            <p>{{ cust.hit_count }}</p>
+            <p>{{ cust.status }}</p>
           </td>
         </tr>
       </tbody>

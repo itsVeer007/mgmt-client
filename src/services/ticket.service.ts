@@ -6,13 +6,33 @@ import { Injectable } from '@angular/core';
 })
 export class TicketService {
 
-  baseUrl = 'http://192.168.0.118:8080';
+  baseUrl = 'http://192.168.0.189:8080';
 
   constructor(private http: HttpClient) { }
 
   getTickets() {
     let url = this.baseUrl + "/GetTickets";
     return this.http.get(url);
+  }
+
+  getTasks(ticketId: any) {
+    let url = this.baseUrl + "/getTasks";
+
+    let myObj = {
+      'ticketId': ticketId,
+    }
+
+    return this.http.get(url, {params: myObj});
+  }
+
+  getcomments(ticketId: any) {
+    let url = this.baseUrl + "/getcomments";
+
+    let myObj = {
+      'ticketId': ticketId,
+    }
+
+    return this.http.get(url, {params: myObj});
   }
 
   createTicket(payload: any) {

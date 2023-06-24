@@ -100,7 +100,7 @@
           <mat-label>Request Id</mat-label>
           <mat-select (focus)="removeDuplicates()" [(ngModel)]="rqsId">
             <mat-option [value]="0">All</mat-option>
-            <mat-option *ngFor="let item of siteNames" [value]="item.requestId">{{ item.requestId }}</mat-option>
+            <mat-option *ngFor="let item of siteNames" [value]="item.requestedBy">{{ item.requestedBy }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -110,7 +110,7 @@
           <mat-label>Select Priority</mat-label>
           <mat-select (focus)="removeDuplicates()" [(ngModel)]="prior">
             <mat-option value="">All</mat-option>
-            <mat-option *ngFor="let item of priorityVal" [value]="item.priority">{{ item.priority }}</mat-option>
+            <mat-option *ngFor="let item of priorityVal" [value]="item.priorityId">{{ item.priorityId }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -120,7 +120,7 @@
           <mat-label>Select Status</mat-label>
           <mat-select (focus)="removeDuplicates()" [(ngModel)]="sta">
             <mat-option value="">All</mat-option>
-            <mat-option *ngFor="let item of statusVal" [value]="item.status">{{ item.status }}</mat-option>
+            <mat-option *ngFor="let item of statusVal" [value]="item.statusId">{{ item.status.statusId }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -173,17 +173,22 @@
 
           <th>Ticket Type</th>
 
-          <th>Ticket Reason</th>
-
           <th>
-            <span>Rqst ID</span>
+            <span>Rqst By</span>
             <img (click)="sort('requestId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
-          <th>
+          <!-- <th>
             <span>Site</span>
             <img (click)="sort('site')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+          </th> -->
+
+          <th>
+            <span>Created By</span>
+            <img (click)="sort('site')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
+
+          <th>Source of Request</th>
 
           <th>
             <span>Assigned To</span>
@@ -229,23 +234,27 @@
             <p>{{ cust.ticketId }}</p>
           </td>
           <td>
-            <p>{{ cust.ticketType }}</p>
+            <p>{{ cust.ticketType == 1 ? 'Maintaince' : cust.ticketType == 2 ? 'Installation' : '--' }}</p>
           </td>
+
           <td>
-            <p>--</p>
+            <p>{{ cust.requestedBy ? cust.requestedBy : '--' }}</p>
           </td>
-          <td>
-            <p>{{ cust.requestId ? cust.requestId : '--' }}</p>
-          </td>
+
           <td>
             <p>{{ cust.site }}</p>
           </td>
+
+          <td>
+            <p>{{ cust.sourceOfRequest == 1 ? 'Phone': cust.sourceOfRequest == 2 ? 'Email' : cust.sourceOfRequest == 3 ? 'Self' : '--'  }}</p>
+          </td>
+
           <td>
             <p (click)="openAssigned(cust)" *ngIf="cust.assignedTo != '' || cust.assignedTo != null">{{ cust.assignedTo }}</p>
             <a class="pointer" (click)="openAssigned(cust)"><img src="assets/icons/add-svg.svg" *ngIf="cust.assignedTo == '' || cust.assignedTo == null" width="25" height="25"></a>
           </td>
           <td>
-            <p>{{ cust.ticketRaisedDate ? (cust.ticketRaisedDate | date: 'dd-MM-yyyy') : '--' }}</p>
+            <p>{{ cust.createdTime ? (cust.createdTime | date: 'dd-MM-yyyy') : '--' }}</p>
           </td>
           <td>
             <!-- <a class="pointer">
@@ -257,11 +266,11 @@
             <p>{{ cust.ageInDays }}</p>
           </td> -->
           <td>
-            <p>{{ cust.priority }}</p>
+            <p>{{ cust.priority == 1 ? 'Low' : cust.priority == 2 ? 'Medium' : cust.priority == 3 ? 'High' : '--' }}</p>
           </td>
           <td>
-            <p [style.color]="cust.status == 'Open' ? '#00A44C' : cust.status == 'Scheduled' ? '#F5B400' : cust.status == 'Paused' ? '#F5B400' : cust.status == 'Forwerded' ? '#084982 ' : cust.status == 'closed' ? '#fa500f' : '#00A44C'">
-              {{ cust.status }}
+            <p [style.color]="cust.status == 1 ? '#00A44C' : cust.status == 2 ? '#F5B400' : cust.status == 3 ? '#F5B400' : cust.status == 4 ? '#fa500f' : ''">
+              {{ cust.status == 1 ? 'Open' : cust.status == 2 ? 'In-Progress' : cust.status == 3 ? 'Closed' : cust.status == 4 ? 'Rejected' : '--'}}
             </p>
             <!-- <p [style.color]="cust.status == 'active' ? '#00A44C' : cust.status == 'Inprogress' ? '#F5B400' : cust.status == 'closed' ? '#fa500f' : '#00A44C'">
 
@@ -338,37 +347,214 @@
 
 <!-- view popup -->
 <ng-template #viewTicketDialog>
-  <div *ngIf="currentItem">
-    <div>
-      <mat-list>
-        <mat-list-item>
-          <span style="width: 130px; color: #ABABAB;">Ticket Id: </span>{{ currentItem.ticketId ? currentItem.ticketId : '--' }}
-        </mat-list-item>
-        <mat-divider></mat-divider>
+  <div class="row">
+    <div class="col-lg-6" style="height: 300px;" *ngIf="currentItem">
+      <div>
+        <p style="font-weight: 600; color: #ABABAB;">TICKET DETAIL</p>
+      </div>
+      <div>
+        <div>
+          <div>
+            <span style="width: 130px; color: #ABABAB;">Ticket Id: </span>{{ currentItem.ticketId }}
+          </div>
 
-        <mat-list-item>
-          <span style="width: 130px; color: #ABABAB;">Site: </span>{{ currentItem?.site }}
-        </mat-list-item>
-        <mat-divider></mat-divider>
+          <div>
+            <span style="width: 130px; color: #ABABAB;">ticketType: </span>{{ currentItem.ticketType == 1 ? 'Maintaince' : currentItem.ticketType == 2 ? 'Installation' : '--' }}
+          </div>
 
-        <mat-list-item>
-          <span style="width: 130px; color: #ABABAB;">Description: </span>{{ currentItem.description ? currentItem.description : '--' }}
-        </mat-list-item>
-        <mat-divider></mat-divider>
+          <div>
+            <span style="width: 130px; color: #ABABAB;">sourceOfRequest: </span>{{ currentItem.sourceOfRequest == 1 ? 'Phone': currentItem.sourceOfRequest == 2 ? 'Email' : currentItem.sourceOfRequest == 3 ? 'Self' : '--' }}
+          </div>
 
-        <mat-list-item>
-          <span style="width: 130px; color: #ABABAB;">Priority: </span>{{ currentItem.priority ? currentItem.priority : '--' }}
-        </mat-list-item>
-        <mat-divider></mat-divider>
+          <div>
+            <span style="width: 130px; color: #ABABAB;">assignedTo: </span>{{ currentItem?.assignedTo }}
+          </div>
 
-        <mat-list-item>
-          <span style="width: 130px; color: #ABABAB;">Status: </span>{{ currentItem.status}}
-        </mat-list-item>
-      </mat-list>
+          <div>
+            <span style="width: 130px; color: #ABABAB;">createdTime: </span>{{ currentItem?.createdTime }}
+          </div>
+
+          <div>
+            <span style="width: 130px; color: #ABABAB;">Description: </span>{{ currentItem.description }}
+          </div>
+
+          <div>
+            <span style="width: 130px; color: #ABABAB;">Priority: </span>{{ currentItem.priority == 1 ? 'Low' : currentItem.priority == 2 ? 'Medium' : currentItem.priority == 3 ? 'High' : '--' }}
+          </div>
+
+          <div>
+            <span style="width: 130px; color: #ABABAB;">Status: </span>{{ currentItem.status == 1 ? 'Open' : currentItem.status == 2 ? 'In-Progress' : currentItem.status == 3 ? 'Closed' : currentItem.status == 4 ? 'Rejected' : '--' }}
+          </div>
+        </div>
+      </div>
     </div>
-    <div mat-dialog-actions>
-      <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+
+    <div class="col-lg-6" style="height: 300px;">
+      <div>
+        <p style="font-weight: 600; color: #ABABAB;">COMMENTS</p>
+      </div>
+
+      <div *ngFor="let item of ticketComments">
+        <div>
+          <div>
+            <span style="width: 130px; color: #ABABAB;"></span>{{ item.message ? item.message : '--' }}
+          </div>
+        </div>
+      </div>
     </div>
+
+    <div class="col-lg-6" style="height: 300px;">
+      <div>
+        <p style="font-weight: 600; color: #ABABAB;">TASKS</p>
+      </div>
+
+      <!-- <div *ngFor="let item of ticketTasks">
+        <div>
+          <div>
+            <span style="width: 130px; color: #ABABAB;">categoryId: </span>{{ item.categoryId ? item.categoryId : '--' }}
+          </div>
+
+          <div>
+            <span style="width: 130px; color: #ABABAB;">subCategoryId: </span>{{ item.subCategoryId ? item.subCategoryId : '--' }}
+          </div>
+
+          <div>
+            <span style="width: 130px; color: #ABABAB;">description: </span>{{ item.description }}
+          </div>
+        </div>
+      </div> -->
+
+      <div class="table-resp">
+        <table class="table" id="mytable">
+          <thead>
+            <tr class="form1">
+              <th>taskId</th>
+
+              <th>categoryId</th>
+
+              <th>subCategoryId</th>
+
+              <th>description</th>
+
+              <th>status</th>
+
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let cust of ticketTasks | search : searchText; let i = index">
+              <td>
+                <p>{{ cust.taskId }}</p>
+              </td>
+
+              <td>
+                <p>{{ cust.categoryId == 1 ? 'Camera' : cust.categoryId == 2 ? 'Assets' : '' }}</p>
+              </td>
+
+              <td>
+                <p>{{ cust.subCategoryId == 1 ? 'Site Down' : cust.subCategoryId == 2 ? 'Footage Required' : cust.subCategoryId == 3 ? 'Blank Screen' : ''  }}</p>
+              </td>
+
+              <td>
+                <p>{{ cust.description }}</p>
+              </td>
+
+              <td>
+                <p>{{ cust.status == 1 ? 'Open' : cust.status == 2 ? 'In-Progress' : cust.status == 3 ? 'Closed' : cust.status == 4 ? 'Rejected' : '' }}</p>
+              </td>
+
+              <td>
+                <a class="pointer" (click)="closeDot($event, i)"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
+                <div class="plus-img1" id="plus-img{{ i }}" style="display: none">
+                  <div class="lists" *ngIf="showIconView1" style="margin-left: 5px; margin-top: -20px">
+                    View
+                  </div>
+                  <div class="lists" *ngIf="showIconEdit1" style="margin-left: 38px; margin-top: -20px">
+                    Edit
+                  </div>
+                  <div class="lists" *ngIf="showIconDelete1" style="margin-left: 63px; margin-top: -20px">
+                    Delete
+                  </div>
+
+                  <a class="mx-2" (click)="openViewPopup(cust)"><img src="assets/icons/view.svg"
+                      (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" /></a>
+                  <a class="mx-2" (click)="openEditPopup(cust)"><img src="assets/icons/edit.svg"
+                      (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" /></a>
+                  <a class="mx-2" value="Delete" (click)="openDeletePopup(cust)"><img src="assets/icons/delete.svg"
+                      (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" /></a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <div class="col-lg-6" style="height: 300px;">
+      <div>
+        <p style="font-weight: 600; color: #ABABAB;">TICKET VISITS</p>
+      </div>
+
+      <div class="table-resp">
+        <table class="table" id="mytable">
+          <thead>
+            <tr class="form1">
+              <th>Id</th>
+
+              <th>Reason</th>
+
+              <th>Remarks</th>
+
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let cust of ticketTasks | search : searchText; let i = index">
+              <td>
+                <p>--</p>
+              </td>
+
+              <td>
+                <p>--</p>
+              </td>
+
+              <td>
+                <p>--</p>
+              </td>
+
+              <td>
+                <a class="pointer" (click)="closeDot($event, i)"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
+                <div class="plus-img1" id="plus-img{{ i }}" style="display: none">
+                  <div class="lists" *ngIf="showIconView1" style="margin-left: 5px; margin-top: -20px">
+                    View
+                  </div>
+                  <div class="lists" *ngIf="showIconEdit1" style="margin-left: 38px; margin-top: -20px">
+                    Edit
+                  </div>
+                  <div class="lists" *ngIf="showIconDelete1" style="margin-left: 63px; margin-top: -20px">
+                    Delete
+                  </div>
+
+                  <a class="mx-2" (click)="openViewPopup(cust)"><img src="assets/icons/view.svg"
+                      (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" /></a>
+                  <a class="mx-2" (click)="openEditPopup(cust)"><img src="assets/icons/edit.svg"
+                      (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" /></a>
+                  <a class="mx-2" value="Delete" (click)="openDeletePopup(cust)"><img src="assets/icons/delete.svg"
+                      (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" /></a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
   </div>
 </ng-template>
 <!--/ view popup -->

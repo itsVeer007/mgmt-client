@@ -69,11 +69,11 @@ export class AddReportsComponent implements OnInit {
 
     });
 
-    this.http.get('assets/JSON/addReport.json').subscribe((res: any) => {
-      // console.log(res);
-      this.productMaster = res;
-      this.newProductMaster = this.productMaster;
-    })
+    // this.http.get('assets/JSON/addReport.json').subscribe((res: any) => {
+    //   // console.log(res);
+    //   this.productMaster = res;
+    //   this.newProductMaster = this.productMaster;
+    // })
   }
 
   // filterBrand(val: any) {

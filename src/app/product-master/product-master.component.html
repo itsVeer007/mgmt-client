@@ -8,26 +8,26 @@
       <p>Total Products - <span>{{ newProductMaster.length }}</span></p>
       <div class="row">
         <div class="col-lg-2 d-flex justify-content-start">
-          <div class="vl-yellow"></div>
+          <div class="vl-green"></div>
           <div class="mx-2">
             <div class="status">Active</div>
             <div class="count">{{ inStock.length }}</div>
           </div>
         </div>
         <div class="col-lg-2 d-flex justify-content-start">
-          <div class="vl-green"></div>
+          <div class="vl-yellow"></div>
           <div class="mx-2">
             <div class="status">Inactive</div>
             <div class="count">{{ installed.length }}</div>
           </div>
         </div>
-        <div class="col-lg-2 d-flex justify-content-start">
+        <!-- <div class="col-lg-2 d-flex justify-content-start">
           <div class="vl-red"></div>
           <div class="mx-2">
             <div class="status">Removed</div>
             <div class="count">{{ scrap.length }}</div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
     <!-- /count -->
@@ -287,8 +287,8 @@
           </td>
 
           <td>
-            <p [style.color]="cust.productStatusId == '1' ? '#00A44C' : cust.productStatusId == '2' ? '#F5B400' : cust.productStatusId == '3' ? '#fa500f' : '#00A44C'">
-              {{ cust.productStatusId == 1 ? 'Active' : cust.productStatusId == 2 ? 'Inactive' : cust.productStatusId == 3 ? 'Removed' : '--' }}
+            <p [style.color]="cust.productStatusId == '1' ? '#00A44C' : cust.productStatusId == '0' ? '#fa500f' : ''">
+              {{ cust.productStatusId == 1 ? 'Active' : cust.productStatusId == 0 ? 'Inactive' : '--' }}
             </p>
           </td>
 

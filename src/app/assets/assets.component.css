@@ -237,21 +237,15 @@
 
 }
 
-::ng-deep .mat-expansion-panel:not([class*=mat-elevation-z]) {
-  box-shadow: none !important;
-  border: 1px solid #e4e3e3;
-  background: #F8F8F8;
-}
 
-
-::ng-deep .mat-expansion-panel-header-title {
+/* ::ng-deep .mat-expansion-panel-header-title {
   font-weight: 500;
 }
 
 ::ng-deep .mat-expansion-panel-spacing {
   background: #ffffff !important;
   margin: 0 !important;
-}
+} */
 
 ::ng-deep .mat-tab-label {
   color: #ABABAB;

@@ -126,6 +126,7 @@ export class AddMetadataComponent implements OnInit {
     }
 
     if(this.metadataForm.valid) {
+      this.newItemEvent.emit(false);
       this.addData2 = Swal.fire({
         text: "Please wait",
         imageUrl: "assets/gif/ajax-loading-gif.gif",
@@ -145,7 +146,7 @@ export class AddMetadataComponent implements OnInit {
         }
 
         setTimeout(() => {
-          // window.location.reload();
+          window.location.reload();
         }, 3000);
 
       }, (err: any) => {

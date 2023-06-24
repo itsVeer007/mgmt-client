@@ -54,7 +54,7 @@
     <!-- /count -->
 
     <!-- stock total -->
-    <div class="mt-2 col-lg-4">
+    <!-- <div class="mt-2 col-lg-4">
       <div class="card bg-light" style="width: 18rem;">
         <div class="d-flex justify-content-between m-2">
           <img class="pointer" src="assets/icons/Union 18@2x.png" alt="" width="15px" height="15px">
@@ -73,7 +73,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- /stock total -->
 
     <div class="col-lg-2 text-end inve-add" style="position: relative">
@@ -249,7 +249,7 @@
           </td>
           <!-- <td><input type="checkbox" class="form-check-input" [checked]="masterSelected" /></td> -->
           <td>
-            <p>{{ cust.productId }}</p>
+            <p>{{ cust.id }}</p>
           </td>
           <td>
             <p>{{ cust.productSerialNo }}</p>
@@ -282,8 +282,8 @@
             </a>
           </td> -->
           <td>
-            <p [style.color]="cust.status == 'Active' ? '#00A44C' : cust.status == 'Onhold' ? '#F5B400' : cust.status == 'Inactive' ? '#fa500f' : '#00A44C'">
-              {{ cust.status }}
+            <p [style.color]="cust.statusId == 'Active' ? '#00A44C' : cust.statusId == 'Onhold' ? '#F5B400' : cust.statusId == 'Inactive' ? '#fa500f' : '#00A44C'">
+              {{ cust.statusId }}
             </p>
           </td>
           <td style="position: relative;">

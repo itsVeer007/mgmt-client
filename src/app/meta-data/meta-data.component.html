@@ -59,7 +59,7 @@
 
   <!-- table starts -->
   <div class="table-resp">
-    <table class="table" id="mytable">
+    <table class="table table-hover" id="mytable">
       <thead>
         <tr class="form1">
           <th>
@@ -92,11 +92,10 @@
 
             <th></th>
         </tr>
-
       </thead>
 
       <tbody *ngIf="typeInput.value != 'Create_New'">
-        <tr *ngFor="let item of newMetaData | search : searchText; let i = index">
+        <tr *ngFor="let item of newMetaData | search : searchText; let i = index" (click)="openEditPopup(item, typeInput.value)">
           <td>
             <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="item.selected" (change)="
                 checkIfAllSelected();

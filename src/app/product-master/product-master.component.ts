@@ -262,7 +262,9 @@ export class ProductMasterComponent implements OnInit {
       "returnable": this.currentItem.returnable,
       "maintenanceRequired": this.currentItem.maintenanceRequired,
       "productStatusId": this.currentItem.productStatusId,
-      "remarks": this.currentItem.remarks
+      "remarks": this.currentItem.remarks,
+
+      "modifiedBy": 1,
     }
 
     this.updateInventory2 = Swal.fire({
