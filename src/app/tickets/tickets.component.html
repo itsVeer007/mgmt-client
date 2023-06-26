@@ -220,7 +220,7 @@
           <th></th>
         </tr>
 
-        <tr *ngFor="let cust of newTicketData | search : searchText; let i = index">
+        <tr *ngFor="let cust of newTicketData | search : searchText; let i = index" (dblclick)="openViewPopup(cust)">
           <td>
             <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="cust.selected" (change)="
                 checkIfAllSelected();

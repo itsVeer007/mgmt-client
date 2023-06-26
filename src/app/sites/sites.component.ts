@@ -219,7 +219,7 @@ export class SitesComponent implements OnInit {
 
   @ViewChild('viewSiteDialog') viewSiteDialog = {} as TemplateRef<any>;
 
-  openViewPopup(item: any, i: any) {
+  openViewPopup(item: any) {
     this.currentItem = item;
     this.dialog.open(this.viewSiteDialog);
     // console.log(this.currentItem);
@@ -231,7 +231,7 @@ export class SitesComponent implements OnInit {
 
   @ViewChild('editSiteDialog') editSiteDialog = {} as TemplateRef<any>;
 
-  openEditPopup(item: any, i: any) {
+  openEditPopup(item: any) {
     this.currentItem = JSON.parse(JSON.stringify(item));
     this.dialog.open(this.editSiteDialog);
   }
@@ -243,7 +243,7 @@ export class SitesComponent implements OnInit {
 
   @ViewChild('deleteSiteDialog') deleteSiteDialog = {} as TemplateRef<any>;
 
-  openDeletePopup(item: any, i: any) {
+  openDeletePopup(item: any) {
     this.currentItem = item;
     this.dialog.open(this.deleteSiteDialog);
   }

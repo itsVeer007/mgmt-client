@@ -2,16 +2,16 @@ import { HttpClient } from '@angular/common/http';
 import { Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AssetService } from 'src/services/asset.service';
-import { MetadataService } from 'src/services/metadata.service';
-import { ProductMasterService } from 'src/services/product-master.service';
+import { InventoryService } from 'src/services/inventory.service';
+import { VendorsService } from 'src/services/vendors.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-product-master',
-  templateUrl: './product-master.component.html',
-  styleUrls: ['./product-master.component.css']
+  selector: 'app-vendors',
+  templateUrl: './vendors.component.html',
+  styleUrls: ['./vendors.component.css']
 })
-export class ProductMasterComponent implements OnInit {
+export class VendorsComponent implements OnInit {
 
   @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
     var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);
@@ -39,17 +39,18 @@ export class ProductMasterComponent implements OnInit {
 
 
   showLoader = false;
-  constructor(
-    private http: HttpClient,
-    private ass: AssetService,
-    private productMasterSer: ProductMasterService,
-    public dialog: MatDialog,
-    private metaDataSer: MetadataService
-    ) { }
+  constructor(private http: HttpClient, private ass: AssetService, private inventorySer: InventoryService, private vendorSer: VendorsService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getInventory();
   }
+
+  // showIconVertical: boolean = false;
+  // showIconCustomer: boolean = false;
+  // showIconSite: boolean = false;
+  // showIconCamera: boolean = false;
+  // showIconAnalytic: boolean = false;
+  // showIconUser: boolean = false;
 
   showIconView: boolean = false;
   showIconEdit: boolean = false;
@@ -60,23 +61,21 @@ export class ProductMasterComponent implements OnInit {
 
   searchText: any;
   searchTx: any;
-  productMaster: any = [];
-  newProductMaster: any = [];
+  inventoryTable: any = [];
+  newInventoryTable: any = [];
 
   installed: any = [];
   inStock: any = [];
   scrap: any = [];
   redyToUse: any = [];
   getInventory() {
-    this.productMasterSer.list().subscribe((res: any) => {
-      // console.log(res);
-      // this.productMasterSer.mySub = res;
-      // console.log(this.productMasterSer.mySub);
+    this.vendorSer.getvendors().subscribe((res: any) => {
+      console.log(res);
 
-      this.productMaster = res;
-      this.newProductMaster = this.productMaster;
+      // this.inventoryTable = res;
+      // this.newInventoryTable = this.inventoryTable;
 
-      // for(let item of this.productMaster) {
+      // for(let item of this.inventoryTable) {
       //   if(item.status == 'Installed') {
       //     this.installed.push(item);
       //   } else if(item.status == 'In-Stock') {
@@ -92,25 +91,25 @@ export class ProductMasterComponent implements OnInit {
 
   // filterBrand(val: any) {
   //   if(val == 'none') {
-  //     this.newProductMaster = this.productMaster;
+  //     this.newInventoryTable = this.inventoryTable;
   //   } else {
-  //     this.newProductMaster = this.productMaster.filter((el: any) => el.productBrand == val);
+  //     this.newInventoryTable = this.inventoryTable.filter((el: any) => el.productBrand == val);
   //   }
   // }
 
   // filterCategory(val: any) {
   //   if(val == 'none') {
-  //     this.newProductMaster = this.productMaster;
+  //     this.newInventoryTable = this.inventoryTable;
   //   } else {
-  //     this.newProductMaster = this.productMaster.filter((el: any) => el.productCategory == val);
+  //     this.newInventoryTable = this.inventoryTable.filter((el: any) => el.productCategory == val);
   //   }
   // }
 
   // filterStatus(val: any) {
   //   if(val == 'none') {
-  //     this.newProductMaster = this.productMaster;
+  //     this.newInventoryTable = this.inventoryTable;
   //   } else {
-  //     this.newProductMaster = this.productMaster.filter((el: any) => el.status == val);
+  //     this.newInventoryTable = this.inventoryTable.filter((el: any) => el.status == val);
   //   }
   // }
 
@@ -119,8 +118,8 @@ export class ProductMasterComponent implements OnInit {
   categoryTypes: any;
   statusVal: any;
   removeDuplicates() {
-    this.brandNames = this.productMaster.reduce((acc: any, current: any) => {
-      const x = acc.find((item: any) => item.productCategoryId == current.productCategoryId);
+    this.brandNames = this.inventoryTable.reduce((acc: any, current: any) => {
+      const x = acc.find((item: any) => item.productBrand == current.productBrand);
       if (!x) {
         return acc.concat([current]);
       } else {
@@ -128,8 +127,8 @@ export class ProductMasterComponent implements OnInit {
       }
     }, []);
 
-    this.categoryTypes = this.productMaster.reduce((acc: any, current: any) => {
-      const x = acc.find((item: any) => item.productTypeId == current.productTypeId);
+    this.categoryTypes = this.inventoryTable.reduce((acc: any, current: any) => {
+      const x = acc.find((item: any) => item.productCategory == current.productCategory);
       if (!x) {
         return acc.concat([current]);
       } else {
@@ -137,8 +136,8 @@ export class ProductMasterComponent implements OnInit {
       }
     }, []);
 
-    this.statusVal = this.productMaster.reduce((acc: any, current: any) => {
-      const x = acc.find((item: any) => item.productStatusId == current.productStatusId);
+    this.statusVal = this.inventoryTable.reduce((acc: any, current: any) => {
+      const x = acc.find((item: any) => item.status == current.status);
       if (!x) {
         return acc.concat([current]);
       } else {
@@ -147,29 +146,22 @@ export class ProductMasterComponent implements OnInit {
     }, []);
   }
 
-  productCategoryId: any = null;
-  productTypeId: any = null;
-  productStatusId: any = null;
+  prBrand: any = null;
+  sta: any = null;
+  prCat: any = null;
 
   applyFilter() {
     let myObj = {
-      'productCategoryId': this.productCategoryId ? this.productCategoryId : '',
-      'productTypeId': this.productTypeId ? this.productTypeId : '',
-      'productStatusId': this.productStatusId ? this.productStatusId : '',
+      productBrand: this.prBrand ? this.prBrand : '',
+      status: this.sta ? this.sta : '',
+      productCategory: this.prCat ? this.prCat : '',
     }
 
-    this.productMasterSer.filteBody(myObj).subscribe((res: any) => {
+    // console.log(myObj)
+
+    this.inventorySer.filteBody(myObj).subscribe((res: any) => {
       // console.log(res);
-      this.newProductMaster = res;
-    })
-  }
-
-  metaDataType: any
-  onMetadataChange(type: any) {
-    this.metaDataSer.getMetadataByType(type).subscribe((res: any) => {
-      console.log(res);
-      this.metaDataType = res.flatMap((item: any) => item.metadata)
-
+      this.newInventoryTable = res;
     })
   }
 
@@ -222,13 +214,13 @@ export class ProductMasterComponent implements OnInit {
   selectedAll: any;
 
   selectAll() {
-    for (var i = 0; i < this.productMaster.length; i++) {
-      this.productMaster[i].selected = this.selectedAll;
+    for (var i = 0; i < this.inventoryTable.length; i++) {
+      this.inventoryTable[i].selected = this.selectedAll;
     }
   }
 
   checkIfAllSelected() {
-    this.selectedAll = this.productMaster.every(function (item: any) {
+    this.selectedAll = this.inventoryTable.every(function (item: any) {
       return item.selected == true;
     })
   }
@@ -261,26 +253,26 @@ export class ProductMasterComponent implements OnInit {
   updateInventory2: any;
   editInventory() {
     // console.log(this.currentItem);
-    // this.productMaster= this.productMaster.filter((item:any) => item.siteId !== this.currentItem.siteId);
-    // this.getInventory();
+    // this.inventoryTable= this.inventoryTable.filter((item:any) => item.siteId !== this.currentItem.siteId);
+    this.getInventory();
 
     this.originalObject = {
-      "id": this.currentItem.id,
-      "productCategoryId": this.currentItem.productCategoryId,
-      "name": this.currentItem.name,
-      "description": this.currentItem.description,
-      "uomId": this.currentItem.uomId,
-      "productModelId": this.currentItem.productModelId,
-      "productTypeId": this.currentItem.productTypeId,
-      "cost": this.currentItem.cost,
-      "purchaseVendorId": this.currentItem.purchaseVendorId,
-      "purchaseLink": this.currentItem.purchaseLink,
-      "returnable": this.currentItem.returnable,
-      "maintenanceRequired": this.currentItem.maintenanceRequired,
-      "productStatusId": this.currentItem.productStatusId,
-      "remarks": this.currentItem.remarks,
-
-      "modifiedBy": 1,
+      "inv": {
+        "productId": this.currentItem.productId,
+        "productSerialNo": this.currentItem.productSerialNo,
+        "productName": this.currentItem.productName,
+        "productBrand": this.currentItem.productBrand,
+        "productCategory": this.currentItem.productCategory,
+        "status": this.currentItem.status,
+        "cost": this.currentItem.cost,
+        "price": this.currentItem.price
+      },
+      "warr": {
+        "warrantyStartDate": this.currentItem.warrantyStartDate,
+        "warrantyEndDate": this.currentItem.warrantyEndDate,
+        "vendor": this.currentItem.vendor,
+        "remarks": this.currentItem.remarks
+      }
     }
 
     this.updateInventory2 = Swal.fire({
@@ -290,7 +282,7 @@ export class ProductMasterComponent implements OnInit {
       allowOutsideClick: false
     });
 
-    this.productMasterSer.updateProductMaster(this.originalObject).subscribe((res: any) => {
+    this.inventorySer.UpdateInventory(this.originalObject).subscribe((res: any) => {
       // console.log(res);
 
       if(res) {
@@ -300,11 +292,6 @@ export class ProductMasterComponent implements OnInit {
           text: 'Updated Inventory Successfully!',
         });
       }
-
-      setTimeout(() => {
-        window.location.reload();
-      }, 3000)
-
     }, (err: any) => {
       if(err) {
         this.updateInventory0 = Swal.fire({
@@ -323,7 +310,7 @@ export class ProductMasterComponent implements OnInit {
   //   this.showLoader = true;
   //   setTimeout(() => {
   //     this.showLoader = false;
-  //     this.productMaster.splice(i, 1);
+  //     this.inventoryTable.splice(i, 1);
   //   }, 1000);
   // }
 
@@ -340,14 +327,17 @@ export class ProductMasterComponent implements OnInit {
   deleteInventory1: any;
   deleteInventory2: any;
   deleteInventory() {
+    // console.log(this.currentItem);
+
     this.deleteInventory2 = Swal.fire({
       text: "Please wait",
       imageUrl: "assets/gif/ajax-loading-gif.gif",
       showConfirmButton: false,
       allowOutsideClick: false
     });
+    // this.inventoryTable = this.inventoryTable.filter((item: any) => item.siteId !== this.currentItem.siteId);
 
-    this.productMasterSer.deleteProduct(this.currentItem).subscribe((res: any) => {
+    this.inventorySer.deleteInventory(this.currentItem).subscribe((res: any) => {
       // console.log(res);
       if(res) {
         this.deleteInventory1 = Swal.fire({
@@ -439,12 +429,12 @@ export class ProductMasterComponent implements OnInit {
       this.deletearray.forEach((el: any) => {
         // this.currentItem = el;
         // this.deleteInventory();
-        this.productMaster = this.productMaster.filter((item: any) => item.siteId !== el.siteId);
+        this.inventoryTable = this.inventoryTable.filter((item: any) => item.siteId !== el.siteId);
       });
       this.deletearray = []
     } else {
-      this.productMaster.forEach((el: any) => {
-        this.productMaster = this.productMaster.filter((item: any) => item.siteId !== el.siteId);
+      this.inventoryTable.forEach((el: any) => {
+        this.inventoryTable = this.inventoryTable.filter((item: any) => item.siteId !== el.siteId);
       });
     }
   }
@@ -454,7 +444,7 @@ export class ProductMasterComponent implements OnInit {
   sorted = false;
   sort(label: any) {
     this.sorted = !this.sorted;
-    var x = this.productMaster;
+    var x = this.inventoryTable;
     if (this.sorted == false) {
       x.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
     } else {

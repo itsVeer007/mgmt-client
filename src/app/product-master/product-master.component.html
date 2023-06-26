@@ -36,10 +36,10 @@
       <a class="pointer" (click)="show('inventory')">
         <img src="assets/icons/add.svg" alt="">
       </a>
-      <a class="pointer">
+      <!-- <a class="pointer">
         <img src="assets/icons/sites-img.svg" alt=""
           style="border-radius: 24px; box-shadow: 7px 7px 7px 0px #f3f3f3; margin-top: -9px;">
-      </a>
+      </a> -->
     </div>
 
   </div>
@@ -229,7 +229,7 @@
       </thead>
 
       <tbody>
-        <tr *ngFor="let cust of newProductMaster | search : searchText; let i = index">
+        <tr *ngFor="let cust of newProductMaster | search : searchText; let i = index" (dblclick)="openViewPopup(cust)">
           <td>
             <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="cust.selected" (change)="
                 checkIfAllSelected();
@@ -287,7 +287,7 @@
           </td>
 
           <td>
-            <p [style.color]="cust.productStatusId == '1' ? '#00A44C' : cust.productStatusId == '0' ? '#fa500f' : ''">
+            <p [style.color]="cust.productStatusId == 1 ? '#00A44C' : cust.productStatusId == 0 ? '#fa500f' : ''">
               {{ cust.productStatusId == 1 ? 'Active' : cust.productStatusId == 0 ? 'Inactive' : '--' }}
             </p>
           </td>
@@ -333,32 +333,32 @@
     <div>
       <mat-list>
         <mat-list-item>
-          <span style="width: 130px; color: #ABABAB;">Product Id: </span>{{ currentItem.productId ? currentItem.productId : '--' }}
+          <span style="width: 130px; color: #ABABAB;">Product Id: </span>{{ currentItem.id ? currentItem.id : '--' }}
         </mat-list-item>
         <mat-divider></mat-divider>
 
         <mat-list-item>
-          <span style="width: 130px; color: #ABABAB;">Product Name: </span>{{ currentItem?.productName }}
+          <span style="width: 130px; color: #ABABAB;">Product Name: </span>{{ currentItem?.name }}
         </mat-list-item>
         <mat-divider></mat-divider>
 
         <mat-list-item>
-          <span style="width: 130px; color: #ABABAB;">Serial No: </span>{{ currentItem.productSerialNo ? currentItem.productSerialNo : '--' }}
+          <span style="width: 130px; color: #ABABAB;">description: </span>{{ currentItem.description ? currentItem.description : '--' }}
         </mat-list-item>
         <mat-divider></mat-divider>
 
         <mat-list-item>
-          <span style="width: 130px; color: #ABABAB;">Product Brand: </span>{{ currentItem.productBrand ? currentItem.productBrand : '--' }}
+          <span style="width: 130px; color: #ABABAB;">productType: </span>{{ currentItem.productTypeId ? currentItem.productTypeId : '--' }}
         </mat-list-item>
         <mat-divider></mat-divider>
 
         <mat-list-item>
-          <span style="width: 130px; color: #ABABAB;">Product Category: </span>{{ currentItem.productCategory ? currentItem.productCategory : '--' }}
+          <span style="width: 130px; color: #ABABAB;">Product Category: </span>{{ currentItem.productCategoryId ? currentItem.productCategoryId : '--' }}
         </mat-list-item>
         <mat-divider></mat-divider>
 
         <mat-list-item>
-          <span style="width: 130px; color: #ABABAB;">Status: </span>{{ currentItem.status}}
+          <span style="width: 130px; color: #ABABAB;">Status: </span>{{ currentItem.productStatusId == 1 ? 'Active' : currentItem.productStatusId == 0 ? 'In-active' : '--'}}
         </mat-list-item>
       </mat-list>
     </div>
@@ -480,10 +480,8 @@
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Status</mat-label>
-        <mat-select [(ngModel)]="currentItem.status">
-          <mat-option value="Installed">Active</mat-option>
-          <mat-option value="In-Stock">Inactive</mat-option>
-          <mat-option value="Scrap">Removed</mat-option>
+        <mat-select [(ngModel)]="currentItem.productStatusId" (focus)="onMetadataChange('Product_Status')">
+          <mat-option *ngFor="let item of metaDataType" [value]="item.keyId">{{item.value}}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>

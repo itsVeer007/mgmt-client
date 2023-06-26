@@ -20,8 +20,9 @@ import { ReportsComponent } from './reports/reports.component';
 import { MetaDataComponent } from './meta-data/meta-data.component';
 import { DevicesComponent } from './devices/devices.component';
 import { ProductMasterComponent } from './product-master/product-master.component';
-import { AddReportsComponent } from './reports/add-reports/add-reports.component';
 import { WifiAdsComponent } from './reports/wifi-ads/wifi-ads.component';
+import { QRAdsComponent } from './reports/qr-ads/qr-ads.component';
+import { VendorsComponent } from './vendors/vendors.component';
 const routes: Routes = [];
 
 @NgModule({
@@ -45,11 +46,11 @@ const routes: Routes = [];
     { path: 'assets', component: AssetsComponent },
     { path: 'tickets', component: TicketsComponent },
     { path: 'reports', component: ReportsComponent },
-
-    { path: 'ad-reports', component: AddReportsComponent },
-    { path: 'wifi-ads', component: WifiAdsComponent },
-
     { path: 'meta', component: MetaDataComponent },
+    { path: 'vendors', component: VendorsComponent },
+
+    { path: 'qr-ads', component: QRAdsComponent },
+    { path: 'wifi-ads', component: WifiAdsComponent },
   ])],
   exports: [RouterModule]
 })

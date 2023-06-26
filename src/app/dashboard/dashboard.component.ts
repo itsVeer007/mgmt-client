@@ -61,6 +61,8 @@ export class DashboardComponent implements OnInit {
  }
 
   logout() {
+    localStorage.clear();
+    this.apiser.user$.next(null);
     this.apiser.logout();
   }
 

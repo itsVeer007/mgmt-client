@@ -50,31 +50,25 @@
               <span>Users</span>
           </a>
 
-          <nav>
+          <div class="navigation">
             <ul>
-              <li>
-                <a class="ms-2 pointer">
+              <li class="m-2 has-sub">
+                <a>
                   <img src="assets/icons/inventory_2.svg">
                   Inventory Manager
                 </a>
-                <ul style="position: relative; margin: 0 0 0 20px;">
+                <ul>
                   <li>
-                    <a class="list-group-item " [routerLink]="['/product-master']" routerLinkActive="routeactive">
-                      <img src="assets/icons/checklist.svg">
-                      <span>Product Master</span>
-                    </a>
+                    <a [routerLink]="['/product-master']" routerLinkActive="routeactive">Product Master</a>
                   </li>
 
                   <li>
-                    <a class="list-group-item " [routerLink]="['/inventory']" routerLinkActive="routeactive">
-                      <img src="assets/icons/inventory.svg">
-                      <span>Inventory</span>
-                    </a>
+                    <a [routerLink]="['/inventory']" routerLinkActive="routeactive">Inventory</a>
                   </li>
                 </ul>
               </li>
             </ul>
-          </nav>
+          </div>
 
           <!-- <a class="list-group-item " [routerLink]="['/inventory']" routerLinkActive="routeactive">
             <img src="assets/icons/inventory.svg">
@@ -111,31 +105,43 @@
             <span>Reports</span>
           </a> -->
 
-          <nav>
+          <div class="navigation">
             <ul>
-              <li>
-                <a class="ms-2 pointer">
+              <li class="has-sub m-2">
+                <a>
                   <img src="assets/icons/report.svg">
                   Reports
                 </a>
-
-                <ul style="position: relative; margin: 0 0 0 20px;">
-                  <li>
-                    <a class="pointer">Advertisements</a>
-
-                    <ul style="position: relative; margin: 0 0 0 20px;">
-                      <li><a class="list-group-item " [routerLink]="['/ad-reports']" routerLinkActive="routeactive">QR Ads</a></li>
-                      <li><a class="list-group-item " [routerLink]="['/wifi-ads']" routerLinkActive="routeactive">Wifi Ads</a></li>
+                <ul>
+                  <li class="sub">
+                    <a>Advertisements</a>
+                    <ul>
+                      <li><a [routerLink]="['/qr-ads']" routerLinkActive="routeactive">QR Ads</a></li>
+                      <li><a [routerLink]="['/wifi-ads']" routerLinkActive="routeactive">Wifi Ads</a></li>
                     </ul>
                   </li>
 
+                  <li><a>Tickets</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+
+          <div class="navigation">
+            <ul>
+              <li class="m-2 has-sub">
+                <a>
+                  <img src="assets/icons/miscellaneous.svg">
+                  Miscellaneous
+                </a>
+                <ul>
                   <li>
-                    <a class="pointer">Tickets</a>
+                    <a [routerLink]="['/vendors']" routerLinkActive="routeactive">Vendors</a>
                   </li>
                 </ul>
               </li>
             </ul>
-          </nav>
+          </div>
 
           <!-- <a class="list-group-item " [routerLink]="['/test']" routerLinkActive="routeactive">
             <img src="assets/icons/report.svg">

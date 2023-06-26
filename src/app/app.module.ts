@@ -73,8 +73,9 @@ import { DevicesComponent } from './devices/devices.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { ProductMasterComponent } from './product-master/product-master.component';
 import { AddProductMasterComponent } from './main-dashboard/add-product-master/add-product-master.component';
-import { AddReportsComponent } from './reports/add-reports/add-reports.component';
+import { QRAdsComponent } from './reports/qr-ads/qr-ads.component';
 import { WifiAdsComponent } from './reports/wifi-ads/wifi-ads.component';
+import { VendorsComponent } from './vendors/vendors.component';
 
 @NgModule({
   declarations: [
@@ -114,8 +115,9 @@ import { WifiAdsComponent } from './reports/wifi-ads/wifi-ads.component';
     DevicesComponent,
     ProductMasterComponent,
     AddProductMasterComponent,
-    AddReportsComponent,
-    WifiAdsComponent
+    QRAdsComponent,
+    WifiAdsComponent,
+    VendorsComponent
   ],
   imports: [
     BrowserModule,

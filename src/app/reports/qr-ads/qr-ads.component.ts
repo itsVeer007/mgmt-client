@@ -6,11 +6,11 @@ import { ReportService } from 'src/services/report.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-add-reports',
-  templateUrl: './add-reports.component.html',
-  styleUrls: ['./add-reports.component.css']
+  selector: 'app-qr-ads',
+  templateUrl: './qr-ads.component.html',
+  styleUrls: ['./qr-ads.component.css']
 })
-export class AddReportsComponent implements OnInit {
+export class QRAdsComponent implements OnInit {
 
   @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
     var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);

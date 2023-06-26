@@ -190,7 +190,7 @@
 
   <!-- table starts -->
   <div class="table-resp">
-    <table class="table" id="mytable">
+    <table class="table table-hover" id="mytable">
       <tbody>
         <tr class="form1">
           <th>
@@ -203,32 +203,49 @@
           </th>
 
           <th>
-            <span>Product Id</span>
+            <span>Id</span>
             <img (click)="sort('productId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
-          <th>
+          <!-- <th>
             <span>Product S.NO</span>
             <img (click)="sort('productSerialNo')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-          </th>
+          </th> -->
 
           <th>
-            <span>Product Name</span>
+            <span>Name</span>
             <img (click)="sort('productName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
-            <span>Product Brand</span>
+            <span>Quantity</span>
+            <img (click)="sort('productName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+          </th>
+
+          <th>
+            <span>Model</span>
             <img (click)="sort('productBrand')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
-            <span>Product Category</span>
+            <span>Category</span>
             <img (click)="sort('productCategory')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
-          <!-- <th (click)="sort('emailId')">Details</th> -->
-          <!-- <th (click)="sort('contactPerson')">Site Name</th> -->
+          <th>
+            <span>Cost</span>
+            <img (click)="sort('productCategory')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+          </th>
+
+          <th>
+            <span>Returnable</span>
+            <img (click)="sort('productCategory')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+          </th>
+
+          <th>
+            <span>Maintaince Required</span>
+            <img (click)="sort('productCategory')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+          </th>
 
           <th>
             <span>Status</span>
@@ -238,7 +255,7 @@
           <th></th>
         </tr>
 
-        <tr *ngFor="let cust of newInventoryTable | search : searchText; let i = index">
+        <tr *ngFor="let cust of newInventoryTable | search : searchText; let i = index" (dblclick)="openViewPopup(cust)">
           <td>
             <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="cust.selected" (change)="
                 checkIfAllSelected();
@@ -252,16 +269,25 @@
             <p>{{ cust.id }}</p>
           </td>
           <td>
-            <p>{{ cust.productSerialNo }}</p>
+            <p>{{ cust.name }}</p>
           </td>
           <td>
-            <p>{{ cust.productName }}</p>
+            <p>{{ cust.quantity }}</p>
           </td>
           <td>
-            <p>{{ cust.productBrand }}</p>
+            <p>{{ cust.productModelId }}</p>
           </td>
           <td>
-            <p>{{ cust.productCategory }}</p>
+            <p>{{ cust.productCategoryId }}</p>
+          </td>
+          <td>
+            <p>{{ cust.cost }}</p>
+          </td>
+          <td>
+            <p>{{ cust.returnable }}</p>
+          </td>
+          <td>
+            <p>{{ cust.maintenanceRequired }}</p>
           </td>
           <!-- <td> -->
             <!-- <p>{{ cust.details }}</p> -->

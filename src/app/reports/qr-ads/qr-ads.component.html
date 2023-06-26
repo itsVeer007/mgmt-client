@@ -158,50 +158,45 @@
           </th>
 
           <th>
-            <span>url</span>
+            <span>siteId</span>
             <img (click)="sort('url')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
-            <span>mode</span>
+            <span>qrcodeImage</span>
             <img (click)="sort('mode')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
-            <span>user_device</span>
+            <span>qrcodeUrl</span>
             <img (click)="sort('user_device')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
-            <span>chrome_data</span>
+            <span>validFromdate</span>
             <img (click)="sort('chrome_data')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
 
           <th>
-            <span>ip_address</span>
+            <span>deviceId</span>
             <img (click)="sort('ip_address')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
-            <span>user_location</span>
+            <span>status</span>
             <img (click)="sort('user_location')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
-            <span>scan_time</span>
+            <span>createDate</span>
             <img (click)="sort('scan_time')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-          </th>
-
-          <th>
-            <span>hit_count</span>
-            <img (click)="sort('hit_count')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
         </tr>
       </thead>
 
       <tbody>
-        <tr *ngFor="let cust of newProductMaster | search : searchText; let i = index">
+        <tr *ngFor="let cust of newProductMaster | search : searchText; let i = index" (dblclick)="openViewPopup(cust)">
           <td>
             <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="cust.selected" (change)="
                 checkIfAllSelected();
@@ -212,35 +207,31 @@
           </td>
 
           <td>
-            <p>{{ cust.url }}</p>
+            <p>{{ cust.siteId }}</p>
           </td>
 
           <td>
-            <p>{{ cust.mode }}</p>
+            <p>{{ cust.qrcodeImage }}</p>
           </td>
 
           <td style="width: 120px;">
-            <p>{{ cust.user_device }}</p>
+            <p>{{ cust.qrcodeUrl }}</p>
           </td>
 
           <td>
-            <p>{{ cust.chrome_data }}</p>
+            <p>{{ cust.validFromdate }}</p>
           </td>
 
           <td>
-            <p>{{ cust.ip_address }}</p>
+            <p>{{ cust.deviceId }}</p>
           </td>
 
           <td>
-            <p>{{ cust.user_location }}</p>
+            <p>{{ cust.status }}</p>
           </td>
 
           <td>
-            <p>{{ cust.scan_time }}</p>
-          </td>
-
-          <td>
-            <p>{{ cust.hit_count }}</p>
+            <p>{{ cust.createDate }}</p>
           </td>
         </tr>
       </tbody>

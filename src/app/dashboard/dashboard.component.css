@@ -185,59 +185,183 @@
 
 
 
-nav ul {
-  list-style: none;
+.navigation {
   padding: 0;
   margin: 0;
+  border: 0;
+  line-height: 1;
 }
 
-nav ul li:hover {
-  display: inline-block;
+.navigation ul,
+.navigation ul li,
+.navigation ul ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-nav ul li a {
-  display: block;
-  padding: 10px;
-  text-decoration: none;
-  color: #ffffff;
+.navigation ul {
+  position: relative;
+  z-index: 500;
+  float: left;
 }
 
-nav ul li:hover > a {
-  background-color: transparent;
-}
-
-nav ul li ul {
-  display: none;
-  position: absolute;
-  /* min-width: 200px; */
-}
-
-nav ul li:hover > ul {
-  display: inherit;
-}
-
-nav ul li ul li {
-  /* min-width: 200px; */
-  display: list-item;
+.navigation ul li {
+  float: left;
+  /* min-height: 0.05em; */
+  /* line-height: 1em; */
+  vertical-align: middle;
   position: relative;
 }
 
-nav ul li ul li ul {
+.navigation ul li.hover,
+.navigation ul li:hover {
+  position: relative;
+  z-index: 510;
+  cursor: pointer;
+}
+
+.navigation ul ul {
+  visibility: hidden;
   position: absolute;
+  top: 100%;
+  left: 0px;
+  z-index: 520;
+  width: 100%;
+}
+
+.navigation ul ul li {
+  float: none;
+}
+
+/* .navigation ul ul ul {
   top: 0;
   right: 0;
-  /* left: 100%; */
+} */
+
+.navigation ul li:hover > ul {
+  visibility: visible;
 }
 
-/* Styling for submenus */
-nav ul li ul li a {
-  /* padding: 5px 15px; */
-  /* background-color: #f2f2f2; */
-  color: #fff;
+.navigation ul ul {
+  top: 0;
+  left: 99%;
 }
 
-nav ul li ul li:hover > a {
-  background-color: #AA4337;
+.navigation ul li {
+  float: none;
 }
 
+.navigation ul ul {
+  margin-top: 0.05em;
+}
 
+.navigation {
+  width: 13em;
+  /* background: #333333; */
+  zoom: 1;
+}
+
+.navigation:before {
+  content: '';
+  display: block;
+}
+
+.navigation:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.navigation a {
+  display: block;
+  padding: 5px 8px;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.navigation > ul {
+  width: 15em;
+}
+
+/* .navigation ul ul {
+  width: 13em;
+} */
+
+.navigation > ul > li > a {
+  /* border-right: 0.3em solid #34A65F; */
+  color: #ffffff;
+}
+
+.navigation > ul > li > a:hover {
+  color: #ffffff;
+}
+
+.navigation > ul > li a:hover,
+.navigation > ul > li:hover a {
+  background: #084982;
+  /* margin-left: 10px; */
+}
+
+.navigation li {
+  position: relative;
+}
+
+.navigation ul li.has-sub > a:after {
+  content: '»';
+  position: absolute;
+  right: 10px;
+}
+
+.navigation ul a {
+  color: #ffffff;
+  /* padding: 10px; */
+}
+
+.navigation ul li ul li a {
+  padding: 10px;
+}
+
+.navigation ul a:hover {
+  color: #ffffff;
+}
+
+.navigation ul li ul li:hover > a {
+  background: #AA4337;
+  color: #ffffff;
+}
+
+.navigation ul li ul .sub:hover > a:after {
+  content: '»';
+  position: absolute;
+  right: 10px;
+}
+
+.navigation.align-right {
+  float: right;
+}
+
+.navigation.align-right li {
+  text-align: right;
+}
+
+.navigation.align-right ul li.has-sub > a:before {
+  content: '+';
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  margin-top: -6px;
+}
+
+.navigation.align-right ul li.has-sub > a:after {
+  content: none;
+}
+
+.navigation.align-right ul ul {
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: -100%;
+  z-index: 598;
+  width: 100%;
+}
