@@ -1,0 +1,209 @@
+<div class="row formModal">
+  <div class="col-lg-6 col-md-6"></div>
+
+  <div class="col-lg-6 col-md-6 add-form" id="user" @inOutPaneAnimation>
+  <div class="d-flex flex-row justify-content-between">
+    <div class="d-flex flex-row justify-content-start">
+      <a class="close-main pointer" (click)="closeAddUser()"><img src="assets/icons/close_form.svg" /></a>
+      <span class="form-heading">create vendor</span>
+    </div>
+  </div>
+
+  <!-- Form -->
+  <div>
+    <form autocomplete="off" [formGroup]="UserForm" #addUserForm="ngForm">
+      <div class="row">
+
+        <!-- <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Product Name</mat-label>
+            <input matInput formControlName="productName" [(ngModel)]="x.inv.productName">
+            <mat-error class="mt-1">Product is required</mat-error>
+          </mat-form-field>
+        </div> -->
+
+        <!-- <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Category</mat-label>
+            <mat-select formControlName="productCategory" [(ngModel)]="x.inv.productCategory">
+              <mat-option value="Modules">Modules</mat-option>
+              <mat-option value="Server">Server</mat-option>
+              <mat-option value="Camera">Camera</mat-option>
+            </mat-select>
+            <mat-error class="mt-1">Category is required</mat-error>
+          </mat-form-field>
+        </div> -->
+
+        <!-- <div class="col-lg-6 my-2">
+          <mat-radio-group name="radioOpt1" style="font-size: 12px;">
+            <mat-label>Cost Details</mat-label>
+            <mat-radio-button class="ms-3" name="Cost" value="USD">USD</mat-radio-button>
+            <mat-radio-button class="ms-3" name="Cost" value="INR" checked>INR</mat-radio-button>
+          </mat-radio-group>
+        </div> -->
+
+        <!-- <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <input matInput [matDatepicker]="picker1" placeholder="Start Date" formControlName="warrantyStartDate" [(ngModel)]="x.warr.warrantyStartDate">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+            <mat-error class="mt-1">Start Date is required</mat-error>
+          </mat-form-field>
+        </div> -->
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" [(ngModel)]="vendorBody.name">
+            <mat-error class="mt-1">Name is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Proprietor Name1</mat-label>
+            <input matInput formControlName="proprietorName1" [(ngModel)]="vendorBody.proprietorName1">
+            <mat-error class="mt-1">Proprietor Name1 is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Proprietor Name2</mat-label>
+            <input matInput formControlName="proprietorName2" [(ngModel)]="vendorBody.proprietorName2">
+            <mat-error class="mt-1">Proprietor Name2 is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Proprietor Name3</mat-label>
+            <input matInput formControlName="proprietorName3" [(ngModel)]="vendorBody.proprietorName3">
+            <mat-error class="mt-1">Proprietor Name3 is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Email1</mat-label>
+            <input matInput formControlName="emailId1" [(ngModel)]="vendorBody.emailId1">
+            <mat-error class="mt-1">Email1 is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Email2</mat-label>
+            <input matInput formControlName="emailId2" [(ngModel)]="vendorBody.emailId2">
+            <mat-error class="mt-1">Email2 is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Email3</mat-label>
+            <input matInput formControlName="emailId3" [(ngModel)]="vendorBody.emailId3">
+            <mat-error class="mt-1">Email3 is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Mobile1</mat-label>
+            <input matInput formControlName="mobileNumber1" [(ngModel)]="vendorBody.mobileNumber1">
+            <mat-error class="mt-1">Mobile1 is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Mobile2</mat-label>
+            <input matInput formControlName="mobileNumber2" [(ngModel)]="vendorBody.mobileNumber2">
+            <mat-error class="mt-1">Mobile2 is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Mobile3</mat-label>
+            <input matInput formControlName="mobileNumber3" [(ngModel)]="vendorBody.mobileNumber3">
+            <mat-error class="mt-1">Mobile3 is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <input matInput [matDatepicker]="picker1" placeholder="Start Date" formControlName="serviceStartDate" [(ngModel)]="vendorBody.serviceStartDate">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+            <mat-error class="mt-1">Start Date is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <input matInput [matDatepicker]="picker2" placeholder="End Date" formControlName="serviceEndDate" [(ngModel)]="vendorBody.serviceEndDate">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+            <mat-error class="mt-1">End Date is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Address Line1</mat-label>
+            <input matInput formControlName="addressLine1" [(ngModel)]="vendorBody.addressLine1">
+            <mat-error class="mt-1">Address Line1 is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Address Line2</mat-label>
+            <input matInput formControlName="addressLine2" [(ngModel)]="vendorBody.addressLine2">
+            <mat-error class="mt-1">Address Line2 is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>State</mat-label>
+            <input matInput formControlName="state" [(ngModel)]="vendorBody.state">
+            <mat-error class="mt-1">State is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Post Code</mat-label>
+            <input matInput type="number" formControlName="postCode" [(ngModel)]="vendorBody.postCode">
+            <mat-error class="mt-1">Post Code is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>City</mat-label>
+            <input matInput formControlName="city" [(ngModel)]="vendorBody.city">
+            <mat-error class="mt-1">City is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Remarks</mat-label>
+            <input matInput formControlName="remarks" [(ngModel)]="vendorBody.remarks">
+            <mat-error class="mt-1">Remarks is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="text-center my-3">
+          <button type="submit" class="btn add-btn" (click)="submit()">ADD</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <!-- /Form -->
+
+  </div>
+</div>

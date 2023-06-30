@@ -1,7 +1,9 @@
+import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { MetadataService } from 'src/services/metadata.service';
 import { TicketService } from 'src/services/ticket.service';
 import Swal from 'sweetalert2';
 
@@ -37,11 +39,12 @@ export class TicketsComponent implements OnInit {
 
 
   showLoader = false;
-  constructor(private http: HttpClient, private ticketSer: TicketService, public dialog: MatDialog,) { }
+  constructor(private http: HttpClient, private ticketSer: TicketService, private metaDatSer: MetadataService, public dialog: MatDialog, private datePipe: DatePipe) { }
 
   ngOnInit(): void {
     this.CustomerReport();
     // this.getSites();
+    this.onGetMetadata();
   }
 
   showIconVertical: boolean = false;
@@ -68,8 +71,11 @@ export class TicketsComponent implements OnInit {
     // });
 
     this.ticketSer.getTickets().subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
+      // let x = this.ticketSer.ticket$.next(res);
+
       this.ticketData = res;
+
       this.newTicketData = this.ticketData;
     })
   }
@@ -111,36 +117,62 @@ export class TicketsComponent implements OnInit {
       }
     }, []);
 
-    this.priorityVal = this.ticketData.reduce((acc: any, current: any) => {
-      const x = acc.find((item: any) => item.priorityId == current.priorityId);
-      if (!x) {
-        return acc.concat([current]);
-      } else {
-        return acc;
-      }
-    }, []);
+    // this.priorityVal = this.ticketData.reduce((acc: any, current: any) => {
+    //   const x = acc.find((item: any) => item.priorityId == current.priorityId);
+    //   if (!x) {
+    //     return acc.concat([current]);
+    //   } else {
+    //     return acc;
+    //   }
+    // }, []);
 
-    this.statusVal = this.ticketData.reduce((acc: any, current: any) => {
-      const x = acc.find((item: any) => item.statusId == current.statusId);
-      if (!x) {
-        return acc.concat([current]);
-      } else {
-        return acc;
+    // this.statusVal = this.ticketData.reduce((acc: any, current: any) => {
+    //   const x = acc.find((item: any) => item.statusId == current.statusId);
+    //   if (!x) {
+    //     return acc.concat([current]);
+    //   } else {
+    //     return acc;
+    //   }
+    // }, []);
+  }
+
+  assignedTo: any;
+  ticketType: any;
+  sourceOfRequest: any
+  onGetMetadata() {
+    this.metaDatSer.getMetadata().subscribe((res: any) => {
+      // console.log(res);
+      for(let item of res) {
+        if(item.type == 'Ticket_Status') {
+          this.statusVal = item.metadata;
+        } else if(item.type == "Ticket_Priority") {
+          this.priorityVal = item.metadata;
+        } else if(item.type == "Assigned_To") {
+          this.assignedTo = item.metadata;
+        } else if(item.type == "Ticket_Type") {
+          this.ticketType = item.metadata;
+        } else if(item.type == "Source_of_Request") {
+          this.sourceOfRequest = item.metadata;
+        }
       }
-    }, []);
+    })
   }
 
   rqsId: any;
   sta: any;
   prior: any;
+  stDt: any;
+  enDt: any;
 
   filterMsg: string = '';
 
   applyFilter() {
     let myObj = {
-      requestId: this.rqsId ? this.rqsId : 0,
-      status: this.sta ? this.sta : '',
-      priority: this.prior ? this.prior : '',
+      'requestId': this.rqsId ? this.rqsId : 0,
+      'status': this.sta ? this.sta : 0,
+      'priority': this.prior ? this.prior : 0,
+      'createdTime': this.stDt ? this.datePipe.transform(this.stDt,'yyyy-MM-dd HH:mm:ss') : '',
+      'closedTime': this.enDt ? this.datePipe.transform(this.enDt,'yyyy-MM-dd HH:mm:ss') : ''
     }
 
     this.ticketSer.filteBody(myObj).subscribe((res: any) => {
@@ -210,6 +242,8 @@ export class TicketsComponent implements OnInit {
 
   currentItem: any;
   originalObject: any;
+  changedKeys: any = [];
+
 
   @ViewChild('viewTicketDialog') viewTicketDialog = {} as TemplateRef<any>;
 
@@ -251,18 +285,67 @@ export class TicketsComponent implements OnInit {
     // console.log(this.currentItem);
   }
 
+  onInputChange(e: any) {
+    this.originalObject = {
+      "ticketId": this.currentItem.ticketId,
+      "ticketTypeId": e.ticketTypeId,
+      "description": e.description,
+      "requestedBy": e.requestedBy,
+      "sourceOfRequestId": e.sourceOfRequestId,
+      "assignedTo": e.assignedTo,
+      "priorityId": e.priorityId,
+      "statusId": e.statusId,
+      "indentRequested": e.indentRequested,
+      'ticketReason': e.ticketReason,
+      'remarks': e.remarks
+    };
+
+    let x = e.target['name'];
+
+    if(!(this.changedKeys.includes(x))) {
+      this.changedKeys.push(x);
+    }
+  }
+
+  onSelectChange(e: any) {
+    this.originalObject = {
+      "ticketId": this.currentItem.ticketId,
+      "ticketTypeId": e.ticketTypeId,
+      "description": e.description,
+      "requestedBy": e.requestedBy,
+      "sourceOfRequestId": e.sourceOfRequestId,
+      "assignedTo": e.assignedTo,
+      "priorityId": e.priorityId,
+      "statusId": e.statusId,
+      "indentRequested": e.indentRequested,
+      'ticketReason': e.ticketReason,
+      'remarks': e.remarks
+    };
+
+    let x = e.source.ngControl.name;
+
+    if(!(this.changedKeys.includes(x))) {
+      this.changedKeys.push(x);
+    }
+  }
+
   updateTicket0: any;
   updateTicket1: any;
   updateTicket2: any;
-  updateTicket(el: any) {
+  updateTicket(e: any) {
 
     this.originalObject = {
-      "ticketId": el.ticketId,
-      "site": el.site,
-      "siteId": 1102,
-      "description": el.description,
-      "priority": el.priority,
-      "status": el.status,
+      "ticketId": this.currentItem.ticketId,
+      "ticketTypeId": e.ticketTypeId,
+      "description": e.description,
+      "requestedBy": e.requestedBy,
+      "sourceOfRequestId": e.sourceOfRequestId,
+      "assignedTo": e.assignedTo,
+      "priorityId": e.priorityId,
+      "statusId": e.statusId,
+      "indentRequested": e.indentRequested,
+      'ticketReason': e.ticketReason,
+      'remarks': e.remarks
     };
 
     this.updateTicket2 = Swal.fire({
@@ -272,7 +355,7 @@ export class TicketsComponent implements OnInit {
       allowOutsideClick: false
     });
 
-    this.ticketSer.updateTicket(this.originalObject).subscribe((res: any) => {
+    this.ticketSer.updateTicket({ticket: this.originalObject, updprops: this.changedKeys}).subscribe((res: any) => {
       // console.log(res);
 
       if(res) {
@@ -282,6 +365,11 @@ export class TicketsComponent implements OnInit {
           text: 'Updated Ticket Successfully!',
         });
       }
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
+
     }, (err: any) => {
       if(err) {
         this.updateTicket0 = Swal.fire({
@@ -346,20 +434,62 @@ export class TicketsComponent implements OnInit {
 
   @ViewChild('assignedDialog') assignedDialog = {} as TemplateRef<any>;
 
-  x: any
+  toAssign: any;
   openAssigned(item: any) {
-    this.x = item;
+    this.toAssign = item;
     this.dialog.open(this.assignedDialog);
   }
 
+  aonSelectChange(e: any) {
+    this.originalObject = {
+      "ticketId": this.toAssign.ticketId,
+      "assignedTo": e.assignedTo,
+    };
+
+    let x = e.source.ngControl.name;
+
+    if(!(this.changedKeys.includes(x))) {
+      this.changedKeys.push(x);
+    }
+  }
+
+  assign0: any;
+  assign1: any;
+  assign2: any;
   toAssigned() {
+    this.assign2 = Swal.fire({
+      text: "Please wait",
+      imageUrl: "assets/gif/ajax-loading-gif.gif",
+      showConfirmButton: false,
+      allowOutsideClick: false
+    });
+
     let myObj = {
-      'ticketId': this.x.ticketId,
+      'ticketId': this.toAssign.ticketId,
       'assignedTo': this.assignedObj.assignedTo
     }
 
-    this.ticketSer.assignPerson(myObj).subscribe((res: any) => {
+    this.ticketSer.assignPerson({updprops: this.changedKeys, ticket: myObj}).subscribe((res: any) => {
       // console.log(res)
+      if(res) {
+        this.assign1 = Swal.fire({
+          icon: 'success',
+          title: 'Done!',
+          text: 'Deleted Successfully!',
+        });
+      }
+
+      setTimeout(() => {
+        // window.location.reload();
+      }, 3000)
+
+    }, (err: any) => {
+        this.assign0 = Swal.fire({
+        icon: 'error',
+        title: 'Failed!',
+        text: 'failed',
+        // timer: 3000,
+      });
     })
   }
 

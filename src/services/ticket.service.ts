@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,10 @@ export class TicketService {
 
   constructor(private http: HttpClient) { }
 
+  ticket$ = new BehaviorSubject(null);
+
   getTickets() {
-    let url = this.baseUrl + "/GetTickets";
+    let url = this.baseUrl + "/getTickets_1_0";
     return this.http.get(url);
   }
 
@@ -36,12 +39,12 @@ export class TicketService {
   }
 
   createTicket(payload: any) {
-    let url = this.baseUrl + '/CreateTicket';
+    let url = this.baseUrl + '/createTicket_1_0';
     return this.http.post(url, payload);
   }
 
   assignPerson(payload: any) {
-    let url = this.baseUrl + '/assignperson';
+    let url = this.baseUrl + '/updateTicket';
     return this.http.put(url, payload);
   }
 
@@ -52,7 +55,7 @@ export class TicketService {
 
 
   updateTicket(payload: any) {
-    let url = this.baseUrl + '/updateTicket1';
+    let url = this.baseUrl + '/updateTicket';
     return this.http.put(url, payload);
   }
 
@@ -64,12 +67,14 @@ export class TicketService {
 
 
   filteBody(payload: any) {
-    let url = this.baseUrl + `/get?`;
+    let url = this.baseUrl + `/getlist1`;
 
     let myObj = {
-      requestId: payload.requestId,
-      status: payload.status,
-      priority: payload.priority,
+      'requestedBy': payload.requestId,
+      'priorityId': payload.priority,
+      'statusId': payload.status,
+      'createdTime': payload.createdTime,
+      'closedTime': payload.closedTime
     }
 
     return this.http.get(url, {params: myObj});

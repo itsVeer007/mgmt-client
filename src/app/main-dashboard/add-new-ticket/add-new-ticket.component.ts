@@ -56,12 +56,13 @@ export class AddNewTicketComponent implements OnInit {
 
   ticketBody = {
     ticket: {
-      // description: "",
-      ticketType: null,
+      description: "",
+      ticketTypeId: null,
       requestedBy: null,
+      siteId: null,
       createdBy: 1,
-      sourceOfRequest: null,
-      priority: null,
+      sourceOfRequestId: null,
+      priorityId: null,
       // status: null
     },
 
@@ -91,11 +92,13 @@ export class AddNewTicketComponent implements OnInit {
     // this.x.tasks[0].remarks = ''
   }
 
+  siteIds: any
   ngOnInit(): void {
     this.addAssetForm = this.fb.group({
       'ticketType': new FormControl('', Validators.required),
       'sourceOfRequest': new FormControl('', Validators.required),
       'requestedBy': new FormControl(''),
+      'siteId': new FormControl(''),
       'priority': new FormControl(''),
 
       // 'status': new FormControl(''),
@@ -107,6 +110,7 @@ export class AddNewTicketComponent implements OnInit {
     });
 
     this.onMetadataChange();
+    this.siteIds = JSON.parse(localStorage.getItem('siteIds')!).sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
   }
 
     /* metadata methods */

@@ -76,6 +76,7 @@ import { AddProductMasterComponent } from './main-dashboard/add-product-master/a
 import { QRAdsComponent } from './reports/qr-ads/qr-ads.component';
 import { WifiAdsComponent } from './reports/wifi-ads/wifi-ads.component';
 import { VendorsComponent } from './vendors/vendors.component';
+import { AddNewVendorComponent } from './main-dashboard/add-new-vendor/add-new-vendor.component';
 
 @NgModule({
   declarations: [
@@ -117,7 +118,8 @@ import { VendorsComponent } from './vendors/vendors.component';
     AddProductMasterComponent,
     QRAdsComponent,
     WifiAdsComponent,
-    VendorsComponent
+    VendorsComponent,
+    AddNewVendorComponent
   ],
   imports: [
     BrowserModule,

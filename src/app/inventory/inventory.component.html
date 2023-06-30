@@ -243,7 +243,12 @@
           </th>
 
           <th>
-            <span>Maintaince Required</span>
+            <span>Maintenance Required</span>
+            <img (click)="sort('productCategory')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+          </th>
+
+          <th>
+            <span>Warranty Details</span>
             <img (click)="sort('productCategory')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
@@ -288,6 +293,9 @@
           </td>
           <td>
             <p>{{ cust.maintenanceRequired }}</p>
+          </td>
+          <td>
+            <p (click)="getWarranty(cust.id)">View</p>
           </td>
           <!-- <td> -->
             <!-- <p>{{ cust.details }}</p> -->
@@ -350,38 +358,78 @@
 <!-- view Popup -->
 <ng-template #viewInventoryDialog>
   <div *ngIf="currentItem">
-    <div>
-      <mat-list>
-        <mat-list-item>
-          <span style="width: 130px; color: #ABABAB;">Product Id: </span>{{ currentItem.productId ? currentItem.productId : '--' }}
-        </mat-list-item>
-        <mat-divider></mat-divider>
+    <mat-list>
+      <mat-list-item>
+        <span style="width: 130px; color: #ABABAB;">name: </span>{{ currentItem.name }}
+      </mat-list-item>
+      <mat-divider></mat-divider>
 
-        <mat-list-item>
-          <span style="width: 130px; color: #ABABAB;">Product Name: </span>{{ currentItem?.productName }}
-        </mat-list-item>
-        <mat-divider></mat-divider>
+      <mat-list-item>
+        <span style="width: 130px; color: #ABABAB;">productCategoryId: </span>{{ currentItem?.productCategoryId }}
+      </mat-list-item>
+      <mat-divider></mat-divider>
 
-        <mat-list-item>
-          <span style="width: 130px; color: #ABABAB;">Serial No: </span>{{ currentItem.productSerialNo ? currentItem.productSerialNo : '--' }}
-        </mat-list-item>
-        <mat-divider></mat-divider>
+      <mat-list-item>
+        <span style="width: 130px; color: #ABABAB;">productModelId: </span>{{ currentItem.productModelId }}
+      </mat-list-item>
+      <mat-divider></mat-divider>
 
-        <mat-list-item>
-          <span style="width: 130px; color: #ABABAB;">Product Brand: </span>{{ currentItem.productBrand ? currentItem.productBrand : '--' }}
-        </mat-list-item>
-        <mat-divider></mat-divider>
+      <mat-list-item>
+        <span style="width: 130px; color: #ABABAB;">orderId: </span>{{ currentItem.orderId }}
+      </mat-list-item>
+      <mat-divider></mat-divider>
 
-        <mat-list-item>
-          <span style="width: 130px; color: #ABABAB;">Product Category: </span>{{ currentItem.productCategory ? currentItem.productCategory : '--' }}
-        </mat-list-item>
-        <mat-divider></mat-divider>
+      <mat-list-item>
+        <span style="width: 130px; color: #ABABAB;">serialNo: </span>{{ currentItem.serialNo }}
+      </mat-list-item>
+      <mat-divider></mat-divider>
 
-        <mat-list-item>
-          <span style="width: 130px; color: #ABABAB;">Status: </span>{{ currentItem.status}}
-        </mat-list-item>
-      </mat-list>
-    </div>
+      <mat-list-item>
+        <span style="width: 130px; color: #ABABAB;">maintenanceRequired: </span>{{ currentItem.maintenanceRequired }}
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+      <mat-list-item>
+        <span style="width: 130px; color: #ABABAB;">returnable: </span>{{ currentItem.returnable }}
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+      <mat-list-item>
+        <span style="width: 130px; color: #ABABAB;">cost: </span>{{ currentItem.cost}}
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+      <mat-list-item>
+        <span style="width: 130px; color: #ABABAB;">price: </span>{{ currentItem.price }}
+      </mat-list-item>
+
+      <p>Warranty Details</p>
+
+      <mat-list-item>
+        <span style="width: 130px; color: #ABABAB;">startDate: </span>{{ currentItem.startDate }}
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+      <mat-list-item>
+        <span style="width: 130px; color: #ABABAB;">endDate: </span>{{ currentItem.endDate }}
+      </mat-list-item>
+
+      <!-- <p>Vendor Details</p>
+      <mat-list-item>
+        <span style="width: 130px; color: #ABABAB;">Name </span>{{ currentItem.productCategory }}
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+      <mat-list-item>
+        <span style="width: 130px; color: #ABABAB;">Mobile </span>{{ currentItem.productCategory }}
+      </mat-list-item>
+      <mat-divider></mat-divider>
+
+      <mat-list-item>
+        <span style="width: 130px; color: #ABABAB;">Email </span>{{ currentItem.productCategory }}
+      </mat-list-item>
+      <mat-divider></mat-divider> -->
+    </mat-list>
     <div mat-dialog-actions>
       <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
     </div>
@@ -394,27 +442,42 @@
   <div *ngIf="currentItem">
     <div>
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Product Id</mat-label>
-        <input matInput [(ngModel)]="currentItem.productName" disabled>
+        <mat-label>Id</mat-label>
+        <input matInput [(ngModel)]="currentItem.id" disabled>
       </mat-form-field>
     </div>
 
     <div>
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Product Name</mat-label>
-        <input matInput [(ngModel)]="currentItem.productName">
+        <mat-label>quantity</mat-label>
+        <input matInput [(ngModel)]="currentItem.quantity">
       </mat-form-field>
     </div>
 
     <div>
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Serial No</mat-label>
-        <input matInput [(ngModel)]="currentItem.productSerialNo">
+        <mat-label>serialNo</mat-label>
+        <input matInput [(ngModel)]="currentItem.serialNo">
       </mat-form-field>
     </div>
+
     <div>
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Product Brand</mat-label>
+        <mat-label>cost</mat-label>
+        <input matInput [(ngModel)]="currentItem.cost">
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>price</mat-label>
+        <input matInput [(ngModel)]="currentItem.price">
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>productBrand</mat-label>
         <mat-select [(ngModel)]="currentItem.productBrand">
           <mat-option value="Rasberry">Rasberry</mat-option>
           <mat-option value="Jetson">Jetson</mat-option>
@@ -424,18 +487,8 @@
 
     <div>
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Product Category</mat-label>
-        <mat-select [(ngModel)]="currentItem.productCategory">
-          <mat-option value="Modules">Modules</mat-option>
-          <mat-option value="Server">Server</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div>
-      <mat-form-field appearance="outline" class="w-100">
         <mat-label>Status</mat-label>
-        <mat-select [(ngModel)]="currentItem.status">
+        <mat-select [(ngModel)]="currentItem.statusId">
           <mat-option value="Installed">Installed</mat-option>
           <mat-option value="In-Stock">In-Stock</mat-option>
           <mat-option value="Scrap">Scrap</mat-option>
@@ -443,35 +496,16 @@
       </mat-form-field>
     </div>
 
-    <!-- <div>
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Cost</mat-label>
-        <input matInput [(ngModel)]="currentItem.cost">
-      </mat-form-field>
-    </div>
-
     <div>
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Price</mat-label>
-        <input matInput [(ngModel)]="currentItem.price">
-      </mat-form-field>
-    </div> -->
-
-    <!-- <div>
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Product Category</mat-label>
-        <mat-select [(ngModel)]="currentItem.vendor">
-          <mat-option></mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div>
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Product Name</mat-label>
+        <mat-label>remarks</mat-label>
         <input matInput [(ngModel)]="currentItem.remarks">
       </mat-form-field>
-    </div> -->
+    </div>
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="openWarrantyPopup(currentItem)">Warranty</button>
   </div>
 
   <div class="d-flex align-items-center justify-content-end">
@@ -484,6 +518,83 @@
   </div>
 </ng-template>
 <!-- edit Popup -->
+
+<!-- warranty popup -->
+<ng-template #editWarrantyDialog>
+
+  <div>
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>id</mat-label>
+      <input matInput [(ngModel)]="currentItem.id" disabled>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>serialNo</mat-label>
+      <input matInput [(ngModel)]="currentItem.serialNo">
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>newSerialNo</mat-label>
+      <input matInput [(ngModel)]="currentItem.newSerialNo">
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>cost</mat-label>
+      <input matInput [(ngModel)]="currentItem.cost">
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field appearance="outline" class="w-100">
+      <input matInput [matDatepicker]="picker1" placeholder="Start Date" [(ngModel)]="currentItem.startDate">
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field appearance="outline" class="w-100">
+      <input matInput [matDatepicker]="picker2" placeholder="End Date" [(ngModel)]="currentItem.endDate">
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Status</mat-label>
+      <mat-select [(ngModel)]="currentItem.statusId">
+        <mat-option value="Installed">Installed</mat-option>
+        <mat-option value="In-Stock">In-Stock</mat-option>
+        <mat-option value="Scrap">Scrap</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>remarks</mat-label>
+      <input matInput [(ngModel)]="currentItem.remarks">
+    </mat-form-field>
+  </div>
+
+  <div class="d-flex align-items-center justify-content-end">
+    <div mat-dialog-actions class="me-2">
+      <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+    </div>
+    <div mat-dialog-actions>
+      <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="editWarranty()">Update</button>
+    </div>
+  </div>
+</ng-template>
+<!-- warranty popup -->
+
 
 <!-- Delete Popup -->
 <ng-template #deleteInventoryDialog>

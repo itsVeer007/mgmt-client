@@ -8,12 +8,12 @@
           <span>SIGN IN</span>
       </div>
       <form class="sign-in">
-          <input type="text" name="uname" class="form-control" placeholder="Enter UserName" [(ngModel)]="username" (keydown)="error=null"/>
+          <input type="text" name="uname" class="form-control" placeholder="Enter UserName" [(ngModel)]="username" (keydown)="errorMsg = null"/>
           <input type="password" name="pwd" class="form-control" placeholder="Enter Password" [(ngModel)]="password"/>
           <a class="pointer"><small>Forgot Password ?</small></a>
           <div class="btns">
             <button type="submit" class="btn mt-2" (click)="submit()">LOGIN</button>
-            <div class="mt-2 text-danger">{{error ? error:''}} &nbsp;</div>
+            <div class="mt-2 text-danger">{{ errorMsg ? errorMsg : '' }} &nbsp;</div>
           </div>
       </form>
   </div>

@@ -70,7 +70,7 @@ export class InventoryComponent implements OnInit {
   redyToUse: any = [];
   getInventory() {
     this.inventorySer.getListing().subscribe((res: any) => {
-      // console.log(res);
+      console.log(res);
       this.inventoryTable = res;
       this.newInventoryTable = this.inventoryTable;
 
@@ -86,6 +86,12 @@ export class InventoryComponent implements OnInit {
         }
       }
     });
+  }
+
+  getWarranty(id: any) {
+    this.inventorySer.getWarranty(id).subscribe((res: any) => {
+      console.log(res)
+    })
   }
 
   // filterBrand(val: any) {
@@ -253,25 +259,18 @@ export class InventoryComponent implements OnInit {
   editInventory() {
     // console.log(this.currentItem);
     // this.inventoryTable= this.inventoryTable.filter((item:any) => item.siteId !== this.currentItem.siteId);
-    this.getInventory();
+    // this.getInventory();
 
     this.originalObject = {
-      "inv": {
-        "productId": this.currentItem.productId,
-        "productSerialNo": this.currentItem.productSerialNo,
-        "productName": this.currentItem.productName,
-        "productBrand": this.currentItem.productBrand,
-        "productCategory": this.currentItem.productCategory,
-        "status": this.currentItem.status,
-        "cost": this.currentItem.cost,
-        "price": this.currentItem.price
-      },
-      "warr": {
-        "warrantyStartDate": this.currentItem.warrantyStartDate,
-        "warrantyEndDate": this.currentItem.warrantyEndDate,
-        "vendor": this.currentItem.vendor,
-        "remarks": this.currentItem.remarks
-      }
+      "id": this.currentItem.id,
+      "quantity": this.currentItem.quantity,
+      "serialNo": this.currentItem.serialNo,
+      "cost": this.currentItem.cost,
+      "price": this.currentItem.price,
+      "modifiedBy": 1,
+      "modifiedTime": null,
+      "statusId": this.currentItem.statusId,
+      "remarks": this.currentItem.remarks
     }
 
     this.updateInventory2 = Swal.fire({
@@ -296,12 +295,76 @@ export class InventoryComponent implements OnInit {
         this.updateInventory0 = Swal.fire({
           icon: 'error',
           title: 'Failed!',
-          text: 'Ticket Updation failed',
+          text: 'Inventory Updation failed',
           // timer: 3000,
         });
       };
     });
   }
+
+  @ViewChild('editWarrantyDialog') editWarrantyDialog = {} as TemplateRef<any>;
+
+  openWarrantyPopup(item: any) {
+    this.dialog.open(this.editWarrantyDialog);
+
+    this.inventorySer.getWarranty(item.id).subscribe((res: any) => {
+      // console.log(res);
+      this.currentItem = res;
+    })
+    // console.log(this.currentItem);
+  }
+
+  updateWarranty0: any;
+  updateWarranty1: any;
+  updateWarranty2: any;
+  editWarranty() {
+    // console.log(this.currentItem);
+    // this.inventoryTable= this.inventoryTable.filter((item:any) => item.siteId !== this.currentItem.siteId);
+    // this.getWarranty();
+
+    this.originalObject = {
+      "id": this.currentItem.id,
+      "serialNo": this.currentItem.serialNo,
+      "newSerialNo": this.currentItem.newSerialNo,
+      "cost": this.currentItem.cost,
+      "startDate": this.currentItem.startDate,
+      "endDate": this.currentItem.endDate,
+      "statusId": this.currentItem.statusId,
+      "modifiedBy":  1,
+      "modifiedTime": null,
+      "remarks": this.currentItem.remarks
+    }
+
+    this.updateInventory2 = Swal.fire({
+      text: "Please wait",
+      imageUrl: "assets/gif/ajax-loading-gif.gif",
+      showConfirmButton: false,
+      allowOutsideClick: false
+    });
+
+    this.inventorySer.UpdateWarranty(this.originalObject).subscribe((res: any) => {
+      // console.log(res);
+
+      if(res) {
+        this.updateWarranty1 = Swal.fire({
+          icon: 'success',
+          title: 'Done!',
+          text: 'Updated Warranty Successfully!',
+        });
+      }
+    }, (err: any) => {
+      if(err) {
+        this.updateWarranty0 = Swal.fire({
+          icon: 'error',
+          title: 'Failed!',
+          text: 'Warranty Updation failed',
+          // timer: 3000,
+        });
+      };
+    });
+  }
+
+
 
 
   // deleteRow: any;

@@ -1,17 +1,16 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/services/api.service';
-import { InventoryService } from 'src/services/inventory.service';
+import { VendorsService } from 'src/services/vendors.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-add-new-inventory',
-  templateUrl: './add-new-inventory.component.html',
-  styleUrls: ['./add-new-inventory.component.css'],
-  animations:[
+  selector: 'app-add-new-vendor',
+  templateUrl: './add-new-vendor.component.html',
+  styleUrls: ['./add-new-vendor.component.css'],
+    animations:[
     trigger("inOutPaneAnimation", [
       transition(":enter", [
         style({ opacity: 0, transform: "translateX(100%)" }), //apply default styles before animation starts
@@ -30,8 +29,9 @@ import Swal from 'sweetalert2';
     ])
   ]
 })
-export class AddNewInventoryComponent implements OnInit {
-  constructor(private router: Router, private inventorySer: InventoryService, private apiser: ApiService, private fb: FormBuilder, public datepipe: DatePipe) { }
+export class AddNewVendorComponent implements OnInit {
+
+  constructor(private router: Router, private vendorSer: VendorsService, private apiser: ApiService, private fb: FormBuilder) { }
 
   @Input() show:any;
 
@@ -47,54 +47,62 @@ export class AddNewInventoryComponent implements OnInit {
   //     }
   //   }
   // }
-  // error=false;
 
 
   UserForm: any =  FormGroup;
 
-  inventoryBody = {
-    inv: {
-      productId: null,
-      orderId: 1,
-      quantity: null,
-      serialNo: '',
-      cost: null,
-      price: null,
-      // statusId: 1,
-      createdBy: 1,
-      remarks: ''
-    },
-    warr: {
-      serialNo: "",
-      newSerialNo: "",
-      cost: "",
-      startDate: null,
-      endDate: null,
-      statusId: 1,
-      createdBy: 1,
-      remarks: ""
-    }
+  vendorBody = {
+    name: "",
+    proprietorName1: "",
+    proprietorName2: "",
+    proprietorName3: "",
+    emailId1: "",
+    emailId2: "",
+    emailId3: "",
+    mobileNumber1: "",
+    mobileNumber2: "",
+    mobileNumber3: "",
+    status: 1,
+    serviceStartDate: "",
+    serviceEndDate: "",
+    createdBy: 0,
+    modifiedBy: 0,
+    createdTime: "",
+    modifiedTime: "",
+    addressLine1: "",
+    addressLine2: "",
+    state: "",
+    postCode: null,
+    city: "",
+    remarks: ""
   }
 
-  // email: string = "";
 
   ngOnInit() {
     this.UserForm = this.fb.group({
-      'productId': new FormControl('', Validators.required),
-      'orderId': new FormControl('', Validators.required),
-      'quantity': new FormControl(''),
-      'serialNo': new FormControl(''),
-      'cost': new FormControl('', Validators.required),
-      'price': new FormControl('', Validators.required),
-      'remarks': new FormControl(''),
-
-
-      'wserialNo': new FormControl(''),
-      'wnewSerialNo': new FormControl(''),
-      'wcost': new FormControl(''),
-      'startDate': new FormControl(''),
-      'endDate': new FormControl(''),
-      'wremarks': new FormControl(''),
+      'name': new FormControl('', Validators.required),
+      'proprietorName1': new FormControl('', Validators.required),
+      'proprietorName2': new FormControl(''),
+      'proprietorName3': new FormControl(''),
+      'emailId1': new FormControl('', Validators.required),
+      'emailId2': new FormControl(''),
+      'emailId3': new FormControl(''),
+      'mobileNumber1': new FormControl('', Validators.required),
+      'mobileNumber2': new FormControl(''),
+      'mobileNumber3': new FormControl(''),
+      'status': new FormControl(''),
+      'serviceStartDate': new FormControl(''),
+      'serviceEndDate': new FormControl(''),
+      'createdBy': new FormControl(''),
+      'modifiedBy': new FormControl(''),
+      'createdTime': new FormControl(''),
+      'modifiedTime': new FormControl(''),
+      'addressLine1': new FormControl('', Validators.required),
+      'addressLine2': new FormControl(''),
+      'postCode': new FormControl('', Validators.required),
+      'state': new FormControl('', Validators.required),
+      'city': new FormControl('', Validators.required),
+      'remarks': new FormControl('')
     });
   }
 
@@ -113,10 +121,7 @@ export class AddNewInventoryComponent implements OnInit {
   addInventory1: any;
   addInventory2: any;
   submit() {
-    console.log(this.inventoryBody);
-    this.inventoryBody.warr.startDate = this.datepipe.transform(this.inventoryBody.warr.startDate, 'yyyy-MM-dd');
-    this.inventoryBody.warr.endDate = this.datepipe.transform(this.inventoryBody.warr.endDate, 'yyyy-MM-dd');
-
+    // console.log(this.x);
     if(this.UserForm.valid) {
       this.newItemEvent.emit(false);
 
@@ -126,8 +131,7 @@ export class AddNewInventoryComponent implements OnInit {
         showConfirmButton: false,
         allowOutsideClick: false
       });
-
-      this.inventorySer.createInventory(this.inventoryBody).subscribe((res: any) => {
+      this.vendorSer.createVendors(this.vendorBody).subscribe((res: any) => {
         // console.log(res);
 
         if(res) {

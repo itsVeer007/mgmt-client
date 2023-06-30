@@ -14,10 +14,10 @@
     <form autocomplete="off" [formGroup]="UserForm" #addUserForm="ngForm">
       <div class="row">
 
-        <div class="col-lg-6 col-md-6">
+        <!-- <div class="col-lg-6 col-md-6">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Category</mat-label>
-            <mat-select formControlName="productCategory" [(ngModel)]="x.inv.productCategory">
+            <mat-select formControlName="productCategory" [(ngModel)]="inventoryBody.inv.productCategory">
               <mat-option value="Modules">Modules</mat-option>
               <mat-option value="Server">Server</mat-option>
               <mat-option value="Camera">Camera</mat-option>
@@ -29,7 +29,7 @@
         <div class="col-lg-6 col-md-6">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Brand</mat-label>
-            <mat-select formControlName="productBrand" [(ngModel)]="x.inv.productBrand">
+            <mat-select formControlName="productBrand" [(ngModel)]="inventoryBody.inv.productBrand">
               <mat-option value="Rasberry">Rasberry</mat-option>
               <mat-option value="Jetson">Jetson</mat-option>
               <mat-option value="AXIS">AXIS</mat-option>
@@ -38,20 +38,42 @@
             </mat-select>
             <mat-error class="mt-1">Brand is required</mat-error>
           </mat-form-field>
+        </div> -->
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Product Id</mat-label>
+            <mat-select formControlName="productId" [(ngModel)]="inventoryBody.inv.productId">
+              <mat-option [value]="1">1</mat-option>
+              <mat-option [value]="2">2</mat-option>
+            </mat-select>
+            <mat-error class="mt-1">Brand is required</mat-error>
+          </mat-form-field>
         </div>
 
         <div class="col-lg-6 col-md-6">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Product Name</mat-label>
-            <input matInput formControlName="productName" [(ngModel)]="x.inv.productName">
+            <mat-label>Product Id</mat-label>
+            <mat-select formControlName="orderId" [(ngModel)]="inventoryBody.inv.orderId">
+              <mat-option [value]="1">1</mat-option>
+              <mat-option [value]="2">2</mat-option>
+            </mat-select>
+            <mat-error class="mt-1">Brand is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>quantity</mat-label>
+            <input matInput type="number" formControlName="quantity" [(ngModel)]="inventoryBody.inv.quantity">
             <mat-error class="mt-1">Product is required</mat-error>
           </mat-form-field>
         </div>
 
         <div class="col-lg-6 col-md-6">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Serial Number</mat-label>
-            <input matInput formControlName="productSerialNo" [(ngModel)]="x.inv.productSerialNo">
+            <mat-label>serialNo</mat-label>
+            <input matInput formControlName="serialNo" [(ngModel)]="inventoryBody.inv.serialNo">
             <mat-error class="mt-1">Serial Number is required</mat-error>
           </mat-form-field>
         </div>
@@ -95,7 +117,7 @@
           </div> -->
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Cost</mat-label>
-            <input matInput type="number" formControlName="cost" [(ngModel)]="x.inv.cost">
+            <input matInput formControlName="cost" [(ngModel)]="inventoryBody.inv.cost">
             <mat-error class="mt-1">Cost is required</mat-error>
           </mat-form-field>
         </div>
@@ -107,8 +129,16 @@
           </div> -->
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Price</mat-label>
-            <input matInput type="number" formControlName="price" [(ngModel)]="x.inv.price">
+            <input matInput formControlName="price" [(ngModel)]="inventoryBody.inv.price">
             <mat-error class="mt-1">Price is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>remarks</mat-label>
+            <input matInput formControlName="remarks" [(ngModel)]="inventoryBody.inv.remarks">
+            <mat-error class="mt-1">Serial Number is required</mat-error>
           </mat-form-field>
         </div>
 
@@ -120,10 +150,35 @@
             <label for="bopis" class="on-off-toggle__slider"></label>
           </div>
         </div> -->
+        <p>Warranty Details</p>
 
         <div class="col-lg-6 col-md-6">
           <mat-form-field appearance="outline" class="w-100">
-            <input matInput [matDatepicker]="picker1" placeholder="Start Date" formControlName="warrantyStartDate" [(ngModel)]="x.warr.warrantyStartDate">
+            <mat-label>serialNo</mat-label>
+            <input matInput formControlName="wserialNo" [(ngModel)]="inventoryBody.warr.serialNo">
+            <mat-error class="mt-1">Serial Number is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>newSerialNo</mat-label>
+            <input matInput formControlName="wnewSerialNo" [(ngModel)]="inventoryBody.warr.newSerialNo">
+            <mat-error class="mt-1">Serial Number is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>cost</mat-label>
+            <input matInput formControlName="wcost" [(ngModel)]="inventoryBody.warr.cost">
+            <mat-error class="mt-1">Serial Number is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <input matInput [matDatepicker]="picker1" placeholder="Start Date" formControlName="startDate" [(ngModel)]="inventoryBody.warr.startDate">
             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
             <mat-datepicker #picker1></mat-datepicker>
             <mat-error class="mt-1">Start Date is required</mat-error>
@@ -132,14 +187,14 @@
 
         <div class="col-lg-6 col-md-6">
           <mat-form-field appearance="outline" class="w-100">
-            <input matInput [matDatepicker]="picker2" placeholder="End Date" formControlName="warrantyEndDate" [(ngModel)]="x.warr.warrantyEndDate">
+            <input matInput [matDatepicker]="picker2" placeholder="End Date" formControlName="endDate" [(ngModel)]="inventoryBody.warr.endDate">
             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
             <mat-datepicker #picker2></mat-datepicker>
             <mat-error class="mt-1">End Date is required</mat-error>
           </mat-form-field>
         </div>
 
-        <div class="col-lg-6 col-md-6">
+        <!-- <div class="col-lg-6 col-md-6">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Select Vendor</mat-label>
             <mat-select formControlName="vendor" [(ngModel)]="x.warr.vendor">
@@ -147,12 +202,12 @@
             </mat-select>
             <mat-error class="mt-1">Vendor is required</mat-error>
           </mat-form-field>
-        </div>
+        </div> -->
 
         <div class="col-lg-12 col-md-12">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Notes</mat-label>
-            <input matInput formControlName="remarks" [(ngModel)]="x.warr.remarks">
+            <mat-label>remarks</mat-label>
+            <input matInput formControlName="wremarks" [(ngModel)]="inventoryBody.warr.remarks">
             <mat-error class="mt-1">Notes is required</mat-error>
           </mat-form-field>
         </div>

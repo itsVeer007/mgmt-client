@@ -95,7 +95,7 @@
         </mat-form-field>
       </div> -->
 
-      <div class="col-lg-2  col-sm-12">
+      <div class="">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Request Id</mat-label>
           <mat-select (focus)="removeDuplicates()" [(ngModel)]="rqsId">
@@ -105,32 +105,50 @@
         </mat-form-field>
       </div>
 
-      <div class="col-lg-2  col-sm-12">
+      <div class="">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Select Priority</mat-label>
           <mat-select (focus)="removeDuplicates()" [(ngModel)]="prior">
             <mat-option value="">All</mat-option>
-            <mat-option *ngFor="let item of priorityVal" [value]="item.priorityId">{{ item.priorityId }}</mat-option>
+            <mat-option *ngFor="let item of priorityVal" [value]="item.keyId">{{ item.value }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
 
-      <div class="col-lg-2  col-sm-12">
+      <div class="">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Select Status</mat-label>
           <mat-select (focus)="removeDuplicates()" [(ngModel)]="sta">
             <mat-option value="">All</mat-option>
-            <mat-option *ngFor="let item of statusVal" [value]="item.statusId">{{ item.status.statusId }}</mat-option>
+            <mat-option *ngFor="let item of statusVal" [value]="item.keyId">{{ item.value }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
 
-      <div class="filter-search-btn col-lg-2 col-sm-12">
+      <div class="">
+        <mat-form-field appearance="outline" class="w-100">
+          <input matInput [matDatepicker]="picker1" placeholder="Start Date" [(ngModel)]="stDt">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+          <mat-error class="mt-1">Start Date is required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="">
+        <mat-form-field appearance="outline" class="w-100">
+          <input matInput [matDatepicker]="picker2" placeholder="End Date" [(ngModel)]="enDt">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+          <mat-error class="mt-1">End Date is required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="filter-search-btn">
         <!-- <button mat-flat-button color="primary" class="p-0" (click)="applyFilter()">Submit</button> -->
         <button (click)="applyFilter()">Submit</button>
       </div>
 
-      <div class="col-lg-2  col-sm-12">
+      <!-- <div class="ms-5">
         <mat-form-field class="example-form-field" appearance="outline" class="w-100">
           <mat-label>Search</mat-label>
           <input matInput type="text"  [(ngModel)]="searchText">
@@ -138,7 +156,7 @@
             <mat-icon>search</mat-icon>
           </button>
         </mat-form-field>
-      </div>
+      </div> -->
 
     <div class="table-icons">
         <div class="lists" *ngIf="showIconView" style="margin-right: 60px; margin-top: -40px;">View</div>
@@ -154,7 +172,7 @@
 
   <!-- table starts -->
   <div class="table-resp">
-    <table class="table" id="mytable">
+    <table class="table table-hover" id="mytable">
       <tbody>
         <tr class="form1">
           <th>
@@ -166,29 +184,35 @@
               " />
           </th>
 
-          <th (click)="sort('ticketId')">
+          <th>
             <span>Ticket ID</span>
-            <img class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
-          <th>Ticket Type</th>
+          <th>
+            <span>Ticket Type</span>
+            <img (click)="sort('ticketTypeId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+          </th>
 
           <th>
             <span>Rqst By</span>
-            <img (click)="sort('requestId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <img (click)="sort('requestedBy')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+          </th>
+
+          <th>
+            <span>Site</span>
+            <img (click)="sort('siteId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <!-- <th>
-            <span>Site</span>
+            <span>Created By</span>
             <img (click)="sort('site')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th> -->
 
           <th>
-            <span>Created By</span>
-            <img (click)="sort('site')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <span>Source of Request</span>
+            <img (click)="sort('sourceOfRequestId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
-
-          <th>Source of Request</th>
 
           <th>
             <span>Assigned To</span>
@@ -197,24 +221,24 @@
 
           <th>
             <span>Data Created</span>
-            <img (click)="sort('ticketRaisedDate')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <img (click)="sort('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
             <span>Data Closed</span>
-            <img (click)="sort('ticketClosedDate')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <img (click)="sort('closedTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <!-- <th (click)="sort('contactPerson')">Age (In Days)</th> -->
 
           <th>
             <span>Priority</span>
-            <img (click)="sort('priority')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <img (click)="sort('priorityId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
             <span>Status</span>
-            <img (click)="sort('status')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <img (click)="sort('statusId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th></th>
@@ -234,7 +258,7 @@
             <p>{{ cust.ticketId }}</p>
           </td>
           <td>
-            <p>{{ cust.ticketType == 1 ? 'Maintaince' : cust.ticketType == 2 ? 'Installation' : '--' }}</p>
+            <p>{{ cust.ticketTypeId == 1 ? 'Maintaince' : cust.ticketTypeId == 2 ? 'Installation' : '--' }}</p>
           </td>
 
           <td>
@@ -242,15 +266,15 @@
           </td>
 
           <td>
-            <p>{{ cust.site }}</p>
+            <p>{{ cust.siteId }}</p>
           </td>
 
           <td>
-            <p>{{ cust.sourceOfRequest == 1 ? 'Phone': cust.sourceOfRequest == 2 ? 'Email' : cust.sourceOfRequest == 3 ? 'Self' : '--'  }}</p>
+            <p>{{ cust.sourceOfRequestId == 1 ? 'Phone': cust.sourceOfRequestId == 2 ? 'Email' : cust.sourceOfRequestId == 3 ? 'Self' : '--'  }}</p>
           </td>
 
           <td>
-            <p (click)="openAssigned(cust)" *ngIf="cust.assignedTo != '' || cust.assignedTo != null">{{ cust.assignedTo }}</p>
+            <p (click)="openAssigned(cust)" *ngIf="cust.assignedTo != '' || cust.assignedTo != null">{{ cust.assignedTo == 1 ? 'Brey' : cust.assignedTo == 2 ? 'Danny' : cust.assignedTo == 3 ? 'Kranthi' : '' }}</p>
             <a class="pointer" (click)="openAssigned(cust)"><img src="assets/icons/add-svg.svg" *ngIf="cust.assignedTo == '' || cust.assignedTo == null" width="25" height="25"></a>
           </td>
           <td>
@@ -260,17 +284,17 @@
             <!-- <a class="pointer">
               <img src="assets/icons/add-svg.svg" width="25" height="25" />
             </a> -->
-            <p>{{ cust.ticketClosedDate ?  (cust.ticketClosedDate| date: 'dd-MM-yyyy') : '--'}}</p>
+            <p>{{ cust.closedTime ?  (cust.closedTime| date: 'dd-MM-yyyy') : '--'}}</p>
           </td>
           <!-- <td>
             <p>{{ cust.ageInDays }}</p>
           </td> -->
           <td>
-            <p>{{ cust.priority == 1 ? 'Low' : cust.priority == 2 ? 'Medium' : cust.priority == 3 ? 'High' : '--' }}</p>
+            <p>{{ cust.priorityId == 1 ? 'Low' : cust.priorityId == 2 ? 'Medium' : cust.priorityId == 3 ? 'High' : '--' }}</p>
           </td>
           <td>
-            <p [style.color]="cust.status == 1 ? '#00A44C' : cust.status == 2 ? '#F5B400' : cust.status == 3 ? '#F5B400' : cust.status == 4 ? '#fa500f' : ''">
-              {{ cust.status == 1 ? 'Open' : cust.status == 2 ? 'In-Progress' : cust.status == 3 ? 'Closed' : cust.status == 4 ? 'Rejected' : '--'}}
+            <p [style.color]="cust.statusId == 1 ? '#00A44C' : cust.statusId == 2 ? '#F5B400' : cust.statusId == 3 ? '#F5B400' : cust.statusId == 4 ? '#fa500f' : ''">
+              {{ cust.statusId == 1 ? 'Open' : cust.statusId == 2 ? 'In-Progress' : cust.statusId == 3 ? 'Closed' : cust.statusId == 4 ? 'Rejected' : '--'}}
             </p>
             <!-- <p [style.color]="cust.status == 'active' ? '#00A44C' : cust.status == 'Inprogress' ? '#F5B400' : cust.status == 'closed' ? '#fa500f' : '#00A44C'">
 
@@ -295,7 +319,7 @@
               </ng-template>
             </p> -->
           </td>
-          <td>
+          <td style="position: relative;">
             <a class="pointer" (click)="closeDot($event, i)"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
             <div class="plus-img1" id="plus-img{{ i }}" style="display: none">
               <div class="lists" *ngIf="showIconView1" style="margin-left: 5px; margin-top: -20px">
@@ -327,13 +351,11 @@
 <ng-template #assignedDialog>
   <mat-form-field appearance="outline" class="w-100">
     <mat-label>Assign To</mat-label>
-    <mat-select [(ngModel)]="assignedObj.assignedTo">
-      <mat-option value="Brey">Brey</mat-option>
-      <mat-option value="Kranthi">Kranthi</mat-option>
-      <mat-option value="John">John</mat-option>
-      <mat-option value="Ian">Ian</mat-option>
+    <mat-select name="assignedTo" [(ngModel)]="assignedObj.assignedTo" (selectionChange)="aonSelectChange($event)">
+      <mat-option *ngFor="let item of assignedTo" [value]="item.keyId">{{item.value}}</mat-option>
     </mat-select>
   </mat-form-field>
+
   <div class="d-flex align-items-center justify-content-end">
     <div mat-dialog-actions class="me-2">
       <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
@@ -359,11 +381,11 @@
           </div>
 
           <div>
-            <span style="width: 130px; color: #ABABAB;">ticketType: </span>{{ currentItem.ticketType == 1 ? 'Maintaince' : currentItem.ticketType == 2 ? 'Installation' : '--' }}
+            <span style="width: 130px; color: #ABABAB;">ticketType: </span>{{ currentItem.ticketTypeId == 1 ? 'Maintaince' : currentItem.ticketTypeId == 2 ? 'Installation' : '--' }}
           </div>
 
           <div>
-            <span style="width: 130px; color: #ABABAB;">sourceOfRequest: </span>{{ currentItem.sourceOfRequest == 1 ? 'Phone': currentItem.sourceOfRequest == 2 ? 'Email' : currentItem.sourceOfRequest == 3 ? 'Self' : '--' }}
+            <span style="width: 130px; color: #ABABAB;">sourceOfRequest: </span>{{ currentItem.sourceOfRequestId == 1 ? 'Phone': currentItem.sourceOfRequestId == 2 ? 'Email' : currentItem.sourceOfRequestId == 3 ? 'Self' : '--' }}
           </div>
 
           <div>
@@ -379,11 +401,11 @@
           </div>
 
           <div>
-            <span style="width: 130px; color: #ABABAB;">Priority: </span>{{ currentItem.priority == 1 ? 'Low' : currentItem.priority == 2 ? 'Medium' : currentItem.priority == 3 ? 'High' : '--' }}
+            <span style="width: 130px; color: #ABABAB;">Priority: </span>{{ currentItem.priorityId == 1 ? 'Low' : currentItem.priorityId == 2 ? 'Medium' : currentItem.priorityId == 3 ? 'High' : '--' }}
           </div>
 
           <div>
-            <span style="width: 130px; color: #ABABAB;">Status: </span>{{ currentItem.status == 1 ? 'Open' : currentItem.status == 2 ? 'In-Progress' : currentItem.status == 3 ? 'Closed' : currentItem.status == 4 ? 'Rejected' : '--' }}
+            <span style="width: 130px; color: #ABABAB;">Status: </span>{{ currentItem.statusId == 1 ? 'Open' : currentItem.statusId == 2 ? 'In-Progress' : currentItem.statusId == 3 ? 'Closed' : currentItem.statusId == 4 ? 'Rejected' : '--' }}
           </div>
         </div>
       </div>
@@ -394,12 +416,27 @@
         <p style="font-weight: 600; color: #ABABAB;">COMMENTS</p>
       </div>
 
-      <div *ngFor="let item of ticketComments">
+      <!-- <div *ngFor="let item of ticketComments">
         <div>
           <div>
             <span style="width: 130px; color: #ABABAB;"></span>{{ item.message ? item.message : '--' }}
           </div>
         </div>
+      </div> -->
+      <div class="container">
+        <img src="/w3images/bandmember.jpg" alt="Avatar" style="width:100%;">
+        <p>Hello. How are you today?</p>
+        <span class="time-right">11:00</span>
+      </div>
+
+      <div class="container darker">
+        <img src="/w3images/avatar_g2.jpg" alt="Avatar" class="right" style="width:100%;">
+        <p>Hey! I'm fine. Thanks for asking!</p>
+        <span class="time-left">11:01</span>
+      </div>
+
+      <div mat-dialog-actions>
+        <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="updateTicket(currentItem)">Create Comment</button>
       </div>
     </div>
 
@@ -561,39 +598,87 @@
 
 <!-- edit popup -->
 <ng-template #editTicketDialog>
-  <div *ngIf="currentItem">
-    <div>
+  <div class="row" *ngIf="currentItem">
+    <div class="col-lg-6 col-md-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Ticket Id</mat-label>
         <input matInput [(ngModel)]="currentItem.ticketId" disabled>
       </mat-form-field>
     </div>
 
-    <div>
+    <div class="col-lg-6 col-md-6">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Site</mat-label>
-        <input matInput [(ngModel)]="currentItem.site">
+        <mat-label>Ticket Type</mat-label>
+        <mat-select name="ticketTypeId" [(ngModel)]="currentItem.ticketTypeId" (selectionChange)="onSelectChange($event)">
+          <mat-option *ngFor="let item of ticketType" [value]="item.keyId">
+            {{ item.value }}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
     </div>
 
-    <div>
+    <div class="col-lg-6 col-md-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Description</mat-label>
-        <input matInput [(ngModel)]="currentItem.description">
+        <input matInput name="description" [(ngModel)]="currentItem.description" (change)="onInputChange($event)">
       </mat-form-field>
     </div>
 
-    <div>
+    <div class="col-lg-6 col-md-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Source Of Request</mat-label>
+        <mat-select name="sourceOfRequestId" [(ngModel)]="currentItem.sourceOfRequestId" (selectionChange)="onSelectChange($event)">
+          <mat-option *ngFor="let item of sourceOfRequest" [value]="item.keyId">
+            {{ item.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-6 col-md-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Assigned To</mat-label>
+        <mat-select name="assignedTo" [(ngModel)]="currentItem.assignedTo" (selectionChange)="onSelectChange($event)">
+          <mat-option *ngFor="let item of assignedTo" [value]="item.keyId">
+            {{ item.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-6 col-md-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Priority</mat-label>
-        <input matInput [(ngModel)]="currentItem.priority">
+        <mat-select name="priorityId" [(ngModel)]="currentItem.priorityId" (selectionChange)="onSelectChange($event)">
+          <mat-option *ngFor="let item of priorityVal" [value]="item.keyId">
+            {{ item.value }}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
     </div>
 
-    <div>
+    <div class="col-lg-6 col-md-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Status</mat-label>
-        <input matInput [(ngModel)]="currentItem.status">
+        <mat-select name="statusId" [(ngModel)]="currentItem.statusId" (selectionChange)="onSelectChange($event)">
+          <mat-option *ngFor="let item of statusVal" [value]="item.keyId">
+            {{ item.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-6 col-md-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Reason</mat-label>
+        <input matInput name="ticketReason" [(ngModel)]="currentItem.ticketReason" (change)="onInputChange($event)">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-6 col-md-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Remarks</mat-label>
+        <input matInput name="remarks" [(ngModel)]="currentItem.remarks" (change)="onInputChange($event)">
       </mat-form-field>
     </div>
   </div>

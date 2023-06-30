@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
 
   username: any;
   password: any;
-  error: any;
+  errorMsg: any;
 
   submit() {
     let loginDetails = {
@@ -27,16 +27,16 @@ export class LoginComponent implements OnInit {
       "calling_System_Detail": "portal"
     }
 
-    this.apiser.login(loginDetails).subscribe((res:any) => {
+    this.apiser.login(loginDetails).subscribe((res: any) => {
       // console.log(res);
       if(res.Status == "Success") {
         localStorage.setItem('user', JSON.stringify(res));
         this.apiser.user$.next(res);
         this.route.navigate(['/main-dashboard']);
       }else {
-        this.error = res.Message;
+        this.errorMsg = res.Message;
       }
     });
-
   }
+
 }

@@ -3,6 +3,7 @@ import { Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angula
 import { MatDialog } from '@angular/material/dialog';
 import { AssetService } from 'src/services/asset.service';
 import { InventoryService } from 'src/services/inventory.service';
+import { MetadataService } from 'src/services/metadata.service';
 import { VendorsService } from 'src/services/vendors.service';
 import Swal from 'sweetalert2';
 
@@ -15,7 +16,7 @@ export class VendorsComponent implements OnInit {
 
   @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
     var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);
-    var y = <HTMLElement>document.getElementById(`address${this.addressid}`);
+    // var y = <HTMLElement>document.getElementById(`address${this.addressid}`);
 
     // console.log(`plus-img${this.currentid}`);
     if (x != null) {
@@ -26,20 +27,20 @@ export class VendorsComponent implements OnInit {
       }
     }
 
-    if (y != null) {
-      if(!y.contains(e.target)) {
-        if (y.style.display == 'flex' || y.style.display == 'block') {
-          y.style.display = 'none';
-        }
-      }
-    }
+    // if (y != null) {
+    //   if(!y.contains(e.target)) {
+    //     if (y.style.display == 'flex' || y.style.display == 'block') {
+    //       y.style.display = 'none';
+    //     }
+    //   }
+    // }
   }
 
 
 
 
   showLoader = false;
-  constructor(private http: HttpClient, private ass: AssetService, private inventorySer: InventoryService, private vendorSer: VendorsService, public dialog: MatDialog) { }
+  constructor(private http: HttpClient, private ass: AssetService, private inventorySer: InventoryService, private vendorSer: VendorsService,private metaDatSer: MetadataService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getInventory();
@@ -70,10 +71,10 @@ export class VendorsComponent implements OnInit {
   redyToUse: any = [];
   getInventory() {
     this.vendorSer.getvendors().subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
 
-      // this.inventoryTable = res;
-      // this.newInventoryTable = this.inventoryTable;
+      this.inventoryTable = res;
+      this.newInventoryTable = this.inventoryTable;
 
       // for(let item of this.inventoryTable) {
       //   if(item.status == 'Installed') {
@@ -146,6 +147,20 @@ export class VendorsComponent implements OnInit {
     }, []);
   }
 
+  vendorStatus: any
+  onGetMetadata() {
+    this.metaDatSer.getMetadata().subscribe((res: any) => {
+      // console.log(res);
+      for(let item of res) {
+        if(item.type == 'Ticket_Status') {
+          this.statusVal = item.metadata;
+        } else if(item.type == "Vendor_Status") {
+          this.vendorStatus = item.metadata;
+        }
+      }
+    })
+  }
+
   prBrand: any = null;
   sta: any = null;
   prCat: any = null;
@@ -187,17 +202,40 @@ export class VendorsComponent implements OnInit {
     if (type == 'inventory') { this.showInventory = true; }
   }
 
-  addressid = 0;
-  addressView(e: any, i: any) {
-    this.addressid = i;
-    var x = e.target.nextElementSibling;
-    // console.log("AddressView:: ",x)
-    if (x.style.display == 'none') {
-      x.style.display = 'flex';
-    } else {
-      x.style.display = 'none';
-    }
-    // this.address = !this.address;
+  @ViewChild('proprietorDialog') proprietorDialog = {} as TemplateRef<any>;
+
+  proprietorId: any;
+  proprietorView(i: any) {
+    this.proprietorId = i;
+    // var x = e.target.nextElementSibling;
+    // if (x.style.display == 'none') {
+    //   x.style.display = 'flex';
+    // } else {
+    //   x.style.display = 'none';
+    // }
+
+    this.dialog.open(this.proprietorDialog)
+  }
+
+  @ViewChild('emailDialog') emailDialog = {} as TemplateRef<any>;
+  emailId: any;
+  emailView(i: any) {
+    this.emailId = i;
+    this.dialog.open(this.emailDialog)
+  }
+
+  @ViewChild('mobileDialog') mobileDialog = {} as TemplateRef<any>;
+  mobileId: any;
+  mobileView(i: any) {
+    this.mobileId = i;
+    this.dialog.open(this.mobileDialog)
+  }
+
+  @ViewChild('addressDialog') addressDialog = {} as TemplateRef<any>;
+  addressId: any;
+  addressView(i: any) {
+    this.addressId = i;
+    this.dialog.open(this.addressDialog)
   }
 
   masterSelected: boolean = false;
@@ -254,25 +292,33 @@ export class VendorsComponent implements OnInit {
   editInventory() {
     // console.log(this.currentItem);
     // this.inventoryTable= this.inventoryTable.filter((item:any) => item.siteId !== this.currentItem.siteId);
-    this.getInventory();
+    // this.getInventory();
 
     this.originalObject = {
-      "inv": {
-        "productId": this.currentItem.productId,
-        "productSerialNo": this.currentItem.productSerialNo,
-        "productName": this.currentItem.productName,
-        "productBrand": this.currentItem.productBrand,
-        "productCategory": this.currentItem.productCategory,
-        "status": this.currentItem.status,
-        "cost": this.currentItem.cost,
-        "price": this.currentItem.price
-      },
-      "warr": {
-        "warrantyStartDate": this.currentItem.warrantyStartDate,
-        "warrantyEndDate": this.currentItem.warrantyEndDate,
-        "vendor": this.currentItem.vendor,
-        "remarks": this.currentItem.remarks
-      }
+      'id': this.currentItem.id,
+      'name': this.currentItem.name,
+      'proprietorName1': this.currentItem.proprietorName1,
+      'proprietorName2': this.currentItem.proprietorName2,
+      'proprietorName3': this.currentItem.proprietorName3,
+      'emailId1': this.currentItem.emailId1,
+      'emailId2': this.currentItem.emailId2,
+      'emailId3': this.currentItem.emailId3,
+      'mobileNumber1': this.currentItem.mobileNumber1,
+      'mobileNumber2': this.currentItem.mobileNumber2,
+      'mobileNumber3': this.currentItem.mobileNumber3,
+      'statusId': this.currentItem.statusId,
+      'serviceStartDate': null,
+      'serviceEndDate': this.currentItem.serviceEndDate,
+      'createdBy': null,
+      'modifiedBy': 0,
+      'createdTime': null,
+      'modifiedTime': this.currentItem.modifiedTime,
+      'addressLine1': this.currentItem.addressLine1,
+      'addressLine2': this.currentItem.addressLine2,
+      'postCode': this.currentItem.postCode,
+      'state': this.currentItem.state,
+      'city': this.currentItem.city,
+      'remarks': this.currentItem.remarks
     }
 
     this.updateInventory2 = Swal.fire({
@@ -282,7 +328,7 @@ export class VendorsComponent implements OnInit {
       allowOutsideClick: false
     });
 
-    this.inventorySer.UpdateInventory(this.originalObject).subscribe((res: any) => {
+    this.vendorSer.updatevendor(this.originalObject).subscribe((res: any) => {
       // console.log(res);
 
       if(res) {
@@ -292,6 +338,11 @@ export class VendorsComponent implements OnInit {
           text: 'Updated Inventory Successfully!',
         });
       }
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000)
+
     }, (err: any) => {
       if(err) {
         this.updateInventory0 = Swal.fire({
@@ -335,6 +386,7 @@ export class VendorsComponent implements OnInit {
       showConfirmButton: false,
       allowOutsideClick: false
     });
+
     // this.inventoryTable = this.inventoryTable.filter((item: any) => item.siteId !== this.currentItem.siteId);
 
     this.inventorySer.deleteInventory(this.currentItem).subscribe((res: any) => {
