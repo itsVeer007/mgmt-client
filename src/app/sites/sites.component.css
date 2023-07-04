@@ -198,78 +198,6 @@
     border-top: 1px solid #EFEFEF;
 }
 
-/* CSS for Popup start */
-
-.modalitem .card {
-  border: none;
-}
-
-.modalitem {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 999999;
-  margin: auto;
-  width: 100vw;
-  height: 100vh;
-  background-color: #0006;
-}
-
-.modalitem .card-header {
-  background-color: #084982;
-  color: #fff;
-  height: 40px;
-  font-size: 14px;
-}
-
-.modalitem .card-header img {
-  margin: -24px -36px;
-}
-
-.modalitem .card .card-body {
-  font-size: 13px;
-}
-
-.modalitem .card .card-body ul li {
-  list-style-type: none;
-}
-
-.modalitem .card .card-body ul li {
-  font-size: 13px;
-  text-align: left;
-  color: #084982;
-}
-
-.modalitem .card .card-footer button {
-  float: right;
-  padding: 5px;
-  font-size: 10px;
-}
-
-.modalitem ul {
-  padding-left: 0rem;
-}
-
-.modalitem li {
-  display: flex;
-}
-
-.modalitem h6 {
-  color: #363636;
-  font-size: 13px;
-  font-family: ms, sans-serif;
-}
-
-.modalitem .card .card-body ul li div input {
-  font-size: 13px;
-  padding: 5px;
-  height: 30px
-}
-
-.modalitem .card .card-body ul li div {
-  margin: -8px 0px 5px 5px;
-}
-
 
 @media only screen and (max-width: 768px) {
   .search-form {
@@ -352,6 +280,11 @@
   font-weight: 100;
   font-size: 10px;
 }
+
+::ng-deep .mat-flat-button.mat-primary {
+  background-color: #084982;
+}
+
 
 /* common ng-deep */
 .mat-form-field-appearance-outline ::ng-deep .mat-form-field-outline {

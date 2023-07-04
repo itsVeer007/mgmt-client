@@ -1,8 +1,11 @@
+import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
 import { InventoryService } from 'src/services/inventory.service';
+import { MetadataService } from 'src/services/metadata.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -39,10 +42,19 @@ export class InventoryComponent implements OnInit {
 
 
   showLoader = false;
-  constructor(private http: HttpClient, private ass: AssetService, private inventorySer: InventoryService, public dialog: MatDialog) { }
+  constructor(
+    private http: HttpClient,
+    private ass: AssetService,
+    private inventorySer: InventoryService,
+    public dialog: MatDialog,
+    public datepipe: DatePipe,
+    private metadataSer: MetadataService,
+    private alertSer: AlertService
+    ) { }
 
   ngOnInit(): void {
     this.getInventory();
+    this.onMetadataChange();
   }
 
   // showIconVertical: boolean = false;
@@ -70,7 +82,7 @@ export class InventoryComponent implements OnInit {
   redyToUse: any = [];
   getInventory() {
     this.inventorySer.getListing().subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       this.inventoryTable = res;
       this.newInventoryTable = this.inventoryTable;
 
@@ -88,9 +100,12 @@ export class InventoryComponent implements OnInit {
     });
   }
 
+  warrDetail: any
   getWarranty(id: any) {
     this.inventorySer.getWarranty(id).subscribe((res: any) => {
-      console.log(res)
+      console.log(res);
+      this.warrDetail = res;
+
     })
   }
 
@@ -151,15 +166,30 @@ export class InventoryComponent implements OnInit {
     }, []);
   }
 
-  prBrand: any = null;
-  sta: any = null;
-  prCat: any = null;
+    /* metadata methods */
+
+    inventoryStatus: any;
+    onMetadataChange() {
+      this.metadataSer.getMetadata().subscribe((res: any) => {
+        for(let item of res) {
+          if(item.type == 'Inventory_Status') {
+            this.inventoryStatus = item.metadata;
+          }
+        }
+      })
+    }
+
+  prName: any = null;
+  prStatus: any = '';
+  prCreatedTime: any = null;
+  prCreatedTime1: any = null;
 
   applyFilter() {
     let myObj = {
-      productBrand: this.prBrand ? this.prBrand : '',
-      status: this.sta ? this.sta : '',
-      productCategory: this.prCat ? this.prCat : '',
+      'name': this.prName ? this.prName : '',
+      'statusId': this.prStatus ? this.prStatus : '',
+      'createdTime': this.prCreatedTime ? this.datepipe.transform(this.prCreatedTime, 'yyyy-MM-ddThh-MM-ss') : '',
+      'createdTime1': this.prCreatedTime1 ? this.datepipe.transform(this.prCreatedTime1, 'yyyy-MM-ddThh-MM-ss') : ''
     }
 
     // console.log(myObj)
@@ -174,7 +204,6 @@ export class InventoryComponent implements OnInit {
   closeDot(e: any, i: any) {
     this.currentid = i;
     var x = e.target.parentNode.nextElementSibling;
-    // console.log("THREE DOTS:: ",e.target.parentNode.nextElementSibling);
     if (x.style.display == 'none') {
       x.style.display = 'block';
     } else {
@@ -233,13 +262,23 @@ export class InventoryComponent implements OnInit {
   currentItem: any;
   originalObject: any;
 
+  /* view warranty */
+
+  @ViewChild('viewWarrantyDialog') viewWarrantyDialog = {} as TemplateRef<any>;
+
+  viewWarrantyPopup() {
+    // this.currentItem = item;
+    this.dialog.open(this.viewWarrantyDialog, {maxHeight: '550px', maxWidth: '550px'});
+    // console.log(this.currentItem);
+  }
+
   /* view inventory */
 
   @ViewChild('viewInventoryDialog') viewInventoryDialog = {} as TemplateRef<any>;
 
   openViewPopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.viewInventoryDialog);
+    this.dialog.open(this.viewInventoryDialog, {maxHeight: '550px', maxWidth: '550px'});
     // console.log(this.currentItem);
   }
 
@@ -249,13 +288,10 @@ export class InventoryComponent implements OnInit {
 
   openEditPopup(item: any) {
     this.currentItem = JSON.parse(JSON.stringify(item));
-    this.dialog.open(this.editInventoryDialog);
+    this.dialog.open(this.editInventoryDialog, {maxHeight: '550px', maxWidth: '550px'});
     // console.log(item);
   }
 
-  updateInventory0: any;
-  updateInventory1: any;
-  updateInventory2: any;
   editInventory() {
     // console.log(this.currentItem);
     // this.inventoryTable= this.inventoryTable.filter((item:any) => item.siteId !== this.currentItem.siteId);
@@ -272,32 +308,21 @@ export class InventoryComponent implements OnInit {
       "statusId": this.currentItem.statusId,
       "remarks": this.currentItem.remarks
     }
-
-    this.updateInventory2 = Swal.fire({
-      text: "Please wait",
-      imageUrl: "assets/gif/ajax-loading-gif.gif",
-      showConfirmButton: false,
-      allowOutsideClick: false
-    });
+    this.alertSer.wait();
 
     this.inventorySer.UpdateInventory(this.originalObject).subscribe((res: any) => {
       // console.log(res);
 
       if(res) {
-        this.updateInventory1 = Swal.fire({
-          icon: 'success',
-          title: 'Done!',
-          text: 'Updated Inventory Successfully!',
-        });
+        this.alertSer.success(res);
       }
-    }, (err: any) => {
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000)
+    },
+    (err: any) => {
       if(err) {
-        this.updateInventory0 = Swal.fire({
-          icon: 'error',
-          title: 'Failed!',
-          text: 'Inventory Updation failed',
-          // timer: 3000,
-        });
+        this.alertSer.error();
       };
     });
   }
@@ -305,7 +330,7 @@ export class InventoryComponent implements OnInit {
   @ViewChild('editWarrantyDialog') editWarrantyDialog = {} as TemplateRef<any>;
 
   openWarrantyPopup(item: any) {
-    this.dialog.open(this.editWarrantyDialog);
+    this.dialog.open(this.editWarrantyDialog, {maxHeight: '550px', maxWidth: '550px'});
 
     this.inventorySer.getWarranty(item.id).subscribe((res: any) => {
       // console.log(res);
@@ -314,9 +339,6 @@ export class InventoryComponent implements OnInit {
     // console.log(this.currentItem);
   }
 
-  updateWarranty0: any;
-  updateWarranty1: any;
-  updateWarranty2: any;
   editWarranty() {
     // console.log(this.currentItem);
     // this.inventoryTable= this.inventoryTable.filter((item:any) => item.siteId !== this.currentItem.siteId);
@@ -334,32 +356,21 @@ export class InventoryComponent implements OnInit {
       "modifiedTime": null,
       "remarks": this.currentItem.remarks
     }
-
-    this.updateInventory2 = Swal.fire({
-      text: "Please wait",
-      imageUrl: "assets/gif/ajax-loading-gif.gif",
-      showConfirmButton: false,
-      allowOutsideClick: false
-    });
+    this.alertSer.wait();
 
     this.inventorySer.UpdateWarranty(this.originalObject).subscribe((res: any) => {
       // console.log(res);
 
       if(res) {
-        this.updateWarranty1 = Swal.fire({
-          icon: 'success',
-          title: 'Done!',
-          text: 'Updated Warranty Successfully!',
-        });
+        this.alertSer.success(res);
       }
-    }, (err: any) => {
+      setTimeout(() => {
+        window.location.reload();
+      })
+    },
+    (err: any) => {
       if(err) {
-        this.updateWarranty0 = Swal.fire({
-          icon: 'error',
-          title: 'Failed!',
-          text: 'Warranty Updation failed',
-          // timer: 3000,
-        });
+        this.alertSer.wait();
       };
     });
   }
@@ -381,41 +392,27 @@ export class InventoryComponent implements OnInit {
 
   openDeletePopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.deleteInventoryDialog);
+    this.dialog.open(this.deleteInventoryDialog, {maxHeight: '250px', maxWidth: '250px'});
     // console.log("Selected Item:: ", item);
   }
 
-  deleteInventory0: any;
-  deleteInventory1: any;
-  deleteInventory2: any;
   deleteInventory() {
     // console.log(this.currentItem);
-
-    this.deleteInventory2 = Swal.fire({
-      text: "Please wait",
-      imageUrl: "assets/gif/ajax-loading-gif.gif",
-      showConfirmButton: false,
-      allowOutsideClick: false
-    });
     // this.inventoryTable = this.inventoryTable.filter((item: any) => item.siteId !== this.currentItem.siteId);
 
+    this.alertSer.wait();
     this.inventorySer.deleteInventory(this.currentItem).subscribe((res: any) => {
       // console.log(res);
       if(res) {
-        this.deleteInventory1 = Swal.fire({
-          icon: 'success',
-          title: 'Done!',
-          text: 'Deleted Successfully!',
-        });
+        this.alertSer.success(res);
       }
-    }, (err: any) => {
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000)
+    },
+    (err: any) => {
       if(err) {
-        this.deleteInventory0 = Swal.fire({
-          icon: 'error',
-          title: 'Failed!',
-          text: 'failed',
-          // timer: 3000,
-        });
+        this.alertSer.error();
       };
     });
   }
@@ -440,7 +437,7 @@ export class InventoryComponent implements OnInit {
 
   viewBySelectedOne() {
     if (this.viewArray.length > 0) {
-      this.dialog.open(this.viewInventoryDialog)
+      this.dialog.open(this.viewInventoryDialog, {maxHeight: '550px', maxWidth: '550px'});
     }
   }
 
@@ -461,7 +458,7 @@ export class InventoryComponent implements OnInit {
 
   editBySelectedOne() {
     if (this.editArray.length > 0) {
-      this.dialog.open(this.editInventoryDialog)
+      this.dialog.open(this.editInventoryDialog, {maxHeight: '550px', maxWidth: '550px'});
     }
     this.getInventory();
   }

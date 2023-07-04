@@ -317,117 +317,262 @@
             <button class="m-2" mat-stroked-button color="primary" (click)="openEditDevice(item)">Edit</button>
           </div>
 
-          <div class="row added-device w-100">
+          <div class="row mx-4">
             <!-- BS -->
-            <div class="col-lg-12 d-flex mb-3">
+            <!-- <div class="col-lg-12 d-flex mb-3">
               <p class="device-title m-0">Site Id</p>
               <p class="device-sub m-0">: {{ item.siteId ? item.siteId : '--' }}</p>
+            </div> -->
+
+            <div class="col-lg-4 col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Site Id</mat-label>
+                <input matInput [(ngModel)]="item.siteId" disabled>
+              </mat-form-field>
             </div>
 
-            <div class="col-lg-12 d-flex mb-3">
+            <!-- <div class="col-lg-12 d-flex mb-3">
               <p class="device-title m-0">Device Id</p>
               <p class="device-sub m-0">: {{ item.deviceId ? item.deviceId : '--' }}</p>
+            </div> -->
+
+            <div class="col-lg-4 col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Device Id</mat-label>
+                <input matInput [(ngModel)]="item.deviceId" disabled>
+              </mat-form-field>
             </div>
 
-            <div class="col-lg-12 d-flex mb-3">
+            <!-- <div class="col-lg-12 d-flex mb-3">
               <p class="device-title m-0">Device Type</p>
               <p class="device-sub m-0">: {{ item.deviceTypeId == 1 ? 'Audio' : item.deviceTypeId == 2 ? 'Video' : item.deviceTypeId == 3 ? 'WIFI' : item.deviceTypeId == 4 ? 'QR' : '--' }}</p>
+            </div> -->
+
+            <div class="col-lg-4 col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Device Type</mat-label>
+                <mat-select [(ngModel)]="item.deviceTypeId" disabled>
+                  <mat-option *ngFor="let item of deviceType" [value]="item.keyId">{{ item.value }}</mat-option>
+                </mat-select>
+              </mat-form-field>
             </div>
 
-            <div class="col-lg-12 d-flex mb-3">
+            <!-- <div class="col-lg-12 d-flex mb-3">
               <p class="device-title m-0">Device Mode</p>
               <p class="device-sub m-0">: {{ item.deviceModeId == 1 ? 'BS' : item.deviceModeId == 2 ? 'BSR' : item.deviceModeId == 3 ? 'ODR' : '--' }}</p>
+            </div> -->
+
+            <div class="col-lg-4 col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Device Mode</mat-label>
+                <mat-select [(ngModel)]="item.deviceModeId" disabled>
+                  <mat-option [value]="item.deviceModeId">{{ item.deviceModeId }}</mat-option>
+                </mat-select>
+              </mat-form-field>
             </div>
 
-            <div class="col-lg-12 d-flex mb-3">
+            <!-- <div class="col-lg-12 d-flex mb-3">
               <p class="device-title m-0">Ad hours</p>
               <p class="device-sub m-0">: {{ item.adsHours ? item.adsHours : '--' }}</p>
+            </div> -->
+
+            <div class="col-lg-4 col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Ad hours</mat-label>
+                <mat-select [(ngModel)]="item.adsHours" disabled>
+                  <mat-option [value]="item.adsHours">{{ item.adsHours }}</mat-option>
+                </mat-select>
+              </mat-form-field>
             </div>
 
-            <div class="col-lg-12 d-flex mb-3">
+            <!-- <div class="col-lg-12 d-flex mb-3">
               <p class="device-title m-0">Working Days</p>
-              <!-- <p class="device-sub m-0">
-                : {{ item.workingDays == '0' ? 'Sunday'
-                : item.workingDays == '1' ? 'Monday'
-                : item.workingDays == '2' ? 'Tuesday'
-                : item.workingDays == '3' ? 'Wednesday'
-                : item.workingDays == '4' ? 'Thursday'
-                : item.workingDays == '5' ? 'Friday'
-                : item.workingDays == '6' ? 'Saturday'
-                : '--'}}
-              </p> -->
               <p class="device-sub m-0">: {{ item.workingDays ? item.workingDays : '--' }}</p>
+            </div> -->
+
+            <div class="col-lg-4 col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Working Days</mat-label>
+                <mat-select [(ngModel)]="item.workingDays" disabled>
+                  <mat-option [value]="item.workingDays">{{ item.workingDays }}</mat-option>
+                </mat-select>
+              </mat-form-field>
             </div>
 
-            <div class="col-lg-12 d-flex mb-3">
+            <!-- <div class="col-lg-12 d-flex mb-3">
               <p class="device-title m-0">Description</p>
               <p class="device-sub m-0">: {{ item.deviceDescription ? item.deviceDescription : '--' }}</p>
+            </div> -->
+
+            <div class="col-lg-4 col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Description</mat-label>
+                <input matInput [(ngModel)]="item.deviceDescription" disabled>
+              </mat-form-field>
             </div>
 
-            <div class="col-lg-12 d-flex mb-3">
+            <!-- <div class="col-lg-12 d-flex mb-3">
               <p class="device-title m-0">Device Call Frequency</p>
               <p class="device-sub m-0">: {{ item.deviceCallFreq ? item.deviceCallFreq : '--' }}</p>
+            </div> -->
+
+            <div class="col-lg-4 col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Device Call Frequency</mat-label>
+                <input matInput [(ngModel)]="item.deviceCallFreq" disabled>
+              </mat-form-field>
             </div>
 
-            <div class="col-lg-12 d-flex mb-3">
+            <!-- <div class="col-lg-12 d-flex mb-3">
               <p class="device-title m-0">Status</p>
               <p class="device-sub m-0">
                 : {{ item.status == 1 ? 'Planned' : item.status == 2 ? 'In Progress' : item.status == 3 ? 'Installed' : item.status == 4 ? 'On Hold' : item.status == 5 ? 'Removed' : '--' }}
               </p>
+            </div> -->
+
+            <div class="col-lg-4 col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Status</mat-label>
+                <mat-select [(ngModel)]="item.status" disabled>
+                  <mat-option [value]="item.status">{{ item.status }}</mat-option>
+                </mat-select>
+              </mat-form-field>
             </div>
 
-            <div class="col-lg-12 d-flex mb-3">
+            <!-- <div class="col-lg-12 d-flex mb-3">
               <p class="device-title m-0">Remarks</p>
               <p class="device-sub m-0">: {{ item.remarks ? item.remarks : '--' }}</p>
+            </div> -->
+
+            <div class="col-lg-4 col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Remarks</mat-label>
+                <input matInput [(ngModel)]="item.remarks" disabled>
+              </mat-form-field>
             </div>
             <!-- /BS -->
 
             <!-- BSR -->
-            <div class="col-lg-12 d-flex mb-3" *ngIf="item.deviceModeId == 2">
+            <!-- <div class="col-lg-12 d-flex mb-3" *ngIf="item.deviceModeId == 2">
               <p class="device-title m-0">Weather Interval</p>
               <p class="device-sub m-0">: {{ item.weatherInterval ? item.weatherInterval : '--' }}</p>
+            </div> -->
+
+            <div class="col-lg-4 col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Weather Interval</mat-label>
+                <mat-select [(ngModel)]="item.weatherInterval" disabled>
+                  <mat-option [value]="item.weatherInterval">{{ item.weatherInterval }}</mat-option>
+                </mat-select>
+              </mat-form-field>
             </div>
             <!-- /BSR -->
 
             <!-- ODR -->
-            <div class="col-lg-12 d-flex mb-3" *ngIf="item.deviceModeId == 3">
+            <!-- <div class="col-lg-12 d-flex mb-3" *ngIf="item.deviceModeId == 3">
               <p class="device-title m-0">Camera Id</p>
               <p class="device-sub m-0">: {{ item.cameraId ? item.cameraId : '--' }}</p>
+            </div> -->
+
+            <div class="col-lg-4 col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Camera Id</mat-label>
+                <mat-select [(ngModel)]="item.cameraId" disabled>
+                  <mat-option [value]="item.cameraId">{{ item.cameraId }}</mat-option>
+                </mat-select>
+              </mat-form-field>
             </div>
 
-            <div class="col-lg-12 d-flex mb-3" *ngIf="item.deviceModeId == 3">
+            <!-- <div class="col-lg-12 d-flex mb-3" *ngIf="item.deviceModeId == 3">
               <p class="device-title m-0">Logger Frequency</p>
               <p class="device-sub m-0">: {{ item.loggerFreq ? item.loggerFreq : '--' }}</p>
+            </div> -->
+
+            <div class="col-lg-4 col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Logger Frequency</mat-label>
+                <input matInput [(ngModel)]="item.loggerFreq" disabled>
+              </mat-form-field>
             </div>
 
-            <div class="col-lg-12 d-flex mb-3" *ngIf="item.deviceModeId == 3">
+            <!-- <div class="col-lg-12 d-flex mb-3" *ngIf="item.deviceModeId == 3">
               <p class="device-title m-0">Model Name</p>
               <p class="device-sub m-0">: {{ item.modelName ? item.modelName : '--' }}</p>
+            </div> -->
+
+            <div class="col-lg-4 col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Model Name</mat-label>
+                <mat-select [(ngModel)]="item.modelName" disabled>
+                  <mat-option [value]="item.modelName">{{ item.modelName }}</mat-option>
+                </mat-select>
+              </mat-form-field>
             </div>
 
-            <div class="col-lg-12 d-flex mb-3" *ngIf="item.deviceModeId == 3">
+            <!-- <div class="col-lg-12 d-flex mb-3" *ngIf="item.deviceModeId == 3">
               <p class="device-title m-0">Model Object Type</p>
               <p class="device-sub m-0">: {{ item.modelObjectTypeId == 1 ? 'Person' : '--' }}</p>
+            </div> -->
+
+            <div class="col-lg-4 col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Model Object Type</mat-label>
+                <mat-select [(ngModel)]="item.modelObjectTypeId" disabled>
+                  <mat-option [value]="item.modelObjectTypeId">{{ item.modelObjectTypeId }}</mat-option>
+                </mat-select>
+              </mat-form-field>
             </div>
 
-            <div class="col-lg-12 d-flex mb-3" *ngIf="item.deviceModeId == 3">
+            <!-- <div class="col-lg-12 d-flex mb-3" *ngIf="item.deviceModeId == 3">
               <p class="device-title m-0">Model Height</p>
               <p class="device-sub m-0">: {{ item.modelHeight ? item.modelHeight : '--' }}</p>
+            </div> -->
+
+            <div class="col-lg-4 col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Model Height</mat-label>
+                <input matInput [(ngModel)]="item.modelHeight" disabled>
+              </mat-form-field>
             </div>
 
-            <div class="col-lg-12 d-flex mb-3" *ngIf="item.deviceModeId == 3">
+            <!-- <div class="col-lg-12 d-flex mb-3" *ngIf="item.deviceModeId == 3">
               <p class="device-title m-0">Model Width</p>
               <p class="device-sub m-0">: {{ item.modelWidth ? item.modelWidth : '--' }}</p>
+            </div> -->
+
+            <div class="col-lg-4 col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Model Width</mat-label>
+                <input matInput [(ngModel)]="item.modelWidth" disabled>
+              </mat-form-field>
             </div>
 
-            <div class="col-lg-12 d-flex mb-3" *ngIf="item.deviceModeId == 3">
+            <!-- <div class="col-lg-12 d-flex mb-3" *ngIf="item.deviceModeId == 3">
               <p class="device-title m-0">Threshold</p>
               <p class="device-sub m-0">: {{ item.modelThreshold ? item.modelThreshold : '--' }}</p>
+            </div> -->
+
+            <div class="col-lg-4 col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Threshold</mat-label>
+                <mat-select [(ngModel)]="item.modelThreshold" disabled>
+                  <mat-option [value]="item.modelThreshold">{{ item.modelThreshold }}</mat-option>
+                </mat-select>
+              </mat-form-field>
             </div>
 
-            <div class="col-lg-12 d-flex mb-3" *ngIf="item.deviceModeId == 3">
+            <!-- <div class="col-lg-12 d-flex mb-3" *ngIf="item.deviceModeId == 3">
               <p class="device-title m-0">Max Results</p>
               <p class="device-sub m-0">: {{ item.modelMaxResults ? item.modelMaxResults : '--' }}</p>
+            </div> -->
+
+            <div class="col-lg-4 col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Max Results</mat-label>
+                <mat-select [(ngModel)]="item.modelMaxResults" disabled>
+                  <mat-option [value]="item.modelMaxResults">{{ item.modelMaxResults }}</mat-option>
+                </mat-select>
+              </mat-form-field>
             </div>
 
             <div class="col-lg-12 d-flex mb-3" *ngIf="item.deviceModeId == 3">

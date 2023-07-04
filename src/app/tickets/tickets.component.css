@@ -141,6 +141,10 @@ margin: 2px 0;
 margin: 2px 10px;
 }
 
+.task-table {
+  font-size: 12px;
+}
+
 .dot {
 content: "";
 width: 16px;
@@ -292,16 +296,16 @@ border: 1px solid #fff;
   margin: -8px 0px 5px 5px;
 }
 
-.search-form {
+/* .search-form {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin: 10px 0;
-}
+} */
 
 .filter-search-btn button{
-  margin-bottom: 10px;
+  margin-top: 8px;
   background-color: #084982;
   color: #ffffff;
   border-radius: 5px;
@@ -345,6 +349,12 @@ border: 1px solid #fff;
 ::ng-deep .mat-flat-button.mat-primary {
   background-color: #084982;
 }
+
+/* ::ng-deep .mat-dialog-container {
+  max-width: 550px !important;
+  max-height: 550px !important;
+} */
+
 
 /* common ng-deep */
 

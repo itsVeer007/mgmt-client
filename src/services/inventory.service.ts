@@ -2,12 +2,15 @@ import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+import { environment } from '../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class InventoryService {
 
-  baseUrl = 'http://192.168.0.119:8080';
+  // baseUrl = 'http://192.168.0.119:8080';
+  baseUrl = `${environment.baseUrl}/inventoryMgmt`;
 
   constructor(private http: HttpClient, public datepipe: DatePipe) { }
 
@@ -39,18 +42,19 @@ export class InventoryService {
 
 
   deleteInventory(payload: any) {
-    let url = this.baseUrl + `/deleting_1_0?productId=${payload.productId}`;
+    let url = this.baseUrl + `/deleteInventory_1_0?id=${payload.id}`;
 
     return this.http.delete(url);
   }
 
   filteBody(payload: any) {
-    let url = this.baseUrl + `/getListBySearch_1_0?`;
+    let url = this.baseUrl + `/getListBySearchInventory_1_0`;
 
     let myObj = {
-      productBrand: payload?.productBrand,
-      status: payload?.status,
-      productCategory: payload?.productCategory,
+      'name': payload?.name,
+      'statusId': payload?.statusId,
+      'createdTime': payload?.createdTime,
+      'createdTime1': payload?.createdTime1
     }
 
     return this.http.get(url, {params: myObj});

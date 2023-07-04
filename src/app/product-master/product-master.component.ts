@@ -49,6 +49,7 @@ export class ProductMasterComponent implements OnInit {
 
   ngOnInit(): void {
     this.getInventory();
+    this.onMetadataChange();
   }
 
   showIconView: boolean = false;
@@ -164,14 +165,14 @@ export class ProductMasterComponent implements OnInit {
     })
   }
 
-  metaDataType: any
-  onMetadataChange(type: any) {
-    this.metaDataSer.getMetadataByType(type).subscribe((res: any) => {
-      console.log(res);
-      this.metaDataType = res.flatMap((item: any) => item.metadata)
+  // metaDataType: any
+  // onMetadataChange(type: any) {
+  //   this.metaDataSer.getMetadataByType(type).subscribe((res: any) => {
+  //     console.log(res);
+  //     this.metaDataType = res.flatMap((item: any) => item.metadata)
 
-    })
-  }
+  //   })
+  // }
 
   currentid = 0;
   closeDot(e: any, i: any) {
@@ -207,6 +208,20 @@ export class ProductMasterComponent implements OnInit {
     }
     // this.address = !this.address;
   }
+
+    /* metadata methods */
+
+    productStatus: any;
+    onMetadataChange() {
+      this.metaDataSer.getMetadata().subscribe((res: any) => {
+        for(let item of res) {
+          if(item.type == 'Product_Status') {
+            this.productStatus = item.metadata;
+          }
+        }
+      })
+    }
+
 
   masterSelected: boolean = false;
 

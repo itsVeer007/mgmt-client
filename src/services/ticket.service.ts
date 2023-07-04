@@ -2,12 +2,15 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
+import { environment } from '../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class TicketService {
 
-  baseUrl = 'http://192.168.0.189:8080';
+  // baseUrl = 'http://192.168.0.189:8080';
+  baseUrl = `${environment.baseUrl}/ticketsManagement`;
 
   constructor(private http: HttpClient) { }
 
@@ -19,7 +22,7 @@ export class TicketService {
   }
 
   getTasks(ticketId: any) {
-    let url = this.baseUrl + "/getTasks";
+    let url = this.baseUrl + "/getTasks_1_0";
 
     let myObj = {
       'ticketId': ticketId,
@@ -29,7 +32,7 @@ export class TicketService {
   }
 
   getcomments(ticketId: any) {
-    let url = this.baseUrl + "/getcomments";
+    let url = this.baseUrl + "/getComments_1_0";
 
     let myObj = {
       'ticketId': ticketId,
@@ -44,18 +47,18 @@ export class TicketService {
   }
 
   assignPerson(payload: any) {
-    let url = this.baseUrl + '/updateTicket';
+    let url = this.baseUrl + '/updateTicket_1_0';
     return this.http.put(url, payload);
   }
 
   updateStatus(payload: any) {
-    let url = this.baseUrl + '/updateStatus';
+    let url = this.baseUrl + '/updateTask_1_0';
     return this.http.put(url, payload);
   }
 
 
   updateTicket(payload: any) {
-    let url = this.baseUrl + '/updateTicket';
+    let url = this.baseUrl + '/updateTicket_1_0';
     return this.http.put(url, payload);
   }
 
@@ -67,7 +70,7 @@ export class TicketService {
 
 
   filteBody(payload: any) {
-    let url = this.baseUrl + `/getlist1`;
+    let url = this.baseUrl + `/listTickets_1_0`;
 
     let myObj = {
       'requestedBy': payload.requestId,

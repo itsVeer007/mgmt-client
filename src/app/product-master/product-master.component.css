@@ -338,6 +338,11 @@ form button {
   background-color: #084982;
 }
 
+::ng-deep .mat-dialog-container {
+  max-width: 550px !important;
+  max-height: 550px !important;
+}
+
 /* common ng-deep */
 
 .mat-form-field-appearance-outline ::ng-deep .mat-form-field-outline {

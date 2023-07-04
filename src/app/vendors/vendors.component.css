@@ -413,9 +413,9 @@ border: 1px solid #fff;
   background-color: #084982;
 }
 
-::ng-deep .mat-dialog-container {
-  width: 800px !important;
-}
+/* ::ng-deep .mat-dialog-container {
+  width: 700px;
+} */
 
 /* .mat-form-field-appearance-outline ::ng-deep .mat-form-field-flex {
   padding: 5px 5px;

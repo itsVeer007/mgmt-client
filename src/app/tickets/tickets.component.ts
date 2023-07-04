@@ -158,9 +158,9 @@ export class TicketsComponent implements OnInit {
     })
   }
 
-  rqsId: any;
-  sta: any;
-  prior: any;
+  rqsId: any = '';
+  sta: any = '';
+  prior: any = '';
   stDt: any;
   enDt: any;
 
@@ -251,7 +251,7 @@ export class TicketsComponent implements OnInit {
   ticketComments: any;
   openViewPopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.viewTicketDialog);
+    this.dialog.open(this.viewTicketDialog, {maxHeight: '550px', maxWidth: '850px'});
     // console.log(this.currentItem);
 
     this.ticketSer.getTasks(item.ticketId).subscribe((res: any) => {
@@ -281,7 +281,7 @@ export class TicketsComponent implements OnInit {
 
   openEditPopup(item: any) {
     this.currentItem = JSON.parse(JSON.stringify(item));
-    this.dialog.open(this.editTicketDialog);
+    this.dialog.open(this.editTicketDialog, {maxHeight: '550px', maxWidth: '550px'});
     // console.log(this.currentItem);
   }
 
@@ -387,7 +387,7 @@ export class TicketsComponent implements OnInit {
 
   openDeletePopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.deleteTicketDialog)
+    this.dialog.open(this.deleteTicketDialog, {maxHeight: '250px', maxWidth: '250px'})
     // console.log(item);
   }
 

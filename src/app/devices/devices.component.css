@@ -2,10 +2,10 @@
   margin-top:80px;
 }
 
-  .users-header {
-    display: flex;
-    align-items: center;
-  }
+.users-header {
+  display: flex;
+  align-items: center;
+}
 
 .users-header p {
   color: #ABABAB;
@@ -132,7 +132,7 @@ vertical-align: middle;
 }
 
 .table-resp{
-max-height: calc(100vh - (358px));
+max-height: calc(100vh - (375px));
 overflow-y: scroll;
 }
 
@@ -337,6 +337,10 @@ border: 1px solid #fff;
 ::ng-deep .mat-stroked-button {
   border: 1px solid #084982 !important;
   padding: 2px !important;
+}
+
+::ng-deep .mat-flat-button.mat-primary {
+  background-color: #084982;
 }
 
 /* common ng-deep */

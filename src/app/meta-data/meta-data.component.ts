@@ -62,13 +62,10 @@ export class MetaDataComponent implements OnInit {
   typeToTable: any
   CustomerReport() {
     this.metaDataSer.getMetadata().subscribe((res: any) => {
-      // console.log(res);
+      this.metaData = res;
 
-      const x = res.flatMap((item: any) => item.metadata);
-      this.metaData = x;
-
-      const y = res.flatMap((item: any) => item.type);
-      this.typeToTable = y;
+      const x = res.flatMap((item: any) => item.type);
+      this.typeToTable = x;
     })
   }
 
@@ -77,12 +74,13 @@ export class MetaDataComponent implements OnInit {
     this.deviceSearch = (e.target as HTMLInputElement).value;
   }
 
+  metaType: any = 'All';
   filterDevices(data: any) {
     this.metaDataSer.getMetadataByType(data).subscribe((res: any) => {
       // console.log(res);
 
-      const data = res.flatMap((item: any) => item.metadata);
-      this.newMetaData = data;
+      // const data = res.flatMap((item: any) => item.metadata);
+      this.newMetaData = res;
     })
   }
 

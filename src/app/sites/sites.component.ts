@@ -77,6 +77,7 @@ export class SitesComponent implements OnInit {
   siteData: any;
   siteIds: any;
   deviceLength: any = [];
+  siteNg: any = ''
   // inputToAssets: any;
   ngOnInit(): void {
     this.getlistSites()
@@ -153,16 +154,16 @@ export class SitesComponent implements OnInit {
     })
   }
 
+  saveSiteData(site: any) {
+    localStorage.setItem('temp_sites', JSON.stringify(site));
+  }
+
   showAddSite: boolean = false;
   showAddDevice: boolean = false;
 
   show(value: string) {
     if(value == 'site') {this.showAddSite = true}
     if(value == 'device') {this.showAddDevice = true}
-  }
-
-  saveSiteData(site: any) {
-    localStorage.setItem('temp_sites', JSON.stringify(site));
   }
 
   closenow(type: string, value: any) {

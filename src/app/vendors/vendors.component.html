@@ -21,20 +21,6 @@
             <div class="count">{{ installed.length }}</div>
           </div>
         </div>
-        <!-- <div class="col-lg-2 d-flex justify-content-start">
-          <div class="vl-red"></div>
-          <div class="mx-2">
-            <div class="status">Scrap</div>
-            <div class="count">{{ scrap.length }}</div>
-          </div>
-        </div>
-        <div class="col-lg-2 d-flex justify-content-start">
-          <div class="vl-greay"></div>
-          <div class="mx-2">
-            <div class="status">Reuse</div>
-            <div class="count">{{ redyToUse.length }}</div>
-          </div>
-        </div> -->
       </div>
     </div>
     <!-- /count -->
@@ -135,18 +121,16 @@
           </th>
 
           <th>
-            <span>Proprietor Name</span>
+            <span>Proprietor Details</span>
             <!-- <img (click)="sort('productName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
           </th>
 
           <th>
-            <span>Email</span>
-            <!-- <img (click)="sort('productBrand')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
+            <span>Start Date</span>
           </th>
 
           <th>
-            <span>Mobile</span>
-            <!-- <img (click)="sort('productCategory')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
+            <span>End Date</span>
           </th>
 
           <th>
@@ -189,15 +173,37 @@
             <p (click)="proprietorView(cust)" class="pointer">View</p>
 
             <ng-template #proprietorDialog>
-              <p style="color: #ABABAB;">Proprietor Name</p>
-              <div>
-                  <p><span *ngIf="proprietorId.proprietorName1">({{i+1}})</span> {{proprietorId.proprietorName1}}</p>
-                  <p><span *ngIf="proprietorId.proprietorName2">({{i+2}})</span> {{proprietorId.proprietorName2}}</p>
-                  <p><span *ngIf="proprietorId.proprietorName3">({{i+3}})</span> {{proprietorId.proprietorName3}}</p>
+              <div class="row">
+                <div class="col-lg-3">
+                  <p style="color: #ABABAB;">Name</p>
+                  <div>
+                      <p><span *ngIf="proprietorId.proprietorName1"></span> {{proprietorId.proprietorName1}}</p>
+                      <p><span *ngIf="proprietorId.proprietorName2"></span> {{proprietorId.proprietorName2}}</p>
+                      <p><span *ngIf="proprietorId.proprietorName3"></span> {{proprietorId.proprietorName3}}</p>
+                  </div>
+                </div>
+
+                <div class="col-lg-5">
+                  <p style="color: #ABABAB;">Email</p>
+                  <div>
+                      <p><span *ngIf="emailId.emailId1"></span> {{emailId.emailId1}}</p>
+                      <p><span *ngIf="emailId.emailId2"></span> {{emailId.emailId2}}</p>
+                      <p><span *ngIf="emailId.emailId3"></span> {{emailId.emailId3}}</p>
+                  </div>
+                </div>
+
+                <div class="col-lg-4">
+                  <p style="color: #ABABAB;">Mobile</p>
+                  <div>
+                      <p><span *ngIf="mobileId.mobileNumber1"></span> {{mobileId.mobileNumber1}}</p>
+                      <p><span *ngIf="mobileId.mobileNumber2"></span> {{mobileId.mobileNumber2}}</p>
+                      <p><span *ngIf="mobileId.mobileNumber3"></span> {{mobileId.mobileNumber3}}</p>
+                  </div>
+                </div>
               </div>
             </ng-template>
           </td>
-          <td>
+          <!-- <td>
             <p (click)="emailView(cust)" class="pointer">View</p>
 
             <ng-template #emailDialog>
@@ -208,8 +214,8 @@
                   <p><span *ngIf="emailId.emailId3">({{i+3}})</span> {{emailId.emailId3}}</p>
               </div>
             </ng-template>
-          </td>
-          <td>
+          </td> -->
+          <!-- <td>
             <p (click)="mobileView(cust)" class="pointer">View</p>
 
             <ng-template #mobileDialog>
@@ -220,6 +226,12 @@
                   <p><span *ngIf="mobileId.mobileNumber3">({{i+3}})</span> {{mobileId.mobileNumber3}}</p>
               </div>
             </ng-template>
+          </td> -->
+          <td>
+            <p>{{ cust.serviceStartDate ? (cust.serviceStartDate | date:'mediumDate') : '--' }}</p>
+          </td>
+          <td>
+            <p>{{ cust.serviceEndDate ? (cust.serviceEndDate | date:'mediumDate') : '--' }}</p>
           </td>
           <td>
             <p (click)="addressView(cust)" class="pointer">View</p>

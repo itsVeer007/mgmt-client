@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DeviceService } from 'src/services/device.service';
+import { MetadataService } from 'src/services/metadata.service';
 import { TicketService } from 'src/services/ticket.service';
 import Swal from 'sweetalert2';
 
@@ -37,11 +38,20 @@ export class DevicesComponent implements OnInit {
 
 
   showLoader = false;
-  constructor(private http: HttpClient, private ticketSer: TicketService, public dialog: MatDialog, private devService: DeviceService,) { }
+  constructor(
+    private http: HttpClient,
+    private ticketSer: TicketService,
+    public dialog: MatDialog,
+    private devService: DeviceService,
+    private metadataSer: MetadataService
+  ) { }
 
+  siteData: any
   ngOnInit(): void {
     this.CustomerReport();
-    this.getStatus()
+    this.getStatus();
+    this.onMetadataChange();
+    this.siteData = JSON.parse(localStorage.getItem('siteIds')!);
   }
 
   showIconVertical: boolean = false;
@@ -59,7 +69,7 @@ export class DevicesComponent implements OnInit {
   showIconDelete1: boolean = false;
 
   searchText: any;
-  deviceData: any;
+  deviceData: any = [];
   CustomerReport() {
     this.devService.listDeviceAdsInfo().subscribe((res: any) => {
       // console.log(res);
@@ -86,6 +96,59 @@ export class DevicesComponent implements OnInit {
   filterDeviceType(value: any) {
     this.filterDevice = this.deviceData.filter((el: any) => el.deviceType == value)
   }
+
+    /* metadata methods */
+
+    deviceType: any;
+    deviceMode: any;
+    workingDay: any;
+    tempRange: any;
+    ageRange: any;
+    modelObjectType: any;
+    model: any;
+    modelResolution: any;
+    softwareVersion: any;
+    weatherInterval: any;
+    deviceStatus: any
+    onMetadataChange() {
+      this.metadataSer.getMetadata().subscribe((res: any) => {
+        for(let item of res) {
+          if(item.type == 'Device_Type') {
+            this.deviceType = item.metadata;
+          }
+          else if(item.type == 'Device_Mode') {
+            this.deviceMode = item.metadata;
+          }
+          else if(item.type == 'Working_Day') {
+            this.workingDay = item.metadata;
+          }
+          else if(item.type == 'Ads_Temp_Range') {
+            this.tempRange = item.metadata;
+          }
+          else if(item.type == 'Ads_Age_Range') {
+            this.ageRange = item.metadata;
+          }
+          else if(item.type == 'model_object_type') {
+            this.modelObjectType = item.metadata;
+          }
+          else if(item.type == 'Model') {
+            this.model = item.metadata;
+          }
+          else if(item.type == 'Model Resolution') {
+            this.modelResolution = item.metadata;
+          }
+          else if(item.type == 'Ads_Software_Version') {
+            this.softwareVersion = item.metadata;
+          }
+          else if(item.type == 'Weather_Interval') {
+            this.weatherInterval = item.metadata;
+          }
+          else if(item.type == 'Device_Status') {
+            this.deviceStatus = item.metadata;
+          }
+        }
+      })
+    }
 
   rebootDevice0: any;
   rebootDevice1: any;
@@ -142,25 +205,14 @@ export class DevicesComponent implements OnInit {
   //   this.showAddSite = value;
   // }
 
-  closenow(value: any, type: String) {
-    if (type == 'ticket') { this.showTicket = value; }
+  showAddDevice: boolean = false;
 
-    // setTimeout(() => {
-    //   var openform = localStorage.getItem('opennewform');
-    //   if (openform == 'showAddSite') { this.showAddSite = true; }
-    //   if (openform == 'showAddCamera') { this.showAddCamera = true; }
-    //   if (openform == 'showAddCustomer') { this.showAddCustomer = true; }
-    //   if (openform == 'showAddBusinessVertical') { this.showAddBusinessVertical = true; }
-    //   if (openform == 'showAddUser') { this.showAddUser = true; }
-    //   if (openform == 'additionalSite') { this.showSite = true; }
-    //   localStorage.setItem('opennewform', '');
-    // }, 100)
+  show(type: any) {
+    if (type == 'device') { this.showAddDevice = type }
   }
 
-  showTicket: boolean = false;
-
-  show(type: string) {
-    if (type == 'ticket') { this.showTicket = true }
+  closenow(type: any, e: any) {
+    if(type == 'device') {this.showAddDevice = e}
   }
 
   masterSelected: boolean = false;

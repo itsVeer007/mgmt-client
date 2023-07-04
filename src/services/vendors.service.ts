@@ -8,7 +8,7 @@ export class VendorsService {
 
   constructor(private http:HttpClient) { }
 
-  baseUrl = 'http://192.168.0.131:8080';
+  baseUrl = 'http://usstaging.ivisecurity.com:777/inventoryMgmt';
 
   getvendors() {
     let url = this.baseUrl+'/getvendors';

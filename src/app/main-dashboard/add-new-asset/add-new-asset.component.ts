@@ -269,9 +269,9 @@ export class AddNewAssetComponent implements OnInit {
 
   submit: boolean = false;
 
-  addAsset0: any;
-  addAsset1: any;
-  addAsset2: any;
+  // addAsset0: any;
+  // addAsset1: any;
+  // addAsset2: any;
   addNewAsset() {
     this.assetData.asset.deviceId = this.deviceIdFromStorage;
     this.newItemEvent.emit(this.deviceIdFromStorage);
@@ -281,22 +281,23 @@ export class AddNewAssetComponent implements OnInit {
     if(this.addAssetForm.valid) {
       this.newItemEvent.emit(false);
 
-      this.addAsset0 = Swal.fire({
-        text: "Please wait",
-        imageUrl: "assets/gif/ajax-loading-gif.gif",
-        showConfirmButton: false,
-        allowOutsideClick: false
-      });
-
+      // this.addAsset0 = Swal.fire({
+      //   text: "Please wait",
+      //   imageUrl: "assets/gif/ajax-loading-gif.gif",
+      //   showConfirmButton: false,
+      //   allowOutsideClick: false
+      // });
+      this.alertSer.wait();
 
       this.assetService.addAsset(this.assetData, this.selectedFile).subscribe((res: any) => {
         // console.log('addAsset', res);
           if(res) {
-            this.addAsset1 = Swal.fire({
-              icon: 'success',
-              title: 'Done!',
-              text: `${res.message}`,
-            });
+            // this.addAsset1 = Swal.fire({
+            //   icon: 'success',
+            //   title: 'Done!',
+            //   text: `${res.message}`,
+            // });
+            this.alertSer.success(res);
           }
 
             setTimeout(() => {
@@ -306,12 +307,12 @@ export class AddNewAssetComponent implements OnInit {
           }, (err: any) => {
             // console.log(err);
             if(err) {
-              this.addAsset0 = Swal.fire({
-                icon: 'warning',
-                title: 'Failed!',
-                text: 'Creating Advertisement failed',
-                // timer: 3000,
-              });
+              // this.addAsset0 = Swal.fire({
+              //   icon: 'warning',
+              //   title: 'Failed!',
+              //   text: 'Creating Advertisement failed',
+              // });
+              this.alertSer.error();
             };
           });
     }

@@ -2,6 +2,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
 import { MetadataService } from 'src/services/metadata.service';
 import { TicketService } from 'src/services/ticket.service';
@@ -52,17 +53,24 @@ export class AddNewTicketComponent implements OnInit {
   file: File | null = null;
   // loading: boolean = false;
 
-  constructor(private router: Router, private fb: FormBuilder, private ticketSer: TicketService, private dropDown: MetadataService) { }
+  constructor(
+    private router: Router,
+    private fb: FormBuilder,
+    private ticketSer: TicketService,
+    private dropDown: MetadataService,
+    private alertSer: AlertService
+  ) { }
 
   ticketBody = {
     ticket: {
-      description: "",
       ticketTypeId: null,
-      requestedBy: null,
+      requestedBy: "",
       siteId: null,
       createdBy: 1,
       sourceOfRequestId: null,
       priorityId: null,
+
+      // description: "",
       // status: null
     },
 
@@ -75,21 +83,16 @@ export class AddNewTicketComponent implements OnInit {
     ]
   }
 
-  taskss: any = [];
+  tasks: any = [];
 
   onTaskAdd(item: any) {
-    let x = {
-      'taskName': item.taskName,
-      'description': item.description,
-      'remarks': item.remarks
+    let takBody = {
+      'categoryId': item.categoryId,
+      'subCategoryId': item.subCategoryId,
+      'description': item.description
     }
 
-    this.taskss.push(x);
-    // console.log(this.taskss);
-
-    // this.x.tasks[0].taskName = '';
-    // this.x.tasks[0].description = '';
-    // this.x.tasks[0].remarks = ''
+    this.tasks.push(takBody);
   }
 
   siteIds: any
@@ -196,46 +199,29 @@ export class AddNewTicketComponent implements OnInit {
   //   this.closeAddCamera(false);
   // }
 
-  addTicket0: any;
-  addTicket1: any;
-  addTicket2: any;
+
   addNewAsset() {
     // this.x.tasks = this.taskss;
+    console.log(this.ticketBody);
+    this.ticketBody.tasks = this.tasks;
 
     if(this.addAssetForm.valid) {
-      this.addTicket2 = Swal.fire({
-        text: "Please wait",
-        imageUrl: "assets/gif/ajax-loading-gif.gif",
-        showConfirmButton: false,
-        allowOutsideClick: false
-      });
+      this.alertSer.wait();
 
       this.ticketSer.createTicket(this.ticketBody).subscribe((res) => {
         // console.log(res);
-
         if(res) {
-          this.addTicket1 = Swal.fire({
-            icon: 'success',
-            title: 'Done!',
-            text: 'Created Ticket Successfully!',
-          });
+          this.alertSer.success(res);
         }
-
         setTimeout(() => {
           window.location.reload();
         }, 3000);
       }, (err: any) => {
         if(err) {
-          this.addTicket0 = Swal.fire({
-            icon: 'error',
-            title: 'Failed!',
-            text: 'Ticket Creation failed',
-            // timer: 3000,
-          });
+          this.alertSer.error();
         };
       });
     }
-    // console.log(this.x);
   }
 
 }

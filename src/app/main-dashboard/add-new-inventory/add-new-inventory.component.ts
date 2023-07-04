@@ -3,6 +3,7 @@ import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AlertService } from 'src/services/alert.service';
 import { ApiService } from 'src/services/api.service';
 import { InventoryService } from 'src/services/inventory.service';
 import Swal from 'sweetalert2';
@@ -31,7 +32,14 @@ import Swal from 'sweetalert2';
   ]
 })
 export class AddNewInventoryComponent implements OnInit {
-  constructor(private router: Router, private inventorySer: InventoryService, private apiser: ApiService, private fb: FormBuilder, public datepipe: DatePipe) { }
+  constructor(
+    private router: Router,
+    private inventorySer: InventoryService,
+    private apiser: ApiService,
+    private alertSer: AlertService,
+    private fb: FormBuilder,
+    public datepipe: DatePipe
+  ) { }
 
   @Input() show:any;
 
@@ -55,7 +63,7 @@ export class AddNewInventoryComponent implements OnInit {
   inventoryBody = {
     inv: {
       productId: null,
-      orderId: 1,
+      orderId: null,
       quantity: null,
       serialNo: '',
       cost: null,
@@ -68,9 +76,10 @@ export class AddNewInventoryComponent implements OnInit {
       serialNo: "",
       newSerialNo: "",
       cost: "",
+      vendor: "",
       startDate: null,
       endDate: null,
-      statusId: 1,
+      // statusId: 1,
       createdBy: 1,
       remarks: ""
     }
@@ -92,6 +101,7 @@ export class AddNewInventoryComponent implements OnInit {
       'wserialNo': new FormControl(''),
       'wnewSerialNo': new FormControl(''),
       'wcost': new FormControl(''),
+      'vendor': new FormControl(''),
       'startDate': new FormControl(''),
       'endDate': new FormControl(''),
       'wremarks': new FormControl(''),
@@ -109,47 +119,47 @@ export class AddNewInventoryComponent implements OnInit {
 
   submitted!: boolean;
 
-  addInventory0: any;
-  addInventory1: any;
-  addInventory2: any;
+  // addInventory0: any;
+  // addInventory1: any;
+  // addInventory2: any;
   submit() {
-    console.log(this.inventoryBody);
+    // console.log(this.inventoryBody);
     this.inventoryBody.warr.startDate = this.datepipe.transform(this.inventoryBody.warr.startDate, 'yyyy-MM-dd');
     this.inventoryBody.warr.endDate = this.datepipe.transform(this.inventoryBody.warr.endDate, 'yyyy-MM-dd');
-
     if(this.UserForm.valid) {
       this.newItemEvent.emit(false);
 
-      this.addInventory2 = Swal.fire({
-        text: "Please wait",
-        imageUrl: "assets/gif/ajax-loading-gif.gif",
-        showConfirmButton: false,
-        allowOutsideClick: false
-      });
+      // this.addInventory2 = Swal.fire({
+      //   text: "Please wait",
+      //   imageUrl: "assets/gif/ajax-loading-gif.gif",
+      //   showConfirmButton: false,
+      //   allowOutsideClick: false
+      // });
+      this.alertSer.wait();
 
       this.inventorySer.createInventory(this.inventoryBody).subscribe((res: any) => {
         // console.log(res);
 
         if(res) {
-          this.addInventory1 = Swal.fire({
-            icon: 'success',
-            title: 'Done!',
-            text: `${res.message}`,
-          });
+          // this.addInventory1 = Swal.fire({
+          //   icon: 'success',
+          //   title: 'Done!',
+          //   text: `${res.message}`,
+          // });
+          this.alertSer.success(res);
         }
-
         setTimeout(() => {
           window.location.reload();
         }, 3000);
-
-      }, (err: any) => {
+      },
+      (err: any) => {
         if(err) {
-          this.addInventory0 = Swal.fire({
-            icon: 'warning',
-            title: 'Failed!',
-            text: 'Creating Inventory failed',
-            // timer: 3000,
-          });
+          // this.addInventory0 = Swal.fire({
+          //   icon: 'warning',
+          //   title: 'Failed!',
+          //   text: 'Creating Inventory failed',
+          // });
+          this.alertSer.error();
         };
       })
     }

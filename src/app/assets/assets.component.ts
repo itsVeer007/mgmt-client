@@ -11,6 +11,7 @@ import { MatTabGroup } from '@angular/material/tabs';
 import Swal from 'sweetalert2';
 import { FormControl } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
+import { AlertService } from 'src/services/alert.service';
 
 @Component({
   selector: 'app-assets',
@@ -50,6 +51,7 @@ export class AssetsComponent implements OnInit {
     public dialog: MatDialog,
     private devSercice: DeviceService,
     private siteService: SiteService,
+    private alertSer: AlertService,
     public cdr:ChangeDetectorRef
   ) { }
 
@@ -111,11 +113,19 @@ export class AssetsComponent implements OnInit {
       this.newSiteIdToTable = this.siteIdToTable;
       // console.log(this.siteIds)
     })
+
+    this.showLoader = true;
+    this.assetService.getAssets().subscribe((res: any) => {
+      this.showLoader = false;
+      let x = res.flatMap((item: any) => item.assets);
+      this.newAssetTable = x;
+      this.cdr.detectChanges();
+    })
   }
 
   filteredOptions!: any[];
   siteIdSearch = new FormControl();
-  searchTex!: string;
+  siteIdNg: string = 'All';
 
   filterOptions(value: string): any[] {
     const filterValue = value.toString().toLowerCase();
@@ -134,20 +144,31 @@ export class AssetsComponent implements OnInit {
 
   myData: any;
   filterSiteId(data: any) {
-    this.devSercice.listDeviceBySiteId(data).subscribe((res: any) => {
-      let y =  res.flatMap((item: any) => item.adsDevices);
-      // console.log(y);
-      this.deviceId = y;
-      this.newDeviceId = this.deviceId;
-    });
+    if(data == 'All') {
+      this.showLoader = true;
+      this.assetService.getAssets().subscribe((res: any) => {
+        this.showLoader = false;
+        let x = res.flatMap((item: any) => item.assets);
+        this.newAssetTable = x;
+        this.cdr.detectChanges();
+      })
+    } else {
+      this.devSercice.listDeviceBySiteId(data).subscribe((res: any) => {
+        let y = res.flatMap((item: any) => item.adsDevices);
+        this.deviceId = y;
+        this.newDeviceId = this.deviceId;
+        this.cdr.detectChanges();
+      });
 
-    this.assetService.getAssetBySiteId(data).subscribe((res: any) => {
-      let x = res.flatMap((item: any) => item.assets);
-      // console.log(x);
-      this.newAssetTable = x;
-      this.myData = this.newAssetTable;
-      this.cdr.detectChanges();
-    })
+      this.assetService.getAssetBySiteId(data).subscribe((res: any) => {
+        let x = res.flatMap((item: any) => item.assets);
+        this.newAssetTable = x;
+        this.myData = this.newAssetTable;
+        this.cdr.detectChanges();
+      });
+    }
+
+
 
 
     // for(let item of this.newAssetTable) {
@@ -169,27 +190,27 @@ export class AssetsComponent implements OnInit {
     //   }
     //   this.cdr.detectChanges();
     // }
-
   }
 
 
   /* search for device id */
 
   deviceSearch: any;
+  deviceIdNg: string = 'All';
   searchDevices(e: any) {
     this.deviceSearch = (e.target as HTMLInputElement).value;
   }
 
   filterDevices(data: any) {
     this.assetService.getAssetByDevId(data).subscribe((res: any) => {
-      if(data != 'All') {
+      if(data == 'All') {
+        this.newAssetTable = this.myData;
+        this.cdr.detectChanges();
+      } else {
         const assets = res.flatMap((item: any) => item.assets);
         this.assetTable = assets;
         this.newAssetTable = this.assetTable;
-        // console.log(this.assetTable);
         this.cdr.detectChanges();
-      } else if(data == 'All') {
-        this.newAssetTable = this.myData;
       }
     })
   }
@@ -198,18 +219,20 @@ export class AssetsComponent implements OnInit {
   /* table filters */
 
   devMode: any;
+  deviceModeNg: string = 'All';
   searchDeviceMode(e: Event) {
     this.devMode = (e.target as HTMLInputElement).value;
   }
 
-  newFilteredDevices: any;
+  // newFilteredDevices: any;
   filterDeviceMode(data: any) {
     this.newAssetTable = this.assetTable.filter((el: any) => el.deviceModeId == data);
-    this.newFilteredDevices = this.newAssetTable;
+    // this.newFilteredDevices = this.newAssetTable;
     this.cdr.detectChanges();
   }
 
   statusSearch: any;
+  statusNg: string = 'All';
   searchStatus(e: Event) {
     this.statusSearch = (e.target as HTMLInputElement).value;
   }
@@ -290,7 +313,7 @@ export class AssetsComponent implements OnInit {
 
   openViewPopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.viewAssetDialog);
+    this.dialog.open(this.viewAssetDialog, {maxHeight: '550px', maxWidth: '550px'});
 
     // console.log(this.currentItem);
   }
@@ -299,10 +322,10 @@ export class AssetsComponent implements OnInit {
 
   /* Edit Asset */
 
-  @ViewChild('editAssetDialog') editAsset = {} as TemplateRef<any>;
+  @ViewChild('editAssetDialog') editAssetDialog = {} as TemplateRef<any>;
 
   openEditPopupp(item: any) {
-    this.dialog.open(this.editAsset);
+    this.dialog.open(this.editAssetDialog, {maxHeight: '550px', maxWidth: '550px'});
 
     this.currentItem = JSON.parse(JSON.stringify(item));
     // console.log(item);
@@ -377,28 +400,30 @@ export class AssetsComponent implements OnInit {
     // console.log(this.changedKeys);
   }
 
-  assetUpdate0: any;
-  assetUpdate1: any;
-  assetUpdate2: any;
+  // assetUpdate0: any;
+  // assetUpdate1: any;
+  // assetUpdate2: any;
   confirmEditRow() {
     this.originalObject.fromDate = this.datepipe.transform(this.currentItem.fromDate, 'yyyy-MM-dd');
     this.originalObject.toDate = this.datepipe.transform(this.currentItem.toDate, 'yyyy-MM-dd');
 
-    this.assetUpdate2 = Swal.fire({
-      text: "Please wait",
-      imageUrl: "assets/gif/ajax-loading-gif.gif",
-      showConfirmButton: false,
-      allowOutsideClick: false
-    });
+    // this.assetUpdate2 = Swal.fire({
+    //   text: "Please wait",
+    //   imageUrl: "assets/gif/ajax-loading-gif.gif",
+    //   showConfirmButton: false,
+    //   allowOutsideClick: false
+    // });
+    this.alertSer.wait();
 
     this.assetService.modifyAssetForDevice({asset: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
       // console.log(res);
       if(res) {
-        this.assetUpdate1 = Swal.fire({
-          icon: 'success',
-          title: 'Done!',
-          text: `${res.message}`,
-        });
+        // this.assetUpdate1 = Swal.fire({
+        //   icon: 'success',
+        //   title: 'Done!',
+        //   text: `${res.message}`,
+        // });
+        this.alertSer.success(res);
       }
 
       setTimeout(() => {
@@ -407,12 +432,12 @@ export class AssetsComponent implements OnInit {
 
     }, (err: any) => {
       if(err) {
-        this.assetUpdate0 = Swal.fire({
-          icon: 'error',
-          title: 'Failed!',
-          text: 'Updating asset failed',
-          // timer: 3000,
-        });
+        // this.assetUpdate0 = Swal.fire({
+        //   icon: 'error',
+        //   title: 'Failed!',
+        //   text: 'Updating asset failed',
+        // });
+        this.alertSer.wait();
       };
     })
   }
@@ -423,7 +448,7 @@ export class AssetsComponent implements OnInit {
 
   openDeletePopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.deleteAssetDialog)
+    this.dialog.open(this.deleteAssetDialog, {maxHeight: '250px', maxWidth: '250px'});
   }
 
   deleteRow1(item: any, i: any) {
@@ -459,7 +484,7 @@ export class AssetsComponent implements OnInit {
   viewArray: any = [];
   viewBySelectedOne() {
     if (this.viewArray.length > 0) {
-      this.dialog.open(this.viewAssetDialog);
+      this.dialog.open(this.viewAssetDialog, {maxHeight: '550px', maxWidth: '550px'});
     }
   }
 
@@ -481,7 +506,7 @@ export class AssetsComponent implements OnInit {
   editArray: any = [];
   editBySelectedOne() {
     if (this.editArray.length > 0) {
-      this.dialog.open(this.editAsset);
+      this.dialog.open(this.editAssetDialog, {maxHeight: '550px', maxWidth: '550px'});
     }
   }
 
@@ -553,29 +578,29 @@ export class AssetsComponent implements OnInit {
     modifiedBy: 1
   }
 
-  statusUpdate0: any;
-  statusUpdate1: any;
-  statusUpdate2: any;
+  // statusUpdate0: any;
+  // statusUpdate1: any;
+  // statusUpdate2: any;
   changeAssetStatus() {
 
-    this.statusUpdate2 = Swal.fire({
-      text: "Please wait",
-      imageUrl: "assets/gif/ajax-loading-gif.gif",
-      showConfirmButton: false,
-      allowOutsideClick: false
-    });
+    // this.statusUpdate2 = Swal.fire({
+    //   text: "Please wait",
+    //   imageUrl: "assets/gif/ajax-loading-gif.gif",
+    //   showConfirmButton: false,
+    //   allowOutsideClick: false
+    // });
+    this.alertSer.wait();
 
     this.assetService.updateAssetStatus(this.currentStatusId, this.statusObj).subscribe((res: any) => {
       // console.log(res);
 
       if(res) {
-        this.statusUpdate1 = Swal.fire({
-          icon: 'success',
-          title: 'Done!',
-          text: `${res.message}`,
-          // timer: 3000,
-          // buttons: false,
-        });
+        // this.statusUpdate1 = Swal.fire({
+        //   icon: 'success',
+        //   title: 'Done!',
+        //   text: `${res.message}`,
+        // });
+        this.alertSer.success(res);
       };
 
       setTimeout(() => {
@@ -585,12 +610,12 @@ export class AssetsComponent implements OnInit {
     }, (err: any) => {
       // console.log(err);
       if(err) {
-        this.statusUpdate0 = Swal.fire({
-          icon: 'error',
-          title: 'Failed!',
-          text: 'Updating Asset failed',
-          // timer: 3000,
-        });
+        // this.statusUpdate0 = Swal.fire({
+        //   icon: 'error',
+        //   title: 'Failed!',
+        //   text: 'Updating Asset failed'
+        // });
+        this.alertSer.error();
       };
     });
   }

@@ -284,13 +284,14 @@
   padding-bottom: 0;
 }
 
-::ng-deep .mat-dialog-container {
-  max-width: 700px;
-}
-
 ::ng-deep .mat-flat-button.mat-primary {
   background-color: #084982;
 }
+
+/* ::ng-deep .mat-dialog-container {
+  max-width: 550px !important;
+  max-height: 550px !important;
+} */
 
 
 /* common ng-deep */

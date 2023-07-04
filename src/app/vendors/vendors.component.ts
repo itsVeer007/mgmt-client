@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
 import { InventoryService } from 'src/services/inventory.service';
 import { MetadataService } from 'src/services/metadata.service';
@@ -40,7 +41,15 @@ export class VendorsComponent implements OnInit {
 
 
   showLoader = false;
-  constructor(private http: HttpClient, private ass: AssetService, private inventorySer: InventoryService, private vendorSer: VendorsService,private metaDatSer: MetadataService, public dialog: MatDialog) { }
+  constructor(
+    private http: HttpClient,
+    private ass: AssetService,
+    private inventorySer: InventoryService,
+    private vendorSer: VendorsService,
+    private metaDatSer: MetadataService,
+    private alertSer: AlertService,
+    public dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
     this.getInventory();
@@ -207,6 +216,8 @@ export class VendorsComponent implements OnInit {
   proprietorId: any;
   proprietorView(i: any) {
     this.proprietorId = i;
+    this.emailId = i;
+    this.mobileId = i;
     // var x = e.target.nextElementSibling;
     // if (x.style.display == 'none') {
     //   x.style.display = 'flex';
@@ -214,7 +225,7 @@ export class VendorsComponent implements OnInit {
     //   x.style.display = 'none';
     // }
 
-    this.dialog.open(this.proprietorDialog)
+    this.dialog.open(this.proprietorDialog, {maxHeight: '550px', maxWidth: '550px'});
   }
 
   @ViewChild('emailDialog') emailDialog = {} as TemplateRef<any>;
@@ -272,7 +283,8 @@ export class VendorsComponent implements OnInit {
 
   openViewPopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.viewInventoryDialog);
+    // this.dialog.open(this.viewInventoryDialog);
+    this.dialog.open(this.viewInventoryDialog, {maxHeight: '550px', maxWidth: '750px'});
     // console.log(this.currentItem);
   }
 
@@ -286,9 +298,6 @@ export class VendorsComponent implements OnInit {
     // console.log(item);
   }
 
-  updateInventory0: any;
-  updateInventory1: any;
-  updateInventory2: any;
   editInventory() {
     // console.log(this.currentItem);
     // this.inventoryTable= this.inventoryTable.filter((item:any) => item.siteId !== this.currentItem.siteId);
@@ -312,7 +321,7 @@ export class VendorsComponent implements OnInit {
       'createdBy': null,
       'modifiedBy': 0,
       'createdTime': null,
-      'modifiedTime': this.currentItem.modifiedTime,
+      'modifiedTime': null,
       'addressLine1': this.currentItem.addressLine1,
       'addressLine2': this.currentItem.addressLine2,
       'postCode': this.currentItem.postCode,
@@ -321,22 +330,13 @@ export class VendorsComponent implements OnInit {
       'remarks': this.currentItem.remarks
     }
 
-    this.updateInventory2 = Swal.fire({
-      text: "Please wait",
-      imageUrl: "assets/gif/ajax-loading-gif.gif",
-      showConfirmButton: false,
-      allowOutsideClick: false
-    });
+    this.alertSer.wait();
 
     this.vendorSer.updatevendor(this.originalObject).subscribe((res: any) => {
       // console.log(res);
 
       if(res) {
-        this.updateInventory1 = Swal.fire({
-          icon: 'success',
-          title: 'Done!',
-          text: 'Updated Inventory Successfully!',
-        });
+        this.alertSer.success(res);
       }
 
       setTimeout(() => {
@@ -345,12 +345,7 @@ export class VendorsComponent implements OnInit {
 
     }, (err: any) => {
       if(err) {
-        this.updateInventory0 = Swal.fire({
-          icon: 'error',
-          title: 'Failed!',
-          text: 'Ticket Updation failed',
-          // timer: 3000,
-        });
+        this.alertSer.error();
       };
     });
   }
@@ -374,38 +369,21 @@ export class VendorsComponent implements OnInit {
     // console.log("Selected Item:: ", item);
   }
 
-  deleteInventory0: any;
-  deleteInventory1: any;
-  deleteInventory2: any;
   deleteInventory() {
     // console.log(this.currentItem);
 
-    this.deleteInventory2 = Swal.fire({
-      text: "Please wait",
-      imageUrl: "assets/gif/ajax-loading-gif.gif",
-      showConfirmButton: false,
-      allowOutsideClick: false
-    });
+    this.alertSer.wait();
 
     // this.inventoryTable = this.inventoryTable.filter((item: any) => item.siteId !== this.currentItem.siteId);
 
     this.inventorySer.deleteInventory(this.currentItem).subscribe((res: any) => {
       // console.log(res);
       if(res) {
-        this.deleteInventory1 = Swal.fire({
-          icon: 'success',
-          title: 'Done!',
-          text: 'Deleted Successfully!',
-        });
+        this.alertSer.success(res);
       }
     }, (err: any) => {
       if(err) {
-        this.deleteInventory0 = Swal.fire({
-          icon: 'error',
-          title: 'Failed!',
-          text: 'failed',
-          // timer: 3000,
-        });
+        this.alertSer.error();
       };
     });
   }

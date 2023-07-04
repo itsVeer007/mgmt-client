@@ -13,36 +13,9 @@
   <div>
     <form autocomplete="off" [formGroup]="UserForm" #addUserForm="ngForm">
       <div class="row">
-
-        <!-- <div class="col-lg-6 col-md-6">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Category</mat-label>
-            <mat-select formControlName="productCategory" [(ngModel)]="inventoryBody.inv.productCategory">
-              <mat-option value="Modules">Modules</mat-option>
-              <mat-option value="Server">Server</mat-option>
-              <mat-option value="Camera">Camera</mat-option>
-            </mat-select>
-            <mat-error class="mt-1">Category is required</mat-error>
-          </mat-form-field>
-        </div>
-
         <div class="col-lg-6 col-md-6">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Brand</mat-label>
-            <mat-select formControlName="productBrand" [(ngModel)]="inventoryBody.inv.productBrand">
-              <mat-option value="Rasberry">Rasberry</mat-option>
-              <mat-option value="Jetson">Jetson</mat-option>
-              <mat-option value="AXIS">AXIS</mat-option>
-              <mat-option value="HIKVISON">HIKVISON</mat-option>
-              <mat-option value="Grandstream">Grandstream</mat-option>
-            </mat-select>
-            <mat-error class="mt-1">Brand is required</mat-error>
-          </mat-form-field>
-        </div> -->
-
-        <div class="col-lg-6 col-md-6">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Product Id</mat-label>
+            <mat-label>productId</mat-label>
             <mat-select formControlName="productId" [(ngModel)]="inventoryBody.inv.productId">
               <mat-option [value]="1">1</mat-option>
               <mat-option [value]="2">2</mat-option>
@@ -53,7 +26,7 @@
 
         <div class="col-lg-6 col-md-6">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Product Id</mat-label>
+            <mat-label>orderId</mat-label>
             <mat-select formControlName="orderId" [(ngModel)]="inventoryBody.inv.orderId">
               <mat-option [value]="1">1</mat-option>
               <mat-option [value]="2">2</mat-option>
@@ -111,25 +84,17 @@
         </div>
 
         <div class="col-lg-6 col-md-6 d-flex my-1 escalation">
-          <!-- <div style="width: 20%; background-color: #F8F8F8;" class="max-center p-2">Cost</div>
-          <div style="width: 80%; color: #084982;">
-            <input type="text" class="form-control" placeholder="" name="lat" />
-          </div> -->
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Cost</mat-label>
-            <input matInput formControlName="cost" [(ngModel)]="inventoryBody.inv.cost">
+            <input matInput type="number" formControlName="cost" [(ngModel)]="inventoryBody.inv.cost">
             <mat-error class="mt-1">Cost is required</mat-error>
           </mat-form-field>
         </div>
 
         <div class="col-lg-6 col-md-6 d-flex my-1 escalation">
-          <!-- <div style="width: 20%; background-color: #F8F8F8;" class="max-center p-2">Price</div>
-          <div style="width: 80%; color: #084982;">
-            <input type="text" class="form-control" placeholder="" name="lat" />
-          </div> -->
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Price</mat-label>
-            <input matInput formControlName="price" [(ngModel)]="inventoryBody.inv.price">
+            <input matInput type="number" formControlName="price" [(ngModel)]="inventoryBody.inv.price">
             <mat-error class="mt-1">Price is required</mat-error>
           </mat-form-field>
         </div>
@@ -142,14 +107,7 @@
           </mat-form-field>
         </div>
 
-        <!-- <div class="col-lg-12 col-md-12 d-flex justify-content-start align-items-center my-2">
-          <p class="m-0 pe-3">Warranty Details</p>
 
-          <div class="on-off-toggle">
-            <input class="on-off-toggle__input" type="checkbox" id="bopis">
-            <label for="bopis" class="on-off-toggle__slider"></label>
-          </div>
-        </div> -->
         <p>Warranty Details</p>
 
         <div class="col-lg-6 col-md-6">
@@ -173,6 +131,14 @@
             <mat-label>cost</mat-label>
             <input matInput formControlName="wcost" [(ngModel)]="inventoryBody.warr.cost">
             <mat-error class="mt-1">Serial Number is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>vendor</mat-label>
+            <input matInput formControlName="vendor" [(ngModel)]="inventoryBody.warr.vendor">
+            <mat-error class="mt-1">vendor is required</mat-error>
           </mat-form-field>
         </div>
 
