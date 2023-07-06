@@ -464,7 +464,6 @@ export class AssetsComponent implements OnInit {
   }
 
 
-
   /* checkbox control */
 
   selectedAll: any;

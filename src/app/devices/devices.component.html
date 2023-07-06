@@ -264,9 +264,15 @@
         </tr>
       </tbody>
     </table>
+    <!-- /table -->
   </div>
+
+  <!-- Loader -->
+  <div *ngIf="showLoader" class="d-flex justify-content-center align-items-center" style="height: 50vh;">
+    <app-loader></app-loader>
+  </div>
+  <!-- /Loader -->
 </div>
-<!-- /table -->
 
 <ng-template #assignedDialog>
   <mat-form-field appearance="outline" class="w-100">

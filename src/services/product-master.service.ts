@@ -14,7 +14,7 @@ export class ProductMasterService {
   mySub = new Subject();
 
   list() {
-    let url = this.baseUrl + "/list_1_0";
+    let url = this.baseUrl + "/listproducts_1_0";
     return this.http.get(url);
   }
 
@@ -29,7 +29,7 @@ export class ProductMasterService {
   }
 
   deleteProduct(payload: any) {
-    let url = this.baseUrl + `/deletion_1_0?Id=${payload.id}`;
+    let url = this.baseUrl + `/deleteproduct_1_0?Id=${payload.id}`;
 
     return this.http.delete(url);
   }

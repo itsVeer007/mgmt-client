@@ -4,7 +4,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/services/alert.service';
-import { ApiService } from 'src/services/api.service';
 import { InventoryService } from 'src/services/inventory.service';
 import Swal from 'sweetalert2';
 
@@ -35,9 +34,9 @@ export class AddNewInventoryComponent implements OnInit {
   constructor(
     private router: Router,
     private inventorySer: InventoryService,
-    private apiser: ApiService,
-    private alertSer: AlertService,
     private fb: FormBuilder,
+
+    public alertSer: AlertService,
     public datepipe: DatePipe
   ) { }
 
@@ -118,47 +117,23 @@ export class AddNewInventoryComponent implements OnInit {
   }
 
   submitted!: boolean;
-
-  // addInventory0: any;
-  // addInventory1: any;
-  // addInventory2: any;
   submit() {
     // console.log(this.inventoryBody);
     this.inventoryBody.warr.startDate = this.datepipe.transform(this.inventoryBody.warr.startDate, 'yyyy-MM-dd');
     this.inventoryBody.warr.endDate = this.datepipe.transform(this.inventoryBody.warr.endDate, 'yyyy-MM-dd');
     if(this.UserForm.valid) {
       this.newItemEvent.emit(false);
-
-      // this.addInventory2 = Swal.fire({
-      //   text: "Please wait",
-      //   imageUrl: "assets/gif/ajax-loading-gif.gif",
-      //   showConfirmButton: false,
-      //   allowOutsideClick: false
-      // });
       this.alertSer.wait();
-
       this.inventorySer.createInventory(this.inventoryBody).subscribe((res: any) => {
         // console.log(res);
-
         if(res) {
-          // this.addInventory1 = Swal.fire({
-          //   icon: 'success',
-          //   title: 'Done!',
-          //   text: `${res.message}`,
-          // });
           this.alertSer.success(res);
         }
         setTimeout(() => {
           window.location.reload();
         }, 3000);
-      },
-      (err: any) => {
+      }, (err: any) => {
         if(err) {
-          // this.addInventory0 = Swal.fire({
-          //   icon: 'warning',
-          //   title: 'Failed!',
-          //   text: 'Creating Inventory failed',
-          // });
           this.alertSer.error();
         };
       })

@@ -117,12 +117,6 @@ form button {
   opacity: 0.9;
 }
 
-.table-icons {
-  display: flex;
-  justify-content: end;
-  align-items: center;
-}
-
 .table thead {
   background-image: linear-gradient(to right, #084982 , #D34124);
   color: #fff;
@@ -288,11 +282,6 @@ form button {
     flex-direction: column;
     align-items: stretch;
   }
-
-  /* .table-icons {
-    position: relative;
-    left: 125px;
-  } */
 
   .inve-add {
     top: -422px;

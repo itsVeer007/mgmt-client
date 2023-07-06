@@ -19,8 +19,8 @@ export class AppComponent {
     }
 
     // this.user=JSON.parse(localStorage.getItem('user')!);
-    this.apiser.user$.subscribe((res)=>{
-      // console.log('Subject', res);
+
+    this.apiser.user$.subscribe(() => {
       this.user=JSON.parse(localStorage.getItem('user')!);
     });
   }

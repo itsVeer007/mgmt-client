@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { AlertService } from 'src/services/alert.service';
 import { MetadataService } from 'src/services/metadata.service';
 import { TicketService } from 'src/services/ticket.service';
 import Swal from 'sweetalert2';
@@ -39,12 +40,23 @@ export class TicketsComponent implements OnInit {
 
 
   showLoader = false;
-  constructor(private http: HttpClient, private ticketSer: TicketService, private metaDatSer: MetadataService, public dialog: MatDialog, private datePipe: DatePipe) { }
+  constructor(
+    private http: HttpClient,
+    private ticketSer: TicketService,
+    private metaDatSer: MetadataService,
+    private datePipe: DatePipe,
+
+    public dialog: MatDialog,
+    public alertSer: AlertService
+  ) { }
 
   ngOnInit(): void {
     this.CustomerReport();
-    // this.getSites();
     this.onGetMetadata();
+
+    this.ticketSer.comment$.subscribe((comments: any) => {
+      this.ticketComments = comments;
+    });
   }
 
   showIconVertical: boolean = false;
@@ -64,20 +76,30 @@ export class TicketsComponent implements OnInit {
   searchText: any;
   ticketData: any = [];
   newTicketData: any = [];
+
+  ticketOpen: any = [];
+  ticketClose: any = [];
+  ticketProgress: any = [];
+  ticketRejected: any = [];
   CustomerReport() {
-    // this.http.get('assets/JSON/customerData.json').subscribe(res => {
-    //   this.ticketData = res;
-    //   // console.log(res)
-    // });
-
+    this.showLoader = true;
     this.ticketSer.getTickets().subscribe((res: any) => {
-      // console.log(res);
-      // let x = this.ticketSer.ticket$.next(res);
-
+      this.showLoader = false;
       this.ticketData = res;
-
       this.newTicketData = this.ticketData;
     })
+
+    // for(let item of this.newTicketData) {
+    //   if(item.statusId == 1) {
+    //     this.ticketOpen.push(item)
+    //   } else if(item.statusId == 2) {
+    //     this.ticketProgress.push(item)
+    //   } else if(item.statusId == 3) {
+    //     this.ticketClose.push(item)
+    //   } else if(item.statusId == 4) {
+    //     this.ticketRejected.push(item)
+    //   }
+    // }
   }
 
   // filterBySite(val: any) {
@@ -214,16 +236,6 @@ export class TicketsComponent implements OnInit {
     if (type == 'ticket') { this.showTicket = true }
   }
 
-  masterSelected: boolean = false;
-
-  // allchecked(e:any){
-  //   if(document.querySelector('#allchecked:checked')){
-  //     this.masterSelected = true;
-  //   }else {
-  //     this.masterSelected = false;
-  //   }
-  // }
-
 
   selectedAll: any;
   selectAll() {
@@ -244,37 +256,29 @@ export class TicketsComponent implements OnInit {
   originalObject: any;
   changedKeys: any = [];
 
-
   @ViewChild('viewTicketDialog') viewTicketDialog = {} as TemplateRef<any>;
 
   ticketTasks: any;
-  ticketComments: any;
+  ticketVisits: any;
+  ticketComments: any = [];
   openViewPopup(item: any) {
     this.currentItem = item;
     this.dialog.open(this.viewTicketDialog, {maxHeight: '550px', maxWidth: '850px'});
     // console.log(this.currentItem);
-
-    this.ticketSer.getTasks(item.ticketId).subscribe((res: any) => {
-      console.log(res);
-      this.ticketTasks = res;
+    this.ticketSer.getTasks(item.ticketId).subscribe((tasks: any) => {
+      // console.log(res);
+      this.ticketTasks = tasks;
     });
 
-    this.ticketSer.getcomments(item.ticketId).subscribe((res: any) => {
-      console.log(res);
-      this.ticketComments = res;
-    })
+    this.ticketSer.getTicketVisits(item.ticketId).subscribe((visits: any) => {
+      // console.log(res);
+      this.ticketVisits = visits;
+    });
+
+    this.ticketSer.getcomments(item.ticketId).subscribe((comments: any) => {
+      this.ticketComments = comments;
+    });
   }
-
-
-  // deleteRow1(item: any, i: any) {
-  //   console.log("DELETEROW:: ", item);
-  //   this.showLoader = true;
-  //   setTimeout(() => {
-  //     this.showLoader = false;
-  //     this.ticketData.splice(i, 1);
-  //   }, 1000);
-  // }
-
 
 
   @ViewChild('editTicketDialog') editTicketDialog = {} as TemplateRef<any>;
@@ -329,11 +333,8 @@ export class TicketsComponent implements OnInit {
     }
   }
 
-  updateTicket0: any;
-  updateTicket1: any;
-  updateTicket2: any;
-  updateTicket(e: any) {
 
+  updateTicket(e: any) {
     this.originalObject = {
       "ticketId": this.currentItem.ticketId,
       "ticketTypeId": e.ticketTypeId,
@@ -348,36 +349,18 @@ export class TicketsComponent implements OnInit {
       'remarks': e.remarks
     };
 
-    this.updateTicket2 = Swal.fire({
-      text: "Please wait",
-      imageUrl: "assets/gif/ajax-loading-gif.gif",
-      showConfirmButton: false,
-      allowOutsideClick: false
-    });
-
+    this.alertSer.wait();
     this.ticketSer.updateTicket({ticket: this.originalObject, updprops: this.changedKeys}).subscribe((res: any) => {
       // console.log(res);
-
       if(res) {
-        this.updateTicket1 = Swal.fire({
-          icon: 'success',
-          title: 'Done!',
-          text: 'Updated Ticket Successfully!',
-        });
+        this.alertSer.success(res);
       }
-
       setTimeout(() => {
         window.location.reload();
       }, 3000);
-
     }, (err: any) => {
       if(err) {
-        this.updateTicket0 = Swal.fire({
-          icon: 'error',
-          title: 'Failed!',
-          text: 'Ticket Updation failed',
-          // timer: 3000,
-        });
+        this.alertSer.error();
       };
     });
   }
@@ -391,38 +374,17 @@ export class TicketsComponent implements OnInit {
     // console.log(item);
   }
 
-  deleteTicket0: any;
-  deleteTicket1: any;
-  deleteTicket2: any;
   confirmDeleteRow() {
-
-    this.deleteTicket2 = Swal.fire({
-      text: "Please wait",
-      imageUrl: "assets/gif/ajax-loading-gif.gif",
-      showConfirmButton: false,
-      allowOutsideClick: false
-    });
-
-    // this.ticketData = this.ticketData.filter((item: any) => item.siteId !== this.currentItem.siteId);
-
+    this.alertSer.wait();
     this.ticketSer.deleteTicket(this.currentItem).subscribe((res: any) => {
       // console.log(res);
 
       if(res) {
-        this.deleteTicket1 = Swal.fire({
-          icon: 'success',
-          title: 'Done!',
-          text: 'Deleted Successfully!',
-        });
+        this.alertSer.success(res);
       }
     }, (err: any) => {
       if(err) {
-        this.deleteTicket0 = Swal.fire({
-          icon: 'error',
-          title: 'Failed!',
-          text: 'failed',
-          // timer: 3000,
-        });
+        this.alertSer.error();
       };
     })
   }
@@ -437,7 +399,7 @@ export class TicketsComponent implements OnInit {
   toAssign: any;
   openAssigned(item: any) {
     this.toAssign = item;
-    this.dialog.open(this.assignedDialog);
+    this.dialog.open(this.assignedDialog, {maxHeight: '250px', maxWidth: '250px'});
   }
 
   aonSelectChange(e: any) {
@@ -453,16 +415,8 @@ export class TicketsComponent implements OnInit {
     }
   }
 
-  assign0: any;
-  assign1: any;
-  assign2: any;
   toAssigned() {
-    this.assign2 = Swal.fire({
-      text: "Please wait",
-      imageUrl: "assets/gif/ajax-loading-gif.gif",
-      showConfirmButton: false,
-      allowOutsideClick: false
-    });
+    this.alertSer.wait();
 
     let myObj = {
       'ticketId': this.toAssign.ticketId,
@@ -472,24 +426,15 @@ export class TicketsComponent implements OnInit {
     this.ticketSer.assignPerson({updprops: this.changedKeys, ticket: myObj}).subscribe((res: any) => {
       // console.log(res)
       if(res) {
-        this.assign1 = Swal.fire({
-          icon: 'success',
-          title: 'Done!',
-          text: 'Deleted Successfully!',
-        });
+        this.alertSer.success(res);
       }
-
       setTimeout(() => {
-        // window.location.reload();
+        window.location.reload();
       }, 3000)
-
     }, (err: any) => {
-        this.assign0 = Swal.fire({
-        icon: 'error',
-        title: 'Failed!',
-        text: 'failed',
-        // timer: 3000,
-      });
+        if(err) {
+          this.alertSer.error();
+        }
     })
   }
 
@@ -497,49 +442,46 @@ export class TicketsComponent implements OnInit {
 
   y: any
   openEditStatus(id: any) {
-    // console.log(id);
     this.y = id;
-    this.dialog.open(this.editStatusDialog);
+    this.dialog.open(this.editStatusDialog, {maxWidth: '250px', maxHeight: '250px'});
   }
 
   staObj = {
     status: ""
   }
 
-  ticketStatus0: any;
-  ticketStatus1: any;
-  ticketStatus2: any;
   changeAssetStatus() {
     let statusObj = {
       ticketId: this.y.ticketId,
       status: this.staObj.status
     }
-
-    this.ticketStatus2 = Swal.fire({
-      text: "Please wait",
-      imageUrl: "assets/gif/ajax-loading-gif.gif",
-      showConfirmButton: false,
-      allowOutsideClick: false
-    });
+    this.alertSer.wait();
     this.ticketSer.updateStatus(statusObj).subscribe((res: any) => {
       // console.log(res);
       if(res) {
-        this.ticketStatus1 = Swal.fire({
-          icon: 'success',
-          title: 'Done!',
-          text: 'Status Updated Successfully!',
-        });
+        this.alertSer.success(res);
       }
     }, (err: any) => {
       if(err) {
-        this.ticketStatus0 = Swal.fire({
-          icon: 'error',
-          title: 'Failed!',
-          text: 'Status Updation failed',
-          // timer: 3000,
-        });
+        this.alertSer.error();
       };
     })
+  }
+
+  /* create comment */
+
+  cmtValue: any;
+  createComment() {
+    let myObj = {
+      'ticketId': this.currentItem.ticketId,
+      'message': this.cmtValue,
+      'createdBy': 1
+    }
+
+    this.ticketSer.createComment(myObj).subscribe((res: any) => {
+      // console.log(res);
+    });
+    this.cmtValue = ''
   }
 
 
@@ -548,7 +490,7 @@ export class TicketsComponent implements OnInit {
   viewArray: any = [];
   viewBySelectedOne() {
     if (this.viewArray.length > 0) {
-      this.dialog.open(this.viewTicketDialog)
+      this.dialog.open(this.viewTicketDialog, {maxWidth: '850px', maxHeight: '550px'})
     }
   }
 
@@ -566,7 +508,7 @@ export class TicketsComponent implements OnInit {
   editArray: any = [];
   editBySelectedOne() {
     if (this.editArray.length > 0) {
-      this.dialog.open(this.editTicketDialog)
+      this.dialog.open(this.editTicketDialog, {maxWidth: '550px', maxHeight: '550px'})
     }
     this.CustomerReport();
   }

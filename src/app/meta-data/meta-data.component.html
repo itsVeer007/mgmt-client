@@ -16,7 +16,7 @@
   <!-- /header -->
 
   <!-- form -->
-  <div class="d-flex align-items-center justify-content-between my-2">
+  <div class="search-form">
     <div class="row col-lg-10 col-md-10">
       <div class="col-lg-3 col-md-3 col-sm-12">
         <mat-form-field appearance="outline" class="w-100">
@@ -46,14 +46,14 @@
       </div>
     </div>
 
-    <div class="table-icons mb-3">
+    <div class="col-lg-2 col-md-2 col-sm-12 text-end">
       <!-- <div class="lists" *ngIf="showIconView" style="margin-right: 60px; margin-top: -40px;">View</div> -->
-      <div class="lists" *ngIf="showIconEdit" style="margin-right: 30px; margin-top: -40px;">Edit</div>
-      <div class="lists" *ngIf="showIconDelete" style="margin-right: -5px; margin-top: -40px;">Delete</div>
+      <!-- <div class="lists" *ngIf="showIconEdit" style="margin-right: 30px; margin-top: -40px;">Edit</div>
+      <div class="lists" *ngIf="showIconDelete" style="margin-right: -5px; margin-top: -40px;">Delete</div> -->
 
-      <!-- <a class="mx-2" (click)="viewBySelectedOne()"><img src="assets/icons/view.svg" (mouseenter)="showIconView = true" (mouseleave)="showIconView = false" /></a> -->
-      <a class="mx-2" (click)="editBySelectedOne()"><img src="assets/icons/edit.svg" (mouseenter)="showIconEdit = true" (mouseleave)="showIconEdit = false" /></a>
-      <a class="mx-2" (click)="deleteSelected()"><img src="assets/icons/delete.svg" (mouseenter)="showIconDelete = true" (mouseleave)="showIconDelete = false" /></a>
+      <!-- <a class="mx-2 pointer" (click)="viewBySelectedOne()"><img src="assets/icons/view.svg" (mouseenter)="showIconView = true" (mouseleave)="showIconView = false" /></a> -->
+      <a class="mx-2 pointer" (click)="editBySelectedOne()"><img src="assets/icons/edit.svg" (mouseenter)="showIconEdit = true" (mouseleave)="showIconEdit = false" /></a>
+      <a class="mx-2 pointer" (click)="deleteSelected()"><img src="assets/icons/delete.svg" (mouseenter)="showIconDelete = true" (mouseleave)="showIconDelete = false" /></a>
     </div>
   </div>
   <!-- /form -->
@@ -98,8 +98,8 @@
         </tr>
       </thead>
 
-      <tbody *ngIf="typeInput.value != 'All'">
-        <ng-container *ngFor="let obj of newMetaData | search: searchText; let i = index">
+      <tbody *ngIf="typeInput.value == 'All'">
+        <ng-container *ngFor="let obj of metaData | search: searchText; let i = index">
           <ng-container *ngFor="let item of obj.metadata">
             <tr>
               <td>
@@ -110,6 +110,10 @@
                     EditByCheckbox(item, i, $event)
                   " id="singleCheck" />
               </td>
+
+              <!-- <td>
+                <p>--</p>
+              </td> -->
 
               <td>
                 <p>{{item.keyId}}</p>
@@ -159,8 +163,8 @@
         </ng-container>
       </tbody>
 
-      <tbody *ngIf="typeInput.value == 'All'">
-        <ng-container *ngFor="let obj of metaData | search: searchText; let i = index">
+      <tbody *ngIf="typeInput.value != 'All'">
+        <ng-container *ngFor="let obj of newMetaData | search: searchText; let i = index">
           <ng-container *ngFor="let item of obj.metadata">
             <tr>
               <td>
@@ -171,10 +175,6 @@
                     EditByCheckbox(item, i, $event)
                   " id="singleCheck" />
               </td>
-
-              <!-- <td>
-                <p>--</p>
-              </td> -->
 
               <td>
                 <p>{{item.keyId}}</p>

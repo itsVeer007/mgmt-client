@@ -53,10 +53,8 @@
           <div class="navigation">
             <ul>
               <li class="m-2 has-sub">
-                <a>
-                  <img src="assets/icons/inventory_2.svg">
-                  Inventory Manager
-                </a>
+                <a><img src="assets/icons/inventory_2.svg">Inventory Manager</a>
+
                 <ul>
                   <li>
                     <a [routerLink]="['/product-master']" routerLinkActive="routeactive">Product Master</a>
@@ -95,7 +93,7 @@
             <span>Tickets/Jobs</span>
           </a>
 
-          <a class="list-group-item " [routerLink]="['/meta']" routerLinkActive="routeactive">
+          <a *ngIf="isAdmin == true" class="list-group-item " [routerLink]="['/meta']" routerLinkActive="routeactive">
             <img src="assets/icons/storage.svg">
             <span>Metadata</span>
           </a>
@@ -130,10 +128,8 @@
           <div class="navigation">
             <ul>
               <li class="m-2 has-sub">
-                <a>
-                  <img src="assets/icons/miscellaneous.svg">
-                  Miscellaneous
-                </a>
+                <a><img src="assets/icons/miscellaneous.svg">Miscellaneous</a>
+
                 <ul>
                   <li>
                     <a [routerLink]="['/vendors']" routerLinkActive="routeactive">Vendors</a>
@@ -225,16 +221,18 @@
             <!-- <a class="list-group-item my-2">
                 <img src="assets/icons/analytic.svg" /><span> Analytics</span>
             </a> -->
-            <a class="list-group-item my-2" [routerLink]="['/users']" routerLinkActive="routeactive">
+            <a *ngIf="isAdmin == true" class="list-group-item my-2" [routerLink]="['/users']" routerLinkActive="routeactive">
                 <img src="assets/icons/user-white.svg" /><span>Users</span>
             </a>
 
-            <a *ngIf="isAdmin == true" class="list-group-item my-2" [routerLink]="['/inventory']" routerLinkActive="routeactive">
-              <img src="assets/icons/inventory.svg" /><span>Inventory</span>
+            <a class="list-group-item " [routerLink]="['/inventory']" routerLinkActive="routeactive">
+              <img src="assets/icons/inventory.svg">
+              <span>Inventory</span>
             </a>
 
-            <a class="list-group-item my-2" [routerLink]="['/product-master']" routerLinkActive="routeactive">
-              <img src="assets/icons/inventory.svg" /><span>Product Master</span>
+            <a class="list-group-item " [routerLink]="['/product-master']" routerLinkActive="routeactive">
+              <img src="assets/icons/inventory.svg">
+              <span>Product Master</span>
             </a>
 
             <a class="list-group-item my-2" [routerLink]="['/devices']" routerLinkActive="routeactive">
@@ -249,8 +247,12 @@
               <img src="assets/icons/ticket.svg" /><span>Tickets/Jobs</span>
             </a>
 
-            <a class="list-group-item my-2" [routerLink]="['/meta']" routerLinkActive="routeactive">
+            <a *ngIf="isAdmin == true" class="list-group-item my-2" [routerLink]="['/meta']" routerLinkActive="routeactive">
               <img src="assets/icons/storage.svg" /><span>Metadata</span>
+            </a>
+
+            <a *ngIf="isAdmin == true" class="list-group-item my-2" [routerLink]="['/vendors']" routerLinkActive="routeactive">
+              <span>Vendors</span>
             </a>
 
             <!-- <a class="list-group-item my-2" [routerLink]="['/reports']" routerLinkActive="routeactive">

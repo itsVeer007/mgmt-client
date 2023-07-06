@@ -44,12 +44,6 @@
     font-weight: 600;
 }
 
-.table-icons {
-    display: flex;
-    justify-content: end;
-    align-items: center;
-}
-
 .table thead {
     background-image: linear-gradient(to right, #084982 , #D34124);
     color: #fff;
@@ -198,6 +192,13 @@
     border-top: 1px solid #EFEFEF;
 }
 
+.search-form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
 
 @media only screen and (max-width: 768px) {
   .search-form {
@@ -205,18 +206,8 @@
     flex-direction: column;
   }
 
-  .table-icons {
-    position: relative;
-    left: 125px;
-  }
-
   form .select {
     margin: 5px 0;
-  }
-
-  .Active-list {
-      display: flex;
-      justify-content: start;
   }
 
   .search {

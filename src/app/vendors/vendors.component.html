@@ -1,98 +1,62 @@
 <div class="container-fluid users" id="top">
 
-  <!-- header -->
-  <div class="users-header row">
+  <!-- header starts -->
+  <div class="d-flex justify-content-between">
+    <div class="users-header">
+      <p>List of all Vendors - <span>{{inventoryTable.length}}</span></p>
+    </div>
+    <div style="position: relative">
+      <!-- <a class="pointer" (click)="show('user')"><img src="assets/icons/add.svg" alt="" /></a> -->
 
-    <!-- count -->
-    <div class="col-lg-6">
-      <p>Vendors - <span>{{ inventoryTable.length }}</span></p>
-      <div class="row">
-        <div class="col-lg-2 d-flex justify-content-start">
-          <div class="vl-green"></div>
-          <div class="mx-2">
-            <div class="status">Active</div>
-            <div class="count">{{ inStock.length }}</div>
-          </div>
-        </div>
-        <div class="col-lg-2 d-flex justify-content-start">
-          <div class="vl-red"></div>
-          <div class="mx-2">
-            <div class="status">Inactive</div>
-            <div class="count">{{ installed.length }}</div>
-          </div>
-        </div>
+      <button mat-flat-button color="primary" class="py-0" (click)="show('vendor')">Create User</button>
+    </div>
+  </div>
+  <!-- header ends -->
+
+  <!-- count starts -->
+  <div class="row">
+    <div class="col-lg-1 col-md-1 col-sm-1 d-flex justify-content-start">
+      <div class="vl-green"></div>
+      <div class="mx-2">
+        <div class="status">Active</div>
+        <div class="count">--</div>
       </div>
     </div>
-    <!-- /count -->
-
-    <div class="col-lg-2 text-end inve-add" style="position: relative">
-      <a class="pointer" (click)="show('inventory')">
-        <img src="assets/icons/add.svg" alt="" />
-      </a>
-      <!-- <a class="pointer">
-        <img src="assets/icons/sites-img.svg" alt=""
-          style="border-radius: 24px; box-shadow: 7px 7px 7px 0px #f3f3f3; margin-top: -9px;">
-      </a> -->
+    <div class="col-lg-1 col-md-1 col-sm-1 d-flex justify-content-start">
+      <div class="vl-red"></div>
+      <div class="mx-2">
+        <div class="status">Inactive</div>
+        <div class="count">--</div>
+      </div>
     </div>
-
   </div>
-  <!-- /header -->
+  <!-- count ends -->
 
   <!-- form -->
-  <div class="search-form">
-      <!-- <div class="col-lg-2 col-sm-12">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Product Brand</mat-label>
-          <mat-select (focus)="removeDuplicates()" [(ngModel)]="prBrand">
-            <mat-option value="">All</mat-option>
-            <mat-option *ngFor="let item of brandNames" [value]="item.productBrand">{{ item.productBrand }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
+  <div class="search-form row">
+    <div class="col-lg-2 col-sm-12">
+      <mat-form-field class="example-form-field" appearance="outline" class="w-100">
+        <mat-label>Search</mat-label>
+        <input matInput type="text"  [(ngModel)]="searchText">
+        <button matSuffix mat-icon-button>
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
 
-      <div class="col-lg-2 col-sm-12">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Product Category</mat-label>
-          <mat-select (focus)="removeDuplicates()" [(ngModel)]="prCat">
-            <mat-option value="">All</mat-option>
-            <mat-option *ngFor="let item of categoryTypes" [value]="item.productCategory">{{ item.productCategory }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
+    <!-- <div class="filter-search-btn col-lg-2 col-sm-12">
+      <button (click)="applyFilter()">Submit</button>
+    </div> -->
 
-      <div class="col-lg-2 col-sm-12">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Status</mat-label>
-          <mat-select (focus)="removeDuplicates()" [(ngModel)]="sta">
-            <mat-option value="">All</mat-option>
-            <mat-option *ngFor="let item of statusVal" [value]="item.status">{{ item.status }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div> -->
+    <div class="col-lg-2 col-sm-12 col-sm-12 text-end">
+      <!-- <div class="lists" *ngIf="showIconView" style="margin-right: 60px; margin-top: -40px;">View</div>
+      <div class="lists" *ngIf="showIconEdit" style="margin-right: 30px; margin-top: -40px;">Edit</div>
+      <div class="lists" *ngIf="showIconDelete" style="margin-right: -5px; margin-top: -40px;">Delete</div> -->
 
-      <div class="col-lg-2 col-sm-12">
-        <mat-form-field class="example-form-field" appearance="outline" class="w-100">
-          <mat-label>Search</mat-label>
-          <input matInput type="text"  [(ngModel)]="searchText">
-          <button matSuffix mat-icon-button>
-            <mat-icon>search</mat-icon>
-          </button>
-        </mat-form-field>
-      </div>
-
-      <!-- <div class="filter-search-btn col-lg-2 col-sm-12">
-        <button (click)="applyFilter()">Submit</button>
-      </div> -->
-
-      <div class="table-icons">
-        <div class="lists" *ngIf="showIconView" style="margin-right: 60px; margin-top: -40px;">View</div>
-        <div class="lists" *ngIf="showIconEdit" style="margin-right: 30px; margin-top: -40px;">Edit</div>
-        <div class="lists" *ngIf="showIconDelete" style="margin-right: -5px; margin-top: -40px;">Delete</div>
-
-        <a class="mx-2" (click)="viewBySelectedOne()"><img src="assets/icons/view.svg" (mouseenter)="showIconView = true" (mouseleave)="showIconView = false"></a>
-        <a class="mx-2" (click)="editBySelectedOne()"><img src="assets/icons/edit.svg" (mouseenter)="showIconEdit = true" (mouseleave)="showIconEdit = false"></a>
-        <a class="mx-2" (click)="deleteSelected()"><img src="assets/icons/delete.svg" (mouseenter)="showIconDelete = true" (mouseleave)="showIconDelete = false"></a>
-      </div>
+      <a class="mx-2 pointer" (click)="viewBySelectedOne()"><img src="assets/icons/view.svg" (mouseenter)="showIconView = true" (mouseleave)="showIconView = false"></a>
+      <a class="mx-2 pointer" (click)="editBySelectedOne()"><img src="assets/icons/edit.svg" (mouseenter)="showIconEdit = true" (mouseleave)="showIconEdit = false"></a>
+      <a class="mx-2 pointer" (click)="deleteSelected()"><img src="assets/icons/delete.svg" (mouseenter)="showIconDelete = true" (mouseleave)="showIconDelete = false"></a>
+    </div>
   </div>
   <!-- /form -->
 
@@ -302,9 +266,19 @@
         </tr>
       </tbody>
     </table>
+    <!-- table ends -->
+
   </div>
+
+  <!-- Loader -->
+  <div >
+    <app-loader *ngIf="showLoader" class="d-flex justify-content-center align-items-center" style="height: 50vh;"></app-loader>
+  </div>
+  <!-- /Loader -->
+
 </div>
-<!-- table ends -->
+
+
 
 
 <!-- view Popup -->
@@ -666,5 +640,5 @@
 
 
 <div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showInventory">
-  <app-add-new-vendor [show]="showInventory" (newItemEvent)="closenow($event, 'inventory')"></app-add-new-vendor>
+  <app-add-new-vendor [show]="showInventory" (newItemEvent)="closenow($event, 'vendor')"></app-add-new-vendor>
 </div>

@@ -1,17 +1,13 @@
-<!-- <app-loader *ngIf="showLoader"></app-loader> -->
 <div class="container-fluid users" id="top">
   <!-- header starts -->
   <div class="d-flex justify-content-between">
     <div class="users-header">
-      <p>List of all Users - <span>1500</span></p>
+      <p>List of all Users - <span>4</span></p>
     </div>
     <div style="position: relative">
-      <a class="pointer" (click)="show('user')">
-        <img src="assets/icons/add.svg" alt="" />
-      </a>
-      <a class="pointer">
-        <img src="assets/icons/sites-img.svg" alt="" style="border-radius: 24px; box-shadow: 7px 7px 7px 0px #f3f3f3; margin-top: -9px;">
-      </a>
+      <!-- <a class="pointer" (click)="show('user')"><img src="assets/icons/add.svg" alt="" /></a> -->
+
+      <button mat-flat-button color="primary" class="py-0" (click)="show('user')">Create Vendor</button>
     </div>
   </div>
   <!-- header ends -->
@@ -43,7 +39,7 @@
   <!-- count ends -->
 
   <!-- form starts -->
-  <div class="search-form d-flex align-items-center justify-content-between my-2">
+  <div class="search-form">
     <!-- <div class="col-lg-10 col-md-10">
       <form class="row p-0">
         <div class="col-lg-4 col-md-4 col-sm-4 select">
@@ -83,8 +79,8 @@
       </div>
     </div>
 
-    <div class="col-lg-2 col-md-2 table-icons">
-      <div class="lists" *ngIf="showIconView" style="margin-right: 60px; margin-top: -40px">
+    <div class="col-lg-2 col-md-2 col-sm-12 text-end">
+      <!-- <div class="lists" *ngIf="showIconView" style="margin-right: 60px; margin-top: -40px">
         View
       </div>
       <div class="lists" *ngIf="showIconEdit" style="margin-right: 30px; margin-top: -40px">
@@ -92,13 +88,13 @@
       </div>
       <div class="lists" *ngIf="showIconDelete" style="margin-right: -5px; margin-top: -40px">
         Delete
-      </div>
+      </div> -->
 
-      <a class="mx-2" (click)="viewBySelectedOne()"><img src="assets/icons/view.svg" (mouseenter)="showIconView = true"
+      <a class="mx-2 pointer" (click)="viewBySelectedOne()"><img src="assets/icons/view.svg" (mouseenter)="showIconView = true"
           (mouseleave)="showIconView = false" /></a>
-      <a class="mx-2" (click)="editBySelectedOne()"><img src="assets/icons/edit.svg" (mouseenter)="showIconEdit = true"
+      <a class="mx-2 pointer" (click)="editBySelectedOne()"><img src="assets/icons/edit.svg" (mouseenter)="showIconEdit = true"
           (mouseleave)="showIconEdit = false" /></a>
-      <a class="mx-2" (click)="deleteSelected()"><img src="assets/icons/delete.svg"
+      <a class="mx-2 pointer" (click)="deleteSelected()"><img src="assets/icons/delete.svg"
           (mouseenter)="showIconDelete = true" (mouseleave)="showIconDelete = false" /></a>
     </div>
   </div>

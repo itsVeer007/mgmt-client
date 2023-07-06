@@ -79,8 +79,10 @@ export class VendorsComponent implements OnInit {
   scrap: any = [];
   redyToUse: any = [];
   getInventory() {
+    this.showLoader = true;
     this.vendorSer.getvendors().subscribe((res: any) => {
       // console.log(res);
+      this.showLoader = false;
 
       this.inventoryTable = res;
       this.newInventoryTable = this.inventoryTable;
@@ -202,13 +204,13 @@ export class VendorsComponent implements OnInit {
   }
 
   closenow(value: any, type: String) {
-    if (type == 'inventory') { this.showInventory = value; }
+    if (type == 'vendor') { this.showInventory = value; }
   }
 
   showInventory: boolean = false;
 
   show(type: string) {
-    if (type == 'inventory') { this.showInventory = true; }
+    if (type == 'vendor') { this.showInventory = true; }
   }
 
   @ViewChild('proprietorDialog') proprietorDialog = {} as TemplateRef<any>;
@@ -246,7 +248,7 @@ export class VendorsComponent implements OnInit {
   addressId: any;
   addressView(i: any) {
     this.addressId = i;
-    this.dialog.open(this.addressDialog)
+    this.dialog.open(this.addressDialog, {maxHeight: '250px', maxWidth: '250px'})
   }
 
   masterSelected: boolean = false;
@@ -294,7 +296,7 @@ export class VendorsComponent implements OnInit {
 
   openEditPopup(item: any) {
     this.currentItem = JSON.parse(JSON.stringify(item));
-    this.dialog.open(this.editInventoryDialog);
+    this.dialog.open(this.editInventoryDialog, {maxHeight: '550px', maxWidth: '750px'});
     // console.log(item);
   }
 
@@ -351,31 +353,18 @@ export class VendorsComponent implements OnInit {
   }
 
 
-  // deleteRow: any;
-  // deleteRow1(item: any, i: any) {
-  //   this.showLoader = true;
-  //   setTimeout(() => {
-  //     this.showLoader = false;
-  //     this.inventoryTable.splice(i, 1);
-  //   }, 1000);
-  // }
-
-
   @ViewChild('deleteInventoryDialog') deleteInventoryDialog = {} as TemplateRef<any>;
 
   openDeletePopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.deleteInventoryDialog);
+    this.dialog.open(this.deleteInventoryDialog, {maxHeight: '550px', maxWidth: '750px'});
     // console.log("Selected Item:: ", item);
   }
 
   deleteInventory() {
     // console.log(this.currentItem);
-
     this.alertSer.wait();
-
     // this.inventoryTable = this.inventoryTable.filter((item: any) => item.siteId !== this.currentItem.siteId);
-
     this.inventorySer.deleteInventory(this.currentItem).subscribe((res: any) => {
       // console.log(res);
       if(res) {
@@ -394,9 +383,6 @@ export class VendorsComponent implements OnInit {
   viewArray: any = [];
   ViewByCheckbox(itemV: any, i: any, e: any) {
     var checked = (e.target.checked);
-    // console.log("View By Checkbox:: ",itemV);
-    // console.log("View Array::" ,this.viewArray);
-    // console.log("present in array : "+this.viewArray.includes(itemV),  " checked : "+ checked)
     if (checked == true && this.viewArray.includes(itemV) == false) {
       this.viewArray.push(itemV);
       this.currentItem = this.viewArray[(this.viewArray.length - 1)];
@@ -408,7 +394,7 @@ export class VendorsComponent implements OnInit {
 
   viewBySelectedOne() {
     if (this.viewArray.length > 0) {
-      this.dialog.open(this.viewInventoryDialog)
+      this.dialog.open(this.viewInventoryDialog, {maxHeight: '550px', maxWidth: '750px'})
     }
   }
 
@@ -429,7 +415,7 @@ export class VendorsComponent implements OnInit {
 
   editBySelectedOne() {
     if (this.editArray.length > 0) {
-      this.dialog.open(this.editInventoryDialog)
+      this.dialog.open(this.editInventoryDialog, {maxHeight: '550px', maxWidth: '750px'})
     }
     this.getInventory();
   }
@@ -468,7 +454,6 @@ export class VendorsComponent implements OnInit {
       });
     }
   }
-
 
 
   sorted = false;

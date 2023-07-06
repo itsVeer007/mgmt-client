@@ -98,12 +98,6 @@ form button {
   background: none;
 }
 
-.table-icons {
-  display: flex;
-  justify-content: end;
-  align-items: center;
-}
-
 .table thead {
   background-image: linear-gradient(to right, #084982 , #D34124);
   color: #fff;
@@ -334,11 +328,9 @@ border: 1px solid #fff;
 /* CSS for Popup end */
 
 .search-form {
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 10px 0;
 }
 
 .filter-search-btn button{
@@ -359,11 +351,6 @@ border: 1px solid #fff;
     flex-direction: column;
     align-items: stretch;
   }
-
-  /* .table-icons {
-    position: relative;
-    left: 125px;
-  } */
 
   .inve-add {
     top: -422px;
@@ -413,13 +400,10 @@ border: 1px solid #fff;
   background-color: #084982;
 }
 
-/* ::ng-deep .mat-dialog-container {
-  width: 700px;
-} */
-
 /* .mat-form-field-appearance-outline ::ng-deep .mat-form-field-flex {
   padding: 5px 5px;
 } */
+
 
 /* common ng-deep */
 

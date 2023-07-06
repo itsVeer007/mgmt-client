@@ -71,8 +71,10 @@ export class DevicesComponent implements OnInit {
   searchText: any;
   deviceData: any = [];
   CustomerReport() {
+    this.showLoader = true;
     this.devService.listDeviceAdsInfo().subscribe((res: any) => {
       // console.log(res);
+      this.showLoader = false;
       let x = res.flatMap((item: any) => item.adsDevices);
       this.deviceData = x;
       // localStorage.setItem('deviceData', JSON.stringify(x));

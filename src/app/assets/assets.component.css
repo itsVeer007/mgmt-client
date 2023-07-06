@@ -54,12 +54,6 @@
   font-weight: 600;
 }
 
-.table-icons {
-  display: flex;
-  justify-content: end;
-  align-items: center;
-}
-
 .table thead {
   background-image: linear-gradient(to right, #084982, #D34124);
   color: #fff;
@@ -204,16 +198,17 @@
   transition: all ease-in .4s; */
 }
 
+.search-form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 
 @media only screen and (max-width: 768px) {
   .search-form {
     display: flex;
     flex-direction: column;
-  }
-
-  .table-icons {
-    position: relative;
-    left: 125px;
   }
 
   .search {
@@ -280,9 +275,9 @@
   display: inline-flex;
 }
 
-.device-mode-search .mat-form-field-appearance-outline ::ng-deep .mat-form-field-wrapper {
+/* .device-mode-search .mat-form-field-appearance-outline ::ng-deep .mat-form-field-wrapper {
   padding-bottom: 0;
-}
+} */
 
 ::ng-deep .mat-flat-button.mat-primary {
   background-color: #084982;

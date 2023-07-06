@@ -82,12 +82,6 @@ form button {
   background: none;
 }
 
-.table-icons {
-  display: flex;
-  justify-content: end;
-  align-items: center;
-}
-
 .table thead {
   background-image: linear-gradient(to right, #084982 , #D34124);
   color: #fff;

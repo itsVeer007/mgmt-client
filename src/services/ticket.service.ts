@@ -8,6 +8,8 @@ import { environment } from '../environments/environment';
   providedIn: 'root'
 })
 export class TicketService {
+  private commentSubject: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+  public comment$ = this.commentSubject.asObservable();
 
   // baseUrl = 'http://192.168.0.189:8080';
   baseUrl = `${environment.baseUrl}/ticketsManagement`;
@@ -21,41 +23,10 @@ export class TicketService {
     return this.http.get(url);
   }
 
-  getTasks(ticketId: any) {
-    let url = this.baseUrl + "/getTasks_1_0";
-
-    let myObj = {
-      'ticketId': ticketId,
-    }
-
-    return this.http.get(url, {params: myObj});
-  }
-
-  getcomments(ticketId: any) {
-    let url = this.baseUrl + "/getComments_1_0";
-
-    let myObj = {
-      'ticketId': ticketId,
-    }
-
-    return this.http.get(url, {params: myObj});
-  }
-
   createTicket(payload: any) {
     let url = this.baseUrl + '/createTicket_1_0';
     return this.http.post(url, payload);
   }
-
-  assignPerson(payload: any) {
-    let url = this.baseUrl + '/updateTicket_1_0';
-    return this.http.put(url, payload);
-  }
-
-  updateStatus(payload: any) {
-    let url = this.baseUrl + '/updateTask_1_0';
-    return this.http.put(url, payload);
-  }
-
 
   updateTicket(payload: any) {
     let url = this.baseUrl + '/updateTicket_1_0';
@@ -66,6 +37,57 @@ export class TicketService {
     let url = this.baseUrl + `/DeleteTicket?ticketId=${payload.ticketId}`;
 
     return this.http.delete(url);
+  }
+
+  getcomments(ticketId: any) {
+    // const comments = this.commentSubject.getValue();
+    this.comment$.subscribe();
+
+    let url = this.baseUrl + "/getComments_1_0";
+
+    let myObj = {
+      'ticketId': ticketId,
+    }
+    return this.http.get(url, {params: myObj});
+  }
+
+  createComment(payload: any) {
+    const comments = this.commentSubject.getValue();
+    comments.push(payload);
+    this.commentSubject.next(comments);
+
+    let url = this.baseUrl + '/createComment_1_0';
+    return this.http.post(url, payload);
+  }
+
+  getTasks(ticketId: any) {
+    let url = this.baseUrl + "/getTasks_1_0";
+
+    let myObj = {
+      'ticketId': ticketId,
+    }
+
+    return this.http.get(url, {params: myObj});
+  }
+
+  getTicketVisits(ticketId: any) {
+    let url = this.baseUrl + "/getTicketVisits_1_0";
+
+    let myObj = {
+      'ticketId': ticketId,
+    }
+
+    return this.http.get(url, {params: myObj});
+  }
+
+  assignPerson(payload: any) {
+    let url = this.baseUrl + '/updateTicket_1_0';
+    return this.http.put(url, payload);
+  }
+
+  updateStatus(payload: any) {
+    let url = this.baseUrl + '/updateTask_1_0';
+    return this.http.put(url, payload);
   }
 
 

@@ -83,7 +83,7 @@ export class SitesComponent implements OnInit {
     this.getlistSites()
     this.ongetDeviceMode();
     this.siteData = JSON.parse(localStorage.getItem('temp_sites')!);
-    this.siteIds = JSON.parse(localStorage.getItem('siteIds')!).sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
+    this.siteIds = JSON.parse(localStorage.getItem('siteIds')!)?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
     // this.myFun();
   }
 

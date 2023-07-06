@@ -58,7 +58,7 @@ export class AddNewTicketComponent implements OnInit {
     private fb: FormBuilder,
     private ticketSer: TicketService,
     private dropDown: MetadataService,
-    private alertSer: AlertService
+    public alertSer: AlertService
   ) { }
 
   ticketBody = {
@@ -113,7 +113,7 @@ export class AddNewTicketComponent implements OnInit {
     });
 
     this.onMetadataChange();
-    this.siteIds = JSON.parse(localStorage.getItem('siteIds')!).sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
+    this.siteIds = JSON.parse(localStorage.getItem('siteIds')!)?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
   }
 
     /* metadata methods */
@@ -142,33 +142,6 @@ export class AddNewTicketComponent implements OnInit {
           }
           else if(item.type == 'Device_Mode') {
             this.deviceMode = item.metadata;
-          }
-          else if(item.type == 'Working_Day') {
-            this.workingDay = item.metadata;
-          }
-          else if(item.type == 'Ads_Temp_Range') {
-            this.tempRange = item.metadata;
-          }
-          else if(item.type == 'Ads_Age_Range') {
-            this.ageRange = item.metadata;
-          }
-          else if(item.type == 'model_object_type') {
-            this.modelObjectType = item.metadata;
-          }
-          else if(item.type == 'Model') {
-            this.model = item.metadata;
-          }
-          else if(item.type == 'Model Resolution') {
-            this.modelResolution = item.metadata;
-          }
-          else if(item.type == 'Ads_Software_Version') {
-            this.softwareVersion = item.metadata;
-          }
-          else if(item.type == 'Weather_Interval') {
-            this.weatherInterval = item.metadata;
-          }
-          else if(item.type == 'Device_Status') {
-            this.deviceStatus = item.metadata;
           }
           else if(item.type == 'Ticket_Type') {
             this.ticketType = item.metadata;

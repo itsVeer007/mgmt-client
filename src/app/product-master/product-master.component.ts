@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
 import { MetadataService } from 'src/services/metadata.service';
 import { ProductMasterService } from 'src/services/product-master.service';
@@ -43,8 +44,10 @@ export class ProductMasterComponent implements OnInit {
     private http: HttpClient,
     private ass: AssetService,
     private productMasterSer: ProductMasterService,
+    private metaDataSer: MetadataService,
+
     public dialog: MatDialog,
-    private metaDataSer: MetadataService
+    public alertSer: AlertService
     ) { }
 
   ngOnInit(): void {
@@ -69,8 +72,10 @@ export class ProductMasterComponent implements OnInit {
   scrap: any = [];
   redyToUse: any = [];
   getInventory() {
+    this.showLoader = true;
     this.productMasterSer.list().subscribe((res: any) => {
       // console.log(res);
+      this.showLoader = false;
       // this.productMasterSer.mySub = res;
       // console.log(this.productMasterSer.mySub);
 
@@ -222,18 +227,6 @@ export class ProductMasterComponent implements OnInit {
       })
     }
 
-
-  masterSelected: boolean = false;
-
-  // allchecked(e:any){
-  //   if(document.querySelector('#allchecked:checked')){
-  //     this.masterSelected = true;
-  //   }else {
-  //     this.masterSelected = false;
-  //   }
-  // }
-
-
   selectedAll: any;
 
   selectAll() {
@@ -251,13 +244,14 @@ export class ProductMasterComponent implements OnInit {
   currentItem: any;
   originalObject: any;
 
+
   /* view inventory */
 
   @ViewChild('viewInventoryDialog') viewInventoryDialog = {} as TemplateRef<any>;
 
   openViewPopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.viewInventoryDialog);
+    this.dialog.open(this.viewInventoryDialog, {maxWidth: '550px', maxHeight: '550px'});
     // console.log(this.currentItem);
   }
 
@@ -267,13 +261,10 @@ export class ProductMasterComponent implements OnInit {
 
   openEditPopup(item: any) {
     this.currentItem = JSON.parse(JSON.stringify(item));
-    this.dialog.open(this.editInventoryDialog);
+    this.dialog.open(this.editInventoryDialog, {maxWidth: '550px', maxHeight: '550px'});
     // console.log(item);
   }
 
-  updateInventory0: any;
-  updateInventory1: any;
-  updateInventory2: any;
   editInventory() {
     // console.log(this.currentItem);
     // this.productMaster= this.productMaster.filter((item:any) => item.siteId !== this.currentItem.siteId);
@@ -294,91 +285,43 @@ export class ProductMasterComponent implements OnInit {
       "maintenanceRequired": this.currentItem.maintenanceRequired,
       "productStatusId": this.currentItem.productStatusId,
       "remarks": this.currentItem.remarks,
-
       "modifiedBy": 1,
     }
 
-    this.updateInventory2 = Swal.fire({
-      text: "Please wait",
-      imageUrl: "assets/gif/ajax-loading-gif.gif",
-      showConfirmButton: false,
-      allowOutsideClick: false
-    });
-
+    this.alertSer.wait();
     this.productMasterSer.updateProductMaster(this.originalObject).subscribe((res: any) => {
       // console.log(res);
-
       if(res) {
-        this.updateInventory1 = Swal.fire({
-          icon: 'success',
-          title: 'Done!',
-          text: 'Updated Inventory Successfully!',
-        });
+        this.alertSer.success(res);
       }
-
       setTimeout(() => {
         window.location.reload();
       }, 3000)
-
     }, (err: any) => {
       if(err) {
-        this.updateInventory0 = Swal.fire({
-          icon: 'error',
-          title: 'Failed!',
-          text: 'Ticket Updation failed',
-          // timer: 3000,
-        });
+        this.alertSer.error();
       };
     });
   }
-
-
-  // deleteRow: any;
-  // deleteRow1(item: any, i: any) {
-  //   this.showLoader = true;
-  //   setTimeout(() => {
-  //     this.showLoader = false;
-  //     this.productMaster.splice(i, 1);
-  //   }, 1000);
-  // }
-
 
   @ViewChild('deleteInventoryDialog') deleteInventoryDialog = {} as TemplateRef<any>;
 
   openDeletePopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.deleteInventoryDialog);
-    // console.log("Selected Item:: ", item);
+    this.dialog.open(this.deleteInventoryDialog, {maxWidth: '250px', maxHeight: '250px'});
   }
 
-  deleteInventory0: any;
-  deleteInventory1: any;
-  deleteInventory2: any;
   deleteInventory() {
-    this.deleteInventory2 = Swal.fire({
-      text: "Please wait",
-      imageUrl: "assets/gif/ajax-loading-gif.gif",
-      showConfirmButton: false,
-      allowOutsideClick: false
-    });
+    this.alertSer.wait();
 
     this.productMasterSer.deleteProduct(this.currentItem).subscribe((res: any) => {
       // console.log(res);
       if(res) {
-        this.deleteInventory1 = Swal.fire({
-          icon: 'success',
-          title: 'Done!',
-          text: 'Deleted Successfully!',
-        });
+        this.alertSer.success(res);
       }
     }, (err: any) => {
       if(err) {
-        this.deleteInventory0 = Swal.fire({
-          icon: 'error',
-          title: 'Failed!',
-          text: 'failed',
-          // timer: 3000,
-        });
+        this.alertSer.error();
       };
     });
   }
@@ -389,9 +332,6 @@ export class ProductMasterComponent implements OnInit {
   viewArray: any = [];
   ViewByCheckbox(itemV: any, i: any, e: any) {
     var checked = (e.target.checked);
-    // console.log("View By Checkbox:: ",itemV);
-    // console.log("View Array::" ,this.viewArray);
-    // console.log("present in array : "+this.viewArray.includes(itemV),  " checked : "+ checked)
     if (checked == true && this.viewArray.includes(itemV) == false) {
       this.viewArray.push(itemV);
       this.currentItem = this.viewArray[(this.viewArray.length - 1)];
@@ -403,16 +343,13 @@ export class ProductMasterComponent implements OnInit {
 
   viewBySelectedOne() {
     if (this.viewArray.length > 0) {
-      this.dialog.open(this.viewInventoryDialog)
+      this.dialog.open(this.viewInventoryDialog, {maxWidth: '550px', maxHeight: '550px'})
     }
   }
 
   editArray: any = [];
   EditByCheckbox(itemE: any, i: any, e: any) {
     var checked = (e.target.checked);
-    // console.log("Edit By Checkbox:: ",itemE);
-    // console.log("Edit Array::" ,this.editArray);
-    // console.log("present in array : "+this.editArray.includes(itemE),  " checked : "+ checked)
     if (checked == true && this.editArray.includes(itemE) == false) {
       this.editArray.push(itemE);
       this.currentItem = this.editArray[(this.editArray.length - 1)];
@@ -424,7 +361,7 @@ export class ProductMasterComponent implements OnInit {
 
   editBySelectedOne() {
     if (this.editArray.length > 0) {
-      this.dialog.open(this.editInventoryDialog)
+      this.dialog.open(this.editInventoryDialog, {maxWidth: '550px', maxHeight: '550px'})
     }
     this.getInventory();
   }
@@ -452,8 +389,6 @@ export class ProductMasterComponent implements OnInit {
   deleteSelected() {
     if (this.selectedAll == false) {
       this.deletearray.forEach((el: any) => {
-        // this.currentItem = el;
-        // this.deleteInventory();
         this.productMaster = this.productMaster.filter((item: any) => item.siteId !== el.siteId);
       });
       this.deletearray = []
@@ -463,7 +398,6 @@ export class ProductMasterComponent implements OnInit {
       });
     }
   }
-
 
 
   sorted = false;
@@ -476,6 +410,7 @@ export class ProductMasterComponent implements OnInit {
       x.sort((a: string, b: string) => b[label] > a[label] ? 1 : b[label] < a[label] ? -1 : 0);
     }
   }
+
 
   //Show Detail
   showDetail: boolean = false;

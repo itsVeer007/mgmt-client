@@ -366,7 +366,7 @@
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Device Mode</mat-label>
                 <mat-select [(ngModel)]="item.deviceModeId" disabled>
-                  <mat-option [value]="item.deviceModeId">{{ item.deviceModeId }}</mat-option>
+                  <mat-option *ngFor="let item of deviceMode" [value]="item.keyId">{{ item.value }}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -394,7 +394,7 @@
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Working Days</mat-label>
                 <mat-select [(ngModel)]="item.workingDays" disabled>
-                  <mat-option [value]="item.workingDays">{{ item.workingDays }}</mat-option>
+                  <mat-option *ngFor="let item of workingDay" [value]="item.keyId">{{ item.value }}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -434,7 +434,7 @@
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Status</mat-label>
                 <mat-select [(ngModel)]="item.status" disabled>
-                  <mat-option [value]="item.status">{{ item.status }}</mat-option>
+                  <mat-option *ngFor="let item of deviceStatus" [value]="item.keyId">{{ item.value }}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -575,7 +575,8 @@
               </mat-form-field>
             </div>
 
-            <div class="col-lg-12 d-flex mb-3" *ngIf="item.deviceModeId == 3">
+            <div class="col-lg-6"></div>
+            <!-- <div class="col-lg-12 d-flex mb-3" *ngIf="item.deviceModeId == 3">
               <p class="device-title m-0">Debug On</p>
               <p class="device-sub m-0">: {{ item.debugOn == 0 ? 'False' : item.debugOn == 1 ? 'True' : 'False'}}</p>
             </div>
@@ -588,6 +589,30 @@
             <div class="col-lg-12 d-flex mb-3" *ngIf="item.deviceModeId == 3">
               <p class="device-title m-0">Refresh Rules</p>
               <p class="device-sub m-0">: {{ item.refreshRules == 0 ? 'False' : item.refreshRules == 1 ? 'True' : 'False'}}</p>
+            </div> -->
+
+            <div class="col-lg-4 mt-2" *ngIf="item.deviceModeId == 3" style="font-size: 10px; font-weight: 700;">
+              <mat-radio-group class="w-50" [(ngModel)]="item.debugOn">
+                <mat-label>Debug On</mat-label>
+                <mat-radio-button class="ms-3" name="logs" [value]="1">True</mat-radio-button>
+                <mat-radio-button class="ms-3" name="logs" [value]="0" checked>False</mat-radio-button>
+              </mat-radio-group>
+            </div>
+
+            <div class="col-lg-4 mt-2" *ngIf="item.deviceModeId == 3" style="font-size: 10px; font-weight: 700;">
+              <mat-radio-group class="w-50" [(ngModel)]="item.debugLogs">
+                <mat-label>Debug Logs</mat-label>
+                <mat-radio-button class="ms-3" name="display" [value]='1'>True</mat-radio-button>
+                <mat-radio-button class="ms-3" name="display" [value]='0' checked>False</mat-radio-button>
+              </mat-radio-group>
+            </div>
+
+            <div class="col-lg-4 mt-2" *ngIf="item.deviceModeId == 3" style="font-size: 10px; font-weight: 700;">
+              <mat-radio-group class="w-50" [(ngModel)]="item.refreshRules">
+                <mat-label>Refresh Rules</mat-label>
+                  <mat-radio-button class="ms-3" name="refresh" [value]='1'>True</mat-radio-button>
+                  <mat-radio-button class="ms-3" name="refresh" [value]='0' checked>False</mat-radio-button>
+              </mat-radio-group>
             </div>
             <!-- /ODR -->
 

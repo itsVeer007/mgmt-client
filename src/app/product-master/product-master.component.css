@@ -99,11 +99,10 @@ form button {
 }
 
 .search-form {
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 10px 0;
+  /* margin: 10px 0; */
 }
 
 .filter-search-btn button{
@@ -115,12 +114,6 @@ form button {
 
 .filter-search-btn button:hover{
   opacity: 0.9;
-}
-
-.table-icons {
-  display: flex;
-  justify-content: end;
-  align-items: center;
 }
 
 .table thead {
@@ -288,11 +281,6 @@ form button {
     flex-direction: column;
     align-items: stretch;
   }
-
-  /* .table-icons {
-    position: relative;
-    left: 125px;
-  } */
 
   .inve-add {
     top: -422px;
