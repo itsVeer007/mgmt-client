@@ -75,7 +75,7 @@
 
 .form1 th{
   color: #fff;
-  padding: 10px 0;
+  padding: 10px;
   font-size: 12px;
   text-align: left;
   /* justify-content:center; */
@@ -83,18 +83,15 @@
 
 .table-resp{
   /* padding: 10px; */
-  max-height: calc(100vh - (280px));
+  max-height: calc(100vh - (218px));
   overflow-y: scroll;
 }
-
-/* .table-resp table{
-  border: 1px solid #EFEFEF;
-} */
 
 .table tbody tr td {
   /* align-items: center; */
   vertical-align: middle;
   height: 36px;
+  padding: 0 10px;
 }
 
 .table tbody tr td p {

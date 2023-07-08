@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('user', JSON.stringify(res));
         this.apiser.user$.next(res);
         this.route.navigate(['/main-dashboard']);
-      }else {
+      } else {
         this.errorMsg = res.Message;
       }
     });

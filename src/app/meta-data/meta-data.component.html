@@ -63,14 +63,14 @@
     <table class="table table-hover" id="mytable">
       <thead>
         <tr class="form1">
-          <th>
+          <!-- <th>
               <input type="checkbox" class="form-check-input" [(ngModel)]="selectedAll" (change)="selectAll()"
                 id="allcheck" style="
                   background-color: #00000000;
                   border-color: #fff;
                   margin-left: 10px;
                 " />
-            </th>
+            </th> -->
 
             <th>
               <span>KeyId</span>
@@ -94,7 +94,7 @@
 
             <th>Remarks</th>
 
-            <th></th>
+            <th class="text-center">Actions</th>
         </tr>
       </thead>
 
@@ -102,14 +102,14 @@
         <ng-container *ngFor="let obj of metaData | search: searchText; let i = index">
           <ng-container *ngFor="let item of obj.metadata">
             <tr>
-              <td>
+              <!-- <td>
                 <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="item.selected" (change)="
                     checkIfAllSelected();
                     deleteMultiRecords(item, i, $event);
                     ViewByCheckbox(item, i, $event);
                     EditByCheckbox(item, i, $event)
                   " id="singleCheck" />
-              </td>
+              </td> -->
 
               <!-- <td>
                 <p>--</p>
@@ -137,26 +137,29 @@
                 <p>{{item.remarks ? item.remarks : '--'}}</p>
               </td>
 
-              <td style="position: relative;">
-                <a class="pointer" (click)="closeDot($event, i)"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
+              <td class="text-center">
+                <!-- <a class="pointer" (click)="closeDot($event, i)"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
+
                 <div class="plus-img1" id="plus-img{{ i }}" style="display: none">
-                  <!-- <div class="lists" *ngIf="showIconView1" style="margin-left: 5px; margin-top: -20px">
+                  <div class="lists" *ngIf="showIconView1" style="margin-left: 5px; margin-top: -20px">
                     View
-                  </div> -->
+                  </div>
                   <div class="lists" *ngIf="showIconEdit1" style="margin-left: 8px; margin-top: -25px">
                     Edit
                   </div>
                   <div class="lists" *ngIf="showIconDelete1" style="margin-left: 28px; margin-top: -25px">
                     Delete
                   </div>
+                </div> -->
 
                   <!-- <a class="mx-2" (click)="openViewPopup(item, i)"><img src="assets/icons/view.svg"
                       (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" /></a> -->
-                  <a class="mx-2" (click)="openEditPopup(item, typeInput.value)"><img src="assets/icons/edit.svg"
-                      (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" /></a>
-                  <a class="mx-2" value="Delete" (click)="openDeletePopup(item, i)"><img src="assets/icons/delete.svg"
-                      (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" /></a>
-                </div>
+                  <a class="mx-2 pointer" (click)="openEditPopup(item, typeInput.value)">
+                    <img src="assets/icons/edit.svg" (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" />
+                  </a>
+                  <a class="mx-2 pointer" value="Delete" (click)="openDeletePopup(item, i)">
+                    <img src="assets/icons/delete.svg" (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" />
+                  </a>
               </td>
             </tr>
           </ng-container>
@@ -167,14 +170,14 @@
         <ng-container *ngFor="let obj of newMetaData | search: searchText; let i = index">
           <ng-container *ngFor="let item of obj.metadata">
             <tr>
-              <td>
+              <!-- <td>
                 <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="item.selected" (change)="
                     checkIfAllSelected();
                     deleteMultiRecords(item, i, $event);
                     ViewByCheckbox(item, i, $event);
                     EditByCheckbox(item, i, $event)
                   " id="singleCheck" />
-              </td>
+              </td> -->
 
               <td>
                 <p>{{item.keyId}}</p>
@@ -198,26 +201,30 @@
                 <p>{{item.remarks ? item.remarks : '--'}}</p>
               </td>
 
-              <td style="position: relative;">
-                <a class="pointer" (click)="closeDot($event, i)"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
+              <td class="text-center">
+                <!-- <a class="pointer" (click)="closeDot($event, i)"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
+
                 <div class="plus-img1" id="plus-img{{ i }}" style="display: none">
-                  <!-- <div class="lists" *ngIf="showIconView1" style="margin-left: 5px; margin-top: -20px">
+                  <div class="lists" *ngIf="showIconView1" style="margin-left: 5px; margin-top: -20px">
                     View
-                  </div> -->
+                  </div>
                   <div class="lists" *ngIf="showIconEdit1" style="margin-left: 8px; margin-top: -25px">
                     Edit
                   </div>
                   <div class="lists" *ngIf="showIconDelete1" style="margin-left: 28px; margin-top: -25px">
                     Delete
                   </div>
+                </div> -->
 
-                  <!-- <a class="mx-2" (click)="openViewPopup(item, i)"><img src="assets/icons/view.svg"
-                      (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" /></a> -->
-                  <a class="mx-2" (click)="openEditPopup(item, typeInput.value)"><img src="assets/icons/edit.svg"
-                      (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" /></a>
-                  <a class="mx-2" value="Delete" (click)="openDeletePopup(item, i)"><img src="assets/icons/delete.svg"
-                      (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" /></a>
-                </div>
+                  <!-- <a class="mx-2" (click)="openViewPopup(item, i)">
+                    <img src="assets/icons/view.svg" (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false">
+                  </a> -->
+                  <a class="mx-2 pointer" (click)="openEditPopup(item, typeInput.value)">
+                    <img src="assets/icons/edit.svg" (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false">
+                  </a>
+                  <a class="mx-2 pointer" value="Delete" (click)="openDeletePopup(item, i)">
+                    <img src="assets/icons/delete.svg" (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false">
+                  </a>
               </td>
             </tr>
           </ng-container>

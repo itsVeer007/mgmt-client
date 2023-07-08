@@ -3,7 +3,7 @@
   <!-- header -->
   <div class="d-flex align-items-center justify-content-between">
     <div class="users-header">
-      <p class="mt-2">List of Advertisements - <span>{{ newAssetTable.length }}</span></p>
+      <p class="mt-2">List of Advertisements - <span>{{ newAssetTable?.length }}</span></p>
     </div>
 
     <div>
@@ -13,28 +13,20 @@
   <!-- /header -->
 
   <!-- status -->
-  <div class="row">
+  <div class="row mb-2">
     <div class="col-lg-1 col-md-1 d-flex justify-content-start">
       <div class="vl-green"></div>
       <div class="mx-2">
         <div class="status">Added</div>
-        <div class="count">{{ added.length }}</div>
+        <div class="count">{{ added?.length }}</div>
       </div>
     </div>
 
     <div class="col-lg-1 col-md-1 d-flex justify-content-start">
-      <div class="vl-red"></div>
-      <div class="mx-2">
-        <div class="status">Removed</div>
-        <div class="count">{{ removed.length }}</div>
-      </div>
-    </div>
-
-    <div class="col-lg-1 col-md-1 d-flex justify-content-start">
-      <div class="vl-yellow"></div>
+      <div class="vl-blue"></div>
       <div class="mx-2">
         <div class="status">Synced</div>
-        <div class="count">{{ synced.length }}</div>
+        <div class="count">{{ synced?.length }}</div>
       </div>
     </div>
 
@@ -42,7 +34,15 @@
       <div class="vl-yellow"></div>
       <div class="mx-2">
         <div class="status">Pending</div>
-        <div class="count">{{ pending.length }}</div>
+        <div class="count">{{ pending?.length }}</div>
+      </div>
+    </div>
+
+    <div class="col-lg-1 col-md-1 d-flex justify-content-start">
+      <div class="vl-red"></div>
+      <div class="mx-2">
+        <div class="status">Removed</div>
+        <div class="count">{{ removed?.length }}</div>
       </div>
     </div>
   </div>
@@ -153,8 +153,10 @@
       </mat-form-field>
     </div>
 
-    <div class="col-lg-2 col-md-2 col-sm-12 text-end">
-      <!-- <div class="lists" *ngIf="showIconView" style="margin-right: 60px; margin-top: -40px">
+    <div class="col-lg-2 col-md-2"></div>
+
+    <!-- <div class="col-lg-2 col-md-2 col-sm-12 text-end">
+      <div class="lists" *ngIf="showIconView" style="margin-right: 60px; margin-top: -40px">
         View
       </div>
       <div class="lists" *ngIf="showIconEdit" style="margin-right: 30px; margin-top: -40px">
@@ -162,12 +164,12 @@
       </div>
       <div class="lists" *ngIf="showIconDelete" style="margin-right: -5px; margin-top: -40px">
         Delete
-      </div> -->
+      </div>
 
       <a class="mx-2 pointer" (click)="viewBySelectedOne()"><img src="assets/icons/view.svg" (mouseenter)="showIconView=true" (mouseleave)="showIconView=false"></a>
       <a class="mx-2 pointer" (click)="editBySelectedOne()"><img src="assets/icons/edit.svg" (mouseenter)="showIconEdit=true" (mouseleave)="showIconEdit=false"></a>
       <a class="mx-2 pointer" (click)="deleteSelected()"><img src="assets/icons/delete.svg" (mouseenter)="showIconDelete=true" (mouseleave)="showIconDelete=false"></a>
-    </div>
+    </div> -->
   </div>
 
 
@@ -178,18 +180,18 @@
       <table class="table table-hover" id="mytable">
         <thead>
           <tr class="form1">
-            <th>
+            <!-- <th>
               <input type="checkbox" class="form-check-input" [(ngModel)]="selectedAll" (change)="selectAll()" id="allcheck"
                 style="background-color: #00000000; border-color: #fff; margin-left: 10px;">
-            </th>
+            </th> -->
 
             <th>
-              <span>Add Id</span>
+              <span>Id</span>
               <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </th>
 
             <th>
-              <span>Add Name</span>
+              <span>Name</span>
               <img (click)="sort('name')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </th>
 
@@ -236,15 +238,22 @@
 
             <th class="text-center">Play</th>
 
-            <th></th>
+            <th class="text-center">Actions</th>
           </tr>
         </thead>
 
         <tbody *ngIf="siteIdInput.value == 'All'">
           <tr *ngFor="let item of newAssetTable | search: searchText; let i=index;" (dblclick)="openViewPopup(item)">
-            <td>
-              <input type="checkbox" class="form-check-input" [(ngModel)]="item.selected" (change)="checkIfAllSelected(); deleteMultiRecords(item, $event); ViewByCheckbox(item, $event); EditByCheckbox(item, $event)" id="singleCheck">
-            </td>
+            <!-- <td>
+              <input type="checkbox"
+              class="form-check-input"
+              [(ngModel)]="item.selected"
+              (change)="checkIfAllSelected();
+              deleteMultiRecords(item, $event);
+              ViewByCheckbox(item, $event);
+              EditByCheckbox(item, $event)"
+              id="singleCheck">
+            </td> -->
 
             <td>
               <p>{{ item.id }}</p>
@@ -258,14 +267,6 @@
               <p>{{ item.deviceId ? item.deviceId : '--' }}</p>
             </td> -->
 
-            <!-- <td>
-              <p>{{ siteIdList + ' ' + '--'}}</p>
-            </td> -->
-
-            <!-- <td>
-              <p>{{ item.deviceId + ' ' + '--'}}</p>
-            </td> -->
-
             <td>
               <p *ngIf="item.deviceModeId == 1">BS</p>
               <p *ngIf="item.deviceModeId == 2">BSR</p>
@@ -273,28 +274,17 @@
               <!-- <p>{{item.deviceModeId}}</p> -->
             </td>
 
-            <!-- <td>
-                <p>{{ item.mimetype }}</p>
-              </td> -->
-
             <td>
               <p>{{item.duration}}</p>
             </td>
 
             <td>
-              <p>{{item.fromDate ? (item.fromDate | date:'mediumDate') : currentDateTime }}</p>
+              <p>{{item.fromDate ? (item.fromDate | date:'mediumDate') : (currentDateTime | date:'mediumDate') }}</p>
             </td>
 
             <td>
-              <p>{{item.toDate ? (item.toDate | date:'mediumDate') : endDateTime }}</p>
+              <p>{{item.toDate ? (item.toDate | date:'mediumDate') : (endDateTime | date:'mediumDate') }}</p>
             </td>
-
-            <!-- <td>
-              <p>{{item.description}}</p>
-            </td> -->
-            <!-- <td>
-                <button class="bg-white" style="color: #084982">{{ item.address }}</button>
-              </td> -->
 
             <td>
               <p [style.color]="item.status == 1 ? '#F5B400' : item.status == 2 ? '#00A44C' : item.status == 5 ? '#fa500f' : '#00A44C'">
@@ -352,8 +342,8 @@
               </a>
             </td>
 
-            <td style="position: relative;">
-              <a class="pointer" (click)="closeDot($event, i)"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
+            <td class="text-center">
+              <!-- <a class="pointer" (click)="closeDot($event, i)"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
 
               <div class="plus-img1" id="plus-img{{i}}" style="display: none">
                 <div class="lists" *ngIf="showIconView1" style="margin-left: 5px; margin-top: -20px">
@@ -365,20 +355,27 @@
                 <div class="lists" *ngIf="showIconDelete1" style="margin-left: 63px; margin-top: -20px">
                   Delete
                 </div>
+              </div> -->
 
-                <a class="mx-2" (click)="openViewPopup(item)"><img src="assets/icons/view.svg" (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" /></a>
-                <a class="mx-2" (click)="openEditPopupp(item)"><img src="assets/icons/edit.svg" (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" /></a>
-                <a class="mx-2" value="Delete" (click)="openDeletePopup(item)"><img src="assets/icons/delete.svg" (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" /></a>
-              </div>
+                <a class="mx-2 pointer" (click)="openViewPopup(item)"><img src="assets/icons/view.svg" (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" /></a>
+                <a class="mx-2 pointer" (click)="openEditPopupp(item)"><img src="assets/icons/edit.svg" (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" /></a>
+                <a class="mx-2 pointer" value="Delete" (click)="openDeletePopup(item)"><img src="assets/icons/delete.svg" (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" /></a>
             </td>
           </tr>
         </tbody>
 
         <tbody *ngIf="siteIdInput.value != 'All'">
           <tr *ngFor="let item of newAssetTable | search: searchText; let i=index;" (dblclick)="openViewPopup(item)">
-            <td>
-              <input type="checkbox" class="form-check-input" [(ngModel)]="item.selected" (change)="checkIfAllSelected(); deleteMultiRecords(item, $event); ViewByCheckbox(item, $event); EditByCheckbox(item, $event)" id="singleCheck">
-            </td>
+            <!-- <td>
+              <input type="checkbox"
+              class="form-check-input"
+              [(ngModel)]="item.selected"
+              (change)="checkIfAllSelected();
+              deleteMultiRecords(item, $event);
+              ViewByCheckbox(item, $event);
+              EditByCheckbox(item, $event)"
+              id="singleCheck">
+            </td> -->
 
             <td>
               <p>{{ item.id }}</p>
@@ -388,47 +385,23 @@
               <p>{{ item.name ? item.name : '--' }}</p>
             </td>
 
-            <!-- <td>
-              <p>{{ item.deviceId ? item.deviceId : '--' }}</p>
-            </td> -->
-
-            <!-- <td>
-              <p>{{ siteIdList + ' ' + '--'}}</p>
-            </td> -->
-
-            <!-- <td>
-              <p>{{ item.deviceId + ' ' + '--'}}</p>
-            </td> -->
-
             <td>
               <p *ngIf="item.deviceModeId == 1">BS</p>
               <p *ngIf="item.deviceModeId == 2">BSR</p>
               <p *ngIf="item.deviceModeId == 3">ODR</p>
-              <!-- <p>{{item.deviceModeId}}</p> -->
             </td>
-
-            <!-- <td>
-                <p>{{ item.mimetype }}</p>
-              </td> -->
 
             <td>
               <p>{{item.duration}}</p>
             </td>
 
             <td>
-              <p>{{item.fromDate ? item.fromDate : currentDateTime }}</p>
+              <p>{{item.fromDate ? (item.fromDate | date:'mediumDate') : (currentDateTime | date:'mediumDate') }}</p>
             </td>
 
             <td>
-              <p>{{item.toDate ? item.toDate : endDateTime }}</p>
+              <p>{{item.toDate ? (item.toDate | date:'mediumDate') : (endDateTime | date:'mediumDate') }}</p>
             </td>
-
-            <!-- <td>
-              <p>{{item.description}}</p>
-            </td> -->
-            <!-- <td>
-                <button class="bg-white" style="color: #084982">{{ item.address }}</button>
-              </td> -->
 
             <td>
               <p [style.color]="item.status == 1 ? '#F5B400' : item.status == 2 ? '#00A44C' : item.status == 5 ? '#fa500f' : '#00A44C'">
@@ -486,8 +459,8 @@
               </a>
             </td>
 
-            <td style="position: relative;">
-              <a class="pointer" (click)="closeDot($event, i)"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
+            <td class="text-center">
+              <!-- <a class="pointer" (click)="closeDot($event, i)"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
 
               <div class="plus-img1" id="plus-img{{i}}" style="display: none">
                 <div class="lists" *ngIf="showIconView1" style="margin-left: 5px; margin-top: -20px">
@@ -499,33 +472,34 @@
                 <div class="lists" *ngIf="showIconDelete1" style="margin-left: 63px; margin-top: -20px">
                   Delete
                 </div>
+              </div> -->
 
-                <a class="mx-2" (click)="openViewPopup(item)"><img src="assets/icons/view.svg" (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" /></a>
-                <a class="mx-2" (click)="openEditPopupp(item)"><img src="assets/icons/edit.svg" (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" /></a>
-                <a class="mx-2" value="Delete" (click)="openDeletePopup(item)"><img src="assets/icons/delete.svg" (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" /></a>
-              </div>
+                <a class="mx-2 pointer" (click)="openViewPopup(item)"><img src="assets/icons/view.svg" (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" /></a>
+                <a class="mx-2 pointer" (click)="openEditPopupp(item)"><img src="assets/icons/edit.svg" (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" /></a>
+                <a class="mx-2 pointer" value="Delete" (click)="openDeletePopup(item)"><img src="assets/icons/delete.svg" (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" /></a>
             </td>
           </tr>
         </tbody>
       </table>
-
-      <!-- <div class="d-flex align-items-center justify-content-center" style="height: 50vh;" *ngIf="siteIdInput.value == ''">
-        <h1 class="text-secondary" >Select Site to View Advertisements</h1>
-      </div> -->
-
-      <div class="d-flex align-items-center justify-content-center" style="height: 50vh;" *ngIf="newAssetTable.length == 0 && siteIdInput.value != 'All' && !showLoader">
-        <h1 class="text-secondary">No Advertisements</h1>
-      </div>
+      <!-- table -->
     </div>
-    <!-- table -->
+
+    <!-- <div class="d-flex align-items-center justify-content-center" style="height: 50vh;" *ngIf="siteIdInput.value == ''">
+      <h1 class="text-secondary" >Select Site to View Advertisements</h1>
+    </div> -->
+
+    <div class="d-flex align-items-center justify-content-center" style="height: 50vh;" *ngIf="newAssetTable.length == 0 && siteIdInput.value != 'All' && !showLoader">
+      <h1 class="text-secondary">No Advertisements</h1>
+    </div>
+
+    <!-- Loader -->
+    <div >
+      <app-loader *ngIf="showLoader" class="d-flex justify-content-center align-items-center" style="height: 50vh;"></app-loader>
+    </div>
+    <!-- /Loader -->
   </div>
 </div>
 
-<!-- Loader -->
-<div >
-  <app-loader *ngIf="showLoader" class="d-flex justify-content-center align-items-center" style="height: 50vh;"></app-loader>
-</div>
-<!-- /Loader -->
 
 <ng-template #viewAssetDialog>
   <div class="row" *ngIf="currentItem">
@@ -678,5 +652,5 @@
 
 
 <div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showAsset">
-  <app-add-new-asset (newItemEvent)="closenow($event, 'asset'); refreshList($event)"></app-add-new-asset>
+  <app-add-new-asset (newItemEvent)="closenow($event, 'asset')"></app-add-new-asset>
 </div>

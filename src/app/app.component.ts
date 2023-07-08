@@ -8,9 +8,10 @@ import { ApiService } from 'src/services/api.service';
 })
 export class AppComponent {
   title = 'mgmtClient';
-  user=null;
+  user = null;
 
-  constructor(private apiser: ApiService){}
+  constructor(private apiser: ApiService) {}
+
   ngOnInit(){
     if (isDevMode()) {
       console.log('Stagging!');
@@ -18,10 +19,13 @@ export class AppComponent {
       console.log('Production!');
     }
 
-    // this.user=JSON.parse(localStorage.getItem('user')!);
-
     this.apiser.user$.subscribe(() => {
-      this.user=JSON.parse(localStorage.getItem('user')!);
+      this.user = JSON.parse(localStorage.getItem('user')!);
     });
   }
+
+  // ngOnDestroy(){
+  //   this.apiser.user$.next(null);
+  // }
+
 }

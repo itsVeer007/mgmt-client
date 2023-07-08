@@ -124,7 +124,7 @@ z-index: 1;
 
 .form1 th{
 color: #fff;
-padding: 10px 0;
+padding: 10px;
 font-size: 12px;
 text-align: left;
 }
@@ -141,6 +141,7 @@ border: 1px solid #EFEFEF;
 .table tbody tr td {
 vertical-align: middle;
 height: 36px;
+padding: 0 10px;
 }
 
 .table tbody tr td p {

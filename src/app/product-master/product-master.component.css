@@ -142,19 +142,20 @@ form button {
 
 .form1 th{
   color: #fff;
-  padding: 10px 0;
+  padding: 10px;
   font-size: 12px;
   text-align: left;
 }
 
 .table-resp{
-  max-height: calc(100vh - (292px));
+  max-height: calc(100vh - (245px));
   overflow-y: scroll;
 }
 
 .table tbody tr td {
   vertical-align: middle;
   height: 36px;
+  padding: 0 10px;
 }
 
 .table tbody tr td p {

@@ -54,9 +54,9 @@ export class TicketsComponent implements OnInit {
     this.CustomerReport();
     this.onGetMetadata();
 
-    this.ticketSer.comment$.subscribe((comments: any) => {
-      this.ticketComments = comments;
-    });
+    // this.ticketSer.comment$.subscribe((comments: any) => {
+    //   this.ticketComments = comments;
+    // });
   }
 
   showIconVertical: boolean = false;
@@ -87,20 +87,21 @@ export class TicketsComponent implements OnInit {
       this.showLoader = false;
       this.ticketData = res;
       this.newTicketData = this.ticketData;
-    })
 
-    // for(let item of this.newTicketData) {
-    //   if(item.statusId == 1) {
-    //     this.ticketOpen.push(item)
-    //   } else if(item.statusId == 2) {
-    //     this.ticketProgress.push(item)
-    //   } else if(item.statusId == 3) {
-    //     this.ticketClose.push(item)
-    //   } else if(item.statusId == 4) {
-    //     this.ticketRejected.push(item)
-    //   }
-    // }
+      for(let item of this.ticketData) {
+        if(item.statusId == 1) {
+          this.ticketOpen.push(item)
+        } else if(item.statusId == 2) {
+          this.ticketProgress.push(item)
+        } else if(item.statusId == 3) {
+          this.ticketClose.push(item)
+        } else if(item.statusId == 4) {
+          this.ticketRejected.push(item)
+        }
+      }
+    })
   }
+
 
   // filterBySite(val: any) {
   //   if(val == 'none') {
@@ -278,6 +279,11 @@ export class TicketsComponent implements OnInit {
     this.ticketSer.getcomments(item.ticketId).subscribe((comments: any) => {
       this.ticketComments = comments;
     });
+
+    // this.ticketSer.comment$.subscribe((cmt: any) => {
+    //   console.log(cmt);
+    //   this.ticketComments = cmt;
+    // })
   }
 
 
@@ -471,7 +477,10 @@ export class TicketsComponent implements OnInit {
   /* create comment */
 
   cmtValue: any;
+  newComment: any = [];
+  todayDate = new Date();
   createComment() {
+    this.newComment.push(this.cmtValue);
     let myObj = {
       'ticketId': this.currentItem.ticketId,
       'message': this.cmtValue,
@@ -479,7 +488,7 @@ export class TicketsComponent implements OnInit {
     }
 
     this.ticketSer.createComment(myObj).subscribe((res: any) => {
-      // console.log(res);
+    this.ticketSer.comment$.next(res);
     });
     this.cmtValue = ''
   }
@@ -515,9 +524,6 @@ export class TicketsComponent implements OnInit {
 
   EditByCheckbox(itemE: any, i: any, e: any) {
     var checked = (e.target.checked);
-    // console.log("Edit By Checkbox:: ",itemE);
-    // console.log("Edit Array::" ,this.editArray);
-    // console.log("present in array : "+this.editArray.includes(itemE),  " checked : "+ checked)
     if (checked == true && this.editArray.includes(itemE) == false) {
       this.editArray.push(itemE);
       this.currentItem = this.editArray[(this.editArray.length - 1)];
@@ -530,7 +536,7 @@ export class TicketsComponent implements OnInit {
   deletearray: any = [];
   deleteMultiRecords(item: any, i: any, e: any) {
     var checked = (e.target.checked);
-    // console.log("Delete Multiple Records:: ", item);
+    // console.log(item);
     if (this.deletearray.length == 0) { this.deletearray.push(item) }
 
     this.deletearray.forEach((el: any) => {

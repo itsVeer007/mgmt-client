@@ -36,14 +36,14 @@
       </div>
     </div>
     <div class="col-lg-1 col-md-1 d-flex justify-content-start">
-      <div class="vl-yellow"></div>
+      <div class="vl-orange"></div>
       <div class="mx-2">
         <div class="status">Rejected</div>
         <div class="count">{{ ticketRejected?.length }}</div>
       </div>
     </div>
     <div class="col-lg-1 col-md-1 d-flex justify-content-start">
-      <div class="vl-yellow"></div>
+      <div class="vl-red"></div>
       <div class="mx-2">
         <div class="status">Closed</div>
         <div class="count">{{ ticketClose?.length }}</div>
@@ -54,7 +54,7 @@
 
   <!-- form -->
   <div class="search-form row">
-    <div class="col-lg-1 col-md-1">
+    <div class="col-lg-2 col-md-2">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Request Id</mat-label>
         <mat-select (focus)="removeDuplicates()" [(ngModel)]="rqsId">
@@ -107,17 +107,17 @@
       <button (click)="applyFilter()">Submit</button>
     </div>
 
-    <div class="col-lg-2 col-md-2 text-end">
-      <!-- <div class="lists" *ngIf="showIconView" style="margin-right: 60px; margin-top: -40px;">View</div>
+    <!-- <div class="col-lg-2 col-md-2 text-end">
+      <div class="lists" *ngIf="showIconView" style="margin-right: 60px; margin-top: -40px;">View</div>
       <div class="lists" *ngIf="showIconEdit" style="margin-right: 30px; margin-top: -40px;">Edit</div>
-      <div class="lists" *ngIf="showIconDelete" style="margin-right: -5px; margin-top: -40px;">Delete</div> -->
+      <div class="lists" *ngIf="showIconDelete" style="margin-right: -5px; margin-top: -40px;">Delete</div>
 
       <a class="mx-2 pointer" (click)="viewBySelectedOne()"><img src="assets/icons/view.svg" (mouseenter)="showIconView = true" (mouseleave)="showIconView = false" /></a>
       <a class="mx-2 pointer" (click)="editBySelectedOne()"><img src="assets/icons/edit.svg" (mouseenter)="showIconEdit = true" (mouseleave)="showIconEdit = false" /></a>
       <a class="mx-2 pointer" (click)="deleteSelected()"><img src="assets/icons/delete.svg" (mouseenter)="showIconDelete = true" (mouseleave)="showIconDelete = false" /></a>
-    </div>
+    </div> -->
 
-    <!-- <div class="ms-5">
+    <!-- <div class="col-lg-2 col-md-2">
       <mat-form-field class="example-form-field" appearance="outline" class="w-100">
         <mat-label>Search</mat-label>
         <input matInput type="text"  [(ngModel)]="searchText">
@@ -132,16 +132,16 @@
   <!-- table starts -->
   <div class="table-resp">
     <table class="table table-hover" id="mytable">
-      <tbody>
+      <thead>
         <tr class="form1">
-          <th>
+          <!-- <th>
             <input type="checkbox" class="form-check-input" [(ngModel)]="selectedAll" (change)="selectAll()"
               id="allcheck" style="
                 background-color: #00000000;
                 border-color: #fff;
                 margin-left: 10px;
               " />
-          </th>
+          </th> -->
 
           <th>
             <span>Id</span>
@@ -200,19 +200,20 @@
             <img (click)="sort('statusId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
-          <th></th>
+          <th class="text-center">Actions</th>
         </tr>
+      </thead>
 
+      <tbody>
         <tr *ngFor="let cust of newTicketData | search : searchText; let i = index" (dblclick)="openViewPopup(cust)">
-          <td>
+          <!-- <td>
             <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="cust.selected" (change)="
                 checkIfAllSelected();
                 deleteMultiRecords(cust, i, $event);
                 ViewByCheckbox(cust, i, $event);
                 EditByCheckbox(cust, i, $event)
               " id="singleCheck" />
-          </td>
-          <!-- <td><input type="checkbox" class="form-check-input" [checked]="masterSelected" /></td> -->
+          </td> -->
           <td>
             <p>{{ cust.ticketId }}</p>
           </td>
@@ -233,24 +234,35 @@
           </td>
 
           <td>
-            <p (click)="openAssigned(cust)" *ngIf="cust.assignedTo != '' || cust.assignedTo != null">{{ cust.assignedTo == 1 ? 'Brey' : cust.assignedTo == 2 ? 'Danny' : cust.assignedTo == 3 ? 'Kranthi' : '' }}</p>
-            <a class="pointer" (click)="openAssigned(cust)"><img src="assets/icons/add-svg.svg" *ngIf="cust.assignedTo == '' || cust.assignedTo == null" width="25" height="25"></a>
+            <p *ngIf="cust.assignedTo != '' || cust.assignedTo != null">
+              <span>{{ cust.assignedTo == 1 ? 'Brey' : cust.assignedTo == 2 ? 'Danny' : cust.assignedTo == 3 ? 'Kranthi' : '' }}</span>
+              <!-- <a (click)="openAssigned(cust)"><img src="assets/icons/edit.svg" *ngIf="cust.assignedTo != null" width="12"></a> -->
+            </p>
+
+            <a class="pointer" (click)="openAssigned(cust)">
+              <img src="assets/icons/add-svg.svg" *ngIf="cust.assignedTo == '' || cust.assignedTo == null" width="25">
+            </a>
           </td>
+
           <td>
             <p>{{ cust.createdTime ? (cust.createdTime | date: 'dd-MM-yyyy') : '--' }}</p>
           </td>
+
           <td>
             <!-- <a class="pointer">
               <img src="assets/icons/add-svg.svg" width="25" height="25" />
             </a> -->
             <p>{{ cust.closedTime ?  (cust.closedTime| date: 'dd-MM-yyyy') : '--'}}</p>
           </td>
+
           <!-- <td>
             <p>{{ cust.ageInDays }}</p>
           </td> -->
+
           <td>
             <p>{{ cust.priorityId == 1 ? 'Low' : cust.priorityId == 2 ? 'Medium' : cust.priorityId == 3 ? 'High' : '--' }}</p>
           </td>
+
           <td>
             <p [style.color]="cust.statusId == 1 ? '#00A44C' : cust.statusId == 2 ? '#F5B400' : cust.statusId == 3 ? '#F5B400' : cust.statusId == 4 ? '#fa500f' : ''">
               {{ cust.statusId == 1 ? 'Open' : cust.statusId == 2 ? 'In-Progress' : cust.statusId == 3 ? 'Closed' : cust.statusId == 4 ? 'Rejected' : '--'}}
@@ -278,8 +290,9 @@
               </ng-template>
             </p> -->
           </td>
-          <td style="position: relative;">
-            <a class="pointer" (click)="closeDot($event, i)"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
+
+          <td class="text-center">
+            <!-- <a class="pointer" (click)="closeDot($event, i)"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
             <div class="plus-img1" id="plus-img{{ i }}" style="display: none">
               <div class="lists" *ngIf="showIconView1" style="margin-left: 5px; margin-top: -20px">
                 View
@@ -290,14 +303,18 @@
               <div class="lists" *ngIf="showIconDelete1" style="margin-left: 63px; margin-top: -20px">
                 Delete
               </div>
+            </div> -->
+            <a class="mx-2 pointer" (click)="openViewPopup(cust)">
+              <img src="assets/icons/view.svg" (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false">
+            </a>
 
-              <a class="mx-2" (click)="openViewPopup(cust)"><img src="assets/icons/view.svg"
-                  (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" /></a>
-              <a class="mx-2" (click)="openEditPopup(cust)"><img src="assets/icons/edit.svg"
-                  (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" /></a>
-              <a class="mx-2" value="Delete" (click)="openDeletePopup(cust)"><img src="assets/icons/delete.svg"
-                  (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" /></a>
-            </div>
+            <a class="mx-2 pointer" (click)="openEditPopup(cust)">
+              <img src="assets/icons/edit.svg" (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false">
+            </a>
+
+            <a class="mx-2 pointer" value="Delete" (click)="openDeletePopup(cust)">
+              <img src="assets/icons/delete.svg"(mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false">
+            </a>
           </td>
         </tr>
       </tbody>
@@ -390,13 +407,19 @@
           </div>
         </div> -->
         <div class="container" *ngFor="let item of ticketComments">
-          <img src="" alt="Avatar" style="width:100%;">
+          <img src="assets/gif/user.png" alt="Avatar" width="20">
           <p>{{ item.message }}</p>
-          <span class="time-right">11:00</span>
+          <span class="time-right">{{ item.createdTime | date:'short' }}</span>
+        </div>
+
+        <div class="container" *ngFor="let item of newComment">
+          <img src="assets/gif/user.png" alt="Avatar" width="20">
+          <p>{{ item }}</p>
+          <span class="time-right">{{ todayDate | date:'short' }}</span>
         </div>
 
         <!-- <div class="container darker">
-          <img src="" alt="Avatar" class="right" style="width:100%;">
+          <img src="assets/gif/user.png" alt="Avatar" width="20" class="right">
           <p>Hey! I'm fine. Thanks for asking!</p>
           <span class="time-left">11:01</span>
         </div> -->
@@ -457,7 +480,7 @@
                 </td>
 
                 <td>
-                  <p>{{ cust.status == 1 ? 'Open' : cust.status == 2 ? 'In-Progress' : cust.status == 3 ? 'Closed' : cust.status == 4 ? 'Rejected' : '' }}</p>
+                  <p>{{ cust.statusId == 1 ? 'Open' : cust.statusId == 2 ? 'In-Progress' : cust.statusId == 3 ? 'Closed' : cust.statusId == 4 ? 'Rejected' : '' }}</p>
                 </td>
 
                 <td>

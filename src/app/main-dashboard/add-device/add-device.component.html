@@ -592,7 +592,7 @@
             </div> -->
 
             <div class="col-lg-4 mt-2" *ngIf="item.deviceModeId == 3" style="font-size: 10px; font-weight: 700;">
-              <mat-radio-group class="w-50" [(ngModel)]="item.debugOn">
+              <mat-radio-group class="w-50" [(ngModel)]="item.debugOn" disabled>
                 <mat-label>Debug On</mat-label>
                 <mat-radio-button class="ms-3" name="logs" [value]="1">True</mat-radio-button>
                 <mat-radio-button class="ms-3" name="logs" [value]="0" checked>False</mat-radio-button>
@@ -600,7 +600,7 @@
             </div>
 
             <div class="col-lg-4 mt-2" *ngIf="item.deviceModeId == 3" style="font-size: 10px; font-weight: 700;">
-              <mat-radio-group class="w-50" [(ngModel)]="item.debugLogs">
+              <mat-radio-group class="w-50" [(ngModel)]="item.debugLogs" disabled>
                 <mat-label>Debug Logs</mat-label>
                 <mat-radio-button class="ms-3" name="display" [value]='1'>True</mat-radio-button>
                 <mat-radio-button class="ms-3" name="display" [value]='0' checked>False</mat-radio-button>
@@ -608,7 +608,7 @@
             </div>
 
             <div class="col-lg-4 mt-2" *ngIf="item.deviceModeId == 3" style="font-size: 10px; font-weight: 700;">
-              <mat-radio-group class="w-50" [(ngModel)]="item.refreshRules">
+              <mat-radio-group class="w-50" [(ngModel)]="item.refreshRules" disabled>
                 <mat-label>Refresh Rules</mat-label>
                   <mat-radio-button class="ms-3" name="refresh" [value]='1'>True</mat-radio-button>
                   <mat-radio-button class="ms-3" name="refresh" [value]='0' checked>False</mat-radio-button>

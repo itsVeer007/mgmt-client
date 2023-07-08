@@ -10,14 +10,26 @@ export class ApiService {
 
   user$ = new BehaviorSubject(null);
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   baseUrl = "http://usmgmt.iviscloud.net:777/businessInterface/";
 
   login(payload: any) {
+    // let loginData = this.user$.getValue();
     let url = this.baseUrl + "/login/login_2_0";
-
     return this.http.post(url, payload);
+  }
+
+  logout() {
+    localStorage.clear();
+    this.user$.next(null);
+    this.router.navigate(['/login']);
+  }
+
+  autoLogout(timer: any) {
+    setTimeout(() => {
+      this.logout();
+    }, timer)
   }
 
   addUser(payload: any) {
@@ -32,7 +44,7 @@ export class ApiService {
   getUser(email: string) {
     let url = this.baseUrl+"/User/getUser_1_0";
     var user = JSON.parse(localStorage.getItem('user')!);
-    // console.log('user', user);
+    // console.log(user);
 
     var payload = {
       "email": email,
@@ -40,7 +52,6 @@ export class ApiService {
       "accesstoken": user.access_token,
       "callingSystemDetail":"portal"
     }
-    // console.log(payload)
     return this.http.post(url, payload);
   }
 

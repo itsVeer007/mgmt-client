@@ -22,13 +22,18 @@
   height: 40px;
 }
 
-.vl-red {
-  border-left: 2px solid #EF2800;
+.vl-yellow {
+  border-left: 2px solid #F5B400;
   height: 40px;
 }
 
-.vl-yellow {
-  border-left: 2px solid #F5B400;
+.vl-orange {
+  border-left: 2px solid #f37e11;
+  height: 40px;
+}
+
+.vl-red {
+  border-left: 2px solid #EF2800;
   height: 40px;
 }
 
@@ -82,18 +87,6 @@ form button {
   background: none;
 }
 
-.table thead {
-  background-image: linear-gradient(to right, #084982 , #D34124);
-  color: #fff;
-  padding: 0px;
-}
-
-.table tbody tr td {
-  text-align: left;
-  font-size: 12px;
-  padding: 0;
-}
-
 .form1 {
 background-image: linear-gradient(to right, #084982, #D34124);
 background-size: cover;
@@ -108,23 +101,32 @@ z-index: 1;
 
 .form1 th{
 color: #fff;
-padding: 10px 0;
+padding: 10px;
 font-size: 12px;
 text-align: left;
 }
 
 .table-resp{
-max-height: calc(100vh - (280px));
-overflow-y: scroll;
+  max-height: calc(100vh - (245px));
+  overflow-y: scroll;
+  }
+
+.table thead {
+  background-image: linear-gradient(to right, #084982 , #D34124);
+  color: #fff;
+  padding: 0px;
 }
 
-/* .table-resp table{
-border: 1px solid #EFEFEF;
-} */
+.table tbody tr td {
+  text-align: left;
+  font-size: 12px;
+  padding: 0;
+}
 
 .table tbody tr td {
 vertical-align: middle;
 height: 36px;
+padding: 0 10px;
 }
 
 .table tbody tr td p {
@@ -390,7 +392,7 @@ border: 1px solid #fff;
 .container img {
   float: left;
   max-width: 60px;
-  width: 100%;
+  /* width: 100%; */
   margin-right: 20px;
   border-radius: 50%;
 }

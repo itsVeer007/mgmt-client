@@ -74,10 +74,8 @@ export class VendorsComponent implements OnInit {
   inventoryTable: any = [];
   newInventoryTable: any = [];
 
-  installed: any = [];
-  inStock: any = [];
-  scrap: any = [];
-  redyToUse: any = [];
+  active: any = [];
+  inActive: any = [];
   getInventory() {
     this.showLoader = true;
     this.vendorSer.getvendors().subscribe((res: any) => {
@@ -87,17 +85,13 @@ export class VendorsComponent implements OnInit {
       this.inventoryTable = res;
       this.newInventoryTable = this.inventoryTable;
 
-      // for(let item of this.inventoryTable) {
-      //   if(item.status == 'Installed') {
-      //     this.installed.push(item);
-      //   } else if(item.status == 'In-Stock') {
-      //     this.inStock.push(item);
-      //   } else if(item.status == 'Scrap') {
-      //     this.scrap.push(item);
-      //   } else if(item.status == 'ReadyToReuse') {
-      //     this.redyToUse.push(item);
-      //   }
-      // }
+      for(let item of this.inventoryTable) {
+        if(item.statusId == 1) {
+          this.active.push(item);
+        } else if(item.statusId == 2) {
+          this.inActive.push(item);
+        }
+      }
     });
   }
 
@@ -401,9 +395,6 @@ export class VendorsComponent implements OnInit {
   editArray: any = [];
   EditByCheckbox(itemE: any, i: any, e: any) {
     var checked = (e.target.checked);
-    // console.log("Edit By Checkbox:: ",itemE);
-    // console.log("Edit Array::" ,this.editArray);
-    // console.log("present in array : "+this.editArray.includes(itemE),  " checked : "+ checked)
     if (checked == true && this.editArray.includes(itemE) == false) {
       this.editArray.push(itemE);
       this.currentItem = this.editArray[(this.editArray.length - 1)];

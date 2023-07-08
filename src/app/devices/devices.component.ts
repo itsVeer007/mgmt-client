@@ -1,6 +1,8 @@
+import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { AlertService } from 'src/services/alert.service';
 import { DeviceService } from 'src/services/device.service';
 import { MetadataService } from 'src/services/metadata.service';
 import { TicketService } from 'src/services/ticket.service';
@@ -41,9 +43,12 @@ export class DevicesComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private ticketSer: TicketService,
-    public dialog: MatDialog,
     private devService: DeviceService,
-    private metadataSer: MetadataService
+    private metadataSer: MetadataService,
+
+    public dialog: MatDialog,
+    public datePipe: DatePipe,
+    public alertSer: AlertService
   ) { }
 
   siteData: any
@@ -70,6 +75,10 @@ export class DevicesComponent implements OnInit {
 
   searchText: any;
   deviceData: any = [];
+  xx: any;
+
+  active: any = [];
+  inActive: any = [];
   CustomerReport() {
     this.showLoader = true;
     this.devService.listDeviceAdsInfo().subscribe((res: any) => {
@@ -78,14 +87,22 @@ export class DevicesComponent implements OnInit {
       let x = res.flatMap((item: any) => item.adsDevices);
       this.deviceData = x;
       // localStorage.setItem('deviceData', JSON.stringify(x));
+
+      for(let item of this.deviceData) {
+        if(item.status == 1) {
+          this.active.push(item);
+        } else if(item.status == 2) {
+          this.inActive.push(item);
+        }
+      }
     })
   }
 
-  z: any
+  upTime: any;
   getStatus() {
-    // this.z = JSON.parse(localStorage.getItem('deviceData')!);
-    this.devService.getHealth(this.z).subscribe((res: any) => {
-      // console.log(res)
+    this.devService.getHealth().subscribe((res: any) => {
+      this.upTime = res.flatMap((item: any) => item.on);
+      // console.log(this.upTime[0]?.firstConnected.this.da - this.upTime[0]?.lastConnected)
     })
   }
 
@@ -152,34 +169,17 @@ export class DevicesComponent implements OnInit {
       })
     }
 
-  rebootDevice0: any;
-  rebootDevice1: any;
-  rebootDevice2: any;
   rebootDevice(id: any) {
-    this.rebootDevice2 = Swal.fire({
-      text: "Please wait",
-      imageUrl: "assets/gif/ajax-loading-gif.gif",
-      showConfirmButton: false,
-      allowOutsideClick: false
-    });
+    this.alertSer.wait();
 
     this.devService.updateRebootDevice(id).subscribe((res: any) => {
       // console.log(res)
-
       if(res) {
-        this.rebootDevice1 = Swal.fire({
-          icon: 'success',
-          title: 'Done!',
-          text: `${res.message}`,
-        });
+        this.alertSer.success(res);
       }
     }, (err: any) => {
       if(err) {
-        this.rebootDevice0 = Swal.fire({
-          icon: 'error',
-          title: 'Failed!',
-          text: 'Rebooting Device failed'
-        });
+        this.alertSer.error();
       };
     });
   }
@@ -290,9 +290,6 @@ export class DevicesComponent implements OnInit {
   // }
 
 
-  updateTicket0: any;
-  updateTicket1: any;
-  updateTicket2: any;
   updateTicket(el: any) {
 
     this.originalObject = {
@@ -303,32 +300,19 @@ export class DevicesComponent implements OnInit {
       "priority": el.priority,
       "status": el.status,
     };
-
-    this.updateTicket2 = Swal.fire({
-      text: "Please wait",
-      imageUrl: "assets/gif/ajax-loading-gif.gif",
-      showConfirmButton: false,
-      allowOutsideClick: false
-    });
+    this.alertSer.wait();
 
     this.ticketSer.updateTicket(this.originalObject).subscribe((res: any) => {
       // console.log(res);
-
       if(res) {
-        this.updateTicket1 = Swal.fire({
-          icon: 'success',
-          title: 'Done!',
-          text: 'Updated Ticket Successfully!',
-        });
+        this.alertSer.success(res);
       }
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000)
     }, (err: any) => {
       if(err) {
-        this.updateTicket0 = Swal.fire({
-          icon: 'error',
-          title: 'Failed!',
-          text: 'Ticket Updation failed',
-          // timer: 3000,
-        });
+        this.alertSer.error();
       };
     });
   }
@@ -410,9 +394,6 @@ export class DevicesComponent implements OnInit {
   editArray: any = [];
   EditByCheckbox(itemE: any, i: any, e: any) {
     var checked = (e.target.checked);
-    // console.log("Edit By Checkbox:: ",itemE);
-    // console.log("Edit Array::" ,this.editArray);
-    // console.log("present in array : "+this.editArray.includes(itemE),  " checked : "+ checked)
     if (checked == true && this.editArray.includes(itemE) == false) {
       this.editArray.push(itemE);
       this.currentItem = this.editArray[(this.editArray.length - 1)];
@@ -450,9 +431,6 @@ export class DevicesComponent implements OnInit {
   viewArray: any = [];
   ViewByCheckbox(itemV: any, i: any, e: any) {
     var checked = (e.target.checked);
-    // console.log("View By Checkbox:: ",itemV);
-    // console.log("View Array::" ,this.viewArray);
-    // console.log("present in array : "+this.viewArray.includes(itemV),  " checked : "+ checked)
     if (checked == true && this.viewArray.includes(itemV) == false) {
       this.viewArray.push(itemV);
       this.currentItem = this.viewArray[(this.viewArray.length - 1)];

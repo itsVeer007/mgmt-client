@@ -27,14 +27,14 @@ export class DeviceService {
     return this.http.get(url, {params: payload});
   }
 
-  getHealth(deviceId: any) {
+  getHealth() {
     let url = this.baseUrl + '/getHealth_1_0';
 
-    var payload = {
-      'deviceId': deviceId
-    }
+    // var payload = {
+    //   'deviceId': deviceId
+    // }
 
-    return this.http.get(url, {params: payload});
+    return this.http.get(url);
   }
 
   updateRebootDevice(id: any) {

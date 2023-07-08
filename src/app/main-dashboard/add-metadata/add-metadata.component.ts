@@ -2,6 +2,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AlertService } from 'src/services/alert.service';
 import { MetadataService } from 'src/services/metadata.service';
 import Swal from 'sweetalert2';
 import swal from 'sweetalert2';
@@ -49,7 +50,12 @@ export class AddMetadataComponent implements OnInit {
   metadataForm: any = FormGroup;
   ng: any;
 
-  constructor(private router: Router, private fb: FormBuilder, private metaDataSer: MetadataService) { }
+  constructor(
+    private router: Router,
+    private fb: FormBuilder,
+    private metaDataSer: MetadataService,
+    public alertSer: AlertService
+    ) { }
 
   metaDataBody = {
     createdBy: 1,
@@ -113,12 +119,8 @@ export class AddMetadataComponent implements OnInit {
   }
 
 
-  addData0: any;
-  addData1: any;
-  addData2: any;
   addMetadata() {
-    console.log(this.metaDataBody);
-
+    // console.log(this.metaDataBody);
     if(this.metaType == 'Create_New') {
       this.metaDataBody.type =  this.metaDataBody.type;
     } else {
@@ -127,35 +129,18 @@ export class AddMetadataComponent implements OnInit {
 
     if(this.metadataForm.valid) {
       this.newItemEvent.emit(false);
-      this.addData2 = Swal.fire({
-        text: "Please wait",
-        imageUrl: "assets/gif/ajax-loading-gif.gif",
-        showConfirmButton: false,
-        allowOutsideClick: false
-      })
-
+      this.alertSer.wait();
       this.metaDataSer.add(this.metaDataBody).subscribe((res: any) => {
-        console.log(res);
-
+        // console.log(res);
         if(res) {
-          this.addData1 = Swal.fire({
-            icon: 'success',
-            title: `Done!`,
-            text: 'Data Created Successfully!'
-          });
+          this.alertSer.success(res);
         }
-
         setTimeout(() => {
           window.location.reload();
         }, 3000);
-
       }, (err: any) => {
         if(err) {
-          this.addData0 = Swal.fire({
-            icon: 'error',
-            title: 'Failed!',
-            text: 'Creating Data failed',
-          });
+          this.alertSer.error();
         };
       });
     }

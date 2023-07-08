@@ -30,7 +30,7 @@
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Select Site</mat-label>
               <mat-select formControlName="siteId" [(ngModel)]="adInfo.siteId">
-                <mat-option *ngFor="let item of siteData" [value]="item.siteid">{{ item.siteid }}</mat-option>
+                <mat-option *ngFor="let item of siteData" [value]="item.siteid">{{ item.siteid }} - {{ item.siteShortName }}</mat-option>
               </mat-select>
               <mat-error class="mt-1">Site is required</mat-error>
             </mat-form-field>

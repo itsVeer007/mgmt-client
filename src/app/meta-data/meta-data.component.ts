@@ -87,7 +87,6 @@ export class MetaDataComponent implements OnInit {
   filterDevices(data: any) {
     this.metaDataSer.getMetadataByType(data).subscribe((res: any) => {
       // console.log(res);
-
       // const data = res.flatMap((item: any) => item.metadata);
       this.newMetaData = res;
     })

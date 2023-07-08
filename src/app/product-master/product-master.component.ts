@@ -67,10 +67,8 @@ export class ProductMasterComponent implements OnInit {
   productMaster: any = [];
   newProductMaster: any = [];
 
-  installed: any = [];
-  inStock: any = [];
-  scrap: any = [];
-  redyToUse: any = [];
+  active: any = [];
+  inActive: any = [];
   getInventory() {
     this.showLoader = true;
     this.productMasterSer.list().subscribe((res: any) => {
@@ -82,17 +80,13 @@ export class ProductMasterComponent implements OnInit {
       this.productMaster = res;
       this.newProductMaster = this.productMaster;
 
-      // for(let item of this.productMaster) {
-      //   if(item.status == 'Installed') {
-      //     this.installed.push(item);
-      //   } else if(item.status == 'In-Stock') {
-      //     this.inStock.push(item);
-      //   } else if(item.status == 'Scrap') {
-      //     this.scrap.push(item);
-      //   } else if(item.status == 'ReadyToReuse') {
-      //     this.redyToUse.push(item);
-      //   }
-      // }
+      for(let item of this.productMaster) {
+        if(item.productStatusId == 1) {
+          this.active.push(item);
+        } else if(item.productStatusId == 2) {
+          this.inActive.push(item);
+        }
+      }
     });
   }
 
@@ -153,15 +147,19 @@ export class ProductMasterComponent implements OnInit {
     }, []);
   }
 
-  productCategoryId: any = null;
-  productTypeId: any = null;
-  productStatusId: any = null;
+  productCategoryId: any = '';
+  productTypeId: any = '';
+  productStatusId: any = '';
+  createdTime: any = '';
+  createdTime1: any = '';
 
   applyFilter() {
     let myObj = {
-      'productCategoryId': this.productCategoryId ? this.productCategoryId : '',
-      'productTypeId': this.productTypeId ? this.productTypeId : '',
-      'productStatusId': this.productStatusId ? this.productStatusId : '',
+      'productCategoryId': this.productCategoryId ? this.productCategoryId : 0,
+      'productTypeId': this.productTypeId ? this.productTypeId : 0,
+      'productStatusId': this.productStatusId ? this.productStatusId : 0,
+      'createdTime': this.createdTime ? this.createdTime : '',
+      'createdTime1': this.createdTime1 ? this.createdTime1 : ''
     }
 
     this.productMasterSer.filteBody(myObj).subscribe((res: any) => {

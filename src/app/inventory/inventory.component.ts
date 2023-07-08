@@ -64,8 +64,10 @@ export class InventoryComponent implements OnInit {
   inventoryTable: any = [];
   newInventoryTable: any = [];
 
-  installed: any = [];
   inStock: any = [];
+  installed: any = [];
+  removed: any = [];
+  returned: any = [];
   scrap: any = [];
   redyToUse: any = [];
   getInventory() {
@@ -76,17 +78,21 @@ export class InventoryComponent implements OnInit {
       this.inventoryTable = res;
       this.newInventoryTable = this.inventoryTable;
 
-      // for(let item of this.inventoryTable) {
-      //   if(item.status == 'Installed') {
-      //     this.installed.push(item);
-      //   } else if(item.status == 'In-Stock') {
-      //     this.inStock.push(item);
-      //   } else if(item.status == 'Scrap') {
-      //     this.scrap.push(item);
-      //   } else if(item.status == 'ReadyToReuse') {
-      //     this.redyToUse.push(item);
-      //   }
-      // }
+      for(let item of this.inventoryTable) {
+        if(item.statusId == 1) {
+          this.inStock.push(item);
+        } else if(item.statusId == 2) {
+          this.installed.push(item);
+        } else if(item.statusId == 3) {
+          this.removed.push(item);
+        } else if(item.statusId == 4) {
+          this.returned.push(item);
+        } else if(item.statusId == 5) {
+          this.scrap.push(item);
+        } else if(item.statusId == 6) {
+          this.redyToUse.push(item);
+        }
+      }
     });
   }
 
@@ -352,9 +358,6 @@ export class InventoryComponent implements OnInit {
   viewArray: any = [];
   ViewByCheckbox(itemV: any, i: any, e: any) {
     var checked = (e.target.checked);
-    // console.log("View By Checkbox:: ",itemV);
-    // console.log("View Array::" ,this.viewArray);
-    // console.log("present in array : "+this.viewArray.includes(itemV),  " checked : "+ checked)
     if (checked == true && this.viewArray.includes(itemV) == false) {
       this.viewArray.push(itemV);
       this.currentItem = this.viewArray[(this.viewArray.length - 1)];
@@ -373,9 +376,6 @@ export class InventoryComponent implements OnInit {
   editArray: any = [];
   EditByCheckbox(itemE: any, i: any, e: any) {
     var checked = (e.target.checked);
-    // console.log("Edit By Checkbox:: ",itemE);
-    // console.log("Edit Array::" ,this.editArray);
-    // console.log("present in array : "+this.editArray.includes(itemE),  " checked : "+ checked)
     if (checked == true && this.editArray.includes(itemE) == false) {
       this.editArray.push(itemE);
       this.currentItem = this.editArray[(this.editArray.length - 1)];

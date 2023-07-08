@@ -71,21 +71,15 @@ export class AssetsComponent implements OnInit {
   siteIds: any
 
   ngOnInit(): void {
-    this.currentDateTime =this.datepipe.transform(new Date().toLocaleString('en-us',{month:'short', day: 'numeric', year:'numeric'}));
-    this.endDateTime =this.datepipe.transform(new Date('9999-12-31').toLocaleString('en-us',{month:'short', day: 'numeric', year:'numeric'}));
+    this.currentDateTime = new Date();
+    this.endDateTime = new Date('9999-12-31');
+
     this.getSiteData();
     this.ongetDeviceMode();
 
     this.devDevId = JSON.parse(localStorage.getItem('device_temp')!);
     this.siteIds = JSON.parse(localStorage.getItem('siteIds')!);
-    // this.refreshList()
   }
-
-  refreshList(newData: any) {
-    // this.filterDevices(newData);
-    // console.log(newData)
-  }
-
 
   inputToAddAsset: any;
 
@@ -101,7 +95,6 @@ export class AssetsComponent implements OnInit {
   assetMsg: string = '';
 
 
-
   /* search for site id */
 
   getSiteData() {
@@ -111,7 +104,7 @@ export class AssetsComponent implements OnInit {
 
       this.siteIdToTable = sites.flatMap((item: any) => item.siteId);
       this.newSiteIdToTable = this.siteIdToTable;
-      // console.log(this.siteIds)
+      // console.log(this.siteIds);
     })
 
     this.showLoader = true;
@@ -120,6 +113,21 @@ export class AssetsComponent implements OnInit {
       let x = res.flatMap((item: any) => item.assets);
       this.newAssetTable = x;
       this.cdr.detectChanges();
+
+      for(let item of this.newAssetTable) {
+        if(item.status == 1) {
+          this.pending.push(item);
+        } else if(item.status == 2) {
+          this.added.push(item);
+        } else if(item.status == 4) {
+          this.synced.push(item);
+        } else if(item.status == 5) {
+          this.removed.push(item);
+        } else if(item.status == 3) {
+          this.sendToController.push(item);
+        }
+        this.cdr.detectChanges();
+      }
     })
   }
 
@@ -167,29 +175,6 @@ export class AssetsComponent implements OnInit {
         this.cdr.detectChanges();
       });
     }
-
-
-
-
-    // for(let item of this.newAssetTable) {
-    //   if(item.status == 1) {
-    //     this.pending = [];
-    //     this.pending.push(item);
-    //   } else if(item.status == 2) {
-    //     this.added = [];
-    //     this.added.push(item);
-    //   } else if(item.status == 4) {
-    //     this.synced = [];
-    //     this.synced.push(item);
-    //   } else if(item.status == 5) {
-    //     this.removed = [];
-    //     this.removed.push(item);
-    //   } else if(item.status == 3) {
-    //     this.sendToController = [];
-    //     this.sendToController.push(item);
-    //   }
-    //   this.cdr.detectChanges();
-    // }
   }
 
 
@@ -294,17 +279,6 @@ export class AssetsComponent implements OnInit {
   }
 
 
-  // masterSelected: boolean = false;
-
-  // allchecked(e:any){
-  //   if(document.querySelector('#allchecked:checked')){
-  //     this.masterSelected = true;
-  //   }else {
-  //     this.masterSelected = false;
-  //   }
-  // }
-
-
   currentItem: any;
 
   /* View Asset */
@@ -400,43 +374,21 @@ export class AssetsComponent implements OnInit {
     // console.log(this.changedKeys);
   }
 
-  // assetUpdate0: any;
-  // assetUpdate1: any;
-  // assetUpdate2: any;
   confirmEditRow() {
     this.originalObject.fromDate = this.datepipe.transform(this.currentItem.fromDate, 'yyyy-MM-dd');
     this.originalObject.toDate = this.datepipe.transform(this.currentItem.toDate, 'yyyy-MM-dd');
-
-    // this.assetUpdate2 = Swal.fire({
-    //   text: "Please wait",
-    //   imageUrl: "assets/gif/ajax-loading-gif.gif",
-    //   showConfirmButton: false,
-    //   allowOutsideClick: false
-    // });
     this.alertSer.wait();
 
     this.assetService.modifyAssetForDevice({asset: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
       // console.log(res);
       if(res) {
-        // this.assetUpdate1 = Swal.fire({
-        //   icon: 'success',
-        //   title: 'Done!',
-        //   text: `${res.message}`,
-        // });
         this.alertSer.success(res);
       }
-
       setTimeout(() => {
         window.location.reload();
       }, 3000);
-
     }, (err: any) => {
       if(err) {
-        // this.assetUpdate0 = Swal.fire({
-        //   icon: 'error',
-        //   title: 'Failed!',
-        //   text: 'Updating asset failed',
-        // });
         this.alertSer.wait();
       };
     })
@@ -445,7 +397,6 @@ export class AssetsComponent implements OnInit {
   @ViewChild('deleteAssetDialog') deleteAssetDialog = {} as TemplateRef<any>;
 
   deleteRow: any;
-
   openDeletePopup(item: any) {
     this.currentItem = item;
     this.dialog.open(this.deleteAssetDialog, {maxHeight: '250px', maxWidth: '250px'});
@@ -489,9 +440,6 @@ export class AssetsComponent implements OnInit {
 
   ViewByCheckbox(item: any, e: any) {
     var checked = (e.target.checked);
-    // console.log("View By Checkbox:: ",item);
-    // console.log("View Array::" ,this.viewArray);
-    // console.log("present in array : "+this.viewArray.includes(item),  " checked : "+ checked)
     if (checked == true && this.viewArray.includes(item) == false) {
       this.viewArray.push(item);
       this.currentItem = this.viewArray[(this.viewArray.length - 1)];
@@ -511,9 +459,6 @@ export class AssetsComponent implements OnInit {
 
   EditByCheckbox(itemE: any, e: any) {
     var checked = (e.target.checked);
-    // console.log("Edit By Checkbox:: ",itemE);
-    // console.log("Edit Array::" ,this.editArray);
-    // console.log("present in array : "+this.editArray.includes(itemE),  " checked : "+ checked)
     if (checked == true && this.editArray.includes(itemE) == false) {
       this.editArray.push(itemE);
       this.currentItem = this.editArray[(this.editArray.length - 1)];
@@ -577,43 +522,20 @@ export class AssetsComponent implements OnInit {
     modifiedBy: 1
   }
 
-  // statusUpdate0: any;
-  // statusUpdate1: any;
-  // statusUpdate2: any;
   changeAssetStatus() {
-
-    // this.statusUpdate2 = Swal.fire({
-    //   text: "Please wait",
-    //   imageUrl: "assets/gif/ajax-loading-gif.gif",
-    //   showConfirmButton: false,
-    //   allowOutsideClick: false
-    // });
     this.alertSer.wait();
 
     this.assetService.updateAssetStatus(this.currentStatusId, this.statusObj).subscribe((res: any) => {
       // console.log(res);
-
       if(res) {
-        // this.statusUpdate1 = Swal.fire({
-        //   icon: 'success',
-        //   title: 'Done!',
-        //   text: `${res.message}`,
-        // });
         this.alertSer.success(res);
       };
 
       setTimeout(() => {
         window.location.reload();
       }, 3000);
-
     }, (err: any) => {
-      // console.log(err);
       if(err) {
-        // this.statusUpdate0 = Swal.fire({
-        //   icon: 'error',
-        //   title: 'Failed!',
-        //   text: 'Updating Asset failed'
-        // });
         this.alertSer.error();
       };
     });
