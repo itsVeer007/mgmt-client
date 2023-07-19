@@ -258,7 +258,6 @@ export class TicketsComponent implements OnInit {
   changedKeys: any = [];
 
   @ViewChild('viewTicketDialog') viewTicketDialog = {} as TemplateRef<any>;
-
   ticketTasks: any;
   ticketVisits: any;
   ticketComments: any = [];
@@ -288,7 +287,6 @@ export class TicketsComponent implements OnInit {
 
 
   @ViewChild('editTicketDialog') editTicketDialog = {} as TemplateRef<any>;
-
   openEditPopup(item: any) {
     this.currentItem = JSON.parse(JSON.stringify(item));
     this.dialog.open(this.editTicketDialog, {maxHeight: '550px', maxWidth: '550px'});

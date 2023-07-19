@@ -272,67 +272,85 @@
 
 <!-- view popup -->
 <ng-template #viewSiteDialog>
-  <div *ngIf="currentItem">
-    <div>
-      <mat-list>
-        <mat-list-item>
-          <span style="width: 130px; color: #ABABAB;">Site Id:</span> {{ currentItem.siteid ? currentItem.siteid : '--' }}
-        </mat-list-item>
-        <mat-divider></mat-divider>
+  <div style="background-color: #084982;">
+    <p class="dialog-title">VIEW SITE</p>
+  </div>
 
-        <mat-list-item>
-          <span style="width: 130px; color: #ABABAB;">Site Name:</span> {{ currentItem.sitename ? currentItem.sitename : '--' }}
-        </mat-list-item>
-        <mat-divider></mat-divider>
+  <mat-dialog-content>
+    <div class="row" *ngIf="currentItem">
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Site Id</mat-label>
+          <input matInput [(ngModel)]="currentItem.siteid" disabled>
+        </mat-form-field>
+      </div>
 
-        <mat-list-item>
-          <span style="width: 130px; color: #ABABAB;">Short Name:</span> {{ currentItem.siteShortName ? currentItem.siteShortName : '--' }}
-        </mat-list-item>
-        <mat-divider></mat-divider>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Site Name</mat-label>
+          <input matInput [(ngModel)]="currentItem.sitename" disabled>
+        </mat-form-field>
+      </div>
 
-        <mat-list-item>
-          <span style="width: 130px; color: #ABABAB;">Device External Id:</span> {{ currentItem.deviceExternalId ? currentItem.deviceExternalId : '--' }}
-        </mat-list-item>
-        <mat-divider></mat-divider>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Short Name</mat-label>
+          <input matInput [(ngModel)]="currentItem.siteShortName" disabled>
+        </mat-form-field>
+      </div>
 
-        <mat-list-item>
-          <span style="width: 130px; color: #ABABAB;">Location Type:</span> {{ currentItem.LocationType ? currentItem.LocationType : '--' }}
-        </mat-list-item>
-      </mat-list>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Device External Id</mat-label>
+          <input matInput [(ngModel)]="currentItem.deviceExternalId" disabled>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Location Type</mat-label>
+          <input matInput [(ngModel)]="currentItem.LocationType" disabled>
+        </mat-form-field>
+      </div>
     </div>
-    <div mat-dialog-actions>
-      <button mat-stroked-button style="color: #D34124 ;" mat-dialog-close>Close</button>
-    </div>
+  </mat-dialog-content>
+
+  <div class="d-flex justify-content-end" mat-dialog-actions>
+    <button mat-stroked-button style="color: #D34124 ;" mat-dialog-close>Close</button>
   </div>
 </ng-template>
 <!-- view popup-->
 
 <!-- edit popup -->
 <ng-template #editSiteDialog>
-  <div>
-    <p style="font-weight: 600; color: #ABABAB;">MODIFY SITE</p>
+  <div style="background-color: #084982;">
+    <p class="dialog-title">MODIFY SITE</p>
   </div>
 
-  <div class="mb-3">
-    <span style="font-size: 16px">Asset Id: </span>
-    <span style="font-size: 16px; font-weight: 700;">{{ currentItem.siteid }}</span>
-  </div>
+  <mat-dialog-content>
+    <div class="row" *ngIf="currentItem">
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Site Id</mat-label>
+          <input matInput [(ngModel)]="currentItem.siteid" disabled>
+        </mat-form-field>
+      </div>
 
-  <div class="row" *ngIf="currentItem">
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Site Name</mat-label>
-        <input name="deviceDescription" matInput [(ngModel)]="currentItem.sitename">
-      </mat-form-field>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Site Name</mat-label>
+          <input name="deviceDescription" matInput [(ngModel)]="currentItem.sitename">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Location Type</mat-label>
+          <input name="deviceDescription" matInput [(ngModel)]="currentItem.LocationType">
+        </mat-form-field>
+      </div>
     </div>
-
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Location Type</mat-label>
-        <input name="deviceDescription" matInput [(ngModel)]="currentItem.LocationType">
-      </mat-form-field>
-    </div>
-  </div>
+  </mat-dialog-content>
 
   <div class="d-flex align-items-center justify-content-end">
     <div mat-dialog-actions class="me-2">
@@ -347,10 +365,13 @@
 
 <!-- delete popup -->
 <ng-template #deleteSiteDialog>
-  <div class="d-flex justify-content-between">
-    <p>Delete Row</p>
+  <div style="background-color: #084982;">
+    <p class="dialog-title">Delete Row</p>
   </div>
-  <div class="text-center">Do you want to delete this item?</div>
+
+  <mat-dialog-content>
+    <div class="text-center">Do you want to delete this item?</div>
+  </mat-dialog-content>
 
   <div class="d-flex align-items-center justify-content-end">
     <div mat-dialog-actions class="me-2">

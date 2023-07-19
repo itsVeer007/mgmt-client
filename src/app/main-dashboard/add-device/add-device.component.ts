@@ -243,7 +243,7 @@ export class AddDeviceComponent implements OnInit {
   // devDataToEdit: any
   currentItem: any;
   openEditDevice(item: any) {
-    this.dialog.open(this.editDevice);
+    this.dialog.open(this.editDevice, {maxWidth: '750px', maxHeight: '650px'});
     this.currentItem = item;
 
     let x = this.currentItem.workingDays.toString().split(',')
@@ -299,8 +299,6 @@ export class AddDeviceComponent implements OnInit {
     if(!(this.changedKeys.includes(x))) {
       this.changedKeys.push(x);
     }
-
-    // console.log(this.changedKeys);
   }
 
   onSelectChange(event: any) {
@@ -335,9 +333,6 @@ export class AddDeviceComponent implements OnInit {
     if(!(this.changedKeys.includes(x))) {
       this.changedKeys.push(x);
     }
-
-    // console.log(this.changedKeys);
-    // console.log(this.originalObject);
   }
 
   onInputChange(event: any) {
@@ -372,28 +367,14 @@ export class AddDeviceComponent implements OnInit {
     if(!(this.changedKeys.includes(x))) {
       this.changedKeys.push(x);
     }
-    // console.log(this.changedKeys);
   }
 
   /* update device */
 
-  // deviceUpdate0: any;
-  // deviceUpdate1: any;
-  // deviceUpdate2: any;
   updateDeviceDtl() {
-    // console.log(this.changedKeys.length);
-
     if(this.changedKeys.length > 0) {
-      // this.deviceUpdate2 = Swal.fire({
-      //   text: "Please wait",
-      //   imageUrl: "assets/gif/ajax-loading-gif.gif",
-      //   showConfirmButton: false,
-      //   allowOutsideClick: false
-      // });
       this.alertSer.wait();
-
       let arr = this.currentItem.workingDays.join(',');
-
       if(this.toAddDevice == 8) {
         var myString = arr.substring(1);
         this.originalObject.workingDays = myString;
@@ -401,32 +382,21 @@ export class AddDeviceComponent implements OnInit {
         this.originalObject.workingDays = arr;
       }
     }
-
     this.newItemEvent.emit(false);
+
     this.devService.updateDeviceAdsInfo({adsDevice: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
       // console.log(res);
 
       if(res) {
-        // this.deviceUpdate1 = Swal.fire({
-        //   icon: 'success',
-        //   title: 'Done!',
-        //   text: 'Device Updated Successfully!',
-        // });
         this.alertSer.success(res);
       }
 
       setTimeout(() => {
-        // window.location.reload();
+        window.location.reload();
       }, 3000);
 
     }, (err: any) => {
-      // console.log(err)
       if(err) {
-        // this.deviceUpdate0 = Swal.fire({
-        //   icon: 'warning',
-        //   title: 'Failed!',
-        //   text: 'Updating Device failed',
-        // });
         this.alertSer.error();
       };
     })
@@ -441,9 +411,6 @@ export class AddDeviceComponent implements OnInit {
     // console.log(e.value.length)
   }
 
-  // addDevice0: any;
-  // addDevice1: any;
-  // addDevice2: any;
   addDeviceDtl() {
     // console.log(this.addDevice);
     this.adInfo.siteId = this.siteData.siteid;
@@ -458,57 +425,23 @@ export class AddDeviceComponent implements OnInit {
       } else {
         this.adInfo.workingDays = arr;
       }
-
-      // this.addDevice2 = Swal.fire({
-      //   text: "Please wait",
-      //   imageUrl: "assets/gif/ajax-loading-gif.gif",
-      //   showConfirmButton: false,
-      //   allowOutsideClick: false
-      // })
       this.alertSer.wait();
 
       this.devService.createDeviceandAdsInfo(this.adInfo).subscribe((res: any) => {
         // console.log(res);
-
         if(res) {
-          // this.addDevice1 = Swal.fire({
-          //   icon: 'success',
-          //   title: `Device Id: ${res.deviceId}`,
-          //   text: 'Device Created Successfully!'
-          // });
           this.alertSer.success(res);
         }
-
         setTimeout(() => {
           window.location.reload();
         }, 3000);
-
       }, (err: any) => {
-        // console.log(err);
         if(err) {
-          // this.addDevice0 = Swal.fire({
-          //   icon: 'error',
-          //   title: 'Failed!',
-          //   text: 'Creating Device failed',
-          // });
           this.alertSer.error();
         };
       })
     }
   }
-
-
-  // showAdsHours: boolean = false;
-  // showAdsHoursTxt: any = '...more'
-  // showAd() {
-  //   this.showAdsHours = !this.showAdsHours;
-
-  //   if(this.showAdsHours == false) {
-  //     this.showAdsHoursTxt = '...more';
-  //   } else {
-  //     this.showAdsHoursTxt = '...less'
-  //   }
-  // }
 
 
   @ViewChild('mySel') mySel!: MatSelect;

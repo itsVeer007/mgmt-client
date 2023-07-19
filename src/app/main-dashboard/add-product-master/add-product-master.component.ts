@@ -4,7 +4,9 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AlertService } from 'src/services/alert.service';
 import { ApiService } from 'src/services/api.service';
+import { MetadataService } from 'src/services/metadata.service';
 import { ProductMasterService } from 'src/services/product-master.service';
+import { VendorsService } from 'src/services/vendors.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -36,7 +38,9 @@ export class AddProductMasterComponent implements OnInit {
     private router: Router,
     private productMasterSer: ProductMasterService,
     private apiser: ApiService,
+    private vendorSer: VendorsService,
     private fb: FormBuilder,
+    private metadataSer: MetadataService,
 
     public alertSer: AlertService
   ) { }
@@ -61,39 +65,73 @@ export class AddProductMasterComponent implements OnInit {
   UserForm: any =  FormGroup;
 
   prductMasterObj = {
-    productCategoryId: null,
-    name: "",
-    description: "",
+    categoryId: null,
+    typeId: null,
+    name: null,
+    quantity: null,
     uomId: null,
-    productModelId: null,
-    productTypeId: null,
-    cost: "",
-    purchaseVendorId: null,
-    purchaseLink: "",
+    cost: null,
+    vendorId: null,
+    createdBy: 1,
+
+    model: null,
+    description: null,
     returnable: "N",
     maintenanceRequired: "N",
-    productStatusId: null,
-    remarks: "",
-    createdBy: 1
+    purchaseLink: null,
+    remarks: null
   }
 
 
   ngOnInit() {
     this.UserForm = this.fb.group({
-      'productCategoryId': new FormControl(''),
-      'name': new FormControl(''),
+      'categoryId': new FormControl('', Validators.required),
+      'typeId': new FormControl('', Validators.required),
+      'name': new FormControl('', Validators.required),
+      'quantity': new FormControl('', Validators.required),
+      'uomId': new FormControl('', Validators.required),
+      'cost': new FormControl('', Validators.required),
+      'vendorId': new FormControl('', Validators.required),
+
+      'model': new FormControl(''),
       'description': new FormControl(''),
-      'uomId': new FormControl(''),
-      'productModelId': new FormControl(''),
-      'productTypeId': new FormControl(''),
-      'cost': new FormControl(''),
-      'purchaseVendorId': new FormControl(''),
-      'purchaseLink': new FormControl(''),
       'returnable': new FormControl(''),
       'maintenanceRequired': new FormControl(''),
-      // 'productStatusId': new FormControl(''),
+      'purchaseLink': new FormControl(''),
       'remarks': new FormControl('')
     });
+
+    this.ongetDeviceMode();
+    this.getVendor();
+  }
+
+  /* get vendor */
+
+  vendorDetail: any;
+  getVendor() {
+    this.vendorSer.listVendors().subscribe((res: any) => {
+      // console.log(res);
+      this.vendorDetail = res;
+    })
+  }
+
+  /* metadata filter */
+  productCategory: any;
+  productType: any;
+  uom: any;
+  ongetDeviceMode() {
+    this.metadataSer.getMetadata().subscribe((res: any) => {
+      for(let item of res) {
+        if(item.type == 'Product_Category') {
+          this.productCategory = item.metadata;
+        }
+        else if(item.type == 'Product_Type') {
+          this.productType = item.metadata;
+        } else if(item.type == 'uom') {
+          this.uom = item.metadata;
+        }
+      }
+    })
   }
 
   closeAddUser() {
@@ -107,7 +145,7 @@ export class AddProductMasterComponent implements OnInit {
   // submitted!: boolean;
 
   submit() {
-    // console.log(this.prductMasterObj);
+    console.log(this.prductMasterObj);
 
     if(this.UserForm.valid) {
       this.newItemEvent.emit(false);
@@ -118,7 +156,7 @@ export class AddProductMasterComponent implements OnInit {
           this.alertSer.success(res);
         }
         setTimeout(() => {
-          window.location.reload();
+          // window.location.reload();
         }, 3000);
       }, (err: any) => {
         if(err) {

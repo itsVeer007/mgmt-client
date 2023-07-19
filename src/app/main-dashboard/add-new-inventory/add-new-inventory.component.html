@@ -11,12 +11,12 @@
 
   <!-- Form -->
   <div>
-    <form autocomplete="off" [formGroup]="UserForm" #addUserForm="ngForm">
+    <form autocomplete="off" [formGroup]="UserForm" #addUserForm="ngForm" (ngSubmit)="submit()">
       <div class="row">
         <div class="col-lg-6 col-md-6">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>productId</mat-label>
-            <mat-select formControlName="productId" [(ngModel)]="inventoryBody.inv.productId">
+            <mat-select formControlName="productId" [(ngModel)]="inventoryBody.inventory.productId">
               <mat-option [value]="1">1</mat-option>
               <mat-option [value]="2">2</mat-option>
             </mat-select>
@@ -27,7 +27,7 @@
         <div class="col-lg-6 col-md-6">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>orderId</mat-label>
-            <mat-select formControlName="orderId" [(ngModel)]="inventoryBody.inv.orderId">
+            <mat-select formControlName="orderId" [(ngModel)]="inventoryBody.inventory.orderId">
               <mat-option [value]="1">1</mat-option>
               <mat-option [value]="2">2</mat-option>
             </mat-select>
@@ -35,47 +35,23 @@
           </mat-form-field>
         </div>
 
-        <div class="col-lg-6 col-md-6">
+        <!-- <div class="col-lg-6 col-md-6">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>quantity</mat-label>
             <input matInput type="number" formControlName="quantity" [(ngModel)]="inventoryBody.inv.quantity">
             <mat-error class="mt-1">Product is required</mat-error>
           </mat-form-field>
-        </div>
+        </div> -->
 
         <div class="col-lg-6 col-md-6">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>serialNo</mat-label>
-            <input matInput formControlName="serialNo" [(ngModel)]="inventoryBody.inv.serialNo">
+            <input matInput formControlName="serialnos" [(ngModel)]="inventoryBody.serialnos">
             <mat-error class="mt-1">Serial Number is required</mat-error>
           </mat-form-field>
         </div>
 
-        <!-- <div class="col-lg-6 col-md-6">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Status</mat-label>
-            <mat-select>
-              <mat-option value="Active">Active</mat-option>
-            </mat-select>
-            <mat-error class="mt-1">Status is required</mat-error>
-          </mat-form-field>
-        </div> -->
-
         <div class="row my-2">
-          <!-- <div class="col-lg-6 col-md-6">
-            <label class="form-check-label me-3">Cost Details</label>
-          </div>
-
-          <div class="col-lg-6 col-md-6 text-end">
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-              <label class="form-check-label" for="inlineRadio1">USD</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-              <label class="form-check-label" for="inlineRadio2">INR</label>
-            </div>
-          </div> -->
           <mat-radio-group name="radioOpt1" style="font-size: 12px;">
             <mat-label>Cost Details</mat-label>
             <mat-radio-button class="ms-3" name="Cost" value="USD">USD</mat-radio-button>
@@ -86,100 +62,110 @@
         <div class="col-lg-6 col-md-6 d-flex my-1 escalation">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Cost</mat-label>
-            <input matInput type="number" formControlName="cost" [(ngModel)]="inventoryBody.inv.cost">
+            <input matInput formControlName="cost" [(ngModel)]="inventoryBody.inventory.cost">
             <mat-error class="mt-1">Cost is required</mat-error>
           </mat-form-field>
         </div>
 
-        <div class="col-lg-6 col-md-6 d-flex my-1 escalation">
+        <!-- <div class="col-lg-6 col-md-6 d-flex my-1 escalation">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Price</mat-label>
             <input matInput type="number" formControlName="price" [(ngModel)]="inventoryBody.inv.price">
             <mat-error class="mt-1">Price is required</mat-error>
           </mat-form-field>
-        </div>
-
-        <div class="col-lg-6 col-md-6">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>remarks</mat-label>
-            <input matInput formControlName="remarks" [(ngModel)]="inventoryBody.inv.remarks">
-            <mat-error class="mt-1">Serial Number is required</mat-error>
-          </mat-form-field>
-        </div>
-
-
-        <p>Warranty Details</p>
-
-        <div class="col-lg-6 col-md-6">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>serialNo</mat-label>
-            <input matInput formControlName="wserialNo" [(ngModel)]="inventoryBody.warr.serialNo">
-            <mat-error class="mt-1">Serial Number is required</mat-error>
-          </mat-form-field>
-        </div>
-
-        <div class="col-lg-6 col-md-6">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>newSerialNo</mat-label>
-            <input matInput formControlName="wnewSerialNo" [(ngModel)]="inventoryBody.warr.newSerialNo">
-            <mat-error class="mt-1">Serial Number is required</mat-error>
-          </mat-form-field>
-        </div>
-
-        <div class="col-lg-6 col-md-6">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>cost</mat-label>
-            <input matInput formControlName="wcost" [(ngModel)]="inventoryBody.warr.cost">
-            <mat-error class="mt-1">Serial Number is required</mat-error>
-          </mat-form-field>
-        </div>
-
-        <div class="col-lg-6 col-md-6">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>vendor</mat-label>
-            <input matInput formControlName="vendor" [(ngModel)]="inventoryBody.warr.vendor">
-            <mat-error class="mt-1">vendor is required</mat-error>
-          </mat-form-field>
-        </div>
-
-        <div class="col-lg-6 col-md-6">
-          <mat-form-field appearance="outline" class="w-100">
-            <input matInput [matDatepicker]="picker1" placeholder="Start Date" formControlName="startDate" [(ngModel)]="inventoryBody.warr.startDate">
-            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-            <mat-datepicker #picker1></mat-datepicker>
-            <mat-error class="mt-1">Start Date is required</mat-error>
-          </mat-form-field>
-        </div>
-
-        <div class="col-lg-6 col-md-6">
-          <mat-form-field appearance="outline" class="w-100">
-            <input matInput [matDatepicker]="picker2" placeholder="End Date" formControlName="endDate" [(ngModel)]="inventoryBody.warr.endDate">
-            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-            <mat-datepicker #picker2></mat-datepicker>
-            <mat-error class="mt-1">End Date is required</mat-error>
-          </mat-form-field>
-        </div>
-
-        <!-- <div class="col-lg-6 col-md-6">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Select Vendor</mat-label>
-            <mat-select formControlName="vendor" [(ngModel)]="x.warr.vendor">
-              <mat-option value="Riverside">Riverside</mat-option>
-            </mat-select>
-            <mat-error class="mt-1">Vendor is required</mat-error>
-          </mat-form-field>
         </div> -->
 
-        <div class="col-lg-12 col-md-12">
+        <div class="col-lg-6 col-md-6">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>remarks</mat-label>
-            <input matInput formControlName="wremarks" [(ngModel)]="inventoryBody.warr.remarks">
-            <mat-error class="mt-1">Notes is required</mat-error>
+            <mat-label>Remarks</mat-label>
+            <input matInput formControlName="remarks" [(ngModel)]="inventoryBody.inventory.remarks">
+            <mat-error class="mt-1">Remarks is required</mat-error>
           </mat-form-field>
+        </div>
+
+        <div class="row my-2">
+          <mat-radio-group name="radioOpt1" style="font-size: 12px;" formControlName="warrantyDetail" [(ngModel)]="warrantyDetail">
+            <mat-label>Warr</mat-label>
+            <mat-radio-button class="ms-3" name="warranty" value="Yes">Yes</mat-radio-button>
+            <mat-radio-button class="ms-3" name="warranty" value="No" checked>No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+
+        <div class="row col-lg-12" *ngIf="warrantyDetail == 'Yes'">
+          <p>Warranty Details</p>
+
+          <!-- <div>
+            <div class="col-lg-6 col-md-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>serialNo</mat-label>
+                <input matInput formControlName="wserialNo" [(ngModel)]="inventoryBody.warr.serialNo">
+                <mat-error class="mt-1">Serial Number is required</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-6 col-md-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>newSerialNo</mat-label>
+                <input matInput formControlName="wnewSerialNo" [(ngModel)]="inventoryBody.warr.newSerialNo">
+                <mat-error class="mt-1">Serial Number is required</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-6 col-md-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>cost</mat-label>
+                <input matInput formControlName="wcost" [(ngModel)]="inventoryBody.warr.cost">
+                <mat-error class="mt-1">Serial Number is required</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-6 col-md-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>vendor</mat-label>
+                <input matInput formControlName="vendor" [(ngModel)]="inventoryBody.warr.vendor">
+                <mat-error class="mt-1">vendor is required</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-12 col-md-12">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>remarks</mat-label>
+                <input matInput formControlName="wremarks" [(ngModel)]="inventoryBody.warr.remarks">
+                <mat-error class="mt-1">Notes is required</mat-error>
+              </mat-form-field>
+            </div>
+          </div> -->
+
+          <div class="col-lg-6 col-md-6" >
+            <mat-form-field appearance="outline" class="w-100">
+              <input matInput [matDatepicker]="picker1" placeholder="Start Date" formControlName="startDate" [(ngModel)]="inventoryBody.warranty.startDate">
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+              <mat-error class="mt-1">Start Date is required</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-6 col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <input matInput [matDatepicker]="picker2" placeholder="End Date" formControlName="endDate" [(ngModel)]="inventoryBody.warranty.endDate">
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+              <mat-error class="mt-1">End Date is required</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-6 col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Remarks</mat-label>
+              <input matInput formControlName="wremarks" [(ngModel)]="inventoryBody.warranty.remarks">
+              <mat-error class="mt-1">Remarks is required</mat-error>
+            </mat-form-field>
+          </div>
         </div>
 
         <div class="text-center my-3">
-          <button type="submit" class="btn add-btn" (click)="submit()">ADD</button>
+          <button type="submit" class="btn add-btn">ADD</button>
         </div>
       </div>
     </form>

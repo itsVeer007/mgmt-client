@@ -9,25 +9,25 @@ export class ProductMasterService {
 
   constructor(private http: HttpClient) { }
 
-  // baseUrl = 'http://192.168.0.119:8080';
-  baseUrl = 'http://usstaging.ivisecurity.com:777/inventoryMgmt';
+  baseUrl = 'http://192.168.0.172:8080';
+  // baseUrl = 'http://usstaging.ivisecurity.com:777/inventoryMgmt';
 
   mySub = new Subject();
 
   list() {
-    let url = this.baseUrl + "/listproducts_1_0";
+    let url = this.baseUrl + "/listProduct_1_0";
 
     return this.http.get(url);
   }
 
   addingproduct(payload: any) {
-    let url = this.baseUrl + '/addingproduct_1_0';
+    let url = this.baseUrl + '/createProduct_1_0';
 
     return this.http.post(url, payload)
   }
 
   updateProductMaster(payload: any) {
-    let url = this.baseUrl + '/updatingproduct_1_0';
+    let url = this.baseUrl + '/updateProduct_1_0';
 
     return this.http.put(url, payload)
   }
@@ -51,7 +51,7 @@ export class ProductMasterService {
   ////////////////////
 
   filteBody(payload: any) {
-    let url = this.baseUrl + `/getListBySearchPM_1_0`;
+    let url = this.baseUrl + `/listProduct_1_0`;
 
     // let myObj = {
     //   'productBrand': payload?.productCategoryId,

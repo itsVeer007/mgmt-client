@@ -3,15 +3,18 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 
 import { environment } from '../environments/environment';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AssetService {
 
-  baseUrl = `${environment.baseUrl}/proximityads`;
+  assets$ = new BehaviorSubject(null);
 
   constructor(private http: HttpClient, private date: DatePipe) { }
+
+  baseUrl = `${environment.baseUrl}/proximityads`;
 
   // httpOptions = {
   //   headers: new HttpHeaders({

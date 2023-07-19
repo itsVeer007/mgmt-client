@@ -43,9 +43,9 @@
     <div class="col-lg-2 col-md-2 col-sm-12">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Category</mat-label>
-        <mat-select (focus)="removeDuplicates()" [(ngModel)]="productCategoryId">
+        <mat-select (focus)="removeDuplicates()" [(ngModel)]="categoryId">
           <mat-option value="">All</mat-option>
-          <mat-option *ngFor="let item of brandNames" [value]="item.productCategoryId">{{ item.productCategoryId }}</mat-option>
+          <mat-option *ngFor="let item of brandNames" [value]="item.categoryId">{{ item.categoryId }}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
@@ -53,9 +53,19 @@
     <div class="col-lg-2 col-md-2 col-sm-12">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Product Type</mat-label>
-        <mat-select (focus)="removeDuplicates()" [(ngModel)]="productTypeId">
+        <mat-select (focus)="removeDuplicates()" [(ngModel)]="typeId">
           <mat-option value="">All</mat-option>
-          <mat-option *ngFor="let item of categoryTypes" [value]="item.productTypeId">{{ item.productTypeId }}</mat-option>
+          <mat-option *ngFor="let item of categoryTypes" [value]="item.typeId">{{ item.typeId }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2 col-md-2 col-sm-12">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Vendor</mat-label>
+        <mat-select [(ngModel)]="vendorId">
+          <mat-option value="">All</mat-option>
+          <mat-option *ngFor="let item of productStatus" [value]="item.keyId">{{ item.value }}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
@@ -63,16 +73,16 @@
     <div class="col-lg-1 col-md-1 col-sm-12">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Status</mat-label>
-        <mat-select (focus)="removeDuplicates()" [(ngModel)]="productStatusId">
+        <mat-select (focus)="removeDuplicates()" [(ngModel)]="statusId">
           <mat-option value="">All</mat-option>
-          <mat-option *ngFor="let item of statusVal" [value]="item.productStatusId">{{ item.productStatusId }}</mat-option>
+          <mat-option *ngFor="let item of productStatus" [value]="item.keyId">{{ item.value }}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
 
     <div class="col-lg-2 col-md-2 col-sm-12">
       <mat-form-field appearance="outline" class="w-100">
-        <input matInput [matDatepicker]="picker1" placeholder="From" [(ngModel)]="createdTime">
+        <input matInput [matDatepicker]="picker1" placeholder="From" [(ngModel)]="startDate">
         <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
       </mat-form-field>
@@ -80,13 +90,13 @@
 
     <div class="col-lg-2 col-md-2 col-sm-12">
       <mat-form-field appearance="outline" class="w-100">
-        <input matInput [matDatepicker]="picker2" placeholder="To" [(ngModel)]="createdTime1">
+        <input matInput [matDatepicker]="picker2" placeholder="To" [(ngModel)]="endDate">
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
       </mat-form-field>
     </div>
 
-    <div class="col-lg-2 col-md-2 col-sm-12">
+    <!-- <div class="col-lg-2 col-md-2 col-sm-12">
       <mat-form-field class="example-form-field" appearance="outline" class="w-100">
         <mat-label>Search</mat-label>
         <input matInput type="text"  [(ngModel)]="searchText">
@@ -94,7 +104,7 @@
           <mat-icon>search</mat-icon>
         </button>
       </mat-form-field>
-    </div>
+    </div> -->
 
     <div class="filter-search-btn col-lg-1 col-md-1 col-sm-12">
       <!-- <button mat-flat-button color="primary" class="p-0" (click)="applyFilter()">Submit</button> -->
@@ -213,7 +223,7 @@
           </td>
 
           <td>
-            <p>{{ cust.productCategoryId }}</p>
+            <p>{{ cust.category }}</p>
           </td>
           <td>
             <p>{{ cust.name }}</p>
@@ -224,15 +234,15 @@
           </td> -->
 
           <td>
-            <p>{{ cust.uomId }}</p>
+            <p>{{ cust.uom }}</p>
           </td>
 
           <td>
-            <p>{{ cust.productModelId }}</p>
+            <p>{{ cust.model }}</p>
           </td>
 
           <td>
-            <p>{{ cust.productTypeId }}</p>
+            <p>{{ cust.type }}</p>
           </td>
 
           <td>
@@ -240,7 +250,7 @@
           </td>
 
           <td>
-            <p>{{ cust.purchaseVendorId }}</p>
+            <p>{{ cust.vendor }}</p>
           </td>
 
           <!-- <td>
@@ -248,20 +258,20 @@
           </td> -->
 
           <td>
-            <p>{{ cust.returnable }}</p>
+            <p>{{ cust.returnable == "Y" ? 'Yes' : 'No' }}</p>
           </td>
 
           <td>
-            <p>{{ cust.maintenanceRequired }}</p>
+            <p>{{ cust.maintenanceRequired == 'Y' ? 'Yes' : 'No' }}</p>
           </td>
 
           <td>
-            <p [style.color]="cust.productStatusId == 1 ? '#00A44C' : cust.productStatusId == 2 ? '#fa500f' : ''">
-              {{ cust.productStatusId == 1 ? 'Active' : cust.productStatusId == 2 ? 'Inactive' : '--' }}
+            <p [style.color]="cust.statusId == 1 ? '#00A44C' : cust.statusId == 2 ? '#fa500f' : ''">
+              {{ cust.status }}
             </p>
           </td>
 
-          <td class="text-center">
+          <td class="text-center" style="width: 115px;">
             <!-- <a (click)="closeDot($event, i)" class="pointer"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
 
             <div class="plus-img1" id="plus-img{{i}}" style="display: none">
@@ -276,13 +286,13 @@
               </div>
             </div> -->
 
-            <a class="mx-2 pointer" (click)="openViewPopup(cust)">
+            <a class="mx-1 pointer" (click)="openViewPopup(cust)">
               <img src="assets/icons/view.svg" (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" />
             </a>
-            <a class="mx-2 pointer" (click)="openEditPopup(cust)">
+            <a class="mx-1 pointer" (click)="openEditPopup(cust)">
               <img src="assets/icons/edit.svg" (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" />
             </a>
-            <a class="mx-2 pointer" value="Delete" (click)="openDeletePopup(cust)">
+            <a class="mx-1 pointer" value="Delete" (click)="openDeletePopup(cust)">
               <img src="assets/icons/delete.svg" (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" />
             </a>
           </td>
@@ -306,57 +316,66 @@
 
 <!-- view Popup -->
 <ng-template #viewInventoryDialog>
-  <div class="row" *ngIf="currentItem">
-    <div class="col-lg-12 col-md-12">
-      <p style="font-size: 16px; font-weight: 600; color: #ABABAB;">Product Details</p>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>id</mat-label>
-        <input matInput [(ngModel)]="currentItem.id" disabled>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>name</mat-label>
-        <input matInput [(ngModel)]="currentItem.name" disabled>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>description</mat-label>
-        <input matInput [(ngModel)]="currentItem.description" disabled>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>productTypeId</mat-label>
-        <input matInput [(ngModel)]="currentItem.productTypeId" disabled>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>productCategoryId</mat-label>
-        <input matInput [(ngModel)]="currentItem.productCategoryId" disabled>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>productStatusId</mat-label>
-        <mat-select [(ngModel)]="currentItem.productStatusId" disabled>
-          <mat-option *ngFor="let item of productStatus" [value]="item.keyId">{{ item.value }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
+  <div style="background-color: #084982;">
+    <p class="dialog-title">VIEW PRODUCT</p>
   </div>
 
-  <div mat-dialog-actions>
+  <mat-dialog-content>
+    <div class="row" *ngIf="currentItem">
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Id</mat-label>
+          <input matInput [(ngModel)]="currentItem.id" disabled>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Name</mat-label>
+          <input matInput [(ngModel)]="currentItem.name" disabled>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Description</mat-label>
+          <input matInput [(ngModel)]="currentItem.description" disabled>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Product Type</mat-label>
+          <input matInput [(ngModel)]="currentItem.type" disabled>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Product Category</mat-label>
+          <input matInput [(ngModel)]="currentItem.category" disabled>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Status</mat-label>
+          <input matInput [(ngModel)]="currentItem.status" disabled>
+        </mat-form-field>
+      </div>
+
+      <!-- <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>productStatusId</mat-label>
+          <mat-select [(ngModel)]="currentItem.productStatusId" disabled>
+            <mat-option *ngFor="let item of productStatus" [value]="item.keyId">{{ item.value }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div> -->
+    </div>
+  </mat-dialog-content>
+
+  <div class="d-flex justify-content-end" mat-dialog-actions>
     <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
   </div>
 </ng-template>
@@ -364,151 +383,123 @@
 
 <!-- edit Popup -->
 <ng-template #editInventoryDialog>
-  <div>
-    <p style="font-weight: 600; color: #ABABAB;">MODIFY PRODUCT</p>
+  <div style="background-color: #084982;">
+    <p class="dialog-title">MODIFY PRODUCT</p>
   </div>
 
-  <div class="row" *ngIf="currentItem">
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Id</mat-label>
-        <input matInput [(ngModel)]="currentItem.id" disabled>
-      </mat-form-field>
+  <mat-dialog-content>
+    <div class="row" *ngIf="currentItem">
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Id</mat-label>
+          <input matInput [(ngModel)]="currentItem.id" disabled>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Name</mat-label>
+          <input name="name" matInput [(ngModel)]="currentItem.name" (change)="onInputChange($event)">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Description</mat-label>
+          <input name="description" matInput [(ngModel)]="currentItem.description" (change)="onInputChange($event)">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Model</mat-label>
+          <input name="model" matInput [(ngModel)]="currentItem.model" (change)="onInputChange($event)">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Quantity</mat-label>
+          <input name="quantity" matInput [(ngModel)]="currentItem.quantity" (change)="onInputChange($event)">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Uom Id</mat-label>
+          <mat-select name="uomId" [(ngModel)]="currentItem.uomId" (selectionChange)="onSelectChange($event)">
+            <mat-option *ngFor="let item of uom" [value]="item.keyId">{{ item.value }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Cost</mat-label>
+          <input name="cost" matInput [(ngModel)]="currentItem.cost" (change)="onInputChange($event)">
+        </mat-form-field>
+      </div>
+
+      <!-- <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Category Id</mat-label>
+          <mat-select [(ngModel)]="currentItem.productCategoryId">
+            <mat-option [value]="55">55</mat-option>
+            <mat-option [value]="33">33</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div> -->
+
+      <!-- <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Type Id</mat-label>
+          <mat-select [(ngModel)]="currentItem.productTypeId">
+            <mat-option [value]="2">2</mat-option>
+            <mat-option [value]="13">13</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div> -->
+
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Purchase Link</mat-label>
+          <input name="purchaseLink" matInput [(ngModel)]="currentItem.purchaseLink" (change)="onInputChange($event)">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Status</mat-label>
+          <mat-select name="statusId" [(ngModel)]="currentItem.statusId" (change)="onInputChange($event)">
+            <mat-option *ngFor="let item of productStatus" [value]="item.keyId">{{item.value}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Remarks</mat-label>
+          <input name="remarks" matInput [(ngModel)]="currentItem.remarks" (change)="onInputChange($event)">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 col-md-6 mt-2" style="font-size: 10px; font-weight: 700;">
+        <mat-radio-group name="returnable" class="w-50" [(ngModel)]="currentItem.returnable" (change)="onRadioChange($event)">
+          <mat-label>Returnable</mat-label>
+          <mat-radio-button class="ms-3" name="return" value="Y">Yes</mat-radio-button>
+          <mat-radio-button class="ms-3" name="return" value="N" checked>No</mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <div class="col-lg-6 col-md-6 mt-2" style="font-size: 10px; font-weight: 700;">
+        <mat-radio-group name="maintenanceRequired" class="w-50" [(ngModel)]="currentItem.maintenanceRequired" (change)="onRadioChange($event)">
+          <mat-label>Maintenance Required</mat-label>
+          <mat-radio-button class="ms-3" name="maintenance" value='Y'>Yes</mat-radio-button>
+          <mat-radio-button class="ms-3" name="maintenance" value='N' checked>No</mat-radio-button>
+        </mat-radio-group>
+      </div>
     </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Category Id</mat-label>
-        <mat-select [(ngModel)]="currentItem.productCategoryId">
-          <mat-option [value]="55">55</mat-option>
-          <mat-option [value]="33">33</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Name</mat-label>
-        <input matInput [(ngModel)]="currentItem.name">
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Description</mat-label>
-        <input matInput [(ngModel)]="currentItem.description">
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Uom Id</mat-label>
-        <mat-select [(ngModel)]="currentItem.uomId">
-          <mat-option [value]="11">11</mat-option>
-          <mat-option [value]="21">21</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Model Id</mat-label>
-        <mat-select [(ngModel)]="currentItem.productModelId">
-          <mat-option [value]="2">2</mat-option>
-          <mat-option [value]="13">13</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Type Id</mat-label>
-        <mat-select [(ngModel)]="currentItem.productTypeId">
-          <mat-option [value]="2">2</mat-option>
-          <mat-option [value]="13">13</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Cost</mat-label>
-        <input matInput [(ngModel)]="currentItem.cost">
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Vendor Id</mat-label>
-        <mat-select [(ngModel)]="currentItem.purchaseVendorId">
-          <mat-option [value]="1">1</mat-option>
-          <mat-option [value]="2">2</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Purchase Link</mat-label>
-        <input matInput [(ngModel)]="currentItem.purchaseLink">
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6 mt-2" style="font-size: 10px; font-weight: 700;">
-      <mat-radio-group name="debugOn" class="w-50" [(ngModel)]="currentItem.returnable">
-        <mat-label>Returnable</mat-label>
-        <mat-radio-button class="ms-3" name="return" value="Y">Yes</mat-radio-button>
-        <mat-radio-button class="ms-3" name="return" value="N" checked>No</mat-radio-button>
-      </mat-radio-group>
-    </div>
-
-    <div class="col-lg-6 col-md-6 mt-2" style="font-size: 10px; font-weight: 700;">
-      <mat-radio-group name="debugLogs" class="w-50" [(ngModel)]="currentItem.maintenanceRequired">
-        <mat-label>Maintenance Required</mat-label>
-        <mat-radio-button class="ms-3" name="maintenance" value='Y'>Yes</mat-radio-button>
-        <mat-radio-button class="ms-3" name="maintenance" value='N' checked>No</mat-radio-button>
-      </mat-radio-group>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Status</mat-label>
-        <mat-select [(ngModel)]="currentItem.productStatusId">
-          <mat-option *ngFor="let item of productStatus" [value]="item.keyId">{{item.value}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <!-- <div>
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Cost</mat-label>
-        <input matInput [(ngModel)]="currentItem.cost">
-      </mat-form-field>
-    </div>
-
-    <div>
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Price</mat-label>
-        <input matInput [(ngModel)]="currentItem.price">
-      </mat-form-field>
-    </div> -->
-
-    <!-- <div>
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Product Category</mat-label>
-        <mat-select [(ngModel)]="currentItem.vendor">
-          <mat-option></mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div>
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Product Name</mat-label>
-        <input matInput [(ngModel)]="currentItem.remarks">
-      </mat-form-field>
-    </div> -->
-  </div>
+  </mat-dialog-content>
 
   <div class="d-flex align-items-center justify-content-end">
     <div mat-dialog-actions class="me-2">
@@ -523,10 +514,13 @@
 
 <!-- Delete Popup -->
 <ng-template #deleteInventoryDialog>
-  <div>
-    <p style="font-size: 16px; font-weight: 600; color: #ABABAB;">Delete Row</p>
+  <div style="background-color: #084982;">
+    <p class="dialog-title">DELETE PRODUCT</p>
   </div>
-  <div class="text-center">Do you want to delete this item?</div>
+
+  <mat-dialog-content>
+    <div class="text-center">Do you want to delete this item?</div>
+  </mat-dialog-content>
 
   <div class="d-flex align-items-center justify-content-end">
     <div mat-dialog-actions class="me-2">

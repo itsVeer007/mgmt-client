@@ -5,15 +5,15 @@ import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
 import { InventoryService } from 'src/services/inventory.service';
 import { MetadataService } from 'src/services/metadata.service';
+import { OrderService } from 'src/services/order.service';
 import { VendorsService } from 'src/services/vendors.service';
-import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-vendors',
-  templateUrl: './vendors.component.html',
-  styleUrls: ['./vendors.component.css']
+  selector: 'app-orders',
+  templateUrl: './orders.component.html',
+  styleUrls: ['./orders.component.css']
 })
-export class VendorsComponent implements OnInit {
+export class OrdersComponent implements OnInit {
 
   @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
     var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);
@@ -46,6 +46,7 @@ export class VendorsComponent implements OnInit {
     private ass: AssetService,
     private inventorySer: InventoryService,
     private vendorSer: VendorsService,
+    private orderSer: OrderService,
     private metaDatSer: MetadataService,
     private alertSer: AlertService,
     public dialog: MatDialog
@@ -53,6 +54,7 @@ export class VendorsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getVendors();
+    this.getVendorr();
   }
 
   showIconView: boolean = false;
@@ -71,7 +73,7 @@ export class VendorsComponent implements OnInit {
   inActive: any = [];
   getVendors() {
     this.showLoader = true;
-    this.vendorSer.listVendors().subscribe((res: any) => {
+    this.orderSer.listOrderItems().subscribe((res: any) => {
       // console.log(res);
       this.showLoader = false;
 
@@ -86,6 +88,14 @@ export class VendorsComponent implements OnInit {
         }
       }
     });
+  }
+
+  vendorDetail: any;
+  getVendorr() {
+    this.vendorSer.listVendors().subscribe((res: any) => {
+      // console.log(res);
+      this.vendorDetail = res;
+    })
   }
 
 
@@ -135,21 +145,20 @@ export class VendorsComponent implements OnInit {
     })
   }
 
-  prBrand: any = null;
-  sta: any = null;
-  prCat: any = null;
+  ovendorId: any = null;
+  oinvoiceId: any = null;
+  ostartDate: any = null;
+  oendDate: any = null;
 
   applyFilter() {
     let myObj = {
-      productBrand: this.prBrand ? this.prBrand : '',
-      status: this.sta ? this.sta : '',
-      productCategory: this.prCat ? this.prCat : '',
+      vendorId: this.ovendorId ? this.ovendorId : -1,
+      InvoiceId: this.oinvoiceId ? this.oinvoiceId : '',
+      startDate: this.ostartDate ? this.ostartDate : '',
+      endDate: this.oendDate ? this.oendDate : '',
     }
 
-    // console.log(myObj)
-
-    this.inventorySer.filteBody(myObj).subscribe((res: any) => {
-      // console.log(res);
+    this.orderSer.filteBody(myObj).subscribe((res: any) => {
       this.newInventoryTable = res;
     })
   }
@@ -174,35 +183,6 @@ export class VendorsComponent implements OnInit {
 
   show(type: string) {
     if (type == 'vendor') { this.showInventory = true; }
-  }
-
-
-  @ViewChild('itemsDialog') itemsDialog = {} as TemplateRef<any>;
-
-  itemDetail: any
-  itemsView(i: any) {
-    this.vendorSer.listVendorsById(i.id).subscribe((res: any) => {
-      this.itemDetail = res;
-      this.dialog.open(this.itemsDialog, {maxWidth: '550px', maxHeight: '550px'});
-    })
-  }
-
-
-  @ViewChild('proprietorDialog') proprietorDialog = {} as TemplateRef<any>;
-
-  currentDetail: any;
-  proprietorView(i: any) {
-    this.currentDetail = i;
-    this.dialog.open(this.proprietorDialog, {maxWidth: '550px', maxHeight: '550px'});
-  }
-
-
-  @ViewChild('addressDialog') addressDialog = {} as TemplateRef<any>;
-
-  addressId: any;
-  addressView(i: any) {
-    this.addressId = i;
-    this.dialog.open(this.addressDialog, {maxWidth: '250px', maxHeight: '250px'})
   }
 
   selectedAll: any;
@@ -238,114 +218,21 @@ export class VendorsComponent implements OnInit {
 
   @ViewChild('editInventoryDialog') editInventoryDialog = {} as TemplateRef<any>;
   openEditPopup(item: any) {
-    this.currentItem = JSON.parse(JSON.stringify(item));
+    this.currentItem = item;
     this.dialog.open(this.editInventoryDialog, {maxHeight: '550px', maxWidth: '750px'});
     // console.log(item);
-  }
-
-  onInputChange(e: any) {
-    this.originalObject = {
-      'id': this.currentItem.id,
-      'name': this.currentItem.name,
-      'proprietorName1': this.currentItem.proprietorName1,
-      'proprietorName2': this.currentItem.proprietorName2,
-      'proprietorName3': this.currentItem.proprietorName3,
-      'emailId1': this.currentItem.emailId1,
-      'emailId2': this.currentItem.emailId2,
-      'emailId3': this.currentItem.emailId3,
-      'mobileNumber1': this.currentItem.mobileNumber1,
-      'mobileNumber2': this.currentItem.mobileNumber2,
-      'mobileNumber3': this.currentItem.mobileNumber3,
-      'statusId': this.currentItem.statusId,
-      'serviceStartDate': null,
-      'serviceEndDate': this.currentItem.serviceEndDate,
-      'createdBy': null,
-      'modifiedBy': 0,
-      'createdTime': null,
-      'modifiedTime': null,
-      'addressLine1': this.currentItem.addressLine1,
-      'addressLine2': this.currentItem.addressLine2,
-      'postCode': this.currentItem.postCode,
-      'country': this.currentItem.country,
-      'state': this.currentItem.state,
-      'city': this.currentItem.city,
-      'remarks': this.currentItem.remarks
-    };
-
-    let x = e.target['name'];
-
-    if(!(this.changedKeys.includes(x))) {
-      this.changedKeys.push(x);
-    }
-  }
-
-  onSelectChange(e: any) {
-    this.originalObject = {
-      'id': this.currentItem.id,
-      'name': this.currentItem.name,
-      'proprietorName1': this.currentItem.proprietorName1,
-      'proprietorName2': this.currentItem.proprietorName2,
-      'proprietorName3': this.currentItem.proprietorName3,
-      'emailId1': this.currentItem.emailId1,
-      'emailId2': this.currentItem.emailId2,
-      'emailId3': this.currentItem.emailId3,
-      'mobileNumber1': this.currentItem.mobileNumber1,
-      'mobileNumber2': this.currentItem.mobileNumber2,
-      'mobileNumber3': this.currentItem.mobileNumber3,
-      'statusId': this.currentItem.statusId,
-      'serviceStartDate': null,
-      'serviceEndDate': this.currentItem.serviceEndDate,
-      'createdBy': null,
-      'modifiedBy': 0,
-      'createdTime': null,
-      'modifiedTime': null,
-      'addressLine1': this.currentItem.addressLine1,
-      'addressLine2': this.currentItem.addressLine2,
-      'postCode': this.currentItem.postCode,
-      'country': this.currentItem.country,
-      'state': this.currentItem.state,
-      'city': this.currentItem.city,
-      'remarks': this.currentItem.remarks
-    };
-
-    let x = e.source.ngControl.name;
-
-    if(!(this.changedKeys.includes(x))) {
-      this.changedKeys.push(x);
-    }
   }
 
   editInventory() {
     this.originalObject = {
       'id': this.currentItem.id,
-      'name': this.currentItem.name,
-      'proprietorName1': this.currentItem.proprietorName1,
-      'proprietorName2': this.currentItem.proprietorName2,
-      'proprietorName3': this.currentItem.proprietorName3,
-      'emailId1': this.currentItem.emailId1,
-      'emailId2': this.currentItem.emailId2,
-      'emailId3': this.currentItem.emailId3,
-      'mobileNumber1': this.currentItem.mobileNumber1,
-      'mobileNumber2': this.currentItem.mobileNumber2,
-      'mobileNumber3': this.currentItem.mobileNumber3,
-      'statusId': this.currentItem.statusId,
-      'serviceStartDate': null,
-      'serviceEndDate': this.currentItem.serviceEndDate,
-      // 'createdBy': null,
-      'modifiedBy': 0,
-      'createdTime': null,
-      'modifiedTime': null,
-      'addressLine1': this.currentItem.addressLine1,
-      'addressLine2': this.currentItem.addressLine2,
-      'postCode': this.currentItem.postCode,
-      'country': this.currentItem.country,
-      'state': this.currentItem.state,
-      'city': this.currentItem.city,
+      'invoiceNo': this.currentItem.invoiceNo,
+      'by': 1,
       'remarks': this.currentItem.remarks
     }
 
     this.alertSer.wait();
-    this.vendorSer.updatevendor({vendor: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
+    this.orderSer.updateOrder(this.originalObject).subscribe((res: any) => {
       // console.log(res);
       if(res) {
         this.alertSer.success(res);
@@ -366,13 +253,11 @@ export class VendorsComponent implements OnInit {
   openDeletePopup(item: any) {
     this.currentItem = item;
     this.dialog.open(this.deleteInventoryDialog, {maxHeight: '550px', maxWidth: '750px'});
-    // console.log("Selected Item:: ", item);
   }
 
   deleteInventory() {
     this.alertSer.wait();
-    this.inventorySer.deleteInventory(this.currentItem).subscribe((res: any) => {
-      // console.log(res);
+    this.orderSer.deleteOrder(this.currentItem).subscribe((res: any) => {
       if(res) {
         this.alertSer.success(res);
       }

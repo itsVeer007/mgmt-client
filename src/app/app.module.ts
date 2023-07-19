@@ -78,6 +78,8 @@ import { WifiAdsComponent } from './reports/wifi-ads/wifi-ads.component';
 import { VendorsComponent } from './vendors/vendors.component';
 import { AddNewVendorComponent } from './main-dashboard/add-new-vendor/add-new-vendor.component';
 import { AddNewDeviceComponent } from './main-dashboard/add-new-device/add-new-device.component';
+import { OrdersComponent } from './orders/orders.component';
+import { AddNewOrderComponent } from './main-dashboard/add-new-order/add-new-order.component';
 
 @NgModule({
   declarations: [
@@ -121,7 +123,9 @@ import { AddNewDeviceComponent } from './main-dashboard/add-new-device/add-new-d
     WifiAdsComponent,
     VendorsComponent,
     AddNewVendorComponent,
-    AddNewDeviceComponent
+    AddNewDeviceComponent,
+    OrdersComponent,
+    AddNewOrderComponent
   ],
   imports: [
     BrowserModule,

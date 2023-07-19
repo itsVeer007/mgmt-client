@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { environment } from '../environments/environment';
@@ -9,8 +9,8 @@ import { environment } from '../environments/environment';
 })
 export class InventoryService {
 
-  // baseUrl = 'http://192.168.0.119:8080';
-  baseUrl = `${environment.baseUrl}/inventoryMgmt`;
+  baseUrl = 'http://192.168.0.172:8080';
+  // baseUrl = `${environment.baseUrl}/inventoryMgmt`;
 
   constructor(private http: HttpClient, public datepipe: DatePipe) { }
 
@@ -20,14 +20,30 @@ export class InventoryService {
   }
 
   getWarranty(id: any) {
-    let url = this.baseUrl + `/getwarrantydetails_1_0?inventoryId=${id}`;
+    let url = this.baseUrl + `/listWarranty_1_0/${id}`;
     return this.http.get(url);
   }
 
-  createInventory(payload: any) {
-    let url = this.baseUrl + '/createBothInvAndWarr_1_0';
-    // payload.warr.startDate = this.datepipe.transform(payload.warr.startDate, 'yyyy-MM-dd');
-    return this.http.post(url, payload)
+  createInventory(payload: any, condition: any) {
+    let url = this.baseUrl + '/createInventoryAndWarranty_1_0';
+    let payload1;
+    let payload2;
+    let payload3;
+    if(condition == 'Yes') {
+      payload1 = payload.inventory,
+      payload2 = payload.serialnos,
+      payload3 = payload.warranty
+    } else {
+      payload1 = payload.inventory,
+      payload2 = payload.serialnos
+    }
+    const requestBody = {
+      'inventory': payload1,
+      'serialnos': payload2,
+      'warranty': payload3
+    };
+
+    return this.http.post(url, requestBody)
   }
 
   UpdateInventory(payload: any) {
@@ -35,29 +51,35 @@ export class InventoryService {
     return this.http.put(url, payload)
   }
 
-  UpdateWarranty(payload: any) {
-    let url = this.baseUrl + '/updateWarranty_1_0';
-    return this.http.put(url, payload)
-  }
-
-
   deleteInventory(payload: any) {
-    let url = this.baseUrl + `/deleteInventory_1_0?id=${payload.id}`;
+    let url = this.baseUrl + `/deleteInventory_1_0/${payload.id}/${1}`;
 
     return this.http.delete(url);
   }
 
+
+  updateWarranty(payload: any) {
+    let url = this.baseUrl + '/updateWarranty_1_0';
+    return this.http.put(url, payload)
+  }
+
+  deleteWarranty(payload: any) {
+    let url = this.baseUrl + `/deleteWarranty_1_0/${payload.id}/${1}`;
+
+    return this.http.delete(url);
+  }
+
+  updateAssetStatus(id: any, payload: any) {
+    let url = this.baseUrl + "/updateInventoryStatus_1_0";
+    const params = new HttpParams().set('idRreplacedWith', id).set('statusId', payload.statusId).set('newProductSerialNo', payload.newProductSerialNo).set('modifiedBy', payload.modifiedBy);
+
+    return this.http.put(url, null, {params: params});
+  }
+
   filteBody(payload: any) {
-    let url = this.baseUrl + `/getListBySearchInventory_1_0`;
+    let url = this.baseUrl + `/listInventory_1_0`;
 
-    let myObj = {
-      'name': payload?.name,
-      'statusId': payload?.statusId,
-      'createdTime': payload?.createdTime,
-      'createdTime1': payload?.createdTime1
-    }
-
-    return this.http.get(url, {params: myObj});
+    return this.http.get(url, {params: payload});
   }
 
 }

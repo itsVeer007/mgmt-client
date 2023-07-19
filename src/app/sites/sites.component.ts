@@ -222,7 +222,7 @@ export class SitesComponent implements OnInit {
 
   openViewPopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.viewSiteDialog);
+    this.dialog.open(this.viewSiteDialog, {maxWidth: '650px', maxHeight: '650px'});
     // console.log(this.currentItem);
   }
 
@@ -234,7 +234,7 @@ export class SitesComponent implements OnInit {
 
   openEditPopup(item: any) {
     this.currentItem = JSON.parse(JSON.stringify(item));
-    this.dialog.open(this.editSiteDialog);
+    this.dialog.open(this.editSiteDialog, {maxWidth: '650px', maxHeight: '650px'});
   }
 
   confirmEditRow() {
@@ -246,7 +246,7 @@ export class SitesComponent implements OnInit {
 
   openDeletePopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.deleteSiteDialog);
+    this.dialog.open(this.deleteSiteDialog, {maxWidth: '250px', maxHeight: '250px'});
   }
 
   confirmDeleteRow() {
@@ -260,15 +260,12 @@ export class SitesComponent implements OnInit {
   viewArray: any = [];
   viewBySelectedOne() {
     if (this.viewArray.length > 0) {
-      this.dialog.open(this.viewSiteDialog)
+      this.dialog.open(this.viewSiteDialog, this.dialog.open(this.editSiteDialog));
     }
   }
 
   ViewByCheckbox(itemV: any, i: any, e: any) {
     var checked = (e.target.checked);
-    // console.log("View By Checkbox:: ",itemV);
-    // console.log("View Array::" ,this.viewArray);
-    // console.log("present in array : "+this.viewArray.includes(itemV),  " checked : "+ checked)
     if (checked == true && this.viewArray.includes(itemV) == false) {
       this.viewArray.push(itemV);
       this.currentItem = this.viewArray[(this.viewArray.length - 1)];
@@ -281,7 +278,7 @@ export class SitesComponent implements OnInit {
   editArray: any = [];
   editBySelectedOne() {
     if (this.editArray.length > 0) {
-      this.dialog.open(this.editSiteDialog);
+      this.dialog.open(this.editSiteDialog,     this.dialog.open(this.editSiteDialog));
     }
   }
 

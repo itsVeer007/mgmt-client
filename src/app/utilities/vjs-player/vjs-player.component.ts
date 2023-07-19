@@ -1,10 +1,11 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import videojs from 'video.js';
 
 @Component({
   selector: 'app-vjs-player',
   templateUrl: './vjs-player.component.html',
-  styleUrls: ['./vjs-player.component.css']
+  styleUrls: ['./vjs-player.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class VjsPlayerComponent implements OnInit {
 

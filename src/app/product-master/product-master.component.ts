@@ -74,9 +74,6 @@ export class ProductMasterComponent implements OnInit {
     this.productMasterSer.list().subscribe((res: any) => {
       // console.log(res);
       this.showLoader = false;
-      // this.productMasterSer.mySub = res;
-      // console.log(this.productMasterSer.mySub);
-
       this.productMaster = res;
       this.newProductMaster = this.productMaster;
 
@@ -117,10 +114,10 @@ export class ProductMasterComponent implements OnInit {
 
   brandNames: any;
   categoryTypes: any;
-  statusVal: any;
+  // statusVal: any;
   removeDuplicates() {
     this.brandNames = this.productMaster.reduce((acc: any, current: any) => {
-      const x = acc.find((item: any) => item.productCategoryId == current.productCategoryId);
+      const x = acc.find((item: any) => item.categoryId == current.categoryId);
       if (!x) {
         return acc.concat([current]);
       } else {
@@ -129,7 +126,7 @@ export class ProductMasterComponent implements OnInit {
     }, []);
 
     this.categoryTypes = this.productMaster.reduce((acc: any, current: any) => {
-      const x = acc.find((item: any) => item.productTypeId == current.productTypeId);
+      const x = acc.find((item: any) => item.typeId == current.typeId);
       if (!x) {
         return acc.concat([current]);
       } else {
@@ -137,29 +134,31 @@ export class ProductMasterComponent implements OnInit {
       }
     }, []);
 
-    this.statusVal = this.productMaster.reduce((acc: any, current: any) => {
-      const x = acc.find((item: any) => item.productStatusId == current.productStatusId);
-      if (!x) {
-        return acc.concat([current]);
-      } else {
-        return acc;
-      }
-    }, []);
+    // this.statusVal = this.productMaster.reduce((acc: any, current: any) => {
+    //   const x = acc.find((item: any) => item.statusId == current.statusId);
+    //   if (!x) {
+    //     return acc.concat([current]);
+    //   } else {
+    //     return acc;
+    //   }
+    // }, []);
   }
 
-  productCategoryId: any = '';
-  productTypeId: any = '';
-  productStatusId: any = '';
-  createdTime: any = '';
-  createdTime1: any = '';
+  categoryId: any = '';
+  typeId: any = '';
+  statusId: any = '';
+  startDate: any = '';
+  endDate: any = '';
+  vendorId: any = '';
 
   applyFilter() {
     let myObj = {
-      'productCategoryId': this.productCategoryId ? this.productCategoryId : 0,
-      'productTypeId': this.productTypeId ? this.productTypeId : 0,
-      'productStatusId': this.productStatusId ? this.productStatusId : 0,
-      'createdTime': this.createdTime ? this.createdTime : '',
-      'createdTime1': this.createdTime1 ? this.createdTime1 : ''
+      'categoryId': this.categoryId ? this.categoryId : -1,
+      'typeId': this.typeId ? this.typeId : -1,
+      'statusId': this.statusId ? this.statusId : -1,
+      'startDate': this.startDate ? this.startDate : '',
+      'endDate': this.endDate ? this.endDate : '',
+      'vendorId': this.vendorId ? this.vendorId : ''
     }
 
     this.productMasterSer.filteBody(myObj).subscribe((res: any) => {
@@ -215,11 +214,14 @@ export class ProductMasterComponent implements OnInit {
     /* metadata methods */
 
     productStatus: any;
+    uom: any;
     onMetadataChange() {
       this.metaDataSer.getMetadata().subscribe((res: any) => {
         for(let item of res) {
           if(item.type == 'Product_Status') {
             this.productStatus = item.metadata;
+          } else if(item.type == 'uom') {
+            this.uom = item.metadata;
           }
         }
       })
@@ -241,6 +243,7 @@ export class ProductMasterComponent implements OnInit {
 
   currentItem: any;
   originalObject: any;
+  changedKeys: any = [];
 
 
   /* view inventory */
@@ -263,31 +266,113 @@ export class ProductMasterComponent implements OnInit {
     // console.log(item);
   }
 
-  editInventory() {
-    // console.log(this.currentItem);
-    // this.productMaster= this.productMaster.filter((item:any) => item.siteId !== this.currentItem.siteId);
-    // this.getInventory();
-
+  onSelectChange(event: any) {
     this.originalObject = {
       "id": this.currentItem.id,
-      "productCategoryId": this.currentItem.productCategoryId,
+      "categoryId": null,
+      "typeId": null,
+      "vendorId": null,
+      "modifiedBy": 1,
+
       "name": this.currentItem.name,
+      "quantity": this.currentItem.quantity,
       "description": this.currentItem.description,
       "uomId": this.currentItem.uomId,
-      "productModelId": this.currentItem.productModelId,
-      "productTypeId": this.currentItem.productTypeId,
+      "model": this.currentItem.model,
       "cost": this.currentItem.cost,
-      "purchaseVendorId": this.currentItem.purchaseVendorId,
       "purchaseLink": this.currentItem.purchaseLink,
       "returnable": this.currentItem.returnable,
       "maintenanceRequired": this.currentItem.maintenanceRequired,
-      "productStatusId": this.currentItem.productStatusId,
-      "remarks": this.currentItem.remarks,
+      "statusId": this.currentItem.statusId,
+      "remarks": this.currentItem.remarks
+    };
+
+    let x = event.source.ngControl.name;
+
+    if(!(this.changedKeys.includes(x))) {
+      this.changedKeys.push(x);
+    }
+  }
+
+  onInputChange(event: any) {
+    this.originalObject = {
+      "id": this.currentItem.id,
+      "categoryId": null,
+      "typeId": null,
+      "vendorId": null,
       "modifiedBy": 1,
+
+      "name": this.currentItem.name,
+      "quantity": this.currentItem.quantity,
+      "description": this.currentItem.description,
+      "uomId": this.currentItem.uomId,
+      "model": this.currentItem.model,
+      "cost": this.currentItem.cost,
+      "purchaseLink": this.currentItem.purchaseLink,
+      "returnable": this.currentItem.returnable,
+      "maintenanceRequired": this.currentItem.maintenanceRequired,
+      "statusId": this.currentItem.statusId,
+      "remarks": this.currentItem.remarks
+    };
+
+    let x = event.target['name'];
+
+    if(!(this.changedKeys.includes(x))) {
+      this.changedKeys.push(x);
+    }
+  }
+
+  onRadioChange(event: any) {
+    this.originalObject = {
+      "id": this.currentItem.id,
+      "categoryId": null,
+      "typeId": null,
+      "vendorId": null,
+      "modifiedBy": 1,
+
+      "name": this.currentItem.name,
+      "quantity": this.currentItem.quantity,
+      "description": this.currentItem.description,
+      "uomId": this.currentItem.uomId,
+      "model": this.currentItem.model,
+      "cost": this.currentItem.cost,
+      "purchaseLink": this.currentItem.purchaseLink,
+      "returnable": this.currentItem.returnable,
+      "maintenanceRequired": this.currentItem.maintenanceRequired,
+      "statusId": this.currentItem.statusId,
+      "remarks": this.currentItem.remarks
+    };
+
+    let x = event.source.name;
+
+    if(!(this.changedKeys.includes(x))) {
+      this.changedKeys.push(x);
+    }
+  }
+
+  editInventory() {
+    this.originalObject = {
+      "id": this.currentItem.id,
+      "categoryId": null,
+      "typeId": null,
+      "vendorId": null,
+      "modifiedBy": 1,
+
+      "name": this.currentItem.name,
+      "quantity": this.currentItem.quantity,
+      "description": this.currentItem.description,
+      "uomId": this.currentItem.uomId,
+      "model": this.currentItem.model,
+      "cost": this.currentItem.cost,
+      "purchaseLink": this.currentItem.purchaseLink,
+      "returnable": this.currentItem.returnable,
+      "maintenanceRequired": this.currentItem.maintenanceRequired,
+      "statusId": this.currentItem.statusId,
+      "remarks": this.currentItem.remarks
     }
 
     this.alertSer.wait();
-    this.productMasterSer.updateProductMaster(this.originalObject).subscribe((res: any) => {
+    this.productMasterSer.updateProductMaster({productMaster: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
       // console.log(res);
       if(res) {
         this.alertSer.success(res);
@@ -361,7 +446,6 @@ export class ProductMasterComponent implements OnInit {
     if (this.editArray.length > 0) {
       this.dialog.open(this.editInventoryDialog, {maxWidth: '550px', maxHeight: '550px'})
     }
-    this.getInventory();
   }
 
 

@@ -11,7 +11,7 @@
 
   <!-- Form -->
   <div>
-    <form autocomplete="off" [formGroup]="UserForm" #addUserForm="ngForm">
+    <form autocomplete="off" [formGroup]="vendorForm" #addUserForm="ngForm">
       <div class="row">
 
         <!-- <div class="col-lg-6 col-md-6">
@@ -162,6 +162,14 @@
             <mat-label>Address Line2</mat-label>
             <input matInput formControlName="addressLine2" [(ngModel)]="vendorBody.addressLine2">
             <mat-error class="mt-1">Address Line2 is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Country</mat-label>
+            <input matInput formControlName="country" [(ngModel)]="vendorBody.country">
+            <mat-error class="mt-1">Country is required</mat-error>
           </mat-form-field>
         </div>
 

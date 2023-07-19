@@ -1,16 +1,17 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';
-import Swal from 'sweetalert2';
+import { OrderService } from 'src/services/order.service';
+import { VendorsService } from 'src/services/vendors.service';
 
 @Component({
-  selector: 'app-add-new-inventory',
-  templateUrl: './add-new-inventory.component.html',
-  styleUrls: ['./add-new-inventory.component.css'],
+  selector: 'app-add-new-order',
+  templateUrl: './add-new-order.component.html',
+  styleUrls: ['./add-new-order.component.css'],
   animations:[
     trigger("inOutPaneAnimation", [
       transition(":enter", [
@@ -30,10 +31,13 @@ import Swal from 'sweetalert2';
     ])
   ]
 })
-export class AddNewInventoryComponent implements OnInit {
+export class AddNewOrderComponent implements OnInit {
+
   constructor(
     private router: Router,
     private inventorySer: InventoryService,
+    private orderSer: OrderService,
+    private vendorSer: VendorsService,
     private fb: FormBuilder,
 
     public alertSer: AlertService,
@@ -44,73 +48,31 @@ export class AddNewInventoryComponent implements OnInit {
 
   @Output() newItemEvent = new EventEmitter<any>();
 
-  // @Output() newUser = new EventEmitter<any>();
-
-  // @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
-  //   var x = <HTMLElement>document.getElementById(`user`);
-  //   if (x != null) {
-  //     if (!x.contains(e.target)) {
-  //       this.closeAddUser(false);
-  //     }
-  //   }
-  // }
-  // error=false;
-
-
   UserForm: any =  FormGroup;
 
   inventoryBody = {
-    inventory: {
-      productId: null,
-      orderId: null,
-      cost: null,
-      createdBy: 1,
-      remarks: null
-
-      // quantity: null,
-      // serialNo: '',
-      // price: null,
-    },
-
-    serialnos: [],
-
-    warranty: {
-      startDate: null,
-      endDate: null,
-      createdBy: 1,
-      remarks: null
-
-      // serialNo: "",
-      // newSerialNo: "",
-      // cost: "",
-      // vendor: "",
-    }
+    vendorId: null,
+    createdBy: 1,
+    remarks: null
   }
 
   // email: string = "";
 
   ngOnInit() {
     this.UserForm = this.fb.group({
-      'productId': new FormControl('', Validators.required),
-      'orderId': new FormControl('', Validators.required),
-      'cost': new FormControl('', Validators.required),
-      'serialnos': new FormControl(''),
+      'vendorId': new FormControl('', Validators.required),
       'remarks': new FormControl(''),
-
-      // 'quantity': new FormControl(''),
-      // 'price': new FormControl('', Validators.required),
-
-      // 'wserialNo': new FormControl(''),
-      // 'wnewSerialNo': new FormControl(''),
-      // 'wcost': new FormControl(''),
-      // 'vendor': new FormControl(''),
-
-      'wremarks': new FormControl(''),
-      'startDate': new FormControl(''),
-      'endDate': new FormControl(''),
-
-      'warrantyDetail': new FormControl(''),
     });
+
+    this.getVendor();
+  }
+
+  vendorDetail: any;
+  getVendor() {
+    this.vendorSer.listVendors().subscribe((res: any) => {
+      // console.log(res);
+      this.vendorDetail = res;
+    })
   }
 
   closeAddUser() {
@@ -133,13 +95,9 @@ export class AddNewInventoryComponent implements OnInit {
     }, 3000)
 
     if(this.UserForm.valid) {
-      this.arr.push(this.inventoryBody.serialnos)
-      this.inventoryBody.serialnos = this.arr;
-      this.inventoryBody.warranty.startDate = this.datepipe.transform(this.inventoryBody.warranty.startDate, 'yyyy-MM-dd');
-      this.inventoryBody.warranty.endDate = this.datepipe.transform(this.inventoryBody.warranty.endDate, 'yyyy-MM-dd');
       this.alertSer.wait();
       this.newItemEvent.emit(false);
-      this.inventorySer.createInventory(this.inventoryBody, this.warrantyDetail).subscribe((res: any) => {
+      this.orderSer.createOrder(this.inventoryBody).subscribe((res: any) => {
         // console.log(res);
         if(res) {
           this.alertSer.success(res);

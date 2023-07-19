@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, HostListener, OnInit, QueryList, TemplateRef, ViewChild, ViewChildren, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, EventEmitter, HostListener, OnInit, Output, QueryList, TemplateRef, ViewChild, ViewChildren, ViewContainerRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DeviceService } from 'src/services/device.service';
 import { MetadataService } from 'src/services/metadata.service';
@@ -20,7 +20,8 @@ import { AlertService } from 'src/services/alert.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AssetsComponent implements OnInit {
-  @ViewChild("tabgroup", { static: true }) tabGroup!: MatTabGroup ;
+  // @ViewChild("tabgroup", { static: true }) tabGroup!: MatTabGroup ;
+  // @Output() newItemEvent = new EventEmitter();
 
 
   @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
@@ -513,8 +514,6 @@ export class AssetsComponent implements OnInit {
   openEditStatus(id: any) {
     this.dialog.open(this.editStatus);
     this.currentStatusId = id;
-    // console.log(id);
-    // this.dialog.closeAll();
   }
 
   statusObj = {
@@ -528,12 +527,13 @@ export class AssetsComponent implements OnInit {
     this.assetService.updateAssetStatus(this.currentStatusId, this.statusObj).subscribe((res: any) => {
       // console.log(res);
       if(res) {
+        this.getSiteData();
         this.alertSer.success(res);
       };
 
-      setTimeout(() => {
-        window.location.reload();
-      }, 3000);
+      // setTimeout(() => {
+      //   window.location.reload();
+      // }, 3000);
     }, (err: any) => {
       if(err) {
         this.alertSer.error();

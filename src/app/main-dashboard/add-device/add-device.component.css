@@ -32,6 +32,15 @@
   } */
 }
 
+.dialog-title {
+  padding: 10px;
+  font-weight: 600;
+  color: #fff;
+}
+
+
+/* ng-deep */
+
 ::ng-deep .mat-tab-group.mat-primary.mat-background-primary>.mat-tab-header .mat-ink-bar {
   background-color: #dc3545;
   height: 48px;
@@ -50,9 +59,26 @@
   width: 100px;
 }
 
-::ng-deep .mat-dialog-container {
-  max-width: 700px;
+
+/* common mat-dialog */
+
+::ng-deep .mat-dialog-content {
+  margin: 0 !important;
+  padding: 0 20px !important;
+  max-height: 450px !important;
 }
+
+::ng-deep .mat-dialog-container {
+  overflow: hidden !important;
+  padding: 0 !important;
+}
+
+::ng-deep .mat-dialog-actions {
+  margin-bottom: 0 !important;
+  margin-right: 10px !important;
+  padding: 0 !important;
+}
+
 
 /* common ng-deep */
 

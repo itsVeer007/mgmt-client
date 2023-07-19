@@ -166,7 +166,7 @@
         </ng-container>
       </tbody>
 
-      <tbody *ngIf="typeInput.value != 'All'">
+      <tbody *ngIf="typeInput.value != 'All' && typeInput.value != 'Create_New'">
         <ng-container *ngFor="let obj of newMetaData | search: searchText; let i = index">
           <ng-container *ngFor="let item of obj.metadata">
             <tr>

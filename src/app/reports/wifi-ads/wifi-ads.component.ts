@@ -380,7 +380,6 @@ export class WifiAdsComponent implements OnInit {
     if (this.editArray.length > 0) {
       this.dialog.open(this.editInventoryDialog)
     }
-    this.getInventory();
   }
 
 

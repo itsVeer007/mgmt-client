@@ -23,6 +23,7 @@ import { ProductMasterComponent } from './product-master/product-master.componen
 import { WifiAdsComponent } from './reports/wifi-ads/wifi-ads.component';
 import { QRAdsComponent } from './reports/qr-ads/qr-ads.component';
 import { VendorsComponent } from './vendors/vendors.component';
+import { OrdersComponent } from './orders/orders.component';
 const routes: Routes = [];
 
 @NgModule({
@@ -43,6 +44,7 @@ const routes: Routes = [];
     { path: 'users', component: UsersComponent },
     { path: 'inventory', component: InventoryComponent },
     { path: 'product-master', component: ProductMasterComponent },
+    { path: 'orders', component: OrdersComponent },
     { path: 'assets', component: AssetsComponent },
     { path: 'tickets', component: TicketsComponent },
     { path: 'reports', component: ReportsComponent },

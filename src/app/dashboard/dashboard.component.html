@@ -2,10 +2,12 @@
   <div class="row content">
 
     <div class="header d-flex justify-content-between align-items-center">
-      <a class="logo pointer"><img src="assets/icons/Logo.svg" /></a>
-      <a class="group88 pointer" (click)="showProfile()">
+      <a class="logo pointer ms-3"><img src="assets/icons/Logo.svg" /></a>
+
+      <a class="group88 pointer me-3" (click)="showProfile()">
         <img src="assets/icons/profile.svg" />
       </a>
+
       <a class="menu-icon pointer" (click)="showMenu()">
         <img src="assets/icons/menu.svg" />
       </a>
@@ -61,22 +63,16 @@
                   </li>
 
                   <li>
+                    <a [routerLink]="['/orders']" routerLinkActive="routeactive">Orders</a>
+                  </li>
+
+                  <li>
                     <a [routerLink]="['/inventory']" routerLinkActive="routeactive">Inventory</a>
                   </li>
                 </ul>
               </li>
             </ul>
           </div>
-
-          <!-- <a class="list-group-item " [routerLink]="['/inventory']" routerLinkActive="routeactive">
-            <img src="assets/icons/inventory.svg">
-            <span>Inventory</span>
-          </a> -->
-
-          <!-- <a class="list-group-item " [routerLink]="['/product-master']" routerLinkActive="routeactive">
-            <img src="assets/icons/inventory.svg">
-            <span>Product Master</span>
-          </a> -->
 
           <a class="list-group-item " [routerLink]="['/devices']" routerLinkActive="routeactive">
             <img src="assets/icons/devices.svg">

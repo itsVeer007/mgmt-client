@@ -245,12 +245,45 @@ border: 1px solid #fff;
 
 }
 
+
+/* ng-deep */
 ::ng-deep .mat-flat-button.mat-primary {
   background-color: #084982;
 }
 
-/* common ng-deep */
+/* common mat-button */
+::ng-deep .mat-flat-button.mat-primary {
+  background-color: #084982;
+}
 
+/* common mat-dialog */
+::ng-deep .mat-dialog-content {
+  margin: 0 !important;
+  padding: 0 20px !important;
+  max-height: 450px !important;
+}
+
+::ng-deep .mat-dialog-container {
+  overflow: hidden !important;
+  padding: 0 !important;
+}
+
+::ng-deep .mat-dialog-actions {
+  margin-bottom: 0 !important;
+  margin-right: 10px !important;
+  padding: 0 !important;
+}
+
+/* mat disable color */
+::ng-deep .mat-input-element:disabled, .mat-form-field-type-mat-native-select.mat-form-field-disabled .mat-form-field-infix::after {
+  color: #000;
+}
+
+::ng-deep .mat-select-disabled .mat-select-value {
+  color: #000000;
+}
+
+/* common mat-form */
 .mat-form-field-appearance-outline ::ng-deep .mat-form-field-outline {
   top: 5px;
   bottom: 5px;

@@ -381,7 +381,6 @@ export class QRAdsComponent implements OnInit {
     if (this.editArray.length > 0) {
       this.dialog.open(this.editInventoryDialog)
     }
-    this.getInventory();
   }
 
 

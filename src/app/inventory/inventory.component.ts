@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, EventEmitter, HostListener, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';
@@ -38,6 +38,8 @@ export class InventoryComponent implements OnInit {
 
 
   showLoader = false;
+  // @Output() addInventoryEvent = new EventEmitter<any>();
+
   constructor(
     private inventorySer: InventoryService,
     private metadataSer: MetadataService,
@@ -159,11 +161,10 @@ export class InventoryComponent implements OnInit {
   applyFilter() {
     let myObj = {
       'name': this.prName ? this.prName : '',
-      'statusId': this.prStatus ? this.prStatus : '',
-      'createdTime': this.prCreatedTime ? this.datepipe.transform(this.prCreatedTime, 'yyyy-MM-ddThh-MM-ss') : '',
-      'createdTime1': this.prCreatedTime1 ? this.datepipe.transform(this.prCreatedTime1, 'yyyy-MM-ddThh-MM-ss') : ''
+      'statusId': this.prStatus ? this.prStatus : -1,
+      'startDate': this.prCreatedTime ? this.datepipe.transform(this.prCreatedTime, 'yyyy-MM-ddThh-MM-ss') : '',
+      'endDate': this.prCreatedTime1 ? this.datepipe.transform(this.prCreatedTime1, 'yyyy-MM-ddThh-MM-ss') : ''
     }
-    // console.log(myObj)
     this.inventorySer.filteBody(myObj).subscribe((res: any) => {
       // console.log(res);
       this.newInventoryTable = res;
@@ -181,11 +182,10 @@ export class InventoryComponent implements OnInit {
     }
   }
 
+  showInventory: boolean = false;
   closenow(value: any, type: String) {
     if (type == 'inventory') { this.showInventory = value; }
   }
-
-  showInventory: boolean = false;
 
   show(type: string) {
     if (type == 'inventory') { this.showInventory = true; }
@@ -218,11 +218,46 @@ export class InventoryComponent implements OnInit {
     })
   }
 
+  @ViewChild('editStatusDialog') editStatus = {} as TemplateRef<any>;
+
+  currentStatusId: any
+  openEditStatus(id: any) {
+    this.dialog.open(this.editStatus);
+    this.currentStatusId = id;
+  }
+
+  statusObj = {
+    statusId: null,
+    newProductSerialNo: null,
+    modifiedBy: 1,
+  }
+
+  changeAssetStatus() {
+    this.alertSer.wait();
+
+    this.inventorySer.updateAssetStatus(this.currentStatusId, this.statusObj).subscribe((res: any) => {
+      console.log(res);
+      if(res) {
+        this.getInventory();
+        this.alertSer.success(res);
+      }
+
+      // setTimeout(() => {
+      //   window.location.reload();
+      // }, 3000);
+    }, (err: any) => {
+      if(err) {
+        this.alertSer.error();
+      };
+    });
+  }
+
+
   currentItem: any;
   originalObject: any;
+  changedKeys: any = [];
 
   /* view warranty */
-
   @ViewChild('viewWarrantyDialog') viewWarrantyDialog = {} as TemplateRef<any>;
 
   viewWarrantyPopup() {
@@ -231,7 +266,6 @@ export class InventoryComponent implements OnInit {
 
 
   /* view inventory */
-
   @ViewChild('viewInventoryDialog') viewInventoryDialog = {} as TemplateRef<any>;
 
   openViewPopup(item: any) {
@@ -242,7 +276,6 @@ export class InventoryComponent implements OnInit {
 
 
   /* update inventory */
-
   @ViewChild('editInventoryDialog') editInventoryDialog = {} as TemplateRef<any>;
 
   openEditPopup(item: any) {
@@ -251,14 +284,47 @@ export class InventoryComponent implements OnInit {
     // console.log(item);
   }
 
-  editInventory() {
-    // console.log(this.currentItem);
-    // this.inventoryTable= this.inventoryTable.filter((item:any) => item.siteId !== this.currentItem.siteId);
-    // this.getInventory();
-
+  onInputChange(e: any) {
     this.originalObject = {
       "id": this.currentItem.id,
-      "quantity": this.currentItem.quantity,
+      "serialNo": this.currentItem.serialNo,
+      "cost": this.currentItem.cost,
+      "price": this.currentItem.price,
+      "modifiedBy": 1,
+      "modifiedTime": null,
+      "statusId": this.currentItem.statusId,
+      "remarks": this.currentItem.remarks
+    };
+
+    let x = e.target['name'];
+
+    if(!(this.changedKeys.includes(x))) {
+      this.changedKeys.push(x);
+    }
+  }
+
+  onSelectChange(e: any) {
+    this.originalObject = {
+      "id": this.currentItem.id,
+      "serialNo": this.currentItem.serialNo,
+      "cost": this.currentItem.cost,
+      "price": this.currentItem.price,
+      "modifiedBy": 1,
+      "modifiedTime": null,
+      "statusId": this.currentItem.statusId,
+      "remarks": this.currentItem.remarks
+    };
+
+    let x = e.source.ngControl.name;
+
+    if(!(this.changedKeys.includes(x))) {
+      this.changedKeys.push(x);
+    }
+  }
+
+  editInventory() {
+    this.originalObject = {
+      "id": this.currentItem.id,
       "serialNo": this.currentItem.serialNo,
       "cost": this.currentItem.cost,
       "price": this.currentItem.price,
@@ -269,13 +335,13 @@ export class InventoryComponent implements OnInit {
     }
     this.alertSer.wait();
 
-    this.inventorySer.UpdateInventory(this.originalObject).subscribe((res: any) => {
+    this.inventorySer.UpdateInventory({inventory: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
       // console.log(res);
       if(res) {
         this.alertSer.success(res);
       }
       setTimeout(() => {
-        window.location.reload();
+        // window.location.reload();
       }, 3000)
     }, (err: any) => {
       if(err) {
@@ -285,7 +351,6 @@ export class InventoryComponent implements OnInit {
   }
 
   /* update warranty */
-
   @ViewChild('editWarrantyDialog') editWarrantyDialog = {} as TemplateRef<any>;
 
   openWarrantyPopup(item: any) {
@@ -296,27 +361,57 @@ export class InventoryComponent implements OnInit {
     })
   }
 
-  editWarranty() {
+  onInputChangeW(event: any) {
     this.originalObject = {
       "id": this.currentItem.id,
-      "serialNo": this.currentItem.serialNo,
-      "newSerialNo": this.currentItem.newSerialNo,
       "cost": this.currentItem.cost,
       "startDate": this.currentItem.startDate,
       "endDate": this.currentItem.endDate,
-      "statusId": this.currentItem.statusId,
       "modifiedBy":  1,
-      "modifiedTime": null,
+      "remarks": this.currentItem.remarks
+    };
+
+    let x = event.target['name'];
+
+    if(!(this.changedKeys.includes(x))) {
+      this.changedKeys.push(x);
+    }
+  }
+
+  onDateChangeW(e: any) {
+    this.originalObject = {
+      "id": this.currentItem.id,
+      "cost": this.currentItem.cost,
+      "startDate": this.currentItem.startDate,
+      "endDate": this.currentItem.endDate,
+      "modifiedBy":  1,
+      "remarks": this.currentItem.remarks
+    };
+
+    let x = e.targetElement.name;
+
+    if(!(this.changedKeys.includes(x))) {
+      this.changedKeys.push(x);
+    }
+  }
+
+  editWarranty() {
+    this.originalObject = {
+      "id": this.currentItem.id,
+      "cost": this.currentItem.cost,
+      "startDate": this.currentItem.startDate,
+      "endDate": this.currentItem.endDate,
+      "modifiedBy":  1,
       "remarks": this.currentItem.remarks
     }
     this.alertSer.wait();
 
-    this.inventorySer.UpdateWarranty(this.originalObject).subscribe((res: any) => {
+    this.inventorySer.updateWarranty({warranty: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
       if(res) {
         this.alertSer.success(res);
       }
       setTimeout(() => {
-        window.location.reload();
+        // window.location.reload();
       }, 3000)
     }, (err: any) => {
       if(err) {
@@ -389,7 +484,6 @@ export class InventoryComponent implements OnInit {
     if (this.editArray.length > 0) {
       this.dialog.open(this.editInventoryDialog, {maxHeight: '550px', maxWidth: '550px'});
     }
-    this.getInventory();
   }
 
 

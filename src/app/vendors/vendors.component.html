@@ -8,7 +8,7 @@
     <div style="position: relative">
       <!-- <a class="pointer" (click)="show('user')"><img src="assets/icons/add.svg" alt="" /></a> -->
 
-      <button mat-flat-button color="primary" class="py-0" (click)="show('vendor')">Create User</button>
+      <button mat-flat-button color="primary" class="py-0" (click)="show('vendor')">Create Vendor</button>
     </div>
   </div>
   <!-- header ends -->
@@ -85,6 +85,10 @@
           </th>
 
           <th>
+            <span>Items</span>
+          </th>
+
+          <th>
             <span>Proprietor Details</span>
             <!-- <img (click)="sort('productName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
           </th>
@@ -126,92 +130,77 @@
                 EditByCheckbox(cust, i, $event)
               " id="singleCheck" />
           </td> -->
+
           <td>
             <p>{{ cust.id }}</p>
           </td>
+
           <td>
             <p>{{ cust.name }}</p>
           </td>
+
           <td>
-            <p (click)="proprietorView(cust)" class="pointer">View</p>
+            <p (click)="itemsView(cust)" class="pointer">View</p>
 
+            <ng-template #itemsDialog>
+              <p *ngFor="let item of itemDetail">{{item.name}}</p>
+            </ng-template>
+          </td>
+
+          <td>
+            <p>
+              {{ cust.proprietor1 }}
+              <!-- <span class="text-primary" *ngIf="cust.parteners != 0">...more</span> -->
+              <!-- <div class="demo-section"> -->
+                <a style="text-decoration: none;"  *ngIf="cust.parteners != 0" (click)="proprietorView(cust)">
+                  <span [matBadge]="'+' + cust.parteners" matBadgeColor="warn" matBadgePosition="after" matBadgeSize="small">&nbsp;</span>
+                </a>
+              <!-- </div> -->
+            </p>
+
+            <!-- <p (click)="proprietorView(cust)" class="pointer">View</p> -->
             <ng-template #proprietorDialog>
-              <div class="row">
-                <div class="col-lg-3">
-                  <p style="color: #ABABAB;">Name</p>
-                  <div>
-                      <p><span *ngIf="proprietorId.proprietorName1"></span> {{proprietorId.proprietorName1}}</p>
-                      <p><span *ngIf="proprietorId.proprietorName2"></span> {{proprietorId.proprietorName2}}</p>
-                      <p><span *ngIf="proprietorId.proprietorName3"></span> {{proprietorId.proprietorName3}}</p>
-                  </div>
+              <div class="d-flex">
+                <div style="min-width: 120px;">
+                  <p style="color: #ABABAB;">Proprietor-1</p>
+                  <p style="color: #ABABAB;">Proprietor-2</p>
+                  <p style="color: #ABABAB;">Proprietor-3</p>
                 </div>
 
-                <div class="col-lg-5">
-                  <p style="color: #ABABAB;">Email</p>
-                  <div>
-                      <p><span *ngIf="emailId.emailId1"></span> {{emailId.emailId1}}</p>
-                      <p><span *ngIf="emailId.emailId2"></span> {{emailId.emailId2}}</p>
-                      <p><span *ngIf="emailId.emailId3"></span> {{emailId.emailId3}}</p>
-                  </div>
-                </div>
-
-                <div class="col-lg-4">
-                  <p style="color: #ABABAB;">Mobile</p>
-                  <div>
-                      <p><span *ngIf="mobileId.mobileNumber1"></span> {{mobileId.mobileNumber1}}</p>
-                      <p><span *ngIf="mobileId.mobileNumber2"></span> {{mobileId.mobileNumber2}}</p>
-                      <p><span *ngIf="mobileId.mobileNumber3"></span> {{mobileId.mobileNumber3}}</p>
-                  </div>
+                <div style="min-width: 200px;">
+                  <p>{{currentDetail.proprietor1}}</p>
+                  <p>{{currentDetail.proprietor2}}</p>
+                  <p>{{currentDetail.proprietor3}}</p>
                 </div>
               </div>
             </ng-template>
           </td>
-          <!-- <td>
-            <p (click)="emailView(cust)" class="pointer">View</p>
 
-            <ng-template #emailDialog>
-              <p style="color: #ABABAB;">Email</p>
-              <div>
-                  <p><span *ngIf="emailId.emailId1">({{i+1}})</span> {{emailId.emailId1}}</p>
-                  <p><span *ngIf="emailId.emailId2">({{i+2}})</span> {{emailId.emailId2}}</p>
-                  <p><span *ngIf="emailId.emailId3">({{i+3}})</span> {{emailId.emailId3}}</p>
-              </div>
-            </ng-template>
-          </td> -->
-          <!-- <td>
-            <p (click)="mobileView(cust)" class="pointer">View</p>
-
-            <ng-template #mobileDialog>
-              <p style="color: #ABABAB;">Mobile</p>
-              <div>
-                  <p><span *ngIf="mobileId.mobileNumber1">({{i+1}})</span> {{mobileId.mobileNumber1}}</p>
-                  <p><span *ngIf="mobileId.mobileNumber2">({{i+2}})</span> {{mobileId.mobileNumber2}}</p>
-                  <p><span *ngIf="mobileId.mobileNumber3">({{i+3}})</span> {{mobileId.mobileNumber3}}</p>
-              </div>
-            </ng-template>
-          </td> -->
           <td>
             <p>{{ cust.serviceStartDate ? (cust.serviceStartDate | date:'mediumDate') : '--' }}</p>
           </td>
+
           <td>
             <p>{{ cust.serviceEndDate ? (cust.serviceEndDate | date:'mediumDate') : '--' }}</p>
           </td>
+
           <td>
             <p (click)="addressView(cust)" class="pointer">View</p>
 
             <ng-template #addressDialog>
               <p style="color: #ABABAB;">Address</p>
               <div>
-                  <p>{{addressId.addressLine1}}, {{addressId.city}}, {{addressId.state}}, {{addressId.postCode}}</p>
-                  <p>{{addressId.addressLine2}}, {{addressId.city}}, {{addressId.state}}, {{addressId.postCode}}</p>
+                  <p>{{addressId.address}}</p>
               </div>
             </ng-template>
           </td>
+
           <td>
             <p [style.color]="cust.statusId == 1 ? '#00A44C' : '#fa500f'">
               {{ cust.statusId == 1 ? 'Active' : 'Inactive' }}
             </p>
           </td>
+
           <!-- <td> -->
             <!-- <p>{{ cust.details }}</p> -->
             <!-- <a class="pointer" style="color: #084982;" (click)="addressView($event,i)">{{cust.details}}</a>
@@ -225,16 +214,19 @@
                 </div>
             </div> -->
           <!-- </td> -->
+
           <!-- <td>
             <a class="pointer" (click)="show('inventory')">
               <img src="assets/icons/add-svg.svg" width="25" height="25" />
             </a>
           </td> -->
+
           <td>
             <p >
               {{ cust.remarks }}
             </p>
           </td>
+
           <td class="text-center">
             <!-- <a (click)="closeDot($event, i)" class="pointer"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
 
@@ -264,7 +256,10 @@
       </tbody>
     </table>
     <!-- table ends -->
+  </div>
 
+  <div class="d-flex align-items-center justify-content-center" style="height: 50vh;" *ngIf="inventoryTable.length == 0 && !showLoader">
+    <h1 class="text-secondary">No Data</h1>
   </div>
 
   <!-- Loader -->
@@ -279,186 +274,119 @@
 
 
 <!-- view Popup -->
-<div class="edit-dialog">
-  <ng-template #viewInventoryDialog>
-    <div *ngIf="currentItem">
-      <mat-list>
-        <div class="row">
-          <div class="col-lg-6">
-            <mat-list-item>
-              <span style="width: 130px; color: #ABABAB;">Vendor Id: </span>{{ currentItem.id }}
-            </mat-list-item>
-            <mat-divider></mat-divider>
-          </div>
-
-          <div class="col-lg-6">
-            <mat-list-item>
-              <span style="width: 130px; color: #ABABAB;">Vendor Name: </span>{{ currentItem?.name }}
-            </mat-list-item>
-            <mat-divider></mat-divider>
-          </div>
-
-          <div class="col-lg-6">
-            <mat-list-item>
-              <span style="width: 130px; color: #ABABAB;">Proprietor Name1: </span>{{ currentItem.proprietorName1 }}
-            </mat-list-item>
-            <mat-divider></mat-divider>
-          </div>
-
-          <div class="col-lg-6">
-            <mat-list-item>
-              <span style="width: 130px; color: #ABABAB;">Proprietor Name2: </span>{{ currentItem.proprietorName2 }}
-            </mat-list-item>
-            <mat-divider></mat-divider>
-          </div>
-
-          <div class="col-lg-6">
-            <mat-list-item>
-              <span style="width: 130px; color: #ABABAB;">Proprietor Name3: </span>{{ currentItem.proprietorName3 }}
-            </mat-list-item>
-            <mat-divider></mat-divider>
-          </div>
-
-          <div class="col-lg-6">
-            <mat-list-item>
-              <span style="width: 130px; color: #ABABAB;">Email Id1: </span>{{ currentItem.emailId1 }}
-            </mat-list-item>
-            <mat-divider></mat-divider>
-          </div>
-
-          <div class="col-lg-6">
-            <mat-list-item>
-              <span style="width: 130px; color: #ABABAB;">Email Id2: </span>{{ currentItem.emailId2 }}
-            </mat-list-item>
-            <mat-divider></mat-divider>
-          </div>
-
-          <div class="col-lg-6">
-            <mat-list-item>
-              <span style="width: 130px; color: #ABABAB;">Email Id3: </span>{{ currentItem.emailId3 }}
-            </mat-list-item>
-            <mat-divider></mat-divider>
-          </div>
-
-          <div class="col-lg-6">
-            <mat-list-item>
-              <span style="width: 130px; color: #ABABAB;">Mobile Number1: </span>{{ currentItem.mobileNumber1 }}
-            </mat-list-item>
-            <mat-divider></mat-divider>
-          </div>
-
-          <div class="col-lg-6">
-            <mat-list-item>
-              <span style="width: 130px; color: #ABABAB;">Mobile Number2: </span>{{ currentItem.mobileNumber2 }}
-            </mat-list-item>
-            <mat-divider></mat-divider>
-          </div>
-
-          <div class="col-lg-6">
-            <mat-list-item>
-              <span style="width: 130px; color: #ABABAB;">Mobile Number3: </span>{{ currentItem.mobileNumber3 }}
-            </mat-list-item>
-            <mat-divider></mat-divider>
-          </div>
-
-          <div class="col-lg-6">
-            <mat-list-item>
-              <span style="width: 130px; color: #ABABAB;">Status: </span>{{ currentItem.statusId}}
-            </mat-list-item>
-            <mat-divider></mat-divider>
-          </div>
-
-          <div class="col-lg-6">
-            <mat-list-item>
-              <span style="width: 130px; color: #ABABAB;">Service StartDate: </span>{{ currentItem.serviceStartDate }}
-            </mat-list-item>
-            <mat-divider></mat-divider>
-          </div>
-
-          <div class="col-lg-6">
-            <mat-list-item>
-              <span style="width: 130px; color: #ABABAB;">Service EndDate: </span>{{ currentItem.serviceEndDate }}
-            </mat-list-item>
-            <mat-divider></mat-divider>
-          </div>
-
-          <div class="col-lg-6">
-            <mat-list-item>
-              <span style="width: 130px; color: #ABABAB;">Created By: </span>{{ currentItem.createdBy }}
-            </mat-list-item>
-            <mat-divider></mat-divider>
-          </div>
-
-          <div class="col-lg-6">
-            <mat-list-item>
-              <span style="width: 130px; color: #ABABAB;">Modified By: </span>{{ currentItem.modifiedBy }}
-            </mat-list-item>
-            <mat-divider></mat-divider>
-          </div>
-
-          <div class="col-lg-6">
-            <mat-list-item>
-              <span style="width: 130px; color: #ABABAB;">Created Time: </span>{{ currentItem.createdTime }}
-            </mat-list-item>
-            <mat-divider></mat-divider>
-          </div>
-
-          <div class="col-lg-6">
-            <mat-list-item>
-              <span style="width: 130px; color: #ABABAB;">Modified Time: </span>{{ currentItem.modifiedTime }}
-            </mat-list-item>
-            <mat-divider></mat-divider>
-          </div>
-
-          <div class="col-lg-6">
-            <mat-list-item>
-              <span style="width: 130px; color: #ABABAB;">Address Line1: </span>{{ currentItem.addressLine1 }}
-            </mat-list-item>
-            <mat-divider></mat-divider>
-          </div>
-
-          <div class="col-lg-6">
-            <mat-list-item>
-              <span style="width: 130px; color: #ABABAB;">Address Line2: </span>{{ currentItem.addressLine2 }}
-            </mat-list-item>
-            <mat-divider></mat-divider>
-          </div>
-
-          <div class="col-lg-6">
-            <mat-list-item>
-              <span style="width: 130px; color: #ABABAB;">State: </span>{{ currentItem.state }}
-            </mat-list-item>
-            <mat-divider></mat-divider>
-          </div>
-
-          <div class="col-lg-6">
-            <mat-list-item>
-              <span style="width: 130px; color: #ABABAB;">Post Code: </span>{{ currentItem.postCode }}
-            </mat-list-item>
-            <mat-divider></mat-divider>
-          </div>
-
-          <div class="col-lg-6">
-            <mat-list-item>
-              <span style="width: 130px; color: #ABABAB;">City: </span>{{ currentItem.city }}
-            </mat-list-item>
-            <mat-divider></mat-divider>
-          </div>
-
-          <div class="col-lg-6">
-            <mat-list-item>
-              <span style="width: 130px; color: #ABABAB;">Remarks: </span>{{ currentItem.remarks }}
-            </mat-list-item>
-            <mat-divider></mat-divider>
-          </div>
+<ng-template #viewInventoryDialog>
+  <div *ngIf="currentItem">
+    <mat-list>
+      <div class="row">
+        <div class="col-lg-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Vendor Id</mat-label>
+            <input matInput [(ngModel)]="currentItem.id" disabled>
+          </mat-form-field>
         </div>
-      </mat-list>
-    </div>
-    <div mat-dialog-actions>
-      <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
-    </div>
-  </ng-template>
-</div>
+
+        <div class="col-lg-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Vendor Name</mat-label>
+            <input matInput [(ngModel)]="currentItem.name" disabled>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Proprietors</mat-label>
+            <input matInput [(ngModel)]="currentItem.proprietors" disabled>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Emails</mat-label>
+            <input matInput [(ngModel)]="currentItem.emails" disabled>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Mobile Numbers</mat-label>
+            <input matInput [(ngModel)]="currentItem.mobileNumbers" disabled>
+          </mat-form-field>
+        </div>
+
+        <!-- <div class="col-lg-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Status</mat-label>
+            <mat-select [(ngModel)]="currentItem.status" disabled>
+              <mat-option *ngFor="let item of vendorStatus" [value]="item.keyId">{{ item.value }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div> -->
+
+        <div class="col-lg-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Status</mat-label>
+            <input matInput [(ngModel)]="currentItem.status" disabled>
+          </mat-form-field>
+        </div>
+
+        <!-- <div class="col-lg-6">
+          <mat-list-item>
+            <span style="width: 130px; color: #ABABAB;">Service StartDate: </span>{{ currentItem.serviceStartDate }}
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </div>
+
+        <div class="col-lg-6">
+          <mat-list-item>
+            <span style="width: 130px; color: #ABABAB;">Service EndDate: </span>{{ currentItem.serviceEndDate }}
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </div> -->
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <input matInput [matDatepicker]="picker1" placeholder="Service StartDate" [(ngModel)]="currentItem.serviceStartDate" disabled>
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <input matInput [matDatepicker]="picker2" placeholder="Service EndDate" [(ngModel)]="currentItem.serviceEndDate" disabled>
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <!-- <div class="col-lg-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Created By</mat-label>
+            <input matInput [(ngModel)]="currentItem.createdBy" disabled>
+          </mat-form-field>
+        </div> -->
+
+        <div class="col-lg-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Address</mat-label>
+            <input matInput [(ngModel)]="currentItem.address" disabled>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Remarks</mat-label>
+            <input matInput [(ngModel)]="currentItem.remarks" disabled>
+          </mat-form-field>
+        </div>
+
+      </div>
+    </mat-list>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+  </div>
+</ng-template>
 <!-- view Popup -->
 
 <!-- edit Popup -->
@@ -474,77 +402,77 @@
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Vendor Name</mat-label>
-        <input matInput [(ngModel)]="currentItem.name">
+        <input name="name" matInput [(ngModel)]="currentItem.name" (change)="onInputChange($event)">
       </mat-form-field>
     </div>
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Proprietor Name1</mat-label>
-        <input matInput [(ngModel)]="currentItem.proprietorName1">
+        <input name="proprietorName1" matInput [(ngModel)]="currentItem.proprietorName1" (change)="onInputChange($event)">
       </mat-form-field>
     </div>
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Proprietor Name2</mat-label>
-        <input matInput [(ngModel)]="currentItem.proprietorName2">
+        <input name="proprietorName2" matInput [(ngModel)]="currentItem.proprietorName2" (change)="onInputChange($event)">
       </mat-form-field>
     </div>
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Proprietor Name3</mat-label>
-        <input matInput [(ngModel)]="currentItem.proprietorName3">
+        <input name="proprietorName3" matInput [(ngModel)]="currentItem.proprietorName3" (change)="onInputChange($event)">
       </mat-form-field>
     </div>
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Email1</mat-label>
-        <input matInput [(ngModel)]="currentItem.emailId1">
+        <input name="emailId1" matInput [(ngModel)]="currentItem.emailId1" (change)="onInputChange($event)">
       </mat-form-field>
     </div>
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Email2</mat-label>
-        <input matInput [(ngModel)]="currentItem.emailId2">
+        <input name="emailId2" matInput [(ngModel)]="currentItem.emailId2" (change)="onInputChange($event)">
       </mat-form-field>
     </div>
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Email3</mat-label>
-        <input matInput [(ngModel)]="currentItem.emailId3">
+        <input name="emailId3" matInput [(ngModel)]="currentItem.emailId3" (change)="onInputChange($event)">
       </mat-form-field>
     </div>
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Mobile Number1</mat-label>
-        <input matInput [(ngModel)]="currentItem.mobileNumber1">
+        <input name="mobileNumber1" matInput [(ngModel)]="currentItem.mobileNumber1" (change)="onInputChange($event)">
       </mat-form-field>
     </div>
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Mobile Number2</mat-label>
-        <input matInput [(ngModel)]="currentItem.mobileNumber2">
+        <input name="mobileNumber2" matInput [(ngModel)]="currentItem.mobileNumber2" (change)="onInputChange($event)">
       </mat-form-field>
     </div>
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Mobile Number3</mat-label>
-        <input matInput [(ngModel)]="currentItem.mobileNumber3">
+        <input name="mobileNumber3" matInput [(ngModel)]="currentItem.mobileNumber3" (change)="onInputChange($event)">
       </mat-form-field>
     </div>
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Status</mat-label>
-        <mat-select [(ngModel)]="currentItem.statusId">
+        <mat-select name="statusId" [(ngModel)]="currentItem.statusId" (selectionChange)="onSelectChange($event)">
           <mat-option *ngFor="let item of vendorStatus" [value]="item.keyId">{{item.value}}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -553,42 +481,49 @@
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Address Line1</mat-label>
-        <input matInput [(ngModel)]="currentItem.addressLine1">
+        <input name="addressLine1" matInput [(ngModel)]="currentItem.addressLine1" (change)="onInputChange($event)">
       </mat-form-field>
     </div>
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Address Line2</mat-label>
-        <input matInput [(ngModel)]="currentItem.addressLine2">
+        <input name="addressLine2" matInput [(ngModel)]="currentItem.addressLine2" (change)="onInputChange($event)">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>country</mat-label>
+        <input name="country" matInput [(ngModel)]="currentItem.country" (change)="onInputChange($event)">
       </mat-form-field>
     </div>
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>state</mat-label>
-        <input matInput [(ngModel)]="currentItem.state">
+        <input name="state" matInput [(ngModel)]="currentItem.state" (change)="onInputChange($event)">
       </mat-form-field>
     </div>
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>postCode</mat-label>
-        <input matInput [(ngModel)]="currentItem.postCode">
+        <input name="postCode" matInput [(ngModel)]="currentItem.postCode" (change)="onInputChange($event)">
       </mat-form-field>
     </div>
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>city</mat-label>
-        <input matInput [(ngModel)]="currentItem.city">
+        <input name="city" matInput [(ngModel)]="currentItem.city" (change)="onInputChange($event)">
       </mat-form-field>
     </div>
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>remarks</mat-label>
-        <input matInput [(ngModel)]="currentItem.remarks">
+        <input name="remarks" matInput [(ngModel)]="currentItem.remarks" (change)="onInputChange($event)">
       </mat-form-field>
     </div>
   </div>

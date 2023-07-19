@@ -178,10 +178,10 @@
             <img (click)="sort('name')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
-          <th>
+          <!-- <th>
             <span>Quantity</span>
             <img (click)="sort('quantity')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-          </th>
+          </th> -->
 
           <th>
             <span>Model</span>
@@ -244,22 +244,22 @@
             <p>{{ cust.name }}</p>
           </td>
 
+          <!-- <td>
+            <p>{{ cust.quantity ? cust.quantity : '1' }}</p>
+          </td> -->
+
           <td>
-            <p>{{ cust.quantity }}</p>
+            <p>{{ cust.model }}</p>
           </td>
 
           <td>
-            <p>{{ cust.productModelId }}</p>
-          </td>
-
-          <td>
-            <p>{{ cust.productCategoryId }}</p>
+            <p>{{ cust.category }}</p>
           </td>
           <td>
             <p>{{ cust.cost }}</p>
           </td>
           <td>
-            <p>{{ cust.createdTime }}</p>
+            <p>{{ cust.createdDate }}</p>
           </td>
           <td>
             <p>{{ cust.returnable == 'Y' ? 'Yes' : cust.returnable == 'N' ? 'No' : '--' }}</p>
@@ -270,7 +270,9 @@
           </td>
 
           <td>
-            <p class="pointer" (click)="getWarranty(cust.id); viewWarrantyPopup()">View</p>
+            <button class="pointer p-0" style="background-color: transparent;" (click)="getWarranty(cust.id); viewWarrantyPopup()" [disabled]="cust.warranty == 'No'">
+              {{cust.warranty}}
+            </button>
           </td>
 
           <!-- <td> -->
@@ -293,23 +295,44 @@
           </td> -->
 
           <td>
-            <p [style.color]="cust.statusId == 1 ? '#00A44C'
-              : cust.statusId == 2 ? '#F5B400'
-              : cust.statusId == 3 ? '#D34124'
-              : cust.statusId == 4 ? '#F5B400'
-              : cust.statusId == 5 ? '#F5B400'
-              : cust.statusId == 6 ? '#fa500f'
+            <p [style.color]="cust.inventoryStatusId == 1 ? '#00A44C'
+              : cust.inventoryStatusId == 2 ? '#F5B400'
+              : cust.inventoryStatusId == 3 ? '#D34124'
+              : cust.inventoryStatusId == 4 ? '#F5B400'
+              : cust.inventoryStatusId == 5 ? '#F5B400'
+              : cust.inventoryStatusId == 6 ? '#fa500f'
               : ''"
+              (click)="openEditStatus(cust.id)"
             >
-              {{ cust.statusId == 1 ? 'Instock'
-                : cust.statusId == 2 ? 'Installed'
-                : cust.statusId == 3 ? 'Removed'
-                : cust.statusId == 4 ? 'Returned'
-                : cust.statusId == 5 ? 'Scrap'
-                : cust.statusId == 6 ? 'Ready to Reuse'
-                : '--'
-              }}
+              {{ cust.inventoryStatus }}
             </p>
+
+            <ng-template #editStatusDialog>
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>New SerialNo</mat-label>
+                <input matInput [(ngModel)]="statusObj.newProductSerialNo">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Edit Status</mat-label>
+                <mat-select [(ngModel)]="statusObj.statusId">
+                  <mat-option *ngFor="let item of inventoryStatus" [value]="item.keyId">{{ item.value }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <div class="d-flex align-items-center justify-content-end">
+                <div mat-dialog-actions class="me-2">
+                  <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124;" mat-dialog-close>
+                    Close
+                  </button>
+                </div>
+                <div mat-dialog-actions>
+                  <button mat-stroked-button style="color: #084982; border: 1px solid #084982;" mat-dialog-close (click)="changeAssetStatus()" [disabled]="statusObj.statusId == null">
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </ng-template>
           </td>
 
           <td class="text-center">
@@ -327,13 +350,13 @@
               </div>
             </div> -->
 
-            <a class="mx-2 pointer" (click)="openViewPopup(cust)">
+            <a class="mx-1 pointer" (click)="openViewPopup(cust)">
               <img src="assets/icons/view.svg" (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" />
             </a>
-            <a class="mx-2 pointer" (click)="openEditPopup(cust)">
+            <a class="mx-1 pointer" (click)="openEditPopup(cust)">
               <img src="assets/icons/edit.svg" (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" />
             </a>
-            <a class="mx-2 pointer" value="Delete" (click)="openDeletePopup(cust)">
+            <a class="mx-1 pointer" value="Delete" (click)="openDeletePopup(cust)">
               <img src="assets/icons/delete.svg" (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" />
             </a>
           </td>
@@ -357,95 +380,98 @@
 
 <!-- view Popup -->
 <ng-template #viewInventoryDialog>
-  <div class="row" *ngIf="currentItem">
-    <div class="col-lg-12 col-md-12">
-      <p style="font-weight: 600; color: #ABABAB;">Inventory Details</p>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>name</mat-label>
-        <input matInput [(ngModel)]="currentItem.name" disabled>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>productCategoryId</mat-label>
-        <input matInput [(ngModel)]="currentItem.productCategoryId" disabled>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>productModelId</mat-label>
-        <input matInput [(ngModel)]="currentItem.productModelId" disabled>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>orderId</mat-label>
-        <input matInput [(ngModel)]="currentItem.orderId" disabled>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>serialNo</mat-label>
-        <input matInput [(ngModel)]="currentItem.serialNo" disabled>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>maintenanceRequired</mat-label>
-        <input matInput [(ngModel)]="currentItem.maintenanceRequired" disabled>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>returnable</mat-label>
-        <input matInput [(ngModel)]="currentItem.returnable" disabled>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>cost</mat-label>
-        <input matInput [(ngModel)]="currentItem.cost" disabled>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>price</mat-label>
-        <input matInput [(ngModel)]="currentItem.price" disabled>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-12 col-md-12">
-      <p style="font-weight: 600; color: #ABABAB;">Warranty Details</p>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <input matInput [matDatepicker]="picker1" placeholder="Start Date" [(ngModel)]="currentItem.startDate" disabled>
-        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-        <mat-datepicker #picker1></mat-datepicker>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <input matInput [matDatepicker]="picker2" placeholder="End Date" [(ngModel)]="currentItem.endDate" disabled>
-        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-        <mat-datepicker #picker2></mat-datepicker>
-      </mat-form-field>
-    </div>
+  <div style="background-color: #084982;">
+    <p class="dialog-title">VIEW INVENTORY</p>
   </div>
-  <div mat-dialog-actions>
+
+  <mat-dialog-content>
+    <div class="row" *ngIf="currentItem">
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>name</mat-label>
+          <input matInput [(ngModel)]="currentItem.name" disabled>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>productCategoryId</mat-label>
+          <input matInput [(ngModel)]="currentItem.productCategoryId" disabled>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>productModelId</mat-label>
+          <input matInput [(ngModel)]="currentItem.productModelId" disabled>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>orderId</mat-label>
+          <input matInput [(ngModel)]="currentItem.orderId" disabled>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>serialNo</mat-label>
+          <input matInput [(ngModel)]="currentItem.serialNo" disabled>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>maintenanceRequired</mat-label>
+          <input matInput [(ngModel)]="currentItem.maintenanceRequired" disabled>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>returnable</mat-label>
+          <input matInput [(ngModel)]="currentItem.returnable" disabled>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>cost</mat-label>
+          <input matInput [(ngModel)]="currentItem.cost" disabled>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>price</mat-label>
+          <input matInput [(ngModel)]="currentItem.price" disabled>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-12 col-md-12">
+        <p style="font-weight: 600; color: #ABABAB;">Warranty Details</p>
+      </div>
+
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <input matInput [matDatepicker]="picker1" placeholder="Start Date" [(ngModel)]="currentItem.startDate" disabled>
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <input matInput [matDatepicker]="picker2" placeholder="End Date" [(ngModel)]="currentItem.endDate" disabled>
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <div class="d-flex justify-content-end" mat-dialog-actions>
     <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
   </div>
 </ng-template>
@@ -453,63 +479,59 @@
 
 <!-- edit Popup -->
 <ng-template #editInventoryDialog>
-  <div class="row" *ngIf="currentItem">
-    <div class="col-lg-12 col-md-12">
-      <p style="font-weight: 600; color: #ABABAB;">Modify Inventory</p>
-    </div>
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Id</mat-label>
-        <input matInput [(ngModel)]="currentItem.id" disabled>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>quantity</mat-label>
-        <input matInput [(ngModel)]="currentItem.quantity">
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>serialNo</mat-label>
-        <input matInput [(ngModel)]="currentItem.serialNo">
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>cost</mat-label>
-        <input matInput [(ngModel)]="currentItem.cost">
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>price</mat-label>
-        <input matInput [(ngModel)]="currentItem.price">
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Status</mat-label>
-        <mat-select [(ngModel)]="currentItem.statusId">
-          <mat-option value="Installed">Installed</mat-option>
-          <mat-option value="In-Stock">In-Stock</mat-option>
-          <mat-option value="Scrap">Scrap</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>remarks</mat-label>
-        <input matInput [(ngModel)]="currentItem.remarks">
-      </mat-form-field>
-    </div>
+  <div style="background-color: #084982;">
+    <p class="dialog-title">MODIFY INVENTORY</p>
   </div>
+
+  <mat-dialog-content>
+    <div class="row" *ngIf="currentItem">
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Id</mat-label>
+          <input matInput [(ngModel)]="currentItem.id" disabled>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>serialNo</mat-label>
+          <input name="serialNo" matInput [(ngModel)]="currentItem.serialNo" (change)="onInputChange($event)">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>cost</mat-label>
+          <input name="cost" matInput [(ngModel)]="currentItem.cost" (change)="onInputChange($event)">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>price</mat-label>
+          <input name="price" matInput [(ngModel)]="currentItem.price" (change)="onInputChange($event)">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Status</mat-label>
+          <mat-select name="statusId" [(ngModel)]="currentItem.statusId" (selectionChange)="onSelectChange($event)">
+            <mat-option value="Installed">Installed</mat-option>
+            <mat-option value="In-Stock">In-Stock</mat-option>
+            <mat-option value="Scrap">Scrap</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>remarks</mat-label>
+          <input name="remarks" matInput [(ngModel)]="currentItem.remarks" (change)="onInputChange($event)">
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-dialog-content>
 
   <div mat-dialog-actions>
     <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0 5px;" mat-dialog-close (click)="openWarrantyPopup(currentItem)">Update Warranty</button>
@@ -526,75 +548,126 @@
 </ng-template>
 <!-- edit Popup -->
 
-<!-- warranty popup -->
-<ng-template #editWarrantyDialog>
-  <div class="row">
-    <div class="col-lg-12 col-md-12">
-      <p style="font-weight: 600; color: #ABABAB;">Modify Warranty</p>
-    </div>
+<!-- Delete Popup -->
+<ng-template #deleteInventoryDialog>
+  <div style="background-color: #084982;">
+    <p class="dialog-title">DELETE INVENTORY</p>
+  </div>
 
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>id</mat-label>
-        <input matInput [(ngModel)]="currentItem.id" disabled>
-      </mat-form-field>
-    </div>
+  <mat-dialog-content>
+    <div class="text-center">Do you want to delete this item?</div>
+  </mat-dialog-content>
 
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>serialNo</mat-label>
-        <input matInput [(ngModel)]="currentItem.serialNo">
-      </mat-form-field>
+  <div class="d-flex align-items-center justify-content-end">
+    <div mat-dialog-actions class="me-2">
+      <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
     </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>newSerialNo</mat-label>
-        <input matInput [(ngModel)]="currentItem.newSerialNo">
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>cost</mat-label>
-        <input matInput [(ngModel)]="currentItem.cost">
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <input matInput [matDatepicker]="picker1" placeholder="Start Date" [(ngModel)]="currentItem.startDate">
-        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-        <mat-datepicker #picker1></mat-datepicker>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <input matInput [matDatepicker]="picker2" placeholder="End Date" [(ngModel)]="currentItem.endDate">
-        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-        <mat-datepicker #picker2></mat-datepicker>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Status</mat-label>
-        <mat-select [(ngModel)]="currentItem.statusId">
-          <mat-option value="Installed">Installed</mat-option>
-          <mat-option value="In-Stock">In-Stock</mat-option>
-          <mat-option value="Scrap">Scrap</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>remarks</mat-label>
-        <input matInput [(ngModel)]="currentItem.remarks">
-      </mat-form-field>
+    <div mat-dialog-actions>
+      <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="deleteInventory()">OK</button>
     </div>
   </div>
+</ng-template>
+<!-- /Delete Popup -->
+
+<!-- view warranty-->
+<ng-template #viewWarrantyDialog>
+  <div style="background-color: #084982;">
+    <p class="dialog-title">VIEW WARRANTY</p>
+  </div>
+
+  <mat-dialog-content>
+    <div class="row" *ngIf="warrDetail">
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>id</mat-label>
+          <input matInput [(ngModel)]="warrDetail.id" disabled>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <input matInput [matDatepicker]="picker1" placeholder="Start Date" [(ngModel)]="warrDetail.startDate" disabled>
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <input matInput [matDatepicker]="picker2" placeholder="End Date" [(ngModel)]="warrDetail.endDate" disabled>
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>cost</mat-label>
+          <input matInput [(ngModel)]="warrDetail.cost" disabled>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>remarks</mat-label>
+          <input matInput [(ngModel)]="warrDetail.remarks" disabled>
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <div class="d-flex justify-content-end" mat-dialog-actions>
+    <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+  </div>
+</ng-template>
+<!--/ view warranty -->
+
+<!-- warranty popup -->
+<ng-template #editWarrantyDialog>
+  <div style="background-color: #084982;">
+    <p class="dialog-title">MODIFY WARRANTY</p>
+  </div>
+
+  <mat-dialog-content>
+    <div class="row">
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>id</mat-label>
+          <input matInput [(ngModel)]="currentItem.id" disabled>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>cost</mat-label>
+          <input name="cost" matInput [(ngModel)]="currentItem.cost" (change)="onInputChangeW($event)">
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <input name="startDate" matInput [matDatepicker]="picker1" placeholder="Start Date" [(ngModel)]="currentItem.startDate" (change)="onDateChangeW($event)">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <input name="endDate" matInput [matDatepicker]="picker2" placeholder="End Date" [(ngModel)]="currentItem.endDate" (change)="onDateChangeW($event)">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>remarks</mat-label>
+          <input name="remarks" matInput [(ngModel)]="currentItem.remarks" (change)="onInputChangeW($event)">
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-dialog-content>
 
   <div class="d-flex align-items-center justify-content-end">
     <div mat-dialog-actions class="me-2">
@@ -608,80 +681,6 @@
 <!-- warranty popup -->
 
 
-<!-- Delete Popup -->
-<ng-template #deleteInventoryDialog>
-  <div>
-    <p style="font-weight: 600; color: #ABABAB;">Delete Inventory</p>
-  </div>
-
-  <div class="text-center">Do you want to delete this item?</div>
-
-  <div class="d-flex align-items-center justify-content-end">
-    <div mat-dialog-actions class="me-2">
-      <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
-    </div>
-    <div mat-dialog-actions>
-      <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="deleteInventory()">OK</button>
-    </div>
-  </div>
-</ng-template>
-<!-- /Delete Popup -->
-
-<ng-template #viewWarrantyDialog>
-  <div class="row" *ngIf="warrDetail">
-    <div class="col-lg-12 col-md-12">
-      <p style="font-weight: 600; color: #ABABAB;">Warranty Details</p>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>id</mat-label>
-        <input matInput [(ngModel)]="warrDetail.id" disabled>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>inventoryId</mat-label>
-        <input matInput [(ngModel)]="warrDetail.inventoryId" disabled>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>serialNo</mat-label>
-        <input matInput [(ngModel)]="warrDetail.serialNo" disabled>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>vendor</mat-label>
-        <input matInput [(ngModel)]="warrDetail.vendor" disabled>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>cost</mat-label>
-        <input matInput [(ngModel)]="warrDetail.cost" disabled>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>remarks</mat-label>
-        <input matInput [(ngModel)]="warrDetail.remarks" disabled>
-      </mat-form-field>
-    </div>
-  </div>
-
-  <div mat-dialog-actions>
-    <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
-  </div>
-</ng-template>
-
-
 <div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showInventory">
-  <app-add-new-inventory [show]="showInventory" (newItemEvent)="closenow($event, 'inventory')"></app-add-new-inventory>
+  <app-add-new-inventory (newItemEvent)="closenow($event, 'inventory'); getInventory()"></app-add-new-inventory>
 </div>
