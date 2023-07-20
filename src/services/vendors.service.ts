@@ -9,7 +9,7 @@ export class VendorsService {
   constructor(private http:HttpClient) { }
 
   // baseUrl = `${environment.baseUrl}/inventoryMgmt`;
-  baseUrl = 'http://192.168.0.172:8080';
+  baseUrl = 'http://192.168.0.119:8080';
 
   listVendors() {
     let url = this.baseUrl + '/listVendors_1_0';

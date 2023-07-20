@@ -80,6 +80,9 @@ import { AddNewVendorComponent } from './main-dashboard/add-new-vendor/add-new-v
 import { AddNewDeviceComponent } from './main-dashboard/add-new-device/add-new-device.component';
 import { OrdersComponent } from './orders/orders.component';
 import { AddNewOrderComponent } from './main-dashboard/add-new-order/add-new-order.component';
+import { IndentsComponent } from './indents/indents.component';
+import { AddNewIndentComponent } from './main-dashboard/add-new-indent/add-new-indent.component';
+import { FrComponent } from './fr/fr.component';
 
 @NgModule({
   declarations: [
@@ -125,7 +128,10 @@ import { AddNewOrderComponent } from './main-dashboard/add-new-order/add-new-ord
     AddNewVendorComponent,
     AddNewDeviceComponent,
     OrdersComponent,
-    AddNewOrderComponent
+    AddNewOrderComponent,
+    IndentsComponent,
+    AddNewIndentComponent,
+    FrComponent
   ],
   imports: [
     BrowserModule,

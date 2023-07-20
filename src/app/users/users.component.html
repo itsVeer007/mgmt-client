@@ -79,8 +79,8 @@
       </div>
     </div>
 
-    <div class="col-lg-2 col-md-2 col-sm-12 text-end">
-      <!-- <div class="lists" *ngIf="showIconView" style="margin-right: 60px; margin-top: -40px">
+    <!-- <div class="col-lg-2 col-md-2 col-sm-12 text-end">
+      <div class="lists" *ngIf="showIconView" style="margin-right: 60px; margin-top: -40px">
         View
       </div>
       <div class="lists" *ngIf="showIconEdit" style="margin-right: 30px; margin-top: -40px">
@@ -88,7 +88,7 @@
       </div>
       <div class="lists" *ngIf="showIconDelete" style="margin-right: -5px; margin-top: -40px">
         Delete
-      </div> -->
+      </div>
 
       <a class="mx-2 pointer" (click)="viewBySelectedOne()"><img src="assets/icons/view.svg" (mouseenter)="showIconView = true"
           (mouseleave)="showIconView = false" /></a>
@@ -96,7 +96,7 @@
           (mouseleave)="showIconEdit = false" /></a>
       <a class="mx-2 pointer" (click)="deleteSelected()"><img src="assets/icons/delete.svg"
           (mouseenter)="showIconDelete = true" (mouseleave)="showIconDelete = false" /></a>
-    </div>
+    </div> -->
   </div>
   <!-- form ends -->
 
@@ -105,15 +105,14 @@
     <table class="table" id="mytable">
       <tbody>
         <tr class="form1">
-          <th>
+          <!-- <th>
             <input type="checkbox" class="form-check-input" [(ngModel)]="selectedAll" (change)="selectAll()"
               id="allcheck" style="
                 background-color: #00000000;
                 border-color: #fff;
                 margin-left: 10px;
               " />
-          </th>
-          <!-- <th><input type="checkbox" class="form-check-input" id="allchecked" (click)="allchecked($event)" style="background-color: #00000000; border-color:#fff;margin-left:10px;" /></th> -->
+          </th> -->
           <th (click)="sort('siteId')">User ID</th>
           <th (click)="sort('customerName')">User Name</th>
           <th (click)="sort('custType')">Role</th>
@@ -123,19 +122,18 @@
           <th (click)="sort('contactPerson')">#Sites</th>
           <th (click)="sort('contactPerson')">Safety Escort</th>
           <th (click)="sort('status')">Status</th>
-          <th></th>
+          <th class="text-center">Actions</th>
         </tr>
 
         <tr *ngFor="let cust of CustomerTable | search : searchText; let i = index">
-          <td>
+          <!-- <td>
             <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="cust.selected" (change)="
                 checkIfAllSelected();
                 deleteMultiRecords(cust, i, $event);
                 ViewByCheckbox(cust, i, $event);
                 EditByCheckbox(cust, i, $event)
               " id="singleCheck" />
-          </td>
-          <!-- <td><input type="checkbox" class="form-check-input" [checked]="masterSelected" /></td> -->
+          </td> -->
           <td>
             <p>{{ cust.employeeId }}</p>
           </td>
@@ -168,8 +166,18 @@
             </p>
           </td>
 
-          <td style="position: relative">
-            <a class="pointer" (click)="closeDot($event, i)"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
+          <td class="text-center">
+            <a class="mx-1" (click)="openViewPopup(cust, i)">
+              <img src="assets/icons/view.svg"(mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false">
+            </a>
+            <a class="mx-1" (click)="openEditPopup(cust, i)">
+              <img src="assets/icons/edit.svg" (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false">
+            </a>
+            <a class="mx-1" value="Delete" (click)="openDeletePopup(cust, i)">
+              <img src="assets/icons/delete.svg" (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false">
+            </a>
+
+            <!-- <a class="pointer" (click)="closeDot($event, i)"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
 
             <div class="plus-img1" id="plus-img{{ i }}" style="display: none">
               <div class="lists" *ngIf="showIconView1" style="margin-left: 5px; margin-top: -20px">
@@ -181,14 +189,7 @@
               <div class="lists" *ngIf="showIconDelete1" style="margin-left: 63px; margin-top: -20px">
                 Delete
               </div>
-
-              <a class="mx-2" (click)="openViewPopup(cust, i)"><img src="assets/icons/view.svg"
-                  (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" /></a>
-              <a class="mx-2" (click)="openEditPopup(cust, i)"><img src="assets/icons/edit.svg"
-                  (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" /></a>
-              <a class="mx-2" value="Delete" (click)="openDeletePopup(cust, i)"><img src="assets/icons/delete.svg"
-                  (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" /></a>
-            </div>
+            </div> -->
           </td>
         </tr>
       </tbody>

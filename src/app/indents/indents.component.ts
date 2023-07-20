@@ -3,6 +3,7 @@ import { Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angula
 import { MatDialog } from '@angular/material/dialog';
 import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
+import { IndentService } from 'src/services/indent.service';
 import { InventoryService } from 'src/services/inventory.service';
 import { MetadataService } from 'src/services/metadata.service';
 import { OrderService } from 'src/services/order.service';
@@ -10,12 +11,11 @@ import { ProductMasterService } from 'src/services/product-master.service';
 import { VendorsService } from 'src/services/vendors.service';
 
 @Component({
-  selector: 'app-orders',
-  templateUrl: './orders.component.html',
-  styleUrls: ['./orders.component.css']
+  selector: 'app-indents',
+  templateUrl: './indents.component.html',
+  styleUrls: ['./indents.component.css']
 })
-export class OrdersComponent implements OnInit {
-
+export class IndentsComponent implements OnInit {
   @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
     var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);
     // var y = <HTMLElement>document.getElementById(`address${this.addressid}`);
@@ -45,19 +45,21 @@ export class OrdersComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private ass: AssetService,
-    private inventorySer: InventoryService,
+    private indentSer: IndentService,
     private productMasterSer: ProductMasterService,
     private vendorSer: VendorsService,
+    private inventorySer: InventoryService,
     private orderSer: OrderService,
     private metaDatSer: MetadataService,
     private alertSer: AlertService,
+
     public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
-    this.listOrders();
-    this.getVendorr();
+    this.listIndent();
     this.listOrderItems();
+    this.onGetMetadata();
   }
 
   showIconView: boolean = false;
@@ -79,9 +81,13 @@ export class OrdersComponent implements OnInit {
   inActive: any = [];
 
   productIds: any;
-  listOrders() {
+
+  vendorDetail: any;
+
+  inventoryDetail: any;
+  listIndent() {
     this.showLoader = true;
-    this.orderSer.listOrders().subscribe((res: any) => {
+    this.indentSer.listIndent().subscribe((res: any) => {
       // console.log(res);
       this.showLoader = false;
       this.inventoryTable = res;
@@ -99,13 +105,13 @@ export class OrdersComponent implements OnInit {
     this.productMasterSer.list().subscribe((res: any) => {
       this.productIds = res;
     })
-  }
 
-  vendorDetail: any;
-  getVendorr() {
     this.vendorSer.listVendors().subscribe((res: any) => {
-      // console.log(res);
       this.vendorDetail = res;
+    })
+
+    this.inventorySer.getListing().subscribe((res: any) => {
+      this.inventoryDetail = res;
     })
   }
 
@@ -152,6 +158,7 @@ export class OrdersComponent implements OnInit {
   }
 
   vendorStatus: any
+  indentStatus: any
   onGetMetadata() {
     this.metaDatSer.getMetadata().subscribe((res: any) => {
       // console.log(res);
@@ -160,7 +167,10 @@ export class OrdersComponent implements OnInit {
           this.statusVal = item.metadata;
         } else if(item.type == "Vendor_Status") {
           this.vendorStatus = item.metadata;
+        } else if(item.type == "Indent_Status") {
+          this.indentStatus = item.metadata;
         }
+
       }
     })
   }
@@ -214,7 +224,7 @@ export class OrdersComponent implements OnInit {
   @ViewChild('viewInventoryDialog') viewInventoryDialog = {} as TemplateRef<any>;
   openViewPopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.viewInventoryDialog, { maxWidth: '550px', maxHeight: '550px'});
+    this.dialog.open(this.viewInventoryDialog, {maxWidth: '650px', maxHeight: '550px'});
     // console.log(this.currentItem);
   }
 
@@ -224,20 +234,27 @@ export class OrdersComponent implements OnInit {
   @ViewChild('editInventoryDialog') editInventoryDialog = {} as TemplateRef<any>;
   openEditPopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.editInventoryDialog, { maxWidth: '550px', maxHeight: '550px'});
+    this.dialog.open(this.editInventoryDialog, {maxWidth: '650px', maxHeight: '550px'});
     // console.log(item);
+
+    this.inventorySer.listInventoryByProductId(item.productId).subscribe((res: any) => {
+      console.log(res)
+    })
   }
 
   editInventory() {
     this.originalObject = {
       'id': this.currentItem.id,
-      'invoiceNo': this.currentItem.invoiceNo,
-      'by': 1,
+      'statusId': this.currentItem.statusId,
+      'updatedBy': 1,
+      'inventoryId': null,
       'remarks': this.currentItem.remarks
     }
 
+    this.originalObject.inventoryId = null;
+
     this.alertSer.wait();
-    this.orderSer.updateOrder(this.originalObject).subscribe((res: any) => {
+    this.indentSer.updateIndentStatus(this.originalObject).subscribe((res: any) => {
       // console.log(res);
       if(res) {
         this.alertSer.success(res);
@@ -257,12 +274,12 @@ export class OrdersComponent implements OnInit {
 
   openDeletePopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.deleteInventoryDialog, { maxWidth: '550px', maxHeight: '550px'});
+    this.dialog.open(this.deleteInventoryDialog, { maxWidth: '650px', maxHeight: '550px'});
   }
 
   deleteInventory() {
     this.alertSer.wait();
-    this.orderSer.deleteOrder(this.currentItem).subscribe((res: any) => {
+    this.indentSer.deleteIndent(this.currentItem).subscribe((res: any) => {
       if(res) {
         this.alertSer.success(res);
       }
@@ -273,57 +290,53 @@ export class OrdersComponent implements OnInit {
     });
   }
 
-  @ViewChild('orderItemsDialog') orderItemsDialog = {} as TemplateRef<any>;
-  openOrderItems(item: any) {
-    this.currentItem = item;
-    this.dialog.open(this.orderItemsDialog, { maxWidth: '550px', maxHeight: '550px'});
-    // console.log(item);
-  }
+  // @ViewChild('orderItemsDialog') orderItemsDialog = {} as TemplateRef<any>;
+  // openOrderItems(item: any) {
+  //   this.currentItem = item;
+  //   this.dialog.open(this.orderItemsDialog, { maxWidth: '750px', maxHeight: '550px'});
+  // }
 
   @ViewChild('createOrderDialog') createOrderDialog = {} as TemplateRef<any>;
   openCreateOrder() {
     // this.currentItem = item;
-    this.dialog.open(this.createOrderDialog,{ maxWidth: '550px', maxHeight: '550px'});
+    this.dialog.open(this.createOrderDialog, { maxWidth: '650px', maxHeight: '550px'});
   }
 
-  orderItemBody = {
-    orderId: null,
-    productId: null,
-    productQuantity: null,
-    createdBy: 1,
-    remarks: null
+  centralboxBody = {
+    centralBoxId: null,
+    inventoryId: null,
+    createdBy: 1
   }
 
-  addItemToOrder() {
-    this.orderItemBody.orderId = this.currentItem.id;
-    this.orderSer.addItemToOrder(this.orderItemBody).subscribe((res: any) => {
+  addComponent() {
+    this.indentSer.addComponent(this.centralboxBody).subscribe((res: any) => {
       console.log(res)
     })
   }
 
-  @ViewChild('updateOrderDialog') updateOrderDialog = {} as TemplateRef<any>;
+  @ViewChild('replaceComponentDialog') replaceComponentDialog = {} as TemplateRef<any>;
 
-  openUpdateOrder(item: any) {
-    this.currentItem = item;
-    this.dialog.open(this.updateOrderDialog, { maxWidth: '550px', maxHeight: '550px'});
+  openReplaceComponent() {
+    // console.log(item);
+    // this.currentItem = item;
+    this.dialog.open(this.replaceComponentDialog, { maxWidth: '550px', maxHeight: '550px'});
   }
 
-  updateOrder() {
-    this.originalObject = {
-      'id': this.currentItem.id,
-      'productQuantity': this.currentItem.productQuantity,
-      'by': 1,
-      'remarks': this.currentItem.remarks
-    }
+  body = {
+    oldInventoryId: null,
+    newInventoryId: null,
+    replacedBy: 1
+  }
+  replaceComponent() {
 
     this.alertSer.wait();
-    this.orderSer.updateOrderItem(this.originalObject).subscribe((res: any) => {
+    this.indentSer.replaceComponent(this.body).subscribe((res: any) => {
       // console.log(res);
       if(res) {
         this.alertSer.success(res);
       }
       setTimeout(() => {
-        window.location.reload();
+        // window.location.reload();
       }, 3000)
     }, (err: any) => {
       if(err) {

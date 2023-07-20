@@ -24,6 +24,8 @@ import { WifiAdsComponent } from './reports/wifi-ads/wifi-ads.component';
 import { QRAdsComponent } from './reports/qr-ads/qr-ads.component';
 import { VendorsComponent } from './vendors/vendors.component';
 import { OrdersComponent } from './orders/orders.component';
+import { IndentsComponent } from './indents/indents.component';
+import { FrComponent } from './fr/fr.component';
 const routes: Routes = [];
 
 @NgModule({
@@ -42,11 +44,16 @@ const routes: Routes = [];
     { path: 'analytics', component: AnalyticsComponent },
     { path: 'customers', component: CustomersComponent },
     { path: 'users', component: UsersComponent },
+
     { path: 'inventory', component: InventoryComponent },
     { path: 'product-master', component: ProductMasterComponent },
     { path: 'orders', component: OrdersComponent },
-    { path: 'assets', component: AssetsComponent },
+    { path: 'indents', component: IndentsComponent },
+
     { path: 'tickets', component: TicketsComponent },
+    { path: 'fr', component: FrComponent },
+
+    { path: 'assets', component: AssetsComponent },
     { path: 'reports', component: ReportsComponent },
     { path: 'meta', component: MetaDataComponent },
     { path: 'vendors', component: VendorsComponent },

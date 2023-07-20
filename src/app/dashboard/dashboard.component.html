@@ -2,14 +2,14 @@
   <div class="row content">
 
     <div class="header d-flex justify-content-between align-items-center">
-      <a class="logo pointer ms-3"><img src="assets/icons/Logo.svg" /></a>
+      <a class="logo pointer ms-2"><img src="assets/icons/Logo.svg"></a>
 
-      <a class="group88 pointer me-3" (click)="showProfile()">
-        <img src="assets/icons/profile.svg" />
+      <a class="group88 pointer me-2" (click)="showProfile()">
+        <img src="assets/icons/profile.svg">
       </a>
 
       <a class="menu-icon pointer" (click)="showMenu()">
-        <img src="assets/icons/menu.svg" />
+        <img src="assets/icons/menu.svg">
       </a>
     </div>
 
@@ -55,11 +55,15 @@
           <div class="navigation">
             <ul>
               <li class="m-2 has-sub">
-                <a><img src="assets/icons/inventory_2.svg">Inventory Manager</a>
+                <a><img src="assets/icons/inventory.svg">Inventory Manager</a>
 
                 <ul>
                   <li>
                     <a [routerLink]="['/product-master']" routerLinkActive="routeactive">Product Master</a>
+                  </li>
+
+                  <li>
+                    <a [routerLink]="['/indents']" routerLinkActive="routeactive">Indents</a>
                   </li>
 
                   <li>
@@ -84,10 +88,27 @@
             <span>Advertisements</span>
           </a>
 
-          <a class="list-group-item " [routerLink]="['/tickets']" routerLinkActive="routeactive">
+          <div class="navigation">
+            <ul>
+              <li class="m-2 has-sub">
+                <a><img src="assets/icons/ticket.svg">Ticket Manager</a>
+                <ul>
+                  <li>
+                    <a [routerLink]="['/tickets']" routerLinkActive="routeactive">Tickets</a>
+                  </li>
+
+                  <li>
+                    <a [routerLink]="['/fr']" routerLinkActive="routeactive">FR</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+
+          <!-- <a class="list-group-item " [routerLink]="['/tickets']" routerLinkActive="routeactive">
             <img src="assets/icons/ticket.svg">
             <span>Tickets/Jobs</span>
-          </a>
+          </a> -->
 
           <a *ngIf="isAdmin == true" class="list-group-item " [routerLink]="['/meta']" routerLinkActive="routeactive">
             <img src="assets/icons/storage.svg">
@@ -115,7 +136,9 @@
                     </ul>
                   </li>
 
-                  <li><a>Tickets</a></li>
+                  <li>
+                    <a [routerLink]="['/reports']" routerLinkActive="routeactive">Ticket Reports</a>
+                  </li>
                 </ul>
               </li>
             </ul>

@@ -81,17 +81,17 @@ export class InventoryComponent implements OnInit {
       this.newInventoryTable = this.inventoryTable;
 
       for(let item of this.inventoryTable) {
-        if(item.statusId == 1) {
+        if(item.inventoryStatusId == 1) {
           this.inStock.push(item);
-        } else if(item.statusId == 2) {
+        } else if(item.inventoryStatusId == 2) {
           this.installed.push(item);
-        } else if(item.statusId == 3) {
+        } else if(item.inventoryStatusId == 3) {
           this.removed.push(item);
-        } else if(item.statusId == 4) {
+        } else if(item.inventoryStatusId == 4) {
           this.returned.push(item);
-        } else if(item.statusId == 5) {
+        } else if(item.inventoryStatusId == 5) {
           this.scrap.push(item);
-        } else if(item.statusId == 6) {
+        } else if(item.inventoryStatusId == 6) {
           this.redyToUse.push(item);
         }
       }

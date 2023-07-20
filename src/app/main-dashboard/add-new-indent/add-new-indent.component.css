@@ -19,7 +19,6 @@
   margin: 0;
 }
 
-
 /* common ng-deep */
 
 .mat-form-field-appearance-outline ::ng-deep .mat-form-field-outline {
@@ -43,8 +42,4 @@
 
 ::ng-deep .mat-tab-body-content {
   overflow-x: hidden !important;
-}
-
-::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
-  color: #084982!important;
 }

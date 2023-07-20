@@ -59,12 +59,17 @@ export class TicketsComponent implements OnInit {
     // });
   }
 
-  showIconVertical: boolean = false;
-  showIconCustomer: boolean = false;
-  showIconSite: boolean = false;
-  showIconCamera: boolean = false;
-  showIconAnalytic: boolean = false;
-  showIconUser: boolean = false;
+  // fileName= 'ExcelSheet.xlsx';
+
+  // exportexcel(): void {
+  //     let element = document.getElementById('excel-table');
+  //     const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+
+  //     const wb: XLSX.WorkBook = XLSX.utils.book_new();
+  //     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+  //     XLSX.writeFile(wb, this.fileName);
+  // }
 
   showIconView: boolean = false;
   showIconEdit: boolean = false;
@@ -101,31 +106,6 @@ export class TicketsComponent implements OnInit {
       }
     })
   }
-
-
-  // filterBySite(val: any) {
-  //   if(val == 'none') {
-  //     this.newTicketData = this.ticketData;
-  //   } else {
-  //     this.newTicketData = this.ticketData.filter((el: any) => el.site == val);
-  //   }
-  // }
-
-  // filterByPriority(val: any) {
-  //   if(val == 'none') {
-  //     this.newTicketData = this.ticketData;
-  //   } else {
-  //     this.newTicketData = this.ticketData.filter((el: any) => el.priority == val)
-  //   }
-  // }
-
-  // filterByStatus(val: any) {
-  //   if(val == 'none') {
-  //     this.newTicketData = this.ticketData;
-  //   } else {
-  //     this.newTicketData = this.ticketData.filter((el: any) => el.status == val)
-  //   }
-  // }
 
   siteNames: any;
   priorityVal: any;
@@ -212,7 +192,6 @@ export class TicketsComponent implements OnInit {
   closeDot(e: any, i: any) {
     this.currentid = i;
     var x = e.target.parentNode.nextElementSibling;
-    // console.log("THREE DOTS:: ",e.target.parentNode.nextElementSibling);
     if (x.style.display == 'none') {
       x.style.display = 'block';
     } else {
@@ -235,21 +214,6 @@ export class TicketsComponent implements OnInit {
 
   show(type: string) {
     if (type == 'ticket') { this.showTicket = true }
-  }
-
-
-  selectedAll: any;
-  selectAll() {
-    for (var i = 0; i < this.ticketData.length; i++) {
-      // console.log(this.ticketData[i])
-      this.ticketData[i].selected = this.selectedAll;
-    }
-  }
-  checkIfAllSelected() {
-    this.selectedAll = this.ticketData.every(function (item: any) {
-      // console.log(item)
-      return item.selected == true;
-    })
   }
 
 
@@ -472,6 +436,7 @@ export class TicketsComponent implements OnInit {
     })
   }
 
+
   /* create comment */
 
   cmtValue: any;
@@ -491,8 +456,31 @@ export class TicketsComponent implements OnInit {
     this.cmtValue = ''
   }
 
+  sorted = false;
+  sort(label: any) {
+    this.sorted = !this.sorted;
+    var x = this.ticketData;
+    if (this.sorted == false) {
+      x.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
+    } else {
+      x.sort((a: string, b: string) => b[label] > a[label] ? 1 : b[label] < a[label] ? -1 : 0);
+    }
+  }
+
 
  /* checkbox control */
+
+  selectedAll: any;
+  selectAll() {
+    for (var i = 0; i < this.ticketData.length; i++) {
+      this.ticketData[i].selected = this.selectedAll;
+    }
+  }
+  checkIfAllSelected() {
+    this.selectedAll = this.ticketData.every(function (item: any) {
+      return item.selected == true;
+    })
+  }
 
   viewArray: any = [];
   viewBySelectedOne() {
@@ -534,7 +522,6 @@ export class TicketsComponent implements OnInit {
   deletearray: any = [];
   deleteMultiRecords(item: any, i: any, e: any) {
     var checked = (e.target.checked);
-    // console.log(item);
     if (this.deletearray.length == 0) { this.deletearray.push(item) }
 
     this.deletearray.forEach((el: any) => {
@@ -547,14 +534,11 @@ export class TicketsComponent implements OnInit {
         this.deletearray.splice(currentindex, 1)
       }
     });
-    // console.log(this.deletearray)
   }
 
   deleteSelected() {
     if (this.selectedAll == false) {
       this.deletearray.forEach((el: any) => {
-        // this.currentItem = el;
-        // this.confirmDeleteRow();
         this.ticketData = this.ticketData.filter((item: any) => item.siteId !== el.siteId);
       });
       this.deletearray = []
@@ -562,18 +546,6 @@ export class TicketsComponent implements OnInit {
       this.ticketData.forEach((el: any) => {
         this.ticketData = this.ticketData.filter((item: any) => item.siteId !== el.siteId);
       });
-    }
-  }
-
-
-  sorted = false;
-  sort(label: any) {
-    this.sorted = !this.sorted;
-    var x = this.ticketData;
-    if (this.sorted == false) {
-      x.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
-    } else {
-      x.sort((a: string, b: string) => b[label] > a[label] ? 1 : b[label] < a[label] ? -1 : 0);
     }
   }
 

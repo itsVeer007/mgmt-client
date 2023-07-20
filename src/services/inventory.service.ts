@@ -9,7 +9,7 @@ import { environment } from '../environments/environment';
 })
 export class InventoryService {
 
-  baseUrl = 'http://192.168.0.172:8080';
+  baseUrl = 'http://192.168.0.119:8080';
   // baseUrl = `${environment.baseUrl}/inventoryMgmt`;
 
   constructor(private http: HttpClient, public datepipe: DatePipe) { }
@@ -21,6 +21,11 @@ export class InventoryService {
 
   getWarranty(id: any) {
     let url = this.baseUrl + `/listWarranty_1_0/${id}`;
+    return this.http.get(url);
+  }
+
+  listInventoryByProductId(productId: any) {
+    let url = this.baseUrl + `/listInventoryByProductId_1_0?productId=${productId}`;
     return this.http.get(url);
   }
 
