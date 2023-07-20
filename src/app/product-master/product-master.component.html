@@ -249,7 +249,7 @@
             <p>{{ cust.cost }}</p>
           </td>
 
-          <td>
+          <td style="width: 200px;">
             <p>{{ cust.vendor }}</p>
           </td>
 
@@ -467,14 +467,14 @@
         </mat-form-field>
       </div>
 
-      <div class="col-lg-6 col-md-6">
+      <!-- <div class="col-lg-6 col-md-6">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Status</mat-label>
           <mat-select name="statusId" [(ngModel)]="currentItem.statusId" (change)="onInputChange($event)">
             <mat-option *ngFor="let item of productStatus" [value]="item.keyId">{{item.value}}</mat-option>
           </mat-select>
         </mat-form-field>
-      </div>
+      </div> -->
 
       <div>
         <mat-form-field appearance="outline" class="w-100">

@@ -9,7 +9,7 @@ export class ProductMasterService {
 
   constructor(private http: HttpClient) { }
 
-  baseUrl = 'http://192.168.0.172:8080';
+  baseUrl = 'http://192.168.0.119:8080';
   // baseUrl = 'http://usstaging.ivisecurity.com:777/inventoryMgmt';
 
   mySub = new Subject();
@@ -36,6 +36,12 @@ export class ProductMasterService {
     let url = this.baseUrl + `/deleteproduct_1_0?Id=${payload.id}`;
 
     return this.http.delete(url);
+  }
+
+  listByVendor() {
+    let url = this.baseUrl + "/listProduct_1_0";
+
+    return this.http.get(url);
   }
 
 

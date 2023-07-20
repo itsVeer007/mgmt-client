@@ -8,9 +8,9 @@ import { environment } from '../environments/environment';
 })
 export class DeviceService {
 
-    baseUrl= `${environment.baseUrl}/proximityads`;
-
   constructor(private http: HttpClient) { }
+
+  baseUrl= `${environment.baseUrl}/proximityads`;
 
   listDeviceAdsInfo() {
     let url = this.baseUrl + '/listDeviceAdsInfo_1_0';

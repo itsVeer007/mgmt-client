@@ -3,7 +3,7 @@
   <!-- header -->
   <div class="d-flex justify-content-between">
     <div class="users-header">
-      <p>List of all Tickets - <span>{{newTicketData?.length}}</span></p>
+      <p>List of Tickets - <span>{{ newTicketData?.length }}</span></p>
     </div>
     <div style="position: relative">
       <!-- <a class="pointer" (click)="show('ticket')"><img src="assets/icons/add-circle.svg" alt="" width="40"></a> -->
@@ -304,15 +304,15 @@
                 Delete
               </div>
             </div> -->
-            <a class="mx-2 pointer" (click)="openViewPopup(cust)">
+            <a class="mx-1 pointer" (click)="openViewPopup(cust)">
               <img src="assets/icons/view.svg" (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false">
             </a>
 
-            <a class="mx-2 pointer" (click)="openEditPopup(cust)">
+            <a class="mx-1 pointer" (click)="openEditPopup(cust)">
               <img src="assets/icons/edit.svg" (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false">
             </a>
 
-            <a class="mx-2 pointer" value="Delete" (click)="openDeletePopup(cust)">
+            <a class="mx-1 pointer" value="Delete" (click)="openDeletePopup(cust)">
               <img src="assets/icons/delete.svg"(mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false">
             </a>
           </td>
