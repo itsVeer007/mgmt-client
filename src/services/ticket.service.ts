@@ -65,8 +65,8 @@ export class TicketService {
     return this.http.get(url, {params: myObj});
   }
 
-  assignPerson(payload: any) {
-    let url = this.baseUrl + '/updateTicket_1_0';
+  assignTicket(payload: any) {
+    let url = this.baseUrl + '/assignTicket_1_0';
     return this.http.put(url, payload);
   }
 
@@ -86,6 +86,55 @@ export class TicketService {
       'closedTime': payload.closedTime
     }
     return this.http.get(url, {params: myObj});
+  }
+
+
+  /* FR Service */
+
+  listFRSites(frId: any) {
+    let url = this.baseUrl + `/listFRSites_1_0/${frId}`;
+    return this.http.get(url);
+  }
+
+  fieldVisitEntry(payload: any) {
+    let url = this.baseUrl + `/fieldVisitEntry_1_0`;
+    let myObj = {
+      'frId': payload.frId,
+      'siteId': payload.siteId,
+    }
+
+    return this.http.post(url, myObj);
+  }
+
+  listFRTasksOfCurrentVisit(frId: any) {
+    let url = this.baseUrl + `/listFRTasksOfCurrentVisit_1_0/${frId}`;
+    return this.http.get(url);
+  }
+
+  logTaskStatus(payload: any) {
+    let url = this.baseUrl + `/logTaskStatus_1_0`;
+    let myObj = {
+      'taskId': payload.taskId,
+      'statusId': payload.statusId,
+      'fieldVisitId': payload.fieldVisitId,
+      'changedBy': payload.changedBy,
+      'remarks': payload.remarks,
+    }
+
+    return this.http.post(url, myObj);
+  }
+
+  fieldVisitExit(payload: any) {
+    let url = this.baseUrl + `/fieldVisitExit_1_0`;
+    let myObj = {
+      'frId': payload.frId,
+      'travelAllowance': payload.travelAllowance,
+      'foodAllowance': payload.foodAllowance,
+      'otherAllowance': payload.otherAllowance,
+      'remarks': payload.remarks
+    }
+
+    return this.http.put(url, myObj);
   }
 
 }

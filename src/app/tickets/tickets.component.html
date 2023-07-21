@@ -5,8 +5,8 @@
     <div class="users-header">
       <p>List of Tickets - <span>{{ newTicketData?.length }}</span></p>
     </div>
-    <div style="position: relative">
-      <!-- <a class="pointer" (click)="show('ticket')"><img src="assets/icons/add-circle.svg" alt="" width="40"></a> -->
+    <div>
+      <!-- <a class="pointer" (click)="show('ticket')"><img style="rotate: 45deg;" src="assets/icons/close_form.svg" alt="" width="70"></a> -->
       <button mat-flat-button color="primary" class="py-0" (click)="show('ticket')">Create Ticket</button>
     </div>
   </div>
@@ -149,56 +149,44 @@
           </th>
 
           <th>
-            <span>Ticket Type</span>
-            <img (click)="sort('ticketTypeId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-          </th>
-
-          <th>
-            <span>Rqst By</span>
-            <img (click)="sort('requestedBy')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-          </th>
-
-          <th>
-            <span>Site</span>
+            <span>siteName</span>
             <img (click)="sort('siteId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
-          <!-- <th>
-            <span>Created By</span>
-            <img (click)="sort('site')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-          </th> -->
-
           <th>
-            <span>Source of Rqst</span>
-            <img (click)="sort('sourceOfRequestId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-          </th>
-
-          <th>
-            <span>Assigned To</span>
-            <img (click)="sort('assignedTo')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-          </th>
-
-          <th>
-            <span>Created Date</span>
+            <span>ticketReason</span>
             <img (click)="sort('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
-            <span>Closed Date</span>
-            <img (click)="sort('closedTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-          </th>
-
-          <!-- <th (click)="sort('contactPerson')">Age (In Days)</th> -->
-
-          <th>
-            <span>Priority</span>
+            <span>ticketType</span>
             <img (click)="sort('priorityId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
-            <span>Status</span>
-            <img (click)="sort('statusId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <span>ticketAttendedBy</span>
+            <img (click)="sort('requestedBy')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
+
+          <th>
+            <span>ticketRaisedDate</span>
+            <img (click)="sort('assignedTo')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+          </th>
+
+          <th>
+            <span>ticketClosedDate</span>
+            <img (click)="sort('sourceOfRequestId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+          </th>
+
+          <th>
+            <span>ticketStatus</span>
+            <img (click)="sort('closedTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+          </th>
+
+          <!-- <th>
+            <span>rectificationRemarks</span>
+            <img (click)="sort('ticketTypeId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+          </th> -->
 
           <th class="text-center">Actions</th>
         </tr>
@@ -215,60 +203,76 @@
               " id="singleCheck" />
           </td> -->
           <td>
-            <p>{{ cust.ticketId }}</p>
+            <p>{{ cust.id }}</p>
           </td>
           <td>
-            <p>{{ cust.ticketTypeId == 1 ? 'Maintaince' : cust.ticketTypeId == 2 ? 'Installation' : '--' }}</p>
-          </td>
-
-          <td>
-            <p>{{ cust.requestedBy ? cust.requestedBy : '--' }}</p>
+            <p>{{ cust.siteName }}</p>
           </td>
 
           <td>
-            <p>{{ cust.siteId }}</p>
+            <p>{{ cust.ticketReason }}</p>
           </td>
 
           <td>
-            <p>{{ cust.sourceOfRequestId == 1 ? 'Phone': cust.sourceOfRequestId == 2 ? 'Email' : cust.sourceOfRequestId == 3 ? 'Self' : '--'  }}</p>
-          </td>
-
-          <td>
-            <p *ngIf="cust.assignedTo != '' || cust.assignedTo != null">
-              <span>{{ cust.assignedTo == 1 ? 'Brey' : cust.assignedTo == 2 ? 'Danny' : cust.assignedTo == 3 ? 'Kranthi' : '' }}</span>
-              <!-- <a (click)="openAssigned(cust)"><img src="assets/icons/edit.svg" *ngIf="cust.assignedTo != null" width="12"></a> -->
-            </p>
-
-            <a class="pointer" (click)="openAssigned(cust)">
-              <img src="assets/icons/add-svg.svg" *ngIf="cust.assignedTo == '' || cust.assignedTo == null" width="25">
-            </a>
-          </td>
-
-          <td>
-            <p>{{ cust.createdTime ? (cust.createdTime | date: 'dd-MM-yyyy') : '--' }}</p>
-          </td>
-
-          <td>
-            <!-- <a class="pointer">
-              <img src="assets/icons/add-svg.svg" width="25" height="25" />
-            </a> -->
-            <p>{{ cust.closedTime ?  (cust.closedTime| date: 'dd-MM-yyyy') : '--'}}</p>
+            <p>{{ cust.ticketType }}</p>
           </td>
 
           <!-- <td>
-            <p>{{ cust.ageInDays }}</p>
+            <p>{{ cust.ticketAttendedBy }}</p>
           </td> -->
 
           <td>
-            <p>{{ cust.priorityId == 1 ? 'Low' : cust.priorityId == 2 ? 'Medium' : cust.priorityId == 3 ? 'High' : '--' }}</p>
+            <p *ngIf="cust.ticketAttendedBy != '' || cust.ticketAttendedBy != null">
+              <span>{{ cust.ticketAttendedBy }}</span>
+              <!-- <a (click)="openAssigned(cust)"><img src="assets/icons/edit.svg" *ngIf="cust.ticketAttendedBy != null" width="12"></a> -->
+            </p>
+
+            <a class="pointer" (click)="openAssigned(cust)">
+              <img src="assets/icons/add-svg.svg" *ngIf="cust.ticketAttendedBy == '' || cust.ticketAttendedBy == null" width="25">
+            </a>
+
+            <ng-template #assignedDialog>
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Assign To</mat-label>
+                <mat-select [(ngModel)]="assignedObj.assignedTo">
+                  <!-- <mat-option *ngFor="let item of assignedTo" [value]="item.keyId">{{item.value}}</mat-option> -->
+                  <mat-option [value]="1655">rajesh kumar</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <div class="d-flex align-items-center justify-content-end">
+                <div mat-dialog-actions class="me-2">
+                  <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+                </div>
+                <div mat-dialog-actions>
+                  <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="toAssigned()">Update</button>
+                </div>
+              </div>
+            </ng-template>
+          </td>
+
+          <!-- <td>
+            <p>{{ cust.sourceOfRequestId == 1 ? 'Phone': cust.sourceOfRequestId == 2 ? 'Email' : cust.sourceOfRequestId == 3 ? 'Self' : '--'  }}</p>
+          </td> -->
+
+          <td>
+            <p>{{ cust.ticketRaisedDate | date: 'dd-MM-yyyy' }}</p>
           </td>
 
           <td>
-            <p [style.color]="cust.statusId == 1 ? '#00A44C' : cust.statusId == 2 ? '#F5B400' : cust.statusId == 3 ? '#F5B400' : cust.statusId == 4 ? '#fa500f' : ''">
-              {{ cust.statusId == 1 ? 'Open' : cust.statusId == 2 ? 'In-Progress' : cust.statusId == 3 ? 'Closed' : cust.statusId == 4 ? 'Rejected' : '--'}}
-            </p>
-            <!-- <p [style.color]="cust.status == 'active' ? '#00A44C' : cust.status == 'Inprogress' ? '#F5B400' : cust.status == 'closed' ? '#fa500f' : '#00A44C'">
+            <p>{{ cust.ticketClosedDate | date: 'dd-MM-yyyy' }}</p>
+          </td>
 
+          <!-- <td>
+            <p>{{ cust.priorityId == 1 ? 'Low' : cust.priorityId == 2 ? 'Medium' : cust.priorityId == 3 ? 'High' : '--' }}</p>
+          </td> -->
+
+          <td>
+            <p [style.color]="cust.ticketStatus == 'Open' ? '#00A44C' : cust.ticketStatus == 2 ? '#F5B400' : cust.ticketStatus == 3 ? '#F5B400' : cust.ticketStatus == 4 ? '#fa500f' : cust.ticketStatus == 'Closed' ? '#fa500f' : ''">
+              {{ cust.ticketStatus }}
+            </p>
+
+            <!-- <p [style.color]="cust.status == 'active' ? '#00A44C' : cust.status == 'Inprogress' ? '#F5B400' : cust.status == 'closed' ? '#fa500f' : '#00A44C'">
               <span class="d-flex">
                 <span style="width: 50px;">
                   {{ cust.status }}
@@ -290,6 +294,10 @@
               </ng-template>
             </p> -->
           </td>
+
+          <!-- <td style="width: 200px;">
+            <p>{{ cust.rectificationRemarks }}</p>
+          </td> -->
 
           <td class="text-center">
             <!-- <a class="pointer" (click)="closeDot($event, i)"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
@@ -329,24 +337,6 @@
   <!-- /Loader -->
 </div>
 <!-- /table -->
-
-<ng-template #assignedDialog>
-  <mat-form-field appearance="outline" class="w-100">
-    <mat-label>Assign To</mat-label>
-    <mat-select name="assignedTo" [(ngModel)]="assignedObj.assignedTo" (selectionChange)="aonSelectChange($event)">
-      <mat-option *ngFor="let item of assignedTo" [value]="item.keyId">{{item.value}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <div class="d-flex align-items-center justify-content-end">
-    <div mat-dialog-actions class="me-2">
-      <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
-    </div>
-    <div mat-dialog-actions>
-      <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="toAssigned()">Update</button>
-    </div>
-  </div>
-</ng-template>
 
 
 <!-- view popup -->
@@ -398,6 +388,18 @@
         <p style="font-weight: 600; color: #ABABAB;">COMMENTS</p>
       </div>
 
+      <div class="row">
+        <div class="col-lg-7 col-md-7">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Enter Text</mat-label>
+            <input matInput [(ngModel)]="cmtValue">
+          </mat-form-field>
+        </div>
+
+        <div mat-dialog-actions class="col-lg-4 col-md-4">
+          <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0 5px;" (click)=" createComment()">Create Comment</button>
+        </div>
+      </div>
       <!-- <div >
         <div>
           <div>
@@ -422,17 +424,6 @@
         <p>Hey! I'm fine. Thanks for asking!</p>
         <span class="time-left">11:01</span>
       </div> -->
-
-      <div class="col-lg-12 col-md-12">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Enter Text</mat-label>
-          <input matInput [(ngModel)]="cmtValue">
-        </mat-form-field>
-      </div>
-
-      <div mat-dialog-actions class="d-flex justify-content-end">
-        <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0 5px;" (click)=" createComment()">Create Comment</button>
-      </div>
     </div>
 
     <hr class="mt-4">

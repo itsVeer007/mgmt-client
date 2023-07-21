@@ -370,28 +370,15 @@ export class TicketsComponent implements OnInit {
     this.dialog.open(this.assignedDialog, {maxHeight: '250px', maxWidth: '250px'});
   }
 
-  aonSelectChange(e: any) {
-    this.originalObject = {
-      "ticketId": this.toAssign.ticketId,
-      "assignedTo": e.assignedTo,
-    };
-
-    let x = e.source.ngControl.name;
-
-    if(!(this.changedKeys.includes(x))) {
-      this.changedKeys.push(x);
-    }
-  }
-
   toAssigned() {
     this.alertSer.wait();
-
     let myObj = {
-      'ticketId': this.toAssign.ticketId,
-      'assignedTo': this.assignedObj.assignedTo
+      'ticketId': this.toAssign.id,
+      'assignedTo': this.assignedObj.assignedTo,
+      "assignedBy": 1
     }
 
-    this.ticketSer.assignPerson({updprops: this.changedKeys, ticket: myObj}).subscribe((res: any) => {
+    this.ticketSer.assignTicket(myObj).subscribe((res: any) => {
       // console.log(res)
       if(res) {
         this.alertSer.success(res);

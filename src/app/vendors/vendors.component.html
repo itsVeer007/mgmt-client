@@ -147,7 +147,7 @@
             </ng-template>
           </td>
 
-          <td>
+          <td style="width: 200px;">
             <p>
               {{ cust.proprietor1 }}
               <!-- <span class="text-primary" *ngIf="cust.parteners != 0">...more</span> -->
@@ -242,13 +242,13 @@
               </div>
             </div> -->
 
-              <a class="mx-2 pointer" (click)="openViewPopup(cust)">
+              <a class="mx-1 pointer" (click)="openViewPopup(cust)">
                 <img src="assets/icons/view.svg" (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" />
               </a>
-              <a class="mx-2 pointer" (click)="openEditPopup(cust)">
+              <a class="mx-1 pointer" (click)="openEditPopup(cust)">
                 <img src="assets/icons/edit.svg" (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" />
               </a>
-              <a class="mx-2 pointer" value="Delete" (click)="openDeletePopup(cust)">
+              <a class="mx-1 pointer" value="Delete" (click)="openDeletePopup(cust)">
                 <img src="assets/icons/delete.svg" (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" />
               </a>
           </td>

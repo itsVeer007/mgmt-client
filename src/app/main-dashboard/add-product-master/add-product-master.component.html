@@ -13,7 +13,6 @@
   <div>
     <form autocomplete="off" [formGroup]="UserForm" #addUserForm="ngForm" (ngSubmit)="submit()">
       <div class="row">
-
         <div class="col-lg-6 col-md-6">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Product Category</mat-label>
@@ -21,30 +20,6 @@
               <mat-option *ngFor="let item of productCategory" [value]="item.keyId">{{ item.value }}</mat-option>
             </mat-select>
             <mat-error class="mt-1">Category is required</mat-error>
-          </mat-form-field>
-        </div>
-
-        <div class="col-lg-6 col-md-6">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Name</mat-label>
-            <input matInput formControlName="name" [(ngModel)]="prductMasterObj.name">
-            <mat-error class="mt-1">Name is required</mat-error>
-          </mat-form-field>
-        </div>
-
-        <div class="col-lg-6 col-md-6">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Product Model</mat-label>
-            <input matInput formControlName="model" [(ngModel)]="prductMasterObj.model">
-            <mat-error class="mt-1">Model is required</mat-error>
-          </mat-form-field>
-        </div>
-
-        <div class="col-lg-6 col-md-6">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Description</mat-label>
-            <input matInput formControlName="description" [(ngModel)]="prductMasterObj.description">
-            <mat-error class="mt-1">Description is required</mat-error>
           </mat-form-field>
         </div>
 
@@ -60,9 +35,9 @@
 
         <div class="col-lg-6 col-md-6">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Cost</mat-label>
-            <input matInput formControlName="cost" [(ngModel)]="prductMasterObj.cost">
-            <mat-error class="mt-1">Cost is required</mat-error>
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" [(ngModel)]="prductMasterObj.name">
+            <mat-error class="mt-1">Name is required</mat-error>
           </mat-form-field>
         </div>
 
@@ -86,11 +61,35 @@
 
         <div class="col-lg-6 col-md-6">
           <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Cost</mat-label>
+            <input matInput formControlName="cost" [(ngModel)]="prductMasterObj.cost">
+            <mat-error class="mt-1">Cost is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
             <mat-label>Vendor Id</mat-label>
             <mat-select formControlName="vendorId" [(ngModel)]="prductMasterObj.vendorId">
               <mat-option *ngFor="let item of vendorDetail" [value]="item.id">{{ item.name }}</mat-option>
             </mat-select>
             <mat-error class="mt-1">Vendor Id is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Product Model</mat-label>
+            <input matInput formControlName="model" [(ngModel)]="prductMasterObj.model">
+            <mat-error class="mt-1">Model is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Description</mat-label>
+            <input matInput formControlName="description" [(ngModel)]="prductMasterObj.description">
+            <mat-error class="mt-1">Description is required</mat-error>
           </mat-form-field>
         </div>
 

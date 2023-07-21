@@ -317,29 +317,28 @@ export class DevicesComponent implements OnInit {
     });
   }
 
-  assignedObj = {
-    assignedTo: ""
-  }
+  // assignedObj = {
+  //   assignedTo: ""
+  // }
 
-  @ViewChild('assignedDialog') assignedDialog = {} as TemplateRef<any>;
+  // @ViewChild('assignedDialog') assignedDialog = {} as TemplateRef<any>;
 
-  x: any
-  openAssigned(item: any) {
-    // console.log(item);
-    this.x = item;
-    this.dialog.open(this.assignedDialog);
-  }
+  // x: any
+  // openAssigned(item: any) {
+  //   // console.log(item);
+  //   this.x = item;
+  //   this.dialog.open(this.assignedDialog);
+  // }
 
-  toAssigned() {
-    let myObj = {
-      'ticketId': this.x.ticketId,
-      'assignedTo': this.assignedObj.assignedTo
-    }
+  // toAssigned() {
+  //   let myObj = {
+  //     'ticketId': this.x.ticketId,
+  //     'assignedTo': this.assignedObj.assignedTo
+  //   }
 
-    this.ticketSer.assignPerson(myObj).subscribe((res: any) => {
-      // console.log(res)
-    })
-  }
+  //   this.ticketSer.assignPerson(myObj).subscribe((res: any) => {
+  //   })
+  // }
 
   @ViewChild('editStatusDialog') editStatusDialog = {} as TemplateRef<any>;
 
