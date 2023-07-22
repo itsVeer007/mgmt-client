@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +9,8 @@ export class IndentService {
 
   constructor(private http: HttpClient) { }
 
-  // baseUrl = `${environment.baseUrl}/inventoryMgmt`;
-  baseUrl = 'http://192.168.0.119:8080';
+  baseUrl = `${environment.baseUrl}/inventory`;
+  // baseUrl = 'http://192.168.0.119:8080';
 
   listIndent() {
     let url = this.baseUrl + "/listIndent_1_0";

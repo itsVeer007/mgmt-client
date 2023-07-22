@@ -26,6 +26,7 @@ import { VendorsComponent } from './vendors/vendors.component';
 import { OrdersComponent } from './orders/orders.component';
 import { IndentsComponent } from './indents/indents.component';
 import { FrComponent } from './fr/fr.component';
+import { TicketReportsComponent } from './ticket-reports/ticket-reports.component';
 const routes: Routes = [];
 
 @NgModule({
@@ -60,6 +61,7 @@ const routes: Routes = [];
 
     { path: 'qr-ads', component: QRAdsComponent },
     { path: 'wifi-ads', component: WifiAdsComponent },
+    { path: 'ticket-reports', component: TicketReportsComponent },
   ])],
   exports: [RouterModule]
 })

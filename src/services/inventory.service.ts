@@ -1,7 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
 import { environment } from '../environments/environment';
 
 @Injectable({
@@ -9,8 +8,8 @@ import { environment } from '../environments/environment';
 })
 export class InventoryService {
 
-  baseUrl = 'http://192.168.0.119:8080';
-  // baseUrl = `${environment.baseUrl}/inventoryMgmt`;
+  // baseUrl = 'http://192.168.0.119:8080';
+  baseUrl = `${environment.baseUrl}/inventory`;
 
   constructor(private http: HttpClient, public datepipe: DatePipe) { }
 

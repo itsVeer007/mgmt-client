@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-
 import { environment } from '../environments/environment';
 
 @Injectable({
@@ -13,8 +12,8 @@ export class TicketService {
 
   constructor(private http: HttpClient) { }
 
-  baseUrl = 'http://192.168.0.189:8080';
-  // baseUrl = `${environment.baseUrl}/ticketsManagement`;
+  // baseUrl = 'http://192.168.0.189:8080';
+  baseUrl = `${environment.baseUrl}/tickets`;
 
   getTickets() {
     let url = this.baseUrl + "/listTickets_1_0";
@@ -79,11 +78,11 @@ export class TicketService {
   filteBody(payload: any) {
     let url = this.baseUrl + `/listTickets_1_0`;
     let myObj = {
-      'requestedBy': payload.requestId,
-      'priorityId': payload.priority,
-      'statusId': payload.status,
-      'createdTime': payload.createdTime,
-      'closedTime': payload.closedTime
+      'siteId': payload.siteId,
+      'typeId': payload.typeId,
+      'ticketStatus': payload.ticketStatus,
+      'startDate': payload.startDate,
+      'endDate': payload.endDate
     }
     return this.http.get(url, {params: myObj});
   }
@@ -135,6 +134,13 @@ export class TicketService {
     }
 
     return this.http.put(url, myObj);
+  }
+
+  /* ticket reort */
+
+  getTicketsReport() {
+    let url = this.baseUrl + `/getTicketsReport_1_0`;
+    return this.http.get(url);
   }
 
 }

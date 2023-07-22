@@ -124,8 +124,7 @@ export class AddProductMasterComponent implements OnInit {
       for(let item of res) {
         if(item.type == 'Product_Category') {
           this.productCategory = item.metadata;
-        }
-        else if(item.type == 'Product_Type') {
+        } else if(item.type == 'Product_Type') {
           this.productType = item.metadata;
         } else if(item.type == 'uom') {
           this.uom = item.metadata;
@@ -134,15 +133,17 @@ export class AddProductMasterComponent implements OnInit {
     })
   }
 
+  newType: any
+  filterProductType(data: any) {
+    this.newType = this.productType.filter((item: any) => {
+      let x = item.keyId.toString();
+      return Number(x.substring(0, x.length - 2)) == data;
+    });
+  }
+
   closeAddUser() {
     this.newItemEvent.emit(false);
   }
-
-  // openAnotherForm(newform:any) {
-  //   this.newItemEvent.emit(false);
-  //   localStorage.setItem('opennewform', newform)
-  // }
-  // submitted!: boolean;
 
   submit() {
     console.log(this.prductMasterObj);
@@ -156,8 +157,8 @@ export class AddProductMasterComponent implements OnInit {
           this.alertSer.success(res);
         }
         setTimeout(() => {
-          // window.location.reload();
-        }, 3000);
+          window.location.reload();
+        }, 2000);
       }, (err: any) => {
         if(err) {
           this.alertSer.error();

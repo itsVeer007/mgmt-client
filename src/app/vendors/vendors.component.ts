@@ -81,8 +81,6 @@ export class VendorsComponent implements OnInit {
       for(let item of this.inventoryTable) {
         if(item.statusId == 1) {
           this.active.push(item);
-        } else if(item.statusId == 2) {
-          this.inActive.push(item);
         }
       }
     });
@@ -202,7 +200,7 @@ export class VendorsComponent implements OnInit {
   addressId: any;
   addressView(i: any) {
     this.addressId = i;
-    this.dialog.open(this.addressDialog, {maxWidth: '250px', maxHeight: '250px'})
+    this.dialog.open(this.addressDialog, {maxWidth: '550px', maxHeight: '550px'})
   }
 
   selectedAll: any;
@@ -240,7 +238,7 @@ export class VendorsComponent implements OnInit {
   openEditPopup(item: any) {
     this.currentItem = JSON.parse(JSON.stringify(item));
     this.dialog.open(this.editInventoryDialog, {maxHeight: '550px', maxWidth: '750px'});
-    // console.log(item);
+    console.log(item);
   }
 
   onInputChange(e: any) {
@@ -366,12 +364,11 @@ export class VendorsComponent implements OnInit {
   openDeletePopup(item: any) {
     this.currentItem = item;
     this.dialog.open(this.deleteInventoryDialog, {maxHeight: '550px', maxWidth: '750px'});
-    // console.log("Selected Item:: ", item);
   }
 
-  deleteInventory() {
+  deleteVendor() {
     this.alertSer.wait();
-    this.inventorySer.deleteInventory(this.currentItem).subscribe((res: any) => {
+    this.vendorSer.deleteVendor(this.currentItem).subscribe((res: any) => {
       // console.log(res);
       if(res) {
         this.alertSer.success(res);

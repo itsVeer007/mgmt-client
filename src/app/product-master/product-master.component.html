@@ -25,7 +25,7 @@
         <div class="vl-yellow"></div>
         <div class="mx-2">
           <div class="status">Inactive</div>
-          <div class="count">{{ inActive.length }}</div>
+          <div class="count">{{ newProductMaster?.length - active?.length }}</div>
         </div>
       </div>
       <!-- <div class="col-lg-2 d-flex justify-content-start">
@@ -65,7 +65,7 @@
         <mat-label>Vendor</mat-label>
         <mat-select [(ngModel)]="vendorId">
           <mat-option value="">All</mat-option>
-          <mat-option *ngFor="let item of productStatus" [value]="item.keyId">{{ item.value }}</mat-option>
+          <mat-option *ngFor="let item of vendorDetail" [value]="item.id">{{ item.name }}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>

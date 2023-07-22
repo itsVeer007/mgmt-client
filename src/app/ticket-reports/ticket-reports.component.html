@@ -7,7 +7,7 @@
     </div>
     <div>
       <!-- <a class="pointer" (click)="show('ticket')"><img style="rotate: 45deg;" src="assets/icons/close_form.svg" alt="" width="70"></a> -->
-      <button mat-flat-button color="primary" class="py-0" (click)="show('ticket')">Create Ticket</button>
+      <button mat-flat-button color="primary" class="py-0" (click)="show('ticket')">Download Report</button>
     </div>
   </div>
   <!-- /header -->
@@ -52,83 +52,6 @@
   </div>
   <!-- /count -->
 
-  <!-- form -->
-  <div class="search-form row">
-    <div class="col-lg-2 col-md-2">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Site</mat-label>
-        <mat-select (focus)="removeDuplicates()" [(ngModel)]="sId">
-          <mat-option value="">All</mat-option>
-          <mat-option *ngFor="let item of siteData" [value]="item.siteid">{{ item.siteid }} - {{ item.siteShortName }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-2 col-md-2">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Type</mat-label>
-        <mat-select (focus)="removeDuplicates()" [(ngModel)]="tId">
-          <mat-option value="">All</mat-option>
-          <mat-option *ngFor="let item of ticketType" [value]="item.keyId">{{ item.value }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-2 col-md-2">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Status</mat-label>
-        <mat-select (focus)="removeDuplicates()" [(ngModel)]="tStatus">
-          <mat-option value="">All</mat-option>
-          <mat-option *ngFor="let item of statusVal" [value]="item.value">{{ item.value }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-2 col-md-2">
-      <mat-form-field appearance="outline" class="w-100">
-        <input matInput [matDatepicker]="picker1" placeholder="From" [(ngModel)]="stDt">
-        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-        <mat-datepicker #picker1></mat-datepicker>
-        <mat-error class="mt-1">Start Date is required</mat-error>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-2 col-md-2">
-      <mat-form-field appearance="outline" class="w-100">
-        <input matInput [matDatepicker]="picker2" placeholder="To" [(ngModel)]="enDt">
-        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-        <mat-datepicker #picker2></mat-datepicker>
-        <mat-error class="mt-1">End Date is required</mat-error>
-      </mat-form-field>
-    </div>
-
-    <div class="filter-search-btn col-lg-1 col-md-1">
-      <!-- <button mat-flat-button color="primary" class="p-0" (click)="applyFilter()">Submit</button> -->
-      <button (click)="applyFilter()">Submit</button>
-    </div>
-
-    <!-- <div class="col-lg-2 col-md-2 text-end">
-      <div class="lists" *ngIf="showIconView" style="margin-right: 60px; margin-top: -40px;">View</div>
-      <div class="lists" *ngIf="showIconEdit" style="margin-right: 30px; margin-top: -40px;">Edit</div>
-      <div class="lists" *ngIf="showIconDelete" style="margin-right: -5px; margin-top: -40px;">Delete</div>
-
-      <a class="mx-2 pointer" (click)="viewBySelectedOne()"><img src="assets/icons/view.svg" (mouseenter)="showIconView = true" (mouseleave)="showIconView = false" /></a>
-      <a class="mx-2 pointer" (click)="editBySelectedOne()"><img src="assets/icons/edit.svg" (mouseenter)="showIconEdit = true" (mouseleave)="showIconEdit = false" /></a>
-      <a class="mx-2 pointer" (click)="deleteSelected()"><img src="assets/icons/delete.svg" (mouseenter)="showIconDelete = true" (mouseleave)="showIconDelete = false" /></a>
-    </div> -->
-
-    <!-- <div class="col-lg-2 col-md-2">
-      <mat-form-field class="example-form-field" appearance="outline" class="w-100">
-        <mat-label>Search</mat-label>
-        <input matInput type="text"  [(ngModel)]="searchText">
-        <button matSuffix mat-icon-button>
-          <mat-icon>search</mat-icon>
-        </button>
-      </mat-form-field>
-    </div> -->
-  </div>
-  <!-- /form -->
-
   <!-- table starts -->
   <div class="table-resp">
     <table class="table table-hover" id="mytable">
@@ -144,7 +67,7 @@
           </th> -->
 
           <th>
-            <span>Id</span>
+            <span>id</span>
             <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
@@ -154,39 +77,29 @@
           </th>
 
           <th>
-            <span>ticketReason</span>
+            <span>ticketType</span>
             <img (click)="sort('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
-            <span>ticketType</span>
+            <span>ticketAttendedBy</span>
             <img (click)="sort('priorityId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
-            <span>ticketAttendedBy</span>
+            <span>ticketStatus</span>
             <img (click)="sort('requestedBy')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
-            <span>ticketRaisedDate</span>
+            <span>ticketClosedDate</span>
             <img (click)="sort('assignedTo')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
-            <span>ticketClosedDate</span>
+            <span>ticketAttendedDate</span>
             <img (click)="sort('sourceOfRequestId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
-
-          <th>
-            <span>ticketStatus</span>
-            <img (click)="sort('closedTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-          </th>
-
-          <!-- <th>
-            <span>rectificationRemarks</span>
-            <img (click)="sort('ticketTypeId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-          </th> -->
 
           <th class="text-center">Actions</th>
         </tr>
@@ -210,94 +123,26 @@
           </td>
 
           <td>
-            <p>{{ cust.ticketReason }}</p>
-          </td>
-
-          <td>
             <p>{{ cust.ticketType }}</p>
           </td>
 
-          <!-- <td>
+          <td>
             <p>{{ cust.ticketAttendedBy }}</p>
-          </td> -->
-
-          <td>
-            <p *ngIf="cust.ticketAttendedBy != null || cust.ticketAttendedBy != ''">
-              <span>{{ cust.ticketAttendedBy }}</span>
-              <!-- <a (click)="openAssigned(cust)"><img src="assets/icons/edit.svg" *ngIf="cust.ticketAttendedBy != null" width="12"></a> -->
-            </p>
-
-            <a class="pointer" (click)="openAssigned(cust)">
-              <img src="assets/icons/add-svg.svg" *ngIf="cust.ticketAttendedBy == null || cust.ticketAttendedBy == ''" width="25">
-            </a>
-
-            <ng-template #assignedDialog>
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Assign To</mat-label>
-                <mat-select [(ngModel)]="assignedObj.assignedTo">
-                  <!-- <mat-option *ngFor="let item of assignedTo" [value]="item.keyId">{{item.value}}</mat-option> -->
-                  <mat-option [value]="1565">Ajay Kumar Gurla</mat-option>
-                </mat-select>
-              </mat-form-field>
-
-              <div class="d-flex align-items-center justify-content-end">
-                <div mat-dialog-actions class="me-2">
-                  <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
-                </div>
-                <div mat-dialog-actions>
-                  <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="toAssigned()">Update</button>
-                </div>
-              </div>
-            </ng-template>
-          </td>
-
-          <!-- <td>
-            <p>{{ cust.sourceOfRequestId == 1 ? 'Phone': cust.sourceOfRequestId == 2 ? 'Email' : cust.sourceOfRequestId == 3 ? 'Self' : '--'  }}</p>
-          </td> -->
-
-          <td>
-            <p>{{ cust.ticketRaisedDate | date: 'dd-MM-yyyy' }}</p>
           </td>
 
           <td>
-            <p>{{ cust.ticketClosedDate | date: 'dd-MM-yyyy' }}</p>
+            <p>{{ cust.ticketStatus }}</p>
           </td>
-
-          <!-- <td>
-            <p>{{ cust.priorityId == 1 ? 'Low' : cust.priorityId == 2 ? 'Medium' : cust.priorityId == 3 ? 'High' : '--' }}</p>
-          </td> -->
 
           <td>
-            <p [style.color]="cust.ticketStatus == 'Open' ? '#00A44C' : cust.ticketStatus == 2 ? '#F5B400' : cust.ticketStatus == 3 ? '#F5B400' : cust.ticketStatus == 4 ? '#fa500f' : cust.ticketStatus == 'Closed' ? '#fa500f' : ''">
-              {{ cust.ticketStatus }}
-            </p>
-
-            <!-- <p [style.color]="cust.status == 'active' ? '#00A44C' : cust.status == 'Inprogress' ? '#F5B400' : cust.status == 'closed' ? '#fa500f' : '#00A44C'">
-              <span class="d-flex">
-                <span style="width: 50px;">
-                  {{ cust.status }}
-                </span>
-
-                <a (click)="openEditStatus(cust)" class="ms-2 pointer">
-                  <img src="assets/icons/edit.svg"  width="13">
-                </a>
-              </span>
-
-              <ng-template #editStatusDialog>
-                <mat-form-field appearance="outline" class="w-100">
-                  <mat-label>Edit Status</mat-label>
-                  <mat-select [(ngModel)]="staObj.status">
-                    <mat-option value="closed">closed</mat-option>
-                  </mat-select>
-                </mat-form-field>
-                <button mat-stroked-button style="color: #084982" (click)="changeAssetStatus()">Submit</button>
-              </ng-template>
-            </p> -->
+            <p>{{ cust.ticketClosedDate  | date: 'dd-MM-yyyy' }}</p>
           </td>
 
-          <!-- <td style="width: 200px;">
-            <p>{{ cust.rectificationRemarks }}</p>
-          </td> -->
+          <td>
+            <p>{{ cust.ticketAttendedDate  | date: 'dd-MM-yyyy' }}</p>
+          </td>
+
+
 
           <td class="text-center">
             <!-- <a class="pointer" (click)="closeDot($event, i)"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
@@ -316,13 +161,13 @@
               <img src="assets/icons/view.svg" (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false">
             </a>
 
-            <!-- <a class="mx-1 pointer" (click)="openEditPopup(cust)">
+            <a class="mx-1 pointer" (click)="openEditPopup(cust)">
               <img src="assets/icons/edit.svg" (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false">
             </a>
 
             <a class="mx-1 pointer" value="Delete" (click)="openDeletePopup(cust)">
               <img src="assets/icons/delete.svg"(mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false">
-            </a> -->
+            </a>
           </td>
         </tr>
       </tbody>
@@ -344,13 +189,238 @@
 
 <!-- view popup -->
 <ng-template #viewTicketDialog>
-  <div style="background-color: #084982;">
-    <p class="dialog-title">view ticket</p>
-  </div>
+  <div class="row">
+    <div class="col-lg-6" *ngIf="currentItem">
+      <div>
+        <p style="font-weight: 600; color: #ABABAB;">TICKET DETAIL</p>
+      </div>
+      <div>
+        <div>
+          <div>
+            <span style="width: 130px; color: #ABABAB;">Ticket Id: </span>{{ currentItem.ticketId }}
+          </div>
 
-  <mat-dialog-content>
-    {{currentItem.rectificationRemarks}}
-  </mat-dialog-content>
+          <div>
+            <span style="width: 130px; color: #ABABAB;">ticketType: </span>{{ currentItem.ticketTypeId == 1 ? 'Maintaince' : currentItem.ticketTypeId == 2 ? 'Installation' : '--' }}
+          </div>
+
+          <div>
+            <span style="width: 130px; color: #ABABAB;">sourceOfRequest: </span>{{ currentItem.sourceOfRequestId == 1 ? 'Phone': currentItem.sourceOfRequestId == 2 ? 'Email' : currentItem.sourceOfRequestId == 3 ? 'Self' : '--' }}
+          </div>
+
+          <div>
+            <span style="width: 130px; color: #ABABAB;">assignedTo: </span>{{ currentItem?.assignedTo }}
+          </div>
+
+          <div>
+            <span style="width: 130px; color: #ABABAB;">createdTime: </span>{{ currentItem?.createdTime }}
+          </div>
+
+          <div>
+            <span style="width: 130px; color: #ABABAB;">Description: </span>{{ currentItem.description }}
+          </div>
+
+          <div>
+            <span style="width: 130px; color: #ABABAB;">Priority: </span>{{ currentItem.priorityId == 1 ? 'Low' : currentItem.priorityId == 2 ? 'Medium' : currentItem.priorityId == 3 ? 'High' : '--' }}
+          </div>
+
+          <div>
+            <span style="width: 130px; color: #ABABAB;">Status: </span>{{ currentItem.statusId == 1 ? 'Open' : currentItem.statusId == 2 ? 'In-Progress' : currentItem.statusId == 3 ? 'Closed' : currentItem.statusId == 4 ? 'Rejected' : '--' }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6" style="max-height: 200px; overflow-y: scroll;">
+      <div>
+        <p style="font-weight: 600; color: #ABABAB;">COMMENTS</p>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-7 col-md-7">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Enter Text</mat-label>
+            <input matInput [(ngModel)]="cmtValue">
+          </mat-form-field>
+        </div>
+
+        <div mat-dialog-actions class="col-lg-4 col-md-4">
+          <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0 5px;" (click)=" createComment()">Create Comment</button>
+        </div>
+      </div>
+      <!-- <div >
+        <div>
+          <div>
+            <span style="width: 130px; color: #ABABAB;"></span>{{ item.message ? item.message : '--' }}
+          </div>
+        </div>
+      </div> -->
+      <div class="container" *ngFor="let item of ticketComments">
+        <img src="assets/gif/user.png" alt="Avatar" width="20">
+        <p>{{ item.message }}</p>
+        <span class="time-right">{{ item.createdTime | date:'short' }}</span>
+      </div>
+
+      <div class="container" *ngFor="let item of newComment">
+        <img src="assets/gif/user.png" alt="Avatar" width="20">
+        <p>{{ item }}</p>
+        <span class="time-right">{{ todayDate | date:'short' }}</span>
+      </div>
+
+      <!-- <div class="container darker">
+        <img src="assets/gif/user.png" alt="Avatar" width="20" class="right">
+        <p>Hey! I'm fine. Thanks for asking!</p>
+        <span class="time-left">11:01</span>
+      </div> -->
+    </div>
+
+    <hr class="mt-4">
+
+    <div class="col-lg-12">
+      <div>
+        <p style="font-weight: 600; color: #ABABAB;">TASKS</p>
+      </div>
+
+      <div class="table-res">
+        <table class="table" id="mytable">
+          <thead>
+            <tr class="task-table">
+              <th>taskId</th>
+
+              <th>categoryId</th>
+
+              <th>subCategoryId</th>
+
+              <th>description</th>
+
+              <th>status</th>
+
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let cust of ticketTasks; let i = index">
+              <td>
+                <p>{{ cust.taskId }}</p>
+              </td>
+
+              <td>
+                <p>{{ cust.categoryId == 1 ? 'Camera' : cust.categoryId == 2 ? 'Assets' : '' }}</p>
+              </td>
+
+              <td>
+                <p>{{ cust.subCategoryId == 1 ? 'Site Down' : cust.subCategoryId == 2 ? 'Footage Required' : cust.subCategoryId == 3 ? 'Blank Screen' : ''  }}</p>
+              </td>
+
+              <td>
+                <p>{{ cust.description }}</p>
+              </td>
+
+              <td>
+                <p>{{ cust.statusId == 1 ? 'Open' : cust.statusId == 2 ? 'In-Progress' : cust.statusId == 3 ? 'Closed' : cust.statusId == 4 ? 'Rejected' : '' }}</p>
+              </td>
+
+              <td>
+                <a class="pointer" (click)="closeDot($event, i)"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
+                <div class="plus-img1" id="plus-img{{ i }}" style="display: none">
+                  <div class="lists" *ngIf="showIconView1" style="margin-left: 5px; margin-top: -20px">
+                    View
+                  </div>
+                  <div class="lists" *ngIf="showIconEdit1" style="margin-left: 38px; margin-top: -20px">
+                    Edit
+                  </div>
+                  <div class="lists" *ngIf="showIconDelete1" style="margin-left: 63px; margin-top: -20px">
+                    Delete
+                  </div>
+
+                  <a class="mx-2" (click)="openViewPopup(cust)"><img src="assets/icons/view.svg"
+                      (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" /></a>
+                  <a class="mx-2" (click)="openEditPopup(cust)"><img src="assets/icons/edit.svg"
+                      (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" /></a>
+                  <a class="mx-2" value="Delete" (click)="openDeletePopup(cust)"><img src="assets/icons/delete.svg"
+                      (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" /></a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <div class="col-lg-12">
+      <div>
+        <p style="font-weight: 600; color: #ABABAB;">TICKET VISITS</p>
+      </div>
+
+      <div class="table-res">
+        <table class="table" id="mytable">
+          <thead>
+            <tr class="task-table">
+              <th>Id</th>
+
+              <th>Reason</th>
+
+              <th>Start Date</th>
+
+              <th>End Date</th>
+
+              <th>Remarks</th>
+
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let cust of ticketVisits; let i = index">
+              <td>
+                <p>{{ cust.id }}</p>
+              </td>
+
+              <td>
+                <p>{{ cust.reasonId }}</p>
+              </td>
+
+              <td>
+                <p>{{ cust.startDate }}</p>
+              </td>
+
+              <td>
+                <p>{{ cust.endDate }}</p>
+              </td>
+
+              <td>
+                <p>{{ cust.remarks }}</p>
+              </td>
+
+              <td>
+                <a class="pointer" (click)="closeDot($event, i)"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
+                <div class="plus-img1" id="plus-img{{ i }}" style="display: none">
+                  <div class="lists" *ngIf="showIconView1" style="margin-left: 5px; margin-top: -20px">
+                    View
+                  </div>
+                  <div class="lists" *ngIf="showIconEdit1" style="margin-left: 38px; margin-top: -20px">
+                    Edit
+                  </div>
+                  <div class="lists" *ngIf="showIconDelete1" style="margin-left: 63px; margin-top: -20px">
+                    Delete
+                  </div>
+
+                  <a class="mx-2" (click)="openViewPopup(cust)"><img src="assets/icons/view.svg"
+                      (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" /></a>
+                  <a class="mx-2" (click)="openEditPopup(cust)"><img src="assets/icons/edit.svg"
+                      (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" /></a>
+                  <a class="mx-2" value="Delete" (click)="openDeletePopup(cust)"><img src="assets/icons/delete.svg"
+                      (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" /></a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 
   <div mat-dialog-actions>
     <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>

@@ -46,7 +46,7 @@ export class FrComponent implements OnInit {
 
   sites: any
   listFRSites() {
-    this.ticketSer.listFRSites(1655).subscribe((res: any) => {
+    this.ticketSer.listFRSites(1565).subscribe((res: any) => {
       // console.log(res);
       this.sites = res;
     })
@@ -55,7 +55,7 @@ export class FrComponent implements OnInit {
 
   fieldVisitEntry(item: any) {
     let myObj = {
-      'frId': 1655,
+      'frId': 1565,
       'siteId': item
     }
 
@@ -82,7 +82,7 @@ export class FrComponent implements OnInit {
   tasks: any = [];
   openTasksDialog() {
     // this.dialog.open(this.tasksDialog, {maxWidth: '550px', maxHeight: '250px'});
-    this.ticketSer.listFRTasksOfCurrentVisit(1655).subscribe((res: any) => {
+    this.ticketSer.listFRTasksOfCurrentVisit(1565).subscribe((res: any) => {
       console.log(res);
       this.tasks = res;
     })
@@ -108,7 +108,7 @@ export class FrComponent implements OnInit {
       'taskId': item.id,
       'statusId': status,
       'fieldVisitId': item.fieldVisitId,
-      'changedBy': 1655,
+      'changedBy': 1565,
       'remarks': '',
     }
 
@@ -128,7 +128,7 @@ export class FrComponent implements OnInit {
   }
 
   fieldExitBody = {
-    frId: 1655,
+    frId: 1565,
     travelAllowance: null,
     foodAllowance: null,
     otherAllowance: null,

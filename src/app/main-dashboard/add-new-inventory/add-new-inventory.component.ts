@@ -126,8 +126,6 @@ export class AddNewInventoryComponent implements OnInit {
   arr: any = [];
   warrantyDetail: any = 'No';
   submit() {
-    // console.log(this.inventoryBody);
-    // console.log(this.warrantyDetail);
     setTimeout(() => {
       this.newItemEvent.emit();
     }, 3000)

@@ -51,13 +51,13 @@
           </mat-form-field>
         </div>
 
-        <div class="row my-2">
+        <!-- <div class="row my-2">
           <mat-radio-group name="radioOpt1" style="font-size: 12px;">
             <mat-label>Cost Details</mat-label>
             <mat-radio-button class="ms-3" name="Cost" value="USD">USD</mat-radio-button>
             <mat-radio-button class="ms-3" name="Cost" value="INR" checked>INR</mat-radio-button>
           </mat-radio-group>
-        </div>
+        </div> -->
 
         <div class="col-lg-6 col-md-6 d-flex my-1 escalation">
           <mat-form-field appearance="outline" class="w-100">
@@ -83,12 +83,21 @@
           </mat-form-field>
         </div>
 
-        <div class="row my-2">
+        <!-- <div class="row my-2">
           <mat-radio-group name="radioOpt1" style="font-size: 12px;" formControlName="warrantyDetail" [(ngModel)]="warrantyDetail">
             <mat-label>Warr</mat-label>
             <mat-radio-button class="ms-3" name="warranty" value="Yes">Yes</mat-radio-button>
             <mat-radio-button class="ms-3" name="warranty" value="No" checked>No</mat-radio-button>
           </mat-radio-group>
+        </div> -->
+
+        <div class="col-lg-6 col-md-6 d-flex justify-content-start align-items-center my-2">
+          <p class="m-0">Warranty Cover</p>
+
+          <div class="on-off-toggle mx-5">
+            <input class="on-off-toggle__input" type="checkbox" id="warrantyDetail"  formControlName="warrantyDetail" [(ngModel)]="warrantyDetail">
+            <label for="warrantyDetail" class="on-off-toggle__slider"></label>
+          </div>
         </div>
 
 

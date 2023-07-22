@@ -171,8 +171,8 @@ export class AddNewVendorComponent implements OnInit {
           this.alertSer.success(res);
         }
         setTimeout(() => {
-          // window.location.reload();
-        }, 3000);
+          window.location.reload();
+        }, 2000);
 
       }, (err: any) => {
         if(err) {
