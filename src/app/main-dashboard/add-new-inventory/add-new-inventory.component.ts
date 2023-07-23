@@ -5,6 +5,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';
+import { OrderService } from 'src/services/order.service';
+import { ProductMasterService } from 'src/services/product-master.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -34,6 +36,8 @@ export class AddNewInventoryComponent implements OnInit {
   constructor(
     private router: Router,
     private inventorySer: InventoryService,
+    private productMasterSer: ProductMasterService,
+    private orderSer: OrderService,
     private fb: FormBuilder,
 
     public alertSer: AlertService,
@@ -66,10 +70,6 @@ export class AddNewInventoryComponent implements OnInit {
       cost: null,
       createdBy: 1,
       remarks: null
-
-      // quantity: null,
-      // serialNo: '',
-      // price: null,
     },
 
     serialnos: [],
@@ -79,16 +79,13 @@ export class AddNewInventoryComponent implements OnInit {
       endDate: null,
       createdBy: 1,
       remarks: null
-
-      // serialNo: "",
-      // newSerialNo: "",
-      // cost: "",
-      // vendor: "",
     }
   }
 
   // email: string = "";
 
+  productIds: any;
+  orderIds: any;
   ngOnInit() {
     this.UserForm = this.fb.group({
       'productId': new FormControl('', Validators.required),
@@ -97,20 +94,20 @@ export class AddNewInventoryComponent implements OnInit {
       'serialnos': new FormControl(''),
       'remarks': new FormControl(''),
 
-      // 'quantity': new FormControl(''),
-      // 'price': new FormControl('', Validators.required),
-
-      // 'wserialNo': new FormControl(''),
-      // 'wnewSerialNo': new FormControl(''),
-      // 'wcost': new FormControl(''),
-      // 'vendor': new FormControl(''),
-
       'wremarks': new FormControl(''),
       'startDate': new FormControl(''),
       'endDate': new FormControl(''),
 
       'warrantyDetail': new FormControl(''),
     });
+
+    this.productMasterSer.list().subscribe((res: any) => {
+      this.productIds = res;
+    })
+
+    this.orderSer.listOrders().subscribe((res: any) => {
+      this.orderIds = res;
+    })
   }
 
   closeAddUser() {
@@ -124,14 +121,9 @@ export class AddNewInventoryComponent implements OnInit {
 
   submitted!: boolean;
   arr: any = [];
-  warrantyDetail: any = 'No';
+  warrantyDetail: any = 'N';
   submit() {
-    // console.log(this.inventoryBody);
-    // console.log(this.warrantyDetail);
-    setTimeout(() => {
-      this.newItemEvent.emit();
-    }, 3000)
-
+    // console.log(this.inventoryBody)
     if(this.UserForm.valid) {
       this.arr.push(this.inventoryBody.serialnos)
       this.inventoryBody.serialnos = this.arr;

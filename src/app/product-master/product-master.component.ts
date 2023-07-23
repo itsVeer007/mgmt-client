@@ -5,6 +5,7 @@ import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
 import { MetadataService } from 'src/services/metadata.service';
 import { ProductMasterService } from 'src/services/product-master.service';
+import { VendorsService } from 'src/services/vendors.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -45,6 +46,7 @@ export class ProductMasterComponent implements OnInit {
     private ass: AssetService,
     private productMasterSer: ProductMasterService,
     private metaDataSer: MetadataService,
+    private vendorSer: VendorsService,
 
     public dialog: MatDialog,
     public alertSer: AlertService
@@ -78,38 +80,19 @@ export class ProductMasterComponent implements OnInit {
       this.newProductMaster = this.productMaster;
 
       for(let item of this.productMaster) {
-        if(item.productStatusId == 1) {
+        if(item.statusId == 1) {
           this.active.push(item);
-        } else if(item.productStatusId == 2) {
-          this.inActive.push(item);
         }
       }
     });
+
+    this.vendorSer.listVendors().subscribe((res: any) => {
+      // console.log(res);
+      this.vendorDetail = res;
+    })
   }
 
-  // filterBrand(val: any) {
-  //   if(val == 'none') {
-  //     this.newProductMaster = this.productMaster;
-  //   } else {
-  //     this.newProductMaster = this.productMaster.filter((el: any) => el.productBrand == val);
-  //   }
-  // }
-
-  // filterCategory(val: any) {
-  //   if(val == 'none') {
-  //     this.newProductMaster = this.productMaster;
-  //   } else {
-  //     this.newProductMaster = this.productMaster.filter((el: any) => el.productCategory == val);
-  //   }
-  // }
-
-  // filterStatus(val: any) {
-  //   if(val == 'none') {
-  //     this.newProductMaster = this.productMaster;
-  //   } else {
-  //     this.newProductMaster = this.productMaster.filter((el: any) => el.status == val);
-  //   }
-  // }
+  vendorDetail: any;
 
 
   brandNames: any;
@@ -167,20 +150,10 @@ export class ProductMasterComponent implements OnInit {
     })
   }
 
-  // metaDataType: any
-  // onMetadataChange(type: any) {
-  //   this.metaDataSer.getMetadataByType(type).subscribe((res: any) => {
-  //     console.log(res);
-  //     this.metaDataType = res.flatMap((item: any) => item.metadata)
-
-  //   })
-  // }
-
   currentid = 0;
   closeDot(e: any, i: any) {
     this.currentid = i;
     var x = e.target.parentNode.nextElementSibling;
-    // console.log("THREE DOTS:: ",e.target.parentNode.nextElementSibling);
     if (x.style.display == 'none') {
       x.style.display = 'block';
     } else {
@@ -202,44 +175,29 @@ export class ProductMasterComponent implements OnInit {
   addressView(e: any, i: any) {
     this.addressid = i;
     var x = e.target.nextElementSibling;
-    // console.log("AddressView:: ",x)
     if (x.style.display == 'none') {
       x.style.display = 'flex';
     } else {
       x.style.display = 'none';
     }
-    // this.address = !this.address;
   }
 
-    /* metadata methods */
+  /* metadata methods */
 
-    productStatus: any;
-    uom: any;
-    onMetadataChange() {
-      this.metaDataSer.getMetadata().subscribe((res: any) => {
-        for(let item of res) {
-          if(item.type == 'Product_Status') {
-            this.productStatus = item.metadata;
-          } else if(item.type == 'uom') {
-            this.uom = item.metadata;
-          }
+  productStatus: any;
+  uom: any;
+  onMetadataChange() {
+    this.metaDataSer.getMetadata().subscribe((res: any) => {
+      for(let item of res) {
+        if(item.type == 'Product_Status') {
+          this.productStatus = item.metadata;
+        } else if(item.type == 'uom') {
+          this.uom = item.metadata;
         }
-      })
-    }
-
-  selectedAll: any;
-
-  selectAll() {
-    for (var i = 0; i < this.productMaster.length; i++) {
-      this.productMaster[i].selected = this.selectedAll;
-    }
-  }
-
-  checkIfAllSelected() {
-    this.selectedAll = this.productMaster.every(function (item: any) {
-      return item.selected == true;
+      }
     })
   }
+
 
   currentItem: any;
   originalObject: any;
@@ -410,7 +368,20 @@ export class ProductMasterComponent implements OnInit {
   }
 
 
-/* checkbox control */
+  /* checkbox control */
+
+  selectedAll: any;
+  selectAll() {
+    for (var i = 0; i < this.productMaster.length; i++) {
+      this.productMaster[i].selected = this.selectedAll;
+    }
+  }
+
+  checkIfAllSelected() {
+    this.selectedAll = this.productMaster.every(function (item: any) {
+      return item.selected == true;
+    })
+  }
 
   viewArray: any = [];
   ViewByCheckbox(itemV: any, i: any, e: any) {
@@ -465,7 +436,6 @@ export class ProductMasterComponent implements OnInit {
         this.deletearray.splice(currentindex, 1)
       }
     });
-    // console.log(this.deletearray)
   }
 
   deleteSelected() {

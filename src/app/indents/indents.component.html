@@ -173,7 +173,7 @@
           </td>
 
           <td>
-            <p>{{ cust.statusId }}</p>
+            <p>{{ cust.statusId == 1 ? "Requested" : cust.statusId == 2 ? "Dispatched" : cust.statusId == 3 ? "Received" : cust.statusId == 4 ? "Installed" : cust.statusId == 5 ? "Returned" : '' }}</p>
           </td>
 
           <td class="text-center">
@@ -288,26 +288,35 @@
 
         <div class="col-lg-6">
           <mat-form-field appearance="outline" class="w-100">
+            <mat-label>inventoryId</mat-label>
+            <mat-select [(ngModel)]="updateInventoryId">
+              <mat-option *ngFor="let item of inventorySerial" [value]="item.id">{{ item.id }} - {{ item.serialNo }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <!-- <div class="col-lg-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Serial No</mat-label>
+            <input matInput [(ngModel)]="currentItem.remarks">
+          </mat-form-field>
+        </div> -->
+
+        <div class="col-lg-6">
+          <mat-form-field appearance="outline" class="w-100">
             <mat-label>Status</mat-label>
             <mat-select [(ngModel)]="currentItem.statusId">
               <mat-option *ngFor="let item of indentStatus" [value]="item.keyId">{{ item.value }}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
-      </div>
 
-      <div class="col-lg-6">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Remarks</mat-label>
-          <input matInput [(ngModel)]="currentItem.remarks">
-        </mat-form-field>
-      </div>
-
-      <div class="col-lg-6">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Serial No</mat-label>
-          <input matInput [(ngModel)]="currentItem.remarks">
-        </mat-form-field>
+        <div class="col-lg-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Remarks</mat-label>
+            <input matInput [(ngModel)]="currentItem.remarks">
+          </mat-form-field>
+        </div>
       </div>
     </mat-dialog-content>
 

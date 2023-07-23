@@ -1,13 +1,14 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
 
-    // baseUrl = `${environment.baseUrl}/inventoryMgmt`;
-    baseUrl = 'http://192.168.0.119:8080';
+  // baseUrl = 'http://192.168.0.119:8080';
+  baseUrl = `${environment.baseUrl}/inventory`;
 
   constructor(private http: HttpClient) { }
 
@@ -41,6 +42,14 @@ export class OrderService {
   listOrderItems() {
     let url = this.baseUrl + "/listOrderItems_1_0";
     return this.http.get(url);
+  }
+
+  listOrderItemsById(id: any) {
+    let url = this.baseUrl + "/listOrderItems_1_0";
+    let myObj = {
+      'orderId': id
+    }
+    return this.http.get(url, {params: myObj});
   }
 
   addItemToOrder(payload: any) {

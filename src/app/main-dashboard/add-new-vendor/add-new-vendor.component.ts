@@ -1,4 +1,5 @@
 import { animate, style, transition, trigger } from '@angular/animations';
+import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -37,7 +38,8 @@ export class AddNewVendorComponent implements OnInit {
     private vendorSer: VendorsService,
     private apiser: ApiService,
     private fb: FormBuilder,
-    public alertSer: AlertService
+    public alertSer: AlertService,
+    private http: HttpClient,
   ) { }
 
   @Input() show:any;
@@ -69,12 +71,12 @@ export class AddNewVendorComponent implements OnInit {
     mobileNumber1: null,
     mobileNumber2: null,
     mobileNumber3: null,
-    status: 1,
-    serviceStartDate: null,
-    serviceEndDate: null,
-    createdBy: 0,
-    createdTime: null,
-    modifiedTime: null,
+    // status: 1,
+    // serviceStartDate: null,
+    // serviceEndDate: null,
+    // createdTime: null,
+    // modifiedTime: null,
+    createdBy: 1,
     addressLine1: null,
     addressLine2: null,
     country: null,
@@ -82,6 +84,17 @@ export class AddNewVendorComponent implements OnInit {
     postCode: null,
     city: null,
     remarks: null
+  }
+
+  proparatorTwo: boolean = false;
+  proparatorThree: boolean = false;
+
+  activeTwo() {
+    this.proparatorTwo = !this.proparatorTwo;
+  }
+
+  activeThree() {
+    this.proparatorThree = !this.proparatorThree;
   }
 
 
@@ -112,6 +125,29 @@ export class AddNewVendorComponent implements OnInit {
       'city': new FormControl('', Validators.required),
       'remarks': new FormControl('')
     });
+
+    this.getCountry();
+  }
+
+  countryList: any;
+  getCountry() {
+    this.http.get("assets/JSON/countryList.json").subscribe((res: any) => {
+      this.countryList = res;
+    })
+  }
+
+  stateList: any = [];
+  filterState(val: any) {
+    let x = this.countryList.filter((el: any) => el.countryName == val);
+    let y = x.flatMap((el: any) => el.states);
+    this.stateList = y;
+  }
+
+  cityList: any
+  filterCity(val: any) {
+    let x = this.stateList.filter((el: any) => el.stateName == val);
+    let y = x.flatMap((el: any) => el.cities);
+    this.cityList = y;
   }
 
   closeAddUser() {
@@ -125,7 +161,7 @@ export class AddNewVendorComponent implements OnInit {
 
   submitted!: boolean;
   submit() {
-    console.log(this.vendorBody)
+    console.log(this.vendorBody);
     if(this.vendorForm.valid) {
       this.newItemEvent.emit(false);
       this.alertSer.wait();
@@ -135,8 +171,8 @@ export class AddNewVendorComponent implements OnInit {
           this.alertSer.success(res);
         }
         setTimeout(() => {
-          // window.location.reload();
-        }, 3000);
+          window.location.reload();
+        }, 2000);
 
       }, (err: any) => {
         if(err) {

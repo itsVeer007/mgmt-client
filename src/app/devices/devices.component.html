@@ -273,17 +273,6 @@
   <!-- /Loader -->
 </div>
 
-<ng-template #assignedDialog>
-  <mat-form-field appearance="outline" class="w-100">
-    <mat-label>Assign To</mat-label>
-    <mat-select [(ngModel)]="assignedObj.assignedTo">
-      <mat-option value="Rajesh">Rajesh</mat-option>
-      <mat-option value="Sai">Sai</mat-option>
-      <mat-option value="Kiran">Kiran</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <button mat-stroked-button style="color: #084982;" (click)="toAssigned()">Submit</button>
-</ng-template>
 
 <div class="modalitem max-center" [hidden]="deletePopup">
   <div class="card">

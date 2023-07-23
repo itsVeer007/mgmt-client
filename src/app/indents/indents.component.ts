@@ -200,27 +200,33 @@ export class IndentsComponent implements OnInit {
   /* update inventory */
 
   @ViewChild('editInventoryDialog') editInventoryDialog = {} as TemplateRef<any>;
+
+  inventorySerial: any;
   openEditPopup(item: any) {
     this.currentItem = item;
     this.dialog.open(this.editInventoryDialog, {maxWidth: '650px', maxHeight: '550px'});
-    // console.log(item);
 
     this.inventorySer.listInventoryByProductId(item.productId).subscribe((res: any) => {
-      console.log(res)
+      console.log(res);
+      for(let item of this.inventoryDetail) {
+        if(item.inventoryStatusId == 1) {
+          this.inventorySerial = res;
+        }
+      }
     })
   }
 
+  updateInventoryId: any;
   editInventory() {
     this.originalObject = {
       'id': this.currentItem.id,
       'statusId': this.currentItem.statusId,
       'updatedBy': 1,
-      'inventoryId': null,
+      'inventoryId': this.updateInventoryId,
       'remarks': this.currentItem.remarks
     }
 
-    this.originalObject.inventoryId = null;
-
+    // this.originalObject.inventoryId = null;
     this.alertSer.wait();
     this.indentSer.updateIndentStatus(this.originalObject).subscribe((res: any) => {
       // console.log(res);
@@ -228,7 +234,7 @@ export class IndentsComponent implements OnInit {
         this.alertSer.success(res);
       }
       setTimeout(() => {
-        window.location.reload();
+        // window.location.reload();
       }, 3000)
     }, (err: any) => {
       if(err) {

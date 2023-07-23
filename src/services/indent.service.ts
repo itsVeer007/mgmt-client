@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +9,8 @@ export class IndentService {
 
   constructor(private http: HttpClient) { }
 
-  // baseUrl = `${environment.baseUrl}/inventoryMgmt`;
-  baseUrl = 'http://192.168.0.119:8080';
+  baseUrl = `${environment.baseUrl}/inventory`;
+  // baseUrl = 'http://192.168.0.119:8080';
 
   listIndent() {
     let url = this.baseUrl + "/listIndent_1_0";
@@ -27,7 +28,7 @@ export class IndentService {
   }
 
   updateIndentStatus(payload: any) {
-    let url = this.baseUrl + `/updateIndentStatus_1_0/${payload.id}/${payload.statusId}/${payload.updatedBy}/${payload.inventoryId}`;
+    let url = this.baseUrl + `/updateIndentStatus_1_0/${payload.id}/${payload.statusId}/${payload.updatedBy}/${payload.inventoryId ? payload.inventoryId : -1}`;
     // let params = new HttpParams().set('id', payload.id).set('invoiceNo', payload.invoiceNo).set('by', payload.by).set('remarks', payload.remarks);
     return this.http.put(url, null);
   }

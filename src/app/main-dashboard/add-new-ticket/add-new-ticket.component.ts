@@ -86,6 +86,7 @@ export class AddNewTicketComponent implements OnInit {
       'description': item.description,
       'priorityId': item.priorityId,
       'reasonId': item.reasonId,
+      'createdBy': 1,
     }
 
     this.tasks.push(takBody);
@@ -152,6 +153,7 @@ export class AddNewTicketComponent implements OnInit {
     console.log(this.ticketBody);
     this.ticketBody.tasks = this.tasks;
     if(this.addAssetForm.valid) {
+      this.newItemEvent.emit(false);
       this.alertSer.wait();
       this.ticketSer.createTicket(this.ticketBody).subscribe((res) => {
         // console.log(res);

@@ -83,6 +83,7 @@ import { AddNewOrderComponent } from './main-dashboard/add-new-order/add-new-ord
 import { IndentsComponent } from './indents/indents.component';
 import { AddNewIndentComponent } from './main-dashboard/add-new-indent/add-new-indent.component';
 import { FrComponent } from './fr/fr.component';
+import { TicketReportsComponent } from './ticket-reports/ticket-reports.component';
 
 @NgModule({
   declarations: [
@@ -131,7 +132,8 @@ import { FrComponent } from './fr/fr.component';
     AddNewOrderComponent,
     IndentsComponent,
     AddNewIndentComponent,
-    FrComponent
+    FrComponent,
+    TicketReportsComponent
   ],
   imports: [
     BrowserModule,

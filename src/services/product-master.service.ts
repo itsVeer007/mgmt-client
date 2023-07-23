@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class ProductMasterService {
   constructor(private http: HttpClient) { }
 
   baseUrl = 'http://192.168.0.119:8080';
-  // baseUrl = 'http://usstaging.ivisecurity.com:777/inventoryMgmt';
+  // baseUrl = `${environment.baseUrl}/inventory`;
 
   mySub = new Subject();
 
@@ -33,7 +34,7 @@ export class ProductMasterService {
   }
 
   deleteProduct(payload: any) {
-    let url = this.baseUrl + `/deleteproduct_1_0?Id=${payload.id}`;
+    let url = this.baseUrl + `/deleteProduct_1_0/${payload.id}/${1}`;
 
     return this.http.delete(url);
   }
@@ -43,14 +44,6 @@ export class ProductMasterService {
 
     return this.http.get(url);
   }
-
-
-
-
-
-
-
-
 
 
 

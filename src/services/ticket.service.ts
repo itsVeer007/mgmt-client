@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-
 import { environment } from '../environments/environment';
 
 @Injectable({
@@ -13,8 +12,8 @@ export class TicketService {
 
   constructor(private http: HttpClient) { }
 
-  baseUrl = 'http://192.168.0.189:8080';
-  // baseUrl = `${environment.baseUrl}/ticketsManagement`;
+  // baseUrl = 'http://192.168.0.189:8080';
+  baseUrl = `${environment.baseUrl}/tickets`;
 
   getTickets() {
     let url = this.baseUrl + "/listTickets_1_0";
@@ -65,8 +64,8 @@ export class TicketService {
     return this.http.get(url, {params: myObj});
   }
 
-  assignPerson(payload: any) {
-    let url = this.baseUrl + '/updateTicket_1_0';
+  assignTicket(payload: any) {
+    let url = this.baseUrl + '/assignTicket_1_0';
     return this.http.put(url, payload);
   }
 
@@ -79,13 +78,69 @@ export class TicketService {
   filteBody(payload: any) {
     let url = this.baseUrl + `/listTickets_1_0`;
     let myObj = {
-      'requestedBy': payload.requestId,
-      'priorityId': payload.priority,
-      'statusId': payload.status,
-      'createdTime': payload.createdTime,
-      'closedTime': payload.closedTime
+      'siteId': payload.siteId,
+      'typeId': payload.typeId,
+      'ticketStatus': payload.ticketStatus,
+      'startDate': payload.startDate,
+      'endDate': payload.endDate
     }
     return this.http.get(url, {params: myObj});
+  }
+
+
+  /* FR Service */
+
+  listFRSites(frId: any) {
+    let url = this.baseUrl + `/listFRSites_1_0/${frId}`;
+    return this.http.get(url);
+  }
+
+  fieldVisitEntry(payload: any) {
+    let url = this.baseUrl + `/fieldVisitEntry_1_0`;
+    let myObj = {
+      'frId': payload.frId,
+      'siteId': payload.siteId,
+    }
+
+    return this.http.post(url, myObj);
+  }
+
+  listFRTasksOfCurrentVisit(frId: any) {
+    let url = this.baseUrl + `/listFRTasksOfCurrentVisit_1_0/${frId}`;
+    return this.http.get(url);
+  }
+
+  logTaskStatus(payload: any) {
+    let url = this.baseUrl + `/logTaskStatus_1_0`;
+    let myObj = {
+      'taskId': payload.taskId,
+      'statusId': payload.statusId,
+      'fieldVisitId': payload.fieldVisitId,
+      'changedBy': payload.changedBy,
+      'remarks': payload.remarks,
+    }
+
+    return this.http.post(url, myObj);
+  }
+
+  fieldVisitExit(payload: any) {
+    let url = this.baseUrl + `/fieldVisitExit_1_0`;
+    let myObj = {
+      'frId': payload.frId,
+      'travelAllowance': payload.travelAllowance,
+      'foodAllowance': payload.foodAllowance,
+      'otherAllowance': payload.otherAllowance,
+      'remarks': payload.remarks
+    }
+
+    return this.http.put(url, myObj);
+  }
+
+  /* ticket reort */
+
+  getTicketsReport() {
+    let url = this.baseUrl + `/getTicketsReport_1_0`;
+    return this.http.get(url);
   }
 
 }

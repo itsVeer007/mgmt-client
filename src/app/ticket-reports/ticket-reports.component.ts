@@ -1,19 +1,17 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertService } from 'src/services/alert.service';
 import { MetadataService } from 'src/services/metadata.service';
 import { TicketService } from 'src/services/ticket.service';
-import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-tickets',
-  templateUrl: './tickets.component.html',
-  styleUrls: ['./tickets.component.css']
+  selector: 'app-ticket-reports',
+  templateUrl: './ticket-reports.component.html',
+  styleUrls: ['./ticket-reports.component.css']
 })
-export class TicketsComponent implements OnInit {
+export class TicketReportsComponent implements OnInit {
 
   @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
     var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);
@@ -91,54 +89,14 @@ export class TicketsComponent implements OnInit {
   ticketRejected: any = [];
   CustomerReport() {
     this.showLoader = true;
-    this.ticketSer.getTickets().subscribe((res: any) => {
+    this.ticketSer.getTicketsReport().subscribe((res: any) => {
       this.showLoader = false;
       this.ticketData = res;
       this.newTicketData = this.ticketData;
 
-      for(let item of this.ticketData) {
-        if(item.statusId == 1) {
-          this.ticketOpen.push(item)
-        } else if(item.statusId == 2) {
-          this.ticketProgress.push(item)
-        } else if(item.statusId == 3) {
-          this.ticketClose.push(item)
-        } else if(item.statusId == 4) {
-          this.ticketRejected.push(item)
-        }
-      }
     })
   }
 
-  siteNames: any;
-  removeDuplicates() {
-    this.siteNames = this.ticketData.reduce((acc: any, current: any) => {
-      const x = acc.find((item: any) => item.requestedBy == current.requestedBy);
-      if (!x) {
-        return acc.concat([current]);
-      } else {
-        return acc;
-      }
-    }, []);
-
-    // this.priorityVal = this.ticketData.reduce((acc: any, current: any) => {
-    //   const x = acc.find((item: any) => item.priorityId == current.priorityId);
-    //   if (!x) {
-    //     return acc.concat([current]);
-    //   } else {
-    //     return acc;
-    //   }
-    // }, []);
-
-    // this.statusVal = this.ticketData.reduce((acc: any, current: any) => {
-    //   const x = acc.find((item: any) => item.statusId == current.statusId);
-    //   if (!x) {
-    //     return acc.concat([current]);
-    //   } else {
-    //     return acc;
-    //   }
-    // }, []);
-  }
 
   priorityVal: any;
   statusVal: any;
@@ -532,5 +490,4 @@ export class TicketsComponent implements OnInit {
       });
     }
   }
-
 }
