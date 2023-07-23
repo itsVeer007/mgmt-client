@@ -77,24 +77,8 @@
     </div>
 
     <div class="filter-search-btn col-lg-1 col-md-1">
-      <!-- <button mat-flat-button color="primary" class="p-0" (click)="applyFilter()">Submit</button> -->
       <button (click)="applyFilter()">Submit</button>
     </div>
-
-    <!-- <div class="filter-search-btn col-lg-2 col-sm-12">
-      <button (click)="applyFilter()">Submit</button>
-    </div> -->
-
-    <!-- <div class="col-lg-2 col-sm-12 col-sm-12 text-end">
-      <div class="lists" *ngIf="showIconView" style="margin-right: 60px; margin-top: -40px;">View</div>
-      <div class="lists" *ngIf="showIconEdit" style="margin-right: 30px; margin-top: -40px;">Edit</div>
-      <div class="lists" *ngIf="showIconDelete" style="margin-right: -5px; margin-top: -40px;">Delete</div>
-
-      <a class="mx-2 pointer" (click)="viewBySelectedOne()"><img src="assets/icons/view.svg" (mouseenter)="showIconView = true" (mouseleave)="showIconView = false"></a>
-      <a class="mx-2 pointer" (click)="editBySelectedOne()"><img src="assets/icons/edit.svg" (mouseenter)="showIconEdit = true" (mouseleave)="showIconEdit = false"></a>
-      <a class="mx-2 pointer" (click)="deleteSelected()"><img src="assets/icons/delete.svg" (mouseenter)="showIconDelete = true" (mouseleave)="showIconDelete = false"></a>
-    </div> -->
-  </div>
   <!-- /form -->
 
   <!-- table starts -->
@@ -282,16 +266,16 @@
       <div class="col-lg-6">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Invoice No</mat-label>
-          <input matInput [(ngModel)]="currentItem.invoiceNo">
+          <input matInput [(ngModel)]="currentItem.invoiceNo" disabled>
         </mat-form-field>
       </div>
 
-      <div class="col-lg-6">
+      <!-- <div class="col-lg-6">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Remarks</mat-label>
           <input matInput [(ngModel)]="currentItem.remarks">
         </mat-form-field>
-      </div>
+      </div> -->
 
       <!-- <div class="col-lg-6">
         <mat-form-field appearance="outline" class="w-100">
@@ -309,7 +293,7 @@
       <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
     </div>
     <div mat-dialog-actions>
-      <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="editInventory()">Update</button>
+      <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="updateOrder()">Update</button>
     </div>
   </div>
 </ng-template>
@@ -336,6 +320,7 @@
 </ng-template>
 <!-- /delete Popup -->
 
+
 <!-- order items popup-->
 <ng-template #orderItemsDialog>
   <div style="background-color: #084982;">
@@ -345,12 +330,12 @@
   <mat-dialog-content>
     <div class="d-flex justify-content-end">
       <!-- <a class="pointer" (click)="show('user')"><img src="assets/icons/add.svg" alt="" /></a> -->
-      <button mat-flat-button color="primary" class="py-0 my-1" (click)="openCreateOrder()">Add Order-Item</button>
+      <button mat-flat-button color="primary" class="py-0 my-1" (click)="openCreateOrder(orderItemsId)">Add Order-Item</button>
     </div>
 
     <ng-template #createOrderDialog>
       <div style="background-color: #084982;">
-        <p class="dialog-title m-0">ADD ITEM</p>
+        <p class="dialog-title m-0">add order-item</p>
       </div>
 
       <mat-dialog-content>
@@ -392,7 +377,7 @@
 
     <ng-template #updateOrderDialog>
       <div style="background-color: #084982;">
-        <p class="dialog-title m-0">MODIFY ITEM</p>
+        <p class="dialog-title m-0">modify order-item</p>
       </div>
 
       <mat-dialog-content>
@@ -421,8 +406,13 @@
         </div>
       </mat-dialog-content>
 
-      <div class="d-flex justify-content-end" mat-dialog-actions>
-        <button mat-stroked-button style="color: #D34124; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="updateOrder()">Update</button>
+      <div class="d-flex align-items-center justify-content-end">
+        <div mat-dialog-actions class="me-2">
+          <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+        </div>
+        <div mat-dialog-actions>
+          <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="updateOrderItem()">Update</button>
+        </div>
       </div>
     </ng-template>
 
@@ -442,30 +432,6 @@
       </div>
     </ng-template>
 
-    <div class="row">
-      <!-- <div class="col-lg-4 col-md-4">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Product Id</mat-label>
-          <mat-select [(ngModel)]="ovendorId">
-            <mat-option *ngFor="let item of vendorDetail" [value]="item.id">{{ item.name }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-      <div class="col-lg-4 col-md-4">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Vendor Id</mat-label>
-          <mat-select [(ngModel)]="ovendorId">
-            <mat-option *ngFor="let item of vendorDetail" [value]="item.id">{{ item.name }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-      <div class="filter-search-btn col-lg-1 col-md-1" style="margin-top: 6px;">
-        <button (click)="filterOrderItems()">Submit</button>
-      </div> -->
-    </div>
-
     <div class="table-res">
       <table class="table" id="mytable">
         <thead>
@@ -483,7 +449,7 @@
         </thead>
 
         <tbody>
-          <tr *ngFor="let cust of newOrderItems; let i = index">
+          <tr *ngFor="let cust of orderItems; let i = index">
             <td>
               <p>{{ cust.id }}</p>
             </td>
@@ -501,13 +467,13 @@
             </td>
 
             <td>
-              <a class="mx-2" (click)="openViewPopup(cust)">
+              <!-- <a class="mx-2" (click)="openViewPopup(cust)">
                 <img src="assets/icons/view.svg" (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false">
-              </a>
+              </a> -->
               <a class="mx-2" (click)="openUpdateOrder(cust)">
                 <img src="assets/icons/edit.svg" (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false">
               </a>
-              <a class="mx-2" value="Delete" (click)="openDeletePopup(cust)">
+              <a class="mx-2" value="Delete" (click)="opendeleteOrderItem(cust)">
                 <img src="assets/icons/delete.svg" (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false">
               </a>
             </td>

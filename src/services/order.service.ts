@@ -44,6 +44,14 @@ export class OrderService {
     return this.http.get(url);
   }
 
+  listOrderItemsById(id: any) {
+    let url = this.baseUrl + "/listOrderItems_1_0";
+    let myObj = {
+      'orderId': id
+    }
+    return this.http.get(url, {params: myObj});
+  }
+
   addItemToOrder(payload: any) {
     let url = this.baseUrl + '/addItemToOrder_1_0';
     return this.http.post(url, payload)

@@ -57,7 +57,7 @@ export class OrdersComponent implements OnInit {
   ngOnInit(): void {
     this.listOrders();
     this.getVendorr();
-    this.listOrderItems();
+    // this.listOrderItems();
   }
 
   showIconView: boolean = false;
@@ -71,9 +71,7 @@ export class OrdersComponent implements OnInit {
   searchTx: any;
   inventoryTable: any = [];
   newInventoryTable: any = [];
-
   orderItems: any = [];
-  newOrderItems: any = [];
 
   active: any = [];
   inActive: any = [];
@@ -111,10 +109,9 @@ export class OrdersComponent implements OnInit {
 
   listOrderItems() {
     this.showLoader = true;
-    this.orderSer.listOrderItems().subscribe((res: any) => {
+    this.orderSer.listOrderItemsById(this.orderItemsId.id).subscribe((res: any) => {
       this.showLoader = false;
       this.orderItems = res;
-      this.newOrderItems = this.orderItems;
     });
   }
 
@@ -225,15 +222,14 @@ export class OrdersComponent implements OnInit {
   openEditPopup(item: any) {
     this.currentItem = item;
     this.dialog.open(this.editInventoryDialog, { maxWidth: '550px', maxHeight: '550px'});
-    // console.log(item);
   }
 
-  editInventory() {
+  updateOrder() {
     this.originalObject = {
       'id': this.currentItem.id,
       'invoiceNo': this.currentItem.invoiceNo,
       'by': 1,
-      'remarks': this.currentItem.remarks
+      // 'remarks': this.currentItem.remarks
     }
 
     this.alertSer.wait();
@@ -241,10 +237,8 @@ export class OrdersComponent implements OnInit {
       // console.log(res);
       if(res) {
         this.alertSer.success(res);
+        this.listOrders();
       }
-      setTimeout(() => {
-        window.location.reload();
-      }, 3000)
     }, (err: any) => {
       if(err) {
         this.alertSer.error();
@@ -265,6 +259,7 @@ export class OrdersComponent implements OnInit {
     this.orderSer.deleteOrder(this.currentItem).subscribe((res: any) => {
       if(res) {
         this.alertSer.success(res);
+        this.listOrders();
       }
     }, (err: any) => {
       if(err) {
@@ -274,15 +269,22 @@ export class OrdersComponent implements OnInit {
   }
 
   @ViewChild('orderItemsDialog') orderItemsDialog = {} as TemplateRef<any>;
+
+  orderItemsId: any;
   openOrderItems(item: any) {
-    this.currentItem = item;
+    this.orderItemsId = item;
+    this.orderSer.listOrderItemsById(this.orderItemsId.id).subscribe((res: any) => {
+      this.orderItems = res;
+    });
     this.dialog.open(this.orderItemsDialog, { maxWidth: '550px', maxHeight: '550px'});
     // console.log(item);
   }
 
+
   @ViewChild('createOrderDialog') createOrderDialog = {} as TemplateRef<any>;
-  openCreateOrder() {
-    // this.currentItem = item;
+  openCreateOrder(item: any) {
+    // console.log(item)
+    this.orderItemsId = item;
     this.dialog.open(this.createOrderDialog,{ maxWidth: '550px', maxHeight: '550px'});
   }
 
@@ -295,9 +297,16 @@ export class OrdersComponent implements OnInit {
   }
 
   addItemToOrder() {
-    this.orderItemBody.orderId = this.currentItem.id;
+    this.orderItemBody.orderId = this.orderItemsId?.id;
     this.orderSer.addItemToOrder(this.orderItemBody).subscribe((res: any) => {
-      console.log(res)
+      if(res) {
+        this.alertSer.success(res);
+        this.listOrderItems();
+      }
+    }, (err) => {
+      if(err) {
+        this.alertSer.error();
+      }
     })
   }
 
@@ -308,9 +317,9 @@ export class OrdersComponent implements OnInit {
     this.dialog.open(this.updateOrderDialog, { maxWidth: '550px', maxHeight: '550px'});
   }
 
-  updateOrder() {
+  updateOrderItem() {
     this.originalObject = {
-      'id': this.currentItem.id,
+      'orderId': this.currentItem.id,
       'productQuantity': this.currentItem.productQuantity,
       'by': 1,
       'remarks': this.currentItem.remarks
@@ -321,10 +330,8 @@ export class OrdersComponent implements OnInit {
       // console.log(res);
       if(res) {
         this.alertSer.success(res);
+        this.listOrderItems();
       }
-      setTimeout(() => {
-        window.location.reload();
-      }, 3000)
     }, (err: any) => {
       if(err) {
         this.alertSer.error();
@@ -344,6 +351,7 @@ export class OrdersComponent implements OnInit {
     this.orderSer.deleteOrderItem(this.currentItem).subscribe((res: any) => {
       if(res) {
         this.alertSer.success(res);
+        this.listOrderItems();
       }
     }, (err: any) => {
       if(err) {

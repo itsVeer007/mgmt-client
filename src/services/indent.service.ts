@@ -28,7 +28,7 @@ export class IndentService {
   }
 
   updateIndentStatus(payload: any) {
-    let url = this.baseUrl + `/updateIndentStatus_1_0/${payload.id}/${payload.statusId}/${payload.updatedBy}/${payload.inventoryId}`;
+    let url = this.baseUrl + `/updateIndentStatus_1_0/${payload.id}/${payload.statusId}/${payload.updatedBy}/${payload.inventoryId ? payload.inventoryId : -1}`;
     // let params = new HttpParams().set('id', payload.id).set('invoiceNo', payload.invoiceNo).set('by', payload.by).set('remarks', payload.remarks);
     return this.http.put(url, null);
   }
