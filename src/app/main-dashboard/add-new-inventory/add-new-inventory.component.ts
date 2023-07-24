@@ -101,7 +101,7 @@ export class AddNewInventoryComponent implements OnInit {
       'warrantyDetail': new FormControl(''),
     });
 
-    this.productMasterSer.list().subscribe((res: any) => {
+    this.productMasterSer.listProduct().subscribe((res: any) => {
       this.productIds = res;
     })
 
@@ -123,10 +123,11 @@ export class AddNewInventoryComponent implements OnInit {
   arr: any = [];
   warrantyDetail: any = 'N';
   submit() {
-    // console.log(this.inventoryBody)
+    this.arr.push(this.inventoryBody.serialnos)
+    this.inventoryBody.serialnos = this.arr;
+    console.log(this.inventoryBody)
     if(this.UserForm.valid) {
-      this.arr.push(this.inventoryBody.serialnos)
-      this.inventoryBody.serialnos = this.arr;
+
       this.inventoryBody.warranty.startDate = this.datepipe.transform(this.inventoryBody.warranty.startDate, 'yyyy-MM-dd');
       this.inventoryBody.warranty.endDate = this.datepipe.transform(this.inventoryBody.warranty.endDate, 'yyyy-MM-dd');
       this.alertSer.wait();

@@ -69,12 +69,9 @@ export class OrdersComponent implements OnInit {
 
   searchText: any;
   searchTx: any;
-  inventoryTable: any = [];
-  newInventoryTable: any = [];
+  ordersTable: any = [];
+  newOrdersTable: any = [];
   orderItems: any = [];
-
-  active: any = [];
-  inActive: any = [];
 
   productIds: any;
   listOrders() {
@@ -82,19 +79,11 @@ export class OrdersComponent implements OnInit {
     this.orderSer.listOrders().subscribe((res: any) => {
       // console.log(res);
       this.showLoader = false;
-      this.inventoryTable = res;
-      this.newInventoryTable = this.inventoryTable;
-
-      for(let item of this.inventoryTable) {
-        if(item.statusId == 1) {
-          this.active.push(item);
-        } else if(item.statusId == 2) {
-          this.inActive.push(item);
-        }
-      }
+      this.ordersTable = res;
+      this.newOrdersTable = this.ordersTable;
     });
 
-    this.productMasterSer.list().subscribe((res: any) => {
+    this.productMasterSer.listProduct().subscribe((res: any) => {
       this.productIds = res;
     })
   }
@@ -120,7 +109,7 @@ export class OrdersComponent implements OnInit {
   categoryTypes: any;
   statusVal: any;
   removeDuplicates() {
-    this.brandNames = this.inventoryTable.reduce((acc: any, current: any) => {
+    this.brandNames = this.ordersTable.reduce((acc: any, current: any) => {
       const x = acc.find((item: any) => item.productBrand == current.productBrand);
       if (!x) {
         return acc.concat([current]);
@@ -129,7 +118,7 @@ export class OrdersComponent implements OnInit {
       }
     }, []);
 
-    this.categoryTypes = this.inventoryTable.reduce((acc: any, current: any) => {
+    this.categoryTypes = this.ordersTable.reduce((acc: any, current: any) => {
       const x = acc.find((item: any) => item.productCategory == current.productCategory);
       if (!x) {
         return acc.concat([current]);
@@ -138,7 +127,7 @@ export class OrdersComponent implements OnInit {
       }
     }, []);
 
-    this.statusVal = this.inventoryTable.reduce((acc: any, current: any) => {
+    this.statusVal = this.ordersTable.reduce((acc: any, current: any) => {
       const x = acc.find((item: any) => item.status == current.status);
       if (!x) {
         return acc.concat([current]);
@@ -162,7 +151,7 @@ export class OrdersComponent implements OnInit {
     })
   }
 
-  ovendorId: any = null;
+  ovendorId: any = '';
   oinvoiceId: any = null;
   ostartDate: any = null;
   oendDate: any = null;
@@ -176,7 +165,7 @@ export class OrdersComponent implements OnInit {
     }
 
     this.orderSer.filteBody(myObj).subscribe((res: any) => {
-      this.newInventoryTable = res;
+      this.newOrdersTable = res;
     })
   }
 
@@ -366,7 +355,7 @@ export class OrdersComponent implements OnInit {
   sorted = false;
   sort(label: any) {
     this.sorted = !this.sorted;
-    var x = this.inventoryTable;
+    var x = this.ordersTable;
     if (this.sorted == false) {
       x.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
     } else {
@@ -386,13 +375,13 @@ export class OrdersComponent implements OnInit {
 
   selectedAll: any;
   selectAll() {
-    for (var i = 0; i < this.inventoryTable.length; i++) {
-      this.inventoryTable[i].selected = this.selectedAll;
+    for (var i = 0; i < this.ordersTable.length; i++) {
+      this.ordersTable[i].selected = this.selectedAll;
     }
   }
 
   checkIfAllSelected() {
-    this.selectedAll = this.inventoryTable.every(function (item: any) {
+    this.selectedAll = this.ordersTable.every(function (item: any) {
       return item.selected == true;
     })
   }
@@ -437,7 +426,6 @@ export class OrdersComponent implements OnInit {
   deletearray: any = [];
   deleteMultiRecords(item: any, i: any, e: any) {
     var checked = (e.target.checked);
-    // console.log("Delete Multiple Records:: ", item);
     if (this.deletearray.length == 0) { this.deletearray.push(item) }
 
     this.deletearray.forEach((el: any) => {
@@ -450,20 +438,17 @@ export class OrdersComponent implements OnInit {
         this.deletearray.splice(currentindex, 1)
       }
     });
-    // console.log(this.deletearray)
   }
 
   deleteSelected() {
     if (this.selectedAll == false) {
       this.deletearray.forEach((el: any) => {
-        // this.currentItem = el;
-        // this.deleteInventory();
-        this.inventoryTable = this.inventoryTable.filter((item: any) => item.siteId !== el.siteId);
+        this.ordersTable = this.ordersTable.filter((item: any) => item.siteId !== el.siteId);
       });
       this.deletearray = []
     } else {
-      this.inventoryTable.forEach((el: any) => {
-        this.inventoryTable = this.inventoryTable.filter((item: any) => item.siteId !== el.siteId);
+      this.ordersTable.forEach((el: any) => {
+        this.ordersTable = this.ordersTable.filter((item: any) => item.siteId !== el.siteId);
       });
     }
   }

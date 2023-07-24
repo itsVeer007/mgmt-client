@@ -7,8 +7,8 @@ import { environment } from '../environments/environment';
 })
 export class OrderService {
 
-  // baseUrl = 'http://192.168.0.119:8080';
   baseUrl = `${environment.baseUrl}/inventory`;
+  // baseUrl = 'http://192.168.0.119:8080';
 
   constructor(private http: HttpClient) { }
 

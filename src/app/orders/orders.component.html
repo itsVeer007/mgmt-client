@@ -3,7 +3,7 @@
   <!-- header starts -->
   <div class="d-flex justify-content-between">
     <div class="users-header">
-      <p>List of all Orders - <span>{{ inventoryTable?.length }}</span></p>
+      <p>List of all Orders - <span>{{ ordersTable?.length }}</span></p>
     </div>
     <div style="position: relative">
       <!-- <a class="pointer" (click)="show('user')"><img src="assets/icons/add.svg" alt="" /></a> -->
@@ -14,7 +14,7 @@
   <!-- header ends -->
 
   <!-- count starts -->
-  <div class="row mb-2">
+  <!-- <div class="row mb-2">
     <div class="col-lg-1 col-md-1 col-sm-1 d-flex justify-content-start">
       <div class="vl-green"></div>
       <div class="mx-2">
@@ -29,7 +29,7 @@
         <div class="count">{{ inActive?.length }}</div>
       </div>
     </div>
-  </div>
+  </div> -->
   <!-- count ends -->
 
   <!-- form -->
@@ -48,6 +48,7 @@
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Vendor Id</mat-label>
         <mat-select [(ngModel)]="ovendorId">
+          <mat-option value="">All</mat-option>
           <mat-option *ngFor="let item of vendorDetail" [value]="item.id">{{ item.name }}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -62,7 +63,7 @@
 
     <div class="col-lg-2 col-md-2">
       <mat-form-field appearance="outline" class="w-100">
-        <input matInput [matDatepicker]="picker1" placeholder="From" [(ngModel)]="ostartDate">
+        <input matInput [matDatepicker]="picker1" placeholder="Created from" [(ngModel)]="ostartDate">
         <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
       </mat-form-field>
@@ -70,7 +71,7 @@
 
     <div class="col-lg-2 col-md-2">
       <mat-form-field appearance="outline" class="w-100">
-        <input matInput [matDatepicker]="picker2" placeholder="To" [(ngModel)]="oendDate">
+        <input matInput [matDatepicker]="picker2" placeholder="Created to" [(ngModel)]="oendDate">
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
       </mat-form-field>
@@ -123,7 +124,7 @@
       </thead>
 
       <tbody>
-        <tr *ngFor="let cust of newInventoryTable | search : searchText; let i = index" (dblclick)="openViewPopup(cust)">
+        <tr *ngFor="let cust of newOrdersTable | search : searchText; let i = index" (dblclick)="openViewPopup(cust)">
           <!-- <td>
             <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="cust.selected" (change)="
                 checkIfAllSelected();
@@ -184,7 +185,7 @@
     <!-- table ends -->
   </div>
 
-  <div class="d-flex align-items-center justify-content-center" style="height: 50vh;" *ngIf="inventoryTable.length == 0 && !showLoader">
+  <div class="d-flex align-items-center justify-content-center" style="height: 50vh;" *ngIf="ordersTable?.length == 0 && !showLoader">
     <h1 class="text-secondary">No Data</h1>
   </div>
 
@@ -202,7 +203,7 @@
 <!-- view Popup -->
 <ng-template #viewInventoryDialog>
   <div style="background-color: #084982;">
-    <p class="dialog-title m-0">ADD ORDER</p>
+    <p class="dialog-title m-0">view order</p>
   </div>
 
   <mat-dialog-content>
@@ -251,7 +252,7 @@
 <!-- edit Popup -->
 <ng-template #editInventoryDialog>
   <div style="background-color: #084982;">
-    <p class="dialog-title m-0">EDIT ORDER</p>
+    <p class="dialog-title">EDIT ORDER</p>
   </div>
 
   <mat-dialog-content>
@@ -266,7 +267,7 @@
       <div class="col-lg-6">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Invoice No</mat-label>
-          <input matInput [(ngModel)]="currentItem.invoiceNo" disabled>
+          <input matInput [(ngModel)]="currentItem.invoiceNo">
         </mat-form-field>
       </div>
 

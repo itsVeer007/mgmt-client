@@ -8,12 +8,12 @@ import { environment } from '../environments/environment';
 })
 export class InventoryService {
 
-  // baseUrl = 'http://192.168.0.119:8080';
   baseUrl = `${environment.baseUrl}/inventory`;
+  // baseUrl = 'http://192.168.0.119:8080';
 
   constructor(private http: HttpClient, public datepipe: DatePipe) { }
 
-  getListing() {
+  listInventory() {
     let url = this.baseUrl + "/listInventory_1_0";
     return this.http.get(url);
   }
@@ -50,7 +50,7 @@ export class InventoryService {
     return this.http.post(url, requestBody)
   }
 
-  UpdateInventory(payload: any) {
+  updateInventory(payload: any) {
     let url = this.baseUrl + '/updateInventory_1_0';
     return this.http.put(url, payload)
   }

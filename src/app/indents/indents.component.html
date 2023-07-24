@@ -3,7 +3,7 @@
   <!-- header starts -->
   <div class="d-flex justify-content-between">
     <div class="users-header">
-      <p>List of Indents - <span>{{ inventoryTable?.length }}</span></p>
+      <p>List of Indents - <span>{{ indentTable?.length }}</span></p>
     </div>
     <div style="position: relative">
       <!-- <a class="pointer" (click)="show('user')"><img src="assets/icons/add.svg" alt="" /></a> -->
@@ -26,7 +26,7 @@
       <div class="vl-red"></div>
       <div class="mx-2">
         <div class="status">Inactive</div>
-        <div class="count">{{ inActive?.length }}</div>
+        <div class="count">{{ indentTable?.length - active?.length }}</div>
       </div>
     </div>
   </div>
@@ -142,7 +142,7 @@
       </thead>
 
       <tbody>
-        <tr *ngFor="let cust of newInventoryTable | search : searchText; let i = index" (dblclick)="openViewPopup(cust)">
+        <tr *ngFor="let cust of newIndentTable | search : searchText; let i = index" (dblclick)="openViewPopup(cust)">
           <!-- <td>
             <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="cust.selected" (change)="
                 checkIfAllSelected();
@@ -207,7 +207,7 @@
     <!-- table ends -->
   </div>
 
-  <div class="d-flex align-items-center justify-content-center" style="height: 50vh;" *ngIf="inventoryTable.length == 0 && !showLoader">
+  <div class="d-flex align-items-center justify-content-center" style="height: 50vh;" *ngIf="indentTable.length == 0 && !showLoader">
     <h1 class="text-secondary">No Data</h1>
   </div>
 
@@ -325,7 +325,7 @@
         <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
       </div>
       <div mat-dialog-actions>
-        <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="editInventory()">Update</button>
+        <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="updateIndent()">Update</button>
       </div>
     </div>
 </ng-template>
@@ -345,7 +345,7 @@
         <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
       </div>
       <div mat-dialog-actions>
-        <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="deleteInventory()">OK</button>
+        <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="deleteIndent()">OK</button>
       </div>
     </div>
   </mat-dialog-content>

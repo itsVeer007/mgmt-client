@@ -91,7 +91,7 @@ export class AddNewIndentComponent implements OnInit {
       this.vendorDetail = res;
     })
 
-    this.productSer.list().subscribe((res: any) => {
+    this.productSer.listProduct().subscribe((res: any) => {
       this.productIds = res;
     })
   }

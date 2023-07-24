@@ -86,7 +86,7 @@
 
     <div class="col-lg-2 col-md-2">
       <mat-form-field appearance="outline" class="w-100">
-        <input matInput [matDatepicker]="picker1" placeholder="From" [(ngModel)]="stDt">
+        <input matInput [matDatepicker]="picker1" placeholder="Created from" [(ngModel)]="stDt">
         <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
         <mat-error class="mt-1">Start Date is required</mat-error>
@@ -95,7 +95,7 @@
 
     <div class="col-lg-2 col-md-2">
       <mat-form-field appearance="outline" class="w-100">
-        <input matInput [matDatepicker]="picker2" placeholder="To" [(ngModel)]="enDt">
+        <input matInput [matDatepicker]="picker2" placeholder="Created to" [(ngModel)]="enDt">
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
         <mat-error class="mt-1">End Date is required</mat-error>

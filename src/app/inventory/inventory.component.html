@@ -14,6 +14,15 @@
             <div class="count">{{ inStock?.length }}</div>
           </div>
         </div>
+
+        <!-- <div class="col-lg-2 d-flex justify-content-start">
+          <div class="vl-yellow"></div>
+          <div class="mx-2">
+            <div class="status">Dispatched</div>
+            <div class="count">{{ inStock?.length }}</div>
+          </div>
+        </div>
+
         <div class="col-lg-2 d-flex justify-content-start">
           <div class="vl-green"></div>
           <div class="mx-2">
@@ -21,6 +30,39 @@
             <div class="count">{{ installed.length }}</div>
           </div>
         </div>
+
+        <div class="col-lg-2 d-flex justify-content-start">
+          <div class="vl-green"></div>
+          <div class="mx-2">
+            <div class="status">Returned</div>
+            <div class="count">{{ installed.length }}</div>
+          </div>
+        </div>
+
+        <div class="col-lg-2 d-flex justify-content-start">
+          <div class="vl-green"></div>
+          <div class="mx-2">
+            <div class="status">Replaced</div>
+            <div class="count">{{ installed.length }}</div>
+          </div>
+        </div>
+
+        <div class="col-lg-2 d-flex justify-content-start">
+          <div class="vl-violet"></div>
+          <div class="mx-2">
+            <div class="status">Removed</div>
+            <div class="count">20</div>
+          </div>
+        </div>
+
+        <div class="col-lg-2 d-flex justify-content-start">
+          <div class="vl-orange"></div>
+          <div class="mx-2">
+            <div class="status">Refurbished</div>
+            <div class="count">50</div>
+          </div>
+        </div>
+
         <div class="col-lg-2 d-flex justify-content-start">
           <div class="vl-red"></div>
           <div class="mx-2">
@@ -28,25 +70,12 @@
             <div class="count">{{ scrap.length }}</div>
           </div>
         </div>
+
         <div class="col-lg-2 d-flex justify-content-start">
           <div class="vl-greay"></div>
           <div class="mx-2">
-            <div class="status">Reuse</div>
+            <div class="status">Warranty Replaced</div>
             <div class="count">{{ redyToUse.length }}</div>
-          </div>
-        </div>
-        <!-- <div class="col-lg-2 d-flex justify-content-start">
-          <div class="vl-orange"></div>
-          <div class="mx-2">
-            <div class="status">Returned</div>
-            <div class="count">50</div>
-          </div>
-        </div>
-        <div class="col-lg-2 d-flex justify-content-start">
-          <div class="vl-violet"></div>
-          <div class="mx-2">
-            <div class="status">Removed</div>
-            <div class="count">20</div>
           </div>
         </div> -->
       </div>
@@ -98,7 +127,7 @@
 
     <div class="col-lg-2 col-md-2">
       <mat-form-field appearance="outline" class="w-100">
-        <input matInput [matDatepicker]="picker1" placeholder="From" [(ngModel)]="prCreatedTime">
+        <input matInput [matDatepicker]="picker1" placeholder="Created from" [(ngModel)]="prCreatedTime">
         <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
       </mat-form-field>
@@ -106,7 +135,7 @@
 
     <div class="col-lg-2 col-md-2">
       <mat-form-field appearance="outline" class="w-100">
-        <input matInput [matDatepicker]="picker2" placeholder="To" [(ngModel)]="prCreatedTime1">
+        <input matInput [matDatepicker]="picker2" placeholder="Created to" [(ngModel)]="prCreatedTime1">
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
       </mat-form-field>
@@ -549,7 +578,7 @@
       <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
     </div>
     <div mat-dialog-actions>
-      <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="editInventory()">Update</button>
+      <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="updateInventory()">Update</button>
     </div>
   </div>
 </ng-template>
@@ -689,5 +718,5 @@
 
 
 <div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showInventory">
-  <app-add-new-inventory (newItemEvent)="closenow($event, 'inventory'); getInventory()"></app-add-new-inventory>
+  <app-add-new-inventory (newItemEvent)="closenow($event, 'inventory')"></app-add-new-inventory>
 </div>

@@ -3,7 +3,7 @@
   <!-- header starts -->
   <div class="d-flex justify-content-between">
     <div class="users-header">
-      <p>List of Vendors - <span>{{ inventoryTable?.length }}</span></p>
+      <p>List of Vendors - <span>{{ vendorTable?.length }}</span></p>
     </div>
     <div style="position: relative">
       <!-- <a class="pointer" (click)="show('user')"><img src="assets/icons/add.svg" alt="" /></a> -->
@@ -26,7 +26,7 @@
       <div class="vl-red"></div>
       <div class="mx-2">
         <div class="status">Inactive</div>
-        <div class="count">{{ inventoryTable?.length - active?.length }}</div>
+        <div class="count">{{ vendorTable?.length - active?.length }}</div>
       </div>
     </div>
   </div>
@@ -121,7 +121,7 @@
       </thead>
 
       <tbody>
-        <tr *ngFor="let cust of newInventoryTable | search : searchText; let i = index" (dblclick)="openViewPopup(cust)">
+        <tr *ngFor="let cust of newVendorTable | search : searchText; let i = index" (dblclick)="openViewPopup(cust)">
           <!-- <td>
             <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="cust.selected" (change)="
                 checkIfAllSelected();
@@ -140,7 +140,7 @@
           </td>
 
           <td>
-            <p (click)="itemsView(cust)" class="pointer">View</p>
+            <p (click)="listVendorsById(cust)" class="pointer">View</p>
 
             <ng-template #itemsDialog>
               <p *ngFor="let item of itemDetail">{{item.name}}</p>
@@ -149,7 +149,7 @@
 
           <td style="width: 200px;">
             {{ cust.proprietor1 }}
-            <a style="text-decoration: none; cursor: pointer; color: #000;" *ngIf="cust.parteners != 0" (click)="proprietorView(cust)">
+            <a style="text-decoration: none; cursor: pointer; color: #000;" *ngIf="cust.parteners != 0" (click)="openProprietorDialog(cust)">
               <p>
                 <span [matBadge]="'+' + cust.parteners" matBadgeColor="warn" matBadgePosition="after" matBadgeSize="small">&nbsp;</span>
               </p>
@@ -258,13 +258,13 @@
             </div> -->
 
               <a class="mx-1 pointer" (click)="openViewPopup(cust)">
-                <img src="assets/icons/view.svg" (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" />
+                <img src="assets/icons/view.svg" (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false">
               </a>
-              <a class="mx-1 pointer" (click)="openEditPopup(cust)">
-                <img src="assets/icons/edit.svg" (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" />
+              <a class="mx-1 pointer" (click)="openEditPopup(cust)" [hidden]="cust.statusId == 0">
+                <img src="assets/icons/edit.svg" (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false">
               </a>
-              <a class="mx-1 pointer" value="Delete" (click)="openDeletePopup(cust)">
-                <img src="assets/icons/delete.svg" (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" />
+              <a class="mx-1 pointer" value="Delete" (click)="openDeletePopup(cust)" [hidden]="cust.statusId == 0">
+                <img src="assets/icons/delete.svg" (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false">
               </a>
           </td>
         </tr>
@@ -273,7 +273,7 @@
     <!-- table ends -->
   </div>
 
-  <div class="d-flex align-items-center justify-content-center" style="height: 50vh;" *ngIf="inventoryTable.length == 0 && !showLoader">
+  <div class="d-flex align-items-center justify-content-center" style="height: 50vh;" *ngIf="vendorTable.length == 0 && !showLoader">
     <h1 class="text-secondary">No Data</h1>
   </div>
 
@@ -568,7 +568,7 @@
       <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
     </div>
     <div mat-dialog-actions>
-      <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="editInventory()">Update</button>
+      <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="updatevendor()">Update</button>
     </div>
   </div>
 </ng-template>

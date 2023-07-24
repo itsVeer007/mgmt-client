@@ -71,38 +71,32 @@ export class IndentsComponent implements OnInit {
 
   searchText: any;
   searchTx: any;
-  inventoryTable: any = [];
-  newInventoryTable: any = [];
+  indentTable: any = [];
+  newIndentTable: any = [];
 
   orderItems: any = [];
   newOrderItems: any = [];
-
   active: any = [];
-  inActive: any = [];
 
   productIds: any;
-
   vendorDetail: any;
-
   inventoryDetail: any;
   listIndent() {
     this.showLoader = true;
     this.indentSer.listIndent().subscribe((res: any) => {
       // console.log(res);
       this.showLoader = false;
-      this.inventoryTable = res;
-      this.newInventoryTable = this.inventoryTable;
+      this.indentTable = res;
+      this.newIndentTable = this.indentTable;
 
-      for(let item of this.inventoryTable) {
+      for(let item of this.indentTable) {
         if(item.statusId == 1) {
           this.active.push(item);
-        } else if(item.statusId == 2) {
-          this.inActive.push(item);
         }
       }
     });
 
-    this.productMasterSer.list().subscribe((res: any) => {
+    this.productMasterSer.listProduct().subscribe((res: any) => {
       this.productIds = res;
     })
 
@@ -110,7 +104,7 @@ export class IndentsComponent implements OnInit {
       this.vendorDetail = res;
     })
 
-    this.inventorySer.getListing().subscribe((res: any) => {
+    this.inventorySer.listInventory().subscribe((res: any) => {
       this.inventoryDetail = res;
     })
   }
@@ -129,7 +123,7 @@ export class IndentsComponent implements OnInit {
   categoryTypes: any;
   statusVal: any;
   removeDuplicates() {
-    this.brandNames = this.inventoryTable.reduce((acc: any, current: any) => {
+    this.brandNames = this.indentTable.reduce((acc: any, current: any) => {
       const x = acc.find((item: any) => item.productBrand == current.productBrand);
       if (!x) {
         return acc.concat([current]);
@@ -138,7 +132,7 @@ export class IndentsComponent implements OnInit {
       }
     }, []);
 
-    this.categoryTypes = this.inventoryTable.reduce((acc: any, current: any) => {
+    this.categoryTypes = this.indentTable.reduce((acc: any, current: any) => {
       const x = acc.find((item: any) => item.productCategory == current.productCategory);
       if (!x) {
         return acc.concat([current]);
@@ -147,7 +141,7 @@ export class IndentsComponent implements OnInit {
       }
     }, []);
 
-    this.statusVal = this.inventoryTable.reduce((acc: any, current: any) => {
+    this.statusVal = this.indentTable.reduce((acc: any, current: any) => {
       const x = acc.find((item: any) => item.status == current.status);
       if (!x) {
         return acc.concat([current]);
@@ -189,7 +183,7 @@ export class IndentsComponent implements OnInit {
     }
 
     this.orderSer.filteBody(myObj).subscribe((res: any) => {
-      this.newInventoryTable = res;
+      this.newIndentTable = res;
     })
   }
 
@@ -239,7 +233,7 @@ export class IndentsComponent implements OnInit {
     this.dialog.open(this.editInventoryDialog, {maxWidth: '650px', maxHeight: '550px'});
 
     this.inventorySer.listInventoryByProductId(item.productId).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       for(let item of this.inventoryDetail) {
         if(item.inventoryStatusId == 1) {
           this.inventorySerial = res;
@@ -249,7 +243,7 @@ export class IndentsComponent implements OnInit {
   }
 
   updateInventoryId: any;
-  editInventory() {
+  updateIndent() {
     this.originalObject = {
       'id': this.currentItem.id,
       'statusId': this.currentItem.statusId,
@@ -264,10 +258,8 @@ export class IndentsComponent implements OnInit {
       // console.log(res);
       if(res) {
         this.alertSer.success(res);
+        this.listIndent();
       }
-      setTimeout(() => {
-        // window.location.reload();
-      }, 3000)
     }, (err: any) => {
       if(err) {
         this.alertSer.error();
@@ -283,11 +275,12 @@ export class IndentsComponent implements OnInit {
     this.dialog.open(this.deleteInventoryDialog, { maxWidth: '650px', maxHeight: '550px'});
   }
 
-  deleteInventory() {
+  deleteIndent() {
     this.alertSer.wait();
     this.indentSer.deleteIndent(this.currentItem).subscribe((res: any) => {
       if(res) {
         this.alertSer.success(res);
+        this.listIndent();
       }
     }, (err: any) => {
       if(err) {
@@ -296,13 +289,9 @@ export class IndentsComponent implements OnInit {
     });
   }
 
-  // @ViewChild('orderItemsDialog') orderItemsDialog = {} as TemplateRef<any>;
-  // openOrderItems(item: any) {
-  //   this.currentItem = item;
-  //   this.dialog.open(this.orderItemsDialog, { maxWidth: '750px', maxHeight: '550px'});
-  // }
 
   @ViewChild('createOrderDialog') createOrderDialog = {} as TemplateRef<any>;
+
   openCreateOrder() {
     // this.currentItem = item;
     this.dialog.open(this.createOrderDialog, { maxWidth: '650px', maxHeight: '550px'});
@@ -316,15 +305,14 @@ export class IndentsComponent implements OnInit {
 
   addComponent() {
     this.indentSer.addComponent(this.centralboxBody).subscribe((res: any) => {
-      console.log(res)
+      // console.log(res)
     })
   }
+
 
   @ViewChild('replaceComponentDialog') replaceComponentDialog = {} as TemplateRef<any>;
 
   openReplaceComponent() {
-    // console.log(item);
-    // this.currentItem = item;
     this.dialog.open(this.replaceComponentDialog, { maxWidth: '550px', maxHeight: '550px'});
   }
 
@@ -333,51 +321,26 @@ export class IndentsComponent implements OnInit {
     newInventoryId: null,
     replacedBy: 1
   }
-  replaceComponent() {
 
+  replaceComponent() {
     this.alertSer.wait();
     this.indentSer.replaceComponent(this.body).subscribe((res: any) => {
       // console.log(res);
       if(res) {
         this.alertSer.success(res);
       }
-      setTimeout(() => {
-        // window.location.reload();
-      }, 3000)
     }, (err: any) => {
       if(err) {
         this.alertSer.error();
       };
     });
   }
-
-  @ViewChild('deleteOrderItemsDialog') deleteOrderItemsDialog = {} as TemplateRef<any>;
-
-  opendeleteOrderItem(item: any) {
-    this.currentItem = item;
-    this.dialog.open(this.deleteOrderItemsDialog, { maxWidth: '250px', maxHeight: '250px'});
-  }
-
-  deleteOrderItem() {
-    this.alertSer.wait();
-    this.orderSer.deleteOrderItem(this.currentItem).subscribe((res: any) => {
-      if(res) {
-        this.alertSer.success(res);
-      }
-    }, (err: any) => {
-      if(err) {
-        this.alertSer.error();
-      };
-    });
-  }
-
-  filterOrderItems() {}
 
 
   sorted = false;
   sort(label: any) {
     this.sorted = !this.sorted;
-    var x = this.inventoryTable;
+    var x = this.indentTable;
     if (this.sorted == false) {
       x.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
     } else {
@@ -385,9 +348,10 @@ export class IndentsComponent implements OnInit {
     }
   }
 
-  //Show Detail
-  showDetail: boolean = false;
 
+  //Show Detail
+
+  showDetail: boolean = false;
   onShowDetail() {
     this.showDetail = !this.showDetail
   }
@@ -397,13 +361,13 @@ export class IndentsComponent implements OnInit {
 
   selectedAll: any;
   selectAll() {
-    for (var i = 0; i < this.inventoryTable.length; i++) {
-      this.inventoryTable[i].selected = this.selectedAll;
+    for (var i = 0; i < this.indentTable.length; i++) {
+      this.indentTable[i].selected = this.selectedAll;
     }
   }
 
   checkIfAllSelected() {
-    this.selectedAll = this.inventoryTable.every(function (item: any) {
+    this.selectedAll = this.indentTable.every(function (item: any) {
       return item.selected == true;
     })
   }
@@ -469,12 +433,12 @@ export class IndentsComponent implements OnInit {
       this.deletearray.forEach((el: any) => {
         // this.currentItem = el;
         // this.deleteInventory();
-        this.inventoryTable = this.inventoryTable.filter((item: any) => item.siteId !== el.siteId);
+        this.indentTable = this.indentTable.filter((item: any) => item.siteId !== el.siteId);
       });
       this.deletearray = []
     } else {
-      this.inventoryTable.forEach((el: any) => {
-        this.inventoryTable = this.inventoryTable.filter((item: any) => item.siteId !== el.siteId);
+      this.indentTable.forEach((el: any) => {
+        this.indentTable = this.indentTable.filter((item: any) => item.siteId !== el.siteId);
       });
     }
   }

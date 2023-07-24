@@ -53,7 +53,7 @@ export class ProductMasterComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.getInventory();
+    this.listProduct();
     this.onMetadataChange();
   }
 
@@ -68,12 +68,12 @@ export class ProductMasterComponent implements OnInit {
   searchTx: any;
   productMaster: any = [];
   newProductMaster: any = [];
-
   active: any = [];
-  inActive: any = [];
-  getInventory() {
+
+  vendorDetail: any;
+  listProduct() {
     this.showLoader = true;
-    this.productMasterSer.list().subscribe((res: any) => {
+    this.productMasterSer.listProduct().subscribe((res: any) => {
       // console.log(res);
       this.showLoader = false;
       this.productMaster = res;
@@ -91,9 +91,6 @@ export class ProductMasterComponent implements OnInit {
       this.vendorDetail = res;
     })
   }
-
-  vendorDetail: any;
-
 
   brandNames: any;
   categoryTypes: any;
@@ -203,7 +200,6 @@ export class ProductMasterComponent implements OnInit {
   originalObject: any;
   changedKeys: any = [];
 
-
   /* view inventory */
 
   @ViewChild('viewInventoryDialog') viewInventoryDialog = {} as TemplateRef<any>;
@@ -213,6 +209,7 @@ export class ProductMasterComponent implements OnInit {
     this.dialog.open(this.viewInventoryDialog, {maxWidth: '550px', maxHeight: '550px'});
     // console.log(this.currentItem);
   }
+
 
   /* update inventory */
 
@@ -308,7 +305,7 @@ export class ProductMasterComponent implements OnInit {
     }
   }
 
-  editInventory() {
+  updateProductMaster() {
     this.originalObject = {
       "id": this.currentItem.id,
       "categoryId": null,
@@ -334,10 +331,8 @@ export class ProductMasterComponent implements OnInit {
       // console.log(res);
       if(res) {
         this.alertSer.success(res);
+        this.listProduct();
       }
-      setTimeout(() => {
-        window.location.reload();
-      }, 3000)
     }, (err: any) => {
       if(err) {
         this.alertSer.error();
@@ -352,19 +347,27 @@ export class ProductMasterComponent implements OnInit {
     this.dialog.open(this.deleteInventoryDialog, {maxWidth: '250px', maxHeight: '250px'});
   }
 
-  deleteInventory() {
+  deleteProduct() {
     this.alertSer.wait();
 
     this.productMasterSer.deleteProduct(this.currentItem).subscribe((res: any) => {
       // console.log(res);
       if(res) {
         this.alertSer.success(res);
+        this.listProduct();
       }
     }, (err: any) => {
       if(err) {
         this.alertSer.error();
       };
     });
+  }
+
+  //Show Detail
+
+  showDetail: boolean = false;
+  onShowDetail() {
+    this.showDetail = !this.showDetail
   }
 
 
@@ -461,14 +464,6 @@ export class ProductMasterComponent implements OnInit {
     } else {
       x.sort((a: string, b: string) => b[label] > a[label] ? 1 : b[label] < a[label] ? -1 : 0);
     }
-  }
-
-
-  //Show Detail
-  showDetail: boolean = false;
-
-  onShowDetail() {
-    this.showDetail = !this.showDetail
   }
 
 }

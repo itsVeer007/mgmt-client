@@ -50,7 +50,7 @@ export class InventoryComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.getInventory();
+    this.listInventory();
     this.onMetadataChange();
   }
 
@@ -72,9 +72,9 @@ export class InventoryComponent implements OnInit {
   returned: any = [];
   scrap: any = [];
   redyToUse: any = [];
-  getInventory() {
+  listInventory() {
     this.showLoader = true;
-    this.inventorySer.getListing().subscribe((res: any) => {
+    this.inventorySer.listInventory().subscribe((res: any) => {
       // console.log(res);
       this.showLoader = false;
       this.inventoryTable = res;
@@ -238,13 +238,9 @@ export class InventoryComponent implements OnInit {
     this.inventorySer.updateAssetStatus(this.currentStatusId, this.statusObj).subscribe((res: any) => {
       console.log(res);
       if(res) {
-        this.getInventory();
         this.alertSer.success(res);
+        this.listInventory();
       }
-
-      // setTimeout(() => {
-      //   window.location.reload();
-      // }, 3000);
     }, (err: any) => {
       if(err) {
         this.alertSer.error();
@@ -258,29 +254,32 @@ export class InventoryComponent implements OnInit {
   changedKeys: any = [];
 
   /* view warranty */
+
   @ViewChild('viewWarrantyDialog') viewWarrantyDialog = {} as TemplateRef<any>;
 
   viewWarrantyPopup() {
-    this.dialog.open(this.viewWarrantyDialog, {maxHeight: '550px', maxWidth: '550px'});
+    this.dialog.open(this.viewWarrantyDialog, {maxWidth: '550px', maxHeight: '550px'});
   }
 
 
   /* view inventory */
+
   @ViewChild('viewInventoryDialog') viewInventoryDialog = {} as TemplateRef<any>;
 
   openViewPopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.viewInventoryDialog, {maxHeight: '550px', maxWidth: '550px'});
+    this.dialog.open(this.viewInventoryDialog, {maxWidth: '550px', maxHeight: '550px'});
     // console.log(this.currentItem);
   }
 
 
   /* update inventory */
+
   @ViewChild('editInventoryDialog') editInventoryDialog = {} as TemplateRef<any>;
 
   openEditPopup(item: any) {
     this.currentItem = JSON.parse(JSON.stringify(item));
-    this.dialog.open(this.editInventoryDialog, {maxHeight: '550px', maxWidth: '550px'});
+    this.dialog.open(this.editInventoryDialog, { maxWidth: '550px', maxHeight: '550px'});
     // console.log(item);
   }
 
@@ -322,7 +321,7 @@ export class InventoryComponent implements OnInit {
     }
   }
 
-  editInventory() {
+  updateInventory() {
     this.originalObject = {
       "id": this.currentItem.id,
       "serialNo": this.currentItem.serialNo,
@@ -335,14 +334,12 @@ export class InventoryComponent implements OnInit {
     }
     this.alertSer.wait();
 
-    this.inventorySer.UpdateInventory({inventory: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
+    this.inventorySer.updateInventory({inventory: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
       // console.log(res);
       if(res) {
         this.alertSer.success(res);
+        this.listInventory();
       }
-      setTimeout(() => {
-        // window.location.reload();
-      }, 3000)
     }, (err: any) => {
       if(err) {
         this.alertSer.error();
@@ -350,7 +347,34 @@ export class InventoryComponent implements OnInit {
     });
   }
 
+
+  @ViewChild('deleteInventoryDialog') deleteInventoryDialog = {} as TemplateRef<any>;
+
+  openDeletePopup(item: any) {
+    this.currentItem = item;
+    this.dialog.open(this.deleteInventoryDialog, {maxWidth: '250px', maxHeight: '250px'});
+    // console.log("Selected Item:: ", item);
+  }
+
+  deleteInventory() {
+    this.alertSer.wait();
+
+    this.inventorySer.deleteInventory(this.currentItem).subscribe((res: any) => {
+      // console.log(res);
+      if(res) {
+        this.alertSer.success(res);
+        this.listInventory();
+      }
+    }, (err: any) => {
+      if(err) {
+        this.alertSer.error();
+      };
+    });
+  }
+
+
   /* update warranty */
+
   @ViewChild('editWarrantyDialog') editWarrantyDialog = {} as TemplateRef<any>;
 
   openWarrantyPopup(item: any) {
@@ -416,33 +440,6 @@ export class InventoryComponent implements OnInit {
     }, (err: any) => {
       if(err) {
         this.alertSer.wait();
-      };
-    });
-  }
-
-
-  @ViewChild('deleteInventoryDialog') deleteInventoryDialog = {} as TemplateRef<any>;
-
-  openDeletePopup(item: any) {
-    this.currentItem = item;
-    this.dialog.open(this.deleteInventoryDialog, {maxHeight: '250px', maxWidth: '250px'});
-    // console.log("Selected Item:: ", item);
-  }
-
-  deleteInventory() {
-    this.alertSer.wait();
-
-    this.inventorySer.deleteInventory(this.currentItem).subscribe((res: any) => {
-      // console.log(res);
-      if(res) {
-        this.alertSer.success(res);
-      }
-      setTimeout(() => {
-        window.location.reload();
-      }, 3000)
-    }, (err: any) => {
-      if(err) {
-        this.alertSer.error();
       };
     });
   }

@@ -10,12 +10,12 @@ export class ProductMasterService {
 
   constructor(private http: HttpClient) { }
 
-  baseUrl = 'http://192.168.0.119:8080';
-  // baseUrl = `${environment.baseUrl}/inventory`;
+  baseUrl = `${environment.baseUrl}/inventory`;
+  // baseUrl = 'http://192.168.0.119:8080';
 
   mySub = new Subject();
 
-  list() {
+  listProduct() {
     let url = this.baseUrl + "/listProduct_1_0";
 
     return this.http.get(url);
