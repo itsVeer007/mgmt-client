@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertService } from 'src/services/alert.service';
-import { AssetService } from 'src/services/asset.service';
 import { IndentService } from 'src/services/indent.service';
 import { InventoryService } from 'src/services/inventory.service';
 import { MetadataService } from 'src/services/metadata.service';
@@ -16,35 +15,8 @@ import { VendorsService } from 'src/services/vendors.service';
   styleUrls: ['./indents.component.css']
 })
 export class IndentsComponent implements OnInit {
-  @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
-    var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);
-    // var y = <HTMLElement>document.getElementById(`address${this.addressid}`);
 
-    // console.log(`plus-img${this.currentid}`);
-    if (x != null) {
-      if (!x.contains(e.target)) {
-        if (x.style.display == 'flex' || x.style.display == 'block') {
-          x.style.display = 'none';
-        }
-      }
-    }
-
-    // if (y != null) {
-    //   if(!y.contains(e.target)) {
-    //     if (y.style.display == 'flex' || y.style.display == 'block') {
-    //       y.style.display = 'none';
-    //     }
-    //   }
-    // }
-  }
-
-
-
-
-  showLoader = false;
   constructor(
-    private http: HttpClient,
-    private ass: AssetService,
     private indentSer: IndentService,
     private productMasterSer: ProductMasterService,
     private vendorSer: VendorsService,
@@ -52,7 +24,6 @@ export class IndentsComponent implements OnInit {
     private orderSer: OrderService,
     private metaDatSer: MetadataService,
     private alertSer: AlertService,
-
     public dialog: MatDialog
   ) { }
 
@@ -62,13 +33,13 @@ export class IndentsComponent implements OnInit {
     this.onGetMetadata();
   }
 
+  showLoader = false;
   showIconView: boolean = false;
   showIconEdit: boolean = false;
   showIconDelete: boolean = false;
   showIconView1: boolean = false;
   showIconEdit1: boolean = false;
   showIconDelete1: boolean = false;
-
   searchText: any;
   searchTx: any;
   indentTable: any = [];
@@ -321,7 +292,6 @@ export class IndentsComponent implements OnInit {
     newInventoryId: null,
     replacedBy: 1
   }
-
   replaceComponent() {
     this.alertSer.wait();
     this.indentSer.replaceComponent(this.body).subscribe((res: any) => {
@@ -386,7 +356,7 @@ export class IndentsComponent implements OnInit {
 
   viewBySelectedOne() {
     if (this.viewArray.length > 0) {
-      this.dialog.open(this.viewInventoryDialog, {maxHeight: '550px', maxWidth: '750px'})
+      this.dialog.open(this.viewInventoryDialog, {maxWidth: '750px', maxHeight: '550px'})
     }
   }
 
@@ -404,7 +374,7 @@ export class IndentsComponent implements OnInit {
 
   editBySelectedOne() {
     if (this.editArray.length > 0) {
-      this.dialog.open(this.editInventoryDialog, {maxHeight: '550px', maxWidth: '750px'})
+      this.dialog.open(this.editInventoryDialog, {maxWidth: '750px', maxHeight: '550px'})
     }
   }
 
@@ -425,7 +395,6 @@ export class IndentsComponent implements OnInit {
         this.deletearray.splice(currentindex, 1)
       }
     });
-    // console.log(this.deletearray)
   }
 
   deleteSelected() {

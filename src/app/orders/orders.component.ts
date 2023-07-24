@@ -16,32 +16,6 @@ import { VendorsService } from 'src/services/vendors.service';
 })
 export class OrdersComponent implements OnInit {
 
-  @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
-    var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);
-    // var y = <HTMLElement>document.getElementById(`address${this.addressid}`);
-
-    // console.log(`plus-img${this.currentid}`);
-    if (x != null) {
-      if (!x.contains(e.target)) {
-        if (x.style.display == 'flex' || x.style.display == 'block') {
-          x.style.display = 'none';
-        }
-      }
-    }
-
-    // if (y != null) {
-    //   if(!y.contains(e.target)) {
-    //     if (y.style.display == 'flex' || y.style.display == 'block') {
-    //       y.style.display = 'none';
-    //     }
-    //   }
-    // }
-  }
-
-
-
-
-  showLoader = false;
   constructor(
     private http: HttpClient,
     private ass: AssetService,
@@ -60,6 +34,7 @@ export class OrdersComponent implements OnInit {
     // this.listOrderItems();
   }
 
+  showLoader = false;
   showIconView: boolean = false;
   showIconEdit: boolean = false;
   showIconDelete: boolean = false;
@@ -103,7 +78,6 @@ export class OrdersComponent implements OnInit {
       this.orderItems = res;
     });
   }
-
 
   brandNames: any;
   categoryTypes: any;
@@ -173,7 +147,6 @@ export class OrdersComponent implements OnInit {
   closeDot(e: any, i: any) {
     this.currentid = i;
     var x = e.target.parentNode.nextElementSibling;
-    // console.log("THREE DOTS:: ",e.target.parentNode.nextElementSibling);
     if (x.style.display == 'none') {
       x.style.display = 'block';
     } else {
