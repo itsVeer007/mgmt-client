@@ -75,12 +75,12 @@
           </th> -->
 
           <th>
-            <span>Vendor Id</span>
+            <span>Id</span>
             <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
-            <span>Vendor Name</span>
+            <span>Name</span>
             <img (click)="sort('name')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
@@ -143,7 +143,13 @@
             <p (click)="listVendorsById(cust)" class="pointer">View</p>
 
             <ng-template #itemsDialog>
-              <p *ngFor="let item of itemDetail">{{item.name}}</p>
+              <div style="background-color: #084982;">
+                <p class="dialog-title">view items</p>
+              </div>
+
+              <mat-dialog-content>
+                <p class="px-5" *ngFor="let item of itemDetail">{{item.name}}</p>
+              </mat-dialog-content>
             </ng-template>
           </td>
 

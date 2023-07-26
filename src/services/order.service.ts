@@ -59,7 +59,7 @@ export class OrderService {
 
   updateOrderItem(payload: any) {
     let url = this.baseUrl + '/updateOrderItem_1_0';
-    let params = new HttpParams().set('id', payload.id).set('productQuantity', payload.productQuantity).set('by', payload.by).set('remarks', payload.remarks);
+    let params = new HttpParams().set('id', payload.id).set('productQuantity', payload.productQuantity).set('by', payload.by);
     return this.http.put(url, null, {params: params})
   }
 

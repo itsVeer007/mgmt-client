@@ -18,11 +18,6 @@ export class InventoryService {
     return this.http.get(url);
   }
 
-  getWarranty(id: any) {
-    let url = this.baseUrl + `/listWarranty_1_0/${id}`;
-    return this.http.get(url);
-  }
-
   listInventoryByProductId(productId: any) {
     let url = this.baseUrl + `/listInventoryByProductId_1_0?productId=${productId}`;
     return this.http.get(url);
@@ -33,13 +28,13 @@ export class InventoryService {
     let payload1;
     let payload2;
     let payload3;
-    if(condition == 'Yes') {
+    if(condition == 'Y') {
       payload1 = payload.inventory,
-      payload2 = payload.serialnos,
+      payload2 = payload.serialnos.split(',').map((value: any) => value.trim()),
       payload3 = payload.warranty
     } else {
       payload1 = payload.inventory,
-      payload2 = payload.serialnos
+      payload2 = payload.serialnos.split(',').map((value: any) => value.trim())
     }
     const requestBody = {
       'inventory': payload1,
@@ -61,6 +56,13 @@ export class InventoryService {
     return this.http.delete(url);
   }
 
+
+  /* warrenty */
+
+  getWarranty(id: any) {
+    let url = this.baseUrl + `/listWarranty_1_0/${id}`;
+    return this.http.get(url);
+  }
 
   updateWarranty(payload: any) {
     let url = this.baseUrl + '/updateWarranty_1_0';

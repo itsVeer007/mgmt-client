@@ -80,6 +80,8 @@
     <div class="filter-search-btn col-lg-1 col-md-1">
       <button (click)="applyFilter()">Submit</button>
     </div>
+
+    <div class="col-lg-3"></div>
   <!-- /form -->
 
   <!-- table starts -->
@@ -154,7 +156,7 @@
             <p style="cursor: pointer;" (click)="openOrderItems(cust)">View</p>
           </td>
 
-          <td class="text-center">
+          <td class="table-icons">
             <!-- <a (click)="closeDot($event, i)" class="pointer"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
 
             <div class="plus-img1" id="plus-img{{i}}" style="display: none">
@@ -378,7 +380,7 @@
 
     <ng-template #updateOrderDialog>
       <div style="background-color: #084982;">
-        <p class="dialog-title m-0">modify order-item</p>
+        <p class="dialog-title">modify order-item</p>
       </div>
 
       <mat-dialog-content>
@@ -418,17 +420,20 @@
     </ng-template>
 
     <ng-template #deleteOrderItemsDialog>
-      <div class="d-flex justify-content-between">
-        <p>Delete Row</p>
+      <div style="background-color: #084982;">
+        <p class="dialog-title">delete order-item</p>
       </div>
-      <div class="text-center">Do you want to delete this item?</div>
+
+      <mat-dialog-content>
+        <div class="text-center">Do you want to delete this item?</div>
+      </mat-dialog-content>
 
       <div class="d-flex align-items-center justify-content-end">
         <div mat-dialog-actions class="me-2">
           <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
         </div>
         <div mat-dialog-actions>
-          <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="deleteOrderItem()">OK</button>
+          <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="deleteOrderItem()">Delete</button>
         </div>
       </div>
     </ng-template>

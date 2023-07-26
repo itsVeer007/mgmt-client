@@ -111,7 +111,7 @@ export class OrdersComponent implements OnInit {
     }, []);
   }
 
-  vendorStatus: any
+  vendorStatus: any;
   onGetMetadata() {
     this.metaDatSer.getMetadata().subscribe((res: any) => {
       // console.log(res);
@@ -281,10 +281,9 @@ export class OrdersComponent implements OnInit {
 
   updateOrderItem() {
     this.originalObject = {
-      'orderId': this.currentItem.id,
+      'id': this.currentItem.id,
       'productQuantity': this.currentItem.productQuantity,
-      'by': 1,
-      'remarks': this.currentItem.remarks
+      'by': 1
     }
 
     this.alertSer.wait();

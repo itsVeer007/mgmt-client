@@ -83,7 +83,7 @@ export class FrComponent implements OnInit {
   openTasksDialog() {
     // this.dialog.open(this.tasksDialog, {maxWidth: '550px', maxHeight: '250px'});
     this.ticketSer.listFRTasksOfCurrentVisit(1565).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       this.tasks = res;
     })
   }
@@ -102,7 +102,7 @@ export class FrComponent implements OnInit {
   }
 
   logTaskStatus(item: any, status: any) {
-    console.log(status)
+    // console.log(status)
     // this.alertSer.wait();
     let myObj = {
       'taskId': item.id,
@@ -143,7 +143,7 @@ export class FrComponent implements OnInit {
 
   fieldVisitExit() {
     this.ticketSer.fieldVisitExit(this.fieldExitBody).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       this.alertSer.success(res);
     })
   }

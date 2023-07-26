@@ -156,7 +156,7 @@
       <button (click)="applyFilter()">Submit</button>
     </div>
 
-    <div class="col-lg-1 col-md-1">
+    <div class="col-lg-2 col-md-2">
       <!-- <mat-form-field class="example-form-field" appearance="outline" class="w-100">
         <mat-label>Search</mat-label>
         <input matInput type="text"  [(ngModel)]="searchText">
@@ -341,39 +341,42 @@
               : cust.inventoryStatusId == 6 ? '#fa500f'
               : ''"
               (click)="openEditStatus(cust.id)"
+              style="cursor: pointer;"
             >
               {{ cust.inventoryStatus }}
             </p>
 
             <ng-template #editStatusDialog>
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-label>New SerialNo</mat-label>
-                <input matInput [(ngModel)]="statusObj.newProductSerialNo">
-              </mat-form-field>
+              <div style="background-color: #084982;">
+                <p class="dialog-title">view status</p>
+              </div>
 
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Edit Status</mat-label>
-                <mat-select [(ngModel)]="statusObj.statusId">
-                  <mat-option *ngFor="let item of inventoryStatus" [value]="item.keyId">{{ item.value }}</mat-option>
-                </mat-select>
-              </mat-form-field>
+              <mat-dialog-content>
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>New SerialNo</mat-label>
+                  <input matInput [(ngModel)]="statusObj.newProductSerialNo">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Edit Status</mat-label>
+                  <mat-select [(ngModel)]="statusObj.statusId">
+                    <mat-option *ngFor="let item of inventoryStatus" [value]="item.keyId">{{ item.value }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </mat-dialog-content>
 
               <div class="d-flex align-items-center justify-content-end">
                 <div mat-dialog-actions class="me-2">
-                  <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124;" mat-dialog-close>
-                    Close
-                  </button>
+                  <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
                 </div>
                 <div mat-dialog-actions>
-                  <button mat-stroked-button style="color: #084982; border: 1px solid #084982;" mat-dialog-close (click)="changeAssetStatus()" [disabled]="statusObj.statusId == null">
-                    Submit
-                  </button>
+                  <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="changeAssetStatus()" [disabled]="statusObj.statusId == null">Update</button>
                 </div>
               </div>
             </ng-template>
           </td>
 
-          <td class="text-center">
+          <td class="table-icons">
             <!-- <a (click)="closeDot($event, i)" class="pointer"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
 
             <div class="plus-img1" id="plus-img{{i}}" style="display: none">

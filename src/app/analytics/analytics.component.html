@@ -114,7 +114,7 @@
         </div>
       </form>
     </div>
-    <div class="col-lg-2 col-md-2 table-icons" style="position: relative">
+    <div class="col-lg-2 col-md-2" style="position: relative">
       <div class="lists" *ngIf="showIconView" style="margin-right: 60px; margin-top: -40px">
         View
       </div>
@@ -207,7 +207,7 @@
           <td style="position: relative">
             <a (click)="closeDot($event, i)"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
 
-            <div class="plus-img1" id="plus-img{{ i }}" style="display: none">
+            <div class="plus-img1" id="plus-img{{i}}" style="display: none">
               <div class="lists" *ngIf="showIconView1" style="margin-left: 5px; margin-top: -20px">
                 View
               </div>

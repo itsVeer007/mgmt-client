@@ -149,37 +149,37 @@
           </th>
 
           <th>
-            <span>siteName</span>
+            <span>Site name</span>
             <img (click)="sort('siteId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
-            <span>ticketReason</span>
+            <span>Reason</span>
             <img (click)="sort('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
-            <span>ticketType</span>
+            <span>Type</span>
             <img (click)="sort('priorityId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
-            <span>ticketAttendedBy</span>
+            <span>Attended by</span>
             <img (click)="sort('requestedBy')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
-            <span>ticketRaisedDate</span>
+            <span>Raised date</span>
             <img (click)="sort('assignedTo')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
-            <span>ticketClosedDate</span>
+            <span>Closed date</span>
             <img (click)="sort('sourceOfRequestId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
-            <span>ticketStatus</span>
+            <span>Status</span>
             <img (click)="sort('closedTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
@@ -299,7 +299,7 @@
             <p>{{ cust.rectificationRemarks }}</p>
           </td> -->
 
-          <td class="text-center">
+          <td class="table-icons">
             <!-- <a class="pointer" (click)="closeDot($event, i)"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
             <div class="plus-img1" id="plus-img{{ i }}" style="display: none">
               <div class="lists" *ngIf="showIconView1" style="margin-left: 5px; margin-top: -20px">
@@ -316,13 +316,13 @@
               <img src="assets/icons/view.svg" (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false">
             </a>
 
-            <!-- <a class="mx-1 pointer" (click)="openEditPopup(cust)">
+            <a class="mx-1 pointer" (click)="openEditPopup(cust)">
               <img src="assets/icons/edit.svg" (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false">
             </a>
 
             <a class="mx-1 pointer" value="Delete" (click)="openDeletePopup(cust)">
               <img src="assets/icons/delete.svg"(mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false">
-            </a> -->
+            </a>
           </td>
         </tr>
       </tbody>

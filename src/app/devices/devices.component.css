@@ -93,56 +93,9 @@ form button {
   opacity: 0.9;
 }
 
-.table thead {
-  background-image: linear-gradient(to right, #084982 , #D34124);
-  color: #fff;
-  padding: 0px;
-}
-
-.table tbody tr td {
-  text-align: left;
-  font-size: 12px;
-  padding: 0;
-}
-
-.form1 {
-background-image: linear-gradient(to right, #084982, #D34124);
-background-size: cover;
-border-radius: 5px;
-margin-top: 20px;
-position: -webkit-sticky;
-position: sticky;
-top: 0;
-font-weight: 100;
-z-index: 1;
-}
-
-.form1 th{
-color: #fff;
-padding: 10px;
-font-size: 12px;
-text-align: left;
-vertical-align: middle;
-}
-
 .table-resp{
-max-height: calc(100vh - (375px));
-overflow-y: scroll;
-}
-
-
-.table tbody tr td {
-vertical-align: middle;
-height: 36px;
-padding: 0 10px;
-}
-
-.table tbody tr td p {
-margin: 2px 0;
-}
-
-.table tbody tr td input {
-margin: 2px 10px;
+  max-height: calc(100vh - (375px));
+  overflow-y: scroll;
 }
 
 .dot {

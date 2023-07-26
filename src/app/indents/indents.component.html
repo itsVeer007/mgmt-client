@@ -18,14 +18,35 @@
     <div class="col-lg-1 col-md-1 col-sm-1 d-flex justify-content-start">
       <div class="vl-green"></div>
       <div class="mx-2">
-        <div class="status">Active</div>
+        <div class="status">Requested</div>
         <div class="count">{{ active?.length }}</div>
       </div>
     </div>
     <div class="col-lg-1 col-md-1 col-sm-1 d-flex justify-content-start">
       <div class="vl-red"></div>
       <div class="mx-2">
-        <div class="status">Inactive</div>
+        <div class="status">Dispatched</div>
+        <div class="count">{{ indentTable?.length - active?.length }}</div>
+      </div>
+    </div>
+    <div class="col-lg-1 col-md-1 col-sm-1 d-flex justify-content-start">
+      <div class="vl-red"></div>
+      <div class="mx-2">
+        <div class="status">Received</div>
+        <div class="count">{{ indentTable?.length - active?.length }}</div>
+      </div>
+    </div>
+    <div class="col-lg-1 col-md-1 col-sm-1 d-flex justify-content-start">
+      <div class="vl-red"></div>
+      <div class="mx-2">
+        <div class="status">Installed</div>
+        <div class="count">{{ indentTable?.length - active?.length }}</div>
+      </div>
+    </div>
+    <div class="col-lg-1 col-md-1 col-sm-1 d-flex justify-content-start">
+      <div class="vl-red"></div>
+      <div class="mx-2">
+        <div class="status">Returned</div>
         <div class="count">{{ indentTable?.length - active?.length }}</div>
       </div>
     </div>
@@ -116,25 +137,25 @@
           </th>
 
           <th>
-            <span>jobOrTicketId</span>
+            <span>Ticket id</span>
             <img (click)="sort('name')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
-            <span>productName</span>
+            <span>Product name</span>
             <img (click)="sort('productName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
-            <span>indentedDate</span>
+            <span>Indented date</span>
           </th>
 
           <th>
-            <span>Central Box</span>
+            <span>Central box</span>
           </th>
 
           <th>
-            <span>statusId</span>
+            <span>Status</span>
           </th>
 
           <th class="text-center">Actions</th>
@@ -176,7 +197,7 @@
             <p>{{ cust.statusId == 1 ? "Requested" : cust.statusId == 2 ? "Dispatched" : cust.statusId == 3 ? "Received" : cust.statusId == 4 ? "Installed" : cust.statusId == 5 ? "Returned" : '' }}</p>
           </td>
 
-          <td class="text-center">
+          <td class="table-icons">
             <!-- <a (click)="closeDot($event, i)" class="pointer"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
 
             <div class="plus-img1" id="plus-img{{i}}" style="display: none">
@@ -241,14 +262,14 @@
 
           <div class="col-lg-6">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Invoice</mat-label>
-              <input matInput [(ngModel)]="currentItem.invoiceNo" disabled>
+              <mat-label>jobOrTicketId</mat-label>
+              <input matInput [(ngModel)]="currentItem.jobOrTicketId" disabled>
             </mat-form-field>
           </div>
 
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
-              <input matInput [matDatepicker]="picker1" placeholder="Order Placed" [(ngModel)]="currentItem.orderPlaced" disabled>
+              <input matInput [matDatepicker]="picker1" placeholder="indentedDate" [(ngModel)]="currentItem.indentedDate" disabled>
               <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
               <mat-datepicker #picker1></mat-datepicker>
             </mat-form-field>
@@ -256,8 +277,17 @@
 
           <div class="col-lg-6">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Vendor</mat-label>
-              <input matInput [(ngModel)]="currentItem.vendor" disabled>
+              <mat-label>productName</mat-label>
+              <input matInput [(ngModel)]="currentItem.productName" disabled>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>inventoryId</mat-label>
+              <mat-select [(ngModel)]="currentItem.statusId" disabled>
+                <mat-option *ngFor="let item of indentStatus" [value]="item.keyId">{{ item.value }}</mat-option>
+              </mat-select>
             </mat-form-field>
           </div>
         </div>
