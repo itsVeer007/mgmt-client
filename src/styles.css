@@ -2,6 +2,10 @@ body {
   font-family: ms, sans-serif, Arial, Helvetica !important;
 }
 
+p {
+  margin: 0 !important;
+}
+
 .pointer {
   cursor: pointer;
   text-decoration: none;
@@ -58,7 +62,6 @@ body {
 .add-form {
   margin-top: 0 !important;
   background-color: #fff;
-
   /* max-height: calc(110vh - (200px));
   background: none repeat scroll 0 0 ;
   overflow-y: scroll;
@@ -276,14 +279,14 @@ th:nth-child(1) {
   display: block;
   border-radius: 34px;
   background-color: #fff;
-  border: 1px solid #0f630c;
+  border: 1px solid green;
   transition: background-color 0.4s;
 }
 
 .on-off-toggle__slider:before {
   content: '';
   display: block;
-  background-color: #972525;
+  background-color: red;
   /* box-shadow: 0 0 0 1px #949494; */
   bottom: 5px;
   height: 15px;
@@ -302,7 +305,7 @@ th:nth-child(1) {
   font-size: 12px;
   font-weight: bold;
   content: 'NO' ;
-  color: #972525;
+  color: red;
   padding-left: 26px;
   transition: all 0.4s;
 }
@@ -316,18 +319,18 @@ th:nth-child(1) {
 .on-off-toggle__input:checked +
 .on-off-toggle__slider {
   background-color: #fff;
-  border: 1px solid #0f630c;
+  border: 1px solid green;
 }
 
 .on-off-toggle__input +
 .on-off-toggle__slider {
   background-color: #F8F8F8;
-  border: 1px solid #972525;
+  border: 1px solid red;
 }
 
 .on-off-toggle__input:checked + :before {
   transform: translateX(32px);
-    background-color: #0f630c;
+    background-color: green;
 }
 .on-off-toggle__input:checked + :after {
   content: 'YES';

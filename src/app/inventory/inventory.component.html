@@ -6,78 +6,78 @@
     <!-- count -->
     <div class="col-lg-6">
       <p>Total Inventory - <span>{{ inventoryTable.length }}</span></p>
-      <div class="row">
-        <div class="col-lg-2 d-flex justify-content-start">
-          <div class="vl-yellow"></div>
-          <div class="mx-2">
+      <div class="inventory-status">
+        <div>
+          <!-- <div class="vl-yellow"></div> -->
+          <div class="m-1 p-1" style="border-left: 2.5px solid green; min-width: 80px">
             <div class="status">In-Stock</div>
             <div class="count">{{ inStock?.length }}</div>
           </div>
         </div>
 
-        <!-- <div class="col-lg-2 d-flex justify-content-start">
-          <div class="vl-yellow"></div>
-          <div class="mx-2">
+        <div>
+          <!-- <div class="vl-yellow"></div> -->
+          <div class="m-1 p-1" style="border-left: 2.5px solid palevioletred; min-width: 80px">
             <div class="status">Dispatched</div>
-            <div class="count">{{ inStock?.length }}</div>
+            <div class="count">{{ installed?.length }}</div>
           </div>
         </div>
 
-        <div class="col-lg-2 d-flex justify-content-start">
-          <div class="vl-green"></div>
-          <div class="mx-2">
+        <div>
+          <!-- <div class="vl-green"></div> -->
+          <div class="m-1 p-1" style="border-left: 2.5px solid greenyellow; min-width: 80px">
             <div class="status">Installed</div>
             <div class="count">{{ installed.length }}</div>
           </div>
         </div>
 
-        <div class="col-lg-2 d-flex justify-content-start">
-          <div class="vl-green"></div>
-          <div class="mx-2">
+        <div>
+          <!-- <div class="vl-green"></div> -->
+          <div class="m-1 p-1" style="border-left: 2.5px solid pink; min-width: 80px">
             <div class="status">Returned</div>
             <div class="count">{{ installed.length }}</div>
           </div>
         </div>
 
-        <div class="col-lg-2 d-flex justify-content-start">
-          <div class="vl-green"></div>
-          <div class="mx-2">
+        <div>
+          <!-- <div class="vl-green"></div> -->
+          <div class="m-1 p-1" style="border-left: 2.5px solid orange; min-width: 80px">
             <div class="status">Replaced</div>
             <div class="count">{{ installed.length }}</div>
           </div>
         </div>
 
-        <div class="col-lg-2 d-flex justify-content-start">
-          <div class="vl-violet"></div>
-          <div class="mx-2">
+        <div>
+          <!-- <div class="vl-violet"></div> -->
+          <div class="m-1 p-1" style="border-left: 2.5px solid red; min-width: 80px">
             <div class="status">Removed</div>
-            <div class="count">20</div>
+            <div class="count">{{ installed.length }}</div>
           </div>
         </div>
 
-        <div class="col-lg-2 d-flex justify-content-start">
-          <div class="vl-orange"></div>
-          <div class="mx-2">
+        <div>
+          <!-- <div class="vl-orange"></div> -->
+          <div class="m-1 p-1" style="border-left: 2.5px solid black; min-width: 80px">
             <div class="status">Refurbished</div>
-            <div class="count">50</div>
+            <div class="count">{{ installed.length }}</div>
           </div>
         </div>
 
-        <div class="col-lg-2 d-flex justify-content-start">
-          <div class="vl-red"></div>
-          <div class="mx-2">
+        <div>
+          <!-- <div class="vl-red"></div> -->
+          <div class="m-1 p-1" style="border-left: 2.5px solid gray; min-width: 80px">
             <div class="status">Scrap</div>
             <div class="count">{{ scrap.length }}</div>
           </div>
         </div>
 
-        <div class="col-lg-2 d-flex justify-content-start">
-          <div class="vl-greay"></div>
-          <div class="mx-2">
+        <div>
+          <!-- <div class="vl-greay"></div> -->
+          <div class="m-1 p-1" style="border-left: 2.5px solid rosybrown; min-width: 120px;">
             <div class="status">Warranty Replaced</div>
             <div class="count">{{ redyToUse.length }}</div>
           </div>
-        </div> -->
+        </div>
       </div>
     </div>
     <!-- /count -->
