@@ -12,8 +12,8 @@ export class TicketService {
 
   constructor(private http: HttpClient) { }
 
-  baseUrl = `${environment.baseUrl}/tickets`;
-  // baseUrl = 'http://192.168.0.189:8080';
+  // baseUrl = `${environment.baseUrl}/tickets`;
+  baseUrl = 'http://192.168.0.189:8080';
 
   getTickets() {
     let url = this.baseUrl + "/listTickets_1_0";

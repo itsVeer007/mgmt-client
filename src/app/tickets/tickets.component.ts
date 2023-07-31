@@ -97,13 +97,13 @@ export class TicketsComponent implements OnInit {
       this.newTicketData = this.ticketData;
 
       for(let item of this.ticketData) {
-        if(item.statusId == 1) {
+        if(item.ticketStatus == 'Open') {
           this.ticketOpen.push(item)
-        } else if(item.statusId == 2) {
+        } else if(item.ticketStatus == 'Inprogress') {
           this.ticketProgress.push(item)
-        } else if(item.statusId == 3) {
+        } else if(item.ticketStatus == 'Closed') {
           this.ticketClose.push(item)
-        } else if(item.statusId == 4) {
+        } else if(item.ticketStatus == 'Rejected') {
           this.ticketRejected.push(item)
         }
       }
