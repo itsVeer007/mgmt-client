@@ -181,16 +181,16 @@
   <!-- table starts -->
   <div class="table-resp">
     <table class="table table-hover" id="mytable">
-      <tbody>
+      <thead>
         <tr class="form1">
           <!-- <th>
-            <input type="checkbox" class="form-check-input" [(ngModel)]="selectedAll" (change)="selectAll()"
-              id="allcheck" style="
-                background-color: #00000000;
-                border-color: #fff;
-                margin-left: 10px;
-              " />
-          </th> -->
+              <input type="checkbox" class="form-check-input" [(ngModel)]="selectedAll" (change)="selectAll()"
+                id="allcheck" style="
+                  background-color: #00000000;
+                  border-color: #fff;
+                  margin-left: 10px;
+                " />
+            </th> -->
 
           <th>
             <span>Id</span>
@@ -214,17 +214,17 @@
 
           <th>
             <span>Model</span>
-            <img (click)="sort('productModelId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <img (click)="sort('model')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
             <span>Serial No</span>
-            <img (click)="sort('productModelId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <img (click)="sort('serialNo')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
             <span>Category</span>
-            <img (click)="sort('productCategoryId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <img (click)="sort('category')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
@@ -233,8 +233,8 @@
           </th>
 
           <th>
-            <span>Created Time</span>
-            <img (click)="sort('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <span>Created time</span>
+            <img (click)="sort('createdDate')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
@@ -259,7 +259,9 @@
 
           <th class="text-center">Actions</th>
         </tr>
+      </thead>
 
+        <tbody>
         <tr *ngFor="let cust of newInventoryTable | search : searchText; let i = index" (dblclick)="openViewPopup(cust)">
           <!-- <td>
             <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="cust.selected" (change)="
