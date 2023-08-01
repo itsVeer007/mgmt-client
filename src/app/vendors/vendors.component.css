@@ -279,6 +279,10 @@ border: 1px solid #fff;
 
 
 /* ng-deep */
+::ng-deep .mat-badge {
+ left: 100px;
+ top: 8px;
+}
 
 
 /* common mat-button */

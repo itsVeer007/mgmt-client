@@ -146,7 +146,6 @@
               <div style="background-color: #084982;">
                 <p class="dialog-title">view items</p>
               </div>
-
               <mat-dialog-content>
                 <p class="px-5" *ngFor="let item of itemDetail">{{item.name}}</p>
               </mat-dialog-content>
@@ -154,10 +153,11 @@
           </td>
 
           <td style="width: 200px;">
+            <span [matBadge]="'+' + cust.parteners" matBadgeColor="warn" matBadgePosition="after" matBadgeSize="small">&nbsp;</span>
             {{ cust.proprietor1 }}
             <a style="text-decoration: none; cursor: pointer; color: #000;" *ngIf="cust.parteners != 0" (click)="openProprietorDialog(cust)">
               <p>
-                <span [matBadge]="'+' + cust.parteners" matBadgeColor="warn" matBadgePosition="after" matBadgeSize="small">&nbsp;</span>
+
               </p>
             </a>
 
