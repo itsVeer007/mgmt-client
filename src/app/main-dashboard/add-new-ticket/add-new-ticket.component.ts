@@ -32,17 +32,8 @@ import Swal from 'sweetalert2';
 })
 export class AddNewTicketComponent implements OnInit {
 
-  @Input() show:any;
   @Output() newItemEvent = new EventEmitter<boolean>();
-
-  // @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
-  //   var x = <HTMLElement>document.getElementById(`camera`);
-  //   if (x != null) {
-  //     if (!x.contains(e.target)) {
-  //       this.closeAddCamera(false);
-  //     }
-  //   }
-  // }
+  @Output() addTicket = new EventEmitter<any>();
 
   addAssetForm: any = FormGroup;
 
@@ -83,13 +74,16 @@ export class AddNewTicketComponent implements OnInit {
     let takBody = {
       'categoryId': item.categoryId,
       'subCategoryId': item.subCategoryId,
-      'description': item.description,
       'priorityId': item.priorityId,
       'reasonId': item.reasonId,
       'createdBy': 1,
     }
-
     this.tasks.push(takBody);
+
+    this.ticketBody.tasks[0].categoryId = null;
+    this.ticketBody.tasks[0].subCategoryId = null;
+    this.ticketBody.tasks[0].priorityId = null;
+    this.ticketBody.tasks[0].reasonId = null;
   }
 
   siteIds: any
@@ -147,22 +141,24 @@ export class AddNewTicketComponent implements OnInit {
 
   closeAddCamera() {
     this.newItemEvent.emit(false);
+    // this.addTicket.emit();
   }
 
   addNewAsset() {
-    console.log(this.ticketBody);
-    this.ticketBody.tasks = this.tasks;
+    // console.log(this.ticketBody);
     if(this.addAssetForm.valid) {
-      this.newItemEvent.emit(false);
       this.alertSer.wait();
+      this.newItemEvent.emit(false);
+      this.ticketBody.tasks = this.tasks;
       this.ticketSer.createTicket(this.ticketBody).subscribe((res) => {
         // console.log(res);
         if(res) {
           this.alertSer.success(res);
+          // this.addTicket.emit();
         }
         setTimeout(() => {
           window.location.reload();
-        }, 3000);
+        }, 2000);
       }, (err: any) => {
         if(err) {
           this.alertSer.error();

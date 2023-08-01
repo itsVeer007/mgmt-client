@@ -16,7 +16,16 @@ export class FrComponent implements OnInit {
 
   ngOnInit(): void {
     // this.listFRSites();
+    this.listFRTickets();
     this.onGetMetadata();
+  }
+
+  frTickets: any
+  listFRTickets() {
+    this.ticketSer.listFRTickets().subscribe((res: any) => {
+      // console.log(res);
+      this.frTickets = res;
+    })
   }
 
   assignedTo: any;
@@ -35,6 +44,17 @@ export class FrComponent implements OnInit {
         }
       }
     })
+  }
+
+  @ViewChild('ticketTaskDialog') ticketTaskDialog = {} as TemplateRef<any>;
+  ticketTasks: any;
+  ticketVisits: any;
+  ticketComments: any = [];
+  openTicketTaskDialog(item: any) {
+    this.dialog.open(this.ticketTaskDialog, {maxHeight: '550px', maxWidth: '850px'});
+    this.ticketSer.getTasks(item.id).subscribe((tasks: any) => {
+      this.ticketTasks = tasks;
+    });
   }
 
   @ViewChild('viewSitesDialog') viewSitesDialog = {} as TemplateRef<any>;
@@ -101,6 +121,16 @@ export class FrComponent implements OnInit {
     // this.dialog.open(this.assignedDialog, {maxWidth: '550px', maxHeight: '250px'});
   }
 
+  @ViewChild('cnfrmStatusDialog') cnfrmStatusDialog = {} as TemplateRef<any>;
+
+  currentStatusItem: any;
+  currentStatusType: any;
+  openCnfrmStatusDialogt(item: any, type: any) {
+    this.currentStatusItem = item;
+    this.currentStatusType = type
+    this.dialog.open(this.cnfrmStatusDialog, {maxWidth: '550px', maxHeight: '550px'});
+  }
+
   logTaskStatus(item: any, status: any) {
     // console.log(status)
     // this.alertSer.wait();
@@ -119,7 +149,7 @@ export class FrComponent implements OnInit {
       }
       setTimeout(() => {
         // window.location.reload();
-      }, 3000)
+      }, 2000)
     }, (err: any) => {
         if(err) {
           // this.alertSer.error();
@@ -129,8 +159,8 @@ export class FrComponent implements OnInit {
 
   fieldExitBody = {
     frId: 1565,
-    travelAllowance: null,
-    foodAllowance: null,
+    // travelAllowance: null,
+    // foodAllowance: null,
     otherAllowance: null,
     remarks: null
   }

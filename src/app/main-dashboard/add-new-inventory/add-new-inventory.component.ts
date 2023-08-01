@@ -72,7 +72,8 @@ export class AddNewInventoryComponent implements OnInit {
       remarks: null
     },
 
-    serialnos: [],
+    quantity: null,
+    serialnos: '',
 
     warranty: {
       startDate: null,
@@ -92,6 +93,7 @@ export class AddNewInventoryComponent implements OnInit {
       'orderId': new FormControl('', Validators.required),
       'cost': new FormControl('', Validators.required),
       'serialnos': new FormControl(''),
+      'quantity': new FormControl('', Validators.required),
       'remarks': new FormControl(''),
 
       'wremarks': new FormControl(''),
@@ -123,23 +125,30 @@ export class AddNewInventoryComponent implements OnInit {
   arr: any = [];
   warrantyDetail: any = 'N';
   submit() {
-    this.arr.push(this.inventoryBody.serialnos)
-    this.inventoryBody.serialnos = this.arr;
-    console.log(this.inventoryBody)
+    // console.log(this.inventoryBody);
     if(this.UserForm.valid) {
+      this.alertSer.wait();
+      if(this.inventoryBody.serialnos == '') {
+        this.inventoryBody.serialnos = this.arr;
+      } else {
+        // this.inventoryBody.serialnos = this.inventoryBody.serialnos?.split(',').map((value: any) => value.trim());
+        this.arr.push(this.inventoryBody.serialnos?.split(',').map((value: any) => value.trim()));
+        this.inventoryBody.serialnos = this.arr[0];
+        // console.log(this.inventoryBody.serialnos);
+      }
 
       this.inventoryBody.warranty.startDate = this.datepipe.transform(this.inventoryBody.warranty.startDate, 'yyyy-MM-dd');
       this.inventoryBody.warranty.endDate = this.datepipe.transform(this.inventoryBody.warranty.endDate, 'yyyy-MM-dd');
-      this.alertSer.wait();
       this.newItemEvent.emit(false);
+
       this.inventorySer.createInventory(this.inventoryBody, this.warrantyDetail).subscribe((res: any) => {
         // console.log(res);
         if(res) {
           this.alertSer.success(res);
         }
         setTimeout(() => {
-          // window.location.reload();
-        }, 3000);
+          window.location.reload();
+        }, 2000);
       }, (err: any) => {
         if(err) {
           this.alertSer.error();

@@ -28,18 +28,27 @@ export class InventoryService {
     let payload1;
     let payload2;
     let payload3;
+
+    //optional
+    let payload4;
+
     if(condition == 'Y') {
-      payload1 = payload.inventory,
-      payload2 = payload.serialnos.split(',').map((value: any) => value.trim()),
-      payload3 = payload.warranty
+      payload1 = payload?.inventory,
+      payload2 = payload?.serialnos,
+      payload3 = payload?.quantity,
+
+      payload4 = payload?.warranty
     } else {
-      payload1 = payload.inventory,
-      payload2 = payload.serialnos.split(',').map((value: any) => value.trim())
+      payload1 = payload?.inventory,
+      payload2 = payload?.serialnos,
+      payload3 = payload?.quantity
     }
     const requestBody = {
       'inventory': payload1,
       'serialnos': payload2,
-      'warranty': payload3
+      'quantity': payload3,
+
+      'warranty': payload4
     };
 
     return this.http.post(url, requestBody)

@@ -132,10 +132,10 @@ export class OrdersComponent implements OnInit {
 
   applyFilter() {
     let myObj = {
-      vendorId: this.ovendorId ? this.ovendorId : -1,
-      InvoiceId: this.oinvoiceId ? this.oinvoiceId : '',
-      startDate: this.ostartDate ? this.ostartDate : '',
-      endDate: this.oendDate ? this.oendDate : '',
+      'vendorId': this.ovendorId ? this.ovendorId : -1,
+      'invoiceNo': this.oinvoiceId ? this.oinvoiceId : '',
+      'startDate': this.ostartDate ? this.ostartDate : '',
+      'endDate': this.oendDate ? this.oendDate : '',
     }
 
     this.orderSer.filteBody(myObj).subscribe((res: any) => {

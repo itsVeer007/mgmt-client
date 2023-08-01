@@ -35,13 +35,13 @@
         <div class="count">{{ ticketProgress?.length }}</div>
       </div>
     </div>
-    <div class="col-lg-1 col-md-1 d-flex justify-content-start">
+    <!-- <div class="col-lg-1 col-md-1 d-flex justify-content-start">
       <div class="vl-orange"></div>
       <div class="mx-2">
         <div class="status">Rejected</div>
         <div class="count">{{ ticketRejected?.length }}</div>
       </div>
-    </div>
+    </div> -->
     <div class="col-lg-1 col-md-1 d-flex justify-content-start">
       <div class="vl-red"></div>
       <div class="mx-2">
@@ -356,7 +356,141 @@
   </div>
 
   <mat-dialog-content>
-    {{currentItem.rectificationRemarks}}
+    <!-- {{currentItem.rectificationRemarks}} -->
+
+    <div class="row">
+      <div class="table-res col-lg-12">
+        <table class="table" id="mytable">
+          <thead>
+            <tr class="task-table">
+              <th>taskId</th>
+
+              <th>categoryId</th>
+
+              <th>subCategoryId</th>
+
+              <th>description</th>
+
+              <th>status</th>
+
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let cust of ticketTasks; let i = index">
+              <td>
+                <p>{{ cust.taskId }}</p>
+              </td>
+
+              <td>
+                <p>{{ cust.categoryId == 1 ? 'Camera' : cust.categoryId == 2 ? 'Assets' : '' }}</p>
+              </td>
+
+              <td>
+                <p>{{ cust.subCategoryId == 1 ? 'Site Down' : cust.subCategoryId == 2 ? 'Footage Required' : cust.subCategoryId == 3 ? 'Blank Screen' : ''  }}</p>
+              </td>
+
+              <td>
+                <p>{{ cust.description }}</p>
+              </td>
+
+              <td>
+                <p>{{ cust.statusId == 1 ? 'Open' : cust.statusId == 2 ? 'In-Progress' : cust.statusId == 3 ? 'Closed' : cust.statusId == 4 ? 'Rejected' : '' }}</p>
+              </td>
+
+              <td>
+                <a class="pointer" (click)="closeDot($event, i)"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
+                <div class="plus-img1" id="plus-img{{ i }}" style="display: none">
+                  <div class="lists" *ngIf="showIconView1" style="margin-left: 5px; margin-top: -20px">
+                    View
+                  </div>
+                  <div class="lists" *ngIf="showIconEdit1" style="margin-left: 38px; margin-top: -20px">
+                    Edit
+                  </div>
+                  <div class="lists" *ngIf="showIconDelete1" style="margin-left: 63px; margin-top: -20px">
+                    Delete
+                  </div>
+
+                  <a class="mx-2" (click)="openViewPopup(cust)"><img src="assets/icons/view.svg"
+                      (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" /></a>
+                  <a class="mx-2" (click)="openEditPopup(cust)"><img src="assets/icons/edit.svg"
+                      (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" /></a>
+                  <a class="mx-2" value="Delete" (click)="openDeletePopup(cust)"><img src="assets/icons/delete.svg"
+                      (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" /></a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-res col-lg-12">
+        <table class="table" id="mytable">
+          <thead>
+            <tr class="task-table">
+              <th>Id</th>
+
+              <th>Reason</th>
+
+              <th>Start Date</th>
+
+              <th>End Date</th>
+
+              <th>Remarks</th>
+
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let cust of ticketVisits; let i = index">
+              <td>
+                <p>{{ cust.id }}</p>
+              </td>
+
+              <td>
+                <p>{{ cust.reasonId }}</p>
+              </td>
+
+              <td>
+                <p>{{ cust.startDate }}</p>
+              </td>
+
+              <td>
+                <p>{{ cust.endDate }}</p>
+              </td>
+
+              <td>
+                <p>{{ cust.remarks }}</p>
+              </td>
+
+              <td>
+                <a class="pointer" (click)="closeDot($event, i)"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
+                <div class="plus-img1" id="plus-img{{ i }}" style="display: none">
+                  <div class="lists" *ngIf="showIconView1" style="margin-left: 5px; margin-top: -20px">
+                    View
+                  </div>
+                  <div class="lists" *ngIf="showIconEdit1" style="margin-left: 38px; margin-top: -20px">
+                    Edit
+                  </div>
+                  <div class="lists" *ngIf="showIconDelete1" style="margin-left: 63px; margin-top: -20px">
+                    Delete
+                  </div>
+
+                  <a class="mx-2" (click)="openViewPopup(cust)"><img src="assets/icons/view.svg"
+                      (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" /></a>
+                  <a class="mx-2" (click)="openEditPopup(cust)"><img src="assets/icons/edit.svg"
+                      (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" /></a>
+                  <a class="mx-2" value="Delete" (click)="openDeletePopup(cust)"><img src="assets/icons/delete.svg"
+                      (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" /></a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </mat-dialog-content>
 
   <div mat-dialog-actions>
@@ -492,5 +626,5 @@
 
 
 <div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showTicket">
-  <app-add-new-ticket [show]="showSite" (newItemEvent)="closenow($event, 'ticket')"></app-add-new-ticket>
+  <app-add-new-ticket (newItemEvent)="closenow($event, 'ticket')" (addTicket)="CustomerReport()"></app-add-new-ticket>
 </div>

@@ -218,60 +218,60 @@
               " id="singleCheck" />
           </td> -->
 
-          <td>
+          <td *ngIf="cust.statusId == 1">
             <p>{{ cust.id }}</p>
           </td>
 
-          <td>
+          <td *ngIf="cust.statusId == 1">
             <p>{{ cust.category }}</p>
           </td>
-          <td>
+          <td *ngIf="cust.statusId == 1">
             <p>{{ cust.name }}</p>
           </td>
 
-          <!-- <td>
+          <!-- <td *ngIf="cust.statusId == 1">
             <p>{{ cust.description }}</p>
           </td> -->
 
-          <td>
+          <td *ngIf="cust.statusId == 1">
             <p>{{ cust.uom }}</p>
           </td>
 
-          <td>
+          <td *ngIf="cust.statusId == 1">
             <p>{{ cust.model }}</p>
           </td>
 
-          <td>
+          <td *ngIf="cust.statusId == 1">
             <p>{{ cust.type }}</p>
           </td>
 
-          <td>
+          <td *ngIf="cust.statusId == 1">
             <p>{{ cust.cost }}</p>
           </td>
 
-          <td style="width: 200px;">
+          <td *ngIf="cust.statusId == 1" style="width: 200px;">
             <p>{{ cust.vendor }}</p>
           </td>
 
-          <!-- <td>
+          <!-- <td *ngIf="cust.statusId == 1">
             <p>{{ cust.purchaseLink }}</p>
           </td> -->
 
-          <td>
+          <td *ngIf="cust.statusId == 1">
             <p>{{ cust.returnable == "Y" ? 'Yes' : 'No' }}</p>
           </td>
 
-          <td>
+          <td *ngIf="cust.statusId == 1">
             <p>{{ cust.maintenanceRequired == 'Y' ? 'Yes' : 'No' }}</p>
           </td>
 
-          <td>
+          <td *ngIf="cust.statusId == 1">
             <p [style.color]="cust.statusId == 1 ? '#00A44C' : cust.statusId == 2 ? '#fa500f' : ''">
               {{ cust.status }}
             </p>
           </td>
 
-          <td class="table-icons">
+          <td *ngIf="cust.statusId == 1" class="table-icons">
             <!-- <a (click)="closeDot($event, i)" class="pointer"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
 
             <div class="plus-img1" id="plus-img{{i}}" style="display: none">
@@ -333,6 +333,20 @@
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Name</mat-label>
           <input matInput [(ngModel)]="currentItem.name" disabled>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Cost</mat-label>
+          <input matInput [(ngModel)]="currentItem.cost" disabled>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Model</mat-label>
+          <input matInput [(ngModel)]="currentItem.model" disabled>
         </mat-form-field>
       </div>
 

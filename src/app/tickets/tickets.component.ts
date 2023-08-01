@@ -103,9 +103,10 @@ export class TicketsComponent implements OnInit {
           this.ticketProgress.push(item)
         } else if(item.ticketStatus == 'Closed') {
           this.ticketClose.push(item)
-        } else if(item.ticketStatus == 'Rejected') {
-          this.ticketRejected.push(item)
         }
+        // else if(item.ticketStatus == 'Rejected') {
+        //   this.ticketRejected.push(item)
+        // }
       }
     })
   }
@@ -201,7 +202,6 @@ export class TicketsComponent implements OnInit {
   showAddCustomer = false;
   showAddUser = false;
   showAddBusinessVertical = false;
-  showSite = false;
 
   closenow(value: any, type: String) {
     if (type == 'ticket') { this.showTicket = value; }
@@ -226,24 +226,19 @@ export class TicketsComponent implements OnInit {
     this.currentItem = item;
     this.dialog.open(this.viewTicketDialog, {maxHeight: '550px', maxWidth: '850px'});
     // console.log(this.currentItem);
-    this.ticketSer.getTasks(item.ticketId).subscribe((tasks: any) => {
+    this.ticketSer.getTasks(item.id).subscribe((tasks: any) => {
       // console.log(res);
       this.ticketTasks = tasks;
     });
 
-    this.ticketSer.getTicketVisits(item.ticketId).subscribe((visits: any) => {
+    this.ticketSer.getTicketVisits(item.siteId).subscribe((visits: any) => {
       // console.log(res);
       this.ticketVisits = visits;
     });
 
-    this.ticketSer.getcomments(item.ticketId).subscribe((comments: any) => {
-      this.ticketComments = comments;
-    });
-
-    // this.ticketSer.comment$.subscribe((cmt: any) => {
-    //   console.log(cmt);
-    //   this.ticketComments = cmt;
-    // })
+    // this.ticketSer.getcomments(item.ticketId).subscribe((comments: any) => {
+    //   this.ticketComments = comments;
+    // });
   }
 
 

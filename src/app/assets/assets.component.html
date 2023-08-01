@@ -671,5 +671,5 @@
 
 
 <div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showAsset">
-  <app-add-new-asset (newItemEvent)="closenow($event, 'asset'); getSiteData()"></app-add-new-asset>
+  <app-add-new-asset (newItemEvent)="closenow($event, 'asset')" (dataAdded)="getSiteData()"></app-add-new-asset>
 </div>

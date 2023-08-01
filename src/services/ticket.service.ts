@@ -12,8 +12,8 @@ export class TicketService {
 
   constructor(private http: HttpClient) { }
 
-  // baseUrl = `${environment.baseUrl}/tickets`;
-  baseUrl = 'http://192.168.0.189:8080';
+  baseUrl = `${environment.baseUrl}/tickets`;
+  // baseUrl = 'http://192.168.0.189:8080';
 
   getTickets() {
     let url = this.baseUrl + "/listTickets_1_0";
@@ -35,6 +35,12 @@ export class TicketService {
     return this.http.delete(url);
   }
 
+  listFRTickets() {
+    let url = this.baseUrl + `/listFRTickets_1_0/${1565}`;
+    return this.http.get(url);
+  }
+
+
   getcomments(ticketId: any) {
     let url = this.baseUrl + "/getComments_1_0";
     let myObj = {
@@ -49,19 +55,19 @@ export class TicketService {
   }
 
   getTasks(ticketId: any) {
-    let url = this.baseUrl + "/getTasks_1_0";
-    let myObj = {
-      'ticketId': ticketId,
-    }
-    return this.http.get(url, {params: myObj});
+    let url = this.baseUrl + `/listTasks_1_0/${ticketId}`;
+    // let myObj = {
+    //   'ticketId': ticketId,
+    // }
+    return this.http.get(url);
   }
 
-  getTicketVisits(ticketId: any) {
-    let url = this.baseUrl + "/getTicketVisits_1_0";
-    let myObj = {
-      'ticketId': ticketId,
-    }
-    return this.http.get(url, {params: myObj});
+  getTicketVisits(siteId: any) {
+    let url = this.baseUrl + `/listFieldVisits_1_0/${siteId}`;
+    // let myObj = {
+    //   'ticketId': ticketId,
+    // }
+    return this.http.get(url);
   }
 
   assignTicket(payload: any) {
@@ -127,8 +133,8 @@ export class TicketService {
     let url = this.baseUrl + `/fieldVisitExit_1_0`;
     let myObj = {
       'frId': payload.frId,
-      'travelAllowance': payload.travelAllowance,
-      'foodAllowance': payload.foodAllowance,
+      // 'travelAllowance': payload.travelAllowance,
+      // 'foodAllowance': payload.foodAllowance,
       'otherAllowance': payload.otherAllowance,
       'remarks': payload.remarks
     }

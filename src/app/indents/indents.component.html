@@ -65,25 +65,27 @@
       </mat-form-field>
     </div> -->
 
-    <!-- <div class="col-lg-2 col-md-2">
+    <div class="col-lg-2 col-md-2">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Vendor Id</mat-label>
-        <mat-select [(ngModel)]="ovendorId">
-          <mat-option *ngFor="let item of vendorDetail" [value]="item.id">{{ item.name }}</mat-option>
+        <mat-label>Ticket Id</mat-label>
+        <mat-select [(ngModel)]="ojobOrTicketId">
+          <mat-option *ngFor="let item of newIndentTable" [value]="item.jobOrTicketId">{{ item.jobOrTicketId }}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
 
     <div class="col-lg-2 col-md-2">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Invoice</mat-label>
-        <input matInput [(ngModel)]="oinvoiceId">
+        <mat-label>Product</mat-label>
+        <mat-select [(ngModel)]="oproductId">
+          <mat-option *ngFor="let item of newIndentTable" [value]="item.productId">{{ item.productName }}</mat-option>
+        </mat-select>
       </mat-form-field>
     </div>
 
     <div class="col-lg-2 col-md-2">
       <mat-form-field appearance="outline" class="w-100">
-        <input matInput [matDatepicker]="picker1" placeholder="From" [(ngModel)]="ostartDate">
+        <input matInput [matDatepicker]="picker1" placeholder="Created from" [(ngModel)]="ostartDate">
         <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
       </mat-form-field>
@@ -91,15 +93,24 @@
 
     <div class="col-lg-2 col-md-2">
       <mat-form-field appearance="outline" class="w-100">
-        <input matInput [matDatepicker]="picker2" placeholder="To" [(ngModel)]="oendDate">
+        <input matInput [matDatepicker]="picker2" placeholder="Created to" [(ngModel)]="oendDate">
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
       </mat-form-field>
     </div>
 
+    <div class="col-lg-2 col-md-2">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Status</mat-label>
+        <mat-select [(ngModel)]="ostatus">
+          <mat-option *ngFor="let item of indentStatus" [value]="item.keyId">{{ item.value }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
     <div class="filter-search-btn col-lg-1 col-md-1">
       <button (click)="applyFilter()">Submit</button>
-    </div> -->
+    </div>
 
     <!-- <div class="filter-search-btn col-lg-2 col-sm-12">
       <button (click)="applyFilter()">Submit</button>
@@ -150,9 +161,9 @@
             <span>Indented date</span>
           </th>
 
-          <th>
+          <!-- <th>
             <span>Central box</span>
-          </th>
+          </th> -->
 
           <th>
             <span>Status</span>
@@ -189,9 +200,9 @@
             <p>{{ cust.indentedDate }}</p>
           </td>
 
-          <td>
+          <!-- <td>
             <a class="pointer" (click)="openCreateOrder()"><img src="assets/icons/add.svg" width="40"></a>
-          </td>
+          </td> -->
 
           <td>
             <p>{{ cust.statusId == 1 ? "Requested" : cust.statusId == 2 ? "Dispatched" : cust.statusId == 3 ? "Received" : cust.statusId == 4 ? "Installed" : cust.statusId == 5 ? "Returned" : '' }}</p>

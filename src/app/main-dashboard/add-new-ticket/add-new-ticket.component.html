@@ -11,13 +11,13 @@
 
     <!-- Form -->
     <div>
-      <form autocomplete="off" [formGroup]="addAssetForm">
+      <form autocomplete="off" [formGroup]="addAssetForm" (ngSubmit)="addNewAsset()">
         <div class="row" *ngFor="let item of ticketBody.tasks; let i = index">
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>typeId</mat-label>
               <mat-select formControlName="typeId" [(ngModel)]="ticketBody.ticket.typeId">
-                <mat-option *ngFor="let item of ticketType" [value]="item.keyId">{{ item.value }}</mat-option>
+                <mat-option *ngFor="let val of ticketType" [value]="val.keyId">{{ val.value }}</mat-option>
               </mat-select>
               <mat-error class="mt-1">typeId is required</mat-error>
             </mat-form-field>
@@ -43,7 +43,7 @@
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>siteId</mat-label>
               <mat-select formControlName="siteId" [(ngModel)]="ticketBody.ticket.siteId">
-                <mat-option *ngFor="let item of siteIds" [value]="item.siteid">{{ item.siteid }} - {{ item.siteShortName }}</mat-option>
+                <mat-option *ngFor="let id of siteIds" [value]="id.siteid">{{ id.siteid }} - {{ id.siteShortName }}</mat-option>
               </mat-select>
               <mat-error class="mt-1">siteId is required</mat-error>
             </mat-form-field>
@@ -53,7 +53,7 @@
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>informedThrough</mat-label>
               <mat-select formControlName="informedThrough" [(ngModel)]="ticketBody.ticket.informedThrough">
-                <mat-option *ngFor="let item of sourceOfRequest" [value]="item.keyId">{{ item.value }}</mat-option>
+                <mat-option *ngFor="let val of sourceOfRequest" [value]="val.keyId">{{ val.value }}</mat-option>
               </mat-select>
               <mat-error class="mt-1">informedThrough is required</mat-error>
             </mat-form-field>
@@ -69,7 +69,7 @@
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>ticketCategory</mat-label>
               <mat-select formControlName="categoryId" [(ngModel)]="ticketBody.tasks[i].categoryId">
-                <mat-option *ngFor="let item of ticketCategory" [value]="item.keyId">{{ item.value }}</mat-option>
+                <mat-option *ngFor="let val of ticketCategory" [value]="val.keyId">{{ val.value }}</mat-option>
               </mat-select>
               <mat-error class="mt-1">categoryId is required</mat-error>
             </mat-form-field>
@@ -79,7 +79,7 @@
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>subCategoryId</mat-label>
               <mat-select formControlName="subCategoryId" [(ngModel)]="ticketBody.tasks[i].subCategoryId">
-                <mat-option *ngFor="let item of ticketSubCategory" [value]="item.keyId">{{ item.value }}</mat-option>
+                <mat-option *ngFor="let val of ticketSubCategory" [value]="val.keyId">{{ val.value }}</mat-option>
               </mat-select>
               <mat-error class="mt-1">subCategoryId is required</mat-error>
             </mat-form-field>
@@ -89,7 +89,7 @@
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>reasonId</mat-label>
               <mat-select formControlName="reasonId" [(ngModel)]="ticketBody.tasks[i].reasonId">
-                <mat-option *ngFor="let item of taskReason" [value]="item.keyId">{{ item.value }}</mat-option>
+                <mat-option *ngFor="let val of taskReason" [value]="val.keyId">{{ val.value }}</mat-option>
               </mat-select>
               <mat-error class="mt-1">reasonId is required</mat-error>
             </mat-form-field>
@@ -99,7 +99,7 @@
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>priorityId</mat-label>
               <mat-select formControlName="priorityId" [(ngModel)]="ticketBody.tasks[i].priorityId">
-                <mat-option *ngFor="let item of ticketPriority" [value]="item.keyId">{{ item.value }}</mat-option>
+                <mat-option *ngFor="let val of ticketPriority" [value]="val.keyId">{{ val.value }}</mat-option>
               </mat-select>
               <mat-error class="mt-1">priorityId is required</mat-error>
             </mat-form-field>
@@ -118,23 +118,24 @@
           </div>
 
           <div class="col-lg-12 col-md-12 mt-2" *ngIf="tasks.length > 0">
-            <div class="list-header d-flex justify-content-between">
-              <p>categoryId</p>
-              <p>subCategoryId</p>
-              <p>priorityId</p>
-              <p>reasonId</p>
+            <div class="list-header row">
+              <p class="col-lg-2">Category</p>
+              <p class="col-lg-3">Sub category</p>
+              <p class="col-lg-2">Priority</p>
+              <p class="col-lg-2">Reason</p>
             </div>
-            <div *ngFor="let item of tasks" class="list-item d-flex justify-content-between">
-              <p>{{ item.categoryId }}</p>
-              <p>{{ item.subCategoryId }}</p>
-              <p>{{ item.priorityId }}</p>
-              <p>{{ item.reasonId }}</p>
+
+            <div *ngFor="let task of tasks" class="list-item row">
+              <p class="col-lg-2">{{ task.categoryId == 1 ? 'Assets' : task.categoryId == 2 ? 'Camers' : '' }}</p>
+              <p class="col-lg-3">{{ task.subCategoryId == 1 ? 'Site Down' : task.subCategoryId == 2 ? 'Footage Required' : task.subCategoryId == 3 ? 'Screen Blank' : task.subCategoryId == 4 ? 'Add not playing' : '' }}</p>
+              <p class="col-lg-2">{{ task.priorityId == 1 ? 'Low' : task.priorityId == 2 ? 'Medium' : task.priorityId == 3 ? 'High' : '' }}</p>
+              <p class="col-lg-4">{{ task.reasonId == 1 ? 'No streem from camera' : task.reasonId == 2 ? 'Want new camers' : '' }}</p>
             </div>
           </div>
           <!-- /tasks -->
 
           <div class="text-center my-3">
-            <button class="btn add-btn" (click)="addNewAsset()">CREATE</button>
+            <button class="btn add-btn">CREATE</button>
           </div>
         </div>
       </form>

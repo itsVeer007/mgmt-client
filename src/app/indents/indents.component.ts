@@ -140,20 +140,22 @@ export class IndentsComponent implements OnInit {
     })
   }
 
-  ovendorId: any = null;
-  oinvoiceId: any = null;
+  ojobOrTicketId: any = null;
+  oproductId: any = null;
+  ostatus: any = null;
   ostartDate: any = null;
   oendDate: any = null;
 
   applyFilter() {
     let myObj = {
-      vendorId: this.ovendorId ? this.ovendorId : -1,
-      InvoiceId: this.oinvoiceId ? this.oinvoiceId : '',
+      jobOrTicketId: this.ojobOrTicketId ? this.ojobOrTicketId : -1,
+      productId: this.oproductId ? this.oproductId : -1,
+      status: this.ostatus ? this.ostatus : -1,
       startDate: this.ostartDate ? this.ostartDate : '',
-      endDate: this.oendDate ? this.oendDate : '',
+      endDate: this.oendDate ? this.oendDate : ''
     }
 
-    this.orderSer.filteBody(myObj).subscribe((res: any) => {
+    this.indentSer.filteBody(myObj).subscribe((res: any) => {
       this.newIndentTable = res;
     })
   }

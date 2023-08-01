@@ -16,14 +16,14 @@ import Swal from 'sweetalert2';
   animations:[
     trigger("inOutPaneAnimation", [
       transition(":enter", [
-        style({ opacity: 0, transform: "translateX(100%)" }), //apply default styles before animation starts
+        style({ opacity: 0, transform: "translateX(100%)" }),
         animate(
           "750ms ease-in-out",
           style({ opacity: 1, transform: "translateX(0)" })
         )
       ]),
       transition(":leave", [
-        style({ opacity: 1, transform: "translateX(0)" }), //apply default styles before animation starts
+        style({ opacity: 1, transform: "translateX(0)" }),
         animate(
           "600ms ease-in-out",
           style({ opacity: 0, transform: "translateX(100%)" })
@@ -36,23 +36,16 @@ export class AddNewAssetComponent implements OnInit {
 
   // @Input() data: any;
   @Output() newItemEvent = new EventEmitter<any>();
-  // @Output() dataAdded = new EventEmitter<any>();
-
-  // @Output() newUser = new EventEmitter<any>();
+  @Output() dataAdded = new EventEmitter<any>();
 
   // @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
     //   var x = <HTMLElement>document.getElementById(`camera`);
     //   if (x != null) {
-      //     if (!x.contains(e.target)) {
-        //       this.closeAddCamera(false);
-        //     }
-        //   }
-        // }
-
-  addAssetForm: any = FormGroup;
-  searchText: any;
-  currentDate = new Date();
-  // loading: boolean = false;
+    //     if (!x.contains(e.target)) {
+    //       this.closeAddCamera(false);
+    //     }
+    //   }
+    // }
 
   constructor(
     private router: Router,
@@ -62,7 +55,11 @@ export class AddNewAssetComponent implements OnInit {
     private alertSer: AlertService,
     private siteService: SiteService,
     private devService: DeviceService
-    ) { }
+  ) { }
+
+    addAssetForm: any = FormGroup;
+    searchText: any;
+    currentDate = new Date();
 
 
   /* Asset Object */
@@ -156,10 +153,6 @@ export class AddNewAssetComponent implements OnInit {
     this.devService.listDeviceAdsInfo().subscribe((res: any) => {
       const assets = res.flatMap((item: any) => item.adsDevices);
       // console.log(assets);
-
-      // for(let item of assets) {
-      //   this.x = item.siteId;
-      // }
       this.deviceIdList = assets;
     })
   }
@@ -190,13 +183,6 @@ export class AddNewAssetComponent implements OnInit {
   closeForm() {
     this.newItemEvent.emit(false);
   }
-
-  // openAnotherForm(newform:any) {
-  //   this.newItemEvent.emit(false);
-  //   localStorage.setItem('opennewform', newform);
-  //   this.closeAddCamera(false);
-  // }
-
 
   /* metadata methods */
 
@@ -269,10 +255,10 @@ export class AddNewAssetComponent implements OnInit {
 
   submit: boolean = false;
   addNewAsset() {
-    this.assetData.asset.deviceId = this.deviceIdFromStorage;
-    this.newItemEvent.emit(this.deviceIdFromStorage);
-    this.submit = true;
     // console.log(this.assetData);
+    this.assetData.asset.deviceId = this.deviceIdFromStorage;
+    // this.newItemEvent.emit(this.deviceIdFromStorage);
+    this.submit = true;
 
     if(this.addAssetForm.valid) {
       this.newItemEvent.emit(false);
@@ -281,11 +267,12 @@ export class AddNewAssetComponent implements OnInit {
         // console.log(res);
         if(res) {
           this.alertSer.success(res);
-          this.newItemEvent.emit();
+          // this.dataAdded.emit();
         }
-        // setTimeout(() => {
-        //   window.location.reload();
-        // }, 3000);
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
         }, (err: any) => {
           if(err) {
             this.alertSer.error();

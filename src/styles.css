@@ -282,6 +282,7 @@ th:nth-child(1) {
   background-color: #fff;
   border: 1px solid green;
   transition: background-color 0.4s;
+  cursor: pointer;
 }
 
 .on-off-toggle__slider:before {
