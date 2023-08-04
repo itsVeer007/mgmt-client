@@ -32,26 +32,26 @@ export class AssetService {
   //   return this.http.get(url, {params: myObj});
   // }
 
-  getAssets() {
+  listAssets() {
     let url = this.baseUrl + "/listAssets_1_0";
     return this.http.get(url);
-  }
-
-  getAssetByDevId(devId: any) {
-    let url = this.baseUrl + "/listAssets_1_0";
-
-    let myObj = {
-      deviceId: devId
-    };
-
-    return this.http.get(url, { params: myObj });
   }
 
   getAssetBySiteId(siteId: any) {
     let url = this.baseUrl + "/listAssets_1_0";
 
     let myObj = {
-      siteId: siteId
+      'siteId': siteId
+    };
+
+    return this.http.get(url, { params: myObj });
+  }
+
+  getAssetByDevId(devId: any) {
+    let url = this.baseUrl + "/listAssets_1_0";
+
+    let myObj = {
+      'deviceId': devId
     };
 
     return this.http.get(url, { params: myObj });

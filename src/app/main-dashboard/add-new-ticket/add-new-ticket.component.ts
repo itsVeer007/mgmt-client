@@ -139,16 +139,15 @@ export class AddNewTicketComponent implements OnInit {
       })
     }
 
-  closeAddCamera() {
-    this.newItemEvent.emit(false);
-    // this.addTicket.emit();
+  closeTicket() {
+    this.newItemEvent.emit();
   }
 
   addNewAsset() {
     // console.log(this.ticketBody);
     if(this.addAssetForm.valid) {
       this.alertSer.wait();
-      this.newItemEvent.emit(false);
+      this.newItemEvent.emit();
       this.ticketBody.tasks = this.tasks;
       this.ticketSer.createTicket(this.ticketBody).subscribe((res) => {
         // console.log(res);

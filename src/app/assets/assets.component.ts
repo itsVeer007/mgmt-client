@@ -109,7 +109,7 @@ export class AssetsComponent implements OnInit {
     })
 
     this.showLoader = true;
-    this.assetService.getAssets().subscribe((res: any) => {
+    this.assetService.listAssets().subscribe((res: any) => {
       this.showLoader = false;
       let x = res.flatMap((item: any) => item.assets);
       this.newAssetTable = x;
@@ -155,7 +155,7 @@ export class AssetsComponent implements OnInit {
   filterSiteId(data: any) {
     if(data == 'All') {
       this.showLoader = true;
-      this.assetService.getAssets().subscribe((res: any) => {
+      this.assetService.listAssets().subscribe((res: any) => {
         this.showLoader = false;
         let x = res.flatMap((item: any) => item.assets);
         this.newAssetTable = x;

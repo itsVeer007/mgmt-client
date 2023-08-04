@@ -1,7 +1,5 @@
-
-
 .users {
-  margin-top:80px;
+  margin-top: 80px;
 }
 
 .users-header {
@@ -15,7 +13,7 @@
 }
 
 .users-header span {
-  color:#28231D ;
+  color:#28231D;
   font-size: 20px;
 }
 
@@ -29,8 +27,8 @@
   height: 40px;
 }
 
-.vl-orange {
-  border-left: 2px solid #f37e11;
+.vl-blue {
+  border-left: 2px solid #1b86e9;
   height: 40px;
 }
 
@@ -43,54 +41,13 @@
   font-size: 12px;
   color: #28231D;
   letter-spacing: 0.5px;
+  width: 120px;
 }
 
 .count {
   font-size: 18px;
   color: #000000;
   font-weight: 600;
-}
-
-form .select {
-  width: 200px;
-  height: 40px;
-}
-
-form .form-select {
-  background-color: #F8F8F8;
-  border: 1px solid #EFEFEF;
-  font-size: 12px;
-  color: #000000;
-}
-
-form .search {
-  border: 1px solid #EFEFEF;
-  border-radius: 30px;
-  width: 250px;
-  height: 45px;
-}
-
-form input, button {
-  border: none;
-  padding: 10px;
-  font-size: 12px;
-}
-
-form input {
-  width: 80%;
-  border-radius: 30px;
-  color: #ABABAB;
-  outline: none;
-  margin-top: 2px;
-}
-
-form button {
-  width: 20%;
-  background: none;
-}
-
-.task-table {
-  font-size: 12px;
 }
 
 .dot {
@@ -100,17 +57,17 @@ form button {
   border-radius: 8px;
   background-color: red;
   margin: auto;
-  box-shadow: 0px 0px 5px 2px rgba(207,39,39,0.61);
+  box-shadow: 0px 0px 5px 2px rgba(207, 39, 39, 0.61);
   border: 1px solid #fff;
 }
 
-.form-check-input{
+.form-check-input {
   height: 1.2rem;
   width: 1.2rem;
 }
 
 .icons-site {
-  background-image: linear-gradient(to right, #084982 , #D34124);
+  background-image: linear-gradient(to right, #084982, #D34124);
   position: absolute;
   margin-top: 8px;
   margin-left: -205px;
@@ -131,7 +88,7 @@ form button {
   color: #d34124;
 }
 
-.plus-img:after{
+.plus-img:after {
   content: "";
   position: absolute;
   top: 17px;
@@ -140,7 +97,6 @@ form button {
   margin-top: -5px;
   border-width: 5px;
   border-style: solid;
-  /* border-color: transparent transparent transparent #EFEFEF; */
   box-shadow: -1px -1px 1px 0 #fff;
   color: #fff;
   border-right: 1px solid #EFEFEF;
@@ -161,7 +117,7 @@ form button {
   align-items: center;
 }
 
-.plus-img1:after{
+.plus-img1:after {
   content: "";
   position: absolute;
   top: 17px;
@@ -176,22 +132,20 @@ form button {
   border-top: 1px solid #EFEFEF;
 }
 
+.info {
+  position: absolute;
+  left: 150px;
+  top: 35px;
+  width: 100px;
+  text-align: center;
+  background-color: gray;
+  border-radius: 5px;
+}
+
 .search-form {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* margin: 10px 0; */
-}
-
-.filter-search-btn button{
-  margin-bottom: 10px;
-  background-color: #084982;
-  color: #ffffff;
-  border-radius: 5px;
-}
-
-.filter-search-btn button:hover{
-  opacity: 0.9;
 }
 
 
@@ -199,30 +153,34 @@ form button {
   .search-form {
     display: flex;
     flex-direction: column;
-    align-items: stretch;
   }
 
   .search {
-      width: 186px;
+    width: 186px;
   }
+
   form {
-      display: flex;
-      flex-wrap: nowrap;
-      margin-bottom: 10px;
+    display: flex;
+    flex-wrap: nowrap;
+    margin-bottom: 10px;
   }
+
   .table-resp {
-      font-size: 10px;
+    font-size: 10px;
   }
-  .table tbody tr th, .table tbody tr td {
-      padding: 5px;
+
+  .table tbody tr th,
+  .table tbody tr td {
+    padding: 5px;
   }
 
 }
 
 
-/* ng-deep */
-::ng-deep .mat-flat-button.mat-primary {
-  background-color: #084982;
+/* common ng-deep */
+::ng-deep .from-date .mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 0;
+  display: inline-flex;
 }
 
 /* common mat-button */
@@ -285,52 +243,3 @@ form button {
 ::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
   color: #084982!important;
 }
-
-
-
-
-
-
-.container {
-  /* border: 2px solid #dedede; */
-  background-color: #f1f1f1;
-  border-radius: 5px;
-  /* padding: 10px; */
-  margin: 5px 0;
-}
-
-.darker {
-  border-color: #ccc;
-  background-color: #ddd;
-}
-
-.container::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-
-.container img {
-  float: left;
-  max-width: 60px;
-  /* width: 100%; */
-  margin-right: 20px;
-  border-radius: 50%;
-}
-
-.container img.right {
-  float: right;
-  margin-left: 20px;
-  margin-right:0;
-}
-
-.time-right {
-  float: right;
-  color: #aaa;
-}
-
-.time-left {
-  float: left;
-  color: #999;
-}
-

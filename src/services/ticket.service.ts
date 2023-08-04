@@ -15,7 +15,7 @@ export class TicketService {
   baseUrl = `${environment.baseUrl}/tickets`;
   // baseUrl = 'http://192.168.0.189:8080';
 
-  getTickets() {
+  listTickets() {
     let url = this.baseUrl + "/listTickets_1_0";
     return this.http.get(url);
   }

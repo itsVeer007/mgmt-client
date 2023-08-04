@@ -65,40 +65,54 @@ export class AddProductMasterComponent implements OnInit {
   UserForm: any =  FormGroup;
 
   prductMasterObj = {
-    categoryId: null,
-    typeId: null,
-    name: null,
-    // quantity: null,
-    uomId: null,
-    cost: null,
-    vendorId: null,
-    createdBy: 1,
+    // categoryId: null,
+    // typeId: null,
+    // name: null,
+    // uomId: null,
+    // cost: null,
+    // vendorId: null,
+    // createdBy: 1,
 
-    model: null,
-    description: null,
-    returnable: "N",
-    maintenanceRequired: "N",
-    purchaseLink: null,
-    remarks: null
+    // model: null,
+    // description: null,
+    // returnable: "N",
+    // maintenanceRequired: "N",
+    // purchaseLink: null,
+    // remarks: null
+
+    //new
+    materialDescription: null,
+    uomId: null,
+    partType: null,
+    partCategory: null,
+    partCode: null,
+    buildType: null
   }
 
 
   ngOnInit() {
     this.UserForm = this.fb.group({
-      'categoryId': new FormControl('', Validators.required),
-      'typeId': new FormControl('', Validators.required),
-      'name': new FormControl('', Validators.required),
-      // 'quantity': new FormControl('', Validators.required),
-      'uomId': new FormControl('', Validators.required),
-      'cost': new FormControl('', Validators.required),
-      'vendorId': new FormControl('', Validators.required),
+      // 'categoryId': new FormControl('', Validators.required),
+      // 'typeId': new FormControl('', Validators.required),
+      // 'name': new FormControl('', Validators.required),
+      // 'uomId': new FormControl('', Validators.required),
+      // 'cost': new FormControl('', Validators.required),
+      // 'vendorId': new FormControl('', Validators.required),
 
-      'model': new FormControl(''),
-      'description': new FormControl(''),
-      'returnable': new FormControl(''),
-      'maintenanceRequired': new FormControl(''),
-      'purchaseLink': new FormControl(''),
-      'remarks': new FormControl('')
+      // 'model': new FormControl(''),
+      // 'description': new FormControl(''),
+      // 'returnable': new FormControl(''),
+      // 'maintenanceRequired': new FormControl(''),
+      // 'purchaseLink': new FormControl(''),
+      // 'remarks': new FormControl('')
+
+      //new
+      'materialDescription': new FormControl(''),
+      'uomId': new FormControl(''),
+      'partType': new FormControl(''),
+      'partCategory': new FormControl(''),
+      'partCode': new FormControl(''),
+      'buildType': new FormControl('')
     });
 
     this.ongetDeviceMode();
@@ -118,7 +132,11 @@ export class AddProductMasterComponent implements OnInit {
   /* metadata filter */
   productCategory: any;
   productType: any;
-  uom: any;
+  uomId: any;
+  partType: any;
+  partCode: any;
+  partCategory: any;
+  buildType: any;
   ongetDeviceMode() {
     this.metadataSer.getMetadata().subscribe((res: any) => {
       for(let item of res) {
@@ -127,7 +145,15 @@ export class AddProductMasterComponent implements OnInit {
         } else if(item.type == 'Product_Type') {
           this.productType = item.metadata;
         } else if(item.type == 'uom') {
-          this.uom = item.metadata;
+          this.uomId = item.metadata;
+        } else if(item.type == 'part_type') {
+          this.partType = item.metadata;
+        } else if(item.type == 'part_code') {
+          this.partCode = item.metadata;
+        } else if(item.type == 'part_category') {
+          this.partCategory = item.metadata;
+        } else if(item.type == 'build_type') {
+          this.buildType = item.metadata;
         }
       }
     })

@@ -93,7 +93,7 @@ export class ProductMasterComponent implements OnInit {
   }
 
   brandNames: any;
-  categoryTypes: any;
+  productTypes: any;
   // statusVal: any;
   removeDuplicates() {
     this.brandNames = this.productMaster.reduce((acc: any, current: any) => {
@@ -105,7 +105,7 @@ export class ProductMasterComponent implements OnInit {
       }
     }, []);
 
-    this.categoryTypes = this.productMaster.reduce((acc: any, current: any) => {
+    this.productTypes = this.productMaster.reduce((acc: any, current: any) => {
       const x = acc.find((item: any) => item.typeId == current.typeId);
       if (!x) {
         return acc.concat([current]);
@@ -124,24 +124,26 @@ export class ProductMasterComponent implements OnInit {
     // }, []);
   }
 
-  categoryId: any = '';
-  typeId: any = '';
-  statusId: any = '';
-  startDate: any = '';
-  endDate: any = '';
-  vendorId: any = '';
+  filterBody = {
+    categoryId:  '',
+    typeId:  '',
+    statusId:  '',
+    startDate:  '',
+    endDate:  '',
+    vendorId:  ''
+  }
 
   applyFilter() {
-    let myObj = {
-      'categoryId': this.categoryId ? this.categoryId : -1,
-      'typeId': this.typeId ? this.typeId : -1,
-      'statusId': this.statusId ? this.statusId : -1,
-      'startDate': this.startDate ? this.startDate : '',
-      'endDate': this.endDate ? this.endDate : '',
-      'vendorId': this.vendorId ? this.vendorId : ''
-    }
+    // let myObj = {
+    //   'categoryId': this.categoryId ? this.categoryId : -1,
+    //   'typeId': this.typeId ? this.typeId : -1,
+    //   'statusId': this.statusId ? this.statusId : -1,
+    //   'startDate': this.startDate ? this.startDate : '',
+    //   'endDate': this.endDate ? this.endDate : '',
+    //   'vendorId': this.vendorId ? this.vendorId : ''
+    // }
 
-    this.productMasterSer.filteBody(myObj).subscribe((res: any) => {
+    this.productMasterSer.filteBody(this.filterBody).subscribe((res: any) => {
       // console.log(res);
       this.newProductMaster = res;
     })

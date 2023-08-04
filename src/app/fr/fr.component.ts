@@ -46,6 +46,14 @@ export class FrComponent implements OnInit {
     })
   }
 
+  showIndent: boolean = false;
+  show(type: string) {
+    if (type == 'indent') { this.showIndent = true }
+  }
+  closenow(type: String) {
+    if (type == 'indent') { this.showIndent = false }
+  }
+
   @ViewChild('ticketTaskDialog') ticketTaskDialog = {} as TemplateRef<any>;
   ticketTasks: any;
   ticketVisits: any;
