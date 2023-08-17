@@ -43,7 +43,7 @@
     <div class="col-lg-2 col-md-2 col-sm-12">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Category</mat-label>
-        <mat-select (focus)="removeDuplicates()" [(ngModel)]="categoryId">
+        <mat-select (focus)="removeDuplicates()" [(ngModel)]="filterBody.categoryId">
           <mat-option value="">All</mat-option>
           <mat-option *ngFor="let item of brandNames" [value]="item.categoryId">{{ item.categoryId }} - {{ item.category }}</mat-option>
         </mat-select>
@@ -53,9 +53,9 @@
     <div class="col-lg-2 col-md-2 col-sm-12">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Product Type</mat-label>
-        <mat-select (focus)="removeDuplicates()" [(ngModel)]="typeId">
+        <mat-select (focus)="removeDuplicates()" [(ngModel)]="filterBody.typeId">
           <mat-option value="">All</mat-option>
-          <mat-option *ngFor="let item of categoryTypes" [value]="item.typeId">{{ item.typeId }} - {{ item.type }}</mat-option>
+          <mat-option *ngFor="let item of productTypes" [value]="item.typeId">{{ item.typeId }} - {{ item.type }}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
@@ -63,7 +63,7 @@
     <div class="col-lg-2 col-md-2 col-sm-12">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Vendor</mat-label>
-        <mat-select [(ngModel)]="vendorId">
+        <mat-select [(ngModel)]="filterBody.vendorId">
           <mat-option value="">All</mat-option>
           <mat-option *ngFor="let item of vendorDetail" [value]="item.id">{{ item.name }}</mat-option>
         </mat-select>
@@ -73,7 +73,7 @@
     <div class="col-lg-1 col-md-1 col-sm-12">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Status</mat-label>
-        <mat-select (focus)="removeDuplicates()" [(ngModel)]="statusId">
+        <mat-select (focus)="removeDuplicates()" [(ngModel)]="filterBody.statusId">
           <mat-option value="">All</mat-option>
           <mat-option *ngFor="let item of productStatus" [value]="item.keyId">{{ item.value }}</mat-option>
         </mat-select>
@@ -82,7 +82,7 @@
 
     <div class="col-lg-2 col-md-2 col-sm-12">
       <mat-form-field appearance="outline" class="w-100">
-        <input matInput [matDatepicker]="picker1" placeholder="Created from" [(ngModel)]="startDate">
+        <input matInput [matDatepicker]="picker1" placeholder="Created from" [(ngModel)]="filterBody.startDate">
         <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
       </mat-form-field>
@@ -90,7 +90,7 @@
 
     <div class="col-lg-2 col-md-2 col-sm-12">
       <mat-form-field appearance="outline" class="w-100">
-        <input matInput [matDatepicker]="picker2" placeholder="Created to" [(ngModel)]="endDate">
+        <input matInput [matDatepicker]="picker2" placeholder="Created to" [(ngModel)]="filterBody.endDate">
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
       </mat-form-field>
@@ -138,70 +138,81 @@
           </th> -->
 
           <th>
-            <span>Id</span>
-            <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <p>
+              <span>id</span>
+              <img (click)="sort('id')" class="pointer" src="assets/icons/sorticon.svg" width="15px">
+            </p>
           </th>
 
           <th>
-            <span>Category</span>
-            <img (click)="sort('productCategoryId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <p>
+              <span>description</span>
+              <img (click)="sort('productCategoryId')" class="pointer" src="assets/icons/sorticon.svg" width="15px">
+            </p>
           </th>
 
           <th>
-            <span>Name</span>
-            <img (click)="sort('name')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <p>
+              <span>uom</span>
+              <img (click)="sort('productModelId')" class="pointer" src="assets/icons/sorticon.svg" width="15px">
+            </p>
+          </th>
+
+          <th>
+            <p>
+              <span>partType</span>
+              <img (click)="sort('name')" class="pointer" src="assets/icons/sorticon.svg" width="15px">
+            </p>
+          </th>
+
+          <th>
+            <p>
+              <span>partCategory</span>
+              <img (click)="sort('uomId')" class="pointer" src="assets/icons/sorticon.svg" width="15px">
+            </p>
+          </th>
+
+
+          <th>
+            <p>
+              <span>buildType</span>
+              <img (click)="sort('productModelId')" class="pointer" src="assets/icons/sorticon.svg" width="15px">
+            </p>
+          </th>
+
+          <th>
+            <p>
+              <span>partCode</span>
+              <img (click)="sort('productTypeId')" class="pointer" src="assets/icons/sorticon.svg" width="15px">
+            </p>
+          </th>
+
+          <th>
+            <p>
+              <span>suggestedItemCode</span>
+              <img (click)="sort('cost')" class="pointer" src="assets/icons/sorticon.svg" width="15px">
+            </p>
           </th>
 
           <!-- <th>
-            <span>Description</span>
-            <img (click)="sort('productCategory')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-          </th> -->
-
-          <th>
-            <span>UOM</span>
-            <img (click)="sort('uomId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-          </th>
-
-
-          <th>
-            <span>Model</span>
-            <img (click)="sort('productModelId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-          </th>
-
-          <th>
-            <span>Type</span>
-            <img (click)="sort('productTypeId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-          </th>
-
-          <th>
-            <span>Cost</span>
-            <img (click)="sort('cost')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-          </th>
-
-          <th>
             <span>Vendor</span>
-            <img (click)="sort('purchaseVendorId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <img (click)="sort('purchaseVendorId')" class="pointer" src="assets/icons/sorticon.svg" width="15px">
           </th>
-
-          <!-- <th>
-            <span>Purchase Link</span>
-            <img (click)="sort('productName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-          </th> -->
 
           <th>
             <span>Returnable</span>
-            <img (click)="sort('productName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <img (click)="sort('productName')" class="pointer" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
             <span>Maint Req</span>
-            <img (click)="sort('productName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <img (click)="sort('productName')" class="pointer" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
             <span>Status</span>
-            <img (click)="sort('productStatusId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-          </th>
+            <img (click)="sort('productStatusId')" class="pointer" src="assets/icons/sorticon.svg" width="15px">
+          </th> -->
 
           <th class="text-center">Actions</th>
         </tr>
@@ -218,60 +229,56 @@
               " id="singleCheck" />
           </td> -->
 
-          <td *ngIf="cust.statusId == 1">
-            <p>{{ cust.id }}</p>
+          <td>
+            <p>{{ cust.slNo }}</p>
           </td>
 
-          <td *ngIf="cust.statusId == 1">
-            <p>{{ cust.category }}</p>
+          <td>
+            <p>{{ cust.materialDescription }}</p>
           </td>
-          <td *ngIf="cust.statusId == 1">
-            <p>{{ cust.name }}</p>
+          <td>
+            <p>{{ cust.uomId }}</p>
           </td>
 
-          <!-- <td *ngIf="cust.statusId == 1">
+          <!-- <td>
             <p>{{ cust.description }}</p>
           </td> -->
 
-          <td *ngIf="cust.statusId == 1">
-            <p>{{ cust.uom }}</p>
+          <td>
+            <p>{{ cust.partType }}</p>
           </td>
 
-          <td *ngIf="cust.statusId == 1">
-            <p>{{ cust.model }}</p>
+          <td>
+            <p>{{ cust.partCategory }}</p>
           </td>
 
-          <td *ngIf="cust.statusId == 1">
-            <p>{{ cust.type }}</p>
+          <td>
+            <p>{{ cust.buildType }}</p>
           </td>
 
-          <td *ngIf="cust.statusId == 1">
-            <p>{{ cust.cost }}</p>
+          <td>
+            <p>{{ cust.partCode }}</p>
           </td>
 
-          <td *ngIf="cust.statusId == 1" style="width: 200px;">
-            <p>{{ cust.vendor }}</p>
+          <td>
+            <p>{{ cust.suggestedItemCode }}</p>
           </td>
 
-          <!-- <td *ngIf="cust.statusId == 1">
-            <p>{{ cust.purchaseLink }}</p>
-          </td> -->
-
-          <td *ngIf="cust.statusId == 1">
+          <!-- <td>
             <p>{{ cust.returnable == "Y" ? 'Yes' : 'No' }}</p>
           </td>
 
-          <td *ngIf="cust.statusId == 1">
+          <td>
             <p>{{ cust.maintenanceRequired == 'Y' ? 'Yes' : 'No' }}</p>
           </td>
 
-          <td *ngIf="cust.statusId == 1">
+          <td>
             <p [style.color]="cust.statusId == 1 ? '#00A44C' : cust.statusId == 2 ? '#fa500f' : ''">
               {{ cust.status }}
             </p>
-          </td>
+          </td> -->
 
-          <td *ngIf="cust.statusId == 1" class="table-icons">
+          <td class="table-icons">
             <!-- <a (click)="closeDot($event, i)" class="pointer"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
 
             <div class="plus-img1" id="plus-img{{i}}" style="display: none">

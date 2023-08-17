@@ -11,93 +11,133 @@
 
   <!-- Form -->
   <div>
-    <form autocomplete="off" [formGroup]="UserForm" #addUserForm="ngForm" (ngSubmit)="submit()">
+    <div class="row" style="padding: 0 46px;">
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>partType</mat-label>
+          <mat-select [(ngModel)]="itemCodeBody.partType">
+            <mat-option *ngFor="let item of partType" [value]="item.keyId">{{ item.value }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6 col-md-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>partCategory</mat-label>
+          <mat-select [(ngModel)]="itemCodeBody.partCategory">
+            <mat-option *ngFor="let item of partCategory" [value]="item.keyId">{{ item.value }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-5">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>partCode</mat-label>
+          <mat-select [(ngModel)]="itemCodeBody.partCode">
+            <mat-option *ngFor="let item of partCode" [value]="item.keyId">{{ item.value }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-5">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>buildType</mat-label>
+          <mat-select [(ngModel)]="itemCodeBody.buildType">
+            <mat-option *ngFor="let item of buildType" [value]="item.keyId">{{ item.value }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <button mat-stroked-button class="mt-2" style="color: #084982" (click)="listItemCode()">Submit</button>
+      </div>
+    </div>
+
+    <form autocomplete="off" [formGroup]="UserForm" #addUserForm="ngForm">
       <div class="row">
         <div class="col-lg-6 col-md-6">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>productId</mat-label>
-            <mat-select formControlName="productId" [(ngModel)]="inventoryBody.inventory.productId">
-              <mat-option *ngFor="let item of productIds" [value]="item.id">{{ item.id }} - {{ item.name }}</mat-option>
+            <mat-label>name</mat-label>
+            <mat-select formControlName="name" [(ngModel)]="inventoryBody.inventory.name">
+              <mat-option *ngFor="let item of name" [value]="item.name">{{ item.name }}</mat-option>
             </mat-select>
-            <mat-error class="mt-1">Brand is required</mat-error>
-          </mat-form-field>
-        </div>
-
-        <div class="col-lg-6 col-md-6 d-flex my-1 escalation">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Quantity</mat-label>
-            <input matInput type="number" formControlName="quantity" [(ngModel)]="inventoryBody.quantity">
-            <mat-error class="mt-1">Quantity is required</mat-error>
-          </mat-form-field>
-        </div>
-
-        <div class="col-lg-6 col-md-6">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>orderId</mat-label>
-            <mat-select formControlName="orderId" [(ngModel)]="inventoryBody.inventory.orderId">
-              <mat-option *ngFor="let item of orderIds" [value]="item.id">{{ item.id }}</mat-option>
-            </mat-select>
-            <mat-error class="mt-1">Brand is required</mat-error>
+            <mat-error class="mt-1">name is required</mat-error>
           </mat-form-field>
         </div>
 
         <!-- <div class="col-lg-6 col-md-6">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>quantity</mat-label>
-            <input matInput type="number" formControlName="quantity" [(ngModel)]="inventoryBody.inv.quantity">
-            <mat-error class="mt-1">Product is required</mat-error>
+            <mat-label>itemCode</mat-label>
+            <mat-select formControlName="itemCode" [(ngModel)]="itemCode">
+              <mat-option *ngFor="let item of productData" [value]="item.suggestedItemCode">{{ item.suggestedItemCode }}</mat-option>
+            </mat-select>
+            <mat-error class="mt-1">itemCode is required</mat-error>
           </mat-form-field>
         </div> -->
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>itemCode</mat-label>
+            <input matInput formControlName="itemCode" [(ngModel)]="itemCode">
+            <mat-error class="mt-1">itemCode is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>brand</mat-label>
+            <mat-select formControlName="brand" [(ngModel)]="inventoryBody.inventory.brand">
+              <mat-option *ngFor="let br of brand" [value]="br" (click)="listBrandAndModel()">{{br}}</mat-option>
+              <!-- <mat-option [value]="brand" (click)="listBrandAndModel()">{{brand}}</mat-option> -->
+            </mat-select>
+            <mat-error class="mt-1">brand is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>model</mat-label>
+            <mat-select formControlName="model" [(ngModel)]="inventoryBody.inventory.model">
+              <mat-option *ngFor="let mo of model" [value]="mo">{{mo}}</mat-option>
+              <!-- <mat-option [value]="model">{{model}}</mat-option> -->
+            </mat-select>
+            <mat-error class="mt-1">model is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>department</mat-label>
+            <mat-select formControlName="department" [(ngModel)]="inventoryBody.inventory.department">
+              <!-- <mat-option *ngFor="let item of productData" [value]="item.suggestedItemCode">{{ item.suggestedItemCode }}</mat-option> -->
+              <mat-option value="Inventory">Inventory</mat-option>
+            </mat-select>
+            <mat-error class="mt-1">department is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>quantity</mat-label>
+            <input matInput type="number" formControlName="quantity" [(ngModel)]="inventoryBody.quantity">
+            <mat-error class="mt-1">quantity is required</mat-error>
+          </mat-form-field>
+        </div>
 
         <div class="col-lg-6 col-md-6">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>serialNo</mat-label>
             <input matInput formControlName="serialnos" [(ngModel)]="inventoryBody.serialnos">
-            <mat-error class="mt-1">Serial Number is required</mat-error>
+            <mat-error class="mt-1">serialNo is required</mat-error>
           </mat-form-field>
         </div>
-
-        <!-- <div class="row my-2">
-          <mat-radio-group name="radioOpt1" style="font-size: 12px;">
-            <mat-label>Cost Details</mat-label>
-            <mat-radio-button class="ms-3" name="Cost" value="USD">USD</mat-radio-button>
-            <mat-radio-button class="ms-3" name="Cost" value="INR" checked>INR</mat-radio-button>
-          </mat-radio-group>
-        </div> -->
-
-        <div class="col-lg-6 col-md-6 d-flex my-1 escalation">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Cost</mat-label>
-            <input matInput formControlName="cost" [(ngModel)]="inventoryBody.inventory.cost">
-            <mat-error class="mt-1">Cost is required</mat-error>
-          </mat-form-field>
-        </div>
-
-        <!-- <div class="col-lg-6 col-md-6 d-flex my-1 escalation">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Price</mat-label>
-            <input matInput type="number" formControlName="price" [(ngModel)]="inventoryBody.inv.price">
-            <mat-error class="mt-1">Price is required</mat-error>
-          </mat-form-field>
-        </div> -->
 
         <div class="col-lg-6 col-md-6">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Remarks</mat-label>
+            <mat-label>remarks</mat-label>
             <input matInput formControlName="remarks" [(ngModel)]="inventoryBody.inventory.remarks">
-            <mat-error class="mt-1">Remarks is required</mat-error>
+            <mat-error class="mt-1">remarks is required</mat-error>
           </mat-form-field>
         </div>
-
-        <!-- <div class="row my-2">
-          <mat-radio-group name="radioOpt1" style="font-size: 12px;" formControlName="warrantyDetail" [(ngModel)]="warrantyDetail">
-            <mat-label>Warr</mat-label>
-            <mat-radio-button class="ms-3" name="warranty" value="Yes">Yes</mat-radio-button>
-            <mat-radio-button class="ms-3" name="warranty" value="No" checked>No</mat-radio-button>
-          </mat-radio-group>
-        </div> -->
-
-        <!-- <div class="col-lg-6"></div> -->
 
         <div class="col-lg-6 col-md-6 d-flex justify-content-start align-items-center my-2">
           <p class="m-0">Warranty Cover</p>
@@ -110,48 +150,6 @@
 
 
         <div class="row col-lg-12" *ngIf="warrantyDetail == 'Y'">
-
-          <!-- <div>
-            <div class="col-lg-6 col-md-6">
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-label>serialNo</mat-label>
-                <input matInput formControlName="wserialNo" [(ngModel)]="inventoryBody.warr.serialNo">
-                <mat-error class="mt-1">Serial Number is required</mat-error>
-              </mat-form-field>
-            </div>
-
-            <div class="col-lg-6 col-md-6">
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-label>newSerialNo</mat-label>
-                <input matInput formControlName="wnewSerialNo" [(ngModel)]="inventoryBody.warr.newSerialNo">
-                <mat-error class="mt-1">Serial Number is required</mat-error>
-              </mat-form-field>
-            </div>
-
-            <div class="col-lg-6 col-md-6">
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-label>cost</mat-label>
-                <input matInput formControlName="wcost" [(ngModel)]="inventoryBody.warr.cost">
-                <mat-error class="mt-1">Serial Number is required</mat-error>
-              </mat-form-field>
-            </div>
-
-            <div class="col-lg-6 col-md-6">
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-label>vendor</mat-label>
-                <input matInput formControlName="vendor" [(ngModel)]="inventoryBody.warr.vendor">
-                <mat-error class="mt-1">vendor is required</mat-error>
-              </mat-form-field>
-            </div>
-
-            <div class="col-lg-12 col-md-12">
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-label>remarks</mat-label>
-                <input matInput formControlName="wremarks" [(ngModel)]="inventoryBody.warr.remarks">
-                <mat-error class="mt-1">Notes is required</mat-error>
-              </mat-form-field>
-            </div>
-          </div> -->
 
           <div class="col-lg-6 col-md-6" >
             <mat-form-field appearance="outline" class="w-100">
@@ -181,7 +179,7 @@
         </div>
 
         <div class="text-center my-3">
-          <button type="submit" class="btn add-btn">ADD</button>
+          <button type="submit" class="btn add-btn" (click)="submit()">ADD</button>
         </div>
       </div>
     </form>

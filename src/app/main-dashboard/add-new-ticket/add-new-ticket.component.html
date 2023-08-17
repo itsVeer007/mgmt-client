@@ -4,14 +4,14 @@
 
     <div class="d-flex flex-row justify-content-between">
       <div class="d-flex">
-        <a class="close-main pointer" (click)="closeAddCamera()"><img src="assets/icons/close_form.svg" /></a>
+        <a class="close-main pointer" (click)="closeTicket()"><img src="assets/icons/close_form.svg" /></a>
         <span class="form-heading">create new</span>
       </div>
     </div>
 
     <!-- Form -->
     <div>
-      <form autocomplete="off" [formGroup]="addAssetForm" (ngSubmit)="addNewAsset()">
+      <form autocomplete="off" [formGroup]="addAssetForm">
         <div class="row" *ngFor="let item of ticketBody.tasks; let i = index">
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
@@ -135,7 +135,7 @@
           <!-- /tasks -->
 
           <div class="text-center my-3">
-            <button class="btn add-btn">CREATE</button>
+            <button class="btn add-btn" (click)="addNewAsset()">CREATE</button>
           </div>
         </div>
       </form>

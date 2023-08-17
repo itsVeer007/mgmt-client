@@ -1,7 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertService } from 'src/services/alert.service';
 import { MetadataService } from 'src/services/metadata.service';
@@ -52,7 +51,7 @@ export class TicketsComponent implements OnInit {
 
   siteData: any
   ngOnInit(): void {
-    this.CustomerReport();
+    this.listTickets();
     this.onGetMetadata();
 
     this.siteData = JSON.parse(localStorage.getItem('siteIds')!);
@@ -89,9 +88,9 @@ export class TicketsComponent implements OnInit {
   ticketClose: any = [];
   ticketProgress: any = [];
   ticketRejected: any = [];
-  CustomerReport() {
+  listTickets() {
     this.showLoader = true;
-    this.ticketSer.getTickets().subscribe((res: any) => {
+    this.ticketSer.listTickets().subscribe((res: any) => {
       this.showLoader = false;
       this.ticketData = res;
       this.newTicketData = this.ticketData;
@@ -111,10 +110,20 @@ export class TicketsComponent implements OnInit {
     })
   }
 
-  siteNames: any;
+  duplicateSiteName: any;
+  duplicateTicketType: any
   removeDuplicates() {
-    this.siteNames = this.ticketData.reduce((acc: any, current: any) => {
-      const x = acc.find((item: any) => item.requestedBy == current.requestedBy);
+    this.duplicateSiteName = this.ticketData.reduce((acc: any, current: any) => {
+      const x = acc.find((item: any) => item.ticketType == current.ticketType);
+      if (!x) {
+        return acc.concat([current]);
+      } else {
+        return acc;
+      }
+    }, []);
+
+    this.duplicateTicketType = this.ticketData.reduce((acc: any, current: any) => {
+      const x = acc.find((item: any) => item.ticketType == current.ticketType);
       if (!x) {
         return acc.concat([current]);
       } else {
@@ -203,15 +212,18 @@ export class TicketsComponent implements OnInit {
   showAddUser = false;
   showAddBusinessVertical = false;
 
-  closenow(value: any, type: String) {
-    if (type == 'ticket') { this.showTicket = value; }
-  }
-
   showTicket: boolean = false;
-
+  showIndent: boolean = false;
   show(type: string) {
     if (type == 'ticket') { this.showTicket = true }
+    if (type == 'indent') { this.showIndent = true }
   }
+
+  closenow(type: String) {
+    if (type == 'ticket') { this.showTicket = false }
+    if (type == 'indent') { this.showIndent = false }
+  }
+
 
 
   currentItem: any;
@@ -224,8 +236,7 @@ export class TicketsComponent implements OnInit {
   ticketComments: any = [];
   openViewPopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.viewTicketDialog, {maxHeight: '550px', maxWidth: '850px'});
-    // console.log(this.currentItem);
+    this.dialog.open(this.viewTicketDialog, {maxWidth: '850px', maxHeight: '550px'});
     this.ticketSer.getTasks(item.id).subscribe((tasks: any) => {
       // console.log(res);
       this.ticketTasks = tasks;
@@ -244,9 +255,8 @@ export class TicketsComponent implements OnInit {
 
   @ViewChild('editTicketDialog') editTicketDialog = {} as TemplateRef<any>;
   openEditPopup(item: any) {
-    this.currentItem = JSON.parse(JSON.stringify(item));
-    this.dialog.open(this.editTicketDialog, {maxHeight: '550px', maxWidth: '550px'});
-    // console.log(this.currentItem);
+    this.currentItem = item;
+    this.dialog.open(this.editTicketDialog, {maxWidth: '550px', maxHeight: '550px'});
   }
 
   onInputChange(e: any) {
@@ -314,10 +324,8 @@ export class TicketsComponent implements OnInit {
       // console.log(res);
       if(res) {
         this.alertSer.success(res);
+        this.listTickets();
       }
-      setTimeout(() => {
-        window.location.reload();
-      }, 3000);
     }, (err: any) => {
       if(err) {
         this.alertSer.error();
@@ -330,7 +338,7 @@ export class TicketsComponent implements OnInit {
 
   openDeletePopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.deleteTicketDialog, {maxHeight: '250px', maxWidth: '250px'})
+    this.dialog.open(this.deleteTicketDialog, {maxWidth: '250px', maxHeight: '250px'})
     // console.log(item);
   }
 
@@ -341,6 +349,7 @@ export class TicketsComponent implements OnInit {
 
       if(res) {
         this.alertSer.success(res);
+        this.listTickets();
       }
     }, (err: any) => {
       if(err) {
@@ -359,7 +368,7 @@ export class TicketsComponent implements OnInit {
   toAssign: any;
   openAssigned(item: any) {
     this.toAssign = item;
-    this.dialog.open(this.assignedDialog, {maxHeight: '250px', maxWidth: '250px'});
+    this.dialog.open(this.assignedDialog, {maxWidth: '250px', maxHeight: '250px'});
   }
 
   toAssigned() {
@@ -374,10 +383,8 @@ export class TicketsComponent implements OnInit {
       // console.log(res)
       if(res) {
         this.alertSer.success(res);
+        this.listTickets();
       }
-      setTimeout(() => {
-        // window.location.reload();
-      }, 3000)
     }, (err: any) => {
         if(err) {
           this.alertSer.error();
@@ -407,6 +414,7 @@ export class TicketsComponent implements OnInit {
       // console.log(res);
       if(res) {
         this.alertSer.success(res);
+        this.listTickets();
       }
     }, (err: any) => {
       if(err) {
@@ -414,6 +422,7 @@ export class TicketsComponent implements OnInit {
       };
     })
   }
+
 
 
   /* create comment */
@@ -445,6 +454,7 @@ export class TicketsComponent implements OnInit {
       x.sort((a: string, b: string) => b[label] > a[label] ? 1 : b[label] < a[label] ? -1 : 0);
     }
   }
+
 
 
  /* checkbox control */
@@ -484,7 +494,7 @@ export class TicketsComponent implements OnInit {
     if (this.editArray.length > 0) {
       this.dialog.open(this.editTicketDialog, {maxWidth: '550px', maxHeight: '550px'})
     }
-    this.CustomerReport();
+    this.listTickets();
   }
 
   EditByCheckbox(itemE: any, i: any, e: any) {

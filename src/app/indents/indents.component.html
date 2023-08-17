@@ -143,22 +143,26 @@
           </th> -->
 
           <th>
-            <span>Id</span>
+            <span>ticketId</span>
             <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
-            <span>Ticket id</span>
+            <span>siteId</span>
             <img (click)="sort('name')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
-            <span>Product name</span>
+            <span>siteName</span>
             <img (click)="sort('productName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
-            <span>Indented date</span>
+            <span>countOfIndents</span>
+          </th>
+
+          <th>
+            <span>Details</span>
           </th>
 
           <!-- <th>
@@ -166,7 +170,7 @@
           </th> -->
 
           <th>
-            <span>Status</span>
+            <span>createdTime</span>
           </th>
 
           <th class="text-center">Actions</th>
@@ -185,28 +189,37 @@
           </td> -->
 
           <td>
-            <p>{{ cust.id }}</p>
+            <p>{{ cust.ticketId }}</p>
           </td>
 
           <td>
-            <p>{{ cust.jobOrTicketId }}</p>
+            <p>{{ cust.siteId }}</p>
           </td>
 
           <td>
-            <p>{{ cust.productName }}</p>
+            <p>{{ cust.siteName }}</p>
           </td>
 
           <td>
-            <p>{{ cust.indentedDate }}</p>
+            <p>{{ cust.countOfIndents }}</p>
           </td>
+
+          <td>
+            <p (click)="openviewDetailsDialog(cust)">View</p>
+          </td>
+
+          <td>
+            <p>{{ cust.createdTime }}</p>
+          </td>
+
 
           <!-- <td>
             <a class="pointer" (click)="openCreateOrder()"><img src="assets/icons/add.svg" width="40"></a>
           </td> -->
 
-          <td>
+          <!-- <td>
             <p>{{ cust.statusId == 1 ? "Requested" : cust.statusId == 2 ? "Dispatched" : cust.statusId == 3 ? "Received" : cust.statusId == 4 ? "Installed" : cust.statusId == 5 ? "Returned" : '' }}</p>
-          </td>
+          </td> -->
 
           <td class="table-icons">
             <!-- <a (click)="closeDot($event, i)" class="pointer"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
@@ -468,6 +481,99 @@
     <div mat-dialog-actions>
       <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="replaceComponent()">Update</button>
     </div>
+  </div>
+</ng-template>
+
+<ng-template #viewDetailsDialog>
+  <div style="background-color: #084982;">
+    <p class="dialog-title">view ticket</p>
+  </div>
+
+  <mat-dialog-content>
+    <div class="row">
+      <div class="table-res col-lg-12">
+        <table class="table" id="mytable">
+          <thead>
+            <tr class="task-table">
+              <th>id</th>
+
+              <th>itemCode</th>
+
+              <th>serialNo</th>
+
+              <th>createdTime</th>
+
+              <th>modifiedTime</th>
+
+              <th>status</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let inven of inventoryItems; let i = index">
+              <td>
+                <p>{{ inven.id }}</p>
+              </td>
+
+              <td>
+                <p>{{ inven.itemCode }}</p>
+              </td>
+
+              <td>
+                <p>{{ inven.serialNo }}</p>
+              </td>
+
+              <td>
+                <p>{{ inven.createdTime }}</p>
+              </td>
+
+              <td>
+                <p>{{ inven.modifiedTime }}</p>
+              </td>
+
+              <td>
+                <p (click)="openEditStatus(inven)">{{ inven.statusId == 1 ? "Requested" : inven.statusId == 2 ? "Dispatched" : inven.statusId == 3 ? "Received" : inven.statusId == 4 ? "Installed" : inven.statusId == 5 ? "Returned" : '' }}</p>
+              </td>
+
+              <ng-template #editStatusDialog>
+                <div style="background-color: #084982;">
+                  <p class="dialog-title">view status</p>
+                </div>
+
+                <mat-dialog-content>
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Inventory Id</mat-label>
+                    <mat-select [(ngModel)]="statusObj.inventoryId">
+                      <mat-option *ngFor="let item of invenIds" [value]="item.slNo">{{ item.slNo }} - {{ item.name }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Edit Status</mat-label>
+                    <mat-select [(ngModel)]="statusObj.statusId">
+                      <mat-option *ngFor="let item of indentStatus" [value]="item.keyId">{{ item.value }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </mat-dialog-content>
+
+                <div class="d-flex align-items-center justify-content-end">
+                  <div mat-dialog-actions class="me-2">
+                    <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+                  </div>
+                  <div mat-dialog-actions>
+                    <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="updateInventoryStatus()">Update</button>
+                  </div>
+                </div>
+              </ng-template>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <div class="d-flex justify-content-end" mat-dialog-actions>
+    <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
   </div>
 </ng-template>
 

@@ -1,3 +1,5 @@
+<!-- <img src="/home/ubuntu/PycharmProjects/Temp/images/IVISINVIP36303C8_20230807235718.jpg" alt=""> -->
+<!-- <video src="assets/Big_Buck_Bunny_1080_10s_1MB.webm" autoplay></video> -->
 <div class="container-fluid users" id="top">
 
   <!-- header -->
@@ -193,69 +195,94 @@
             </th> -->
 
           <th>
-            <span>Id</span>
-            <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <p style="display: inline-flex;">
+              <span>id</span>
+              <img (click)="sort('id')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
+            </p>
           </th>
 
           <!-- <th>
             <span>Product S.NO</span>
-            <img (click)="sort('productSerialNo')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <img (click)="sort('productSerialNo')" class="pointer" src="assets/icons/sorticon.svg" width="15px">
           </th> -->
 
           <th>
-            <span>Name</span>
-            <img (click)="sort('name')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <p style="display: inline-flex;">
+              <span>itemCode</span>
+              <img (click)="sort('id')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
+            </p>
           </th>
 
           <!-- <th>
             <span>Quantity</span>
-            <img (click)="sort('quantity')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <img (click)="sort('quantity')" class="pointer" src="assets/icons/sorticon.svg" width="15px">
           </th> -->
 
           <th>
-            <span>Model</span>
-            <img (click)="sort('model')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <p style="display: inline-flex;">
+              <span>name</span>
+              <img (click)="sort('id')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
+            </p>
           </th>
 
           <th>
-            <span>Serial No</span>
-            <img (click)="sort('serialNo')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <p style="display: inline-flex;">
+              <span>brand</span>
+              <img (click)="sort('id')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
+            </p>
           </th>
 
           <th>
-            <span>Category</span>
-            <img (click)="sort('category')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <p style="display: inline-flex;">
+              <span>model</span>
+              <img (click)="sort('id')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
+            </p>
           </th>
 
           <th>
-            <span>Cost</span>
-            <img (click)="sort('cost')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <p style="display: inline-flex;">
+              <span>Inventory</span>
+              <!-- <img (click)="sort('id')" class="pointer" src="assets/icons/sorticon.svg" width="12px"> -->
+            </p>
           </th>
 
           <th>
-            <span>Created time</span>
-            <img (click)="sort('createdDate')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <p style="display: inline-flex;">
+              <span>inStock</span>
+              <img (click)="sort('id')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
+            </p>
           </th>
 
           <th>
-            <span>Returnable</span>
-            <img (click)="sort('returnable')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <p style="display: inline-flex;">
+              <span>purchased</span>
+              <img (click)="sort('id')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
+            </p>
           </th>
 
           <th>
-            <span>Maintenance</span>
-            <img (click)="sort('maintenanceRequired')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <p style="display: inline-flex;">
+              <span>used</span>
+              <img (click)="sort('id')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
+            </p>
           </th>
 
           <th>
+            <p style="display: inline-flex;">
+              <span>stock</span>
+              <img (click)="sort('id')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
+            </p>
+          </th>
+
+          <!-- <th>
             <span>Warranty</span>
-            <!-- <img (click)="sort('productCategory')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
+            <img (click)="sort('productCategory')" class="pointer" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
             <span>Status</span>
-            <img (click)="sort('statusId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-          </th>
+            <img (click)="sort('statusId')" class="pointer" src="assets/icons/sorticon.svg" width="15px">
+          </th> -->
 
           <th class="text-center">Actions</th>
         </tr>
@@ -273,11 +300,11 @@
           </td> -->
 
           <td>
-            <p>{{ cust.id }}</p>
+            <p>{{ i+1 }}</p>
           </td>
 
           <td>
-            <p>{{ cust.name }}</p>
+            <p>{{ cust.itemCode }}</p>
           </td>
 
           <!-- <td>
@@ -285,50 +312,39 @@
           </td> -->
 
           <td>
+            <p>{{ cust.name }}</p>
+          </td>
+
+          <td>
+            <p>{{ cust.brand }}</p>
+          </td>
+
+          <td>
             <p>{{ cust.model }}</p>
           </td>
 
           <td>
-            <p>{{ cust.serialNo }}</p>
+            <p class="pointer" (click)="openDetailsDialog(cust)">View</p>
           </td>
 
           <td>
-            <p>{{ cust.category }}</p>
-          </td>
-          <td>
-            <p>{{ cust.cost }}</p>
-          </td>
-          <td>
-            <p>{{ cust.createdDate }}</p>
-          </td>
-          <td>
-            <p>{{ cust.returnable == 'Y' ? 'Yes' : cust.returnable == 'N' ? 'No' : '--' }}</p>
+            <p>{{ cust.inStockAsOnStartDate }}</p>
           </td>
 
           <td>
-            <p>{{ cust.maintenanceRequired == 'Y' ? 'Yes' : cust.maintenanceRequired == 'N' ? 'No' : '--' }}</p>
+            <p>{{ cust.purchasedAfterStartDate }}</p>
           </td>
 
           <td>
-            <button class="pointer p-0" style="background-color: transparent;" (click)="getWarranty(cust.id); viewWarrantyPopup()" [disabled]="cust.warranty == 'No'">
-              {{cust.warranty}}
-            </button>
+            <p>{{ cust.usedAfterStartDateToTillDate }}</p>
           </td>
 
-          <!-- <td> -->
-            <!-- <p>{{ cust.details }}</p> -->
-            <!-- <a class="pointer" style="color: #084982;" (click)="addressView($event,i)">{{cust.details}}</a>
-            <div style="display: none;"
-                class="plus-img" id="address{{i}}">
-                <p class="p-2" style="color: #ABABAB; text-align: left;">ADDRESS</p>
-                <div style="color: #000; text-align: left; padding: 10px;">
-                    <p>Pathur Road, Tadepally</p>
-                    <p>Guntur - 522501</p>
-                    <p>Andhra Pradesh, India</p>
-                </div>
-            </div> -->
-          <!-- </td> -->
+          <td>
+            <p>{{ cust.stockAsOfToday }}</p>
+          </td>
+
           <!-- <td>
+<<<<<<< HEAD
             <a class="pointer" (click)="show('inventory')">
               <img src="assets/icons/add-svg.svg" width="25" height="25" />
             </a>
@@ -337,6 +353,8 @@
           <td>
 
 
+=======
+>>>>>>> dfcfb6a9ad5a5d40c9a7ba6e39fd46e9d0cd4ffc
             <p [style.color]="cust.inventoryStatusId == 1 ? '#00A44C'
               : cust.inventoryStatusId == 2 ? '#F5B400'
               : cust.inventoryStatusId == 3 ? '#D34124'
@@ -382,7 +400,7 @@
                 </div>
               </div>
             </ng-template>
-          </td>
+          </td> -->
 
 
           <td class="table-icons">
@@ -727,6 +745,93 @@
   </div>
 </ng-template>
 <!-- warranty popup -->
+
+<ng-template #viewDetailsDialog>
+  <div style="background-color: #084982;">
+    <p class="dialog-title">view ticket</p>
+  </div>
+
+  <mat-dialog-content>
+    <div class="row">
+      <div class="table-res col-lg-12">
+        <table class="table" id="mytable">
+          <thead>
+            <tr class="task-table">
+              <th>slNo</th>
+
+              <th>itemCode</th>
+
+              <th>serialNo</th>
+
+              <th>createdTime</th>
+
+              <th>modifiedTime</th>
+
+              <th>status</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let inven of inventoryItems; let i = index">
+              <td>
+                <p>{{ inven.slNo }}</p>
+              </td>
+
+              <td>
+                <p>{{ inven.itemCode }}</p>
+              </td>
+
+              <td>
+                <p>{{ inven.serialNo }}</p>
+              </td>
+
+              <td>
+                <p>{{ inven.createdTime }}</p>
+              </td>
+
+              <td>
+                <p>{{ inven.modifiedTime }}</p>
+              </td>
+
+              <td>
+                <p (click)="openEditStatus(inven)">{{ inven.statusId }}</p>
+              </td>
+
+              <ng-template #editStatusDialog>
+                <div style="background-color: #084982;">
+                  <p class="dialog-title">view status</p>
+                </div>
+
+                <mat-dialog-content>
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Edit Status</mat-label>
+                    <mat-select [(ngModel)]="statusObj.statusId">
+                      <mat-option *ngFor="let item of inventoryStatus" [value]="item.keyId">{{ item.value }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </mat-dialog-content>
+
+                <div class="d-flex align-items-center justify-content-end">
+                  <div mat-dialog-actions class="me-2">
+                    <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+                  </div>
+                  <div mat-dialog-actions>
+                    <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="updateInventoryStatus()">Update</button>
+                  </div>
+                </div>
+              </ng-template>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <div class="d-flex justify-content-end" mat-dialog-actions>
+    <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+  </div>
+</ng-template>
 
 
 <div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showInventory">

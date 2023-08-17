@@ -4,11 +4,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/services/alert.service';
-import { IndentService } from 'src/services/indent.service';
 import { InventoryService } from 'src/services/inventory.service';
-import { OrderService } from 'src/services/order.service';
-import { ProductMasterService } from 'src/services/product-master.service';
-import { VendorsService } from 'src/services/vendors.service';
 
 @Component({
   selector: 'app-add-new-indent',
@@ -35,48 +31,48 @@ import { VendorsService } from 'src/services/vendors.service';
 })
 export class AddNewIndentComponent implements OnInit {
   constructor(
+    private inventorySer: InventoryService,
     private router: Router,
-    private productSer: ProductMasterService,
-    private indentSer: IndentService,
-    private vendorSer: VendorsService,
     private fb: FormBuilder,
-
     public alertSer: AlertService,
     public datepipe: DatePipe
   ) { }
 
-  @Input() show:any;
+  @Input() show: any;
+  // @Input() ticketIdFrmFr: any;
   @Output() newItemEvent = new EventEmitter<any>();
 
   UserForm: any =  FormGroup;
 
   inventoryBody = {
-    jobOrTicketId: null,
+    ticketId: null,
     createdBy: 1,
     items: [
       {
-        productId: null,
+        itemCode: null,
         quantity: null
       }
     ],
     remarks: null
   }
 
+  ticketIdFrmFr: any;
   ngOnInit() {
     this.UserForm = this.fb.group({
-      'jobOrTicketId': new FormControl('', Validators.required),
-      'productId': new FormControl(''),
+      'jobOrTicketId': new FormControl(''),
+      'productId': new FormControl('', Validators.required),
       'quantity': new FormControl(''),
       'remarks': new FormControl('')
     });
 
     this.getVendor();
+    this.ticketIdFrmFr = JSON.parse(localStorage.getItem('ticketId')!);
   }
 
   items: any = [];
   onTaskAdd(item: any) {
     let takBody = {
-      'productId': item.productId,
+      'itemCode': item.itemCode,
       'quantity': item.quantity
     }
 
@@ -86,12 +82,12 @@ export class AddNewIndentComponent implements OnInit {
   vendorDetail: any;
   productIds: any
   getVendor() {
-    this.vendorSer.listVendors().subscribe((res: any) => {
+    this.inventorySer.listVendors().subscribe((res: any) => {
       // console.log(res);
       this.vendorDetail = res;
     })
 
-    this.productSer.listProduct().subscribe((res: any) => {
+    this.inventorySer.listProduct().subscribe((res: any) => {
       this.productIds = res;
     })
   }
@@ -111,22 +107,20 @@ export class AddNewIndentComponent implements OnInit {
   submit() {
     // console.log(this.inventoryBody);
     // console.log(this.warrantyDetail);
-    setTimeout(() => {
-      this.newItemEvent.emit();
-    }, 3000)
 
-    this.inventoryBody.items = this.items;
     if(this.UserForm.valid) {
       this.alertSer.wait();
       this.newItemEvent.emit(false);
-      this.indentSer.createIndent(this.inventoryBody).subscribe((res: any) => {
+      this.inventoryBody.ticketId = this.ticketIdFrmFr?.id;
+      this.inventoryBody.items = this.items;
+      this.inventorySer.createIndent(this.inventoryBody).subscribe((res: any) => {
         // console.log(res);
         if(res) {
           this.alertSer.success(res);
         }
         setTimeout(() => {
-          // window.location.reload();
-        }, 3000);
+          window.location.reload();
+        }, 2000);
       }, (err: any) => {
         if(err) {
           this.alertSer.error();

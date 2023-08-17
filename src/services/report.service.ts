@@ -9,7 +9,6 @@ export class ReportService {
   constructor(private http: HttpClient) { }
 
   baseUrl = 'http://192.168.0.125:8000';
-
   naik = 'http://192.168.0.120:8000'
 
   list() {

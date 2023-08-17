@@ -19,26 +19,6 @@
   font-size: 20px;
 }
 
-.vl-green {
-  border-left: 2px solid #00A44C;
-  height: 40px;
-}
-
-.vl-yellow {
-  border-left: 2px solid #F5B400;
-  height: 40px;
-}
-
-.vl-orange {
-  border-left: 2px solid #f37e11;
-  height: 40px;
-}
-
-.vl-red {
-  border-left: 2px solid #EF2800;
-  height: 40px;
-}
-
 .status {
   font-size: 12px;
   color: #28231D;
@@ -94,14 +74,14 @@ form button {
 }
 
 .dot {
-content: "";
-width: 16px;
-height: 16px;
-border-radius: 8px;
-background-color: red;
-margin: auto;
-box-shadow: 0px 0px 5px 2px rgba(207,39,39,0.61);
-border: 1px solid #fff;
+  content: "";
+  width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  background-color: red;
+  margin: auto;
+  box-shadow: 0px 0px 5px 2px rgba(207,39,39,0.61);
+  border: 1px solid #fff;
 }
 
 .form-check-input{
@@ -174,74 +154,6 @@ border: 1px solid #fff;
   color: #fff;
   border-right: 1px solid #EFEFEF;
   border-top: 1px solid #EFEFEF;
-}
-
-
-
-
-
-/* CSS for Popup start */
-
-/* .deletePopup {
-  width: fit-content;
-  margin: auto;
-} */
-.modalitem .card {
-  border: none;
-}
-.modalitem{
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 999999;
-  margin: auto;
-  width: 100vw;
-  height: 100vh;
-  background-color: #0006;
-}
-.modalitem .card-header {
-  background-color: #084982;
-  color: #fff;
-  height: 40px;
-  font-size: 14px;
-}
-.modalitem .card-header img {
-  margin: -24px -36px;
-}
-.modalitem .card .card-body {
-  font-size: 13px;
-}
-.modalitem .card .card-body ul li {
-  list-style-type: none;
-}
-.modalitem .card .card-body ul li {
-  font-size: 13px;
-  text-align: left;
-  color: #084982;
-}
-.modalitem .card .card-footer button {
-  float: right;
-  padding: 5px;
-  font-size: 10px;
-}
-.modalitem ul {
-  padding-left: 0rem;
-}
-.modalitem li {
-  display: flex;
-}
-.modalitem h6 {
-  color: #363636;
-  font-size: 13px;
-  font-family: ms,sans-serif;
-}
-.modalitem .card .card-body ul li div input {
-  font-size: 13px;
-  padding: 5px;
-  height: 30px
-}
-.modalitem .card .card-body ul li div {
-  margin: -8px 0px 5px 5px;
 }
 
 .search-form {

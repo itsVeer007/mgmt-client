@@ -165,7 +165,7 @@ export class InventoryComponent implements OnInit {
       'startDate': this.prCreatedTime ? this.datepipe.transform(this.prCreatedTime, 'yyyy-MM-ddThh-MM-ss') : '',
       'endDate': this.prCreatedTime1 ? this.datepipe.transform(this.prCreatedTime1, 'yyyy-MM-ddThh-MM-ss') : ''
     }
-    this.inventorySer.filteBody(myObj).subscribe((res: any) => {
+    this.inventorySer.filterInventory(myObj).subscribe((res: any) => {
       // console.log(res);
       this.newInventoryTable = res;
     })
@@ -228,15 +228,18 @@ export class InventoryComponent implements OnInit {
 
   statusObj = {
     statusId: null,
-    newProductSerialNo: null,
+    slNo: null,
     modifiedBy: 1,
   }
 
-  changeAssetStatus() {
-    this.alertSer.wait();
+  // statusId: any;
 
-    this.inventorySer.updateAssetStatus(this.currentStatusId, this.statusObj).subscribe((res: any) => {
-      console.log(res);
+  updateInventoryStatus() {
+    this.alertSer.wait();
+    this.statusObj.slNo = this.currentStatusId?.slNo;
+
+    this.inventorySer.updateInventoryStatus(this.statusObj).subscribe((res: any) => {
+      // console.log(res);
       if(res) {
         this.alertSer.success(res);
         this.listInventory();
@@ -378,7 +381,7 @@ export class InventoryComponent implements OnInit {
   @ViewChild('editWarrantyDialog') editWarrantyDialog = {} as TemplateRef<any>;
 
   openWarrantyPopup(item: any) {
-    this.dialog.open(this.editWarrantyDialog, {maxHeight: '550px', maxWidth: '550px'});
+    this.dialog.open(this.editWarrantyDialog, {maxWidth: '550px', maxHeight: '550px'});
 
     this.inventorySer.getWarranty(item.id).subscribe((res: any) => {
       this.currentItem = res;
@@ -442,6 +445,17 @@ export class InventoryComponent implements OnInit {
         this.alertSer.wait();
       };
     });
+  }
+
+  @ViewChild('viewDetailsDialog') viewDetailsDialog = {} as TemplateRef<any>;
+
+  inventoryItems: any;
+  openDetailsDialog(item: any) {
+    this.dialog.open(this.viewDetailsDialog, {maxWidth: '850px', maxHeight: '550px'});
+
+    this.inventorySer.listInventoryByItemCode(item).subscribe((res: any) => {
+      this.inventoryItems = res;
+    })
   }
 
 

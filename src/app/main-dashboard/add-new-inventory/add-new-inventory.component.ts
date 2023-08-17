@@ -5,8 +5,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';
-import { OrderService } from 'src/services/order.service';
-import { ProductMasterService } from 'src/services/product-master.service';
+import { MetadataService } from 'src/services/metadata.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -36,9 +35,8 @@ export class AddNewInventoryComponent implements OnInit {
   constructor(
     private router: Router,
     private inventorySer: InventoryService,
-    private productMasterSer: ProductMasterService,
-    private orderSer: OrderService,
     private fb: FormBuilder,
+    private metadataSer: MetadataService,
 
     public alertSer: AlertService,
     public datepipe: DatePipe
@@ -65,9 +63,11 @@ export class AddNewInventoryComponent implements OnInit {
 
   inventoryBody = {
     inventory: {
-      productId: null,
-      orderId: null,
-      cost: null,
+      name: null,
+      itemCode: null,
+      brand: null,
+      model: null,
+      department: null,
       createdBy: 1,
       remarks: null
     },
@@ -85,30 +85,115 @@ export class AddNewInventoryComponent implements OnInit {
 
   // email: string = "";
 
-  productIds: any;
+  productData: any;
   orderIds: any;
   ngOnInit() {
     this.UserForm = this.fb.group({
-      'productId': new FormControl('', Validators.required),
-      'orderId': new FormControl('', Validators.required),
-      'cost': new FormControl('', Validators.required),
-      'serialnos': new FormControl(''),
-      'quantity': new FormControl('', Validators.required),
+      'name': new FormControl('', Validators.required),
+      'itemCode': new FormControl('', Validators.required),
+      'brand': new FormControl('', Validators.required),
+      'model': new FormControl('', Validators.required),
+      'department': new FormControl(''),
       'remarks': new FormControl(''),
+
+      'quantity': new FormControl(''),
+      'serialnos': new FormControl(''),
 
       'wremarks': new FormControl(''),
       'startDate': new FormControl(''),
       'endDate': new FormControl(''),
 
       'warrantyDetail': new FormControl(''),
+
+      // 'partType': new FormControl(''),
+      // 'partCategory': new FormControl(''),
+      // 'partCode': new FormControl(''),
+      // 'buildType': new FormControl('')
     });
 
-    this.productMasterSer.listProduct().subscribe((res: any) => {
-      this.productIds = res;
+    this.inventorySer.listProduct().subscribe((res: any) => {
+      this.productData = res;
     })
 
-    this.orderSer.listOrders().subscribe((res: any) => {
+    this.inventorySer.listOrders().subscribe((res: any) => {
       this.orderIds = res;
+    })
+
+    this.onMetadataChange();
+  }
+
+
+  itemCode: any = null;
+  brand: any = null;
+  model: any = null;
+  name: any = null;
+
+  itemCodeBody = {
+    partType: null,
+    partCategory: null,
+    partCode: null,
+    buildType: null
+  }
+
+
+
+  listItemCode() {
+    this.inventorySer.listItemCode(this.itemCodeBody).subscribe((res: any) => {
+      // console.log(res);
+      this.itemCode = res?.code;
+      if(res?.code == null) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'No data!',
+          text: 'Please add data in product master',
+        })
+      } else if(res?.code != null) {
+        let itemBrandBody = {
+          itemCode: res?.code,
+          brand: null
+        }
+
+        this.inventorySer.listBrandAndModel(itemBrandBody).subscribe((res: any) => {
+          // console.log(res);
+          this.brand = res?.brand;
+        });
+
+        this.inventorySer.listInventoryByItemCode(itemBrandBody).subscribe((res: any) => {
+          // console.log(res);
+          this.name = res;
+        })
+      }
+    })
+  }
+
+  listBrandAndModel() {
+    let itemBrandBody = {
+      itemCode: this.itemCode,
+      brand: this.inventoryBody.inventory.brand,
+    }
+    this.inventorySer.listBrandAndModel(itemBrandBody).subscribe((res: any) => {
+      // console.log(res);
+      this.model = res?.model;
+    })
+  }
+
+  partType: any;
+  partCategory: any;
+  partCode: any;
+  buildType: any;
+  onMetadataChange() {
+    this.metadataSer.getMetadata().subscribe((res: any) => {
+      for(let item of res) {
+        if(item.type == 'part_type') {
+          this.partType = item.metadata;
+        } else if(item.type == 'part_category') {
+          this.partCategory = item.metadata;
+        } else if(item.type == 'part_code') {
+          this.partCode = item.metadata;
+        } else if(item.type == 'build_type') {
+          this.buildType = item.metadata;
+        }
+      }
     })
   }
 
@@ -125,7 +210,8 @@ export class AddNewInventoryComponent implements OnInit {
   arr: any = [];
   warrantyDetail: any = 'N';
   submit() {
-    // console.log(this.inventoryBody);
+    console.log(this.inventoryBody);
+    this.inventoryBody.inventory.itemCode = this.itemCode;
     if(this.UserForm.valid) {
       this.alertSer.wait();
       if(this.inventoryBody.serialnos == '') {
