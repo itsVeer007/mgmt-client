@@ -512,7 +512,7 @@ export class AssetsComponent implements OnInit {
 
   currentStatusId: any
   openEditStatus(id: any) {
-    this.dialog.open(this.editStatus);
+    this.dialog.open(this.editStatus, {maxWidth: '250px', maxHeight:'250px'});
     this.currentStatusId = id;
   }
 

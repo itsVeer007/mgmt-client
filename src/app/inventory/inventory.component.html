@@ -335,6 +335,8 @@
           </td> -->
 
           <td>
+
+
             <p [style.color]="cust.inventoryStatusId == 1 ? '#00A44C'
               : cust.inventoryStatusId == 2 ? '#F5B400'
               : cust.inventoryStatusId == 3 ? '#D34124'
@@ -346,7 +348,11 @@
               style="cursor: pointer;"
             >
               {{ cust.inventoryStatus }}
+              <a (click)="openEditStatus(cust.id)" class="ms-2 pointer">
+                <img src="assets/icons/edit.svg"  width="13">
+              </a>
             </p>
+
 
             <ng-template #editStatusDialog>
               <div style="background-color: #084982;">
@@ -377,6 +383,7 @@
               </div>
             </ng-template>
           </td>
+
 
           <td class="table-icons">
             <!-- <a (click)="closeDot($event, i)" class="pointer"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
