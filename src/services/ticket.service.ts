@@ -13,7 +13,8 @@ export class TicketService {
   constructor(private http: HttpClient) { }
 
   baseUrl = `${environment.baseUrl}/tickets`;
-  // baseUrl = 'http://192.168.0.189:8080';
+  // baseUrl = 'http://192.168.0.137:8081';
+  // base = 'http://192.168.0.137:8080';
 
   listTickets() {
     let url = this.baseUrl + "/listTickets_1_0";
@@ -140,6 +141,11 @@ export class TicketService {
     }
 
     return this.http.put(url, myObj);
+  }
+
+  updateIndentStatus(currentId: any, payload: any){
+    let url = this.baseUrl + `/updateIndentStatus_1_0/${currentId.id}/${payload.statusId}/${payload.createdBy}`;
+    return this.http.put(url, null);
   }
 
   /* ticket reort */

@@ -5,8 +5,6 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';
-import { OrderService } from 'src/services/order.service';
-import { VendorsService } from 'src/services/vendors.service';
 
 @Component({
   selector: 'app-add-new-order',
@@ -36,8 +34,6 @@ export class AddNewOrderComponent implements OnInit {
   constructor(
     private router: Router,
     private inventorySer: InventoryService,
-    private orderSer: OrderService,
-    private vendorSer: VendorsService,
     private fb: FormBuilder,
 
     public alertSer: AlertService,
@@ -69,7 +65,7 @@ export class AddNewOrderComponent implements OnInit {
 
   vendorDetail: any;
   getVendor() {
-    this.vendorSer.listVendors().subscribe((res: any) => {
+    this.inventorySer.listVendors().subscribe((res: any) => {
       // console.log(res);
       this.vendorDetail = res;
     })
@@ -97,7 +93,7 @@ export class AddNewOrderComponent implements OnInit {
     if(this.UserForm.valid) {
       this.alertSer.wait();
       this.newItemEvent.emit(false);
-      this.orderSer.createOrder(this.inventoryBody).subscribe((res: any) => {
+      this.inventorySer.createOrder(this.inventoryBody).subscribe((res: any) => {
         // console.log(res);
         if(res) {
           this.alertSer.success(res);

@@ -18,36 +18,6 @@
   font-size: 20px;
 }
 
-.vl-green {
-  border-left: 2px solid #00A44C;
-  height: 40px;
-}
-
-.vl-red {
-  border-left: 2px solid #EF2800;
-  height: 40px;
-}
-
-.vl-yellow {
-  border-left: 2px solid #F5B400;
-  height: 40px;
-}
-
-.vl-orange {
-  border-left: 2px solid #EF6000;
-  height: 40px;
-}
-
-.vl-greay {
-  border-left: 2px solid #ABABAB;
-  height: 40px;
-}
-
-.vl-violet {
-  border-left: 2px solid #ABABAB;
-  height: 40px;
-}
-
 .status {
   font-size: 11px;
   color: #28231D;

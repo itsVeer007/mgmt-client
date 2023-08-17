@@ -4,10 +4,8 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AlertService } from 'src/services/alert.service';
 import { ApiService } from 'src/services/api.service';
+import { InventoryService } from 'src/services/inventory.service';
 import { MetadataService } from 'src/services/metadata.service';
-import { ProductMasterService } from 'src/services/product-master.service';
-import { VendorsService } from 'src/services/vendors.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-product-master',
@@ -35,13 +33,10 @@ import Swal from 'sweetalert2';
 export class AddProductMasterComponent implements OnInit {
 
   constructor(
+    private inventorySer: InventoryService,
     private router: Router,
-    private productMasterSer: ProductMasterService,
-    private apiser: ApiService,
-    private vendorSer: VendorsService,
     private fb: FormBuilder,
     private metadataSer: MetadataService,
-
     public alertSer: AlertService
   ) { }
 
@@ -123,7 +118,7 @@ export class AddProductMasterComponent implements OnInit {
 
   vendorDetail: any;
   getVendor() {
-    this.vendorSer.listVendors().subscribe((res: any) => {
+    this.inventorySer.listVendors().subscribe((res: any) => {
       // console.log(res);
       this.vendorDetail = res;
     })
@@ -177,7 +172,7 @@ export class AddProductMasterComponent implements OnInit {
     if(this.UserForm.valid) {
       this.newItemEvent.emit(false);
       this.alertSer.wait();
-      this.productMasterSer.addingproduct(this.prductMasterObj).subscribe((res: any) => {
+      this.inventorySer.addingproduct(this.prductMasterObj).subscribe((res: any) => {
         // console.log(res);
         if(res) {
           this.alertSer.success(res);

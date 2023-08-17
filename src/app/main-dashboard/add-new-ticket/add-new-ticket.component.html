@@ -11,7 +11,7 @@
 
     <!-- Form -->
     <div>
-      <form autocomplete="off" [formGroup]="addAssetForm" (ngSubmit)="addNewAsset()">
+      <form autocomplete="off" [formGroup]="addAssetForm">
         <div class="row" *ngFor="let item of ticketBody.tasks; let i = index">
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
@@ -135,7 +135,7 @@
           <!-- /tasks -->
 
           <div class="text-center my-3">
-            <button class="btn add-btn">CREATE</button>
+            <button class="btn add-btn" (click)="addNewAsset()">CREATE</button>
           </div>
         </div>
       </form>

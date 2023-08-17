@@ -3,10 +3,8 @@ import { Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angula
 import { MatDialog } from '@angular/material/dialog';
 import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
+import { InventoryService } from 'src/services/inventory.service';
 import { MetadataService } from 'src/services/metadata.service';
-import { ProductMasterService } from 'src/services/product-master.service';
-import { VendorsService } from 'src/services/vendors.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-product-master',
@@ -42,12 +40,8 @@ export class ProductMasterComponent implements OnInit {
 
   showLoader = false;
   constructor(
-    private http: HttpClient,
-    private ass: AssetService,
-    private productMasterSer: ProductMasterService,
+    private inventorySer: InventoryService,
     private metaDataSer: MetadataService,
-    private vendorSer: VendorsService,
-
     public dialog: MatDialog,
     public alertSer: AlertService
     ) { }
@@ -73,7 +67,7 @@ export class ProductMasterComponent implements OnInit {
   vendorDetail: any;
   listProduct() {
     this.showLoader = true;
-    this.productMasterSer.listProduct().subscribe((res: any) => {
+    this.inventorySer.listProduct().subscribe((res: any) => {
       // console.log(res);
       this.showLoader = false;
       this.productMaster = res;
@@ -86,7 +80,7 @@ export class ProductMasterComponent implements OnInit {
       }
     });
 
-    this.vendorSer.listVendors().subscribe((res: any) => {
+    this.inventorySer.listVendors().subscribe((res: any) => {
       // console.log(res);
       this.vendorDetail = res;
     })
@@ -143,7 +137,7 @@ export class ProductMasterComponent implements OnInit {
     //   'vendorId': this.vendorId ? this.vendorId : ''
     // }
 
-    this.productMasterSer.filteBody(this.filterBody).subscribe((res: any) => {
+    this.inventorySer.filterProductMaster(this.filterBody).subscribe((res: any) => {
       // console.log(res);
       this.newProductMaster = res;
     })
@@ -329,7 +323,7 @@ export class ProductMasterComponent implements OnInit {
     }
 
     this.alertSer.wait();
-    this.productMasterSer.updateProductMaster({productMaster: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
+    this.inventorySer.updateProductMaster({productMaster: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
       // console.log(res);
       if(res) {
         this.alertSer.success(res);
@@ -352,7 +346,7 @@ export class ProductMasterComponent implements OnInit {
   deleteProduct() {
     this.alertSer.wait();
 
-    this.productMasterSer.deleteProduct(this.currentItem).subscribe((res: any) => {
+    this.inventorySer.deleteProduct(this.currentItem).subscribe((res: any) => {
       // console.log(res);
       if(res) {
         this.alertSer.success(res);

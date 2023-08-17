@@ -5,9 +5,6 @@ import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
 import { InventoryService } from 'src/services/inventory.service';
 import { MetadataService } from 'src/services/metadata.service';
-import { OrderService } from 'src/services/order.service';
-import { ProductMasterService } from 'src/services/product-master.service';
-import { VendorsService } from 'src/services/vendors.service';
 
 @Component({
   selector: 'app-orders',
@@ -20,9 +17,6 @@ export class OrdersComponent implements OnInit {
     private http: HttpClient,
     private ass: AssetService,
     private inventorySer: InventoryService,
-    private productMasterSer: ProductMasterService,
-    private vendorSer: VendorsService,
-    private orderSer: OrderService,
     private metaDatSer: MetadataService,
     private alertSer: AlertService,
     public dialog: MatDialog
@@ -51,21 +45,21 @@ export class OrdersComponent implements OnInit {
   productIds: any;
   listOrders() {
     this.showLoader = true;
-    this.orderSer.listOrders().subscribe((res: any) => {
+    this.inventorySer.listOrders().subscribe((res: any) => {
       // console.log(res);
       this.showLoader = false;
       this.ordersTable = res;
       this.newOrdersTable = this.ordersTable;
     });
 
-    this.productMasterSer.listProduct().subscribe((res: any) => {
+    this.inventorySer.listProduct().subscribe((res: any) => {
       this.productIds = res;
     })
   }
 
   vendorDetail: any;
   getVendorr() {
-    this.vendorSer.listVendors().subscribe((res: any) => {
+    this.inventorySer.listVendors().subscribe((res: any) => {
       // console.log(res);
       this.vendorDetail = res;
     })
@@ -73,7 +67,7 @@ export class OrdersComponent implements OnInit {
 
   listOrderItems() {
     this.showLoader = true;
-    this.orderSer.listOrderItemsById(this.orderItemsId.id).subscribe((res: any) => {
+    this.inventorySer.listOrderItemsById(this.orderItemsId.id).subscribe((res: any) => {
       this.showLoader = false;
       this.orderItems = res;
     });
@@ -138,7 +132,7 @@ export class OrdersComponent implements OnInit {
       'endDate': this.oendDate ? this.oendDate : '',
     }
 
-    this.orderSer.filteBody(myObj).subscribe((res: any) => {
+    this.inventorySer.filterOrders(myObj).subscribe((res: any) => {
       this.newOrdersTable = res;
     })
   }
@@ -195,7 +189,7 @@ export class OrdersComponent implements OnInit {
     }
 
     this.alertSer.wait();
-    this.orderSer.updateOrder(this.originalObject).subscribe((res: any) => {
+    this.inventorySer.updateOrder(this.originalObject).subscribe((res: any) => {
       // console.log(res);
       if(res) {
         this.alertSer.success(res);
@@ -218,7 +212,7 @@ export class OrdersComponent implements OnInit {
 
   deleteInventory() {
     this.alertSer.wait();
-    this.orderSer.deleteOrder(this.currentItem).subscribe((res: any) => {
+    this.inventorySer.deleteOrder(this.currentItem).subscribe((res: any) => {
       if(res) {
         this.alertSer.success(res);
         this.listOrders();
@@ -235,7 +229,7 @@ export class OrdersComponent implements OnInit {
   orderItemsId: any;
   openOrderItems(item: any) {
     this.orderItemsId = item;
-    this.orderSer.listOrderItemsById(this.orderItemsId.id).subscribe((res: any) => {
+    this.inventorySer.listOrderItemsById(this.orderItemsId.id).subscribe((res: any) => {
       this.orderItems = res;
     });
     this.dialog.open(this.orderItemsDialog, { maxWidth: '550px', maxHeight: '550px'});
@@ -260,12 +254,12 @@ export class OrdersComponent implements OnInit {
 
   addItemToOrder() {
     this.orderItemBody.orderId = this.orderItemsId?.id;
-    this.orderSer.addItemToOrder(this.orderItemBody).subscribe((res: any) => {
+    this.inventorySer.addItemToOrder(this.orderItemBody).subscribe((res: any) => {
       if(res) {
         this.alertSer.success(res);
         this.listOrderItems();
       }
-    }, (err) => {
+    }, (err: any) => {
       if(err) {
         this.alertSer.error();
       }
@@ -287,7 +281,7 @@ export class OrdersComponent implements OnInit {
     }
 
     this.alertSer.wait();
-    this.orderSer.updateOrderItem(this.originalObject).subscribe((res: any) => {
+    this.inventorySer.updateOrderItem(this.originalObject).subscribe((res: any) => {
       // console.log(res);
       if(res) {
         this.alertSer.success(res);
@@ -309,7 +303,7 @@ export class OrdersComponent implements OnInit {
 
   deleteOrderItem() {
     this.alertSer.wait();
-    this.orderSer.deleteOrderItem(this.currentItem).subscribe((res: any) => {
+    this.inventorySer.deleteOrderItem(this.currentItem).subscribe((res: any) => {
       if(res) {
         this.alertSer.success(res);
         this.listOrderItems();

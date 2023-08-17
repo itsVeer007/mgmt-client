@@ -1,12 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertService } from 'src/services/alert.service';
-import { AssetService } from 'src/services/asset.service';
 import { InventoryService } from 'src/services/inventory.service';
 import { MetadataService } from 'src/services/metadata.service';
-import { VendorsService } from 'src/services/vendors.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-vendors',
@@ -42,10 +38,7 @@ export class VendorsComponent implements OnInit {
 
   showLoader = false;
   constructor(
-    private http: HttpClient,
-    private ass: AssetService,
     private inventorySer: InventoryService,
-    private vendorSer: VendorsService,
     private metaDatSer: MetadataService,
     private alertSer: AlertService,
     public dialog: MatDialog
@@ -71,7 +64,7 @@ export class VendorsComponent implements OnInit {
   inActive: any = [];
   getVendors() {
     this.showLoader = true;
-    this.vendorSer.listVendors().subscribe((res: any) => {
+    this.inventorySer.listVendors().subscribe((res: any) => {
       // console.log(res);
       this.showLoader = false;
 
@@ -133,24 +126,21 @@ export class VendorsComponent implements OnInit {
     })
   }
 
-  prBrand: any = null;
-  sta: any = null;
-  prCat: any = null;
+  // prBrand: any = null;
+  // sta: any = null;
+  // prCat: any = null;
+  // applyFilter() {
+  //   let myObj = {
+  //     productBrand: this.prBrand ? this.prBrand : '',
+  //     status: this.sta ? this.sta : '',
+  //     productCategory: this.prCat ? this.prCat : '',
+  //   }
 
-  applyFilter() {
-    let myObj = {
-      productBrand: this.prBrand ? this.prBrand : '',
-      status: this.sta ? this.sta : '',
-      productCategory: this.prCat ? this.prCat : '',
-    }
-
-    // console.log(myObj)
-
-    this.inventorySer.filteBody(myObj).subscribe((res: any) => {
-      // console.log(res);
-      this.newVendorTable = res;
-    })
-  }
+  //   this.inventorySer.filteBody(myObj).subscribe((res: any) => {
+  //     // console.log(res);
+  //     this.newVendorTable = res;
+  //   })
+  // }
 
   currentid = 0;
   closeDot(e: any, i: any) {
@@ -179,7 +169,7 @@ export class VendorsComponent implements OnInit {
 
   itemDetail: any
   listVendorsById(i: any) {
-    this.vendorSer.listVendorsById(i.id).subscribe((res: any) => {
+    this.inventorySer.listVendorsById(i.id).subscribe((res: any) => {
       this.itemDetail = res;
       this.dialog.open(this.itemsDialog, {maxWidth: '550px', maxHeight: '550px'});
     })
@@ -329,7 +319,7 @@ export class VendorsComponent implements OnInit {
     }
 
     this.alertSer.wait();
-    this.vendorSer.updatevendor({vendor: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
+    this.inventorySer.updatevendor({vendor: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
       // console.log(res);
       if(res) {
         this.alertSer.success(res);
@@ -352,7 +342,7 @@ export class VendorsComponent implements OnInit {
 
   deleteVendor() {
     this.alertSer.wait();
-    this.vendorSer.deleteVendor(this.currentItem).subscribe((res: any) => {
+    this.inventorySer.deleteVendor(this.currentItem).subscribe((res: any) => {
       // console.log(res);
       if(res) {
         this.alertSer.success(res);

@@ -9,13 +9,50 @@ import { environment } from '../environments/environment';
 export class InventoryService {
 
   baseUrl = `${environment.baseUrl}/inventory`;
-  // baseUrl = 'http://192.168.0.119:8080';
+  // baseUrl = 'http://192.168.0.137:8080';
 
   constructor(private http: HttpClient, public datepipe: DatePipe) { }
 
+  /* inventory */
+
+  listItemCode(payload: any) {
+    let url = this.baseUrl + '/listItemCode_1_0';
+    let params = new HttpParams();
+
+    if(payload.partType) {
+      params = params.set('p_part_type', payload.partType)
+    }
+    if(payload.partCategory) {
+      params = params.set('p_part_category', payload.partCategory)
+    }
+    if(payload.partCode) {
+      params = params.set('p_part_code', payload.partCode)
+    }
+    if(payload.buildType) {
+      params = params.set('p_build_type', payload.buildType)
+    }
+
+    return this.http.get(url, {params: params})
+  }
+
+  listBrandAndModel(payload: any) {
+    let url = this.baseUrl + '/listBrandAndModel_1_0';
+    let params = new HttpParams();
+
+    if(payload.itemCode) {
+      params = params.set('p_item_code', payload.itemCode)
+    }
+    if(payload.brand) {
+      params = params.set('p_brand', payload.brand)
+    }
+
+    return this.http.get(url, {params: params})
+  }
+
   listInventory() {
-    let url = this.baseUrl + "/listInventory_1_0";
-    return this.http.get(url);
+    let url = this.baseUrl + `/listInventory_1_0`;
+    let params = new HttpParams().set('startDate', '2023-08-05');
+    return this.http.get(url, {params: params});
   }
 
   listInventoryByProductId(productId: any) {
@@ -36,7 +73,6 @@ export class InventoryService {
       payload1 = payload?.inventory,
       payload2 = payload?.serialnos,
       payload3 = payload?.quantity,
-
       payload4 = payload?.warranty
     } else {
       payload1 = payload?.inventory,
@@ -84,17 +120,244 @@ export class InventoryService {
     return this.http.delete(url);
   }
 
-  updateAssetStatus(id: any, payload: any) {
+  updateInventoryStatus(payload: any) {
     let url = this.baseUrl + "/updateInventoryStatus_1_0";
-    const params = new HttpParams().set('idRreplacedWith', id).set('statusId', payload.statusId).set('newProductSerialNo', payload.newProductSerialNo).set('modifiedBy', payload.modifiedBy);
+
+    let params = new HttpParams();
+
+    if (payload.slNo) {
+      params = params.set('slNo', payload.slNo);
+    }
+    if (payload.statusId) {
+      params = params.set('statusId', payload.statusId);
+    }
+    if (payload) {
+      params = params.set('modifiedBy', 1);
+    }
 
     return this.http.put(url, null, {params: params});
   }
 
-  filteBody(payload: any) {
+  listInventoryByItemCode(payload: any) {
+    let url = this.baseUrl + "/listInventoryByItemCode_1_0";
+    let params = new HttpParams();
+    if(payload.itemCode) {
+      params = params.set('itemCode', payload.itemCode);
+    }
+
+    return this.http.get(url, {params: params});
+  }
+
+  // listIndentItems(ticketId: any) {
+  //   let url = this.baseUrl + "/listIndentItems_1_0";
+  //   let params = new HttpParams();
+
+  //   if (ticketId) {
+  //     params = params.set('ticketId', ticketId);
+  //   }
+
+  //   return this.http.get(url, {params: params});
+  // }
+
+  filterInventory(payload: any) {
     let url = this.baseUrl + `/listInventory_1_0`;
 
     return this.http.get(url, {params: payload});
+  }
+
+
+
+  /* product-master */
+
+  listProduct() {
+    let url = this.baseUrl + "/listProducts_1_0";
+    return this.http.get(url);
+  }
+
+  addingproduct(payload: any) {
+    let url = this.baseUrl + '/createProduct_1_0';
+    return this.http.post(url, payload)
+  }
+
+  updateProductMaster(payload: any) {
+    let url = this.baseUrl + '/updateProduct_1_0';
+    return this.http.put(url, payload)
+  }
+
+  deleteProduct(payload: any) {
+    let url = this.baseUrl + `/deleteProduct_1_0/${payload.id}/${1}`;
+    return this.http.delete(url);
+  }
+
+  listByVendor() {
+    let url = this.baseUrl + "/listProduct_1_0";
+    return this.http.get(url);
+  }
+
+
+  filterProductMaster(payload: any) {
+    let url = this.baseUrl + `/listProduct_1_0`;
+    let params = new HttpParams();
+    if (payload.categoryId) {
+      params = params.set('categoryId', payload.categoryId);
+    }
+    if (payload.typeId) {
+      params = params.set('typeId', payload.typeId);
+    }
+    if (payload.statusId) {
+      params = params.set('statusId', payload.statusId);
+    }
+    if (payload.startDate) {
+      params = params.set('startDate', payload.startDate);
+    }
+    if (payload.endDate) {
+      params = params.set('endDate', payload.endDate);
+    }
+    if (payload.vendorId) {
+      params = params.set('vendorId', payload.vendorId);
+    }
+
+    return this.http.get(url, {params: params});
+  }
+
+
+
+  /* indents */
+
+  listIndent() {
+    let url = this.baseUrl + "/listIndents_1_0";
+    return this.http.get(url);
+  }
+
+  listIndentItems(payload: any) {
+    let url = this.baseUrl + "/listIndentItems_1_0";
+    let params = new HttpParams();
+
+    if (payload.ticketId) {
+      params = params.set('ticketId', payload.ticketId);
+    }
+
+    return this.http.get(url, {params: params});
+  }
+
+  createIndent(payload: any) {
+    let url = this.baseUrl + '/createIndent_1_0';
+    return this.http.post(url, payload)
+  }
+
+  addComponent(payload: any) {
+    let url = this.baseUrl + '/addComponent_1_0';
+    return this.http.post(url, payload)
+  }
+
+  updateIndentStatus(payload1: any, payload2: any){
+    let url = this.baseUrl + `/updateIndentStatus_1_0/${payload1.id}/${payload2.statusId}/${payload2.createdBy}/${payload2.inventoryId}`;
+    return this.http.put(url, null);
+  }
+
+  deleteIndent(payload: any) {
+    let url = this.baseUrl + `/deleteIndent_1_0/${payload.id}`;
+    return this.http.delete(url);
+  }
+
+  replaceComponent(payload: any) {
+    let url = this.baseUrl + `/replaceComponent_1_0`;
+    let params = new HttpParams().set('oldInventoryId', payload.oldInventoryId).set('newInventoryId', payload.newInventoryId).set('replacedBy', payload.replacedBy);
+    return this.http.put(url, null, {params: params});
+  }
+
+  filterIndent(payload: any) {
+    let url = this.baseUrl + `/listIndent_1_0`;
+    return this.http.get(url, {params: payload});
+  }
+
+
+
+  /* orders */
+
+  listOrders() {
+    let url = this.baseUrl + "/listOrders_1_0";
+    return this.http.get(url);
+  }
+
+  createOrder(payload: any) {
+    let url = this.baseUrl + '/createOrder_1_0';
+    return this.http.post(url, payload)
+  }
+
+  updateOrder(payload: any) {
+    let url = this.baseUrl + '/updateOrder_1_0';
+    let params = new HttpParams().set('id', payload.id).set('invoiceNo', payload.invoiceNo).set('by', payload.by).set('remarks', payload.remarks);
+    return this.http.put(url, null, {params: params})
+  }
+
+  deleteOrder(payload: any) {
+    let url = this.baseUrl + `/deleteOrder_1_0/${payload.id}`;
+    return this.http.delete(url);
+  }
+
+  filterOrders(payload: any) {
+    let url = this.baseUrl + `/listOrders_1_0`;
+    return this.http.get(url, {params: payload});
+  }
+
+
+  listOrderItems() {
+    let url = this.baseUrl + "/listOrderItems_1_0";
+    return this.http.get(url);
+  }
+
+  listOrderItemsById(id: any) {
+    let url = this.baseUrl + "/listOrderItems_1_0";
+    let myObj = {
+      'orderId': id
+    }
+    return this.http.get(url, {params: myObj});
+  }
+
+  addItemToOrder(payload: any) {
+    let url = this.baseUrl + '/addItemToOrder_1_0';
+    return this.http.post(url, payload)
+  }
+
+  updateOrderItem(payload: any) {
+    let url = this.baseUrl + '/updateOrderItem_1_0';
+    let params = new HttpParams().set('id', payload.id).set('productQuantity', payload.productQuantity).set('by', payload.by);
+    return this.http.put(url, null, {params: params})
+  }
+
+  deleteOrderItem(payload: any) {
+    let url = this.baseUrl + `/deleteOrderItem_1_0/${payload.id}`;
+    return this.http.delete(url);
+  }
+
+
+
+  /* vendors */
+
+  listVendors() {
+    let url = this.baseUrl + '/listVendors_1_0';
+    return this.http.get(url)
+  }
+
+  listVendorsById(vendorId: any) {
+    let url = this.baseUrl + `/listProduct_1_0?vendorId=${1}&statusId=${1}`;
+    return this.http.get(url)
+  }
+
+  createVendors(payload: any) {
+    let url = this.baseUrl + '/createVendor_1_0';
+    return this.http.post(url, payload);
+  }
+
+  updatevendor(payload: any) {
+    let url = this.baseUrl + '/updateVendor_1_0';
+    return this.http.put(url, payload);
+  }
+
+  deleteVendor(payload: any) {
+    let url = this.baseUrl + `/deleteVendor_1_0/${payload.id}/${1}`;
+    return this.http.delete(url);
   }
 
 }

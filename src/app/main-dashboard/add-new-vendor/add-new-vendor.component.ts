@@ -5,8 +5,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AlertService } from 'src/services/alert.service';
 import { ApiService } from 'src/services/api.service';
-import { VendorsService } from 'src/services/vendors.service';
-import Swal from 'sweetalert2';
+import { InventoryService } from 'src/services/inventory.service';
 
 @Component({
   selector: 'app-add-new-vendor',
@@ -35,8 +34,7 @@ export class AddNewVendorComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private vendorSer: VendorsService,
-    private apiser: ApiService,
+    private inventorySer: InventoryService,
     private fb: FormBuilder,
     public alertSer: AlertService,
     private http: HttpClient,
@@ -165,7 +163,7 @@ export class AddNewVendorComponent implements OnInit {
     if(this.vendorForm.valid) {
       this.newItemEvent.emit(false);
       this.alertSer.wait();
-      this.vendorSer.createVendors(this.vendorBody).subscribe((res: any) => {
+      this.inventorySer.createVendors(this.vendorBody).subscribe((res: any) => {
         // console.log(res);
         if(res) {
           this.alertSer.success(res);

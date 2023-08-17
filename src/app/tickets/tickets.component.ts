@@ -1,10 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertService } from 'src/services/alert.service';
-import { IndentService } from 'src/services/indent.service';
 import { MetadataService } from 'src/services/metadata.service';
 import { TicketService } from 'src/services/ticket.service';
 import Swal from 'sweetalert2';
@@ -44,7 +42,6 @@ export class TicketsComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private ticketSer: TicketService,
-    private indentSer: IndentService,
     private metaDatSer: MetadataService,
     private datePipe: DatePipe,
 

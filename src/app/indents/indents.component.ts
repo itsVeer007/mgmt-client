@@ -1,13 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertService } from 'src/services/alert.service';
-import { IndentService } from 'src/services/indent.service';
 import { InventoryService } from 'src/services/inventory.service';
 import { MetadataService } from 'src/services/metadata.service';
-import { OrderService } from 'src/services/order.service';
-import { ProductMasterService } from 'src/services/product-master.service';
-import { VendorsService } from 'src/services/vendors.service';
 
 @Component({
   selector: 'app-indents',
@@ -17,11 +12,7 @@ import { VendorsService } from 'src/services/vendors.service';
 export class IndentsComponent implements OnInit {
 
   constructor(
-    private indentSer: IndentService,
-    private productMasterSer: ProductMasterService,
-    private vendorSer: VendorsService,
     private inventorySer: InventoryService,
-    private orderSer: OrderService,
     private metaDatSer: MetadataService,
     private alertSer: AlertService,
     public dialog: MatDialog
@@ -54,7 +45,7 @@ export class IndentsComponent implements OnInit {
   inventoryDetail: any;
   listIndent() {
     this.showLoader = true;
-    this.indentSer.listIndent().subscribe((res: any) => {
+    this.inventorySer.listIndent().subscribe((res: any) => {
       // console.log(res);
       this.showLoader = false;
       this.indentTable = res;
@@ -67,11 +58,11 @@ export class IndentsComponent implements OnInit {
       }
     });
 
-    this.productMasterSer.listProduct().subscribe((res: any) => {
+    this.inventorySer.listProduct().subscribe((res: any) => {
       this.productIds = res;
     })
 
-    this.vendorSer.listVendors().subscribe((res: any) => {
+    this.inventorySer.listVendors().subscribe((res: any) => {
       this.vendorDetail = res;
     })
 
@@ -82,7 +73,7 @@ export class IndentsComponent implements OnInit {
 
   listOrderItems() {
     this.showLoader = true;
-    this.orderSer.listOrderItems().subscribe((res: any) => {
+    this.inventorySer.listOrderItems().subscribe((res: any) => {
       this.showLoader = false;
       this.orderItems = res;
       this.newOrderItems = this.orderItems;
@@ -155,7 +146,7 @@ export class IndentsComponent implements OnInit {
       endDate: this.oendDate ? this.oendDate : ''
     }
 
-    this.indentSer.filteBody(myObj).subscribe((res: any) => {
+    this.inventorySer.filterIndent(myObj).subscribe((res: any) => {
       this.newIndentTable = res;
     })
   }
@@ -227,7 +218,7 @@ export class IndentsComponent implements OnInit {
 
     // this.originalObject.inventoryId = null;
     this.alertSer.wait();
-    this.indentSer.updateIndentStatus(this.originalObject).subscribe((res: any) => {
+    this.inventorySer.updateIndentStatus(this.originalObject, null).subscribe((res: any) => {
       // console.log(res);
       if(res) {
         this.alertSer.success(res);
@@ -250,7 +241,7 @@ export class IndentsComponent implements OnInit {
 
   deleteIndent() {
     this.alertSer.wait();
-    this.indentSer.deleteIndent(this.currentItem).subscribe((res: any) => {
+    this.inventorySer.deleteIndent(this.currentItem).subscribe((res: any) => {
       if(res) {
         this.alertSer.success(res);
         this.listIndent();
@@ -277,7 +268,7 @@ export class IndentsComponent implements OnInit {
   }
 
   addComponent() {
-    this.indentSer.addComponent(this.centralboxBody).subscribe((res: any) => {
+    this.inventorySer.addComponent(this.centralboxBody).subscribe((res: any) => {
       // console.log(res)
     })
   }
@@ -296,10 +287,58 @@ export class IndentsComponent implements OnInit {
   }
   replaceComponent() {
     this.alertSer.wait();
-    this.indentSer.replaceComponent(this.body).subscribe((res: any) => {
+    this.inventorySer.replaceComponent(this.body).subscribe((res: any) => {
       // console.log(res);
       if(res) {
         this.alertSer.success(res);
+      }
+    }, (err: any) => {
+      if(err) {
+        this.alertSer.error();
+      };
+    });
+  }
+
+  @ViewChild('viewDetailsDialog') viewDetailsDialog = {} as TemplateRef<any>;
+
+  inventoryItems: any;
+  openviewDetailsDialog(data: any) {
+    this.dialog.open(this.viewDetailsDialog, { maxWidth: '750px', maxHeight: '550px'});
+    this.inventorySer.listIndentItems(data).subscribe((res: any) => {
+      this.inventoryItems = res;
+    })
+  }
+
+  @ViewChild('editStatusDialog') editStatus = {} as TemplateRef<any>;
+
+  currentStatusId: any;
+  invenIds: any = null;
+  // invenId: any;
+  openEditStatus(id: any) {
+    this.dialog.open(this.editStatus);
+    this.currentStatusId = id;
+    // console.log(id)
+
+    this.inventorySer.listInventoryByItemCode(id).subscribe((res: any) => {
+      this.invenIds = res;
+      // console.log(this.invenIds)
+    })
+  }
+
+  // statusId: any;
+  statusObj = {
+    statusId: null,
+    inventoryId: null,
+    createdBy: 1
+  }
+  updateInventoryStatus() {
+    this.alertSer.wait();
+
+    this.inventorySer.updateIndentStatus(this.currentStatusId, this.statusObj).subscribe((res: any) => {
+      // console.log(res);
+      if(res) {
+        this.alertSer.success(res);
+        this.listIndent();
       }
     }, (err: any) => {
       if(err) {
