@@ -299,7 +299,15 @@
                   </a>
                 </span>
 
+
+
                 <ng-template #editStatusDialog>
+                  <div style="background-color: #084982;">
+                    <p class="dialog-title">modify status</p>
+                  </div>
+
+                  <mat-dialog-content>
+
                   <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Edit Status</mat-label>
                     <mat-select [(ngModel)]="statusObj.status">
@@ -307,6 +315,7 @@
                       <mat-option [value]="5">Removed</mat-option>
                     </mat-select>
                   </mat-form-field>
+                </mat-dialog-content>
 
                   <div class="d-flex align-items-center justify-content-end">
                     <div mat-dialog-actions class="me-2">
@@ -422,7 +431,15 @@
                   </a>
                 </span>
 
+
+
                 <ng-template #editStatusDialog>
+                  <div style="background-color: #084982;">
+                    <p class="dialog-title">modify status</p>
+                  </div>
+
+                  <mat-dialog-content>
+
                   <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Edit Status</mat-label>
                     <mat-select [(ngModel)]="statusObj.status">
@@ -430,6 +447,7 @@
                       <mat-option [value]="5">Removed</mat-option>
                     </mat-select>
                   </mat-form-field>
+                </mat-dialog-content>
 
                   <div class="d-flex align-items-center justify-content-end">
                     <div mat-dialog-actions class="me-2">
