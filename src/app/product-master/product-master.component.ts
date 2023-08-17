@@ -79,11 +79,12 @@ export class ProductMasterComponent implements OnInit {
         }
       }
     });
+  }
 
-    this.inventorySer.listVendors().subscribe((res: any) => {
-      // console.log(res);
-      this.vendorDetail = res;
-    })
+  getVendorr() {
+    // this.inventorySer.listVendors().subscribe((res: any) => {
+    //   this.vendorDetail = res;
+    // })
   }
 
   brandNames: any;

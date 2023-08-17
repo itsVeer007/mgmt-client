@@ -123,7 +123,7 @@ export class FrComponent implements OnInit {
 
   tasks: any = [];
   openTasksDialog() {
-    // this.dialog.open(this.tasksDialog, {maxWidth: '550px', maxHeight: '250px'});
+    this.dialog.open(this.tasksDialog, {maxWidth: '750px', maxHeight: '550px'});
     this.ticketSer.listFRTasksOfCurrentVisit(1565).subscribe((res: any) => {
       // console.log(res);
       this.tasks = res;
@@ -148,8 +148,9 @@ export class FrComponent implements OnInit {
 
   indentItems: any;
   openDetailsDialog(item: any) {
+    console.log(item)
     this.dialog.open(this.viewDetailsDialog, {maxWidth: '550px', maxHeight: '550px'});
-    this.inventorySer.listIndentItems(item.id).subscribe((res: any) => {
+    this.inventorySer.listIndentItems(item).subscribe((res: any) => {
       this.indentItems = res;
     })
   }

@@ -40,7 +40,7 @@ export class AddNewIndentComponent implements OnInit {
 
   @Input() show: any;
   // @Input() ticketIdFrmFr: any;
-  @Output() newItemEvent = new EventEmitter<any>();
+  @Output() newItemEvent = new EventEmitter<boolean>();
 
   UserForm: any =  FormGroup;
 
@@ -66,6 +66,7 @@ export class AddNewIndentComponent implements OnInit {
     });
 
     this.getVendor();
+    this.getProducts();
     this.ticketIdFrmFr = JSON.parse(localStorage.getItem('ticketId')!);
   }
 
@@ -80,13 +81,14 @@ export class AddNewIndentComponent implements OnInit {
   }
 
   vendorDetail: any;
-  productIds: any
   getVendor() {
-    this.inventorySer.listVendors().subscribe((res: any) => {
-      // console.log(res);
-      this.vendorDetail = res;
-    })
+    // this.inventorySer.listVendors().subscribe((res: any) => {
+    //   this.vendorDetail = res;
+    // })
+  }
 
+  productIds: any;
+  getProducts() {
     this.inventorySer.listProduct().subscribe((res: any) => {
       this.productIds = res;
     })
@@ -94,11 +96,6 @@ export class AddNewIndentComponent implements OnInit {
 
   closeAddUser() {
     this.newItemEvent.emit(false);
-  }
-
-  openAnotherForm(newform:any) {
-    this.newItemEvent.emit(false);
-    localStorage.setItem('opennewform', newform)
   }
 
   submitted!: boolean;

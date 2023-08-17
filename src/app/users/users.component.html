@@ -103,95 +103,97 @@
   <!-- table starts -->
   <div class="table-resp">
     <table class="table" id="mytable">
-      <tbody>
+      <thead>
         <tr class="form1">
           <!-- <th>
-            <input type="checkbox" class="form-check-input" [(ngModel)]="selectedAll" (change)="selectAll()"
+              <input type="checkbox" class="form-check-input" [(ngModel)]="selectedAll" (change)="selectAll()"
               id="allcheck" style="
-                background-color: #00000000;
-                border-color: #fff;
-                margin-left: 10px;
+              background-color: #00000000;
+              border-color: #fff;
+              margin-left: 10px;
               " />
-          </th> -->
-          <th (click)="sort('siteId')">User ID</th>
-          <th (click)="sort('customerName')">User Name</th>
-          <th (click)="sort('custType')">Role</th>
-          <th (click)="sort('address')">Address</th>
-          <th (click)="sort('contactNumber')">Contact Number</th>
-          <th (click)="sort('emailId')">Email id</th>
-          <th (click)="sort('contactPerson')">#Sites</th>
-          <th (click)="sort('contactPerson')">Safety Escort</th>
-          <th (click)="sort('status')">Status</th>
-          <th class="text-center">Actions</th>
-        </tr>
+            </th> -->
+            <th (click)="sort('siteId')">User ID</th>
+            <th (click)="sort('customerName')">User Name</th>
+            <th (click)="sort('custType')">Role</th>
+            <th (click)="sort('address')">Address</th>
+            <th (click)="sort('contactNumber')">Contact Number</th>
+            <th (click)="sort('emailId')">Email id</th>
+            <th (click)="sort('contactPerson')">#Sites</th>
+            <th (click)="sort('contactPerson')">Safety Escort</th>
+            <th (click)="sort('status')">Status</th>
+            <th class="text-center">Actions</th>
+          </tr>
+      </thead>
 
-        <tr *ngFor="let cust of CustomerTable | search : searchText; let i = index">
-          <!-- <td>
-            <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="cust.selected" (change)="
-                checkIfAllSelected();
-                deleteMultiRecords(cust, i, $event);
-                ViewByCheckbox(cust, i, $event);
-                EditByCheckbox(cust, i, $event)
-              " id="singleCheck" />
-          </td> -->
-          <td>
-            <p>{{ cust.employeeId }}</p>
-          </td>
-          <td>
-            <p>{{ cust.username }}</p>
-          </td>
-          <td>
-            <p>{{ cust.roleList }}</p>
-          </td>
-          <td>
-            <button class="bg-white" style="color: #084982">View</button>
-          </td>
-          <td>
-            <p>{{ cust.contactNumber1 }}</p>
-          </td>
-          <td>
-            <p>{{ cust.email }}</p>
-          </td>
-          <td>
-            <a class="pointer" (click)="show('additionalSite')">
-              <img src="assets/icons/add-svg.svg" width="25" height="25" />
-            </a>
-          </td>
-          <td>
-            <p>{{ cust.safetyEscort }}</p>
-          </td>
-          <td>
-            <p [style.color]="cust.status == 'Active' ? '#00A44C' : cust.status == 'Onhold' ? '#F5B400' : cust.status == 'Inactive' ? '#fa500f' : '#00A44C'">
-              {{ cust.status }}
-            </p>
-          </td>
+      <tbody>
+      <tr *ngFor="let cust of CustomerTable | search : searchText; let i = index">
+        <!-- <td>
+          <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="cust.selected" (change)="
+          checkIfAllSelected();
+          deleteMultiRecords(cust, i, $event);
+          ViewByCheckbox(cust, i, $event);
+              EditByCheckbox(cust, i, $event)
+            " id="singleCheck" />
+        </td> -->
+        <td>
+          <p>{{ cust.employeeId }}</p>
+        </td>
+        <td>
+          <p>{{ cust.username }}</p>
+        </td>
+        <td>
+          <p>{{ cust.roleList }}</p>
+        </td>
+        <td>
+          <button class="bg-white" style="color: #084982">View</button>
+        </td>
+        <td>
+          <p>{{ cust.contactNumber1 }}</p>
+        </td>
+        <td>
+          <p>{{ cust.email }}</p>
+        </td>
+        <td>
+          <a class="pointer" (click)="show('additionalSite')">
+            <img src="assets/icons/add.svg" width="40">
+          </a>
+        </td>
+        <td>
+          <p>{{ cust.safetyEscort }}</p>
+        </td>
+        <td>
+          <p [style.color]="cust.status == 'Active' ? '#00A44C' : cust.status == 'Onhold' ? '#F5B400' : cust.status == 'Inactive' ? '#fa500f' : '#00A44C'">
+            {{ cust.status }}
+          </p>
+        </td>
 
-          <td class="text-center">
-            <a class="mx-1" (click)="openViewPopup(cust, i)">
-              <img src="assets/icons/view.svg"(mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false">
-            </a>
-            <a class="mx-1" (click)="openEditPopup(cust, i)">
-              <img src="assets/icons/edit.svg" (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false">
-            </a>
-            <a class="mx-1" value="Delete" (click)="openDeletePopup(cust, i)">
-              <img src="assets/icons/delete.svg" (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false">
-            </a>
+        <td class="text-center">
+          <a class="mx-1" (click)="openViewPopup(cust, i)">
+            <img src="assets/icons/view.svg"(mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false">
+          </a>
+          <a class="mx-1" (click)="openEditPopup(cust, i)">
+            <img src="assets/icons/edit.svg" (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false">
+          </a>
+          <a class="mx-1" value="Delete" (click)="openDeletePopup(cust, i)">
+            <img src="assets/icons/delete.svg" (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false">
+          </a>
 
-            <!-- <a class="pointer" (click)="closeDot($event, i)"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
+          <!-- <a class="pointer" (click)="closeDot($event, i)"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
 
-            <div class="plus-img1" id="plus-img{{ i }}" style="display: none">
-              <div class="lists" *ngIf="showIconView1" style="margin-left: 5px; margin-top: -20px">
-                View
-              </div>
-              <div class="lists" *ngIf="showIconEdit1" style="margin-left: 38px; margin-top: -20px">
-                Edit
-              </div>
-              <div class="lists" *ngIf="showIconDelete1" style="margin-left: 63px; margin-top: -20px">
-                Delete
-              </div>
-            </div> -->
-          </td>
-        </tr>
+          <div class="plus-img1" id="plus-img{{ i }}" style="display: none">
+            <div class="lists" *ngIf="showIconView1" style="margin-left: 5px; margin-top: -20px">
+              View
+            </div>
+            <div class="lists" *ngIf="showIconEdit1" style="margin-left: 38px; margin-top: -20px">
+              Edit
+            </div>
+            <div class="lists" *ngIf="showIconDelete1" style="margin-left: 63px; margin-top: -20px">
+              Delete
+            </div>
+          </div> -->
+        </td>
+      </tr>
       </tbody>
     </table>
   </div>

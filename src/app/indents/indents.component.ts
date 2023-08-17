@@ -41,7 +41,6 @@ export class IndentsComponent implements OnInit {
   active: any = [];
 
   productIds: any;
-  vendorDetail: any;
   inventoryDetail: any;
   listIndent() {
     this.showLoader = true;
@@ -62,13 +61,16 @@ export class IndentsComponent implements OnInit {
       this.productIds = res;
     })
 
-    this.inventorySer.listVendors().subscribe((res: any) => {
-      this.vendorDetail = res;
-    })
-
     this.inventorySer.listInventory().subscribe((res: any) => {
       this.inventoryDetail = res;
     })
+  }
+
+  vendorDetail: any;
+  getVendorr() {
+    // this.inventorySer.listVendors().subscribe((res: any) => {
+    //   this.vendorDetail = res;
+    // })
   }
 
   listOrderItems() {

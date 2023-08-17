@@ -544,7 +544,7 @@
                   <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Inventory Id</mat-label>
                     <mat-select [(ngModel)]="statusObj.inventoryId">
-                      <mat-option *ngFor="let item of invenIds" [value]="item.slNo">{{ item.slNo }} - {{ item.name }}</mat-option>
+                      <mat-option *ngFor="let item of invenIds" [value]="item.slNo" [hidden]="item.statusId != 1">{{ item.slNo }} - {{ item.name }}</mat-option>
                     </mat-select>
                   </mat-form-field>
 

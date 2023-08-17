@@ -12,11 +12,11 @@ export class ApiService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  baseUrl = "http://usmgmt.iviscloud.net:777/businessInterface/";
+  baseUrl = "http://usmgmt.iviscloud.net:777";
 
   login(payload: any) {
     // let loginData = this.user$.getValue();
-    let url = this.baseUrl + "/login/login_2_0";
+    let url = this.baseUrl + "/businessInterface/login/login_2_0";
     return this.http.post(url, payload);
   }
 
@@ -32,8 +32,22 @@ export class ApiService {
     }, timer)
   }
 
+  refresh() {
+    let url = this.baseUrl + '/businessInterface/login/refreshtoken';
+    var user = JSON.parse(localStorage.getItem('user')!);
+    let payload = {
+      userName: user.UserName,
+      calling_System_Detail: "portal",
+      refreshToken: user.refresh_token
+    }
+
+    // console.log("refresh: ", url, payload);
+
+    return this.http.post(url, payload)
+  }
+
   addUser(payload: any) {
-    let url = this.baseUrl + "User/addUser_1_0";
+    let url = this.baseUrl + "/businessInterface/User/addUser_1_0";
     var user = JSON.parse(localStorage.getItem('user')!);
     // console.log(user);
     payload.accesstoken = user.access_token;
@@ -42,7 +56,7 @@ export class ApiService {
   }
 
   getUser(email: string) {
-    let url = this.baseUrl+"/User/getUser_1_0";
+    let url = this.baseUrl+"/businessInterface/User/getUser_1_0";
     var user = JSON.parse(localStorage.getItem('user')!);
     // console.log(user);
 
@@ -56,7 +70,7 @@ export class ApiService {
   }
 
   updateUser(user:any) {
-    let url = this.baseUrl+"/User/getUser_1_0";
+    let url = this.baseUrl+"/businessInterface/User/getUser_1_0";
     var a = JSON.parse(localStorage.getItem('user')!);
     user.accesstoken = a.access_token;
     user.callingUsername = a.UserName;

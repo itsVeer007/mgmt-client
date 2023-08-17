@@ -4,6 +4,7 @@ import { SiteService } from 'src/services/site.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MetadataService } from 'src/services/metadata.service';
 import { DeviceService } from 'src/services/device.service';
+import { ApiService } from 'src/services/api.service';
 
 @Component({
   selector: 'app-sites',
@@ -12,49 +13,12 @@ import { DeviceService } from 'src/services/device.service';
 })
 export class SitesComponent implements OnInit {
 
-  @HostListener('document:mousedown', ['$event']) onGlobalClick1(e: any): void {
-    var x = <HTMLElement>document.getElementById(`plus${this.currentid}`);
-    if (x != null) {
-      if (!x.contains(e.target)) {
-        if (x.style.display == 'flex' || x.style.display == 'block') {
-          x.style.display = 'none';
-        }
-      }
-    }
-
-    var y = <HTMLElement>document.getElementById(`address${this.addressid}`);
-    if (y != null) {
-      if (!y.contains(e.target)) {
-        if (y.style.display == 'flex' || y.style.display == 'block') {
-          y.style.display = 'none';
-        }
-      }
-    }
-
-    var z = <HTMLElement>document.getElementById(`engineer${this.engineerId}`);
-    if (z != null) {
-      if (!z.contains(e.target)) {
-        if (z.style.display == 'flex' || z.style.display == 'block') {
-          z.style.display = 'none';
-        }
-      }
-    }
-
-    // var z = <HTMLElement>document.getElementById(`icons-site`);
-    // if (z != null) {
-    //   if (!z.contains(e.target)) {
-    //     this.icons1 = false;
-    //   }
-    // }
-  }
-
-  showFiller = false;
-
   constructor(
     private http: HttpClient,
     private metaService: MetadataService,
     private siteSer: SiteService,
     private devService: DeviceService,
+    private apiSer: ApiService,
     public dialog: MatDialog
   ) { }
 
@@ -80,13 +44,16 @@ export class SitesComponent implements OnInit {
   siteNg: any = ''
   // inputToAssets: any;
   ngOnInit(): void {
-    this.getlistSites()
-    this.ongetDeviceMode();
     this.siteData = JSON.parse(localStorage.getItem('temp_sites')!);
     this.siteIds = JSON.parse(localStorage.getItem('siteIds')!)?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
-    // this.myFun();
-  }
 
+    this.getlistSites()
+    this.ongetDeviceMode();
+
+    // this.apiSer.refresh().subscribe((res: any) => {
+    //   console.log(res)
+    // })
+  }
 
   getlistSites() {
     this.showLoader = true;
@@ -99,19 +66,6 @@ export class SitesComponent implements OnInit {
       // this.totalCount = res.counts;
     })
   }
-
-  // new: any = [];
-  // myFun() {
-  //   this.siteSer.listSites().subscribe((res: any) => {
-  //     for(let item of res.sitesList) {
-  //       this.new.push(item.siteId)
-  //     }
-  //   })
-
-  //   this.devService.listDeviceAdsInfo().subscribe((res: any) => {
-  //     console.log(res);
-  //   });
-  // }
 
 
   deviceData: any;
@@ -166,9 +120,9 @@ export class SitesComponent implements OnInit {
     if(value == 'device') {this.showAddDevice = true}
   }
 
-  closenow(type: string, value: any) {
-    if (type == 'site') { this.showAddSite = value }
-    if (type == 'device') { this.showAddDevice = value }
+  closenow(type: string) {
+    if (type == 'site') { this.showAddSite = false }
+    if (type == 'device') { this.showAddDevice = false }
   }
 
   addressid = 0;

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from '../environments/environment';
@@ -12,9 +12,9 @@ export class TicketService {
 
   constructor(private http: HttpClient) { }
 
-  baseUrl = `${environment.baseUrl}/tickets`;
-  // baseUrl = 'http://192.168.0.137:8081';
+  // baseUrl = `${environment.baseUrl}/tickets`;
   // base = 'http://192.168.0.137:8080';
+  baseUrl = 'http://192.168.0.137:8080';
 
   listTickets() {
     let url = this.baseUrl + "/listTickets_1_0";
@@ -36,23 +36,16 @@ export class TicketService {
     return this.http.delete(url);
   }
 
+  listIndentItems(payload: any) {
+    let url = this.baseUrl + `/listIndentItems_1_0`;
+    let params = new HttpParams().set('ticketId', payload.id).set('status', 4);
+
+    return this.http.get(url, {params: params});
+  }
+
   listFRTickets() {
     let url = this.baseUrl + `/listFRTickets_1_0/${1565}`;
     return this.http.get(url);
-  }
-
-
-  getcomments(ticketId: any) {
-    let url = this.baseUrl + "/getComments_1_0";
-    let myObj = {
-      'ticketId': ticketId,
-    }
-    return this.http.get(url, {params: myObj});
-  }
-
-  createComment(payload: any) {
-    let url = this.baseUrl + '/createComment_1_0';
-    return this.http.post(url, payload);
   }
 
   getTasks(ticketId: any) {
@@ -76,13 +69,12 @@ export class TicketService {
     return this.http.put(url, payload);
   }
 
-  updateStatus(payload: any) {
+  updateTask(payload: any) {
     let url = this.baseUrl + '/updateTask_1_0';
     return this.http.put(url, payload);
   }
 
-
-  filteBody(payload: any) {
+  filterTicket(payload: any) {
     let url = this.baseUrl + `/listTickets_1_0`;
     let myObj = {
       'siteId': payload.siteId,
@@ -92,6 +84,20 @@ export class TicketService {
       'endDate': payload.endDate
     }
     return this.http.get(url, {params: myObj});
+  }
+
+
+  getcomments(ticketId: any) {
+    let url = this.baseUrl + "/getComments_1_0";
+    let myObj = {
+      'ticketId': ticketId,
+    }
+    return this.http.get(url, {params: myObj});
+  }
+
+  createComment(payload: any) {
+    let url = this.baseUrl + '/createComment_1_0';
+    return this.http.post(url, payload);
   }
 
 

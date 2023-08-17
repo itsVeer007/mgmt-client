@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertService } from 'src/services/alert.service';
+import { InventoryService } from 'src/services/inventory.service';
 import { MetadataService } from 'src/services/metadata.service';
 import { TicketService } from 'src/services/ticket.service';
 import Swal from 'sweetalert2';
@@ -14,34 +15,11 @@ import Swal from 'sweetalert2';
 })
 export class TicketsComponent implements OnInit {
 
-  @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
-    var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);
-    var y = <HTMLElement>document.getElementById(`icons-site`);
-
-    // console.log(`plus-img${this.currentid}`);
-    if (x != null) {
-      if (!x.contains(e.target)) {
-        if (x.style.display == 'flex' || x.style.display == 'block') {
-          x.style.display = 'none';
-        }
-      }
-    }
-
-    // if (y != null) {
-    //   console.log(`icons-site`);
-    //   if (!y.contains(e.target)) {
-    //     this.icons1 = false;
-    //   }
-    // }
-  }
-
-
-
-
   showLoader = false;
   constructor(
     private http: HttpClient,
     private ticketSer: TicketService,
+    private inventorySer: InventoryService,
     private metaDatSer: MetadataService,
     private datePipe: DatePipe,
 
@@ -110,6 +88,17 @@ export class TicketsComponent implements OnInit {
     })
   }
 
+  usedItems: any;
+  @ViewChild('indentItemsDialog') indentItemsDialog = {} as TemplateRef<any>;
+  listIndentItems(data: any) {
+    this.dialog.open(this.indentItemsDialog, {maxWidth: '750px', maxHeight: '550px'});
+
+    this.ticketSer.listIndentItems(data).subscribe((res: any) => {
+      // console.log(res);
+      this.usedItems = res;
+    })
+  }
+
   duplicateSiteName: any;
   duplicateTicketType: any
   removeDuplicates() {
@@ -174,22 +163,24 @@ export class TicketsComponent implements OnInit {
     })
   }
 
-  sId: any = '';
-  tId: any = '';
-  tStatus: any = '';
-  stDt: any;
-  enDt: any;
+  ticketStatusObj = {
+    siteId: null,
+    typeId: null,
+    ticketStatus: null,
+    startDate: null,
+    endDate: null
+  }
 
   applyFilter() {
-    let myObj = {
-      'siteId': this.sId ? this.sId : -1,
-      'typeId': this.tId ? this.tId : -1,
-      'ticketStatus': this.tStatus ? this.tStatus : '',
-      'startDate': this.stDt ? this.datePipe.transform(this.stDt,'yyyy-MM-dd HH:mm:ss') : '',
-      'endDate': this.enDt ? this.datePipe.transform(this.enDt,'yyyy-MM-dd HH:mm:ss') : ''
-    }
+    // let myObj = {
+    //   'siteId': this.sId ? this.sId : -1,
+    //   'typeId': this.tId ? this.tId : -1,
+    //   'ticketStatus': this.tStatus ? this.tStatus : '',
+    //   'startDate': this.stDt ? this.datePipe.transform(this.stDt,'yyyy-MM-dd HH:mm:ss') : '',
+    //   'endDate': this.enDt ? this.datePipe.transform(this.enDt,'yyyy-MM-dd HH:mm:ss') : ''
+    // }
 
-    this.ticketSer.filteBody(myObj).subscribe((res: any) => {
+    this.ticketSer.filterTicket(this.ticketStatusObj).subscribe((res: any) => {
       // console.log(res);
       this.newTicketData = res;
     })
@@ -410,7 +401,7 @@ export class TicketsComponent implements OnInit {
       status: this.staObj.status
     }
     this.alertSer.wait();
-    this.ticketSer.updateStatus(statusObj).subscribe((res: any) => {
+    this.ticketSer.updateTask(statusObj).subscribe((res: any) => {
       // console.log(res);
       if(res) {
         this.alertSer.success(res);

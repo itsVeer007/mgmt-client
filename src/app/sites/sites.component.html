@@ -206,7 +206,7 @@
 
             <td>
               <a class="pointer" style="color: #000;" (click)="onGetCentralbox(data.siteId)">
-                <img src="assets/icons/add-svg.svg" *ngIf="data.centralUnitId == '' || data.centralUnitId == null" width="25" height="25">
+                <img src="assets/icons/add.svg" *ngIf="data.centralUnitId == '' || data.centralUnitId == null" width="40">
                 <span *ngIf="data.cntrl_Unit != '' && data.centralUnitId !=null">{{data?.centralUnitId}}</span>
               </a>
             </td>
@@ -217,7 +217,7 @@
 
             <td>
               <!-- <a>
-                <img src="assets/icons/add-svg.svg" *ngIf="data.centralUnitId == '' || data.centralUnitId == null " width="25" height="25">
+                <img src="assets/icons/add-svg.svg" *ngIf="data.centralUnitId == '' || data.centralUnitId == null " width="40" height="40">
                 <span *ngIf="data.centralUnitId != '' && data.centralUnitId !=null">{{data?.centralUnitId}}</span>
               </a> -->
               View
@@ -225,7 +225,7 @@
 
             <td>
               <a class="pointer" (click)="show('device'); getDevices(data.siteid); saveSiteData(data)">
-                  <img src="assets/icons/add-svg.svg" width="25" height="25" >
+                  <img src="assets/icons/add.svg" width="40">
                 <!-- <span class="ms-2">{{ deviceLength }}</span> -->
               </a>
             </td>
@@ -387,9 +387,9 @@
 
 
 <div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showAddSite">
-  <app-add-new-site (newItemEvent)="closenow('site', $event)"></app-add-new-site>
+  <app-add-new-site (newItemEvent)="closenow('site')"></app-add-new-site>
 </div>
 
 <div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showAddDevice">
-  <app-add-device [fromSites]="inputToDevices" (newItemEvent)="closenow('device', $event)"></app-add-device>
+  <app-add-device [fromSites]="inputToDevices" (newItemEvent)="closenow('device')"></app-add-device>
 </div>

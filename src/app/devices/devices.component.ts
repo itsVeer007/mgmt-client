@@ -360,7 +360,7 @@ export class DevicesComponent implements OnInit {
       status: this.staObj.status
     }
 
-    this.ticketSer.updateStatus(statusObj).subscribe((res: any) => {
+    this.ticketSer.updateTask(statusObj).subscribe((res: any) => {
       // console.log(res);
     })
   }
