@@ -108,7 +108,7 @@ export class AddNewIndentComponent implements OnInit {
     if(this.UserForm.valid) {
       this.alertSer.wait();
       this.newItemEvent.emit(false);
-      this.inventoryBody.ticketId = this.ticketIdFrmFr?.id;
+      this.inventoryBody.ticketId = this.ticketIdFrmFr?.ticketId;
       this.inventoryBody.items = this.items;
       this.inventorySer.createIndent(this.inventoryBody).subscribe((res: any) => {
         // console.log(res);

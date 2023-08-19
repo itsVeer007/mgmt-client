@@ -38,7 +38,7 @@ export class TicketService {
 
   listIndentItems(payload: any) {
     let url = this.baseUrl + `/listIndentItems_1_0`;
-    let params = new HttpParams().set('ticketId', payload.id).set('status', 4);
+    let params = new HttpParams().set('ticketId', payload?.ticketId).set('status', 4);
 
     return this.http.get(url, {params: params});
   }

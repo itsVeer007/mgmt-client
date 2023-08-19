@@ -439,7 +439,9 @@
               </td>
 
               <td>
-                <p (click)="openEditStatus(inven)">{{ inven.statusId }}</p>
+                <p (click)="openEditStatus(inven)">
+                  {{ inven.statusId == 1 ? "Requested" : inven.statusId == 2 ? "Dispatched" : inven.statusId == 3 ? "Received" : inven.statusId == 4 ? "Installed" : inven.statusId == 5 ? "Returned" : '' }}
+                </p>
 
                 <ng-template #editStatusDialog>
                   <div style="background-color: #084982;">
@@ -575,7 +577,7 @@
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>oldInventoryId</mat-label>
           <mat-select [(ngModel)]="body.oldInventoryId">
-            <mat-option *ngFor="let item of inventoryId" [value]="item.slNo">{{ item.slNo }} - {{ item.name }}</mat-option>
+            <mat-option *ngFor="let item of inventoryId" [value]="item.slNo" [hidden]="item.statusId != 3">{{ item.slNo }} - {{ item.name }} </mat-option>
           </mat-select>
         </mat-form-field>
       </div>

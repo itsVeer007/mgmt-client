@@ -306,6 +306,8 @@ export class IndentsComponent implements OnInit {
   inventoryItems: any;
   openviewDetailsDialog(data: any) {
     this.dialog.open(this.viewDetailsDialog, { maxWidth: '750px', maxHeight: '550px'});
+    // console.log(data)
+
     this.inventorySer.listIndentItems(data).subscribe((res: any) => {
       this.inventoryItems = res;
     })
@@ -319,7 +321,6 @@ export class IndentsComponent implements OnInit {
   openEditStatus(id: any) {
     this.dialog.open(this.editStatus);
     this.currentStatusId = id;
-    // console.log(id)
 
     this.inventorySer.listInventoryByItemCode(id).subscribe((res: any) => {
       this.invenIds = res;

@@ -1,4 +1,4 @@
-import { DatePipe } from '@angular/common';
+import { DatePipe, formatDate } from '@angular/common';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
@@ -52,7 +52,7 @@ export class InventoryService {
 
   listInventory() {
     let url = this.baseUrl + `/listInventoryWithDates_1_0`;
-    let params = new HttpParams().set('startDate', '2023-08-05').set('end1_date', '2023-08-11');
+    let params = new HttpParams().set('startDate', '2023-08-05').set('end1_date', formatDate(new Date(), 'yyyy-MM-dd', 'en-us'));
     return this.http.get(url, {params: params});
   }
 
@@ -147,10 +147,10 @@ export class InventoryService {
 
   listInventoryByItemCode(payload: any) {
     let url = this.baseUrl + "/listInventoryByItemCode_1_0";
-    let params = new HttpParams();
-    if(payload.itemCode) {
-      params = params.set('itemCode', payload.itemCode);
-    }
+    let params = new HttpParams().set('itemCode', payload.itemCode);
+    // if(payload.itemCode) {
+    //   params = params.set('itemCode', payload.itemCode);
+    // }
 
     return this.http.get(url, {params: params});
   }
@@ -238,7 +238,7 @@ export class InventoryService {
 
   listIndentItems(payload: any) {
     let url = this.baseUrl + "/listIndentItems_1_0";
-    let params = new HttpParams().set('ticketId', payload.ticketId);
+    let params = new HttpParams().set('ticketId', payload?.ticketId);
 
     // if (payload.ticketId) {
     //   params = params.set('ticketId', payload.id);
@@ -368,3 +368,4 @@ export class InventoryService {
   }
 
 }
+

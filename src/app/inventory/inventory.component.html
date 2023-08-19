@@ -246,7 +246,7 @@
 
           <th>
             <p style="display: inline-flex;">
-              <span>stockOnStartDate</span>
+              <span>stock</span>
               <img (click)="sort('id')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
             </p>
           </th>
@@ -254,6 +254,13 @@
           <th>
             <p style="display: inline-flex;">
               <span>purchased</span>
+              <img (click)="sort('id')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
+            </p>
+          </th>
+
+          <th>
+            <p style="display: inline-flex;">
+              <span>dispatched</span>
               <img (click)="sort('id')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
             </p>
           </th>
@@ -331,6 +338,10 @@
 
           <td>
             <p>{{ cust.purchases }}</p>
+          </td>
+
+          <td>
+            <p>{{ cust.dispatched }}</p>
           </td>
 
           <td>
@@ -838,9 +849,9 @@
 
               <th>siteId</th>
 
-              <th>itemCode</th>
+              <th>usedBy</th>
 
-              <th>modifiedTime</th>
+              <th>usedTime</th>
 
               <!-- <th>status</th> -->
             </tr>
@@ -857,7 +868,7 @@
               </td>
 
               <td>
-                <p>{{ task.itemCode }}</p>
+                <p>{{ task.modifiedBy }}</p>
               </td>
 
               <td>

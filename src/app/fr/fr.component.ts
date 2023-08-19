@@ -74,7 +74,7 @@ export class FrComponent implements OnInit {
   ticketComments: any = [];
   openTicketTaskDialog(item: any) {
     this.dialog.open(this.ticketTaskDialog, {maxHeight: '550px', maxWidth: '850px'});
-    this.ticketSer.getTasks(item.id).subscribe((tasks: any) => {
+    this.ticketSer.getTasks(item.ticketId).subscribe((tasks: any) => {
       this.ticketTasks = tasks;
     });
   }
@@ -189,7 +189,7 @@ export class FrComponent implements OnInit {
   openCreateOrder(item: any) {
     // this.currentItem = item;
     this.dialog.open(this.createOrderDialog, { maxWidth: '650px', maxHeight: '550px'});
-    this.inventorySer.listIndentItems(item.ticketId).subscribe((res: any) => {
+    this.inventorySer.listIndentItems(item).subscribe((res: any) => {
       this.indentItems = res;
     })
   }
