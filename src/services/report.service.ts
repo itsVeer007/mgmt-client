@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -8,12 +8,13 @@ export class ReportService {
 
   constructor(private http: HttpClient) { }
 
-  baseUrl = 'http://192.168.0.125:8000';
+  baseUrl = 'http://192.168.0.175:8000';
   naik = 'http://192.168.0.120:8000'
 
   list() {
-    let url = this.baseUrl + "/search/119";
+    let url = this.baseUrl + "/search";
     return this.http.get(url);
+
   }
 
   wifiList() {
@@ -34,7 +35,25 @@ export class ReportService {
   }
 
 
+  filterReports(payload: any) {
+    let url = this.baseUrl + '/search';
+    let params = new HttpParams();
 
+    if(payload.siteId) {
+      params = params.set('siteId', payload.siteId)
+    }
+    if(payload.deviceId) {
+      params = params.set('deviceId', payload.deviceId)
+    }
+    if(payload.from_date) {
+      params = params.set('from_date', payload.from_date)
+    }
+    if(payload.to_date) {
+      params = params.set('to_date', payload.to_date)
+    }
+
+    return this.http.get(url, {params: params})
+  }
 
 
 

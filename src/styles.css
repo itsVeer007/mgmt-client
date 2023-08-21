@@ -1,5 +1,29 @@
 body {
-  font-family: ms, sans-serif, Arial, Helvetica !important;
+  font-family: Roboto, "Helvetica Neue", sans-serif !important;
+}
+
+@font-face {
+  font-family: SG;
+  src: url(assets/font/SackersGothicStd-Light.otf) format("opentype");
+}
+
+@font-face {
+  font-family: ES;
+  src: url(assets/font/EngraversGothicRegular.otf) format("opentype");
+}
+@font-face {
+  font-family: TP;
+  src: url(assets/font/Typold-Book500.otf) format("opentype");
+}
+
+@font-face {
+  font-family: MS;
+  src: url(assets/font/Montserrat-ExtraLight.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: PS;
+  src: url(assets/font/Poppins-SemiBold.ttf) format("truetype");
 }
 
 p {

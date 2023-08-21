@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./qr-ads.component.css']
 })
 export class QRAdsComponent implements OnInit {
+filterbody: any;
 
   @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
     var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);
@@ -44,6 +45,11 @@ export class QRAdsComponent implements OnInit {
     this.getInventory();
   }
 
+  ngAfterViewChecked() {
+    // console.log('hello')
+    this.fun()
+  }
+
   showIconView: boolean = false;
   showIconEdit: boolean = false;
   showIconDelete: boolean = false;
@@ -53,8 +59,9 @@ export class QRAdsComponent implements OnInit {
 
   searchText: any;
   searchTx: any;
-  productMaster: any = [];
-  newProductMaster: any = [];
+  qrData: any = [];
+  newQrData: any = [];
+
 
   installed: any = [];
   inStock: any = [];
@@ -62,51 +69,56 @@ export class QRAdsComponent implements OnInit {
   redyToUse: any = [];
   getInventory() {
     this.reportSer.list().subscribe((res: any) => {
-      // console.log(res);
+      console.log(res);
 
-      this.productMaster = res;
-      this.newProductMaster = this.productMaster;
+      this.qrData = res;
+      this.newQrData = this.qrData;
 
     });
 
     // this.http.get('assets/JSON/addReport.json').subscribe((res: any) => {
     //   // console.log(res);
-    //   this.productMaster = res;
-    //   this.newProductMaster = this.productMaster;
+    //   this.qrData = res;
+    //   this.newQrData = this.qrData;
     // })
   }
 
-  // filterBrand(val: any) {
-  //   if(val == 'none') {
-  //     this.newProductMaster = this.productMaster;
-  //   } else {
-  //     this.newProductMaster = this.productMaster.filter((el: any) => el.productBrand == val);
-  //   }
-  // }
+  filterBody = {
+    siteId: null,
+    deviceId: null,
+    fromDate: null,
+    toDate: null
+  }
 
-  // filterCategory(val: any) {
-  //   if(val == 'none') {
-  //     this.newProductMaster = this.productMaster;
-  //   } else {
-  //     this.newProductMaster = this.productMaster.filter((el: any) => el.productCategory == val);
-  //   }
-  // }
+  filterQrAds() {
+    this.reportSer.filterReports(this.filterBody).subscribe((res:any)=>{
+      console.log(res);
+      this.qrData=res;
+      this.newQrData = this.qrData
+    })
+  }
 
-  // filterStatus(val: any) {
-  //   if(val == 'none') {
-  //     this.newProductMaster = this.productMaster;
-  //   } else {
-  //     this.newProductMaster = this.productMaster.filter((el: any) => el.status == val);
-  //   }
-  // }
+  filterTable1Data: any;
+  fun() {
+    this.filterTable1Data = this.qrData.reduce((acc: any, current: any) => {
+      const x = acc.find((item: any) => item.deviceId == current.deviceId);
+      if (!x) {
+        return acc.concat([current]);
+      } else {
+        return acc;
+      }
+    }, []);
+
+    // console.log(this.filterTable1Data)
+  }
 
 
   brandNames: any;
   categoryTypes: any;
   statusVal: any;
   removeDuplicates() {
-    this.brandNames = this.productMaster.reduce((acc: any, current: any) => {
-      const x = acc.find((item: any) => item.productCategoryId == current.productCategoryId);
+    this.brandNames = this.qrData.reduce((acc: any, current: any) => {
+      const x = acc.find((item: any) => item.siteId == current.siteId);
       if (!x) {
         return acc.concat([current]);
       } else {
@@ -114,8 +126,8 @@ export class QRAdsComponent implements OnInit {
       }
     }, []);
 
-    this.categoryTypes = this.productMaster.reduce((acc: any, current: any) => {
-      const x = acc.find((item: any) => item.productTypeId == current.productTypeId);
+    this.categoryTypes = this.qrData.reduce((acc: any, current: any) => {
+      const x = acc.find((item: any) => item.deviceId == current.deviceId);
       if (!x) {
         return acc.concat([current]);
       } else {
@@ -123,7 +135,7 @@ export class QRAdsComponent implements OnInit {
       }
     }, []);
 
-    this.statusVal = this.productMaster.reduce((acc: any, current: any) => {
+    this.statusVal = this.qrData.reduce((acc: any, current: any) => {
       const x = acc.find((item: any) => item.productStatusId == current.productStatusId);
       if (!x) {
         return acc.concat([current]);
@@ -146,7 +158,7 @@ export class QRAdsComponent implements OnInit {
 
     this.reportSer.filteBody(myObj).subscribe((res: any) => {
       // console.log(res);
-      this.newProductMaster = res;
+      this.newQrData = res;
     })
   }
 
@@ -199,13 +211,13 @@ export class QRAdsComponent implements OnInit {
   selectedAll: any;
 
   selectAll() {
-    for (var i = 0; i < this.productMaster.length; i++) {
-      this.productMaster[i].selected = this.selectedAll;
+    for (var i = 0; i < this.qrData.length; i++) {
+      this.qrData[i].selected = this.selectedAll;
     }
   }
 
   checkIfAllSelected() {
-    this.selectedAll = this.productMaster.every(function (item: any) {
+    this.selectedAll = this.qrData.every(function (item: any) {
       return item.selected == true;
     })
   }
@@ -238,7 +250,7 @@ export class QRAdsComponent implements OnInit {
   updateInventory2: any;
   editInventory() {
     // console.log(this.currentItem);
-    // this.productMaster= this.productMaster.filter((item:any) => item.siteId !== this.currentItem.siteId);
+    // this.qrData= this.qrData.filter((item:any) => item.siteId !== this.currentItem.siteId);
     // this.getInventory();
 
     this.originalObject = {
@@ -293,7 +305,7 @@ export class QRAdsComponent implements OnInit {
   //   this.showLoader = true;
   //   setTimeout(() => {
   //     this.showLoader = false;
-  //     this.productMaster.splice(i, 1);
+  //     this.qrData.splice(i, 1);
   //   }, 1000);
   // }
 
@@ -408,12 +420,12 @@ export class QRAdsComponent implements OnInit {
       this.deletearray.forEach((el: any) => {
         // this.currentItem = el;
         // this.deleteInventory();
-        this.productMaster = this.productMaster.filter((item: any) => item.siteId !== el.siteId);
+        this.qrData = this.qrData.filter((item: any) => item.siteId !== el.siteId);
       });
       this.deletearray = []
     } else {
-      this.productMaster.forEach((el: any) => {
-        this.productMaster = this.productMaster.filter((item: any) => item.siteId !== el.siteId);
+      this.qrData.forEach((el: any) => {
+        this.qrData = this.qrData.filter((item: any) => item.siteId !== el.siteId);
       });
     }
   }
@@ -423,7 +435,7 @@ export class QRAdsComponent implements OnInit {
   sorted = false;
   sort(label: any) {
     this.sorted = !this.sorted;
-    var x = this.productMaster;
+    var x = this.qrData;
     if (this.sorted == false) {
       x.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
     } else {
