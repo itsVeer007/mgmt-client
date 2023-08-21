@@ -59,10 +59,9 @@ export class OrdersComponent implements OnInit {
 
   vendorDetail: any;
   getVendorr() {
-    this.inventorySer.listVendors().subscribe((res: any) => {
-      // console.log(res);
-      this.vendorDetail = res;
-    })
+    // this.inventorySer.listVendors().subscribe((res: any) => {
+    //   this.vendorDetail = res;
+    // })
   }
 
   listOrderItems() {

@@ -137,7 +137,7 @@ export class TicketReportsComponent implements OnInit {
       'endDate': this.enDt ? this.datePipe.transform(this.enDt,'yyyy-MM-dd HH:mm:ss') : ''
     }
 
-    this.ticketSer.filteBody(myObj).subscribe((res: any) => {
+    this.ticketSer.filterTicket(myObj).subscribe((res: any) => {
       // console.log(res);
       this.newTicketData = res;
     })
@@ -366,7 +366,7 @@ export class TicketReportsComponent implements OnInit {
       status: this.staObj.status
     }
     this.alertSer.wait();
-    this.ticketSer.updateStatus(statusObj).subscribe((res: any) => {
+    this.ticketSer.updateTask(statusObj).subscribe((res: any) => {
       // console.log(res);
       if(res) {
         this.alertSer.success(res);

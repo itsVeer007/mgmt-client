@@ -1,5 +1,3 @@
-<!-- <img src="/home/ubuntu/PycharmProjects/Temp/images/IVISINVIP36303C8_20230807235718.jpg" alt=""> -->
-<!-- <video src="assets/Big_Buck_Bunny_1080_10s_1MB.webm" autoplay></video> -->
 <div class="container-fluid users" id="top">
 
   <!-- header -->
@@ -248,7 +246,7 @@
 
           <th>
             <p style="display: inline-flex;">
-              <span>inStock</span>
+              <span>stock</span>
               <img (click)="sort('id')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
             </p>
           </th>
@@ -262,6 +260,13 @@
 
           <th>
             <p style="display: inline-flex;">
+              <span>dispatched</span>
+              <img (click)="sort('id')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
+            </p>
+          </th>
+
+          <th>
+            <p style="display: inline-flex;">
               <span>used</span>
               <img (click)="sort('id')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
             </p>
@@ -269,7 +274,7 @@
 
           <th>
             <p style="display: inline-flex;">
-              <span>stock</span>
+              <span>inStock</span>
               <img (click)="sort('id')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
             </p>
           </th>
@@ -328,19 +333,23 @@
           </td>
 
           <td>
-            <p>{{ cust.inStockAsOnStartDate }}</p>
+            <p>{{ cust.stockOnStartDate }}</p>
           </td>
 
           <td>
-            <p>{{ cust.purchasedAfterStartDate }}</p>
+            <p>{{ cust.purchases }}</p>
           </td>
 
           <td>
-            <p>{{ cust.usedAfterStartDateToTillDate }}</p>
+            <p>{{ cust.dispatched }}</p>
           </td>
 
           <td>
-            <p>{{ cust.stockAsOfToday }}</p>
+            <p (click)="listDetails(cust)">{{ cust.used }}</p>
+          </td>
+
+          <td>
+            <p>{{ cust.inStock }}</p>
           </td>
 
           <!-- <td>
@@ -735,9 +744,10 @@
 </ng-template>
 <!-- warranty popup -->
 
+<!-- view details-->
 <ng-template #viewDetailsDialog>
   <div style="background-color: #084982;">
-    <p class="dialog-title">view ticket</p>
+    <p class="dialog-title">view details</p>
   </div>
 
   <mat-dialog-content>
@@ -821,6 +831,65 @@
     <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
   </div>
 </ng-template>
+<!-- /view details-->
+
+<!-- used items-->
+<ng-template #indentItemsDialog>
+  <div style="background-color: #084982;">
+    <p class="dialog-title">view items</p>
+  </div>
+
+  <mat-dialog-content>
+    <div class="row">
+      <div class="table-res col-lg-12">
+        <table class="table" id="mytable">
+          <thead>
+            <tr class="task-table">
+              <th>ticketId</th>
+
+              <th>siteId</th>
+
+              <th>usedBy</th>
+
+              <th>usedTime</th>
+
+              <!-- <th>status</th> -->
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let task of usedItems; let i = index">
+              <td>
+                <p>{{ task.id }}</p>
+              </td>
+
+              <td>
+                <p>{{ task.siteId }}</p>
+              </td>
+
+              <td>
+                <p>{{ task.modifiedBy }}</p>
+              </td>
+
+              <td>
+                <p>{{ task.modifiedTime }}</p>
+              </td>
+
+              <!-- <td>
+                <p>{{ task.statusId == 1 ? 'Open' : task.statusId == 2 ? 'In-Progress' : task.statusId == 3 ? 'Closed' : task.statusId == 4 ? 'Rejected' : '' }}</p>
+              </td> -->
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <div class="d-flex justify-content-end" mat-dialog-actions>
+    <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+  </div>
+</ng-template>
+<!-- /used items-->
 
 
 <div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showInventory">

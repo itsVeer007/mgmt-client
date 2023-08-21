@@ -65,10 +65,9 @@ export class AddNewOrderComponent implements OnInit {
 
   vendorDetail: any;
   getVendor() {
-    this.inventorySer.listVendors().subscribe((res: any) => {
-      // console.log(res);
-      this.vendorDetail = res;
-    })
+    // this.inventorySer.listVendors().subscribe((res: any) => {
+    //   this.vendorDetail = res;
+    // })
   }
 
   closeAddUser() {

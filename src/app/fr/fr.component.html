@@ -20,161 +20,177 @@
   <!-- /header -->
 
   <!-- overall tasks -->
-  <div class="table-resp" *ngIf="tasks.length == 0">
-    <table class="table table-hover" id="mytable">
-      <thead>
-        <tr class="form1">
-          <th>
-            <span>id</span>
-            <!-- <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
-          </th>
+    <div class="table-resp">
+      <table class="table table-hover" id="mytable">
+        <thead>
+          <tr class="form1">
+            <th>
+              <span>ticketId</span>
+              <!-- <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
+            </th>
 
-          <th>
-            <span>ticketType</span>
-          </th>
+            <th>
+              <span>ticketType</span>
+            </th>
 
-          <th>
-            <span>siteId</span>
-          </th>
+            <th>
+              <span>siteId</span>
+            </th>
 
-          <th>
-            <span>siteName</span>
-          </th>
+            <th>
+              <span>siteName</span>
+            </th>
 
-          <th>
-            <span>indentAdd</span>
-          </th>
+            <th>
+              <span>indentAdd</span>
+            </th>
 
-          <th>
-            <span>indentView</span>
-          </th>
+            <th>
+              <span>indentView</span>
+            </th>
 
-          <th>
-            <span>reasonDescription</span>
-          </th>
+            <th>
+              <span>reasonDescription</span>
+            </th>
 
-          <th>
-            <span>createdTime</span>
-          </th>
-        </tr>
-      </thead>
+            <th>
+              <span>createdTime</span>
+            </th>
+          </tr>
+        </thead>
 
-      <tbody>
-        <tr *ngFor="let cust of frTickets" (dblclick)="openTicketTaskDialog(cust)">
-          <td>
-            <p>{{ cust.id }}</p>
-          </td>
-          <td>
-            <p>{{ cust.ticketType }}</p>
-          </td>
+        <tbody>
+          <tr *ngFor="let cust of frTickets" (dblclick)="openTicketTaskDialog(cust)">
+            <td>
+              <p>{{ cust.ticketId }}</p>
+            </td>
+            <td>
+              <p>{{ cust.ticketType }}</p>
+            </td>
 
-          <td>
-            <p>{{ cust.siteId }}</p>
-          </td>
+            <td>
+              <p>{{ cust.siteId }}</p>
+            </td>
 
-          <td>
-            <p>{{ cust.siteName }}</p>
-          </td>
+            <td>
+              <p>{{ cust.siteName }}</p>
+            </td>
 
-          <td>
-            <a class="pointer" (click)="show('indent'); ticketIdToFr(cust)">
-              <img src="assets/icons/add-svg.svg" width="25">
-            </a>
-          </td>
+            <td>
+              <a class="pointer" (click)="show('indent'); ticketIdToFr(cust)">
+                <img src="assets/icons/add.svg" width="40">
+              </a>
+            </td>
 
-          <td>
-            <p (click)="openDetailsDialog(cust)">View</p>
-          </td>
+            <td>
+              <p (click)="openDetailsDialog(cust)">View</p>
+            </td>
 
-          <td>
-            <p>{{ cust.reasonDescription }}</p>
-          </td>
+            <td>
+              <p>{{ cust.reasonDescription }}</p>
+            </td>
 
-          <td>
-            <p>{{ cust.createdTime }}</p>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+            <td>
+              <p>{{ cust.createdTime }}</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   <!-- /overall tasks -->
 
   <!-- current tasks -->
-  <div class="table-resp" *ngIf="tasks.length > 0">
-    <table class="table table-hover" id="mytable">
-      <thead>
-        <tr class="form1">
-          <th>
-            <span>id</span>
-            <!-- <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
-          </th>
+  <ng-template #tasksDialog>
+    <div style="background-color: #084982;">
+      <p class="dialog-title">view tasks</p>
+    </div>
 
-          <th>
-            <span>category</span>
-          </th>
+    <mat-dialog-content>
+      <div class="table-resp">
+        <table class="table table-hover" id="mytable">
+          <thead>
+            <tr class="form1">
+              <th>
+                <span>id</span>
+                <!-- <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
+              </th>
 
-          <th>
-            <span>subCategory</span>
-          </th>
+              <th>
+                <span>category</span>
+              </th>
 
-          <th>
-            <span>reason</span>
-          </th>
+              <th>
+                <span>subCategory</span>
+              </th>
 
-          <th>
-            <span>status</span>
-          </th>
+              <th>
+                <span>reason</span>
+              </th>
 
-          <th>
-            <span>replace</span>
-          </th>
-        </tr>
-      </thead>
+              <th>
+                <span>status</span>
+              </th>
 
-      <tbody>
-        <tr *ngFor="let cust of tasks">
-          <td>
-            <p>{{ cust.id }}</p>
-          </td>
-          <td>
-            <p>{{ cust.category }}</p>
-          </td>
+              <th>
+                <span>replace</span>
+              </th>
+            </tr>
+          </thead>
 
-          <td>
-            <p>{{ cust.subCategory }}</p>
-          </td>
+          <tbody>
+            <tr *ngFor="let cust of tasks">
+              <td>
+                <p>{{ cust.id }}</p>
+              </td>
+              <td>
+                <p>{{ cust.category }}</p>
+              </td>
 
-          <td>
-            <p>{{ cust.reason }}</p>
-          </td>
+              <td>
+                <p>{{ cust.subCategory }}</p>
+              </td>
 
-          <td>
-            <!-- <a class="mx-1 pointer" (click)="logTaskStatus(cust, 2)">
-              <img src="assets/icons/forward.svg" width="20">
-            </a> -->
+              <td>
+                <p>{{ cust.reason }}</p>
+              </td>
 
-            <a class="mx-1 pointer" (click)="openCnfrmStatusDialogt(cust, 'pause')">
-              <img src="assets/icons/pause.svg" width="20">
-            </a>
+              <td>
+                <!-- <a class="mx-1 pointer" (click)="logTaskStatus(cust, 2)">
+                  <img src="assets/icons/forward.svg" width="20">
+                </a> -->
 
-            <a class="mx-1 pointer" (click)="openCnfrmStatusDialogt(cust, 'shedule')">
-              <img src="assets/icons/scheduled.svg" width="20">
-            </a>
+                <a class="mx-1 pointer" (click)="openCnfrmStatusDialogt(cust, 'pause')">
+                  <img src="assets/icons/pause.svg" width="20">
+                </a>
 
-            <a class="mx-1 pointer" (click)="openCnfrmStatusDialogt(cust, 'close')">
-              <img src="assets/icons/close_black.svg" width="20">
-            </a>
-          </td>
+                <a class="mx-1 pointer" (click)="openCnfrmStatusDialogt(cust, 'shedule')">
+                  <img src="assets/icons/scheduled.svg" width="20">
+                </a>
 
-          <td>
-            <a class="mx-1 pointer" (click)="openCreateOrder(cust)">
-              <img src="assets/icons/add.svg" width="35">
-            </a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+                <a class="mx-1 pointer" (click)="openCnfrmStatusDialogt(cust, 'close')">
+                  <img src="assets/icons/close_black.svg" width="20">
+                </a>
+              </td>
+
+              <td>
+                <a class="mx-1 pointer" (click)="openCreateOrder(cust)">
+                  <img src="assets/icons/add.svg" width="35">
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="d-flex align-items-center justify-content-center" style="height: 20vh;" *ngIf="tasks.length == 0">
+          <h1 class="text-secondary">No Tasks</h1>
+        </div>
+      </div>
+    </mat-dialog-content>
+
+    <div class="d-flex justify-content-end" mat-dialog-actions>
+      <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+    </div>
+  </ng-template>
   <!-- /current tasks -->
 
 </div>
@@ -423,7 +439,9 @@
               </td>
 
               <td>
-                <p (click)="openEditStatus(inven)">{{ inven.statusId }}</p>
+                <p (click)="openEditStatus(inven)">
+                  {{ inven.statusId == 1 ? "Requested" : inven.statusId == 2 ? "Dispatched" : inven.statusId == 3 ? "Received" : inven.statusId == 4 ? "Installed" : inven.statusId == 5 ? "Returned" : '' }}
+                </p>
 
                 <ng-template #editStatusDialog>
                   <div style="background-color: #084982;">
@@ -559,7 +577,7 @@
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>oldInventoryId</mat-label>
           <mat-select [(ngModel)]="body.oldInventoryId">
-            <mat-option *ngFor="let item of inventoryId" [value]="item.slNo">{{ item.slNo }} - {{ item.name }}</mat-option>
+            <mat-option *ngFor="let item of inventoryId" [value]="item.slNo" [hidden]="item.statusId != 3">{{ item.slNo }} - {{ item.name }} </mat-option>
           </mat-select>
         </mat-form-field>
       </div>

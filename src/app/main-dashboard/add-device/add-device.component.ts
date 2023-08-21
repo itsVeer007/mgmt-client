@@ -37,15 +37,6 @@ export class AddDeviceComponent implements OnInit {
   @Input() fromSites: any;
   @Output() newItemEvent = new EventEmitter<boolean>();
 
-  // @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
-  //   var x = <HTMLElement>document.getElementById(`additionalSite`);
-  //   if (x != null) {
-  //     if (!x.contains(e.target)) {
-  //       this.closeAddAdditionalSite(false);
-  //     }
-  //   }
-  // }
-
   addDevice: any =  FormGroup;
   searchText: any;
 
@@ -178,7 +169,7 @@ export class AddDeviceComponent implements OnInit {
   }
 
   closeAddDevice() {
-    this.newItemEvent.emit(false);
+    this.newItemEvent.emit();
   }
 
   /* metadata methods */

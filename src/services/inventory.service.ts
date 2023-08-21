@@ -1,4 +1,4 @@
-import { DatePipe } from '@angular/common';
+import { DatePipe, formatDate } from '@angular/common';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
@@ -8,8 +8,8 @@ import { environment } from '../environments/environment';
 })
 export class InventoryService {
 
-  baseUrl = `${environment.baseUrl}/inventory`;
-  // baseUrl = 'http://192.168.0.137:8080';
+  // baseUrl = `${environment.baseUrl}/inventory`;
+  baseUrl = 'http://192.168.0.137:8080';
 
   constructor(private http: HttpClient, public datepipe: DatePipe) { }
 
@@ -49,15 +49,22 @@ export class InventoryService {
     return this.http.get(url, {params: params})
   }
 
+
   listInventory() {
-    let url = this.baseUrl + `/listInventory_1_0`;
-    let params = new HttpParams().set('startDate', '2023-08-05');
+    let url = this.baseUrl + `/listInventoryWithDates_1_0`;
+    let params = new HttpParams().set('startDate', '2023-08-05').set('end1_date', formatDate(new Date(), 'yyyy-MM-dd', 'en-us'));
     return this.http.get(url, {params: params});
   }
 
   listInventoryByProductId(productId: any) {
     let url = this.baseUrl + `/listInventoryByProductId_1_0?productId=${productId}`;
     return this.http.get(url);
+  }
+
+  listDetails(payload: any) {
+    let url = this.baseUrl + `/listDetails12`;
+    let params = new HttpParams().set('t_item_code', payload.itemCode).set('status_id', 4);
+    return this.http.get(url, {params: params});
   }
 
   createInventory(payload: any, condition: any) {
@@ -140,10 +147,10 @@ export class InventoryService {
 
   listInventoryByItemCode(payload: any) {
     let url = this.baseUrl + "/listInventoryByItemCode_1_0";
-    let params = new HttpParams();
-    if(payload.itemCode) {
-      params = params.set('itemCode', payload.itemCode);
-    }
+    let params = new HttpParams().set('itemCode', payload.itemCode);
+    // if(payload.itemCode) {
+    //   params = params.set('itemCode', payload.itemCode);
+    // }
 
     return this.http.get(url, {params: params});
   }
@@ -231,11 +238,11 @@ export class InventoryService {
 
   listIndentItems(payload: any) {
     let url = this.baseUrl + "/listIndentItems_1_0";
-    let params = new HttpParams();
+    let params = new HttpParams().set('ticketId', payload?.ticketId);
 
-    if (payload.ticketId) {
-      params = params.set('ticketId', payload.ticketId);
-    }
+    // if (payload.ticketId) {
+    //   params = params.set('ticketId', payload.id);
+    // }
 
     return this.http.get(url, {params: params});
   }
@@ -361,3 +368,4 @@ export class InventoryService {
   }
 
 }
+

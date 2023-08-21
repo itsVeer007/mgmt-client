@@ -107,6 +107,17 @@ export class InventoryComponent implements OnInit {
     })
   }
 
+  usedItems: any;
+  @ViewChild('indentItemsDialog') indentItemsDialog = {} as TemplateRef<any>;
+  listDetails(data: any) {
+    this.dialog.open(this.indentItemsDialog, {maxWidth: '750px', maxHeight: '550px'});
+
+    this.inventorySer.listDetails(data).subscribe((res: any) => {
+      // console.log(res);
+      this.usedItems = res;
+    })
+  }
+
 
   brandNames: any;
   categoryTypes: any;
