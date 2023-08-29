@@ -72,7 +72,9 @@ export class AddNewAssetComponent implements OnInit {
       name: '',
       playOrder: 1,
       createdBy: 1,
-      splRuleId: 0
+      splRuleId: 0,
+      fromDate: null,
+      toDate: null
     },
 
     nameParams: {
@@ -103,6 +105,8 @@ export class AddNewAssetComponent implements OnInit {
       'playOrder': new FormControl(''),
       'createdBy': new FormControl(''),
       'splRuleId': new FormControl(''),
+      'fromDate': new FormControl(''),
+      'toDate': new FormControl(''),
 
       'adFor': new FormControl(''),
       'enableDemo': new FormControl(''),

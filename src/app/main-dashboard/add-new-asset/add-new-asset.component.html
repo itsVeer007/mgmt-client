@@ -72,7 +72,7 @@
 
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
-              <input matInput [matDatepicker]="picker1" placeholder="From Date">
+              <input matInput [matDatepicker]="picker1" placeholder="From Date" formControlName="fromDate" [(ngModel)]="assetData.asset.fromDate">
               <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
               <mat-datepicker #picker1></mat-datepicker>
               <mat-error class="mt-1">From Date is required</mat-error>
@@ -81,7 +81,7 @@
 
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
-              <input matInput [matDatepicker]="picker2" placeholder="To Date">
+              <input matInput [matDatepicker]="picker2" placeholder="To Date" formControlName="toDate" [(ngModel)]="assetData.asset.toDate">
               <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
               <mat-datepicker #picker2></mat-datepicker>
               <mat-error class="mt-1">To Date is required</mat-error>

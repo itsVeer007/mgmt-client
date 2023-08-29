@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { DatePipe } from '@angular/common';
+import { DatePipe, formatDate } from '@angular/common';
 
 import { environment } from '../environments/environment';
 import { BehaviorSubject } from 'rxjs';
@@ -64,12 +64,14 @@ export class AssetService {
     formData.append('file', file);
 
     let assetData = {
-      'deviceId': payload.asset.deviceId,
-      'deviceModeId': payload.asset.deviceModeId,
-      'playOrder': payload.asset.playOrder,
-      'createdBy': payload.asset.createdBy,
-      'name': payload.asset.name,
-      'splRuleId': payload.asset.splRuleId
+      'deviceId': payload?.asset.deviceId,
+      'deviceModeId': payload?.asset.deviceModeId,
+      'playOrder': payload?.asset.playOrder,
+      'createdBy': payload?.asset.createdBy,
+      'name': payload?.asset.name,
+      'splRuleId': payload?.asset.splRuleId,
+      'fromDate': payload?.asset.fromDate ? payload?.asset.fromDate : formatDate(new Date(), 'yyyy-MM-dd', 'en-us'),
+      'toDate': payload?.asset.toDate ? payload?.asset.toDate : '9999-31-01'
     }
 
     const ass = new Blob([JSON.stringify(assetData)], {
