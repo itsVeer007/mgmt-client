@@ -12,48 +12,51 @@ export class AlertService {
   constructor(private snackbar: MatSnackBar, private zone: NgZone) {
     this.config = new MatSnackBarConfig();
     this.config.panelClass = ["snackbar-container"];
+    this.config.horizontalPosition = "right";
     this.config.duration = 3000;
   }
 
-  // success(message: string) {
-  //   this.config.panelClass = ["success"];
-  //   this.show(message);
-  // }
+  snackSuccess(message: any) {
+    this.config.panelClass = ["success"];
+    this.show(message);
+  }
 
-  // error(message: string) {
-  //   this.config.panelClass = ["error"];
-  //   this.show(message);
-  // }
+  snackError(message: any) {
+    this.config.panelClass = ["error"];
+    this.show(message?.error?.message);
+  }
 
-  // wait(message: string, config?: MatSnackBarConfig) {
-  //   this.config.panelClass = ["wait"];
+  snackWait(message: any, config?: MatSnackBarConfig) {
+    this.config.panelClass = ["wait"];
 
-  //   config = config || this.config;
-  //   this.zone.run(() => {
-  //     this.snackbar.open(message, '', config);
-  //   });
+    config = config || this.config;
+    this.zone.run(() => {
+      this.snackbar.open(message, '', config);
+    });
 
-  //   this.config.duration = 10000;
-  // }
+    this.config.duration = 10000;
+  }
 
 
-  // show(message: string, config?: MatSnackBarConfig) {
-  //   config = config || this.config;
-  //   this.zone.run(() => {
-  //     this.snackbar.open(message, "x", config);
-  //   });
-  // }
+  show(message: any, config?: MatSnackBarConfig) {
+    config = config || this.config;
+    this.zone.run(() => {
+      this.snackbar.open(message, "x", config);
+    });
+  }
 
+
+  /* sweet alert */
 
   msg1: any;
   msg2: any;
   msg0: any;
 
-  error() {
+  error(res: any) {
     this.msg0 = Swal.fire({
       icon: 'error',
       title: 'Failed!',
-      text: 'Process failed',
+      text: res?.error?.message,
     })
   }
 

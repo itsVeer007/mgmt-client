@@ -50,9 +50,6 @@ export class TicketService {
 
   getTasks(ticketId: any) {
     let url = this.baseUrl + `/listTasks_1_0/${ticketId}`;
-    // let myObj = {
-    //   'ticketId': ticketId,
-    // }
     return this.http.get(url);
   }
 
@@ -111,7 +108,7 @@ export class TicketService {
   fieldVisitEntry(payload: any) {
     let url = this.baseUrl + `/fieldVisitEntry_1_0`;
     let myObj = {
-      'frId': payload.frId,
+      'frId': 1565,
       'siteId': payload.siteId,
     }
 

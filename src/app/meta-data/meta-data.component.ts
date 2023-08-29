@@ -56,12 +56,7 @@ export class MetaDataComponent implements OnInit {
   showIconAnalytic: boolean = false;
   showIconUser: boolean = false;
 
-  showIconView: boolean = false;
-  showIconEdit: boolean = false;
-  showIconDelete: boolean = false;
-  showIconView1: boolean = false;
-  showIconEdit1: boolean = false;
-  showIconDelete1: boolean = false;
+
 
   searchText: any;
   metaData: any = []
@@ -181,7 +176,7 @@ export class MetaDataComponent implements OnInit {
       }, 3000);
     }, (err: any) => {
       if(err) {
-        this.alertSer.error();
+        this.alertSer.error(err);
       };
     })
   }

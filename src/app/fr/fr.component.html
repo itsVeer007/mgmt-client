@@ -6,15 +6,15 @@
     </div>
 
     <div class="d-flex">
-      <div class="mx-2">
+      <!-- <div class="mx-2">
         <button mat-flat-button color="primary" class="py-0" (click)="openSitesDialog()">Site Entry</button>
-      </div>
-      <div class="mx-2">
+      </div> -->
+      <!-- <div class="mx-2">
         <button mat-flat-button color="primary" class="py-0" (click)="openTasksDialog()">View Tasks</button>
-      </div>
-      <div class="mx-2">
+      </div> -->
+      <!-- <div class="mx-2">
         <button mat-flat-button color="primary" class="py-0" (click)="openVisitExit()">Site Exit</button>
-      </div>
+      </div> -->
     </div>
   </div>
   <!-- /header -->
@@ -25,44 +25,81 @@
         <thead>
           <tr class="form1">
             <th>
-              <span>ticketId</span>
+              <p class="d-inline-flex">
+                <span>Ticket id</span>
+                <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
               <!-- <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
             </th>
 
             <th>
-              <span>ticketType</span>
+              <span>Site entry</span>
             </th>
 
             <th>
-              <span>siteId</span>
+              <span>View tasks</span>
             </th>
 
             <th>
-              <span>siteName</span>
+              <p class="d-inline-flex">
+                <span>Ticket type</span>
+                <img (click)="sort('ticketType')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
             </th>
 
             <th>
-              <span>indentAdd</span>
+              <p class="d-inline-flex">
+                <span>Site id</span>
+                <img (click)="sort('siteId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
             </th>
 
             <th>
-              <span>indentView</span>
+              <p class="d-inline-flex">
+                <span>Site name</span>
+                <img (click)="sort('siteName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
             </th>
 
             <th>
-              <span>reasonDescription</span>
+              <span>Indent add</span>
             </th>
 
             <th>
-              <span>createdTime</span>
+              <span>Indent view</span>
+            </th>
+
+            <th>
+              <span></span>
+              <p class="d-inline-flex">
+                <span>Reason description</span>
+                <img (click)="sort('reasonDescription')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
+            </th>
+
+            <th>
+              <p class="d-inline-flex">
+                <span>Created time</span>
+                <img (click)="sort('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
+            </th>
+
+            <th>
+              <span>Site exit</span>
             </th>
           </tr>
         </thead>
 
         <tbody>
-          <tr *ngFor="let cust of frTickets" (dblclick)="openTicketTaskDialog(cust)">
+          <tr *ngFor="let cust of frTickets">
             <td>
               <p>{{ cust.ticketId }}</p>
+            </td>
+            <td>
+              <p class="pointer text-primary" (click)="openSitesDialog(); fieldVisitEntry(cust)">Enter</p>
+            </td>
+            <td>
+              <p class="pointer text-primary" (click)="openTicketTaskDialog(cust)">View</p>
             </td>
             <td>
               <p>{{ cust.ticketType }}</p>
@@ -83,7 +120,7 @@
             </td>
 
             <td>
-              <p (click)="openDetailsDialog(cust)">View</p>
+              <p class="text-primary pointer" (click)="openDetailsDialog(cust)">View</p>
             </td>
 
             <td>
@@ -92,6 +129,10 @@
 
             <td>
               <p>{{ cust.createdTime }}</p>
+            </td>
+
+            <td>
+              <p class="pointer text-primary" (click)="openVisitExit()">Exit</p>
             </td>
           </tr>
         </tbody>
@@ -111,28 +152,41 @@
           <thead>
             <tr class="form1">
               <th>
-                <span>id</span>
+                <p class="d-inline-flex">
+                  <span>Id</span>
+                  <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                </p>
                 <!-- <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
               </th>
 
               <th>
-                <span>category</span>
+
+                <p class="d-inline-flex">
+                  <span>Category</span>
+                  <img (click)="sort('category')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                </p>
               </th>
 
               <th>
-                <span>subCategory</span>
+                <p class="d-inline-flex">
+                  <span>Sub category</span>
+                  <img (click)="sort('subCategory')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                </p>
               </th>
 
               <th>
-                <span>reason</span>
+                <p class="d-inline-flex">
+                  <span>Reason</span>
+                  <img (click)="sort('reason')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                </p>
               </th>
 
               <th>
-                <span>status</span>
+                <span>Status</span>
               </th>
 
               <th>
-                <span>replace</span>
+                <span>Replace</span>
               </th>
             </tr>
           </thead>
@@ -266,17 +320,47 @@
       <table class="table" id="mytable">
         <thead>
           <tr class="task-table">
-            <th>taskId</th>
+            <th>
+              <p class="d-inline-flex">
+                <span>Task id</span>
+                <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
+            </th>
 
-            <th>categoryId</th>
+            <th>
+              <p class="d-inline-flex">
+                <span>Category</span>
+                <img (click)="sort('categoryId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
+            </th>
 
-            <th>subCategoryId</th>
+            <th>
+              <p class="d-inline-flex">
+                <span>SubCategory</span>
+                <img (click)="sort('subCategoryId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
+            </th>
 
-            <th>reasonId</th>
+            <th>
+              <p class="d-inline-flex">
+                <span>Reason</span>
+                <img (click)="sort('reasonId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
+            </th>
 
-            <th>createdTime</th>
+            <th>
+              <p class="d-inline-flex">
+                <span>Created time</span>
+                <img (click)="sort('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
+            </th>
 
-            <th>priorityId</th>
+            <th>
+              <p class="d-inline-flex">
+                <span>Priority</span>
+                <img (click)="sort('priorityId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
+            </th>
           </tr>
         </thead>
 
@@ -303,7 +387,7 @@
             </td>
 
             <td>
-              <p>{{ cust.priorityId }}</p>
+              <p>{{ cust.priorityId == 1 ? 'Low' : cust.priorityId == 2 ? 'Medium' :cust.priorityId == 3 ? 'High' : '' }}</p>
             </td>
 
             <!-- <td>
@@ -314,6 +398,10 @@
       </table>
     </div>
   </mat-dialog-content>
+
+  <div class="d-flex justify-content-end" mat-dialog-actions>
+    <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+  </div>
 </ng-template>
 
 <ng-template #viewSitesDialog>
@@ -351,7 +439,7 @@
 
   <mat-dialog-content>
     <div class="row">
-      <!-- <div class="col-lg-12 col-md-12">
+      <div class="col-lg-12 col-md-12">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>travelAllowance</mat-label>
           <input matInput [(ngModel)]="fieldExitBody.travelAllowance">
@@ -363,7 +451,7 @@
           <mat-label>foodAllowance</mat-label>
           <input matInput [(ngModel)]="fieldExitBody.foodAllowance">
         </mat-form-field>
-      </div> -->
+      </div>
 
       <div class="col-lg-12 col-md-12">
         <mat-form-field appearance="outline" class="w-100">
@@ -391,9 +479,9 @@
   </div>
 </ng-template>
 
-<ng-template #viewDetailsDialog>
+<ng-template #viewIndentDialog>
   <div style="background-color: #084982;">
-    <p class="dialog-title">view ticket</p>
+    <p class="dialog-title">view indent</p>
   </div>
 
   <mat-dialog-content>
@@ -402,17 +490,44 @@
         <table class="table" id="mytable">
           <thead>
             <tr class="task-table">
-              <th>slNo</th>
+              <th>
+                <p class="d-inline-flex">
+                  <span>No</span>
+                  <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                </p>
+              </th>
 
-              <th>itemCode</th>
+              <th>
+                <p class="d-inline-flex">
+                  <span>Item code</span>
+                  <img (click)="sort('itemCode')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                </p>
+              </th>
 
-              <th>serialNo</th>
+              <th>
+                <p class="d-inline-flex">
+                  <span>Serial no</span>
+                  <img (click)="sort('serialNo')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                </p>
+              </th>
 
-              <th>createdTime</th>
+              <th>
+                <p class="d-inline-flex">
+                  <span>Created time</span>
+                  <img (click)="sort('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                </p>
+              </th>
 
-              <th>modifiedTime</th>
+              <th>
+                <p class="d-inline-flex">
+                  <span>Modified time</span>
+                  <img (click)="sort('modifiedTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                </p>
+              </th>
 
-              <th>status</th>
+              <th>Status
+
+              </th>
             </tr>
           </thead>
 
@@ -490,9 +605,9 @@
         <table class="table" id="mytable">
           <thead>
             <tr class="task-table">
-              <th>slNo</th>
+              <th>No</th>
 
-              <th>itemCode</th>
+              <th>Item code</th>
 
               <th>serialNo</th>
 
@@ -527,7 +642,7 @@
               </td>
 
               <td>
-                <p (click)="openReplaceComponent(inven)">{{ inven.statusId }}</p>
+                <p (click)="openReplaceComponent(inven)">{{ inven.statusId == 1 ? "Requested" : inven.statusId == 2 ? "Dispatched" : inven.statusId == 3 ? "Received" : inven.statusId == 4 ? "Installed" : inven.statusId == 5 ? "Returned" : '' }}</p>
 
                 <!-- <ng-template #editStatusDialog>
                   <div style="background-color: #084982;">

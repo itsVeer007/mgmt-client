@@ -81,13 +81,10 @@ export class FrComponent implements OnInit {
 
   @ViewChild('viewSitesDialog') viewSitesDialog = {} as TemplateRef<any>;
 
-  openSitesDialog() {
-    this.dialog.open(this.viewSitesDialog, {maxWidth: '550px', maxHeight: '550px'});
-    this.listFRSites();
-  }
-
   sites: any
-  listFRSites() {
+  openSitesDialog() {
+    // this.dialog.open(this.viewSitesDialog, {maxWidth: '550px', maxHeight: '550px'});
+
     this.ticketSer.listFRSites(1565).subscribe((res: any) => {
       // console.log(res);
       this.sites = res;
@@ -96,26 +93,23 @@ export class FrComponent implements OnInit {
 
 
   fieldVisitEntry(item: any) {
-    let myObj = {
-      'frId': 1565,
-      'siteId': item
-    }
-
-    this.ticketSer.fieldVisitEntry(myObj).subscribe((res: any) => {
-
-      console.log(res);
-      Swal.fire({
-        icon: 'success',
-        title: 'Success!',
-        text: `${res.message}`,
-      });
+    this.ticketSer.fieldVisitEntry(item).subscribe((res: any) => {
+      // console.log(res);
+      this.alertSer.snackSuccess('Entry Successful');
     }, (err: any) => {
-      Swal.fire({
-        icon: 'warning',
-        title: 'Failed!',
-        text: `${err.error.message}`,
-      });
+      this.alertSer.error(err);
     })
+  }
+
+  sorted = false;
+  sort(label: any) {
+    this.sorted = !this.sorted;
+    var x = this.frTickets;
+    if (this.sorted == false) {
+      x.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
+    } else {
+      x.sort((a: string, b: string) => b[label] > a[label] ? 1 : b[label] < a[label] ? -1 : 0);
+    }
   }
 
 
@@ -144,12 +138,12 @@ export class FrComponent implements OnInit {
   }
 
 
-  @ViewChild('viewDetailsDialog') viewDetailsDialog = {} as TemplateRef<any>;
+  @ViewChild('viewIndentDialog') viewIndentDialog = {} as TemplateRef<any>;
 
   indentItems: any;
   openDetailsDialog(item: any) {
     console.log(item)
-    this.dialog.open(this.viewDetailsDialog, {maxWidth: '550px', maxHeight: '550px'});
+    this.dialog.open(this.viewIndentDialog, {maxWidth: '550px', maxHeight: '550px'});
     this.inventorySer.listIndentItems(item).subscribe((res: any) => {
       this.indentItems = res;
     })
@@ -179,7 +173,7 @@ export class FrComponent implements OnInit {
       }
     }, (err: any) => {
       if(err) {
-        this.alertSer.error();
+        this.alertSer.error(err);
       };
     });
   }
@@ -236,7 +230,7 @@ export class FrComponent implements OnInit {
       }
     }, (err: any) => {
       if(err) {
-        this.alertSer.error();
+        this.alertSer.error(err);
       };
     });
   }
@@ -272,15 +266,15 @@ export class FrComponent implements OnInit {
       }, 2000)
     }, (err: any) => {
         if(err) {
-          // this.alertSer.error();
+          // this.alertSer.error(err);
         }
     })
   }
 
   fieldExitBody = {
     frId: 1565,
-    // travelAllowance: null,
-    // foodAllowance: null,
+    travelAllowance: null,
+    foodAllowance: null,
     otherAllowance: null,
     remarks: null
   }

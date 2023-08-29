@@ -11,21 +11,23 @@
           <div class="vl-yellow"></div>
           <div class="mx-2">
             <div class="status">Total-Scans</div>
-            <div class="count">{{ inStock.length }}</div>
+            <div class="count">{{ numberOfScans }}</div>
           </div>
         </div>
-        <div class="col-lg-3 d-flex justify-content-start">
+
+        <!-- <div class="col-lg-3 d-flex justify-content-start">
           <div class="vl-green"></div>
           <div class="mx-2">
             <div class="status">Total-QR-Codes</div>
             <div class="count">{{ installed.length }}</div>
           </div>
-        </div>
+        </div> -->
+
         <div class="col-lg-3 d-flex justify-content-start">
           <div class="vl-red"></div>
           <div class="mx-2">
             <div class="status">Total-Ads</div>
-            <div class="count">{{ scrap.length }}</div>
+            <div class="count">{{ numberOfAds }}</div>
           </div>
         </div>
       </div>
@@ -92,7 +94,7 @@
           <mat-label>SiteId</mat-label>
           <mat-select (focus)="removeDuplicates()" [(ngModel)]="filterBody.siteId">
             <mat-option value="">All</mat-option>
-            <mat-option *ngFor="let item of brandNames" [value]="item.siteId">{{ item.siteId }}</mat-option>
+            <mat-option *ngFor="let item of siteIds" [value]="item.siteId">{{ item.siteId }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -102,7 +104,7 @@
           <mat-label>DeviceId</mat-label>
           <mat-select (focus)="removeDuplicates()" [(ngModel)]="filterBody.deviceId">
             <mat-option value="">All</mat-option>
-            <mat-option *ngFor="let item of categoryTypes" [value]="item.deviceId">{{ item.deviceId }}</mat-option>
+            <mat-option *ngFor="let item of deviceIds" [value]="item.deviceId">{{ item.deviceId }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -146,16 +148,6 @@
       <div class="filter-search-btn col-lg-2 col-sm-12">
         <button (click)="filterQrAds()">Submit</button>
       </div>
-
-      <!-- <div class="">
-        <div class="lists" *ngIf="showIconView" style="margin-right: 60px; margin-top: -40px;">View</div>
-        <div class="lists" *ngIf="showIconEdit" style="margin-right: 30px; margin-top: -40px;">Edit</div>
-        <div class="lists" *ngIf="showIconDelete" style="margin-right: -5px; margin-top: -40px;">Delete</div>
-
-        <a class="mx-2" (click)="viewBySelectedOne()"><img src="assets/icons/view.svg" (mouseenter)="showIconView = true" (mouseleave)="showIconView = false"></a>
-        <a class="mx-2" (click)="editBySelectedOne()"><img src="assets/icons/edit.svg" (mouseenter)="showIconEdit = true" (mouseleave)="showIconEdit = false"></a>
-        <a class="mx-2" (click)="deleteSelected()"><img src="assets/icons/delete.svg" (mouseenter)="showIconDelete = true" (mouseleave)="showIconDelete = false"></a>
-      </div> -->
   </div>
   <!-- /form -->
 
@@ -174,37 +166,37 @@
           </th> -->
 
           <th>
-            <span>siteId</span>
+            <span>Site id</span>
             <img (click)="sort('url')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
-            <span>deviceId</span>
+            <span>Device id</span>
             <img (click)="sort('mode')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
-            <span>no_of_scans</span>
+            <span>No of scans</span>
             <img (click)="sort('user_device')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
-            <span>no_of_ads</span>
+            <span>No of ads</span>
             <img (click)="sort('chrome_data')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
 
           <th></th>
+          <!-- <th></th>
           <th></th>
           <th></th>
-          <th></th>
-          <th></th>
+          <th></th> -->
 
         </tr>
       </thead>
 
       <tbody>
-        <tr *ngFor="let cust of filterTable1Data | search : searchText; let i = index" (dblclick)="openViewPopup(cust)">
+        <tr *ngFor="let cust of fun | search : searchText; let i = index" (dblclick)="openViewPopup(cust)">
           <!-- <td>
             <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="cust.selected" (change)="
                 checkIfAllSelected();
@@ -230,7 +222,10 @@
             <p>{{ cust.no_of_ads}}</p>
           </td>
 
-          <td>
+          <td style="width: 500px;">
+            <img *ngFor="let cust of fun1" class="mx-1" [src]="cust.url" alt="" width="50" height="50">
+          </td>
+          <!-- <td>
             <img src="https://mir-s3-cdn-cf.behance.net/project_modules/hd/a41d8529540325.5732a809bcc1b.png" alt="" width="50">
           </td>
           <td>
@@ -241,10 +236,7 @@
           </td>
           <td>
             <img src="https://mir-s3-cdn-cf.behance.net/project_modules/hd/a41d8529540325.5732a809bcc1b.png" alt="" width="50">
-          </td>
-          <td>
-            <img src="https://mir-s3-cdn-cf.behance.net/project_modules/hd/a41d8529540325.5732a809bcc1b.png" alt="" width="50">
-          </td>
+          </td> -->
 
           <!-- <td style="width: 120px;">
             <p>{{ cust.qrcodeUrl }}</p>
@@ -285,78 +277,79 @@
           </th> -->
 
           <th>
-            <p class="d-inline-flex">
-              <span>siteId</span>
+            <p>
+              <span>Site id</span>
               <img (click)="sort('url')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </p>
           </th>
 
           <th>
-            <p class="d-inline-flex">
-              <span>deviceId</span>
+            <p>
+              <span>Device id</span>
               <img (click)="sort('mode')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </p>
           </th>
 
           <th>
-            <p class="d-inline-flex">
-              <span>qr_code</span>
+            <p>
+              <span>Qr code</span>
               <img (click)="sort('user_device')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </p>
           </th>
 
           <th>
-            <p class="d-inline-flex">
-              <span>url</span>
+            <p>
+              <span>Url</span>
               <img (click)="sort('chrome_data')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </p>
           </th>
 
 
           <th>
-            <p class="d-inline-flex">
-              <span>user_device</span>
+            <p>
+              <span>User Device</span>
               <img (click)="sort('ip_address')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </p>
           </th>
 
           <th>
-            <p class="d-inline-flex">
-              <span>browser_data</span>
+            <p>
+              <span>Browser data</span>
               <img (click)="sort('user_location')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </p>
           </th>
 
           <th>
-            <p class="d-inline-flex">
-              <span>ip_address</span>
+            <p>
+              <span>Ip address</span>
               <img (click)="sort('scan_time')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </p>
           </th>
 
           <th>
-            <p class="d-inline-flex">
-              <span>user_location</span>
+            <p>
+              <span>User location</span>
               <img (click)="sort('scan_time')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </p>
           </th>
 
           <th>
-            <p class="d-inline-flex">
-              <span>scan_time</span>
+            <p>
+              <span>Scan time</span>
               <img (click)="sort('scan_time')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </p>
           </th>
 
           <th>
-              <p class="d-inline-flex">
-              <span>visit_count</span>
-              <img (click)="sort('scan_time')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"></p>
+            <p>
+              <span>Visit count</span>
+              <img (click)="sort('scan_time')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </p>
           </th>
 
           <th>
-            <p class="d-inline-flex">
-              <span>mode</span>
+            <p>
+              <span>Mode</span>
               <img (click)="sort('scan_time')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </p>
           </th>
@@ -364,7 +357,7 @@
       </thead>
 
       <tbody>
-        <tr *ngFor="let cust of newQrData | search : searchText; let i = index" (dblclick)="openViewPopup(cust)">
+        <tr *ngFor="let cust of qrData | search : searchText; let i = index" (dblclick)="openViewPopup(cust)">
           <!-- <td>
             <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="cust.selected" (change)="
                 checkIfAllSelected();
@@ -394,7 +387,7 @@
             <p>{{ cust.url }}</p>
           </td>
 
-          <td>
+          <td style="width: 200px;">
             <p>{{ cust.user_device }}</p>
           </td>
 
@@ -667,3 +660,4 @@
 <div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showInventory">
   <app-add-product-master [show]="showInventory" (newItemEvent)="closenow($event, 'inventory')"></app-add-product-master>
 </div>
+

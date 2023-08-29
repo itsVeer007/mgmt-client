@@ -140,7 +140,7 @@ export class AddMetadataComponent implements OnInit {
         }, 3000);
       }, (err: any) => {
         if(err) {
-          this.alertSer.error();
+          this.alertSer.error(err);
         };
       });
     }

@@ -48,12 +48,6 @@ export class CustomersComponent implements OnInit {
   // showIconAnalytic: boolean = false;
   // showIconUser: boolean = false;
 
-  showIconView: boolean = false;
-  showIconEdit: boolean = false;
-  showIconDelete: boolean = false;
-  showIconView1: boolean = false;
-  showIconEdit1: boolean = false;
-  showIconDelete1: boolean = false;
 
   searchText: any;
   CustomerTable: any;

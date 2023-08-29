@@ -97,16 +97,10 @@
             </form>
         </div>
         <div class="col-lg-2 col-md-2" style="position: relative;">
-            <div class="lists" *ngIf="showIconView" style="margin-right: 60px; margin-top: -40px;">View</div>
-            <div class="lists" *ngIf="showIconEdit" style="margin-right: 30px; margin-top: -40px;">Edit</div>
-            <div class="lists" *ngIf="showIconDelete" style="margin-right: -5px; margin-top: -40px;">Delete</div>
 
-            <a class="mx-2" (click)="viewBySelectedOne()"><img src="assets/icons/view.svg" (mouseenter)="showIconView = true"
-                    (mouseleave)="showIconView = false" /></a>
-            <a class="mx-2" (click)="editBySelectedOne()"><img src="assets/icons/edit.svg" (mouseenter)="showIconEdit = true"
-                    (mouseleave)="showIconEdit = false" /></a>
-            <a class="mx-2" (click)="deleteSelected()"><img src="assets/icons/delete.svg"
-                    (mouseenter)="showIconDelete = true" (mouseleave)="showIconDelete = false" /></a>
+            <a class="mx-2" (click)="viewBySelectedOne()"><img src="assets/icons/view.svg"/></a>
+            <a class="mx-2" (click)="editBySelectedOne()"><img src="assets/icons/edit.svg" /></a>
+            <a class="mx-2" (click)="deleteSelected()"><img src="assets/icons/delete.svg"/></a>
         </div>
     </div>
     <!-- form ends -->
@@ -185,22 +179,12 @@
                         <div class="plus-img1" id="plus-img{{i}}" style="display: none;">
 
                             <!-- ---------------------------- Hover for view, edit, delete ---------------------START -->
-                            <div class="lists" *ngIf="showIconView1" style="margin-left: 5px; margin-top: -20px;">View
-                            </div>
-                            <div class="lists" *ngIf="showIconEdit1" style="margin-left: 38px; margin-top: -20px;">Edit
-                            </div>
-                            <div class="lists" *ngIf="showIconDelete1" style="margin-left: 63px; margin-top: -20px;">
-                                Delete</div>
+
                             <!-- ---------------------------- Hover for view, edit, delete ---------------------END -->
 
-                            <a class="mx-2" (click)="openViewPopup(cust, i)"><img src="assets/icons/view.svg"
-                                    (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" /></a>
-                            <a class="mx-2" (click)="openEditPopup(cust, i)"><img src="assets/icons/edit.svg"
-                                    (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" /></a>
-                            <!-- <a class="mx-2" value="Delete" (click)="deleteRow1(cust, i)"><img src="assets/icons/delete.svg" /></a> -->
-                            <a class="mx-2" value="Delete" (click)="openDeletePopup(cust, i)"><img
-                                    src="assets/icons/delete.svg" (mouseenter)="showIconDelete1 = true"
-                                    (mouseleave)="showIconDelete1 = false" /></a>
+                            <a class="mx-2" (click)="openViewPopup(cust, i)"><img src="assets/icons/view.svg"/></a>
+                            <a class="mx-2" (click)="openEditPopup(cust, i)"><img src="assets/icons/edit.svg" /></a>
+                            <a class="mx-2" value="Delete" (click)="openDeletePopup(cust, i)"><img src="assets/icons/delete.svg"/></a>
                         </div>
                         <!-- ----------------------------- Popup for view, edit, delete --------- END     -->
                     </td>

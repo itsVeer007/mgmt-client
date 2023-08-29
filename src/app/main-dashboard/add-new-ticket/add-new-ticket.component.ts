@@ -160,7 +160,7 @@ export class AddNewTicketComponent implements OnInit {
         }, 2000);
       }, (err: any) => {
         if(err) {
-          this.alertSer.error();
+          this.alertSer.error(err);
         };
       });
     }

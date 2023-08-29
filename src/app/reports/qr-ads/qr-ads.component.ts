@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
 import { ReportService } from 'src/services/report.service';
 import Swal from 'sweetalert2';
@@ -39,40 +40,44 @@ filterbody: any;
 
 
   showLoader = false;
-  constructor(private http: HttpClient, private ass: AssetService, private reportSer: ReportService, public dialog: MatDialog) { }
+  constructor(
+    private http: HttpClient,
+    private ass: AssetService,
+    private reportSer: ReportService,
+    private alertSer: AlertService,
+    public dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
     this.getInventory();
   }
 
-  ngAfterViewChecked() {
-    // console.log('hello')
-    this.fun()
-  }
 
-  showIconView: boolean = false;
-  showIconEdit: boolean = false;
-  showIconDelete: boolean = false;
-  showIconView1: boolean = false;
-  showIconEdit1: boolean = false;
-  showIconDelete1: boolean = false;
 
   searchText: any;
   searchTx: any;
-  qrData: any = [];
-  newQrData: any = [];
+  qrData: any[] = [];
+  newQrData: any[] = [];
 
 
   installed: any = [];
   inStock: any = [];
   scrap: any = [];
   redyToUse: any = [];
+
+  numberOfScans: number = 0;
+  numberOfAds: number = 0;
+
   getInventory() {
     this.reportSer.list().subscribe((res: any) => {
       console.log(res);
 
       this.qrData = res;
+      // console.log(this.qrData);
       this.newQrData = this.qrData;
+
+      this.numberOfScans = this.qrData.reduce((total, entry) => total + entry.no_of_scans, 0);
+      this.numberOfAds = this.qrData.reduce((total, entry) => total + entry.no_of_ads, 0);
 
     });
 
@@ -92,15 +97,16 @@ filterbody: any;
 
   filterQrAds() {
     this.reportSer.filterReports(this.filterBody).subscribe((res:any)=>{
-      console.log(res);
-      this.qrData=res;
-      this.newQrData = this.qrData
+      // console.log(res);
+      // this.newQrData = res;
+      this.newQrData = res;
     })
   }
 
-  filterTable1Data: any;
-  fun() {
-    this.filterTable1Data = this.qrData.reduce((acc: any, current: any) => {
+  filterTableData: any;
+  filteredQrData: any;
+  get fun() {
+    this.filterTableData = this.newQrData.reduce((acc: any, current: any) => {
       const x = acc.find((item: any) => item.deviceId == current.deviceId);
       if (!x) {
         return acc.concat([current]);
@@ -109,15 +115,27 @@ filterbody: any;
       }
     }, []);
 
-    // console.log(this.filterTable1Data)
+    return this.filterTableData;
+  }
+
+  get fun1() {
+    this.filteredQrData = this.qrData.reduce((acc: any, current: any) => {
+      const x = acc.find((item: any) => item.url == current.url);
+      if (!x) {
+        return acc.concat([current]);
+      } else {
+        return acc;
+      }
+    }, []);
+
+    return this.filteredQrData;
   }
 
 
-  brandNames: any;
-  categoryTypes: any;
-  statusVal: any;
+  siteIds: any;
+  deviceIds: any;
   removeDuplicates() {
-    this.brandNames = this.qrData.reduce((acc: any, current: any) => {
+    this.siteIds = this.qrData.reduce((acc: any, current: any) => {
       const x = acc.find((item: any) => item.siteId == current.siteId);
       if (!x) {
         return acc.concat([current]);
@@ -126,17 +144,8 @@ filterbody: any;
       }
     }, []);
 
-    this.categoryTypes = this.qrData.reduce((acc: any, current: any) => {
+    this.deviceIds = this.qrData.reduce((acc: any, current: any) => {
       const x = acc.find((item: any) => item.deviceId == current.deviceId);
-      if (!x) {
-        return acc.concat([current]);
-      } else {
-        return acc;
-      }
-    }, []);
-
-    this.statusVal = this.qrData.reduce((acc: any, current: any) => {
-      const x = acc.find((item: any) => item.productStatusId == current.productStatusId);
       if (!x) {
         return acc.concat([current]);
       } else {
@@ -281,20 +290,11 @@ filterbody: any;
       // console.log(res);
 
       if(res) {
-        this.updateInventory1 = Swal.fire({
-          icon: 'success',
-          title: 'Done!',
-          text: 'Updated Inventory Successfully!',
-        });
+        this.alertSer.snackSuccess(res);
       }
     }, (err: any) => {
       if(err) {
-        this.updateInventory0 = Swal.fire({
-          icon: 'error',
-          title: 'Failed!',
-          text: 'Ticket Updation failed',
-          // timer: 3000,
-        });
+        this.alertSer.error(err)
       };
     });
   }
@@ -332,20 +332,11 @@ filterbody: any;
     this.reportSer.deleteProduct(this.currentItem).subscribe((res: any) => {
       // console.log(res);
       if(res) {
-        this.deleteInventory1 = Swal.fire({
-          icon: 'success',
-          title: 'Done!',
-          text: 'Deleted Successfully!',
-        });
+        this.alertSer.snackSuccess(res);
       }
     }, (err: any) => {
       if(err) {
-        this.deleteInventory0 = Swal.fire({
-          icon: 'error',
-          title: 'Failed!',
-          text: 'failed',
-          // timer: 3000,
-        });
+        this.alertSer.error(err);
       };
     });
   }

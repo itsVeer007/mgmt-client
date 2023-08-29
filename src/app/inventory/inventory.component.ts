@@ -54,12 +54,6 @@ export class InventoryComponent implements OnInit {
     this.onMetadataChange();
   }
 
-  showIconView: boolean = false;
-  showIconEdit: boolean = false;
-  showIconDelete: boolean = false;
-  showIconView1: boolean = false;
-  showIconEdit1: boolean = false;
-  showIconDelete1: boolean = false;
 
   searchText: any;
   searchTx: any;
@@ -113,8 +107,22 @@ export class InventoryComponent implements OnInit {
     this.dialog.open(this.indentItemsDialog, {maxWidth: '750px', maxHeight: '550px'});
 
     this.inventorySer.listDetails(data).subscribe((res: any) => {
-      // console.log(res);
+      console.log(res);
       this.usedItems = res;
+    })
+  }
+
+  statusItems: any;
+  currentStatusItem: any;
+  @ViewChild('statusItemsDialog') statusItemsDialog = {} as TemplateRef<any>;
+  openStatusItems(data: any, type: any) {
+    this.currentStatusItem = data;
+    console.log(this.currentStatusItem)
+    this.dialog.open(this.statusItemsDialog, {maxWidth: '750px', maxHeight: '550px'});
+
+    this.inventorySer.listDetailsByStatus(data).subscribe((res: any) => {
+      // console.log(res);
+      this.statusItems = res;
     })
   }
 
@@ -164,19 +172,22 @@ export class InventoryComponent implements OnInit {
     })
   }
 
-  prName: any = null;
-  prStatus: any = '';
-  prCreatedTime: any = null;
-  prCreatedTime1: any = null;
+  filterBody = {
+    // prName: null,
+    // prStatus: null,
+    startDate: null,
+    endDate: null,
+  }
 
   applyFilter() {
-    let myObj = {
-      'name': this.prName ? this.prName : '',
-      'statusId': this.prStatus ? this.prStatus : -1,
-      'startDate': this.prCreatedTime ? this.datepipe.transform(this.prCreatedTime, 'yyyy-MM-ddThh-MM-ss') : '',
-      'endDate': this.prCreatedTime1 ? this.datepipe.transform(this.prCreatedTime1, 'yyyy-MM-ddThh-MM-ss') : ''
-    }
-    this.inventorySer.filterInventory(myObj).subscribe((res: any) => {
+    // let myObj = {
+    //   'name': this.prName ? this.prName : '',
+    //   'statusId': this.prStatus ? this.prStatus : -1,
+    //   'startDate': this.prCreatedTime ? this.datepipe.transform(this.prCreatedTime, 'yyyy-MM-ddThh-MM-ss') : '',
+    //   'endDate': this.prCreatedTime1 ? this.datepipe.transform(this.prCreatedTime1, 'yyyy-MM-ddThh-MM-ss') : ''
+    // }
+
+    this.inventorySer.filterInventory(this.filterBody).subscribe((res: any) => {
       // console.log(res);
       this.newInventoryTable = res;
     })
@@ -194,8 +205,8 @@ export class InventoryComponent implements OnInit {
   }
 
   showInventory: boolean = false;
-  closenow(value: any, type: String) {
-    if (type == 'inventory') { this.showInventory = value; }
+  closenow(type: String) {
+    if (type == 'inventory') { this.showInventory = false; }
   }
 
   show(type: string) {
@@ -257,7 +268,7 @@ export class InventoryComponent implements OnInit {
       }
     }, (err: any) => {
       if(err) {
-        this.alertSer.error();
+        this.alertSer.error(err);
       };
     });
   }
@@ -356,7 +367,7 @@ export class InventoryComponent implements OnInit {
       }
     }, (err: any) => {
       if(err) {
-        this.alertSer.error();
+        this.alertSer.error(err);
       };
     });
   }
@@ -381,7 +392,7 @@ export class InventoryComponent implements OnInit {
       }
     }, (err: any) => {
       if(err) {
-        this.alertSer.error();
+        this.alertSer.error(err);
       };
     });
   }

@@ -111,70 +111,92 @@ export class AddNewInventoryComponent implements OnInit {
       // 'buildType': new FormControl('')
     });
 
-    this.inventorySer.listProduct().subscribe((res: any) => {
-      this.productData = res;
-    })
-
-    this.inventorySer.listOrders().subscribe((res: any) => {
-      this.orderIds = res;
-    })
-
+    this.listProduct();
     this.onMetadataChange();
   }
 
+  listProduct() {
+    this.inventorySer.listProduct().subscribe((res: any) => {
+      this.productData = res;
+      console.log(this.productData)
+    })
 
-  itemCode: any = null;
-  brand: any = null;
-  model: any = null;
-  name: any = null;
-
-  itemCodeBody = {
-    partType: null,
-    partCategory: null,
-    partCode: null,
-    buildType: null
+    // this.inventorySer.listOrders().subscribe((res: any) => {
+    //   this.orderIds = res;
+    // })
   }
 
 
+  // itemCode: any = null;
+  // brand: any = null;
+  // model: any = null;
+  // name: any = null;
 
-  listItemCode() {
-    this.inventorySer.listItemCode(this.itemCodeBody).subscribe((res: any) => {
+  // itemCodeBody = {
+  //   partType: null,
+  //   partCategory: null,
+  //   partCode: null,
+  //   buildType: null
+  // }
+
+
+
+  // listItemCode() {
+  //   this.inventorySer.listItemCode(this.itemCodeBody).subscribe((res: any) => {
+  //     // console.log(res);
+  //     this.itemCode = res?.code;
+  //     if(res?.code == null) {
+  //       Swal.fire({
+  //         icon: 'warning',
+  //         title: 'No data!',
+  //         text: 'Please add data in product master',
+  //       })
+  //     } else if(res?.code != null) {
+  //       let itemBrandBody = {
+  //         itemCode: res?.code,
+  //         brand: null
+  //       }
+
+  //       this.inventorySer.listBrandAndModel(itemBrandBody).subscribe((res: any) => {
+  //         this.brand = res?.brand;
+  //       });
+
+  //       this.inventorySer.listInventoryByItemCode(itemBrandBody).subscribe((res: any) => {
+  //         this.name = res;
+  //       })
+  //     }
+  //   })
+  // }
+
+  brandNames: any = [];
+  listInventoryByItemCode(data: any) {
+    this.inventorySer.listInventoryByItemCode(data).subscribe((res: any) => {
+      // this.model = res?.model;
       // console.log(res);
-      this.itemCode = res?.code;
-      if(res?.code == null) {
-        Swal.fire({
-          icon: 'warning',
-          title: 'No data!',
-          text: 'Please add data in product master',
-        })
-      } else if(res?.code != null) {
-        let itemBrandBody = {
-          itemCode: res?.code,
-          brand: null
-        }
+      this.brandNames = res;
+    })
+  }
 
-        this.inventorySer.listBrandAndModel(itemBrandBody).subscribe((res: any) => {
-          // console.log(res);
-          this.brand = res?.brand;
-        });
+  modelNames: any = [];
+  listBrandAndModel(data: any) {
+    console.log(data)
+    this.inventorySer.listBrandAndModel(data).subscribe((res: any) => {
+      // this.model = res?.model;
+      // console.log(res);
+      this.modelNames = res?.brand;
+    })
+  }
 
-        this.inventorySer.listInventoryByItemCode(itemBrandBody).subscribe((res: any) => {
-          // console.log(res);
-          this.name = res;
-        })
+  filteredBrandNames: any;
+  removeDuplicates() {
+    this.filteredBrandNames = this.brandNames.reduce((acc: any, current: any) => {
+      const x = acc.find((item: any) => item.productBrand == current.productBrand);
+      if (!x) {
+        return acc.concat([current]);
+      } else {
+        return acc;
       }
-    })
-  }
-
-  listBrandAndModel() {
-    let itemBrandBody = {
-      itemCode: this.itemCode,
-      brand: this.inventoryBody.inventory.brand,
-    }
-    this.inventorySer.listBrandAndModel(itemBrandBody).subscribe((res: any) => {
-      // console.log(res);
-      this.model = res?.model;
-    })
+    }, []);
   }
 
   partType: any;
@@ -211,7 +233,7 @@ export class AddNewInventoryComponent implements OnInit {
   warrantyDetail: any = 'N';
   submit() {
     console.log(this.inventoryBody);
-    this.inventoryBody.inventory.itemCode = this.itemCode;
+    this.inventoryBody.inventory.itemCode = this.inventoryBody.inventory.name;
     if(this.UserForm.valid) {
       this.alertSer.wait();
       if(this.inventoryBody.serialnos == '') {
@@ -237,7 +259,7 @@ export class AddNewInventoryComponent implements OnInit {
         }, 2000);
       }, (err: any) => {
         if(err) {
-          this.alertSer.error();
+          this.alertSer.error(err);
         }
       });
     }

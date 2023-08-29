@@ -37,21 +37,21 @@ export class InventoryService {
 
   listBrandAndModel(payload: any) {
     let url = this.baseUrl + '/listBrandAndModel_1_0';
-    let params = new HttpParams();
+    let params = new HttpParams().set('p_item_code', payload.itemCode).set('p_brand', payload.brand);
 
-    if(payload.itemCode) {
-      params = params.set('p_item_code', payload.itemCode)
-    }
-    if(payload.brand) {
-      params = params.set('p_brand', payload.brand)
-    }
+    // if(payload.itemCode) {
+    //   params = params.set('p_item_code', payload.itemCode)
+    // }
+    // if(payload.brand) {
+    //   params = params.set('p_brand', payload.brand)
+    // }
 
     return this.http.get(url, {params: params})
   }
 
 
   listInventory() {
-    let url = this.baseUrl + `/listInventoryWithDates_1_0`;
+    let url = this.baseUrl + `/listInventory_1_0`;
     let params = new HttpParams().set('startDate', '2023-08-05').set('end1_date', formatDate(new Date(), 'yyyy-MM-dd', 'en-us'));
     return this.http.get(url, {params: params});
   }
@@ -64,6 +64,12 @@ export class InventoryService {
   listDetails(payload: any) {
     let url = this.baseUrl + `/listDetails12`;
     let params = new HttpParams().set('t_item_code', payload.itemCode).set('status_id', 4);
+    return this.http.get(url, {params: params});
+  }
+
+  listDetailsByStatus(payload: any) {
+    let url = this.baseUrl + `/listDetails12`;
+    let params = new HttpParams().set('status_id', payload);
     return this.http.get(url, {params: params});
   }
 
@@ -108,6 +114,14 @@ export class InventoryService {
     return this.http.delete(url);
   }
 
+  filterInventory(payload: any) {
+    let url = this.baseUrl + `/listInventoryWithDates_1_0`;
+
+    let params = new HttpParams().set('startDate', formatDate(payload.endDate, 'yyyy-MM-dd', 'en-us')).set('end1_date', formatDate(payload.endDate, 'yyyy-MM-dd', 'en-us'));
+    return this.http.get(url, {params: params});
+  }
+
+   /* inventory */
 
   /* warrenty */
 
@@ -147,7 +161,7 @@ export class InventoryService {
 
   listInventoryByItemCode(payload: any) {
     let url = this.baseUrl + "/listInventoryByItemCode_1_0";
-    let params = new HttpParams().set('itemCode', payload.itemCode);
+    let params = new HttpParams().set('itemCode', payload.itemCode ? payload.itemCode : payload.suggestedItemCode);
     // if(payload.itemCode) {
     //   params = params.set('itemCode', payload.itemCode);
     // }
@@ -165,12 +179,6 @@ export class InventoryService {
 
   //   return this.http.get(url, {params: params});
   // }
-
-  filterInventory(payload: any) {
-    let url = this.baseUrl + `/listInventory_1_0`;
-
-    return this.http.get(url, {params: payload});
-  }
 
 
 

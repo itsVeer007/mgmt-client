@@ -5,7 +5,7 @@
 
     <!-- count -->
     <div class="col-lg-6">
-      <p>Total Inventory - <span>{{ inventoryTable.length }}</span></p>
+      <p>Total Items - <span>{{ inventoryTable.length }}</span></p>
       <div class="inventory-status">
         <div>
           <!-- <div class="vl-yellow"></div> -->
@@ -115,7 +115,30 @@
 
   <!-- form -->
   <div class="row search-form">
+    <!-- <div class="col-lg-2">
+      <button mat-flat-button color="primary" class="py-0" (click)="openStatusItems(2, 'Dispatched')">Dispatched</button>
+    </div>
+
+    <div class="col-lg-2">
+      <button mat-flat-button color="primary" class="py-0" (click)="openStatusItems(5, 'Returned')">Returned</button>
+    </div>
+
+    <div class="col-lg-2">
+      <button mat-flat-button color="primary" class="py-0" (click)="openStatusItems(9, 'Replaced')">Replaced</button>
+    </div> -->
+
     <div class="col-lg-2 col-md-2">
+      <mat-form-field class="example-form-field" appearance="outline" class="w-100">
+        <mat-label>Search</mat-label>
+        <input matInput type="text"  [(ngModel)]="searchText">
+        <button matSuffix mat-icon-button>
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+
+
+    <!-- <div class="col-lg-2 col-md-2">
       <mat-form-field class="example-form-field" appearance="outline" class="w-100">
         <mat-label>Name</mat-label>
         <input matInput type="text"  [(ngModel)]="prName">
@@ -127,7 +150,17 @@
 
     <div class="col-lg-2 col-md-2">
       <mat-form-field appearance="outline" class="w-100">
-        <input matInput [matDatepicker]="picker1" placeholder="Created from" [(ngModel)]="prCreatedTime">
+        <mat-label>Status</mat-label>
+        <mat-select (focus)="removeDuplicates()" [(ngModel)]="prStatus">
+          <mat-option value="">All</mat-option>
+          <mat-option *ngFor="let item of inventoryStatus" [value]="item.keyId">{{ item.value }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div> -->
+
+    <div class="col-lg-2 col-md-2">
+      <mat-form-field appearance="outline" class="w-100">
+        <input matInput [matDatepicker]="picker1" placeholder="Created from" [(ngModel)]="filterBody.startDate">
         <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
       </mat-form-field>
@@ -135,19 +168,9 @@
 
     <div class="col-lg-2 col-md-2">
       <mat-form-field appearance="outline" class="w-100">
-        <input matInput [matDatepicker]="picker2" placeholder="Created to" [(ngModel)]="prCreatedTime1">
+        <input matInput [matDatepicker]="picker2" placeholder="Created to" [(ngModel)]="filterBody.endDate">
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-2 col-md-2">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Status</mat-label>
-        <mat-select (focus)="removeDuplicates()" [(ngModel)]="prStatus">
-          <mat-option value="">All</mat-option>
-          <mat-option *ngFor="let item of inventoryStatus" [value]="item.keyId">{{ item.value }}</mat-option>
-        </mat-select>
       </mat-form-field>
     </div>
 
@@ -156,27 +179,8 @@
       <button (click)="applyFilter()">Submit</button>
     </div>
 
-    <div class="col-lg-2 col-md-2">
-      <!-- <mat-form-field class="example-form-field" appearance="outline" class="w-100">
-        <mat-label>Search</mat-label>
-        <input matInput type="text"  [(ngModel)]="searchText">
-        <button matSuffix mat-icon-button>
-          <mat-icon>search</mat-icon>
-        </button>
-      </mat-form-field> -->
-    </div>
+    <div class="col-lg-3"></div>
 
-    <!-- <div class="col-lg-2 col-md-2 text-end">
-      <div class="lists" *ngIf="showIconView" style="margin-right: 60px; margin-top: -40px;">View</div>
-      <div class="lists" *ngIf="showIconEdit" style="margin-right: 30px; margin-top: -40px;">Edit</div>
-      <div class="lists" *ngIf="showIconDelete" style="margin-right: -5px; margin-top: -40px;">Delete</div>
-
-      <a class="mx-2 pointer" (click)="viewBySelectedOne()"><img src="assets/icons/view.svg" (mouseenter)="showIconView = true" (mouseleave)="showIconView = false"></a>
-      <a class="mx-2 pointer" (click)="editBySelectedOne()"><img src="assets/icons/edit.svg" (mouseenter)="showIconEdit = true" (mouseleave)="showIconEdit = false"></a>
-      <a class="mx-2 pointer" (click)="deleteSelected()"><img src="assets/icons/delete.svg" (mouseenter)="showIconDelete = true" (mouseleave)="showIconDelete = false"></a>
-    </div> -->
-  </div>
-  <!-- /form -->
 
   <!-- table starts -->
   <div class="table-resp">
@@ -194,7 +198,7 @@
 
           <th>
             <p style="display: inline-flex;">
-              <span>id</span>
+              <span>Id</span>
               <img (click)="sort('id')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
             </p>
           </th>
@@ -206,7 +210,7 @@
 
           <th>
             <p style="display: inline-flex;">
-              <span>itemCode</span>
+              <span>Item code</span>
               <img (click)="sort('id')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
             </p>
           </th>
@@ -218,21 +222,21 @@
 
           <th>
             <p style="display: inline-flex;">
-              <span>name</span>
+              <span>Name</span>
               <img (click)="sort('id')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
             </p>
           </th>
 
           <th>
             <p style="display: inline-flex;">
-              <span>brand</span>
+              <span>Brand</span>
               <img (click)="sort('id')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
             </p>
           </th>
 
           <th>
             <p style="display: inline-flex;">
-              <span>model</span>
+              <span>Model</span>
               <img (click)="sort('id')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
             </p>
           </th>
@@ -246,35 +250,35 @@
 
           <th>
             <p style="display: inline-flex;">
-              <span>stock</span>
+              <span>Stock</span>
               <img (click)="sort('id')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
             </p>
           </th>
 
           <th>
             <p style="display: inline-flex;">
-              <span>purchased</span>
+              <span>Purchased</span>
               <img (click)="sort('id')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
             </p>
           </th>
 
           <th>
             <p style="display: inline-flex;">
-              <span>dispatched</span>
+              <span>Dispatched</span>
               <img (click)="sort('id')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
             </p>
           </th>
 
           <th>
             <p style="display: inline-flex;">
-              <span>used</span>
+              <span>Used</span>
               <img (click)="sort('id')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
             </p>
           </th>
 
           <th>
             <p style="display: inline-flex;">
-              <span>inStock</span>
+              <span>InStock</span>
               <img (click)="sort('id')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
             </p>
           </th>
@@ -289,7 +293,7 @@
             <img (click)="sort('statusId')" class="pointer" src="assets/icons/sorticon.svg" width="15px">
           </th> -->
 
-          <th class="text-center">Actions</th>
+          <th class="text-center">Others</th>
         </tr>
       </thead>
 
@@ -352,6 +356,10 @@
             <p>{{ cust.inStock }}</p>
           </td>
 
+          <td>
+            <p>{{ cust.others }}</p>
+          </td>
+
           <!-- <td>
             <p [style.color]="cust.inventoryStatusId == 1 ? '#00A44C'
               : cust.inventoryStatusId == 2 ? '#F5B400'
@@ -399,35 +407,24 @@
               </div>
             </ng-template>
           </td> -->
-
-
-          <td class="table-icons">
-            <!-- <a (click)="closeDot($event, i)" class="pointer"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
-
-            <div class="plus-img1" id="plus-img{{i}}" style="display: none">
-              <div class="lists" *ngIf="showIconView1" style="margin-left: 5px; margin-top: -20px">
-                View
-              </div>
-              <div class="lists" *ngIf="showIconEdit1" style="margin-left: 38px; margin-top: -20px">
-                Edit
-              </div>
-              <div class="lists" *ngIf="showIconDelete1" style="margin-left: 63px; margin-top: -20px">
-                Delete
-              </div>
-            </div> -->
-
-            <a class="mx-1 pointer" (click)="openViewPopup(cust)">
-              <img src="assets/icons/view.svg" (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" />
-            </a>
-            <a class="mx-1 pointer" (click)="openEditPopup(cust)">
-              <img src="assets/icons/edit.svg" (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" />
-            </a>
-            <a class="mx-1 pointer" value="Delete" (click)="openDeletePopup(cust)">
-              <img src="assets/icons/delete.svg" (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" />
-            </a>
-          </td>
         </tr>
       </tbody>
+
+      <tfoot>
+        <tr>
+          <th scope="row">Total</th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>{{ newInventoryTable[newInventoryTable.length - 1]?.totalInStockCount }}</td>
+        </tr>
+      </tfoot>
     </table>
     <!-- table ends -->
   </div>
@@ -686,7 +683,7 @@
 </ng-template>
 <!--/ view warranty -->
 
-<!-- warranty popup -->
+<!-- edit warranty -->
 <ng-template #editWarrantyDialog>
   <div style="background-color: #084982;">
     <p class="dialog-title">MODIFY WARRANTY</p>
@@ -742,7 +739,7 @@
     </div>
   </div>
 </ng-template>
-<!-- warranty popup -->
+<!-- edit warranty -->
 
 <!-- view details-->
 <ng-template #viewDetailsDialog>
@@ -793,7 +790,20 @@
               </td>
 
               <td>
-                <p (click)="openEditStatus(inven)">{{ inven.statusId }}</p>
+                <p (click)="openEditStatus(inven)">
+                  {{
+                    inven.statusId  == 1 ? 'Instock'
+                    : inven.statusId == 2 ? 'Dispatched'
+                    : inven.statusId == 3 ? 'Installed'
+                    : inven.statusId == 4 ? 'Returned'
+                    : inven.statusId == 5 ? 'Replaced'
+                    : inven.statusId == 6 ? 'Removed'
+                    : inven.statusId == 7 ? 'Refurbished'
+                    : inven.statusId == 8 ? 'Scrap'
+                    : inven.statusId == 9 ? 'Warranty Replaced'
+                    : ''
+                  }}
+                </p>
               </td>
 
               <ng-template #editStatusDialog>
@@ -847,13 +857,11 @@
             <tr class="task-table">
               <th>ticketId</th>
 
-              <th>siteId</th>
+              <th>siteName</th>
 
               <th>usedBy</th>
 
               <th>usedTime</th>
-
-              <!-- <th>status</th> -->
             </tr>
           </thead>
 
@@ -864,7 +872,7 @@
               </td>
 
               <td>
-                <p>{{ task.siteId }}</p>
+                <p>{{ task.siteName }}</p>
               </td>
 
               <td>
@@ -874,10 +882,6 @@
               <td>
                 <p>{{ task.modifiedTime }}</p>
               </td>
-
-              <!-- <td>
-                <p>{{ task.statusId == 1 ? 'Open' : task.statusId == 2 ? 'In-Progress' : task.statusId == 3 ? 'Closed' : task.statusId == 4 ? 'Rejected' : '' }}</p>
-              </td> -->
             </tr>
           </tbody>
         </table>
@@ -892,6 +896,92 @@
 <!-- /used items-->
 
 
+<!-- status popup-->
+<ng-template #statusItemsDialog>
+  <div style="background-color: #084982;">
+    <p class="dialog-title">view</p>
+  </div>
+
+  <mat-dialog-content>
+    <div class="row">
+      <div class="table-res col-lg-12">
+        <table class="table" id="mytable">
+          <thead>
+            <tr class="task-table">
+              <th>ticketId</th>
+              <th>ItemCode</th>
+              <th>Name</th>
+              <th>siteName</th>
+              <th *ngIf="currentStatusItem == 5">status</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let task of statusItems; let i = index">
+              <td>
+                <p>{{ task.ticketId }}</p>
+              </td>
+
+              <td>
+                <p>{{ task.itemCode }}</p>
+              </td>
+
+              <td>
+                <p>{{ task.name }}</p>
+              </td>
+
+              <td>
+                <p>{{ task.siteName }}</p>
+              </td>
+              <td *ngIf="currentStatusItem == 5">
+                <p (click)="openEditStatus(task)">
+                {{
+                  task.statusId  == 1 ? 'Requested'
+                  : task.statusId == 2 ? 'Dispatched'
+                  : task.statusId == 3 ? 'Received'
+                  : task.statusId == 4 ? 'Installed'
+                  : task.statusId == 5 ? 'Returned'
+                  : ''
+                }} </p>
+              </td>
+
+              <ng-template #editStatusDialog>
+                <div style="background-color: #084982;">
+                  <p class="dialog-title">view status</p>
+                </div>
+
+                <mat-dialog-content>
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Edit Status</mat-label>
+                    <mat-select [(ngModel)]="statusObj.statusId">
+                      <mat-option *ngFor="let item of inventoryStatus" [value]="item.keyId">{{ item.value }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </mat-dialog-content>
+
+                <div class="d-flex align-items-center justify-content-end">
+                  <div mat-dialog-actions class="me-2">
+                    <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+                  </div>
+                  <div mat-dialog-actions>
+                    <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="updateInventoryStatus()">Update</button>
+                  </div>
+                </div>
+              </ng-template>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <div class="d-flex justify-content-end" mat-dialog-actions>
+    <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+  </div>
+</ng-template>
+<!-- /status popup -->
+
+
+
 <div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showInventory">
-  <app-add-new-inventory (newItemEvent)="closenow($event, 'inventory')"></app-add-new-inventory>
+  <app-add-new-inventory (newItemEvent)="closenow('inventory')"></app-add-new-inventory>
 </div>

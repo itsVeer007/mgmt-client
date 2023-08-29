@@ -31,12 +31,6 @@ export class SitesComponent implements OnInit {
   inActive: any = [];
   onHold: any = [];
 
-  showIconView: boolean = false;
-  showIconEdit: boolean = false;
-  showIconDelete: boolean = false;
-  showIconView1: boolean = false;
-  showIconEdit1: boolean = false;
-  showIconDelete1: boolean = false;
 
   siteData: any;
   siteIds: any;

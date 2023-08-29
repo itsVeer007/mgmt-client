@@ -8,27 +8,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AnalyticsComponent implements OnInit {
 
-// @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
-  //   var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);
-  //   var y = <HTMLElement>document.getElementById(`icons-site`);
-
-  //   // console.log(`plus-img${this.currentid}`);
-  //   if (x != null) {
-  //     if (!x.contains(e.target)) {
-  //       if (x.style.display == 'flex' || x.style.display == 'block') {
-  //         x.style.display = 'none';
-  //       }
-  //     }
-  //   }
-
-  //   if (y != null) {
-  //     console.log(`icons-site`);
-  //     if (!y.contains(e.target)) {
-  //       this.icons1 = false;
-  //     }
-  //   }
-  // }
-
 
 
 
@@ -38,20 +17,6 @@ export class AnalyticsComponent implements OnInit {
   ngOnInit(): void {
     this.CustomerReport();
   }
-
-  // showIconVertical: boolean = false;
-  // showIconCustomer: boolean = false;
-  // showIconSite: boolean = false;
-  // showIconCamera: boolean = false;
-  // showIconAnalytic: boolean = false;
-  // showIconUser: boolean = false;
-
-  showIconView: boolean = false;
-  showIconEdit: boolean = false;
-  showIconDelete: boolean = false;
-  showIconView1: boolean = false;
-  showIconEdit1: boolean = false;
-  showIconDelete1: boolean = false;
 
   searchText: any;
   CustomerTable: any;

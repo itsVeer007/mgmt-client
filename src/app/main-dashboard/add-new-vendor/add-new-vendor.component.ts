@@ -174,7 +174,7 @@ export class AddNewVendorComponent implements OnInit {
 
       }, (err: any) => {
         if(err) {
-          this.alertSer.error();
+          this.alertSer.error(err);
         };
       })
     }

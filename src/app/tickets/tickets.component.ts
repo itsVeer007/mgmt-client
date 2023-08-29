@@ -51,13 +51,6 @@ export class TicketsComponent implements OnInit {
   //     XLSX.writeFile(wb, this.fileName);
   // }
 
-  showIconView: boolean = false;
-  showIconEdit: boolean = false;
-  showIconDelete: boolean = false;
-  showIconView1: boolean = false;
-  showIconEdit1: boolean = false;
-  showIconDelete1: boolean = false;
-
   searchText: any;
   ticketData: any = [];
   newTicketData: any = [];
@@ -71,7 +64,7 @@ export class TicketsComponent implements OnInit {
     this.ticketSer.listTickets().subscribe((res: any) => {
       this.showLoader = false;
       this.ticketData = res;
-      this.newTicketData = this.ticketData;
+      this.newTicketData = this.ticketData?.sort((a: any, b: any) => a?.ticketId < b?.ticketId ? 1 : a?.ticketId > b?.ticketId ? -1 : 0);
 
       for(let item of this.ticketData) {
         if(item.ticketStatus == 'Open') {
@@ -91,6 +84,7 @@ export class TicketsComponent implements OnInit {
   usedItems: any;
   @ViewChild('indentItemsDialog') indentItemsDialog = {} as TemplateRef<any>;
   listIndentItems(data: any) {
+    console.log(data)
     this.dialog.open(this.indentItemsDialog, {maxWidth: '750px', maxHeight: '550px'});
 
     this.ticketSer.listIndentItems(data).subscribe((res: any) => {
@@ -222,8 +216,8 @@ export class TicketsComponent implements OnInit {
   changedKeys: any = [];
 
   @ViewChild('viewTicketDialog') viewTicketDialog = {} as TemplateRef<any>;
-  ticketTasks: any;
-  ticketVisits: any;
+  ticketTasks: any[] = [];
+  ticketVisits: any[] = [];
   ticketComments: any = [];
   openViewPopup(item: any) {
     this.currentItem = item;
@@ -319,7 +313,7 @@ export class TicketsComponent implements OnInit {
       }
     }, (err: any) => {
       if(err) {
-        this.alertSer.error();
+        this.alertSer.error(err);
       };
     });
   }
@@ -344,7 +338,7 @@ export class TicketsComponent implements OnInit {
       }
     }, (err: any) => {
       if(err) {
-        this.alertSer.error();
+        this.alertSer.error(err);
       };
     })
   }
@@ -365,7 +359,7 @@ export class TicketsComponent implements OnInit {
   toAssigned() {
     this.alertSer.wait();
     let myObj = {
-      'ticketId': this.toAssign.id,
+      'ticketId': this.toAssign.ticketId,
       'assignedTo': this.assignedObj.assignedTo,
       "assignedBy": 1
     }
@@ -378,7 +372,7 @@ export class TicketsComponent implements OnInit {
       }
     }, (err: any) => {
         if(err) {
-          this.alertSer.error();
+          this.alertSer.error(err);
         }
     })
   }
@@ -409,7 +403,7 @@ export class TicketsComponent implements OnInit {
       }
     }, (err: any) => {
       if(err) {
-        this.alertSer.error();
+        this.alertSer.error(err);
       };
     })
   }

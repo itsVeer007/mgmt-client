@@ -101,7 +101,7 @@
             <img (click)="sort('sourceOfRequestId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
-          <th class="text-center">Actions</th>
+          <!-- <th class="text-center">Actions</th> -->
         </tr>
       </thead>
 
@@ -116,7 +116,7 @@
               " id="singleCheck" />
           </td> -->
           <td>
-            <p>{{ cust.id }}</p>
+            <p>{{ cust.ticketId }}</p>
           </td>
           <td>
             <p>{{ cust.siteName }}</p>
@@ -144,31 +144,7 @@
 
 
 
-          <td class="table-icons">
-            <!-- <a class="pointer" (click)="closeDot($event, i)"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
-            <div class="plus-img1" id="plus-img{{ i }}" style="display: none">
-              <div class="lists" *ngIf="showIconView1" style="margin-left: 5px; margin-top: -20px">
-                View
-              </div>
-              <div class="lists" *ngIf="showIconEdit1" style="margin-left: 38px; margin-top: -20px">
-                Edit
-              </div>
-              <div class="lists" *ngIf="showIconDelete1" style="margin-left: 63px; margin-top: -20px">
-                Delete
-              </div>
-            </div> -->
-            <a class="mx-1 pointer" (click)="openViewPopup(cust)">
-              <img src="assets/icons/view.svg" (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false">
-            </a>
 
-            <a class="mx-1 pointer" (click)="openEditPopup(cust)">
-              <img src="assets/icons/edit.svg" (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false">
-            </a>
-
-            <a class="mx-1 pointer" value="Delete" (click)="openDeletePopup(cust)">
-              <img src="assets/icons/delete.svg"(mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false">
-            </a>
-          </td>
         </tr>
       </tbody>
     </table>
@@ -322,24 +298,10 @@
               </td>
 
               <td>
-                <a class="pointer" (click)="closeDot($event, i)"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
-                <div class="plus-img1" id="plus-img{{ i }}" style="display: none">
-                  <div class="lists" *ngIf="showIconView1" style="margin-left: 5px; margin-top: -20px">
-                    View
-                  </div>
-                  <div class="lists" *ngIf="showIconEdit1" style="margin-left: 38px; margin-top: -20px">
-                    Edit
-                  </div>
-                  <div class="lists" *ngIf="showIconDelete1" style="margin-left: 63px; margin-top: -20px">
-                    Delete
-                  </div>
+                <div class="plus-img1">
 
-                  <a class="mx-2" (click)="openViewPopup(cust)"><img src="assets/icons/view.svg"
-                      (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" /></a>
-                  <a class="mx-2" (click)="openEditPopup(cust)"><img src="assets/icons/edit.svg"
-                      (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" /></a>
-                  <a class="mx-2" value="Delete" (click)="openDeletePopup(cust)"><img src="assets/icons/delete.svg"
-                      (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" /></a>
+
+                  <a class="mx-2" (click)="openViewPopup(cust)"><img src="assets/icons/view.svg" /></a>
                 </div>
               </td>
             </tr>
@@ -397,22 +359,8 @@
               <td>
                 <a class="pointer" (click)="closeDot($event, i)"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
                 <div class="plus-img1" id="plus-img{{ i }}" style="display: none">
-                  <div class="lists" *ngIf="showIconView1" style="margin-left: 5px; margin-top: -20px">
-                    View
-                  </div>
-                  <div class="lists" *ngIf="showIconEdit1" style="margin-left: 38px; margin-top: -20px">
-                    Edit
-                  </div>
-                  <div class="lists" *ngIf="showIconDelete1" style="margin-left: 63px; margin-top: -20px">
-                    Delete
-                  </div>
 
-                  <a class="mx-2" (click)="openViewPopup(cust)"><img src="assets/icons/view.svg"
-                      (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false" /></a>
-                  <a class="mx-2" (click)="openEditPopup(cust)"><img src="assets/icons/edit.svg"
-                      (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false" /></a>
-                  <a class="mx-2" value="Delete" (click)="openDeletePopup(cust)"><img src="assets/icons/delete.svg"
-                      (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false" /></a>
+                  <a class="mx-2" (click)="openViewPopup(cust)"><img src="assets/icons/view.svg"/></a>
                 </div>
               </td>
             </tr>
@@ -427,119 +375,3 @@
   </div>
 </ng-template>
 <!--/ view popup -->
-
-<!-- edit popup -->
-<ng-template #editTicketDialog>
-  <div class="row" *ngIf="currentItem">
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Ticket Id</mat-label>
-        <input matInput [(ngModel)]="currentItem.ticketId" disabled>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Ticket Type</mat-label>
-        <mat-select name="ticketTypeId" [(ngModel)]="currentItem.ticketTypeId" (selectionChange)="onSelectChange($event)">
-          <mat-option *ngFor="let item of ticketType" [value]="item.keyId">
-            {{ item.value }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Description</mat-label>
-        <input matInput name="description" [(ngModel)]="currentItem.description" (change)="onInputChange($event)">
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Source Of Request</mat-label>
-        <mat-select name="sourceOfRequestId" [(ngModel)]="currentItem.sourceOfRequestId" (selectionChange)="onSelectChange($event)">
-          <mat-option *ngFor="let item of sourceOfRequest" [value]="item.keyId">
-            {{ item.value }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Assigned To</mat-label>
-        <mat-select name="assignedTo" [(ngModel)]="currentItem.assignedTo" (selectionChange)="onSelectChange($event)">
-          <mat-option *ngFor="let item of assignedTo" [value]="item.keyId">
-            {{ item.value }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Priority</mat-label>
-        <mat-select name="priorityId" [(ngModel)]="currentItem.priorityId" (selectionChange)="onSelectChange($event)">
-          <mat-option *ngFor="let item of priorityVal" [value]="item.keyId">
-            {{ item.value }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Status</mat-label>
-        <mat-select name="statusId" [(ngModel)]="currentItem.statusId" (selectionChange)="onSelectChange($event)">
-          <mat-option *ngFor="let item of statusVal" [value]="item.keyId">
-            {{ item.value }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Reason</mat-label>
-        <input matInput name="ticketReason" [(ngModel)]="currentItem.ticketReason" (change)="onInputChange($event)">
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6 col-md-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Remarks</mat-label>
-        <input matInput name="remarks" [(ngModel)]="currentItem.remarks" (change)="onInputChange($event)">
-      </mat-form-field>
-    </div>
-  </div>
-
-  <div class="d-flex align-items-center justify-content-end">
-    <div mat-dialog-actions class="me-2">
-      <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
-    </div>
-    <div mat-dialog-actions>
-      <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="updateTicket(currentItem)">Update</button>
-    </div>
-  </div>
-</ng-template>
-<!--/ edit popup -->
-
-<!-- delete popup -->
-<ng-template #deleteTicketDialog>
-  <div class="d-flex justify-content-between">
-    <p>Delete Row</p>
-  </div>
-  <div class="text-center">Do you want to delete this item?</div>
-
-  <div class="d-flex align-items-center justify-content-end">
-    <div mat-dialog-actions class="me-2">
-      <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
-    </div>
-    <div mat-dialog-actions>
-      <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="confirmDeleteRow()">OK</button>
-    </div>
-  </div>
-</ng-template>
-<!--/ delete popup -->

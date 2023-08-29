@@ -25,12 +25,6 @@ export class IndentsComponent implements OnInit {
   }
 
   showLoader = false;
-  showIconView: boolean = false;
-  showIconEdit: boolean = false;
-  showIconDelete: boolean = false;
-  showIconView1: boolean = false;
-  showIconEdit1: boolean = false;
-  showIconDelete1: boolean = false;
   searchText: any;
   searchTx: any;
   indentTable: any = [];
@@ -228,7 +222,7 @@ export class IndentsComponent implements OnInit {
       }
     }, (err: any) => {
       if(err) {
-        this.alertSer.error();
+        this.alertSer.error(err);
       };
     });
   }
@@ -250,7 +244,7 @@ export class IndentsComponent implements OnInit {
       }
     }, (err: any) => {
       if(err) {
-        this.alertSer.error();
+        this.alertSer.error(err);
       };
     });
   }
@@ -296,7 +290,7 @@ export class IndentsComponent implements OnInit {
       }
     }, (err: any) => {
       if(err) {
-        this.alertSer.error();
+        this.alertSer.error(err);
       };
     });
   }
@@ -345,7 +339,7 @@ export class IndentsComponent implements OnInit {
       }
     }, (err: any) => {
       if(err) {
-        this.alertSer.error();
+        this.alertSer.error(err);
       };
     });
   }

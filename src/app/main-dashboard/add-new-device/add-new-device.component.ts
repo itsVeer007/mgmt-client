@@ -297,7 +297,7 @@ export class AddNewDeviceComponent implements OnInit {
       },
       (err: any) => {
         if(err) {
-          this.alertSer.error();
+          this.alertSer.error(err);
         };
       })
     }

@@ -247,13 +247,6 @@ export class AssetsComponent implements OnInit {
   }
 
 
-  showIconView: boolean = false;
-  showIconEdit: boolean = false;
-  showIconDelete: boolean = false;
-  showIconView1: boolean = false;
-  showIconEdit1: boolean = false;
-  showIconDelete1: boolean = false;
-
   currentid = 0;
   closeDot(e: any, i: any) {
     this.currentid = i;
@@ -536,7 +529,7 @@ export class AssetsComponent implements OnInit {
       // }, 3000);
     }, (err: any) => {
       if(err) {
-        this.alertSer.error();
+        this.alertSer.error(err);
       };
     });
   }

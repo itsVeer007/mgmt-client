@@ -64,16 +64,6 @@
         </mat-form-field>
       </div>
     </div>
-
-    <!-- <div class="col-lg-2 col-md-2 col-sm-12 text-end">
-        <div class="lists" *ngIf="showIconView" style="margin-right: 60px; margin-top: -40px;">View</div>
-        <div class="lists" *ngIf="showIconEdit" style="margin-right: 30px; margin-top: -40px;">Edit</div>
-        <div class="lists" *ngIf="showIconDelete" style="margin-right: -5px; margin-top: -40px;">Delete</div>
-
-        <a class="mx-2 pointer" (click)="viewBySelectedOne()"><img src="assets/icons/view.svg" (mouseenter)="showIconView = true" (mouseleave)="showIconView = false" /></a>
-        <a class="mx-2 pointer" (click)="editBySelectedOne()"><img src="assets/icons/edit.svg" (mouseenter)="showIconEdit = true" (mouseleave)="showIconEdit = false" /></a>
-        <a class="mx-2 pointer" (click)="deleteSelected()"><img src="assets/icons/delete.svg" (mouseenter)="showIconDelete = true" (mouseleave)="showIconDelete = false" /></a>
-    </div> -->
   </div>
   <!-- /form -->
 
@@ -231,28 +221,14 @@
             </td>
 
             <td class="table-icons">
-              <!-- <a class="pointer" (click)="closeDot($event,i)"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
-
-              <div class="plus-img1" id="plus{{i}}" style="display: none;">
-                <div class="lists" *ngIf="showIconView1" style="margin-left: -55px; margin-top: -40px;">
-                  View
-                </div>
-                <div class="lists" *ngIf="showIconEdit1" style="margin-left: 5px; margin-top: -40px;">
-                  Edit
-                </div>
-                <div class="lists" *ngIf="showIconDelete1" style="margin-left: 68px; margin-top: -40px;">
-                  Delete
-                </div>
-              </div> -->
-
-              <a class="mx-1 pointer">
-                <img src="assets/icons/view.svg" (click)="openViewPopup(data)" (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false">
+              <a class="mx-1 pointer" matTooltip="View">
+                <img src="assets/icons/view.svg" (click)="openViewPopup(data)" >
               </a>
-              <a class="mx-1 pointer">
-                <img src="assets/icons/edit.svg" (click)="openEditPopup(data)" (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false">
+              <a class="mx-1 pointer"  matTooltip="Edit">
+                <img src="assets/icons/edit.svg" (click)="openEditPopup(data)">
               </a>
-              <a class="mx-1 pointer" value="Delete">
-                <img src="assets/icons/delete.svg" (click)="openDeletePopup(data)" (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false">
+              <a class="mx-1 pointer" value="Delete"  matTooltip="Delete">
+                <img src="assets/icons/delete.svg" (click)="openDeletePopup(data)">
               </a>
             </td>
           </tr>

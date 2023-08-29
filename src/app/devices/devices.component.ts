@@ -66,13 +66,6 @@ export class DevicesComponent implements OnInit {
   showIconAnalytic: boolean = false;
   showIconUser: boolean = false;
 
-  showIconView: boolean = false;
-  showIconEdit: boolean = false;
-  showIconDelete: boolean = false;
-  showIconView1: boolean = false;
-  showIconEdit1: boolean = false;
-  showIconDelete1: boolean = false;
-
   searchText: any;
   deviceData: any = [];
   xx: any;
@@ -179,7 +172,7 @@ export class DevicesComponent implements OnInit {
       }
     }, (err: any) => {
       if(err) {
-        this.alertSer.error();
+        this.alertSer.error(err);
       };
     });
   }
@@ -312,7 +305,7 @@ export class DevicesComponent implements OnInit {
       }, 3000)
     }, (err: any) => {
       if(err) {
-        this.alertSer.error();
+        this.alertSer.error(err);
       };
     });
   }

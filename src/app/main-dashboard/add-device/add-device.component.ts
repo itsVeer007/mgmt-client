@@ -388,7 +388,7 @@ export class AddDeviceComponent implements OnInit {
 
     }, (err: any) => {
       if(err) {
-        this.alertSer.error();
+        this.alertSer.error(err);
       };
     })
   }
@@ -428,7 +428,7 @@ export class AddDeviceComponent implements OnInit {
         }, 3000);
       }, (err: any) => {
         if(err) {
-          this.alertSer.error();
+          this.alertSer.error(err);
         };
       })
     }

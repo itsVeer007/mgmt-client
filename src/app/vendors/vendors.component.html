@@ -43,20 +43,6 @@
         </button>
       </mat-form-field>
     </div>
-
-    <!-- <div class="filter-search-btn col-lg-2 col-sm-12">
-      <button (click)="applyFilter()">Submit</button>
-    </div> -->
-
-    <!-- <div class="col-lg-2 col-sm-12 col-sm-12 text-end">
-      <div class="lists" *ngIf="showIconView" style="margin-right: 60px; margin-top: -40px;">View</div>
-      <div class="lists" *ngIf="showIconEdit" style="margin-right: 30px; margin-top: -40px;">Edit</div>
-      <div class="lists" *ngIf="showIconDelete" style="margin-right: -5px; margin-top: -40px;">Delete</div>
-
-      <a class="mx-2 pointer" (click)="viewBySelectedOne()"><img src="assets/icons/view.svg" (mouseenter)="showIconView = true" (mouseleave)="showIconView = false"></a>
-      <a class="mx-2 pointer" (click)="editBySelectedOne()"><img src="assets/icons/edit.svg" (mouseenter)="showIconEdit = true" (mouseleave)="showIconEdit = false"></a>
-      <a class="mx-2 pointer" (click)="deleteSelected()"><img src="assets/icons/delete.svg" (mouseenter)="showIconDelete = true" (mouseleave)="showIconDelete = false"></a>
-    </div> -->
   </div>
   <!-- /form -->
 
@@ -89,16 +75,16 @@
           </th>
 
           <th>
-            <span>Proprietor Details</span>
+            <span>Proprietor details</span>
             <!-- <img (click)="sort('productName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
           </th>
 
           <th>
-            <span>Start Date</span>
+            <span>Start date</span>
           </th>
 
           <th>
-            <span>End Date</span>
+            <span>End date</span>
           </th>
 
           <th>
@@ -251,28 +237,14 @@
           </td>
 
           <td class="text-center">
-            <!-- <a (click)="closeDot($event, i)" class="pointer"><img src="assets/icons/dotlist.svg" width="30" height="12" /></a>
-
-            <div class="plus-img1" id="plus-img{{i}}" style="display: none">
-              <div class="lists" *ngIf="showIconView1" style="margin-left: 5px; margin-top: -20px">
-                View
-              </div>
-              <div class="lists" *ngIf="showIconEdit1" style="margin-left: 38px; margin-top: -20px">
-                Edit
-              </div>
-              <div class="lists" *ngIf="showIconDelete1" style="margin-left: 63px; margin-top: -20px">
-                Delete
-              </div>
-            </div> -->
-
               <a class="mx-1 pointer" (click)="openViewPopup(cust)">
-                <img src="assets/icons/view.svg" (mouseenter)="showIconView1 = true" (mouseleave)="showIconView1 = false">
+                <img src="assets/icons/view.svg">
               </a>
               <a class="mx-1 pointer" (click)="openEditPopup(cust)" [hidden]="cust.statusId == 0">
-                <img src="assets/icons/edit.svg" (mouseenter)="showIconEdit1 = true" (mouseleave)="showIconEdit1 = false">
+                <img src="assets/icons/edit.svg">
               </a>
               <a class="mx-1 pointer" value="Delete" (click)="openDeletePopup(cust)" [hidden]="cust.statusId == 0">
-                <img src="assets/icons/delete.svg" (mouseenter)="showIconDelete1 = true" (mouseleave)="showIconDelete1 = false">
+                <img src="assets/icons/delete.svg">
               </a>
           </td>
         </tr>
