@@ -133,45 +133,47 @@
   <!-- table starts -->
   <div class="table-resp">
     <table class="table" id="mytable">
-      <tbody>
+      <thead>
         <tr class="form1">
           <!-- <th>
-            <input type="checkbox" class="form-check-input" [(ngModel)]="selectedAll" (change)="selectAll()"
-              id="allcheck" style="
-                background-color: #00000000;
-                border-color: #fff;
-                margin-left: 10px;
-              " />
-          </th> -->
+              <input type="checkbox" class="form-check-input" [(ngModel)]="selectedAll" (change)="selectAll()"
+                id="allcheck" style="
+                  background-color: #00000000;
+                  border-color: #fff;
+                  margin-left: 10px;
+                " />
+            </th> -->
 
-          <th>
-            <span>Id</span>
-            <img (click)="sort('deviceId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-          </th>
+            <th>
+              <span>Id</span>
+              <img (click)="sort('deviceId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </th>
 
-          <th>
-            <span>Type</span>
-            <img (click)="sort('deviceTypeId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-          </th>
+            <th>
+              <span>Type</span>
+              <img (click)="sort('deviceTypeId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </th>
 
-          <th>
-            <span>Site Details</span>
-            <img (click)="sort('siteId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-          </th>
+            <th>
+              <span>Site Details</span>
+              <img (click)="sort('siteId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </th>
 
-          <th>
-            <span>Status</span>
-            <img (click)="sort('status')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-          </th>
+            <th>
+              <span>Status</span>
+              <img (click)="sort('status')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </th>
 
-          <th>Reboot</th>
+            <th>Reboot</th>
 
-          <th>
-            <span>Uptime</span>
-          </th>
-          <!-- <th></th> -->
+            <th>
+              <span>Uptime</span>
+            </th>
+            <!-- <th></th> -->
         </tr>
+      </thead>
 
+      <tbody>
         <tr *ngFor="let cust of deviceData | search : searchText; let i = index">
           <!-- <td>
             <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="cust.selected" (change)="

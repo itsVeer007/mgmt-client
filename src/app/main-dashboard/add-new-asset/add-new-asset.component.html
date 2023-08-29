@@ -56,7 +56,7 @@
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Device Mode</mat-label>
               <mat-select formControlName="deviceModeId" [(ngModel)]="assetData.asset.deviceModeId">
-                <mat-option *ngFor="let item of deviceMode" [value]="item.keyId">{{ item.value }}</mat-option>
+                <mat-option *ngFor="let item of deviceMode" [value]="item.keyId">{{ item.remarks }}</mat-option>
               </mat-select>
               <mat-error class="mt-1">Device Mode is required</mat-error>
             </mat-form-field>
