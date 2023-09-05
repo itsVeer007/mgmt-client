@@ -3,7 +3,7 @@
   <!-- header -->
   <div class="d-flex justify-content-between">
     <div class="sites-header">
-      <p>List of all Sites - <span>{{ totalCount ? totalCount : 0 }}</span></p>
+      <p>List of Sites - <span>{{ newTableData?.length }}</span></p>
     </div>
     <div style="position: relative;">
       <!-- <a class="pointer" (click)="show('site')"><img src="assets/icons/add.svg" alt="" /></a> -->
@@ -48,8 +48,8 @@
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Site Name</mat-label>
           <mat-select [(ngModel)]="siteNg">
-            <mat-option value="">All</mat-option>
-            <mat-option *ngFor="let data of siteIds">{{ data.siteid }} - {{ data.siteShortName }}</mat-option>
+            <mat-option value="All" (click)="filterSites('All')">All</mat-option>
+            <mat-option *ngFor="let data of siteIds" (click)="filterSites(data.sitename)" [value]="data.sitename">{{ data.siteid }} - {{ data.siteShortName }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -123,7 +123,7 @@
       </thead>
 
       <tbody>
-        <tr *ngFor="let data of tableData | search : searchText; let i=index" (dblclick)="openViewPopup(data)">
+        <tr *ngFor="let data of newTableData | search : searchText; let i=index" (dblclick)="openViewPopup(data)">
             <!-- <td>
               <input type="checkbox" class="form-check-input" [(ngModel)]="data.selected" (change)="checkIfAllSelected(); deleteMultiRecords(data, i, $event); ViewByCheckbox(data, i, $event); EditByCheckbox(data, i, $event)" id="singleCheck">
             </td> -->
@@ -132,7 +132,7 @@
               <p>{{ data.siteid }}</p>
             </td>
             <td style="width: 200px;">
-              <p>{{ data.sitename ? data.sitename : '--' }}</p>
+              <p>{{ data.sitename }}</p>
             </td>
             <td>
               <!-- <p>{{data.customer}}</p> -->
@@ -152,21 +152,21 @@
             <td>
               <a class="pointer" style="color: #084982;" (click)="addressView($event, i)">View</a>
 
-              <div class="plus-img" id="address{{i}}">
+              <!-- <div class="plus-img" id="address{{i}}">
                 <p class="p-2" style="color: #ABABAB; text-align: left;">ADDRESS</p>
                 <div style="color: #000; text-align: left; padding: 10px;">
                   <p>Pathur Road, Tadepally</p>
                   <p>Guntur - 522501</p>
                   <p>Andhra Pradesh, India</p>
                 </div>
-              </div>
+              </div> -->
             </td>
 
             <td>
               <!-- <a class="pointer" style="color: #084982;">{{data.escl_Details}}</a> -->
               <a class="pointer" style="color: #084982;" (click)="onGetEngineer(data.siteId); engineerView($event, i)">View</a>
 
-              <div class="plus-img" style="margin-left: -388px;" id="engineer{{i}}">
+              <!-- <div class="plus-img" style="margin-left: -388px;" id="engineer{{i}}">
                 <p class="p-2" style="color: #ABABAB; text-align: left;">Details:</p>
                 <div class="eng-detail" *ngFor="let item of engineerDetail">
                   <p>
@@ -182,7 +182,7 @@
                     {{ item.contactNo ? item.contactNo : '--' }}
                   </p>
                 </div>
-              </div>
+              </div> -->
             </td>
 
             <td>

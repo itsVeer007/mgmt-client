@@ -320,12 +320,12 @@ export class ProductMasterComponent implements OnInit {
     this.inventorySer.updateProductMaster({productMaster: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
       // console.log(res);
       if(res) {
-        this.alertSer.success(res);
+        this.alertSer.success(res?.message);
         this.listProduct();
       }
     }, (err: any) => {
       if(err) {
-        this.alertSer.error(err);
+        this.alertSer.error(err?.error?.message);
       };
     });
   }
@@ -343,12 +343,12 @@ export class ProductMasterComponent implements OnInit {
     this.inventorySer.deleteProduct(this.currentItem).subscribe((res: any) => {
       // console.log(res);
       if(res) {
-        this.alertSer.success(res);
+        this.alertSer.success(res?.message);
         this.listProduct();
       }
     }, (err: any) => {
       if(err) {
-        this.alertSer.error(err);
+        this.alertSer.error(err?.error?.message);
       };
     });
   }

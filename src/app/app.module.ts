@@ -86,6 +86,7 @@ import { AddNewIndentComponent } from './main-dashboard/add-new-indent/add-new-i
 import { FrComponent } from './fr/fr.component';
 import { TicketReportsComponent } from './ticket-reports/ticket-reports.component';
 import { AdvertisementsComponent } from './advertisements/advertisements.component';
+import { FrKitComponent } from './fr-kit/fr-kit.component';
 
 @NgModule({
   declarations: [
@@ -136,7 +137,8 @@ import { AdvertisementsComponent } from './advertisements/advertisements.compone
     AddNewIndentComponent,
     FrComponent,
     TicketReportsComponent,
-    AdvertisementsComponent
+    AdvertisementsComponent,
+    FrKitComponent
   ],
   imports: [
     BrowserModule,

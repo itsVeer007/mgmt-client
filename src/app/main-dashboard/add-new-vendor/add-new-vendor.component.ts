@@ -166,7 +166,7 @@ export class AddNewVendorComponent implements OnInit {
       this.inventorySer.createVendors(this.vendorBody).subscribe((res: any) => {
         // console.log(res);
         if(res) {
-          this.alertSer.success(res);
+          this.alertSer.success(res?.message);
         }
         setTimeout(() => {
           window.location.reload();
@@ -174,7 +174,7 @@ export class AddNewVendorComponent implements OnInit {
 
       }, (err: any) => {
         if(err) {
-          this.alertSer.error(err);
+          this.alertSer.error(err?.error?.message);
         };
       })
     }

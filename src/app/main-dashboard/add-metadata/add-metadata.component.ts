@@ -133,14 +133,14 @@ export class AddMetadataComponent implements OnInit {
       this.metaDataSer.add(this.metaDataBody).subscribe((res: any) => {
         // console.log(res);
         if(res) {
-          this.alertSer.success(res);
+          this.alertSer.success(res?.message);
         }
         setTimeout(() => {
           window.location.reload();
         }, 3000);
       }, (err: any) => {
         if(err) {
-          this.alertSer.error(err);
+          this.alertSer.error(err?.error?.message);
         };
       });
     }

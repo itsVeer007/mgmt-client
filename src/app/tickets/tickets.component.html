@@ -257,7 +257,7 @@
                   <mat-label>Assign To</mat-label>
                   <mat-select [(ngModel)]="assignedObj.assignedTo">
                     <!-- <mat-option *ngFor="let item of assignedTo" [value]="item.keyId">{{item.value}}</mat-option> -->
-                    <mat-option [value]="1565">Ajay Kumar Gurla</mat-option>
+                    <mat-option [value]="1565">Brey Dominguez</mat-option>
                   </mat-select>
                 </mat-form-field>
               </mat-dialog-content>
@@ -365,12 +365,18 @@
 
 <!-- view popup -->
 <ng-template #viewTicketDialog>
-  <div style="background-color: #084982;">
+  <div class="d-flex align-items-center justify-content-between" style="background-color: #084982;">
     <p class="dialog-title">view ticket</p>
   </div>
 
   <mat-dialog-content>
-    <p class="text-secondary" style="font-weight: 600;">Tasks</p>
+    <div class="d-flex justify-content-between align-content-center my-2">
+      <p class="text-secondary" style="font-weight: 600;">Tasks</p>
+      <!-- <p (click)="openAddTask()">
+        <img class="pointer" src="assets/icons/add.svg" width="35px">
+      </p> -->
+      <button class="py-1 text-white" style="background-color: #084982; border: none;" (click)="openAddTask()">Create Task</button>
+    </div>
 
     <div class="row">
       <div class="table-res col-lg-12">
@@ -419,7 +425,7 @@
           <tbody>
             <tr *ngFor="let task of ticketTasks; let i = index">
               <td>
-                <p>{{ task.id }}</p>
+                <p>{{ i+1 }}</p>
               </td>
 
               <td>
@@ -469,12 +475,12 @@
                 </p>
               </th>
 
-              <th>
+              <!-- <th>
                 <p class="d-inline-flex">
                   <span>Site id</span>
                   <img (click)="sort('siteId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
                 </p>
-              </th>
+              </th> -->
 
               <th>
                 <p class="d-inline-flex">
@@ -516,16 +522,16 @@
           <tbody>
             <tr *ngFor="let visit of ticketVisits; let i = index">
               <td>
-                <p>{{ visit.id }}</p>
+                <p>{{ i+1 }}</p>
               </td>
 
               <td>
                 <p>{{ visit.frId }}</p>
               </td>
 
-              <td>
+              <!-- <td>
                 <p>{{ visit.siteId }}</p>
-              </td>
+              </td> -->
 
               <td>
                 <p>{{ visit.attendedFrom }}</p>
@@ -562,6 +568,77 @@
   </div>
 </ng-template>
 <!--/ view popup -->
+
+<ng-template #addTaskDialog>
+  <div></div>
+
+  <mat-dialog-content>
+    <div class="d-flex justify-content-start align-items-center my-2">
+      <h2 class="m-0">Tasks</h2>
+    </div>
+
+    <div class="col-lg-12">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>ticketCategory</mat-label>
+        <mat-select [(ngModel)]="taskBody.categoryId">
+          <mat-option *ngFor="let val of ticketCategory" [value]="val.keyId">{{ val.value }}</mat-option>
+        </mat-select>
+        <mat-error class="mt-1">categoryId is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-12">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>subCategoryId</mat-label>
+        <mat-select [(ngModel)]="taskBody.subCategoryId">
+          <mat-option *ngFor="let val of ticketSubCategory" [value]="val.keyId">{{ val.value }}</mat-option>
+        </mat-select>
+        <mat-error class="mt-1">subCategoryId is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- <div class="col-lg-12">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>reasonId</mat-label>
+        <mat-select [(ngModel)]="taskBody.reasonId">
+          <mat-option *ngFor="let val of taskReason" [value]="val.keyId">{{ val.value }}</mat-option>
+        </mat-select>
+        <mat-error class="mt-1">reasonId is required</mat-error>
+      </mat-form-field>
+    </div> -->
+
+    <div class="col-lg-12">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>priorityId</mat-label>
+        <mat-select [(ngModel)]="taskBody.priorityId">
+          <mat-option *ngFor="let val of priorityVal" [value]="val.keyId">{{ val.value }}</mat-option>
+        </mat-select>
+        <mat-error class="mt-1">priorityId is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- <div class="col-lg-6 col-md-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Remarks</mat-label>
+        <input matInput formControlName="remarks" [(ngModel)]="ticketBody.tasks[i].remarks">
+        <mat-error class="mt-1">Remarks is required</mat-error>
+      </mat-form-field>
+    </div> -->
+
+    <!-- <div class="col-lg-2 col-md-2">
+      <button mat-stroked-button class="mt-2" style="color: #084982" (click)="onTaskAdd(item)">Add</button>
+    </div> -->
+  </mat-dialog-content>
+
+  <div class="d-flex align-items-center justify-content-end">
+    <div mat-dialog-actions class="me-2">
+      <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+    </div>
+    <div mat-dialog-actions>
+      <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="createTask()">Add</button>
+    </div>
+  </div>
+</ng-template>
 
 <!-- edit popup -->
 <ng-template #editTicketDialog>

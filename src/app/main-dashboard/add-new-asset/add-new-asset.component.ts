@@ -259,27 +259,27 @@ export class AddNewAssetComponent implements OnInit {
 
   submit: boolean = false;
   addNewAsset() {
-    // console.log(this.assetData);
+    console.log(this.assetData);
     this.assetData.asset.deviceId = this.deviceIdFromStorage;
     // this.newItemEvent.emit(this.deviceIdFromStorage);
     this.submit = true;
 
     if(this.addAssetForm.valid) {
-      this.newItemEvent.emit(false);
+      this.newItemEvent.emit();
       this.alertSer.wait();
       this.assetService.addAsset(this.assetData, this.selectedFile).subscribe((res: any) => {
         // console.log(res);
         if(res) {
-          this.alertSer.success(res);
+          this.alertSer.success(res?.message);
           // this.dataAdded.emit();
+          setTimeout(() => {
+            // window.location.reload();
+          }, 3000);
         }
 
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
         }, (err: any) => {
           if(err) {
-            this.alertSer.error(err);
+            this.alertSer.error(err?.error?.message);
           };
         });
     }

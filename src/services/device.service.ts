@@ -19,12 +19,16 @@ export class DeviceService {
 
   listDeviceBySiteId(siteId: any) {
     let url = this.baseUrl + '/listDeviceAdsInfo_1_0';
+    let params = new HttpParams().set('siteId', siteId)
 
-    var payload = {
-      'siteId': siteId
-    }
+    return this.http.get(url, {params: params});
+  }
 
-    return this.http.get(url, {params: payload});
+  listDeviceByDeviceId(deviceId: any) {
+    let url = this.baseUrl + '/listDeviceAdsInfo_1_0';
+    let params = new HttpParams().set('deviceId', deviceId)
+
+    return this.http.get(url, {params: params});
   }
 
   getHealth() {

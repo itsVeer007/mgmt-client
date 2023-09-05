@@ -29,6 +29,10 @@
     font-weight: 600;
 }
 
+.table-resp {
+  max-height: calc(100vh - (220px));
+}
+
 .dot-red,.dot-green,.dot-yellow{
     content: "";
     width: 10px;

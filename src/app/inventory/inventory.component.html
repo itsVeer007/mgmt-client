@@ -1,89 +1,48 @@
 <div class="container-fluid users" id="top">
 
   <!-- header -->
-  <div class="users-header row">
-
-    <!-- count -->
+  <!-- <div class="users-header row">
     <div class="col-lg-6">
       <p>Total Items - <span>{{ inventoryTable.length }}</span></p>
       <div class="inventory-status">
         <div>
-          <!-- <div class="vl-yellow"></div> -->
           <div class="m-1 p-1" style="border-left: 2.5px solid green; min-width: 80px">
             <div class="status">In-Stock</div>
-            <div class="count">{{ inStock?.length }}</div>
+            <div class="count">{{ inStock }}</div>
           </div>
         </div>
 
         <div>
-          <!-- <div class="vl-yellow"></div> -->
           <div class="m-1 p-1" style="border-left: 2.5px solid palevioletred; min-width: 80px">
             <div class="status">Dispatched</div>
-            <div class="count">{{ installed?.length }}</div>
+            <div class="count">{{ dispatched }}</div>
           </div>
         </div>
 
         <div>
-          <!-- <div class="vl-green"></div> -->
           <div class="m-1 p-1" style="border-left: 2.5px solid greenyellow; min-width: 80px">
             <div class="status">Installed</div>
-            <div class="count">{{ installed.length }}</div>
+            <div class="count">{{ installed }}</div>
           </div>
         </div>
 
         <div>
-          <!-- <div class="vl-green"></div> -->
-          <div class="m-1 p-1" style="border-left: 2.5px solid pink; min-width: 80px">
-            <div class="status">Returned</div>
-            <div class="count">{{ installed.length }}</div>
-          </div>
-        </div>
-
-        <div>
-          <!-- <div class="vl-green"></div> -->
           <div class="m-1 p-1" style="border-left: 2.5px solid orange; min-width: 80px">
-            <div class="status">Replaced</div>
-            <div class="count">{{ installed.length }}</div>
+            <div class="status">Purchases</div>
+            <div class="count">{{ purchases }}</div>
           </div>
         </div>
 
         <div>
-          <!-- <div class="vl-violet"></div> -->
-          <div class="m-1 p-1" style="border-left: 2.5px solid red; min-width: 80px">
-            <div class="status">Removed</div>
-            <div class="count">{{ installed.length }}</div>
-          </div>
-        </div>
-
-        <div>
-          <!-- <div class="vl-orange"></div> -->
-          <div class="m-1 p-1" style="border-left: 2.5px solid black; min-width: 80px">
-            <div class="status">Refurbished</div>
-            <div class="count">{{ installed.length }}</div>
-          </div>
-        </div>
-
-        <div>
-          <!-- <div class="vl-red"></div> -->
           <div class="m-1 p-1" style="border-left: 2.5px solid gray; min-width: 80px">
-            <div class="status">Scrap</div>
-            <div class="count">{{ scrap.length }}</div>
-          </div>
-        </div>
-
-        <div>
-          <!-- <div class="vl-greay"></div> -->
-          <div class="m-1 p-1" style="border-left: 2.5px solid rosybrown; min-width: 120px;">
-            <div class="status">Warranty Replaced</div>
-            <div class="count">{{ redyToUse.length }}</div>
+            <div class="status">Others</div>
+            <div class="count">{{ others }}</div>
           </div>
         </div>
       </div>
     </div>
-    <!-- /count -->
 
-    <!-- stock total -->
-    <!-- <div class="mt-2 col-lg-4">
+    <div class="mt-2 col-lg-4">
       <div class="card bg-light" style="width: 18rem;">
         <div class="d-flex justify-content-between m-2">
           <img class="pointer" src="assets/icons/Union 18@2x.png" alt="" width="15px" height="15px">
@@ -102,15 +61,66 @@
           </div>
         </div>
       </div>
-    </div> -->
-    <!-- /stock total -->
+    </div>
 
     <div class="col-lg-2 text-end inve-add" style="position: relative">
-      <!-- <a class="pointer" (click)="show('inventory')"><img src="assets/icons/add.svg" alt="" /></a> -->
-
       <button mat-flat-button color="primary" class="py-0" (click)="show('inventory')">Create Inventory</button>
     </div>
+  </div> -->
+
+  <div class="d-flex align-items-center justify-content-between">
+    <div class="users-header">
+      <p class="mt-2">List of Items - <span>{{ inventoryTable?.length }}</span></p>
+    </div>
+
+    <div>
+      <button class="py-0" mat-flat-button color="primary" (click)="show('inventory')">Create Inventory</button>
+    </div>
   </div>
+
+  <!-- status -->
+  <div class="row mb-2">
+    <div class="col-lg-1 col-md-1 d-flex justify-content-start">
+      <div class="vl-green"></div>
+      <div class="mx-2">
+        <div class="status">In-Stock</div>
+        <div class="count">{{ inStock }}</div>
+      </div>
+    </div>
+
+    <div class="col-lg-1 col-md-1 d-flex justify-content-start">
+      <div class="vl-yellow"></div>
+      <div class="mx-2">
+        <div class="status">Dispatched</div>
+        <div class="count">{{ dispatched }}</div>
+      </div>
+    </div>
+
+    <div class="col-lg-1 col-md-1 d-flex justify-content-start">
+      <div class="vl-blue"></div>
+      <div class="mx-2">
+        <div class="status">Installed</div>
+        <div class="count">{{ installed }}</div>
+      </div>
+    </div>
+
+    <div class="col-lg-1 col-md-1 d-flex justify-content-start">
+      <div class="vl-orange"></div>
+      <div class="mx-2">
+        <div class="status">Purchases</div>
+        <div class="count">{{ purchases }}</div>
+      </div>
+    </div>
+
+    <div class="col-lg-1 col-md-1 d-flex justify-content-start">
+      <div class="vl-red"></div>
+      <div class="mx-2">
+        <div class="status">Others</div>
+        <div class="count">{{ others }}</div>
+      </div>
+    </div>
+  </div>
+  <!-- /status -->
   <!-- /header -->
 
   <!-- form -->
@@ -753,17 +763,47 @@
         <table class="table" id="mytable">
           <thead>
             <tr class="task-table">
-              <th>slNo</th>
+              <th>
+                <p style="display: inline-flex;">
+                  <span>slNo</span>
+                  <img (click)="sort('slNo')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
+                </p>
+              </th>
 
-              <th>itemCode</th>
+              <th>
+                <p style="display: inline-flex;">
+                  <span>itemCode</span>
+                  <img (click)="sort('itemCode')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
+                </p>
+              </th>
 
-              <th>serialNo</th>
+              <th>
+                <p style="display: inline-flex;">
+                  <span>serialNo</span>
+                  <img (click)="sort('serialNo')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
+                </p>
+              </th>
 
-              <th>createdTime</th>
+              <th>
+                <p style="display: inline-flex;">
+                  <span>createdTime</span>
+                  <img (click)="sort('createdTime')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
+                </p>
+              </th>
 
-              <th>modifiedTime</th>
+              <th>
+                <p style="display: inline-flex;">
+                  <span>modifiedTime</span>
+                  <img (click)="sort('modifiedTime')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
+                </p>
+              </th>
 
-              <th>status</th>
+              <th>
+                <p style="display: inline-flex;">
+                  <span>status</span>
+                  <img (click)="sort('statusId')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
+                </p>
+              </th>
             </tr>
           </thead>
 
@@ -790,20 +830,26 @@
               </td>
 
               <td>
-                <p (click)="openEditStatus(inven)">
-                  {{
-                    inven.statusId  == 1 ? 'Instock'
-                    : inven.statusId == 2 ? 'Dispatched'
-                    : inven.statusId == 3 ? 'Installed'
-                    : inven.statusId == 4 ? 'Returned'
-                    : inven.statusId == 5 ? 'Replaced'
-                    : inven.statusId == 6 ? 'Removed'
-                    : inven.statusId == 7 ? 'Refurbished'
-                    : inven.statusId == 8 ? 'Scrap'
-                    : inven.statusId == 9 ? 'Warranty Replaced'
-                    : ''
-                  }}
-                </p>
+                <span class="d-inline-flex">
+                  <p>
+                    {{
+                      inven.statusId  == 1 ? 'Instock'
+                      : inven.statusId == 2 ? 'Dispatched'
+                      : inven.statusId == 3 ? 'Installed'
+                      : inven.statusId == 4 ? 'Returned'
+                      : inven.statusId == 5 ? 'Replaced'
+                      : inven.statusId == 6 ? 'Removed'
+                      : inven.statusId == 7 ? 'Refurbished'
+                      : inven.statusId == 8 ? 'Scrap'
+                      : inven.statusId == 9 ? 'Warranty Replaced'
+                      : ''
+                    }}
+                  </p>
+
+                  <a (click)="openEditStatus(inven)" class="ms-2 pointer">
+                    <img src="assets/icons/edit.svg"  width="13">
+                  </a>
+                </span>
               </td>
 
               <ng-template #editStatusDialog>
@@ -894,7 +940,6 @@
   </div>
 </ng-template>
 <!-- /used items-->
-
 
 <!-- status popup-->
 <ng-template #statusItemsDialog>

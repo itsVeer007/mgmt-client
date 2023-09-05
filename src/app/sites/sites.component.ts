@@ -22,11 +22,11 @@ export class SitesComponent implements OnInit {
     public dialog: MatDialog
   ) { }
 
-  tableData: any = [];
+  tableData: any[] = [];
+  newTableData: any = [];
   showLoader: boolean = false;
   searchText: any;
 
-  totalCount: any;
   active: any;
   inActive: any = [];
   onHold: any = [];
@@ -35,7 +35,7 @@ export class SitesComponent implements OnInit {
   siteData: any;
   siteIds: any;
   deviceLength: any = [];
-  siteNg: any = ''
+  siteNg: any = 'All'
   // inputToAssets: any;
   ngOnInit(): void {
     this.siteData = JSON.parse(localStorage.getItem('temp_sites')!);
@@ -52,12 +52,12 @@ export class SitesComponent implements OnInit {
   getlistSites() {
     this.showLoader = true;
     this.siteSer.listSites().subscribe((res: any) => {
-      // console.log(res);
+      console.log(res);
       this.showLoader = false;
 
       this.tableData = res?.siteList?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
+      this.newTableData = this.tableData;
       // this.inputToAssets = localStorage.setItem('siteIds', JSON.stringify(this.tableData))
-      // this.totalCount = res.counts;
     })
   }
 
@@ -104,6 +104,14 @@ export class SitesComponent implements OnInit {
 
   saveSiteData(site: any) {
     localStorage.setItem('temp_sites', JSON.stringify(site));
+  }
+
+  filterSites(site: any) {
+    if(site != 'All') {
+      this.newTableData =  this.tableData.filter((item: any) => item.sitename == site)
+    } else {
+      this.newTableData = this.tableData;
+    }
   }
 
   showAddSite: boolean = false;

@@ -63,7 +63,7 @@ export class AddNewTicketComponent implements OnInit {
         categoryId: null,
         subCategoryId: null,
         priorityId: null,
-        reasonId: null,
+        // reasonId: null,
         createdBy: 1,
       }
     ]
@@ -75,7 +75,7 @@ export class AddNewTicketComponent implements OnInit {
       'categoryId': item.categoryId,
       'subCategoryId': item.subCategoryId,
       'priorityId': item.priorityId,
-      'reasonId': item.reasonId,
+      // 'reasonId': item.reasonId,
       'createdBy': 1,
     }
     this.tasks.push(takBody);
@@ -83,7 +83,7 @@ export class AddNewTicketComponent implements OnInit {
     this.ticketBody.tasks[0].categoryId = null;
     this.ticketBody.tasks[0].subCategoryId = null;
     this.ticketBody.tasks[0].priorityId = null;
-    this.ticketBody.tasks[0].reasonId = null;
+    // this.ticketBody.tasks[0].reasonId = null;
   }
 
   siteIds: any
@@ -98,7 +98,7 @@ export class AddNewTicketComponent implements OnInit {
       'categoryId': new FormControl(''),
       'subCategoryId': new FormControl(''),
       'priorityId': new FormControl(''),
-      'reasonId': new FormControl('')
+      // 'reasonId': new FormControl('')
     });
 
     this.onMetadataChange();
@@ -149,10 +149,10 @@ export class AddNewTicketComponent implements OnInit {
       this.alertSer.wait();
       this.newItemEvent.emit();
       this.ticketBody.tasks = this.tasks;
-      this.ticketSer.createTicket(this.ticketBody).subscribe((res) => {
+      this.ticketSer.createTicket(this.ticketBody).subscribe((res: any) => {
         // console.log(res);
         if(res) {
-          this.alertSer.success(res);
+          this.alertSer.success(res?.message);
           // this.addTicket.emit();
         }
         setTimeout(() => {
@@ -160,7 +160,7 @@ export class AddNewTicketComponent implements OnInit {
         }, 2000);
       }, (err: any) => {
         if(err) {
-          this.alertSer.error(err);
+          this.alertSer.error(err?.error?.message);
         };
       });
     }

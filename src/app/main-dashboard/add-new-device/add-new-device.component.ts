@@ -62,9 +62,9 @@ export class AddNewDeviceComponent implements OnInit {
     siteId: null,
     deviceDescription: '',
     deviceTypeId: null,
-    deviceCallFreq: null,
+    deviceCallFreq: 1,
     deviceModeId: null,
-    adsHours: '',
+    adsHours: '0-23',
     workingDays: '',
     createdBy: 1,
     softwareVersion: '',
@@ -74,17 +74,16 @@ export class AddNewDeviceComponent implements OnInit {
 
     weatherInterval: null, //BSR
 
-    cameraId: '', //ODR
-    modelName: '', //ODR
-    modelWidth: null, //ODR
-    modelHeight: null, //ODR
-    modelMaxResults: null, //ODR
-    modelThreshold: null, //ODR
+    cameraId: 'Cam01', //ODR
+    modelName: 'YoloV8', //ODR
+    modelWidth: 640, //ODR
+    modelHeight: 720, //ODR
+    modelMaxResults: 3, //ODR
+    modelThreshold: 0.6, //ODR
     modelObjectTypeId: null, //ODR
-
-    refreshRules: 1,  //ODR
+    refreshRules: 0,  //ODR
     debugOn: 0,  //ODR
-    debugLogs: 1, //ODR
+    debugLogs: 0, //ODR
     loggerFreq: 60,  //ODR
   }
 
@@ -92,7 +91,6 @@ export class AddNewDeviceComponent implements OnInit {
   ngOnInit() {
     this.addDevice = this.fb.group({
       'siteId': new FormControl('', Validators.required),
-
       'deviceDescription': new FormControl('', Validators.required),
       'deviceTypeId': new FormControl('', Validators.required),
       'deviceCallFreq': new FormControl('', Validators.required),
@@ -123,29 +121,29 @@ export class AddNewDeviceComponent implements OnInit {
 
     this.addDevice.get('deviceModeId').valueChanges.subscribe((val: any) => {
       if(val == 3) {
-        this.addDevice.get('cameraId').setValidators(Validators.required);
-        this.addDevice.get('modelName').setValidators(Validators.required);
-        this.addDevice.get('modelWidth').setValidators(Validators.required);
-        this.addDevice.get('modelHeight').setValidators(Validators.required);
-        this.addDevice.get('modelMaxResults').setValidators(Validators.required);
-        this.addDevice.get('modelThreshold').setValidators(Validators.required);
+        // this.addDevice.get('cameraId').setValidators(Validators.required);
+        // this.addDevice.get('modelName').setValidators(Validators.required);
+        // this.addDevice.get('modelWidth').setValidators(Validators.required);
+        // this.addDevice.get('modelHeight').setValidators(Validators.required);
+        // this.addDevice.get('modelMaxResults').setValidators(Validators.required);
+        // this.addDevice.get('modelThreshold').setValidators(Validators.required);
         this.addDevice.get('modelObjectTypeId').setValidators(Validators.required);
       } else {
-        this.addDevice.get('cameraId').clearValidators();
-        this.addDevice.get('modelName').clearValidators();
-        this.addDevice.get('modelWidth').clearValidators();
-        this.addDevice.get('modelHeight').clearValidators();
-        this.addDevice.get('modelMaxResults').clearValidators();
-        this.addDevice.get('modelThreshold').clearValidators();
+        // this.addDevice.get('cameraId').clearValidators();
+        // this.addDevice.get('modelName').clearValidators();
+        // this.addDevice.get('modelWidth').clearValidators();
+        // this.addDevice.get('modelHeight').clearValidators();
+        // this.addDevice.get('modelMaxResults').clearValidators();
+        // this.addDevice.get('modelThreshold').clearValidators();
         this.addDevice.get('modelObjectTypeId').clearValidators();
       }
 
-      this.addDevice.get('cameraId').updateValueAndValidity();
-      this.addDevice.get('modelName').updateValueAndValidity();
-      this.addDevice.get('modelWidth').updateValueAndValidity();
-      this.addDevice.get('modelHeight').updateValueAndValidity();
-      this.addDevice.get('modelMaxResults').updateValueAndValidity();
-      this.addDevice.get('modelThreshold').updateValueAndValidity();
+      // this.addDevice.get('cameraId').updateValueAndValidity();
+      // this.addDevice.get('modelName').updateValueAndValidity();
+      // this.addDevice.get('modelWidth').updateValueAndValidity();
+      // this.addDevice.get('modelHeight').updateValueAndValidity();
+      // this.addDevice.get('modelMaxResults').updateValueAndValidity();
+      // this.addDevice.get('modelThreshold').updateValueAndValidity();
       this.addDevice.get('modelObjectTypeId').updateValueAndValidity();
     });
 
@@ -274,7 +272,6 @@ export class AddNewDeviceComponent implements OnInit {
 
   addDeviceDtl() {
     // console.log(this.addDevice);
-
     if(this.addDevice.valid) {
       this.newItemEvent.emit(false);
       let arr = JSON.parse(JSON.stringify(this.adInfo.workingDays)).join(',');
@@ -289,15 +286,15 @@ export class AddNewDeviceComponent implements OnInit {
       this.devService.createDeviceandAdsInfo(this.adInfo).subscribe((res: any) => {
         // console.log(res);
         if(res) {
-          this.alertSer.success(res);
+          this.alertSer.success(res?.message ? res?.message : 'Device created successfully');
         }
         setTimeout(() => {
           window.location.reload();
-        }, 3000);
+        }, 2000);
       },
       (err: any) => {
         if(err) {
-          this.alertSer.error(err);
+          this.alertSer.error(err?.error?.message);
         };
       })
     }

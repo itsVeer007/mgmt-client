@@ -279,22 +279,17 @@ filterbody: any;
       "remarks": this.currentItem.remarks
     }
 
-    this.updateInventory2 = Swal.fire({
-      text: "Please wait",
-      imageUrl: "assets/gif/ajax-loading-gif.gif",
-      showConfirmButton: false,
-      allowOutsideClick: false
-    });
+    this.alertSer.wait();
 
     this.reportSer.updateProductMaster(this.originalObject).subscribe((res: any) => {
       // console.log(res);
 
       if(res) {
-        this.alertSer.snackSuccess(res);
+        this.alertSer.success(res?.message);
       }
     }, (err: any) => {
       if(err) {
-        this.alertSer.error(err)
+        this.alertSer.error(err?.error?.message)
       };
     });
   }
@@ -322,21 +317,16 @@ filterbody: any;
   deleteInventory1: any;
   deleteInventory2: any;
   deleteInventory() {
-    this.deleteInventory2 = Swal.fire({
-      text: "Please wait",
-      imageUrl: "assets/gif/ajax-loading-gif.gif",
-      showConfirmButton: false,
-      allowOutsideClick: false
-    });
+    this.alertSer.wait();
 
     this.reportSer.deleteProduct(this.currentItem).subscribe((res: any) => {
       // console.log(res);
       if(res) {
-        this.alertSer.snackSuccess(res);
+        this.alertSer.success(res?.message);
       }
     }, (err: any) => {
       if(err) {
-        this.alertSer.error(err);
+        this.alertSer.error(err?.error?.message);
       };
     });
   }

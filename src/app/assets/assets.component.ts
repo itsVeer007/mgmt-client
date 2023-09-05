@@ -102,7 +102,6 @@ export class AssetsComponent implements OnInit {
     this.devSercice.listDeviceAdsInfo().subscribe((res: any) => {
       // console.log(res);
       let sites = res.sort((a: any, b: any) => a.siteId < b.siteId ? -1 : a.siteId > b.siteId ? 1 : 0);
-
       this.siteIdToTable = sites.flatMap((item: any) => item.siteId);
       this.newSiteIdToTable = this.siteIdToTable;
       // console.log(this.siteIds);
@@ -110,21 +109,30 @@ export class AssetsComponent implements OnInit {
 
     this.showLoader = true;
     this.assetService.listAssets().subscribe((res: any) => {
+      // console.log(res);
       this.showLoader = false;
-      let x = res.flatMap((item: any) => item.assets);
-      this.newAssetTable = x;
+      // this.assetTable = res;
+      this.newAssetTable = res.flatMap((item: any) => item.assets);
       this.cdr.detectChanges();
-
+      this.pending = [];
+      this.added = [];
+      this.synced = [];
+      this.removed = [];
+      this.sendToController = [];
       for(let item of this.newAssetTable) {
         if(item.status == 1) {
           this.pending.push(item);
-        } else if(item.status == 2) {
+        }
+        if(item.status == 2) {
           this.added.push(item);
-        } else if(item.status == 4) {
+        }
+        if(item.status == 4) {
           this.synced.push(item);
-        } else if(item.status == 5) {
+        }
+        if(item.status == 5) {
           this.removed.push(item);
-        } else if(item.status == 3) {
+        }
+        if(item.status == 3) {
           this.sendToController.push(item);
         }
         this.cdr.detectChanges();
@@ -157,22 +165,68 @@ export class AssetsComponent implements OnInit {
       this.showLoader = true;
       this.assetService.listAssets().subscribe((res: any) => {
         this.showLoader = false;
-        let x = res.flatMap((item: any) => item.assets);
-        this.newAssetTable = x;
+        this.newAssetTable = res.flatMap((item: any) => item.assets);
+
+        this.pending = [];
+        this.added = [];
+        this.synced = [];
+        this.removed = [];
+        this.sendToController = [];
+        for(let el of this.newAssetTable) {
+          if(el.status == 1) {
+            this.pending.push(el);
+          }
+          if(el.status == 2) {
+            this.added.push(el);
+          }
+          if(el.status == 4) {
+            this.synced.push(el);
+          }
+          if(el.status == 5) {
+            this.removed.push(el);
+          }
+          if(el.status == 3) {
+            this.sendToController.push(el);
+          }
+          this.cdr.detectChanges();
+        }
         this.cdr.detectChanges();
       })
     } else {
       this.devSercice.listDeviceBySiteId(data).subscribe((res: any) => {
-        let y = res.flatMap((item: any) => item.adsDevices);
-        this.deviceId = y;
+        this.deviceId = res.flatMap((item: any) => item.adsDevices);
         this.newDeviceId = this.deviceId;
         this.cdr.detectChanges();
       });
 
       this.assetService.getAssetBySiteId(data).subscribe((res: any) => {
-        let x = res.flatMap((item: any) => item.assets);
-        this.newAssetTable = x;
+        this.newAssetTable = res.flatMap((item: any) => item.assets);
         this.myData = this.newAssetTable;
+        // console.log(this.newAssetTable)
+
+        this.pending = [];
+        this.added = [];
+        this.synced = [];
+        this.removed = [];
+        this.sendToController = [];
+        for(let el of this.newAssetTable) {
+          if(el.status == 1) {
+            this.pending.push(el);
+          }
+          if(el.status == 2) {
+            this.added.push(el);
+          }
+          if(el.status == 4) {
+            this.synced.push(el);
+          }
+          if(el.status == 5) {
+            this.removed.push(el);
+          }
+          if(el.status == 3) {
+            this.sendToController.push(el);
+          }
+          this.cdr.detectChanges();
+        }
         this.cdr.detectChanges();
       });
     }
@@ -281,7 +335,7 @@ export class AssetsComponent implements OnInit {
 
   openViewPopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.viewAssetDialog, {maxHeight: '550px', maxWidth: '550px'});
+    this.dialog.open(this.viewAssetDialog, {maxWidth: '550px', maxHeight: '550px'});
 
     // console.log(this.currentItem);
   }
@@ -293,10 +347,10 @@ export class AssetsComponent implements OnInit {
   @ViewChild('editAssetDialog') editAssetDialog = {} as TemplateRef<any>;
 
   openEditPopupp(item: any) {
-    this.dialog.open(this.editAssetDialog, {maxHeight: '550px', maxWidth: '550px'});
+    this.dialog.open(this.editAssetDialog, {maxWidth: '550px', maxHeight: '550px'});
 
     this.currentItem = JSON.parse(JSON.stringify(item));
-    // console.log(item);
+    console.log(item);
   }
 
 
@@ -376,11 +430,11 @@ export class AssetsComponent implements OnInit {
     this.assetService.modifyAssetForDevice({asset: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
       // console.log(res);
       if(res) {
-        this.alertSer.success(res);
+        this.alertSer.success(res?.message);
       }
       setTimeout(() => {
         window.location.reload();
-      }, 3000);
+      }, 2000);
     }, (err: any) => {
       if(err) {
         this.alertSer.wait();
@@ -428,7 +482,7 @@ export class AssetsComponent implements OnInit {
   viewArray: any = [];
   viewBySelectedOne() {
     if (this.viewArray.length > 0) {
-      this.dialog.open(this.viewAssetDialog, {maxHeight: '550px', maxWidth: '550px'});
+      this.dialog.open(this.viewAssetDialog, {maxWidth: '550px', maxHeight: '550px'});
     }
   }
 
@@ -447,7 +501,7 @@ export class AssetsComponent implements OnInit {
   editArray: any = [];
   editBySelectedOne() {
     if (this.editArray.length > 0) {
-      this.dialog.open(this.editAssetDialog, {maxHeight: '550px', maxWidth: '550px'});
+      this.dialog.open(this.editAssetDialog, {maxWidth: '550px', maxHeight: '550px'});
     }
   }
 
@@ -521,15 +575,14 @@ export class AssetsComponent implements OnInit {
       // console.log(res);
       if(res) {
         this.getSiteData();
-        this.alertSer.success(res);
+        this.alertSer.success(res?.message);
       };
-
       // setTimeout(() => {
       //   window.location.reload();
       // }, 3000);
     }, (err: any) => {
       if(err) {
-        this.alertSer.error(err);
+        this.alertSer.error(err?.error?.message);
       };
     });
   }

@@ -47,12 +47,12 @@
               </p>
             </th>
 
-            <th>
+            <!-- <th>
               <p class="d-inline-flex">
                 <span>Site id</span>
                 <img (click)="sort('siteId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
               </p>
-            </th>
+            </th> -->
 
             <th>
               <p class="d-inline-flex">
@@ -85,6 +85,13 @@
             </th>
 
             <th>
+              <p class="d-inline-flex">
+                <span>Status</span>
+                <!-- <img (click)="sort('siteName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
+              </p>
+            </th>
+
+            <th>
               <span>Site exit</span>
             </th>
           </tr>
@@ -99,15 +106,15 @@
               <p class="pointer text-primary" (click)="openSitesDialog(); fieldVisitEntry(cust)">Enter</p>
             </td>
             <td>
-              <p class="pointer text-primary" (click)="openTicketTaskDialog(cust)">View</p>
+              <p class="pointer text-primary" (click)="openTasksDialog()">View</p>
             </td>
             <td>
               <p>{{ cust.ticketType }}</p>
             </td>
 
-            <td>
+            <!-- <td>
               <p>{{ cust.siteId }}</p>
-            </td>
+            </td> -->
 
             <td>
               <p>{{ cust.siteName }}</p>
@@ -132,6 +139,10 @@
             </td>
 
             <td>
+              <p [style.color]="cust.status == 'Open' ? 'green' : cust.status == 'Indent Requested' ? 'orange' : cust.status == 'In Progress' ? 'violet' : cust.status == 'Indent Delivered' ? 'purple' : 'blue' ">{{ cust.status }}</p>
+            </td>
+
+            <td>
               <p class="pointer text-primary" (click)="openVisitExit()">Exit</p>
             </td>
           </tr>
@@ -140,115 +151,117 @@
     </div>
   <!-- /overall tasks -->
 
-  <!-- current tasks -->
-  <ng-template #tasksDialog>
-    <div style="background-color: #084982;">
-      <p class="dialog-title">view tasks</p>
-    </div>
-
-    <mat-dialog-content>
-      <div class="table-resp">
-        <table class="table table-hover" id="mytable">
-          <thead>
-            <tr class="form1">
-              <th>
-                <p class="d-inline-flex">
-                  <span>Id</span>
-                  <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-                </p>
-                <!-- <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
-              </th>
-
-              <th>
-
-                <p class="d-inline-flex">
-                  <span>Category</span>
-                  <img (click)="sort('category')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-                </p>
-              </th>
-
-              <th>
-                <p class="d-inline-flex">
-                  <span>Sub category</span>
-                  <img (click)="sort('subCategory')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-                </p>
-              </th>
-
-              <th>
-                <p class="d-inline-flex">
-                  <span>Reason</span>
-                  <img (click)="sort('reason')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-                </p>
-              </th>
-
-              <th>
-                <span>Status</span>
-              </th>
-
-              <th>
-                <span>Replace</span>
-              </th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr *ngFor="let cust of tasks">
-              <td>
-                <p>{{ cust.id }}</p>
-              </td>
-              <td>
-                <p>{{ cust.category }}</p>
-              </td>
-
-              <td>
-                <p>{{ cust.subCategory }}</p>
-              </td>
-
-              <td>
-                <p>{{ cust.reason }}</p>
-              </td>
-
-              <td>
-                <!-- <a class="mx-1 pointer" (click)="logTaskStatus(cust, 2)">
-                  <img src="assets/icons/forward.svg" width="20">
-                </a> -->
-
-                <a class="mx-1 pointer" (click)="openCnfrmStatusDialogt(cust, 'pause')">
-                  <img src="assets/icons/pause.svg" width="20">
-                </a>
-
-                <a class="mx-1 pointer" (click)="openCnfrmStatusDialogt(cust, 'shedule')">
-                  <img src="assets/icons/scheduled.svg" width="20">
-                </a>
-
-                <a class="mx-1 pointer" (click)="openCnfrmStatusDialogt(cust, 'close')">
-                  <img src="assets/icons/close_black.svg" width="20">
-                </a>
-              </td>
-
-              <td>
-                <a class="mx-1 pointer" (click)="openCreateOrder(cust)">
-                  <img src="assets/icons/add.svg" width="35">
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        <div class="d-flex align-items-center justify-content-center" style="height: 20vh;" *ngIf="tasks.length == 0">
-          <h1 class="text-secondary">No Tasks</h1>
-        </div>
-      </div>
-    </mat-dialog-content>
-
-    <div class="d-flex justify-content-end" mat-dialog-actions>
-      <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
-    </div>
-  </ng-template>
-  <!-- /current tasks -->
-
 </div>
 
+<!-- current tasks -->
+<ng-template #currentTasksDialog>
+  <div style="background-color: #084982;">
+    <p class="dialog-title">current tasks</p>
+  </div>
+
+  <mat-dialog-content>
+    <div class="table-resp">
+      <table class="table table-hover" id="mytable">
+        <thead>
+          <tr class="form1">
+            <th>
+              <p class="d-inline-flex">
+                <span>Id</span>
+                <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
+              <!-- <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
+            </th>
+
+            <th>
+
+              <p class="d-inline-flex">
+                <span>Category</span>
+                <img (click)="sort('category')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
+            </th>
+
+            <th>
+              <p class="d-inline-flex">
+                <span>Sub category</span>
+                <img (click)="sort('subCategory')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
+            </th>
+
+            <!-- <th>
+              <p class="d-inline-flex">
+                <span>Reason</span>
+                <img (click)="sort('reason')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
+            </th> -->
+
+            <th class="text-center">
+              <span>Status</span>
+            </th>
+
+            <th>
+              <span>Replace</span>
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let cust of tasks">
+            <td>
+              <p>{{ cust.id }}</p>
+            </td>
+            <td>
+              <p>{{ cust.category }}</p>
+            </td>
+
+            <td>
+              <p>{{ cust.subCategory }}</p>
+            </td>
+
+            <!-- <td>
+              <p>{{ cust.reason }}</p>
+            </td> -->
+
+            <td>
+              <!-- <a class="mx-1 pointer" (click)="logTaskStatus(cust, 2)">
+                <img src="assets/icons/forward.svg" width="20">
+              </a> -->
+
+              <a class="mx-1 pointer" (click)="openCnfrmStatusDialogt(cust, 'pause')">
+                <!-- <img src="assets/icons/pause.svg" width="20"> -->
+                Pause
+              </a>
+
+              <a class="mx-1 pointer" (click)="openCnfrmStatusDialogt(cust, 'shedule')">
+                <!-- <img src="assets/icons/scheduled.svg" width="20"> -->
+                Schedule
+              </a>
+
+              <a class="mx-1 pointer" (click)="openCnfrmStatusDialogt(cust, 'close')">
+                <!-- <img src="assets/icons/close_black.svg" width="20"> -->
+                Close
+              </a>
+            </td>
+
+            <td>
+              <a class="mx-1 pointer" (click)="openCreateOrder(cust)">
+                <img src="assets/icons/add.svg" width="35">
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="d-flex align-items-center justify-content-center" style="height: 20vh;" *ngIf="tasks.length == 0">
+        <h1 class="text-secondary">No Tasks</h1>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <div class="d-flex justify-content-end" mat-dialog-actions>
+    <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+  </div>
+</ng-template>
+<!-- /current tasks -->
 
 <ng-template #cnfrmStatusDialog>
   <div *ngIf="currentStatusType == 'pause'">
@@ -525,8 +538,11 @@
                 </p>
               </th>
 
-              <th>Status
-
+              <th>
+                <p class="d-inline-flex">
+                  <span>Status</span>
+                  <img (click)="sort('statusId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                </p>
               </th>
             </tr>
           </thead>
@@ -594,9 +610,9 @@
   </div>
 </ng-template>
 
-<ng-template #createOrderDialog>
+<ng-template #replaceDialog>
   <div style="background-color: #084982;">
-    <p class="dialog-title">view ticket</p>
+    <p class="dialog-title">replace</p>
   </div>
 
   <mat-dialog-content>
@@ -605,17 +621,47 @@
         <table class="table" id="mytable">
           <thead>
             <tr class="task-table">
-              <th>No</th>
+              <th>
+                <p class="d-inline-flex">
+                  <span>No</span>
+                  <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                </p>
+              </th>
 
-              <th>Item code</th>
+              <th>
+                <p class="d-inline-flex">
+                  <span>Item code</span>
+                  <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                </p>
+              </th>
 
-              <th>serialNo</th>
+              <th>
+                <p class="d-inline-flex">
+                  <span>Serial no</span>
+                  <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                </p>
+              </th>
 
-              <th>createdTime</th>
+              <th>
+                <p class="d-inline-flex">
+                  <span>Created time</span>
+                  <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                </p>
+              </th>
 
-              <th>modifiedTime</th>
+              <th>
+                <p class="d-inline-flex">
+                  <span>Modified time</span>
+                  <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                </p>
+              </th>
 
-              <th>Replace</th>
+              <th>
+                <p class="d-inline-flex">
+                  <span>Replace</span>
+                  <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                </p>
+              </th>
             </tr>
           </thead>
 
@@ -634,7 +680,7 @@
               </td>
 
               <td>
-                <p>{{ inven.createdTime }}</p>
+                <p>{{ inven.createdTime | date: 'mediumDate' }}</p>
               </td>
 
               <td>
@@ -642,7 +688,15 @@
               </td>
 
               <td>
-                <p (click)="openReplaceComponent(inven)">{{ inven.statusId == 1 ? "Requested" : inven.statusId == 2 ? "Dispatched" : inven.statusId == 3 ? "Received" : inven.statusId == 4 ? "Installed" : inven.statusId == 5 ? "Returned" : '' }}</p>
+                <span class="d-inline-flex">
+                  <p>
+                    {{ inven.statusId == 1 ? "Requested" : inven.statusId == 2 ? "Dispatched" : inven.statusId == 3 ? "Received" : inven.statusId == 4 ? "Installed" : inven.statusId == 5 ? "Returned" : '' }}
+                  </p>
+
+                  <a (click)="openReplaceComponent(inven)" class="ms-2 pointer">
+                    <img src="assets/icons/edit.svg"  width="13">
+                  </a>
+                </span>
 
                 <!-- <ng-template #editStatusDialog>
                   <div style="background-color: #084982;">
@@ -680,9 +734,9 @@
   </div>
 </ng-template>
 
-<ng-template #replaceComponentDialog>
+<ng-template #replaceStatusDialog>
   <div style="background-color: #084982;">
-    <p class="dialog-title">CREATE CENTRALBOX</p>
+    <p class="dialog-title">modify status</p>
   </div>
 
 

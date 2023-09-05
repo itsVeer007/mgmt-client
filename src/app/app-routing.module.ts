@@ -28,6 +28,7 @@ import { IndentsComponent } from './indents/indents.component';
 import { FrComponent } from './fr/fr.component';
 import { TicketReportsComponent } from './ticket-reports/ticket-reports.component';
 import { AdvertisementsComponent } from './advertisements/advertisements.component';
+import { FrKitComponent } from './fr-kit/fr-kit.component';
 const routes: Routes = [];
 
 @NgModule({
@@ -65,6 +66,7 @@ const routes: Routes = [];
 
     { path: 'qr-ads', component: QRAdsComponent },
     { path: 'wifi-ads', component: WifiAdsComponent },
+    { path:'fr-kit', component:FrKitComponent}
   ])],
   exports: [RouterModule]
 })

@@ -97,27 +97,32 @@ export class FrComponent implements OnInit {
       // console.log(res);
       this.alertSer.snackSuccess('Entry Successful');
     }, (err: any) => {
-      this.alertSer.error(err);
+      this.alertSer.error(err?.error?.message);
     })
   }
 
   sorted = false;
   sort(label: any) {
     this.sorted = !this.sorted;
+    console.log(this.sorted);
     var x = this.frTickets;
+    var y = this.indentItems;
+
     if (this.sorted == false) {
       x.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
+      y.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
     } else {
       x.sort((a: string, b: string) => b[label] > a[label] ? 1 : b[label] < a[label] ? -1 : 0);
+      y.sort((a: string, b: string) => b[label] > a[label] ? 1 : b[label] < a[label] ? -1 : 0);
     }
   }
 
 
-  @ViewChild('tasksDialog') tasksDialog = {} as TemplateRef<any>;
+  @ViewChild('currentTasksDialog') currentTasksDialog = {} as TemplateRef<any>;
 
   tasks: any = [];
   openTasksDialog() {
-    this.dialog.open(this.tasksDialog, {maxWidth: '750px', maxHeight: '550px'});
+    this.dialog.open(this.currentTasksDialog, {maxWidth: '750px', maxHeight: '550px'});
     this.ticketSer.listFRTasksOfCurrentVisit(1565).subscribe((res: any) => {
       // console.log(res);
       this.tasks = res;
@@ -164,25 +169,25 @@ export class FrComponent implements OnInit {
     createdBy: 1565
   }
   updateInventoryStatus() {
-    this.alertSer.wait();
+    // this.alertSer.wait();
 
     this.ticketSer.updateIndentStatus(this.currentId, this.statusObj).subscribe((res: any) => {
       // console.log(res);
       if(res) {
-        this.alertSer.success(res);
+        this.alertSer.snackSuccess(res?.message);
       }
     }, (err: any) => {
       if(err) {
-        this.alertSer.error(err);
+        this.alertSer.error(err?.error?.message);
       };
     });
   }
 
-  @ViewChild('createOrderDialog') createOrderDialog = {} as TemplateRef<any>;
+  @ViewChild('replaceDialog') replaceDialog = {} as TemplateRef<any>;
 
   openCreateOrder(item: any) {
     // this.currentItem = item;
-    this.dialog.open(this.createOrderDialog, { maxWidth: '650px', maxHeight: '550px'});
+    this.dialog.open(this.replaceDialog, { maxWidth: '650px', maxHeight: '550px'});
     this.inventorySer.listIndentItems(item).subscribe((res: any) => {
       this.indentItems = res;
     })
@@ -200,12 +205,12 @@ export class FrComponent implements OnInit {
     })
   }
 
-  @ViewChild('replaceComponentDialog') replaceComponentDialog = {} as TemplateRef<any>;
+  @ViewChild('replaceStatusDialog') replaceStatusDialog = {} as TemplateRef<any>;
 
   inventoryId: any;
   inventoryId2: any;
   openReplaceComponent(data: any) {
-    this.dialog.open(this.replaceComponentDialog, { maxWidth: '550px', maxHeight: '550px'});
+    this.dialog.open(this.replaceStatusDialog, { maxWidth: '550px', maxHeight: '550px'});
     this.inventoryId2 = data;
     console.log(this.inventoryId2)
 
@@ -222,15 +227,15 @@ export class FrComponent implements OnInit {
   }
   replaceComponent() {
     // this.body.newInventoryId = this.inventoryId2?.inventoryId;
-    this.alertSer.wait();
+    // this.alertSer.wait();
     this.inventorySer.replaceComponent(this.body).subscribe((res: any) => {
       // console.log(res);
       if(res) {
-        this.alertSer.success(res);
+        this.alertSer.snackSuccess(res?.message);
       }
     }, (err: any) => {
       if(err) {
-        this.alertSer.error(err);
+        this.alertSer.error(err?.error?.message);
       };
     });
   }
@@ -259,14 +264,14 @@ export class FrComponent implements OnInit {
     this.ticketSer.logTaskStatus(myObj).subscribe((res: any) => {
       // console.log(res)
       if(res) {
-        this.alertSer.success(res);
+        this.alertSer.snackSuccess(res?.message);
       }
       setTimeout(() => {
         // window.location.reload();
       }, 2000)
     }, (err: any) => {
         if(err) {
-          // this.alertSer.error(err);
+          // this.alertSer.error(err?.error?.message);
         }
     })
   }
@@ -288,7 +293,7 @@ export class FrComponent implements OnInit {
   fieldVisitExit() {
     this.ticketSer.fieldVisitExit(this.fieldExitBody).subscribe((res: any) => {
       // console.log(res);
-      this.alertSer.success(res);
+      this.alertSer.snackSuccess(res?.message);
     })
   }
 

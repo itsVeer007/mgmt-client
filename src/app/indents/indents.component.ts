@@ -217,12 +217,12 @@ export class IndentsComponent implements OnInit {
     this.inventorySer.updateIndentStatus(this.originalObject, null).subscribe((res: any) => {
       // console.log(res);
       if(res) {
-        this.alertSer.success(res);
+        this.alertSer.success(res?.message);
         this.listIndent();
       }
     }, (err: any) => {
       if(err) {
-        this.alertSer.error(err);
+        this.alertSer.error(err?.error?.message);
       };
     });
   }
@@ -239,12 +239,12 @@ export class IndentsComponent implements OnInit {
     this.alertSer.wait();
     this.inventorySer.deleteIndent(this.currentItem).subscribe((res: any) => {
       if(res) {
-        this.alertSer.success(res);
+        this.alertSer.success(res?.message);
         this.listIndent();
       }
     }, (err: any) => {
       if(err) {
-        this.alertSer.error(err);
+        this.alertSer.error(err?.error?.message);
       };
     });
   }
@@ -286,11 +286,11 @@ export class IndentsComponent implements OnInit {
     this.inventorySer.replaceComponent(this.body).subscribe((res: any) => {
       // console.log(res);
       if(res) {
-        this.alertSer.success(res);
+        this.alertSer.success(res?.message);
       }
     }, (err: any) => {
       if(err) {
-        this.alertSer.error(err);
+        this.alertSer.error(err?.error?.message);
       };
     });
   }
@@ -334,12 +334,12 @@ export class IndentsComponent implements OnInit {
     this.inventorySer.updateIndentStatus(this.currentStatusId, this.statusObj).subscribe((res: any) => {
       // console.log(res);
       if(res) {
-        this.alertSer.success(res);
+        this.alertSer.success(res?.message);
         this.listIndent();
       }
     }, (err: any) => {
       if(err) {
-        this.alertSer.error(err);
+        this.alertSer.error(err?.error?.message);
       };
     });
   }

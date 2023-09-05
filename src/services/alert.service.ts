@@ -23,7 +23,7 @@ export class AlertService {
 
   snackError(message: any) {
     this.config.panelClass = ["error"];
-    this.show(message?.error?.message);
+    this.show(message);
   }
 
   snackWait(message: any, config?: MatSnackBarConfig) {
@@ -52,19 +52,19 @@ export class AlertService {
   msg2: any;
   msg0: any;
 
-  error(res: any) {
+  error(message: any) {
     this.msg0 = Swal.fire({
       icon: 'error',
       title: 'Failed!',
-      text: res?.error?.message,
+      text: message,
     })
   }
 
-  success(res: any) {
+  success(message: any) {
     this.msg1 = Swal.fire({
       icon: 'success',
       title: `Done!`,
-      text: `${res.message}`
+      text: `${message}`
     })
   }
 

@@ -70,8 +70,8 @@ export class AssetService {
       'createdBy': payload?.asset.createdBy,
       'name': payload?.asset.name,
       'splRuleId': payload?.asset.splRuleId,
-      'fromDate': payload?.asset.fromDate ? payload?.asset.fromDate : formatDate(new Date(), 'yyyy-MM-dd', 'en-us'),
-      'toDate': payload?.asset.toDate ? payload?.asset.toDate : '9999-31-01'
+      'fromDate': formatDate(payload?.asset.fromDate, 'yyyy-MM-dd', 'en-us') ? formatDate(payload?.asset.fromDate, 'yyyy-MM-dd', 'en-us') : formatDate(new Date(), 'yyyy-MM-dd', 'en-us'),
+      'toDate': formatDate(payload?.asset.toDate, 'yyyy-MM-dd', 'en-us') ? formatDate(payload?.asset.toDate, 'yyyy-MM-dd', 'en-us') : '2999-12-31'
     }
 
     const ass = new Blob([JSON.stringify(assetData)], {

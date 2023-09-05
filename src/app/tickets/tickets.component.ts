@@ -69,7 +69,7 @@ export class TicketsComponent implements OnInit {
       for(let item of this.ticketData) {
         if(item.ticketStatus == 'Open') {
           this.ticketOpen.push(item)
-        } else if(item.ticketStatus == 'Inprogress') {
+        } else if(item.ticketStatus == 'In Progress') {
           this.ticketProgress.push(item)
         } else if(item.ticketStatus == 'Closed') {
           this.ticketClose.push(item)
@@ -137,7 +137,11 @@ export class TicketsComponent implements OnInit {
   statusVal: any;
   assignedTo: any;
   ticketType: any;
-  sourceOfRequest: any
+  sourceOfRequest: any;
+  ticketPriority: any;
+  ticketCategory: any;
+  ticketSubCategory: any;
+  taskReason: any;
   onGetMetadata() {
     this.metaDatSer.getMetadata().subscribe((res: any) => {
       // console.log(res);
@@ -152,6 +156,12 @@ export class TicketsComponent implements OnInit {
           this.ticketType = item.metadata;
         } else if(item.type == "Source_of_Request") {
           this.sourceOfRequest = item.metadata;
+        } else if(item.type == 'Ticket_Category') {
+          this.ticketCategory = item.metadata;
+        } else if(item.type == 'Ticket_Sub_Category') {
+          this.ticketSubCategory = item.metadata;
+        } else if(item.type == 'Task_Reason') {
+          this.taskReason = item.metadata;
         }
       }
     })
@@ -209,6 +219,31 @@ export class TicketsComponent implements OnInit {
     if (type == 'indent') { this.showIndent = false }
   }
 
+  taskBody = {
+    ticketId: null,
+    categoryId: null,
+    subCategoryId: null,
+    // reasonId: null,
+    createdBy: 1,
+    priorityId: null
+  }
+
+  @ViewChild('addTaskDialog') addTaskDialog = {} as TemplateRef<any>;
+  openAddTask() {
+    // this.currentItem = item;
+    this.dialog.open(this.addTaskDialog, {maxWidth: '550px', maxHeight: '550px'});
+  }
+
+  createTask() {
+    this.taskBody.ticketId = this.currentItem?.ticketId;
+    this.ticketSer.createTask(this.taskBody).subscribe((res: any) => {
+      console.log(res);
+      this.alertSer.snackSuccess(res?.message);
+    }, (err: any) => {
+      this.alertSer.error(err?.error?.message);
+    })
+  }
+
 
 
   currentItem: any;
@@ -222,12 +257,12 @@ export class TicketsComponent implements OnInit {
   openViewPopup(item: any) {
     this.currentItem = item;
     this.dialog.open(this.viewTicketDialog, {maxWidth: '850px', maxHeight: '550px'});
-    this.ticketSer.getTasks(item.id).subscribe((tasks: any) => {
+    this.ticketSer.getTasks(item?.ticketId).subscribe((tasks: any) => {
       // console.log(res);
       this.ticketTasks = tasks;
     });
 
-    this.ticketSer.getTicketVisits(item.siteId).subscribe((visits: any) => {
+    this.ticketSer.getTicketVisits(item.ticketId).subscribe((visits: any) => {
       // console.log(res);
       this.ticketVisits = visits;
     });
@@ -308,12 +343,12 @@ export class TicketsComponent implements OnInit {
     this.ticketSer.updateTicket({ticket: this.originalObject, updprops: this.changedKeys}).subscribe((res: any) => {
       // console.log(res);
       if(res) {
-        this.alertSer.success(res);
+        this.alertSer.success(res?.message);
         this.listTickets();
       }
     }, (err: any) => {
       if(err) {
-        this.alertSer.error(err);
+        this.alertSer.error(err?.error?.message);
       };
     });
   }
@@ -333,12 +368,12 @@ export class TicketsComponent implements OnInit {
       // console.log(res);
 
       if(res) {
-        this.alertSer.success(res);
+        this.alertSer.success(res?.message);
         this.listTickets();
       }
     }, (err: any) => {
       if(err) {
-        this.alertSer.error(err);
+        this.alertSer.error(err?.error?.message);
       };
     })
   }
@@ -357,7 +392,7 @@ export class TicketsComponent implements OnInit {
   }
 
   toAssigned() {
-    this.alertSer.wait();
+    // this.alertSer.wait();
     let myObj = {
       'ticketId': this.toAssign.ticketId,
       'assignedTo': this.assignedObj.assignedTo,
@@ -367,12 +402,12 @@ export class TicketsComponent implements OnInit {
     this.ticketSer.assignTicket(myObj).subscribe((res: any) => {
       // console.log(res)
       if(res) {
-        this.alertSer.success(res);
+        this.alertSer.snackSuccess(res?.message);
         this.listTickets();
       }
     }, (err: any) => {
         if(err) {
-          this.alertSer.error(err);
+          this.alertSer.error(err?.error?.message);
         }
     })
   }
@@ -394,16 +429,16 @@ export class TicketsComponent implements OnInit {
       ticketId: this.y.ticketId,
       status: this.staObj.status
     }
-    this.alertSer.wait();
+    // this.alertSer.wait();
     this.ticketSer.updateTask(statusObj).subscribe((res: any) => {
       // console.log(res);
       if(res) {
-        this.alertSer.success(res);
+        this.alertSer.snackSuccess(res?.message);
         this.listTickets();
       }
     }, (err: any) => {
       if(err) {
-        this.alertSer.error(err);
+        this.alertSer.error(err?.error?.message);
       };
     })
   }

@@ -26,6 +26,11 @@ export class TicketService {
     return this.http.post(url, payload);
   }
 
+  createTask(payload: any) {
+    let url = this.baseUrl + '/createTask_1_0';
+    return this.http.post(url, payload);
+  }
+
   updateTicket(payload: any) {
     let url = this.baseUrl + '/updateTicket_1_0';
     return this.http.put(url, payload);
@@ -73,14 +78,24 @@ export class TicketService {
 
   filterTicket(payload: any) {
     let url = this.baseUrl + `/listTickets_1_0`;
-    let myObj = {
-      'siteId': payload.siteId,
-      'typeId': payload.typeId,
-      'ticketStatus': payload.ticketStatus,
-      'startDate': payload.startDate,
-      'endDate': payload.endDate
+    let params = new HttpParams();
+    if(payload.siteId) {
+      params = params.set('siteId', payload.siteId);
     }
-    return this.http.get(url, {params: myObj});
+    if(payload.typeId) {
+      params = params.set('typeId', payload.typeId);
+    }
+    if(payload.ticketStatus) {
+      params = params.set('ticketStatus', payload.ticketStatus);
+    }
+    if(payload.startDate) {
+      params = params.set('startDate', payload.startDate);
+    }
+    if(payload.endDate) {
+      params = params.set('endDate', payload.endDate);
+    }
+
+    return this.http.get(url, {params: params});
   }
 
 
@@ -109,7 +124,8 @@ export class TicketService {
     let url = this.baseUrl + `/fieldVisitEntry_1_0`;
     let myObj = {
       'frId': 1565,
-      'siteId': payload.siteId,
+      'siteId': payload?.siteId,
+      'ticketId': payload?.ticketId
     }
 
     return this.http.post(url, myObj);
@@ -137,8 +153,8 @@ export class TicketService {
     let url = this.baseUrl + `/fieldVisitExit_1_0`;
     let myObj = {
       'frId': payload.frId,
-      // 'travelAllowance': payload.travelAllowance,
-      // 'foodAllowance': payload.foodAllowance,
+      'travelAllowance': payload.travelAllowance,
+      'foodAllowance': payload.foodAllowance,
       'otherAllowance': payload.otherAllowance,
       'remarks': payload.remarks
     }

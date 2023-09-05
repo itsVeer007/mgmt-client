@@ -60,12 +60,11 @@ export class InventoryComponent implements OnInit {
   inventoryTable: any = [];
   newInventoryTable: any = [];
 
-  inStock: any = [];
-  installed: any = [];
-  removed: any = [];
-  returned: any = [];
-  scrap: any = [];
-  redyToUse: any = [];
+  inStock: any;
+  dispatched: any;
+  installed: any;
+  purchases: any;
+  others: any;
   listInventory() {
     this.showLoader = true;
     this.inventorySer.listInventory().subscribe((res: any) => {
@@ -74,21 +73,27 @@ export class InventoryComponent implements OnInit {
       this.inventoryTable = res;
       this.newInventoryTable = this.inventoryTable;
 
-      for(let item of this.inventoryTable) {
-        if(item.inventoryStatusId == 1) {
-          this.inStock.push(item);
-        } else if(item.inventoryStatusId == 2) {
-          this.installed.push(item);
-        } else if(item.inventoryStatusId == 3) {
-          this.removed.push(item);
-        } else if(item.inventoryStatusId == 4) {
-          this.returned.push(item);
-        } else if(item.inventoryStatusId == 5) {
-          this.scrap.push(item);
-        } else if(item.inventoryStatusId == 6) {
-          this.redyToUse.push(item);
-        }
-      }
+      this.inStock = this.newInventoryTable.reduce((sum: any, current: any) => sum + current.inStock, 0);
+      this.dispatched = this.newInventoryTable.reduce((sum: any, current: any) => sum + current.dispatched, 0);
+      this.installed = this.newInventoryTable.reduce((sum: any, current: any) => sum + current.used, 0);
+      this.purchases = this.newInventoryTable.reduce((sum: any, current: any) => sum + current.purchases, 0);
+      this.others = this.newInventoryTable.reduce((sum: any, current: any) => sum + current.others, 0);
+
+      // for(let item of this.inventoryTable) {
+      //   if(item.inventoryStatusId == 1) {
+      //     this.inStock.push(item);
+      //   } else if(item.inventoryStatusId == 2) {
+      //     this.installed.push(item);
+      //   } else if(item.inventoryStatusId == 3) {
+      //     this.removed.push(item);
+      //   } else if(item.inventoryStatusId == 4) {
+      //     this.returned.push(item);
+      //   } else if(item.inventoryStatusId == 5) {
+      //     this.scrap.push(item);
+      //   } else if(item.inventoryStatusId == 6) {
+      //     this.redyToUse.push(item);
+      //   }
+      // }
     });
   }
 
@@ -257,18 +262,18 @@ export class InventoryComponent implements OnInit {
   // statusId: any;
 
   updateInventoryStatus() {
-    this.alertSer.wait();
+    // this.alertSer.wait();
     this.statusObj.slNo = this.currentStatusId?.slNo;
 
     this.inventorySer.updateInventoryStatus(this.statusObj).subscribe((res: any) => {
       // console.log(res);
       if(res) {
-        this.alertSer.success(res);
+        this.alertSer.snackSuccess(res?.message);
         this.listInventory();
       }
     }, (err: any) => {
       if(err) {
-        this.alertSer.error(err);
+        this.alertSer.error(err?.error?.message);
       };
     });
   }
@@ -362,12 +367,12 @@ export class InventoryComponent implements OnInit {
     this.inventorySer.updateInventory({inventory: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
       // console.log(res);
       if(res) {
-        this.alertSer.success(res);
+        this.alertSer.success(res?.message);
         this.listInventory();
       }
     }, (err: any) => {
       if(err) {
-        this.alertSer.error(err);
+        this.alertSer.error(err?.error?.message);
       };
     });
   }
@@ -387,12 +392,12 @@ export class InventoryComponent implements OnInit {
     this.inventorySer.deleteInventory(this.currentItem).subscribe((res: any) => {
       // console.log(res);
       if(res) {
-        this.alertSer.success(res);
+        this.alertSer.success(res?.message);
         this.listInventory();
       }
     }, (err: any) => {
       if(err) {
-        this.alertSer.error(err);
+        this.alertSer.error(err?.error?.message);
       };
     });
   }
@@ -457,7 +462,7 @@ export class InventoryComponent implements OnInit {
 
     this.inventorySer.updateWarranty({warranty: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
       if(res) {
-        this.alertSer.success(res);
+        this.alertSer.success(res?.message);
       }
       setTimeout(() => {
         // window.location.reload();
@@ -559,12 +564,26 @@ export class InventoryComponent implements OnInit {
   sort(label: any) {
     this.sorted = !this.sorted;
     var x = this.inventoryTable;
+    var y = this.inventoryItems;
+
     if (this.sorted == false) {
       x.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
+      y.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
     } else {
       x.sort((a: string, b: string) => b[label] > a[label] ? 1 : b[label] < a[label] ? -1 : 0);
+      y.sort((a: string, b: string) => b[label] > a[label] ? 1 : b[label] < a[label] ? -1 : 0);
     }
   }
+
+  // sortTable(label: any) {
+  //   this.sorted = !this.sorted;
+  //   var x = this.inventoryItems;
+  //   if (this.sorted == false) {
+  //     x.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
+  //   } else {
+  //     x.sort((a: string, b: string) => b[label] > a[label] ? 1 : b[label] < a[label] ? -1 : 0);
+  //   }
+  // }
 
   //Show Detail
   showDetail: boolean = false;

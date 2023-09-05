@@ -185,12 +185,12 @@ export class OrdersComponent implements OnInit {
     this.inventorySer.updateOrder(this.originalObject).subscribe((res: any) => {
       // console.log(res);
       if(res) {
-        this.alertSer.success(res);
+        this.alertSer.success(res?.message);
         this.listOrders();
       }
     }, (err: any) => {
       if(err) {
-        this.alertSer.error(err);
+        this.alertSer.error(err?.error?.message);
       };
     });
   }
@@ -207,12 +207,12 @@ export class OrdersComponent implements OnInit {
     this.alertSer.wait();
     this.inventorySer.deleteOrder(this.currentItem).subscribe((res: any) => {
       if(res) {
-        this.alertSer.success(res);
+        this.alertSer.success(res?.message);
         this.listOrders();
       }
     }, (err: any) => {
       if(err) {
-        this.alertSer.error(err);
+        this.alertSer.error(err?.error?.message);
       };
     });
   }
@@ -249,12 +249,12 @@ export class OrdersComponent implements OnInit {
     this.orderItemBody.orderId = this.orderItemsId?.id;
     this.inventorySer.addItemToOrder(this.orderItemBody).subscribe((res: any) => {
       if(res) {
-        this.alertSer.success(res);
+        this.alertSer.success(res?.message);
         this.listOrderItems();
       }
     }, (err: any) => {
       if(err) {
-        this.alertSer.error(err);
+        this.alertSer.error(err?.error?.message);
       }
     })
   }
@@ -277,12 +277,12 @@ export class OrdersComponent implements OnInit {
     this.inventorySer.updateOrderItem(this.originalObject).subscribe((res: any) => {
       // console.log(res);
       if(res) {
-        this.alertSer.success(res);
+        this.alertSer.success(res?.message);
         this.listOrderItems();
       }
     }, (err: any) => {
       if(err) {
-        this.alertSer.error(err);
+        this.alertSer.error(err?.error?.message);
       };
     });
   }
@@ -298,12 +298,12 @@ export class OrdersComponent implements OnInit {
     this.alertSer.wait();
     this.inventorySer.deleteOrderItem(this.currentItem).subscribe((res: any) => {
       if(res) {
-        this.alertSer.success(res);
+        this.alertSer.success(res?.message);
         this.listOrderItems();
       }
     }, (err: any) => {
       if(err) {
-        this.alertSer.error(err);
+        this.alertSer.error(err?.error?.message);
       };
     });
   }

@@ -115,7 +115,7 @@ export class InventoryService {
   }
 
   filterInventory(payload: any) {
-    let url = this.baseUrl + `/listInventoryWithDates_1_0`;
+    let url = this.baseUrl + `/listInventory_1_0`;
 
     let params = new HttpParams().set('startDate', formatDate(payload.endDate, 'yyyy-MM-dd', 'en-us')).set('end1_date', formatDate(payload.endDate, 'yyyy-MM-dd', 'en-us'));
     return this.http.get(url, {params: params});

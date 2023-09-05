@@ -113,14 +113,14 @@ export class AddNewIndentComponent implements OnInit {
       this.inventorySer.createIndent(this.inventoryBody).subscribe((res: any) => {
         // console.log(res);
         if(res) {
-          this.alertSer.success(res);
+          this.alertSer.success(res?.message);
         }
         setTimeout(() => {
           window.location.reload();
         }, 2000);
       }, (err: any) => {
         if(err) {
-          this.alertSer.error(err);
+          this.alertSer.error(err?.error?.message);
         }
       });
     }

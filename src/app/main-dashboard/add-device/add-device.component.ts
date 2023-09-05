@@ -50,33 +50,32 @@ export class AddDeviceComponent implements OnInit {
 
   siteData: any;
 
-  adInfo = {
+  adInfo: any = {
     siteId: null,
     deviceDescription: '',
     deviceTypeId: null,
-    deviceCallFreq: null,
+    deviceCallFreq: 1,
     deviceModeId: null,
-    adsHours: '',
-    workingDays: '',
+    adsHours: '0-23',
+    workingDays: ['',0,1,2,3,4,5,6],
     createdBy: 1,
-    softwareVersion: '',
+    softwareVersion: 'v1.0.1',
     socketServer: 'ec2-18-213-63-73.compute-1.amazonaws.com',
     socketPort: 6666,
     remarks: '',
 
     weatherInterval: null, //BSR
 
-    cameraId: '', //ODR
-    modelName: '', //ODR
-    modelWidth: null, //ODR
-    modelHeight: null, //ODR
-    modelMaxResults: null, //ODR
-    modelThreshold: null, //ODR
+    cameraId: 'Cam01', //ODR
+    modelName: 'YoloV8', //ODR
+    modelWidth: 640, //ODR
+    modelHeight: 720, //ODR
+    modelMaxResults: 3, //ODR
+    modelThreshold: 0.6, //ODR
     modelObjectTypeId: null, //ODR
-
-    refreshRules: 1,  //ODR
+    refreshRules: 0,  //ODR
     debugOn: 0,  //ODR
-    debugLogs: 1, //ODR
+    debugLogs: 0, //ODR
     loggerFreq: 60,  //ODR
   }
 
@@ -113,46 +112,56 @@ export class AddDeviceComponent implements OnInit {
 
     this.addDevice.get('deviceModeId').valueChanges.subscribe((val: any) => {
       if(val == 3) {
-        this.addDevice.get('cameraId').setValidators(Validators.required);
-        this.addDevice.get('modelName').setValidators(Validators.required);
-        this.addDevice.get('modelWidth').setValidators(Validators.required);
-        this.addDevice.get('modelHeight').setValidators(Validators.required);
-        this.addDevice.get('modelMaxResults').setValidators(Validators.required);
-        this.addDevice.get('modelThreshold').setValidators(Validators.required);
+        // this.addDevice.get('cameraId').setValidators(Validators.required);
+        // this.addDevice.get('modelName').setValidators(Validators.required);
+        // this.addDevice.get('modelWidth').setValidators(Validators.required);
+        // this.addDevice.get('modelHeight').setValidators(Validators.required);
+        // this.addDevice.get('modelMaxResults').setValidators(Validators.required);
+        // this.addDevice.get('modelThreshold').setValidators(Validators.required);
         this.addDevice.get('modelObjectTypeId').setValidators(Validators.required);
       } else {
-        this.addDevice.get('cameraId').clearValidators();
-        this.addDevice.get('modelName').clearValidators();
-        this.addDevice.get('modelWidth').clearValidators();
-        this.addDevice.get('modelHeight').clearValidators();
-        this.addDevice.get('modelMaxResults').clearValidators();
-        this.addDevice.get('modelThreshold').clearValidators();
+        // this.addDevice.get('cameraId').clearValidators();
+        // this.addDevice.get('modelName').clearValidators();
+        // this.addDevice.get('modelWidth').clearValidators();
+        // this.addDevice.get('modelHeight').clearValidators();
+        // this.addDevice.get('modelMaxResults').clearValidators();
+        // this.addDevice.get('modelThreshold').clearValidators();
         this.addDevice.get('modelObjectTypeId').clearValidators();
       }
 
-      this.addDevice.get('cameraId').updateValueAndValidity();
-      this.addDevice.get('modelName').updateValueAndValidity();
-      this.addDevice.get('modelWidth').updateValueAndValidity();
-      this.addDevice.get('modelHeight').updateValueAndValidity();
-      this.addDevice.get('modelMaxResults').updateValueAndValidity();
-      this.addDevice.get('modelThreshold').updateValueAndValidity();
+      // this.addDevice.get('cameraId').updateValueAndValidity();
+      // this.addDevice.get('modelName').updateValueAndValidity();
+      // this.addDevice.get('modelWidth').updateValueAndValidity();
+      // this.addDevice.get('modelHeight').updateValueAndValidity();
+      // this.addDevice.get('modelMaxResults').updateValueAndValidity();
+      // this.addDevice.get('modelThreshold').updateValueAndValidity();
       this.addDevice.get('modelObjectTypeId').updateValueAndValidity();
     });
 
     this.getDeviceDetail();
     this.onMetadataChange();
+    // this.toggleCreateWorkingDays();
     this.siteData = JSON.parse(localStorage.getItem('temp_sites')!);
   }
 
   deviceData: any = [];
   deviceLength: any;
+  convertedArray: any;
   // deviceMap: any;
   getDeviceDetail() {
     this.devService.listDeviceAdsInfo().subscribe((res: any) => {
       for(let item of res) {
         if(this.siteData.siteid == item.siteId) {
+          // let x = item?.adsDevices.forEach((el: any) => el.workingDays);
+          // console.log(x);
+          // this.convertedArray = JSON.parse(JSON.stringify(x?.split(',').map((item: any) => +item)));
+
+          // const numberStrings = x?.split(',')?.map((str: any) => str.trim());
+          // this.convertedArray = numberStrings?.map((str: any) => Number(str));
+          // console.log(this.convertedArray)
           this.deviceData = item.adsDevices;
           this.deviceLength = this.deviceData.length;
+          // console.log(this.deviceData);
         }
       }
     })
@@ -160,6 +169,13 @@ export class AddDeviceComponent implements OnInit {
     // this.deviceData = this.fromSites;
     // this.deviceLength = this.deviceData.length;
     // console.log(this.deviceData);
+  }
+
+  getCurrentDevice(data: any) {
+    console.log('hello')
+    this.devService.listDeviceByDeviceId(data?.deviceId).subscribe((res: any) => {
+      console.log(res)
+    })
   }
 
 
@@ -234,14 +250,9 @@ export class AddDeviceComponent implements OnInit {
   // devDataToEdit: any
   currentItem: any;
   openEditDevice(item: any) {
-    this.dialog.open(this.editDevice, {maxWidth: '750px', maxHeight: '650px'});
     this.currentItem = item;
-
-    let x = this.currentItem.workingDays.toString().split(',')
-    this.currentItem.workingDays = x;
-
-    // this.newdeviceId = item.deviceId;
-    // console.log(this.currentItem);
+    this.dialog.open(this.editDevice, {maxWidth: '750px', maxHeight: '650px'});
+    this.currentItem.workingDays = this.currentItem.workingDays.toString().split(',');
   }
 
 
@@ -258,7 +269,6 @@ export class AddDeviceComponent implements OnInit {
 
   onRadioChange(event: any) {
     // console.log(event);
-
     this.originalObject = {
       "deviceId": this.currentItem.deviceId,
 
@@ -364,7 +374,7 @@ export class AddDeviceComponent implements OnInit {
 
   updateDeviceDtl() {
     if(this.changedKeys.length > 0) {
-      this.alertSer.wait();
+      // this.alertSer.wait();
       let arr = this.currentItem.workingDays.join(',');
       if(this.toAddDevice == 8) {
         var myString = arr.substring(1);
@@ -374,21 +384,17 @@ export class AddDeviceComponent implements OnInit {
       }
     }
     this.newItemEvent.emit(false);
-
     this.devService.updateDeviceAdsInfo({adsDevice: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
       // console.log(res);
-
       if(res) {
-        this.alertSer.success(res);
+        this.alertSer.snackSuccess(res?.message ? res?.message : 'Device updated successfully');
       }
-
       setTimeout(() => {
         window.location.reload();
-      }, 3000);
-
+      }, 2000);
     }, (err: any) => {
       if(err) {
-        this.alertSer.error(err);
+        this.alertSer.error(err?.error?.message);
       };
     })
   }
@@ -397,62 +403,77 @@ export class AddDeviceComponent implements OnInit {
   /* create device */
 
   toAddDevice: any;
+  isToogleClicked: boolean = false;
   onToAddDevice(e: any) {
+    this.isToogleClicked = true;
     this.toAddDevice = e.value.length;
     // console.log(e.value.length)
   }
 
   addDeviceDtl() {
-    // console.log(this.addDevice);
-    this.adInfo.siteId = this.siteData.siteid;
-
     if(this.addDevice.valid) {
       this.newItemEvent.emit(false);
 
-      let arr = JSON.parse(JSON.stringify(this.adInfo.workingDays)).join(',');
-      if(this.toAddDevice == 8) {
-        var myString = arr.substring(1);
+      this.adInfo.siteId = this.siteData.siteid;
+
+      if(!this.isToogleClicked) {
+        let arr: string = this.adInfo.workingDays.join(',');
+        let myString = arr.substring(1);
         this.adInfo.workingDays = myString;
-      } else {
-        this.adInfo.workingDays = arr;
+      }
+
+      if(this.isToogleClicked) {
+        let arr = JSON.parse(JSON.stringify(this.adInfo.workingDays)).join(',');
+        if(this.toAddDevice == 8) {
+          var myString = arr.substring(1);
+          this.adInfo.workingDays = myString;
+        } else {
+          this.adInfo.workingDays = arr;
+        }
       }
       this.alertSer.wait();
-
       this.devService.createDeviceandAdsInfo(this.adInfo).subscribe((res: any) => {
         // console.log(res);
         if(res) {
-          this.alertSer.success(res);
+          this.alertSer.success(res?.message ? res?.message : 'Device created successfully');
         }
         setTimeout(() => {
           window.location.reload();
-        }, 3000);
+        }, 2000);
       }, (err: any) => {
         if(err) {
-          this.alertSer.error(err);
+          this.alertSer.error(err?.error?.message);
         };
       })
+    }
+    // console.log(this.addDevice);
+  }
+
+
+  @ViewChild('createWorkingDays') createWorkingDays!: MatSelect;
+
+  selectCreate: boolean = false;
+  toggleCreateWorkingDays() {
+    this.selectCreate = !this.selectCreate;
+
+    if(this.selectCreate) {
+      this.createWorkingDays?.options.forEach((item : MatOption) => item.select());
+    } else {
+      this.createWorkingDays?.options.forEach((item : MatOption) => item.deselect());
     }
   }
 
 
-  @ViewChild('mySel') mySel!: MatSelect;
+  @ViewChild('modifyWorkingDays') modifyWorkingDays!: MatSelect;
 
-  @ViewChild('mySell') mySell!: MatSelect;
+  selectModify: boolean = false;
+  toggleModifyWorkingDays() {
+    this.selectModify = !this.selectModify;
 
-  allSelected = false;
-  toggleAllSelection() {
-    this.allSelected = !this.allSelected;
-
-    if(this.allSelected) {
-      this.mySel.options.forEach( (item : MatOption) => item.select());
+    if(this.selectModify) {
+      this.modifyWorkingDays?.options.forEach((item : MatOption) => item.select());
     } else {
-      this.mySel.options.forEach( (item : MatOption) => {item.deselect()});
-    }
-
-    if(this.allSelected) {
-      this.mySell.options.forEach( (item : MatOption) => item.select());
-    } else {
-      this.mySell.options.forEach( (item : MatOption) => {item.deselect()});
+      this.modifyWorkingDays?.options.forEach((item : MatOption) => item.deselect());
     }
   }
 
