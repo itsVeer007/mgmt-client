@@ -778,15 +778,40 @@
         <table class="table" id="mytable">
           <thead>
             <tr class="task-table">
-              <th>id</th>
+              <th>
+                <p class="d-inline-flex">
+                  <span>id</span>
+                  <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                </p>
+              </th>
 
-              <th>inventoryId</th>
+              <th>
+                <p class="d-inline-flex">
+                  <span>inventoryId</span>
+                  <img (click)="sort('inventoryId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                </p>
+              </th>
 
-              <th>itemCode</th>
+              <th>
+                <p class="d-inline-flex">
+                  <span>itemCode</span>
+                  <img (click)="sort('itemCode')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                </p>
+              </th>
 
-              <th>statusId</th>
+              <th>
+                <p class="d-inline-flex">
+                  <span>statusId</span>
+                  <img (click)="sort('statusId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                </p>
+              </th>
 
-              <th>modifiedTime</th>
+              <th>
+                <p class="d-inline-flex">
+                  <span>modifiedTime</span>
+                  <img (click)="sort('modifiedTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                </p>
+              </th>
 
               <!-- <th>status</th> -->
             </tr>

@@ -32,7 +32,12 @@ export class IndentsComponent implements OnInit {
 
   orderItems: any = [];
   newOrderItems: any = [];
-  active: any = [];
+
+  requested: any = [];
+  dispatched: any = [];
+  received: any = [];
+  installed: any = [];
+  returned: any = [];
 
   productIds: any;
   inventoryDetail: any;
@@ -46,7 +51,15 @@ export class IndentsComponent implements OnInit {
 
       for(let item of this.indentTable) {
         if(item.statusId == 1) {
-          this.active.push(item);
+          this.requested.push(item);
+        } else if(item.statusId == 2) {
+          this.dispatched.push(item)
+        }else if(item.statusId == 3) {
+          this.received.push(item)
+        }else if(item.statusId == 4) {
+          this.installed.push(item)
+        }else if(item.statusId == 5) {
+          this.returned.push(item)
         }
       }
     });
@@ -313,12 +326,12 @@ export class IndentsComponent implements OnInit {
   invenIds: any = null;
   // invenId: any;
   openEditStatus(id: any) {
-    this.dialog.open(this.editStatus);
     this.currentStatusId = id;
+    this.dialog.open(this.editStatus, {maxWidth: '250px', maxHeight: '250px'});
 
     this.inventorySer.listInventoryByItemCode(id).subscribe((res: any) => {
       this.invenIds = res;
-      // console.log(this.invenIds)
+      console.log(this.invenIds);
     })
   }
 
@@ -349,6 +362,15 @@ export class IndentsComponent implements OnInit {
   sort(label: any) {
     this.sorted = !this.sorted;
     var x = this.indentTable;
+    if (this.sorted == false) {
+      x.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
+    } else {
+      x.sort((a: string, b: string) => b[label] > a[label] ? 1 : b[label] < a[label] ? -1 : 0);
+    }
+  }
+  sort1(label: any) {
+    this.sorted = !this.sorted;
+    var x = this.inventoryItems;
     if (this.sorted == false) {
       x.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
     } else {

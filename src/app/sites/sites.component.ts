@@ -179,7 +179,7 @@ export class SitesComponent implements OnInit {
   openViewPopup(item: any) {
     this.currentItem = item;
     this.dialog.open(this.viewSiteDialog, {maxWidth: '650px', maxHeight: '650px'});
-    // console.log(this.currentItem);
+    console.log(this.currentItem);
   }
 
   confirmViewRow() {

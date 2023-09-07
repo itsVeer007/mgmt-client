@@ -8,7 +8,7 @@ import { environment } from '../environments/environment';
 })
 export class InventoryService {
 
-  // baseUrl = `${environment.baseUrl}/inventory`;
+  // baseUrl = `${environment.baseUrl}/inventoryAndtickets`;
   baseUrl = 'http://192.168.0.137:8080';
 
   constructor(private http: HttpClient, public datepipe: DatePipe) { }
@@ -169,6 +169,13 @@ export class InventoryService {
     return this.http.get(url, {params: params});
   }
 
+  getItemCode(payload: any) {
+    let url = this.baseUrl + "/getItemCode_1_0";
+    let params = new HttpParams().set('name', payload?.materialDescription);
+
+    return this.http.get(url, {params: params});
+  }
+
   // listIndentItems(ticketId: any) {
   //   let url = this.baseUrl + "/listIndentItems_1_0";
   //   let params = new HttpParams();
@@ -277,7 +284,20 @@ export class InventoryService {
 
   replaceComponent(payload: any) {
     let url = this.baseUrl + `/replaceComponent_1_0`;
-    let params = new HttpParams().set('oldInventoryId', payload.oldInventoryId).set('newInventoryId', payload.newInventoryId).set('replacedBy', payload.replacedBy);
+    let params = new HttpParams();
+    if(payload.oldInventoryId) {
+      params = params.set('oldInventoryId', payload.oldInventoryId);
+    }
+    if(payload.newInventoryId) {
+      params = params.set('newInventoryId', payload.newInventoryId);
+    }
+    if(payload.replacedBy) {
+      params = params.set('replacedBy', payload.replacedBy);
+    }
+    if(payload.siteId) {
+      params = params.set('siteId', payload.siteId);
+    }
+    
     return this.http.put(url, null, {params: params});
   }
 

@@ -575,6 +575,18 @@ export class InventoryComponent implements OnInit {
     }
   }
 
+  sort1(label: any) {
+    this.sorted = !this.sorted;
+    var y = this.inventoryItems;
+
+    if (this.sorted == false) {
+      y.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
+    } else {
+      y.sort((a: string, b: string) => b[label] > a[label] ? 1 : b[label] < a[label] ? -1 : 0);
+    }
+  }
+  
+
   // sortTable(label: any) {
   //   this.sorted = !this.sorted;
   //   var x = this.inventoryItems;

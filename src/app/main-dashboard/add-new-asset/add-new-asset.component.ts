@@ -8,6 +8,7 @@ import { SiteService } from 'src/services/site.service';
 import { MetadataService } from 'src/services/metadata.service';
 import { DeviceService } from 'src/services/device.service';
 import Swal from 'sweetalert2';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-add-new-asset',
@@ -64,7 +65,7 @@ export class AddNewAssetComponent implements OnInit {
 
   /* Asset Object */
 
-  assetData = {
+  assetData:any = {
     file: null,
     asset: {
       deviceId: '',
@@ -73,13 +74,13 @@ export class AddNewAssetComponent implements OnInit {
       playOrder: 1,
       createdBy: 1,
       splRuleId: 0,
-      fromDate: null,
-      toDate: null
+      fromDate: formatDate(this.currentDate, 'yyyy-MM-dd', 'en-us'),
+      toDate: '2999-12-31'
     },
 
     nameParams: {
-      timeId: null,
-      tempId: null,
+      timeId: 3,
+      tempId: 4,
       maleKids: 0,
       femaleKids: 0,
       maleYouth: 0,
@@ -100,7 +101,7 @@ export class AddNewAssetComponent implements OnInit {
     this.addAssetForm = this.fb.group({
       'file': new FormControl('', Validators.required),
 
-      'deviceModeId': new FormControl('', Validators.required),
+      'deviceModeId': new FormControl(''),
       'name': new FormControl('', Validators.required),
       'playOrder': new FormControl(''),
       'createdBy': new FormControl(''),
@@ -137,6 +138,7 @@ export class AddNewAssetComponent implements OnInit {
     });
 
     this.deviceIdFromStorage = JSON.parse(localStorage.getItem('device_temp')!);
+    this.deviceIdFromStorage = JSON.parse(localStorage.getItem('user')!);
 
     this.onMetadataChange()
     this.getRes();
@@ -258,31 +260,132 @@ export class AddNewAssetComponent implements OnInit {
   /* Add Asset */
 
   submit: boolean = false;
-  addNewAsset() {
-    console.log(this.assetData);
-    this.assetData.asset.deviceId = this.deviceIdFromStorage;
-    // this.newItemEvent.emit(this.deviceIdFromStorage);
-    this.submit = true;
 
-    if(this.addAssetForm.valid) {
-      this.newItemEvent.emit();
-      this.alertSer.wait();
-      this.assetService.addAsset(this.assetData, this.selectedFile).subscribe((res: any) => {
-        // console.log(res);
-        if(res) {
-          this.alertSer.success(res?.message);
-          // this.dataAdded.emit();
-          setTimeout(() => {
-            // window.location.reload();
-          }, 3000);
-        }
+  // addNewAsset() {
+  //   this.submit = true;
+  //   if(this.addAssetForm.valid) {
+  //     this.assetData.asset.deviceId = this.deviceIdFromStorage;
+  
+  //     if(this.assetData.nameParams.timeId == 'All' && this.assetData.nameParams.tempId == 'All') {
+  //       this.newItemEvent.emit();
+  //       this.alertSer.wait();
+        
+  //       this.assetData.asset.deviceModeId = 1;
+  //       this.assetData.nameParams.timeId = null;
+  //       this.assetData.nameParams.tempId = null;
+  //       this.assetService.addAsset(this.assetData, this.selectedFile).subscribe((res: any) => {
+  //         console.log(res);
+  //         this.alertSer.success( res?.message);
+  //         setTimeout(() => {
+  //           window.location.reload();
+  //         }, 2000);
+  //       });
+  //     }
+      
+  //     else if(this.assetData.nameParams.timeId != 'All' && this.assetData.nameParams.tempId == 'All') {
+  //       this.newItemEvent.emit();
+  //       this.alertSer.wait();
+        
+  //       this.assetData.asset.name = this.assetData.asset.name
+  //       this.assetData.asset.deviceModeId = 2;
+  //       this.assetData.nameParams.timeId = this.assetData.nameParams.timeId;
+  //       this.assetData.nameParams.tempId = 1;
+  //       this.assetService.addAsset(this.assetData, this.selectedFile).subscribe((res: any) => {
+  //         console.log(res);
+  //         if(res) {
+  //           this.assetData.asset.name = this.assetData.asset.name + '1';
+  //           this.assetData.asset.deviceModeId = 2;
+  //           this.assetData.nameParams.timeId = this.assetData.nameParams.timeId;
+  //           this.assetData.nameParams.tempId = 2;
+            
+  //           this.assetService.addAsset(this.assetData, this.selectedFile).subscribe((res: any) => {
+  //             console.log(res);
+  //             if(res) {
+  //               this.assetData.asset.name = this.assetData.asset.name + '2';
+  //               this.assetData.asset.deviceModeId = 2;
+  //               this.assetData.nameParams.timeId = this.assetData.nameParams.timeId;
+  //               this.assetData.nameParams.tempId = 3;
+                
+  //               this.assetService.addAsset(this.assetData, this.selectedFile).subscribe((res: any) => {
+  //                 console.log(res);
+  //                 this.alertSer.success( res?.message);
+  //                 setTimeout(() => {
+  //                   window.location.reload();
+  //                 }, 2000);
+  //               })
+  //             }
+  //             })
+  //           }
+  //         });
+  //       }
+        
+  //       else if(this.assetData.nameParams.tempId != 'All' && this.assetData.nameParams.timeId == 'All') {
+  //         this.newItemEvent.emit();
+  //         this.alertSer.wait();
+  
+  //         this.assetData.asset.name = this.assetData.asset.name
+  //         this.assetData.asset.deviceModeId = 2;
+  //         this.assetData.nameParams.timeId = 1;
+  //         this.assetData.nameParams.tempId = this.assetData.nameParams.tempId;
+          
+  //         this.assetService.addAsset(this.assetData, this.selectedFile).subscribe((res: any) => {
+  //           console.log(res)
+  //           if(res) {
+  //             this.assetData.asset.name = this.assetData.asset.name + '1';
+  //             this.assetData.asset.deviceModeId = 2;
+  //             this.assetData.nameParams.timeId = 2;
+  //             this.assetData.nameParams.tempId = this.assetData.nameParams.tempId;
+              
+  //             this.assetService.addAsset(this.assetData, this.selectedFile).subscribe((res: any) => {
+  //               console.log(res);
+  //               this.alertSer.success(res?.message);
+  //               setTimeout(() => {
+  //                 window.location.reload();
+  //               }, 2000);
+  //             });
+  //           }
+  //         });
+  //       }
+        
+  //       else if(this.assetData.nameParams.timeId != 'All' && this.assetData.nameParams.tempId != 'All') {
+  //         this.newItemEvent.emit();
+  //         this.alertSer.wait();
+          
+  //         this.assetData.asset.deviceModeId = 2;
+  //         this.assetData.nameParams.timeId = this.assetData.nameParams.timeId;
+  //         this.assetData.nameParams.tempId = this.assetData.nameParams.tempId;
+  
+  //         this.assetService.addAsset(this.assetData, this.selectedFile).subscribe((res: any) => {
+  //           console.log(res);
+  //           this.alertSer.success( res?.message);
+  //           setTimeout(() => {
+  //             window.location.reload();
+  //           }, 2000);
+  //         });
+  //       }
+  //     }
+  //     console.log(this.assetData);
+  //   }
 
-        }, (err: any) => {
-          if(err) {
-            this.alertSer.error(err?.error?.message);
-          };
-        });
+    addNewAsset() {
+      this.submit = true;
+      this.assetData.asset.deviceId = this.deviceIdFromStorage;
+      if(this.addAssetForm.valid) {
+        this.newItemEvent.emit();
+        this.alertSer.wait();
+        this.assetService.addAsset(this.assetData, this.selectedFile).subscribe((res: any) => {
+          if(res) {
+            this.alertSer.success(res?.message);
+            setTimeout(() => {
+              window.location.reload();
+            }, 2000);
+          }
+          }, (err: any) => {
+            if(err) {
+              this.alertSer.error(err?.error?.message);
+            };
+          });
+      }
     }
-  }
 
 }

@@ -221,7 +221,7 @@
           <th>
             <p style="display: inline-flex;">
               <span>Item code</span>
-              <img (click)="sort('id')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
+              <img (click)="sort('itemCode')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
             </p>
           </th>
 
@@ -233,21 +233,21 @@
           <th>
             <p style="display: inline-flex;">
               <span>Name</span>
-              <img (click)="sort('id')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
+              <img (click)="sort('name')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
             </p>
           </th>
 
           <th>
             <p style="display: inline-flex;">
               <span>Brand</span>
-              <img (click)="sort('id')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
+              <img (click)="sort('brand')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
             </p>
           </th>
 
           <th>
             <p style="display: inline-flex;">
               <span>Model</span>
-              <img (click)="sort('id')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
+              <img (click)="sort('model')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
             </p>
           </th>
 
@@ -261,21 +261,21 @@
           <th>
             <p style="display: inline-flex;">
               <span>Stock</span>
-              <img (click)="sort('id')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
+              <img (click)="sort('stockOnStartDate')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
             </p>
           </th>
 
           <th>
             <p style="display: inline-flex;">
               <span>Purchased</span>
-              <img (click)="sort('id')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
+              <img (click)="sort('purchases')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
             </p>
           </th>
 
           <th>
             <p style="display: inline-flex;">
               <span>Dispatched</span>
-              <img (click)="sort('id')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
+              <img (click)="sort('dispatched')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
             </p>
           </th>
 
@@ -289,7 +289,7 @@
           <th>
             <p style="display: inline-flex;">
               <span>InStock</span>
-              <img (click)="sort('id')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
+              <img (click)="sort('inStock')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
             </p>
           </th>
 
@@ -303,7 +303,12 @@
             <img (click)="sort('statusId')" class="pointer" src="assets/icons/sorticon.svg" width="15px">
           </th> -->
 
-          <th class="text-center">Others</th>
+          <th class="text-center">
+            <p style="display: inline-flex;">
+              <span>Others</span>
+              <img (click)="sort('others')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
+            </p>
+          </th>
         </tr>
       </thead>
 
@@ -343,7 +348,7 @@
           </td>
 
           <td>
-            <p class="pointer" (click)="openDetailsDialog(cust)">View</p>
+            <p class="pointer text-primary" (click)="openDetailsDialog(cust)">View</p>
           </td>
 
           <td>
@@ -362,7 +367,7 @@
             <p (click)="listDetails(cust)">{{ cust.used }}</p>
           </td>
 
-          <td>
+          <td style="font-weight: 600;">
             <p>{{ cust.inStock }}</p>
           </td>
 
@@ -420,7 +425,7 @@
         </tr>
       </tbody>
 
-      <tfoot>
+      <!-- <tfoot>
         <tr>
           <th scope="row">Total</th>
           <td></td>
@@ -434,7 +439,7 @@
           <td></td>
           <td>{{ newInventoryTable[newInventoryTable.length - 1]?.totalInStockCount }}</td>
         </tr>
-      </tfoot>
+      </tfoot> -->
     </table>
     <!-- table ends -->
   </div>
@@ -766,42 +771,42 @@
               <th>
                 <p style="display: inline-flex;">
                   <span>slNo</span>
-                  <img (click)="sort('slNo')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
+                  <img (click)="sort1('slNo')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
                 </p>
               </th>
 
               <th>
                 <p style="display: inline-flex;">
-                  <span>itemCode</span>
-                  <img (click)="sort('itemCode')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
+                  <span>Name</span>
+                  <img (click)="sort1('itemCode')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
                 </p>
               </th>
 
               <th>
                 <p style="display: inline-flex;">
                   <span>serialNo</span>
-                  <img (click)="sort('serialNo')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
+                  <img (click)="sort1('serialNo')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
                 </p>
               </th>
 
               <th>
                 <p style="display: inline-flex;">
                   <span>createdTime</span>
-                  <img (click)="sort('createdTime')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
+                  <img (click)="sort1('createdTime')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
                 </p>
               </th>
 
               <th>
                 <p style="display: inline-flex;">
                   <span>modifiedTime</span>
-                  <img (click)="sort('modifiedTime')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
+                  <img (click)="sort1('modifiedTime')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
                 </p>
               </th>
 
               <th>
                 <p style="display: inline-flex;">
                   <span>status</span>
-                  <img (click)="sort('statusId')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
+                  <img (click)="sort1('statusId')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
                 </p>
               </th>
             </tr>
@@ -814,7 +819,7 @@
               </td>
 
               <td>
-                <p>{{ inven.itemCode }}</p>
+                <p>{{ inven.name }}</p>
               </td>
 
               <td>

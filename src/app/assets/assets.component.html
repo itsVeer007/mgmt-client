@@ -94,7 +94,7 @@
         <mat-autocomplete #dev="matAutocomplete">
           <!-- <mat-option value="All" (click)="filterDevices('All')">All</mat-option> -->
           <mat-option *ngFor="let item of newDeviceId | search: deviceSearch" [value]="item.deviceId" (click)="filterDevices(item.deviceId)">
-            {{ item.deviceId }}
+            {{ item.deviceDescription }} - {{ item.deviceId }}
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
@@ -276,8 +276,8 @@
               <p [style.color]="item.status == 1 ? '#F5B400' : item.status == 2 ? '#00A44C' : item.status == 5 ? '#fa500f' : '#00A44C'">
 
                 <span class="d-flex">
-                  <span style="width: 50px;">
-                    {{ item.status == 1 ? "Pending": item.status == 2 ? "Added" : item.status == 3 ? '' : item.status == 4 ? "Synced" : item.status == 5 ? "Removed" : '--'}}
+                  <span style="width: 80px;" [style.color]="item.status == 1 ? 'blue' : (item.status == 2 || item.status == 3) ? 'yellow' : item.status == 4 ? 'green' : 'red'">
+                    {{ item.status == 1 ? "Pending": item.status == 2 ? "In progress" : item.status == 3 ? 'In progress' : item.status == 4 ? "Activated" : item.status == 5 ? "Deactivated" : '--'}}
                   </span>
 
                   <a (click)="openEditStatus(item.id)" class="ms-2 pointer">
@@ -297,8 +297,8 @@
                   <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Edit Status</mat-label>
                     <mat-select [(ngModel)]="statusObj.status">
-                      <mat-option [value]="2">Added</mat-option>
-                      <mat-option [value]="5">Removed</mat-option>
+                      <mat-option [value]="2">Activate</mat-option>
+                      <mat-option [value]="3">De-Activate</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </mat-dialog-content>

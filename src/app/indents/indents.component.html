@@ -14,48 +14,48 @@
   <!-- header ends -->
 
   <!-- count starts -->
-  <div class="row mb-2">
+  <!-- <div class="row mb-2">
     <div class="col-lg-1 col-md-1 col-sm-1 d-flex justify-content-start">
       <div class="vl-green"></div>
       <div class="mx-2">
         <div class="status">Requested</div>
-        <div class="count">{{ active?.length }}</div>
+        <div class="count">{{ requested?.length }}</div>
       </div>
     </div>
     <div class="col-lg-1 col-md-1 col-sm-1 d-flex justify-content-start">
       <div class="vl-red"></div>
       <div class="mx-2">
         <div class="status">Dispatched</div>
-        <div class="count">{{ indentTable?.length - active?.length }}</div>
+        <div class="count">{{ dispatched?.length }}</div>
       </div>
     </div>
     <div class="col-lg-1 col-md-1 col-sm-1 d-flex justify-content-start">
       <div class="vl-red"></div>
       <div class="mx-2">
         <div class="status">Received</div>
-        <div class="count">{{ indentTable?.length - active?.length }}</div>
+        <div class="count">{{ received?.length }}</div>
       </div>
     </div>
     <div class="col-lg-1 col-md-1 col-sm-1 d-flex justify-content-start">
       <div class="vl-red"></div>
       <div class="mx-2">
         <div class="status">Installed</div>
-        <div class="count">{{ indentTable?.length - active?.length }}</div>
+        <div class="count">{{ installed?.length }}</div>
       </div>
     </div>
     <div class="col-lg-1 col-md-1 col-sm-1 d-flex justify-content-start">
       <div class="vl-red"></div>
       <div class="mx-2">
         <div class="status">Returned</div>
-        <div class="count">{{ indentTable?.length - active?.length }}</div>
+        <div class="count">{{ returned?.length }}</div>
       </div>
     </div>
-  </div>
+  </div> -->
   <!-- count ends -->
 
   <!-- form -->
   <div class="search-form row">
-    <!-- <div class="col-lg-2 col-sm-12">
+    <div class="col-lg-3 col-sm-12">
       <mat-form-field class="example-form-field" appearance="outline" class="w-100">
         <mat-label>Search</mat-label>
         <input matInput type="text"  [(ngModel)]="searchText">
@@ -63,9 +63,9 @@
           <mat-icon>search</mat-icon>
         </button>
       </mat-form-field>
-    </div> -->
+    </div>
 
-    <div class="col-lg-2 col-md-2">
+    <!-- <div class="col-lg-2 col-md-2">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Ticket Id</mat-label>
         <mat-select [(ngModel)]="ojobOrTicketId">
@@ -110,7 +110,7 @@
 
     <div class="filter-search-btn col-lg-1 col-md-1">
       <button (click)="applyFilter()">Submit</button>
-    </div>
+    </div> -->
 
   </div>
   <!-- /form -->
@@ -130,22 +130,31 @@
           </th> -->
 
           <th>
+            <p>
             <span>Ticket id</span>
-            <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </p>
           </th>
 
           <th>
+            <p>
             <span>Site id</span>
-            <img (click)="sort('name')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <img (click)="sort('siteId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </p>
           </th>
 
           <th>
-            <span>Site name</span>
-            <img (click)="sort('productName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <p>
+              <span>Site name</span>
+            <img (click)="sort('siteName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </p>
           </th>
 
           <th>
-            <span>Cunt of indents</span>
+            <p>
+              <span>Cunt of indents</span>
+              <img (click)="sort('countOfIndents')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </p>
           </th>
 
           <th>
@@ -157,15 +166,18 @@
           </th> -->
 
           <th>
-            <span>Created time</span>
+            <p>
+              <span>Created time</span>
+              <img (click)="sort('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </p>
           </th>
 
-          <th class="text-center">Actions</th>
+          <!-- <th class="text-center">Actions</th> -->
         </tr>
       </thead>
 
       <tbody>
-        <tr *ngFor="let cust of newIndentTable | search : searchText; let i = index" (dblclick)="openViewPopup(cust)">
+        <tr *ngFor="let cust of newIndentTable | search : searchText; let i = index">
           <!-- <td>
             <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="cust.selected" (change)="
                 checkIfAllSelected();
@@ -208,19 +220,17 @@
             <p>{{ cust.statusId == 1 ? "Requested" : cust.statusId == 2 ? "Dispatched" : cust.statusId == 3 ? "Received" : cust.statusId == 4 ? "Installed" : cust.statusId == 5 ? "Returned" : '' }}</p>
           </td> -->
 
-          <td class="table-icons">
-
-
-              <a class="mx-1 pointer" (click)="openViewPopup(cust)">
-                <img src="assets/icons/view.svg"/>
-              </a>
-              <a class="mx-1 pointer" (click)="openEditPopup(cust)">
-                <img src="assets/icons/edit.svg"  />
-              </a>
-              <a class="mx-1 pointer" value="Delete" (click)="openDeletePopup(cust)">
-                <img src="assets/icons/delete.svg"/>
-              </a>
-          </td>
+          <!-- <td class="table-icons">
+            <a class="mx-1 pointer" (click)="openViewPopup(cust)">
+              <img src="assets/icons/view.svg"/>
+            </a>
+            <a class="mx-1 pointer" (click)="openEditPopup(cust)">
+              <img src="assets/icons/edit.svg"  />
+            </a>
+            <a class="mx-1 pointer" value="Delete" (click)="openDeletePopup(cust)">
+              <img src="assets/icons/delete.svg"/>
+            </a>
+          </td> -->
         </tr>
       </tbody>
     </table>
@@ -461,7 +471,7 @@
 
 <ng-template #viewDetailsDialog>
   <div style="background-color: #084982;">
-    <p class="dialog-title">view ticket</p>
+    <p class="dialog-title">View items</p>
   </div>
 
   <mat-dialog-content>
@@ -470,17 +480,47 @@
         <table class="table" id="mytable">
           <thead>
             <tr class="task-table">
-              <th>id</th>
+              <th>
+                <p>
+                  <span>id</span>
+                  <img (click)="sort1('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                </p>
+              </th>
 
-              <th>itemCode</th>
+              <th>
+                <p>
+                  <span>itemCode</span>
+                  <img (click)="sort1('itemCode')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                </p>
+              </th>
 
-              <th>serialNo</th>
+              <th>
+                <p>
+                  <span>serialNo</span>
+                  <img (click)="sort1('serialNo')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                </p>
+              </th>
 
-              <th>createdTime</th>
+              <th>
+                <p>
+                  <span>createdTime</span>
+                  <img (click)="sort1('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                </p>
+              </th>
 
-              <th>modifiedTime</th>
+              <th>
+                <p>
+                  <span>modifiedTime</span>
+                  <img (click)="sort1('modifiedTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                </p>
+              </th>
 
-              <th>status</th>
+              <th>
+                <p>
+                  <span>status</span>
+                  <img (click)="sort1('countOfIndents')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                </p>
+              </th>
             </tr>
           </thead>
 

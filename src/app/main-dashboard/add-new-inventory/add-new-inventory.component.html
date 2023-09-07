@@ -58,51 +58,91 @@
         <div class="col-lg-6 col-md-6">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>name</mat-label>
-            <mat-select formControlName="name" [(ngModel)]="inventoryBody.inventory.name">
-              <mat-option *ngFor="let item of productData" [value]="item.suggestedItemCode" (click)="listInventoryByItemCode(item)">{{ item.materialDescription }}</mat-option>
+            <mat-select formControlName="name">
+              <mat-option *ngFor="let item of productData" [value]="item.materialDescription" (click)="listInventoryByItemCode(item); getItemCode(item)">{{ item.materialDescription }}</mat-option>
             </mat-select>
             <mat-error class="mt-1">name is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>itemCode</mat-label>
+            <mat-select formControlName="itemCode" [(ngModel)]="inventoryBody.inventory.itemCode">
+              <mat-option [value]="itemCodes?.code">{{ itemCodes?.code }}</mat-option>
+            </mat-select>
+            <mat-error class="mt-1">itemCode is required</mat-error>
           </mat-form-field>
         </div>
 
         <!-- <div class="col-lg-6 col-md-6">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>itemCode</mat-label>
-            <mat-select formControlName="itemCode" [(ngModel)]="itemCode">
-              <mat-option *ngFor="let item of productData" [value]="item.suggestedItemCode">{{ item.suggestedItemCode }}</mat-option>
-            </mat-select>
-            <mat-error class="mt-1">itemCode is required</mat-error>
-          </mat-form-field>
-        </div> -->
-        <div class="col-lg-6 col-md-6">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>itemCode</mat-label>
             <input matInput formControlName="itemCode" [(ngModel)]="inventoryBody.inventory.name">
             <mat-error class="mt-1">itemCode is required</mat-error>
           </mat-form-field>
+        </div> -->
+
+        <div class="col-lg-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Brand</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="brand"
+              [(ngModel)]="inventoryBody.inventory.brand"
+              [matAutocomplete]="brand"
+              placeholder="Create new brand"
+              (focus)="removeDuplicates()"
+            >
+            <button matSuffix mat-icon-button>
+              <mat-icon>arrow_drop_down</mat-icon>
+            </button>
+            <mat-autocomplete #brand="matAutocomplete">
+              <mat-option *ngFor="let br of filteredBrandNames" [value]="br.brand" (click)="listBrandAndModel(br)">{{br.brand}}</mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
         </div>
 
-        <div class="col-lg-6 col-md-6">
+        <!-- <div class="col-lg-6 col-md-6">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>brand</mat-label>
             <mat-select formControlName="brand" [(ngModel)]="inventoryBody.inventory.brand" (focus)="removeDuplicates()">
               <mat-option *ngFor="let br of filteredBrandNames" [value]="br.brand" (click)="listBrandAndModel(br)">{{br.brand}}</mat-option>
-              <!-- <mat-option [value]="brand" (click)="listBrandAndModel()">{{brand}}</mat-option> -->
             </mat-select>
             <mat-error class="mt-1">brand is required</mat-error>
           </mat-form-field>
+        </div> -->
+
+        <div class="col-lg-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Model</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="model"
+              [(ngModel)]="inventoryBody.inventory.model"
+              [matAutocomplete]="model"
+              placeholder="Create new model"
+            >
+            <button matSuffix mat-icon-button>
+              <mat-icon>arrow_drop_down</mat-icon>
+            </button>
+            <mat-autocomplete #model="matAutocomplete">
+              <mat-option [value]="modelNames?.model">{{modelNames?.model}}</mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
         </div>
 
-        <div class="col-lg-6 col-md-6">
+        <!-- <div class="col-lg-6 col-md-6">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>model</mat-label>
             <mat-select formControlName="model" [(ngModel)]="inventoryBody.inventory.model">
               <mat-option *ngFor="let mo of modelNames" [value]="mo">{{mo}}</mat-option>
-              <!-- <mat-option [value]="model">{{model}}</mat-option> -->
             </mat-select>
             <mat-error class="mt-1">model is required</mat-error>
           </mat-form-field>
-        </div>
+        </div> -->
 
         <div class="col-lg-6 col-md-6">
           <mat-form-field appearance="outline" class="w-100">

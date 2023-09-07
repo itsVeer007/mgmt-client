@@ -21,17 +21,23 @@ export class FrComponent implements OnInit {
     public alertSer: AlertService
     ) { }
 
+  siteIds: any;
+  searchText: any;
   ngOnInit(): void {
     // this.listFRSites();
     this.listFRTickets();
     this.onGetMetadata();
+
+    this.siteIds = JSON.parse(localStorage.getItem('siteIds')!)?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
   }
 
-  frTickets: any
+  frTickets: any;
+  newFrTickets: any;
   listFRTickets() {
     this.ticketSer.listFRTickets().subscribe((res: any) => {
       // console.log(res);
       this.frTickets = res;
+      this.newFrTickets = this.frTickets;
     })
   }
 
@@ -54,6 +60,15 @@ export class FrComponent implements OnInit {
         }
       }
     })
+  }
+
+  siteNg: any;
+  filterSites(site: any) {
+    if(site != 'All') {
+      this.newFrTickets =  this.frTickets.filter((item: any) => item.sitename == site)
+    } else {
+      this.newFrTickets = this.frTickets;
+    }
   }
 
   showIndent: boolean = false;
@@ -121,7 +136,12 @@ export class FrComponent implements OnInit {
   @ViewChild('currentTasksDialog') currentTasksDialog = {} as TemplateRef<any>;
 
   tasks: any = [];
-  openTasksDialog() {
+  ticketType: any;
+  currentSite: any;
+  openTasksDialog(data: any) {
+    console.log(data);
+    this.ticketType = data?.typeId;
+    this.currentSite = data?.siteId;
     this.dialog.open(this.currentTasksDialog, {maxWidth: '750px', maxHeight: '550px'});
     this.ticketSer.listFRTasksOfCurrentVisit(1565).subscribe((res: any) => {
       // console.log(res);
@@ -147,9 +167,10 @@ export class FrComponent implements OnInit {
 
   indentItems: any;
   openDetailsDialog(item: any) {
-    console.log(item)
-    this.dialog.open(this.viewIndentDialog, {maxWidth: '550px', maxHeight: '550px'});
+    // console.log(item);
+    this.dialog.open(this.viewIndentDialog, {maxWidth: '750px', maxHeight: '550px'});
     this.inventorySer.listIndentItems(item).subscribe((res: any) => {
+      // console.log(res);
       this.indentItems = res;
     })
   }
@@ -186,6 +207,7 @@ export class FrComponent implements OnInit {
   @ViewChild('replaceDialog') replaceDialog = {} as TemplateRef<any>;
 
   openCreateOrder(item: any) {
+    console.log(item)
     // this.currentItem = item;
     this.dialog.open(this.replaceDialog, { maxWidth: '650px', maxHeight: '550px'});
     this.inventorySer.listIndentItems(item).subscribe((res: any) => {
@@ -210,13 +232,24 @@ export class FrComponent implements OnInit {
   inventoryId: any;
   inventoryId2: any;
   openReplaceComponent(data: any) {
+    console.log(data)
     this.dialog.open(this.replaceStatusDialog, { maxWidth: '550px', maxHeight: '550px'});
-    this.inventoryId2 = data;
-    console.log(this.inventoryId2)
+    // this.inventoryId2 = data; imp
+    // console.log(this.inventoryId2)
 
-    this.inventorySer.listInventoryByItemCode(data).subscribe((res: any) => {
-      // console.log(res)
+    // this.inventorySer.listInventoryByItemCode(data).subscribe((res: any) => {
+    //   console.log(res)
+    //   this.inventoryId = res;
+    // });
+
+    this.ticketSer.getItemsList(data).subscribe((res: any) => {
+      // console.log(res);
       this.inventoryId = res;
+    });
+
+    this.inventorySer.listIndentItems(data).subscribe((res: any) => {
+      console.log(res);
+      this.inventoryId2 = res;
     })
   }
 
@@ -225,9 +258,18 @@ export class FrComponent implements OnInit {
     newInventoryId: null,
     replacedBy: 1
   }
+
+  body1 = {
+    // oldInventoryId: null,
+    newInventoryId: null,
+    replacedBy: 1,
+    siteId: null
+  }
+
   replaceComponent() {
     // this.body.newInventoryId = this.inventoryId2?.inventoryId;
     // this.alertSer.wait();
+    // this.body1.newInventoryId = indentItems
     this.inventorySer.replaceComponent(this.body).subscribe((res: any) => {
       // console.log(res);
       if(res) {
@@ -238,6 +280,18 @@ export class FrComponent implements OnInit {
         this.alertSer.error(err?.error?.message);
       };
     });
+  }
+  
+  statusMsg: string = '';
+  changeToInstall(data: any) {
+    this.body1.siteId = this.currentSite;
+    this.body1.newInventoryId = data?.inventoryId;
+    this.inventorySer.replaceComponent(this.body1).subscribe((res: any) => {
+      console.log(res);
+      if(res?.statusCode == 200) {
+        this.statusMsg = 'Installed'
+      }
+    })
   }
 
   @ViewChild('cnfrmStatusDialog') cnfrmStatusDialog = {} as TemplateRef<any>;

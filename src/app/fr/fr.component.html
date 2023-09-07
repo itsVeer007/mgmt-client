@@ -2,7 +2,7 @@
   <!-- header -->
   <div class="d-flex justify-content-between align-items-center mb-2">
     <div class="users-header">
-      <p class="m-0">Total Tasks - <span>{{frTickets?.length}}</span></p>
+      <p class="m-0">Total Tickets - <span>{{frTickets?.length}}</span></p>
     </div>
 
     <div class="d-flex">
@@ -19,6 +19,32 @@
   </div>
   <!-- /header -->
 
+    <!-- form -->
+    <div class="search-form">
+      <div class="row col-lg-10 col-md-10">
+        <div class="col-lg-3 col-md-3 col-sm-12">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Site Name</mat-label>
+            <mat-select [(ngModel)]="siteNg">
+              <mat-option value="All" (click)="filterSites('All')">All</mat-option>
+              <mat-option *ngFor="let data of siteIds" (click)="filterSites(data.sitename)" [value]="data.sitename">{{ data.siteid }} - {{ data.siteShortName }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+  
+        <div class="col-lg-3 col-md-3 col-sm-12">
+          <mat-form-field class="example-form-field" appearance="outline" class="w-100">
+            <mat-label>Search</mat-label>
+            <input matInput type="text"  [(ngModel)]="searchText">
+            <button matSuffix mat-icon-button>
+              <mat-icon>search</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <!-- /form -->
+
   <!-- overall tasks -->
     <div class="table-resp">
       <table class="table table-hover" id="mytable">
@@ -26,7 +52,7 @@
           <tr class="form1">
             <th>
               <p class="d-inline-flex">
-                <span>Ticket id</span>
+                <span>id</span>
                 <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
               </p>
               <!-- <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
@@ -98,15 +124,15 @@
         </thead>
 
         <tbody>
-          <tr *ngFor="let cust of frTickets">
+          <tr *ngFor="let cust of newFrTickets; let i = index">
             <td>
-              <p>{{ cust.ticketId }}</p>
+              <p>{{ i+1 }}</p>
             </td>
             <td>
               <p class="pointer text-primary" (click)="openSitesDialog(); fieldVisitEntry(cust)">Enter</p>
             </td>
             <td>
-              <p class="pointer text-primary" (click)="openTasksDialog()">View</p>
+              <p class="pointer text-primary" (click)="openTasksDialog(cust)">View</p>
             </td>
             <td>
               <p>{{ cust.ticketType }}</p>
@@ -198,7 +224,11 @@
               <span>Status</span>
             </th>
 
-            <th>
+            <th *ngIf="ticketType == 2">
+              <span>Install</span>
+            </th>
+
+            <th *ngIf="ticketType == 1">
               <span>Replace</span>
             </th>
           </tr>
@@ -242,8 +272,14 @@
               </a>
             </td>
 
-            <td>
+            <td *ngIf="ticketType == 2">
               <a class="mx-1 pointer" (click)="openCreateOrder(cust)">
+                <img src="assets/icons/add.svg" width="35">
+              </a>
+            </td>
+
+            <td *ngIf="ticketType == 1">
+              <a class="mx-1 pointer" (click)="openReplaceComponent(cust)">
                 <img src="assets/icons/add.svg" width="35">
               </a>
             </td>
@@ -623,14 +659,14 @@
             <tr class="task-table">
               <th>
                 <p class="d-inline-flex">
-                  <span>No</span>
+                  <span>Sl No</span>
                   <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
                 </p>
               </th>
 
               <th>
                 <p class="d-inline-flex">
-                  <span>Item code</span>
+                  <span>Name</span>
                   <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
                 </p>
               </th>
@@ -658,7 +694,7 @@
 
               <th>
                 <p class="d-inline-flex">
-                  <span>Replace</span>
+                  <span>Install</span>
                   <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
                 </p>
               </th>
@@ -668,11 +704,11 @@
           <tbody>
             <tr *ngFor="let inven of indentItems; let i = index">
               <td>
-                <p>{{ inven.id }}</p>
+                <p>{{ i+1 }}</p>
               </td>
 
               <td>
-                <p>{{ inven.itemCode }}</p>
+                <p>{{ inven.name }}</p>
               </td>
 
               <td>
@@ -688,7 +724,7 @@
               </td>
 
               <td>
-                <span class="d-inline-flex">
+                <!-- <span class="d-inline-flex">
                   <p>
                     {{ inven.statusId == 1 ? "Requested" : inven.statusId == 2 ? "Dispatched" : inven.statusId == 3 ? "Received" : inven.statusId == 4 ? "Installed" : inven.statusId == 5 ? "Returned" : '' }}
                   </p>
@@ -696,7 +732,12 @@
                   <a (click)="openReplaceComponent(inven)" class="ms-2 pointer">
                     <img src="assets/icons/edit.svg"  width="13">
                   </a>
-                </span>
+                </span> -->
+
+                <p (click)="changeToInstall(inven)">
+                  <span *ngIf="statusMsg == ''">To be installed</span>
+                  <span *ngIf="statusMsg != ''">{{statusMsg}}</span>
+                </p>
 
                 <!-- <ng-template #editStatusDialog>
                   <div style="background-color: #084982;">
@@ -746,7 +787,7 @@
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>oldInventoryId</mat-label>
           <mat-select [(ngModel)]="body.oldInventoryId">
-            <mat-option *ngFor="let item of inventoryId" [value]="item.slNo" [hidden]="item.statusId != 3">{{ item.slNo }} - {{ item.name }} </mat-option>
+            <mat-option *ngFor="let item of inventoryId" [value]="item.inventorySlNo">{{ item.inventorySlNo }} - {{ item.name }} </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -755,7 +796,7 @@
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>newInventoryId</mat-label>
           <mat-select [(ngModel)]="body.newInventoryId">
-            <mat-option [value]="inventoryId2.inventoryId">{{ inventoryId2.inventoryId }} - {{ inventoryId2.itemCode }}</mat-option>
+            <mat-option *ngFor="let val of inventoryId2" [value]="val.inventoryId">{{ val.inventoryId }} - {{ val.name }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>

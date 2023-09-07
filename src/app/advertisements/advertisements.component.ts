@@ -1,7 +1,10 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
 import { DeviceService } from 'src/services/device.service';
@@ -32,10 +35,29 @@ export class AdvertisementsComponent implements OnInit {
   endDateTime: any;
 
   siteIds: any;
+
+
+  myControl = new FormControl('');
+  options: number[] = [4585, 9854, 6932];
+  filteredOptions: number[] = [];
   ngOnInit(): void {
     this.siteIds = JSON.parse(localStorage.getItem('siteIds')!);
 
     this.listAssets();
+
+    this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || '')),
+    )
+    .subscribe(filteredNumbers => {
+      this.filteredOptions = filteredNumbers;
+    });;
+  }
+
+  _filter(value: number): number[] {
+    const filterValue = value.toString().toLowerCase();
+
+    return this.options.filter(option => option.toString().toLowerCase().includes(filterValue));
   }
 
   advertisementTable: any;

@@ -28,6 +28,43 @@
             </mat-form-field>
           </div>
 
+          <div class="col-lg-12 my-3">
+            <mat-radio-group name="radioOpt1" class="w-100" formControlName="timeId" [(ngModel)]="assetData.nameParams.timeId">
+              <mat-label>Time</mat-label>
+              <mat-radio-button class="ms-3" name="time" [value]="3">All</mat-radio-button>
+              <mat-radio-button class="ms-3" name="time" [value]="1">AM</mat-radio-button>
+              <mat-radio-button class="ms-3" name="time" [value]="2">PM</mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+          <div class="col-lg-12 my-3">
+            <mat-radio-group name="radioOpt2" class="w-100" formControlName="tempId" [(ngModel)]="assetData.nameParams.tempId">
+              <mat-label>Temp</mat-label>
+              <mat-radio-button class="ms-3" name="tenp" [value]="4">All</mat-radio-button>
+              <mat-radio-button class="ms-3" name="tenp" [value]="1">-10 to 20</mat-radio-button>
+              <mat-radio-button class="ms-3" name="tenp" [value]="2">21 to 40</mat-radio-button>
+              <mat-radio-button class="ms-3" name="tenp" [value]="3">>40</mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+          <div class="col-lg-6 col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <input matInput [matDatepicker]="picker1" placeholder="From Date" formControlName="fromDate" [(ngModel)]="assetData.asset.fromDate">
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+              <mat-error class="mt-1">From Date is required</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-6 col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <input matInput [matDatepicker]="picker2" placeholder="To Date" formControlName="toDate" [(ngModel)]="assetData.asset.toDate">
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+              <mat-error class="mt-1">To Date is required</mat-error>
+            </mat-form-field>
+          </div>
+
           <!-- file Upload -->
           <div class="col-lg-12 col-md-6 mb-2">
             <div [class.valid]="addAssetForm.controls['file'].valid || !submit" [class.invalid]="(addAssetForm.controls['file'].hasError('required')) && submit || (addAssetForm.controls['file'].invalid)">
@@ -52,7 +89,11 @@
           </div>
           <!-- /file Upload -->
 
-          <div class="col-lg-6 col-md-6">
+          <div class="col-lg-12">
+          <p style="font-size: 14px;">  <span style="font-weight: 500;">Note:</span>&nbsp;For Special Cases, Please Contact <span class="text-primary">support@ivisecurity.com</span></p>
+          </div>
+
+          <!-- <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Device Mode</mat-label>
               <mat-select formControlName="deviceModeId" [(ngModel)]="assetData.asset.deviceModeId">
@@ -60,7 +101,7 @@
               </mat-select>
               <mat-error class="mt-1">Device Mode is required</mat-error>
             </mat-form-field>
-          </div>
+          </div> -->
 
           <!-- <div class="col-lg-6 my-3" style="font-size: 12px;">
             <mat-radio-group name="radioOpt1" class="w-100" formControlName="splRuleId" [(ngModel)]="assetData.asset.splRuleId">
@@ -70,25 +111,7 @@
             </mat-radio-group>
           </div> -->
 
-          <div class="col-lg-6 col-md-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <input matInput [matDatepicker]="picker1" placeholder="From Date" formControlName="fromDate" [(ngModel)]="assetData.asset.fromDate">
-              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-              <mat-datepicker #picker1></mat-datepicker>
-              <mat-error class="mt-1">From Date is required</mat-error>
-            </mat-form-field>
-          </div>
-
-          <div class="col-lg-6 col-md-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <input matInput [matDatepicker]="picker2" placeholder="To Date" formControlName="toDate" [(ngModel)]="assetData.asset.toDate">
-              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-              <mat-datepicker #picker2></mat-datepicker>
-              <mat-error class="mt-1">To Date is required</mat-error>
-            </mat-form-field>
-          </div>
-
-          <div class="col-lg-6" *ngIf="assetData.asset.deviceModeId == 2 || assetData.asset.deviceModeId == 3">
+           <div class="col-lg-6" *ngIf="assetData.asset.deviceModeId == 2 || assetData.asset.deviceModeId == 3">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Select time range</mat-label>
               <mat-select formControlName="timeId" [(ngModel)]="assetData.nameParams.timeId">

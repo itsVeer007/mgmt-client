@@ -39,15 +39,15 @@
               <div class="lists" *ngIf="showIconAnalytic" style="margin-left: -85px;">Analytic</div>
               <div class="lists" *ngIf="showIconUser" style="margin-left: -40px;">User</div>
 
-              <div class="d-flex flex-row justify-content icons pointer" style="position: absolute;">
+            <div class="d-flex flex-row justify-content icons pointer" style="position: absolute;">
                 <a (click)="iconssnew('vert');showAddBusinessVertical=!showAddBusinessVertical">
-                  <img src="assets/icons/vertical.svg" class="mx-2" width="15" height="15"
+                <img src="assets/icons/vertical.svg" class="mx-2" width="15" height="15"
                     (mouseenter)="showIconVertical = true" (mouseleave)="showIconVertical = false" />
                 </a>
 
                 <a (click)="iconssnew('cust');showAddCustomer=!showAddCustomer">
-                  <img src="assets/icons/customer.svg" class="list mx-2" width="15" height="15"
-                    (mouseenter)="showIconCustomer = true" (mouseleave)="showIconCustomer = false" />
+                <img src="assets/icons/customer.svg" class="list mx-2" width="15" height="15"
+                (mouseenter)="showIconCustomer = true" (mouseleave)="showIconCustomer = false" />
                 </a>
 
                 <a (click)="iconssnew('site');showAddSite=!showAddSite">

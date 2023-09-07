@@ -12,7 +12,7 @@ export class TicketService {
 
   constructor(private http: HttpClient) { }
 
-  // baseUrl = `${environment.baseUrl}/tickets`;
+  // baseUrl = `${environment.baseUrl}/inventoryAndtickets`;
   // base = 'http://192.168.0.137:8080';
   baseUrl = 'http://192.168.0.137:8080';
 
@@ -172,6 +172,13 @@ export class TicketService {
   getTicketsReport() {
     let url = this.baseUrl + `/getTicketsReport_1_0`;
     return this.http.get(url);
+  }
+
+  getItemsList(payload: any) {
+    let url = this.baseUrl + `/getItemsList_1_0`;
+    let params = new HttpParams().set('siteId', payload?.siteId);
+
+    return this.http.get(url, {params: params});
   }
 
 }

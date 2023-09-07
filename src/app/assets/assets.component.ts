@@ -153,10 +153,6 @@ export class AssetsComponent implements OnInit {
     this.siteIdSearch.valueChanges.pipe(startWith(''),map((value: any) => this.filterOptions(value))).subscribe((filtered: any) => {
       this.filteredOptions = filtered.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
     });
-
-    // if(this.searchControl.value == "" || this.searchControl.value == null) {
-    //   this.newSiteIdToTable = this.siteIdToTable;
-    // }
   }
 
   myData: any;
@@ -335,7 +331,7 @@ export class AssetsComponent implements OnInit {
 
   openViewPopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.viewAssetDialog, {maxWidth: '550px', maxHeight: '550px'});
+    this.dialog.open(this.viewAssetDialog, {maxWidth: '550px', maxHeight: '500px'});
 
     // console.log(this.currentItem);
   }

@@ -49,7 +49,7 @@
 
   <div class="row search-form">
     <div class="col-lg-2 col-md-2 col-sm-12">
-      <mat-form-field appearance="outline" class="w-100">
+      <!-- <mat-form-field appearance="outline" class="w-100">
         <mat-label>Select Site</mat-label>
         <input matInput type="text" [matAutocomplete]="site" [(ngModel)]="siteId" #siteIdInput>
         <button matSuffix mat-icon-button>
@@ -58,6 +58,17 @@
         <mat-autocomplete #site="matAutocomplete">
           <mat-option value="All">All</mat-option>
           <mat-option *ngFor="let site of siteIds" (click)="filterTable(site.siteid); filterSelection(site.siteid)" [value]="site.siteid">{{ site.siteid }} - {{ site.siteShortName }}</mat-option>
+        </mat-autocomplete>
+      </mat-form-field> -->
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Number</mat-label>
+        <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl"
+          [matAutocomplete]="auto" #siteIdInput>
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <mat-option *ngFor="let option of filteredOptions" [value]="option">
+            {{option}}
+          </mat-option>
         </mat-autocomplete>
       </mat-form-field>
     </div>

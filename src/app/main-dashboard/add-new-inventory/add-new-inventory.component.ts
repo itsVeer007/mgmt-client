@@ -1,7 +1,8 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { DatePipe } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';
@@ -39,7 +40,8 @@ export class AddNewInventoryComponent implements OnInit {
     private metadataSer: MetadataService,
 
     public alertSer: AlertService,
-    public datepipe: DatePipe
+    public datepipe: DatePipe,
+    public dialog: MatDialog,
   ) { }
 
   @Input() show:any;
@@ -118,7 +120,7 @@ export class AddNewInventoryComponent implements OnInit {
   listProduct() {
     this.inventorySer.listProduct().subscribe((res: any) => {
       this.productData = res;
-      console.log(this.productData)
+      // console.log(this.productData);
     })
 
     // this.inventorySer.listOrders().subscribe((res: any) => {
@@ -168,6 +170,15 @@ export class AddNewInventoryComponent implements OnInit {
   //   })
   // }
 
+  itemCodes: any;
+  getItemCode(data: any) {
+    this.inventorySer.getItemCode(data).subscribe((res: any) => {
+      // this.model = res?.model;
+      // console.log(res);
+      this.itemCodes = res;
+    })
+  }
+
   brandNames: any = [];
   listInventoryByItemCode(data: any) {
     this.inventorySer.listInventoryByItemCode(data).subscribe((res: any) => {
@@ -177,14 +188,15 @@ export class AddNewInventoryComponent implements OnInit {
     })
   }
 
-  modelNames: any = [];
+  modelNames: any;
   listBrandAndModel(data: any) {
-    console.log(data)
-    this.inventorySer.listBrandAndModel(data).subscribe((res: any) => {
-      // this.model = res?.model;
-      // console.log(res);
-      this.modelNames = res?.brand;
-    })
+    // console.log(data)
+    // this.inventorySer.listBrandAndModel(data).subscribe((res: any) => {
+    //   console.log(res);
+    //   this.modelNames = res?.brand;
+    // })
+
+    this.modelNames = data
   }
 
   filteredBrandNames: any;
@@ -197,6 +209,7 @@ export class AddNewInventoryComponent implements OnInit {
         return acc;
       }
     }, []);
+    console.log(this.filteredBrandNames)
   }
 
   partType: any;
@@ -233,7 +246,7 @@ export class AddNewInventoryComponent implements OnInit {
   warrantyDetail: any = 'N';
   submit() {
     console.log(this.inventoryBody);
-    this.inventoryBody.inventory.itemCode = this.inventoryBody.inventory.name;
+    this.inventoryBody.inventory.name = this.inventoryBody.inventory.itemCode;
     if(this.UserForm.valid) {
       this.alertSer.wait();
       if(this.inventoryBody.serialnos == '') {
@@ -255,7 +268,7 @@ export class AddNewInventoryComponent implements OnInit {
           this.alertSer.success(res?.message);
         }
         setTimeout(() => {
-          window.location.reload();
+          // window.location.reload();
         }, 2000);
       }, (err: any) => {
         if(err) {
