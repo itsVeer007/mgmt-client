@@ -8,24 +8,16 @@ import { ApiService } from 'src/services/api.service';
 })
 export class AppComponent {
   title = 'mgmtClient';
-  user = null;
 
   constructor(private apiser: ApiService) {}
 
+  user = null;
   ngOnInit(){
-    if (isDevMode()) {
-      console.log('Stagging!');
-    } else {
-      console.log('Production!');
-    }
+    isDevMode() ? console.log('Stagging!') : console.log('Production!');
 
     this.apiser.user$.subscribe(() => {
-      this.user = JSON.parse(localStorage.getItem('user')!);
+      this.user = JSON.parse(sessionStorage.getItem('user')!);
     });
   }
-
-  // ngOnDestroy(){
-  //   this.apiser.user$.next(null);
-  // }
 
 }

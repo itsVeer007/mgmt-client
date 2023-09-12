@@ -64,7 +64,7 @@ export class AssetsComponent implements OnInit {
   sycedAfterAddition: any = [];
   sycedAfterRemoval: any = [];
   removed: any = [];
-  
+
   currentDateTime: any;
   endDateTime: any;
 
@@ -78,7 +78,7 @@ export class AssetsComponent implements OnInit {
     this.getSiteData();
     this.ongetDeviceMode();
 
-    this.devDevId = JSON.parse(localStorage.getItem('device_temp')!);
+    this.devDevId = JSON.parse(localStorage.getItem('add_body')!);
     this.siteIds = JSON.parse(localStorage.getItem('siteIds')!);
   }
 
@@ -312,7 +312,7 @@ export class AssetsComponent implements OnInit {
 
   showAddAsset(devData: any) {
     this.showAsset = true;
-    localStorage.setItem('device_temp', JSON.stringify(devData));
+    localStorage.setItem('add_body', JSON.stringify(devData));
   }
 
   closenow(value: any, type: String) {

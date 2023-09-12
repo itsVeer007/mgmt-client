@@ -38,10 +38,6 @@
     z-index: 999;
   }
 
-  .header .group88 img {
-    width: 40px;
-  }
-
   /* .sidebar-sticky {
     position: relative;
     top: 0;
@@ -92,21 +88,21 @@
   margin: 0 6px;
 }
 
-.profile-card {
+/* .profile-card {
   position: absolute;
   top: 6.5%;
   right: 3%;
   z-index: 999;
   border: none;
   border-radius: 10px;
-}
+} */
 
 .profile-card .card-header {
   background-image: linear-gradient(to top, #AA4337, #274874);
-  color: #fff;
+  /* color: #fff; */
   /* width: 250px;
   height: 200px; */
-  border-radius: 5px 5px 0px 0px;
+  /* border-radius: 5px 5px 0px 0px; */
 }
 
 /* .profile-card .card-header img {
@@ -114,18 +110,18 @@
   margin-top: -25px;
 } */
 
-.profile-card .card-body {
+.profile-card .card-bdy {
   background-color: #ABABAB1A;
-  padding: 0rem 0rem;
+  /* padding: 0rem 0rem; */
 }
 
-.profile-card .card-body a {
+.profile-card .card-bdy a {
   color: #000;
   font-size: 13px;
   text-decoration: none;
 }
 
-.profile-card .card-body div {
+.profile-card .card-bdy div {
   /* height: 48px; */
   border-bottom: 2px solid #fff;
   padding: 10px;
@@ -148,6 +144,10 @@
 }
 
 @media only screen and (max-width: 768px) {
+  .user-pic img{
+    width: 30px;
+  }
+
   .header .logo img {
     width: 150px;
   }
@@ -163,9 +163,9 @@
   .mobile-sidebar {
     background: url('../../assets/icons/bgimg.png') top right;
     background-size: cover;
-    top: 70px;
+    /* top: 70px;
     position: absolute;
-    width: 100%;
+    width: 100%; */
   }
 
   .mobile-sidebar .list-group :hover {
@@ -368,4 +368,8 @@
   left: -100%;
   z-index: 598;
   width: 100%;
+}
+
+::ng-deep .mat-menu-content:not(:empty) {
+  padding: 0 !important;
 }

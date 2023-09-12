@@ -1,55 +1,88 @@
+.login-logo {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
 .login {
-    background: url('../../assets/icons/bgimg.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+  background: url('../../assets/icons/bgimg.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  /* background-image: linear-gradient(to right, #084982 , #D34124); */
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.main-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: calc(100vh - 25px);
-}
-.heading span{
-    margin-bottom: 10px;
-    color: #fff;
-}
+/* .main-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 25px);
+} */
 
-.sign-in {
-    background-color: #fff;
-    padding: 20px 30px;
-    border-radius: 5px;
-    align-items: center;
-}
+/* .heading span {
+  margin-bottom: 10px;
+  color: #fff;
+} */
 
-form input {
-    margin-bottom: 10px;
-    font-size: 12px;
-    border-radius: 7px;
-}
-form small {
-    color: #084982;
-    font-size: 12px;
-    float: right;
-}
+/* .sign-in {
+  background-color: #fff;
+  padding: 20px 30px;
+  border-radius: 5px;
+  align-items: center;
+} */
 
-form .btns {
-    text-align: center;
-}
+/* form input {
+  margin-bottom: 10px;
+  font-size: 12px;
+  border-radius: 7px;
+} */
 
 form .btn {
-    color: #fff;
-    background-color: #084982;
-    width: 200px;
-    text-align: center;
-    font-size: 14px;
-    padding: 10px;
-    border-radius: 25px;
+  color: #fff;
+  background-color: #084982;
+  width: 200px;
+  text-align: center;
+  font-size: 14px;
+  padding: 10px;
+  border-radius: 25px;
 }
 
 form .btn:hover {
-    color: #fff;
-    background-color: #0b4170;
+  color: #fff;
+  background-color: #0b4170;
+}
+
+
+/* common ng-deep */
+
+.mat-form-field-appearance-outline ::ng-deep .mat-form-field-outline {
+  top: 5px;
+  bottom: 5px;
+}
+
+.mat-form-field-appearance-outline ::ng-deep .mat-form-field-wrapper {
+  padding-bottom: 0.5em;
+}
+
+::ng-deep .mat-select-value {
+  position: relative;
+  bottom: 4px;
+}
+
+::ng-deep input.mat-input-element {
+  position: relative;
+  bottom: 4px;
+}
+
+::ng-deep .mat-tab-body-content {
+  overflow-x: hidden !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: #084982 !important;
 }

@@ -22,6 +22,7 @@ export class ApiService {
 
   logout() {
     localStorage.clear();
+    sessionStorage.clear();
     this.user$.next(null);
     this.router.navigate(['/login']);
   }
@@ -34,7 +35,7 @@ export class ApiService {
 
   refresh() {
     let url = this.baseUrl + '/businessInterface/login/refreshtoken';
-    var user = JSON.parse(localStorage.getItem('user')!);
+    var user = JSON.parse(sessionStorage.getItem('user')!);
     let payload = {
       userName: user.UserName,
       calling_System_Detail: "portal",
@@ -48,7 +49,7 @@ export class ApiService {
 
   addUser(payload: any) {
     let url = this.baseUrl + "/businessInterface/User/addUser_1_0";
-    var user = JSON.parse(localStorage.getItem('user')!);
+    var user = JSON.parse(sessionStorage.getItem('user')!);
     // console.log(user);
     payload.accesstoken = user.access_token;
     payload.callingUsername = user.UserName;
@@ -57,7 +58,7 @@ export class ApiService {
 
   getUser(email: string) {
     let url = this.baseUrl+"/businessInterface/User/getUser_1_0";
-    var user = JSON.parse(localStorage.getItem('user')!);
+    var user = JSON.parse(sessionStorage.getItem('user')!);
     // console.log(user);
 
     var payload = {
@@ -71,7 +72,7 @@ export class ApiService {
 
   updateUser(user:any) {
     let url = this.baseUrl+"/businessInterface/User/getUser_1_0";
-    var a = JSON.parse(localStorage.getItem('user')!);
+    var a = JSON.parse(sessionStorage.getItem('user')!);
     user.accesstoken = a.access_token;
     user.callingUsername = a.UserName;
     return this.http.post(url, user);

@@ -13,11 +13,11 @@ export class SiteService {
   constructor(private http: HttpClient) { }
 
   listSites() {
-    let x = JSON.parse(localStorage.getItem('user')!);
+    let user = JSON.parse(sessionStorage.getItem('user')!);
 
     let payload = {
-      userName : x.UserName,
-      accessToken : x.access_token,
+      userName : user.UserName,
+      accessToken : user.access_token,
       calling_System_Detail: "portal",
     }
 

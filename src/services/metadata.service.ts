@@ -18,11 +18,9 @@ export class MetadataService {
 
   getMetadataByType(payload: any) {
     let url = this.baseUrl + '/getValuesListByType_1_0';
+    let params = new HttpParams().set('type', payload);
 
-    let myObj = {
-      'type': payload
-    }
-    return this.http.get(url, {params: myObj});
+    return this.http.get(url, {params: params});
   }
 
 

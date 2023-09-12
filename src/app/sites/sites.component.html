@@ -49,7 +49,7 @@
           <mat-label>Site Name</mat-label>
           <mat-select [(ngModel)]="siteNg">
             <mat-option value="All" (click)="filterSites('All')">All</mat-option>
-            <mat-option *ngFor="let data of siteIds" (click)="filterSites(data.sitename)" [value]="data.sitename">{{ data.siteid }} - {{ data.siteShortName }}</mat-option>
+            <mat-option *ngFor="let data of siteData" (click)="filterSites(data.sitename)" [value]="data.sitename">{{ data.siteid }} - {{ data.siteShortName }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -216,7 +216,6 @@
             <td>
               <a class="pointer" (click)="show('device'); getDevices(data.siteid); saveSiteData(data)">
                   <img src="assets/icons/add.svg" width="40">
-                <!-- <span class="ms-2">{{ deviceLength }}</span> -->
               </a>
             </td>
 

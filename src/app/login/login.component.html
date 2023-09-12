@@ -1,20 +1,50 @@
-<div class="login">
-  <div class="login-logo">
-    <a><img src="assets/icons/Logo.svg" /></a>
-  </div>
+<div class="login-logo">
+  <a>
+    <img src="assets/icons/Logo.svg">
+  </a>
+</div>
 
-  <div class="main-header">
+
+<div class="login">
+
+  <!-- <div class="main-header">
       <div class="heading">
           <span>SIGN IN</span>
       </div>
       <form class="sign-in">
-          <input type="text" name="uname" class="form-control" placeholder="Enter UserName" [(ngModel)]="username" (keydown)="errorMsg = null"/>
+          <input type="text" name="uname" class="form-control" placeholder="Enter UserName" [(ngModel)]="username">
           <input type="password" name="pwd" class="form-control" placeholder="Enter Password" [(ngModel)]="password"/>
           <a class="pointer"><small>Forgot Password ?</small></a>
           <div class="btns">
             <button type="submit" class="btn mt-2" (click)="submit()">LOGIN</button>
-            <div class="mt-2 text-danger">{{ errorMsg ? errorMsg : '' }} &nbsp;</div>
+            <div class="mt-2 text-danger">{{ errorMsg }} &nbsp;</div>
           </div>
       </form>
-  </div>
+  </div> -->
+
+  <mat-card class="mx-2">
+    <mat-card-content>
+      <p class="text-center mb-2" style="font-weight: 600; font-size: 16px;">Login</p>
+      <form class="p-0 mx-2" [formGroup]="loginForm" (ngSubmit)="login()">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>User Name</mat-label>
+          <input matInput formControlName="userName" [(ngModel)]="loginBody.userName">
+          <mat-error>
+            Please inform your user name
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" [(ngModel)]="loginBody.password">
+          <mat-error>
+            Please inform your password
+          </mat-error>
+        </mat-form-field>
+        <div class="text-center">
+          <button type="submit" class="btn mt-2" (click)="login()">LOGIN</button>
+        </div>
+      </form>
+    </mat-card-content>
+    <p class="text-center text-danger mt-3">{{ errMsg }}</p>
+  </mat-card>
 </div>

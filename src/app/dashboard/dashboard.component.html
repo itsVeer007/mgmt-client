@@ -1,17 +1,136 @@
 <div class="container-fluid">
   <div class="row content">
-
     <div class="header d-flex justify-content-between align-items-center">
       <a class="logo pointer ms-2"><img src="assets/icons/Logo.svg"></a>
 
-      <a class="group88 pointer me-2" (click)="showProfile()">
-        <img src="assets/icons/profile.svg">
+      <a class="user-pic pointer me-2" [matMenuTriggerFor]="menu">
+        <img src="assets/icons/profile.svg" width="35">
       </a>
 
-      <a class="menu-icon pointer" (click)="showMenu()">
+      <!-- <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon [ngStyle]="{'color': 'white', 'font-size': '30px'}">account_circle</mat-icon>
+      </button> -->
+
+      <a class="menu-icon pointer" [matMenuTriggerFor]="menu1">
         <img src="assets/icons/menu.svg">
       </a>
+
+      <!-- <a class="menu-icon pointer" (click)="showMenu()">
+        <img src="assets/icons/menu.svg">
+      </a> -->
     </div>
+
+    <!-- profile details -->
+    <mat-menu #menu="matMenu">
+      <div class="profile-card">
+        <div class="card-header d-flex flex-column justify-content">
+          <div class="text-center">
+            <img src="assets/icons/Ellipse 25@2x.png" width="100">
+          </div>
+
+          <div class="d-flex justify-content-center text-white my-2">
+            <div class="d-flex flex-column">
+              <span>User Name</span>
+              <span>Contact</span>
+              <span>Email</span>
+            </div>
+
+            <div class="d-flex flex-column ms-3">
+              <span style="font-weight: 600;">: {{ user?.UserName }}</span>
+              <span style="font-weight: 600;">: {{ user?.contact }}</span>
+              <span style="font-weight: 600;">: {{ user?.email }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-bdy">
+          <div>
+            <a class="mx-2 pointer"><img src="assets/icons/edit-line@2x.png" width="15" height="15" /> <span class="mx-2">Edit Profile</span></a>
+          </div>
+          <div>
+            <a class="mx-2 pointer"><img src="assets/icons/Union 48@2x.png" width="15" height="15" /> <span class="mx-2">Change Password</span></a>
+          </div>
+          <div>
+            <a class="mx-2 pointer"><img src="assets/icons/info-outline.svg" width="15" height="15" /> <span class="mx-2">Terms & Conditions</span></a>
+          </div>
+        </div>
+        <div class="card-footer">
+            <button class="btn text-white" (click)="logout()">LOG OUT</button>
+        </div>
+      </div>
+    </mat-menu>
+    <!-- /profile details -->
+
+    <!-- Mobile View Menu -->
+    <mat-menu #menu1="matMenu">
+      <div class="col-sm-12 col-xs-12 mobile-sidebar">
+        <nav class="d-sm-xs-block">
+          <div class="list-group text-white text-center">
+            <a class="list-group-item my-2 active " [routerLink]="['/main-dashboard']" routerLinkActive="routeactive">
+                <img src="assets/icons/dashboard.svg" /><span> Dashboard</span>
+            </a>
+
+            <!-- <a class="list-group-item my-2" >
+                <img src="assets/icons/vertical.svg" /><span> Verticals</span>
+            </a> -->
+
+            <!-- <a class="list-group-item my-2" [routerLink]="['/customers']" routerLinkActive="routeactive">
+                <img src="assets/icons/customer.svg" /><span> Customers</span>
+            </a> -->
+
+            <a routerLink="" class="list-group-item my-2" [routerLink]="['/sites']" routerLinkActive="routeactive">
+                <img src="assets/icons/sites.svg" /><span> Sites</span>
+            </a>
+
+            <!-- <a class="list-group-item my-2">
+                <img src="assets/icons/cam.svg" /><span> Cameras</span>
+            </a> -->
+
+            <!-- <a class="list-group-item my-2">
+                <img src="assets/icons/analytic.svg" /><span> Analytics</span>
+            </a> -->
+            <a *ngIf="isAdmin == true" class="list-group-item my-2" [routerLink]="['/users']" routerLinkActive="routeactive">
+                <img src="assets/icons/user-white.svg" /><span>Users</span>
+            </a>
+
+            <a class="list-group-item " [routerLink]="['/inventory']" routerLinkActive="routeactive">
+              <img src="assets/icons/inventory.svg">
+              <span>Inventory</span>
+            </a>
+
+            <a class="list-group-item " [routerLink]="['/product-master']" routerLinkActive="routeactive">
+              <img src="assets/icons/inventory.svg">
+              <span>Product Master</span>
+            </a>
+
+            <a class="list-group-item my-2" [routerLink]="['/devices']" routerLinkActive="routeactive">
+              <img src="assets/icons/devices.svg" /><span>Devices</span>
+            </a>
+
+            <a class="list-group-item my-2" [routerLink]="['/assets']" routerLinkActive="routeactive">
+                <img src="assets/icons/asset.svg" /><span>Advertisements</span>
+            </a>
+
+            <a class="list-group-item my-2" [routerLink]="['/tickets']" routerLinkActive="routeactive">
+              <img src="assets/icons/ticket.svg" /><span>Tickets/Jobs</span>
+            </a>
+
+            <a *ngIf="isAdmin == true" class="list-group-item my-2" [routerLink]="['/meta']" routerLinkActive="routeactive">
+              <img src="assets/icons/storage.svg" /><span>Metadata</span>
+            </a>
+
+            <a *ngIf="isAdmin == true" class="list-group-item my-2" [routerLink]="['/vendors']" routerLinkActive="routeactive">
+              <span>Vendors</span>
+            </a>
+
+            <!-- <a class="list-group-item my-2" [routerLink]="['/reports']" routerLinkActive="routeactive">
+              <img src="assets/icons/report.svg" /><span>Reports</span>
+            </a> -->
+          </div>
+        </nav>
+      </div>
+    </mat-menu>
+    <!-- /Mobile View Menu -->
 
     <div class="left-content sidemenu col-lg-2 col-md-2">
       <nav class="collapse d-block sidebar" id="navbarToggleExternalContent">
@@ -84,15 +203,16 @@
             <span>Devices</span>
           </a>
 
-          <a class="list-group-item " [routerLink]="['/assets']" routerLinkActive="routeactive">
+          <!--old-->
+          <!-- <a class="list-group-item " [routerLink]="['/assets']" routerLinkActive="routeactive">
+            <img src="assets/icons/asset.svg">
+            <span>Advertisements</span>
+          </a> -->
+
+          <a class="list-group-item " [routerLink]="['/advertisements']" routerLinkActive="routeactive">
             <img src="assets/icons/asset.svg">
             <span>Advertisements</span>
           </a>
-
-          <!-- <a class="list-group-item " [routerLink]="['/advertisements']" routerLinkActive="routeactive">
-            <img src="assets/icons/asset.svg">
-            <span>Advertisement</span>
-          </a> -->
 
           <div class="navigation">
             <ul>
@@ -183,115 +303,8 @@
     <div class="right-content col-lg-10 col-md-10 col-sm-12 col-xs-12" style="padding: 0;">
       <router-outlet></router-outlet>
     </div>
-
   </div>
 </div>
 
 
-<!-- Profile Details -->
-<div class="card profile-card" *ngIf="profile" id="profiles">
-  <div class="card-header d-flex flex-column justify-content">
-    <div class="text-center">
-      <img src="assets/icons/Ellipse 25@2x.png" width="100">
-    </div>
 
-    <div class="d-flex justify-content-center my-2">
-      <div class="d-flex flex-column">
-        <span>User Name</span>
-        <span>Contact</span>
-        <span>Email</span>
-      </div>
-
-      <div class="d-flex flex-column ms-3">
-        <span style="font-weight: 600;">: {{ user?.UserName }}</span>
-        <span style="font-weight: 600;">: {{ user?.contact }}</span>
-        <span style="font-weight: 600;">: {{ user?.email }}</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="card-body">
-      <div>
-        <a class="mx-2 pointer"><img src="assets/icons/edit-line@2x.png" width="15" height="15" /> <span class="mx-2">Edit Profile</span></a>
-      </div>
-      <div>
-        <a class="mx-2 pointer"><img src="assets/icons/Union 48@2x.png" width="15" height="15" /> <span class="mx-2">Change Password</span></a>
-      </div>
-      <div>
-        <a class="mx-2 pointer"><img src="assets/icons/info-outline.svg" width="15" height="15" /> <span class="mx-2">Terms & Conditions</span></a>
-      </div>
-  </div>
-  <div class="card-footer">
-      <button class="btn text-white" (click)="logout()"> LOG OUT</button>
-  </div>
-</div>
-
-
-<!-- Mobile View Menu -->
-<div class="col-sm-12 col-xs-12 mobile-sidebar" id="sidebar" *ngIf="show" style="z-index: 1;">
-    <nav class="d-sm-xs-block">
-        <div class="list-group text-white text-center">
-            <a class="list-group-item my-2 active " [routerLink]="['/main-dashboard']" routerLinkActive="routeactive">
-                <img src="assets/icons/dashboard.svg" /><span> Dashboard</span>
-            </a>
-
-            <!-- <a class="list-group-item my-2" >
-                <img src="assets/icons/vertical.svg" /><span> Verticals</span>
-            </a> -->
-
-            <!-- <a class="list-group-item my-2" [routerLink]="['/customers']" routerLinkActive="routeactive">
-                <img src="assets/icons/customer.svg" /><span> Customers</span>
-            </a> -->
-
-            <a routerLink="" class="list-group-item my-2" [routerLink]="['/sites']" routerLinkActive="routeactive">
-                <img src="assets/icons/sites.svg" /><span> Sites</span>
-            </a>
-
-            <!-- <a class="list-group-item my-2">
-                <img src="assets/icons/cam.svg" /><span> Cameras</span>
-            </a> -->
-
-            <!-- <a class="list-group-item my-2">
-                <img src="assets/icons/analytic.svg" /><span> Analytics</span>
-            </a> -->
-            <a *ngIf="isAdmin == true" class="list-group-item my-2" [routerLink]="['/users']" routerLinkActive="routeactive">
-                <img src="assets/icons/user-white.svg" /><span>Users</span>
-            </a>
-
-            <a class="list-group-item " [routerLink]="['/inventory']" routerLinkActive="routeactive">
-              <img src="assets/icons/inventory.svg">
-              <span>Inventory</span>
-            </a>
-
-            <a class="list-group-item " [routerLink]="['/product-master']" routerLinkActive="routeactive">
-              <img src="assets/icons/inventory.svg">
-              <span>Product Master</span>
-            </a>
-
-            <a class="list-group-item my-2" [routerLink]="['/devices']" routerLinkActive="routeactive">
-              <img src="assets/icons/devices.svg" /><span>Devices</span>
-            </a>
-
-            <a class="list-group-item my-2" [routerLink]="['/assets']" routerLinkActive="routeactive">
-                <img src="assets/icons/asset.svg" /><span>Advertisements</span>
-            </a>
-
-            <a class="list-group-item my-2" [routerLink]="['/tickets']" routerLinkActive="routeactive">
-              <img src="assets/icons/ticket.svg" /><span>Tickets/Jobs</span>
-            </a>
-
-            <a *ngIf="isAdmin == true" class="list-group-item my-2" [routerLink]="['/meta']" routerLinkActive="routeactive">
-              <img src="assets/icons/storage.svg" /><span>Metadata</span>
-            </a>
-
-            <a *ngIf="isAdmin == true" class="list-group-item my-2" [routerLink]="['/vendors']" routerLinkActive="routeactive">
-              <span>Vendors</span>
-            </a>
-
-            <!-- <a class="list-group-item my-2" [routerLink]="['/reports']" routerLinkActive="routeactive">
-              <img src="assets/icons/report.svg" /><span>Reports</span>
-            </a> -->
-        </div>
-    </nav>
-</div>
-<!-- /Mobile View Menu -->

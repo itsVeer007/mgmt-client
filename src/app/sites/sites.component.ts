@@ -1,10 +1,7 @@
 import { Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { SiteService } from 'src/services/site.service';
 import { MatDialog } from '@angular/material/dialog';
-import { MetadataService } from 'src/services/metadata.service';
 import { DeviceService } from 'src/services/device.service';
-import { ApiService } from 'src/services/api.service';
 
 @Component({
   selector: 'app-sites',
@@ -14,15 +11,12 @@ import { ApiService } from 'src/services/api.service';
 export class SitesComponent implements OnInit {
 
   constructor(
-    private http: HttpClient,
-    private metaService: MetadataService,
     private siteSer: SiteService,
     private devService: DeviceService,
-    private apiSer: ApiService,
     public dialog: MatDialog
   ) { }
 
-  tableData: any[] = [];
+  tableData: any = [];
   newTableData: any = [];
   showLoader: boolean = false;
   searchText: any;
@@ -32,40 +26,36 @@ export class SitesComponent implements OnInit {
   onHold: any = [];
 
 
+  tempSite: any;
   siteData: any;
-  siteIds: any;
-  deviceLength: any = [];
+
   siteNg: any = 'All'
-  // inputToAssets: any;
   ngOnInit(): void {
-    this.siteData = JSON.parse(localStorage.getItem('temp_sites')!);
-    this.siteIds = JSON.parse(localStorage.getItem('siteIds')!)?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
+    this.tempSite = JSON.parse(localStorage.getItem('temp_sites')!);
+    this.siteData = JSON.parse(localStorage.getItem('siteIds')!)?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
 
-    this.getlistSites()
-    this.ongetDeviceMode();
+    this.tableData = this.siteData;
+    this.newTableData = this.tableData;
 
-    // this.apiSer.refresh().subscribe((res: any) => {
-    //   console.log(res)
-    // })
+    // this.getlistSites()
   }
 
-  getlistSites() {
-    this.showLoader = true;
-    this.siteSer.listSites().subscribe((res: any) => {
-      // console.log(res);
-      this.showLoader = false;
-      if(res?.Status == 'Success') {
-        this.tableData = res?.siteList?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
-        this.newTableData = this.tableData;
-      }
-      if(res?.Status == 'Failed') {
-        this.apiSer.logout();
-      }
-      // this.inputToAssets = localStorage.setItem('siteIds', JSON.stringify(this.tableData))
-    }, (err: any) => {
-      // console.log(err);
-    })
-  }
+  // getlistSites() {
+  //   this.showLoader = true;
+  //   this.siteSer.listSites().subscribe((res: any) => {
+  //     console.log(res);
+  //     this.showLoader = false;
+  //     if(res?.Status == 'Success') {
+  //       this.tableData = res?.siteList?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
+  //       this.newTableData = this.tableData;
+  //     }
+  //     if(res?.Status == 'Failed') {
+  //       this.apiSer.logout();
+  //     }
+  //   }, (err: any) => {
+  //     console.log(err);
+  //   });
+  // }
 
 
   deviceData: any;
@@ -76,14 +66,6 @@ export class SitesComponent implements OnInit {
       this.inputToDevices = this.deviceData;
       // console.log('site',this.inputToDevices);
     })
-  }
-
-
-  deviceMode: any;
-  ongetDeviceMode() {
-    // this.metaService.getDeviceMode({type: 'Device_Mode'}).subscribe((res: any) => {
-    //   this.deviceMode = res.List_Shown_By_Type_Given;
-    // })
   }
 
   engineerDetail: any;

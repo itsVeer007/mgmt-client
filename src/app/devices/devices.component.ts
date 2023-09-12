@@ -108,6 +108,13 @@ export class DevicesComponent implements OnInit {
     })
   }
 
+  /* searches */
+
+  siteSearch: any;
+  searchSites(event: any) {
+    this.siteSearch = (event.target as HTMLInputElement).value
+  }
+
   siteNg: any = 'All';
   filterSiteIdName(value: any) {
     if(value != 'All') {

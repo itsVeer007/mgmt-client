@@ -51,9 +51,8 @@ export class MainDashboardComponent implements OnInit {
   }
 
   constructor(
-    private chartservice: ChartService, 
-    private http: HttpClient, 
-    private siteSer: SiteService,
+    private chartservice: ChartService,
+    private http: HttpClient,
     private apiser: ApiService
   ) { }
 
@@ -71,25 +70,6 @@ export class MainDashboardComponent implements OnInit {
     this.mychart2();
     this.mychart3();
     this.mychart4();
-
-    this.getlistSites();
-  }
-
-  tableData: any
-  inputToAssets: any;
-  getlistSites() {
-    this.siteSer.listSites().subscribe((res: any) => {
-      // console.log(res);
-      if(res?.Status == 'Success') {
-        this.tableData = res.siteList;
-        this.inputToAssets = localStorage.setItem('siteIds', JSON.stringify(this.tableData));
-      }
-      if(res?.Status == 'Failed') {
-        this.apiser.logout();
-      }
-    }, (err) => {
-      // console.log(err)
-    })
   }
 
   openicons11(i: any) {
