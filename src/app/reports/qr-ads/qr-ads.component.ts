@@ -279,14 +279,11 @@ filterbody: any;
       "remarks": this.currentItem.remarks
     }
 
-    this.alertSer.wait();
 
     this.reportSer.updateProductMaster(this.originalObject).subscribe((res: any) => {
       // console.log(res);
-
-      if(res) {
-        this.alertSer.success(res?.message);
-      }
+      this.getInventory();
+      this.alertSer.snackSuccess(res?.message);
     }, (err: any) => {
       if(err) {
         this.alertSer.error(err?.error?.message)

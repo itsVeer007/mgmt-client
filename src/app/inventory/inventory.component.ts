@@ -112,7 +112,7 @@ export class InventoryComponent implements OnInit {
     this.dialog.open(this.indentItemsDialog, {maxWidth: '750px', maxHeight: '550px'});
 
     this.inventorySer.listDetails(data).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       this.usedItems = res;
     })
   }
@@ -122,7 +122,7 @@ export class InventoryComponent implements OnInit {
   @ViewChild('statusItemsDialog') statusItemsDialog = {} as TemplateRef<any>;
   openStatusItems(data: any, type: any) {
     this.currentStatusItem = data;
-    console.log(this.currentStatusItem)
+    // console.log(this.currentStatusItem)
     this.dialog.open(this.statusItemsDialog, {maxWidth: '750px', maxHeight: '550px'});
 
     this.inventorySer.listDetailsByStatus(data).subscribe((res: any) => {
@@ -362,14 +362,11 @@ export class InventoryComponent implements OnInit {
       "statusId": this.currentItem.statusId,
       "remarks": this.currentItem.remarks
     }
-    this.alertSer.wait();
 
     this.inventorySer.updateInventory({inventory: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
       // console.log(res);
-      if(res) {
-        this.alertSer.success(res?.message);
+        this.alertSer.snackSuccess(res?.message);
         this.listInventory();
-      }
     }, (err: any) => {
       if(err) {
         this.alertSer.error(err?.error?.message);
@@ -458,18 +455,13 @@ export class InventoryComponent implements OnInit {
       "modifiedBy":  1,
       "remarks": this.currentItem.remarks
     }
-    this.alertSer.wait();
 
     this.inventorySer.updateWarranty({warranty: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
-      if(res) {
-        this.alertSer.success(res?.message);
-      }
-      setTimeout(() => {
-        // window.location.reload();
-      }, 3000)
+      this.alertSer.snackSuccess(res?.message);
+      this.getWarranty(this.currentItem.id)
     }, (err: any) => {
       if(err) {
-        this.alertSer.wait();
+        this.alertSer.error(err?.error?.message);
       };
     });
   }

@@ -59,7 +59,9 @@
           <mat-label>Status</mat-label>
           <mat-select [(ngModel)]="statusNg">
             <mat-option value="All" (click)="filterStatus('All')">All</mat-option>
-            <mat-option *ngFor="let item of deviceStatus" [value]="item.keyId" (click)="filterStatus(item.keyId)">{{ item.value }}</mat-option>
+            <!-- <mat-option *ngFor="let item of deviceStatus" [value]="item.keyId" (click)="filterStatus(item.keyId)">{{ item.value }}</mat-option> -->
+            <mat-option [value]="1" (click)="filterStatus(1)">Online</mat-option>
+            <mat-option [value]="2" (click)="filterStatus(2)">Offline</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -81,7 +83,7 @@
   </div>
   <!-- /form -->
 
-  <div class="row py-2 mx-1 mb-3 text-white" style="background-color: #084982; border-radius: 3px; font-weight: 600;">
+  <!-- <div class="row py-2 mx-1 mb-3 text-white" style="background-color: #084982; border-radius: 3px; font-weight: 600;">
     <div class="col-lg-2">
       <p class="m-0">Sites</p>
       <p class="m-0" style="font-size: 16px;">2</p>
@@ -155,7 +157,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <!-- table starts -->
   <div class="table-resp">
@@ -218,14 +220,14 @@
             <p>{{ cust.deviceId }}</p>
           </td>
           <td>
-            <p>{{ cust.deviceTypeId == 1 ? 'Audio' : cust.deviceTypeId == 2 ? 'Video': cust.deviceTypeId == 3 ? 'Wifi' : '--'}}</p>
+            <p>{{ cust.deviceTypeId == 1 ? 'Audio' : cust.deviceTypeId == 2 ? 'Video': cust.deviceTypeId == 3 ? 'Wifi' : ''}}</p>
           </td>
           <td>
             <p>{{ cust.siteId }}</p>
           </td>
           <td>
             <p [style.color]="cust.status == 1 ? '#00A44C' : cust.status == 2 ? '#fa500f' : ''">
-              {{ cust.status == 1 ? 'Online' : cust.status == 2 ? 'Offline' : '--' }}
+              {{ cust.status == 1 ? 'Online' : cust.status == 2 ? 'Offline' : '' }}
             </p>
 
             <!-- <p [style.color]="cust.status == 'active' ? '#00A44C' : cust.status == 'Inprogress' ? '#F5B400' : cust.status == 'closed' ? '#fa500f' : '#00A44C'">

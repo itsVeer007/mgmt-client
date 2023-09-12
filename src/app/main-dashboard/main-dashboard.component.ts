@@ -3,6 +3,7 @@ import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { ChartService } from 'src/services/chart.service';
 import { SiteService } from 'src/services/site.service';
+import { ApiService } from 'src/services/api.service';
 
 @Component({
   selector: 'app-main-dashboard',
@@ -49,7 +50,12 @@ export class MainDashboardComponent implements OnInit {
     }
   }
 
-  constructor(private chartservice: ChartService, private http: HttpClient, private siteSer: SiteService,) { }
+  constructor(
+    private chartservice: ChartService, 
+    private http: HttpClient, 
+    private siteSer: SiteService,
+    private apiser: ApiService
+  ) { }
 
 
   showAddCamera = false;
@@ -73,8 +79,16 @@ export class MainDashboardComponent implements OnInit {
   inputToAssets: any;
   getlistSites() {
     this.siteSer.listSites().subscribe((res: any) => {
-      this.tableData = res.siteList;
-      this.inputToAssets = localStorage.setItem('siteIds', JSON.stringify(this.tableData))
+      // console.log(res);
+      if(res?.Status == 'Success') {
+        this.tableData = res.siteList;
+        this.inputToAssets = localStorage.setItem('siteIds', JSON.stringify(this.tableData));
+      }
+      if(res?.Status == 'Failed') {
+        this.apiser.logout();
+      }
+    }, (err) => {
+      // console.log(err)
     })
   }
 

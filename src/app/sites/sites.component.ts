@@ -52,12 +52,18 @@ export class SitesComponent implements OnInit {
   getlistSites() {
     this.showLoader = true;
     this.siteSer.listSites().subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       this.showLoader = false;
-
-      this.tableData = res?.siteList?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
-      this.newTableData = this.tableData;
+      if(res?.Status == 'Success') {
+        this.tableData = res?.siteList?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
+        this.newTableData = this.tableData;
+      }
+      if(res?.Status == 'Failed') {
+        this.apiSer.logout();
+      }
       // this.inputToAssets = localStorage.setItem('siteIds', JSON.stringify(this.tableData))
+    }, (err: any) => {
+      // console.log(err);
     })
   }
 
@@ -179,7 +185,7 @@ export class SitesComponent implements OnInit {
   openViewPopup(item: any) {
     this.currentItem = item;
     this.dialog.open(this.viewSiteDialog, {maxWidth: '650px', maxHeight: '650px'});
-    console.log(this.currentItem);
+    // console.log(this.currentItem);
   }
 
   confirmViewRow() {

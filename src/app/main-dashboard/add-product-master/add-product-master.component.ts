@@ -164,7 +164,7 @@ export class AddProductMasterComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.prductMasterObj);
+    // console.log(this.prductMasterObj);
 
     if(this.UserForm.valid) {
       this.newItemEvent.emit(false);

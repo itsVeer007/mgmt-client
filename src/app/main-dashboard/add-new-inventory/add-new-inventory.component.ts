@@ -209,7 +209,7 @@ export class AddNewInventoryComponent implements OnInit {
         return acc;
       }
     }, []);
-    console.log(this.filteredBrandNames)
+    // console.log(this.filteredBrandNames)
   }
 
   partType: any;
@@ -245,7 +245,7 @@ export class AddNewInventoryComponent implements OnInit {
   arr: any = [];
   warrantyDetail: any = 'N';
   submit() {
-    console.log(this.inventoryBody);
+    // console.log(this.inventoryBody);
     this.inventoryBody.inventory.name = this.inventoryBody.inventory.itemCode;
     if(this.UserForm.valid) {
       this.alertSer.wait();
@@ -268,7 +268,7 @@ export class AddNewInventoryComponent implements OnInit {
           this.alertSer.success(res?.message);
         }
         setTimeout(() => {
-          // window.location.reload();
+          window.location.reload();
         }, 2000);
       }, (err: any) => {
         if(err) {

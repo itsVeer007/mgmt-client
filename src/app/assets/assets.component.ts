@@ -61,10 +61,10 @@ export class AssetsComponent implements OnInit {
 
   pending: any = [];
   added: any = [];
+  sycedAfterAddition: any = [];
+  sycedAfterRemoval: any = [];
   removed: any = [];
-  synced: any = [];
-  sendToController: any = [];
-
+  
   currentDateTime: any;
   endDateTime: any;
 
@@ -112,13 +112,13 @@ export class AssetsComponent implements OnInit {
       // console.log(res);
       this.showLoader = false;
       // this.assetTable = res;
-      this.newAssetTable = res.flatMap((item: any) => item.assets);
+      this.newAssetTable = res.flatMap((item: any) => item.assets?.sort((a: any, b: any) => a.id > b.id ? -1 : a.id < b.id ? 1 : 0));
       this.cdr.detectChanges();
       this.pending = [];
       this.added = [];
-      this.synced = [];
+      this.sycedAfterAddition = [];
+      this.sycedAfterRemoval = [];
       this.removed = [];
-      this.sendToController = [];
       for(let item of this.newAssetTable) {
         if(item.status == 1) {
           this.pending.push(item);
@@ -127,13 +127,13 @@ export class AssetsComponent implements OnInit {
           this.added.push(item);
         }
         if(item.status == 4) {
-          this.synced.push(item);
+          this.sycedAfterAddition.push(item);
         }
         if(item.status == 5) {
-          this.removed.push(item);
+          this.sycedAfterRemoval.push(item);
         }
         if(item.status == 3) {
-          this.sendToController.push(item);
+          this.removed.push(item);
         }
         this.cdr.detectChanges();
       }
@@ -151,7 +151,7 @@ export class AssetsComponent implements OnInit {
 
   searchSiteId() {
     this.siteIdSearch.valueChanges.pipe(startWith(''),map((value: any) => this.filterOptions(value))).subscribe((filtered: any) => {
-      this.filteredOptions = filtered.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
+      this.filteredOptions = filtered?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
     });
   }
 
@@ -165,24 +165,24 @@ export class AssetsComponent implements OnInit {
 
         this.pending = [];
         this.added = [];
-        this.synced = [];
+        this.sycedAfterAddition = [];
+        this.sycedAfterRemoval = [];
         this.removed = [];
-        this.sendToController = [];
-        for(let el of this.newAssetTable) {
-          if(el.status == 1) {
-            this.pending.push(el);
+        for(let item of this.newAssetTable) {
+          if(item.status == 1) {
+            this.pending.push(item);
           }
-          if(el.status == 2) {
-            this.added.push(el);
+          if(item.status == 2) {
+            this.added.push(item);
           }
-          if(el.status == 4) {
-            this.synced.push(el);
+          if(item.status == 4) {
+            this.sycedAfterAddition.push(item);
           }
-          if(el.status == 5) {
-            this.removed.push(el);
+          if(item.status == 5) {
+            this.sycedAfterRemoval.push(item);
           }
-          if(el.status == 3) {
-            this.sendToController.push(el);
+          if(item.status == 3) {
+            this.removed.push(item);
           }
           this.cdr.detectChanges();
         }
@@ -198,28 +198,27 @@ export class AssetsComponent implements OnInit {
       this.assetService.getAssetBySiteId(data).subscribe((res: any) => {
         this.newAssetTable = res.flatMap((item: any) => item.assets);
         this.myData = this.newAssetTable;
-        // console.log(this.newAssetTable)
 
         this.pending = [];
         this.added = [];
-        this.synced = [];
+        this.sycedAfterAddition = [];
+        this.sycedAfterRemoval = [];
         this.removed = [];
-        this.sendToController = [];
-        for(let el of this.newAssetTable) {
-          if(el.status == 1) {
-            this.pending.push(el);
+        for(let item of this.newAssetTable) {
+          if(item.status == 1) {
+            this.pending.push(item);
           }
-          if(el.status == 2) {
-            this.added.push(el);
+          if(item.status == 2) {
+            this.added.push(item);
           }
-          if(el.status == 4) {
-            this.synced.push(el);
+          if(item.status == 4) {
+            this.sycedAfterAddition.push(item);
           }
-          if(el.status == 5) {
-            this.removed.push(el);
+          if(item.status == 5) {
+            this.sycedAfterRemoval.push(item);
           }
-          if(el.status == 3) {
-            this.sendToController.push(el);
+          if(item.status == 3) {
+            this.removed.push(item);
           }
           this.cdr.detectChanges();
         }
@@ -346,7 +345,7 @@ export class AssetsComponent implements OnInit {
     this.dialog.open(this.editAssetDialog, {maxWidth: '550px', maxHeight: '550px'});
 
     this.currentItem = JSON.parse(JSON.stringify(item));
-    console.log(item);
+    // console.log(item);
   }
 
 
@@ -565,17 +564,10 @@ export class AssetsComponent implements OnInit {
   }
 
   changeAssetStatus() {
-    this.alertSer.wait();
-
     this.assetService.updateAssetStatus(this.currentStatusId, this.statusObj).subscribe((res: any) => {
       // console.log(res);
-      if(res) {
         this.getSiteData();
-        this.alertSer.success(res?.message);
-      };
-      // setTimeout(() => {
-      //   window.location.reload();
-      // }, 3000);
+        this.alertSer.snackSuccess(res?.message);
     }, (err: any) => {
       if(err) {
         this.alertSer.error(err?.error?.message);

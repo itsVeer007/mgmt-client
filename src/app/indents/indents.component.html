@@ -204,7 +204,7 @@
           </td>
 
           <td>
-            <p (click)="openviewDetailsDialog(cust)">View</p>
+            <p class="text-primary pointer" (click)="openviewDetailsDialog(cust)">View</p>
           </td>
 
           <td>
@@ -547,7 +547,14 @@
               </td>
 
               <td>
-                <p (click)="openEditStatus(inven)">{{ inven.statusId == 1 ? "Requested" : inven.statusId == 2 ? "Dispatched" : inven.statusId == 3 ? "Received" : inven.statusId == 4 ? "Installed" : inven.statusId == 5 ? "Returned" : '' }}</p>
+                <p class="d-inline-flex">
+                  <span>
+                    {{ inven.statusId == 1 ? "Requested" : inven.statusId == 2 ? "Dispatched" : inven.statusId == 3 ? "Received" : inven.statusId == 4 ? "Installed" : inven.statusId == 5 ? "Returned" : '' }}
+                  </span>
+                  <a (click)="openEditStatus(inven)" class="ms-2 pointer">
+                    <img src="assets/icons/edit.svg"  width="13">
+                  </a>
+                </p>
               </td>
 
               <ng-template #editStatusDialog>

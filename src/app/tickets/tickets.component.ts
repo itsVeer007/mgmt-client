@@ -81,11 +81,11 @@ export class TicketsComponent implements OnInit {
     })
   }
 
-  usedItems: any;
-  @ViewChild('indentItemsDialog') indentItemsDialog = {} as TemplateRef<any>;
+  usedItems: any = [];
+  @ViewChild('usedItemsDialog') usedItemsDialog = {} as TemplateRef<any>;
   listIndentItems(data: any) {
-    console.log(data)
-    this.dialog.open(this.indentItemsDialog, {maxWidth: '750px', maxHeight: '550px'});
+    // console.log(data)
+    this.dialog.open(this.usedItemsDialog, {maxWidth: '750px', maxHeight: '550px'});
 
     this.ticketSer.listIndentItems(data).subscribe((res: any) => {
       // console.log(res);
@@ -237,7 +237,7 @@ export class TicketsComponent implements OnInit {
   createTask() {
     this.taskBody.ticketId = this.currentItem?.ticketId;
     this.ticketSer.createTask(this.taskBody).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       this.alertSer.snackSuccess(res?.message);
     }, (err: any) => {
       this.alertSer.error(err?.error?.message);
@@ -363,12 +363,11 @@ export class TicketsComponent implements OnInit {
   }
 
   confirmDeleteRow() {
-    this.alertSer.wait();
     this.ticketSer.deleteTicket(this.currentItem).subscribe((res: any) => {
       // console.log(res);
 
       if(res) {
-        this.alertSer.success(res?.message);
+        this.alertSer.snackSuccess(res?.message);
         this.listTickets();
       }
     }, (err: any) => {
@@ -468,6 +467,16 @@ export class TicketsComponent implements OnInit {
   sort(label: any) {
     this.sorted = !this.sorted;
     var x = this.ticketData;
+    if (this.sorted == false) {
+      x.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
+    } else {
+      x.sort((a: string, b: string) => b[label] > a[label] ? 1 : b[label] < a[label] ? -1 : 0);
+    }
+  }
+
+  sort1(label: any) {
+    this.sorted = !this.sorted;
+    var x = this.usedItems;
     if (this.sorted == false) {
       x.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
     } else {

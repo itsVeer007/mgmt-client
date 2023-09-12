@@ -223,7 +223,7 @@ export class WifiAdsComponent implements OnInit {
   openEditPopup(item: any) {
     this.currentItem = JSON.parse(JSON.stringify(item));
     this.dialog.open(this.editInventoryDialog);
-    console.log(item);
+    // console.log(item);
   }
 
   updateInventory0: any;

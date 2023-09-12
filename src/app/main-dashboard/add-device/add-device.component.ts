@@ -172,9 +172,9 @@ export class AddDeviceComponent implements OnInit {
   }
 
   getCurrentDevice(data: any) {
-    console.log('hello')
+    // console.log('hello')
     this.devService.listDeviceByDeviceId(data?.deviceId).subscribe((res: any) => {
-      console.log(res)
+      // console.log(res)
     })
   }
 

@@ -207,13 +207,12 @@ export class TicketReportsComponent implements OnInit {
 
   toAssign: any;
   openAssigned(item: any) {
-    console.log(item)
+    // console.log(item)
     this.toAssign = item;
     this.dialog.open(this.assignedDialog, {maxHeight: '250px', maxWidth: '250px'});
   }
 
   toAssigned() {
-    this.alertSer.wait();
     let myObj = {
       'ticketId': this.toAssign.ticketId,
       'assignedTo': this.assignedObj.assignedTo,
@@ -221,13 +220,9 @@ export class TicketReportsComponent implements OnInit {
     }
 
     this.ticketSer.assignTicket(myObj).subscribe((res: any) => {
-      // console.log(res)
-      if(res) {
-        this.alertSer.success(res?.message);
-      }
-      setTimeout(() => {
-        // window.location.reload();
-      }, 3000)
+      // console.log(res);
+        this.alertSer.snackSuccess(res?.message);
+        this.CustomerReport();
     }, (err: any) => {
         if(err) {
           this.alertSer.error(err?.error?.message);

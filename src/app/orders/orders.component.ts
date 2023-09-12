@@ -181,11 +181,10 @@ export class OrdersComponent implements OnInit {
       // 'remarks': this.currentItem.remarks
     }
 
-    this.alertSer.wait();
     this.inventorySer.updateOrder(this.originalObject).subscribe((res: any) => {
       // console.log(res);
       if(res) {
-        this.alertSer.success(res?.message);
+        this.alertSer.snackSuccess(res?.message);
         this.listOrders();
       }
     }, (err: any) => {
@@ -249,7 +248,7 @@ export class OrdersComponent implements OnInit {
     this.orderItemBody.orderId = this.orderItemsId?.id;
     this.inventorySer.addItemToOrder(this.orderItemBody).subscribe((res: any) => {
       if(res) {
-        this.alertSer.success(res?.message);
+        this.alertSer.snackSuccess(res?.message);
         this.listOrderItems();
       }
     }, (err: any) => {
@@ -295,10 +294,9 @@ export class OrdersComponent implements OnInit {
   }
 
   deleteOrderItem() {
-    this.alertSer.wait();
     this.inventorySer.deleteOrderItem(this.currentItem).subscribe((res: any) => {
       if(res) {
-        this.alertSer.success(res?.message);
+        this.alertSer.snackSuccess(res?.message);
         this.listOrderItems();
       }
     }, (err: any) => {

@@ -193,7 +193,7 @@
             <th>
               <p class="d-inline-flex">
                 <span>Id</span>
-                <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                <img (click)="sort2('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
               </p>
               <!-- <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
             </th>
@@ -202,14 +202,14 @@
 
               <p class="d-inline-flex">
                 <span>Category</span>
-                <img (click)="sort('category')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                <img (click)="sort2('category')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
               </p>
             </th>
 
             <th>
               <p class="d-inline-flex">
                 <span>Sub category</span>
-                <img (click)="sort('subCategory')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                <img (click)="sort2('subCategory')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
               </p>
             </th>
 
@@ -542,42 +542,42 @@
               <th>
                 <p class="d-inline-flex">
                   <span>No</span>
-                  <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                  <img (click)="sort1('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
                 </p>
               </th>
 
               <th>
                 <p class="d-inline-flex">
                   <span>Item code</span>
-                  <img (click)="sort('itemCode')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                  <img (click)="sort1('itemCode')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
                 </p>
               </th>
 
               <th>
                 <p class="d-inline-flex">
                   <span>Serial no</span>
-                  <img (click)="sort('serialNo')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                  <img (click)="sort1('serialNo')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
                 </p>
               </th>
 
               <th>
                 <p class="d-inline-flex">
                   <span>Created time</span>
-                  <img (click)="sort('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                  <img (click)="sort1('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
                 </p>
               </th>
 
               <th>
                 <p class="d-inline-flex">
                   <span>Modified time</span>
-                  <img (click)="sort('modifiedTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                  <img (click)="sort1('modifiedTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
                 </p>
               </th>
 
               <th>
                 <p class="d-inline-flex">
                   <span>Status</span>
-                  <img (click)="sort('statusId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                  <img (click)="sort1('statusId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
                 </p>
               </th>
             </tr>
@@ -637,6 +637,9 @@
             </tr>
           </tbody>
         </table>
+      </div>
+      <div class="d-flex align-items-center justify-content-center" style="height: 20vh;" *ngIf="indentItems.length == 0">
+        <h1 class="text-secondary">No Data</h1>
       </div>
     </div>
   </mat-dialog-content>

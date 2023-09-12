@@ -316,11 +316,10 @@ export class ProductMasterComponent implements OnInit {
       "remarks": this.currentItem.remarks
     }
 
-    this.alertSer.wait();
     this.inventorySer.updateProductMaster({productMaster: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
       // console.log(res);
       if(res) {
-        this.alertSer.success(res?.message);
+        this.alertSer.snackSuccess(res?.message);
         this.listProduct();
       }
     }, (err: any) => {

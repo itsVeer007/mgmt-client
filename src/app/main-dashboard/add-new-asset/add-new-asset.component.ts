@@ -386,6 +386,7 @@ export class AddNewAssetComponent implements OnInit {
             };
           });
       }
+      // console.log(this.assetData);
     }
 
 }

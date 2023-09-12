@@ -12,9 +12,8 @@ export class TicketService {
 
   constructor(private http: HttpClient) { }
 
-  // baseUrl = `${environment.baseUrl}/inventoryAndtickets`;
-  // base = 'http://192.168.0.137:8080';
-  baseUrl = 'http://192.168.0.137:8080';
+  baseUrl = `${environment.baseUrl}/inventoryAndtickets`;
+  // baseUrl = 'http://192.168.0.137:8080';
 
   listTickets() {
     let url = this.baseUrl + "/listTickets_1_0";

@@ -98,8 +98,8 @@ export class AddNewOrderComponent implements OnInit {
           this.alertSer.success(res?.message);
         }
         setTimeout(() => {
-          // window.location.reload();
-        }, 3000);
+          window.location.reload();
+        }, 2000);
       }, (err: any) => {
         if(err) {
           this.alertSer.error(err?.error?.message);

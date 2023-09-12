@@ -103,7 +103,7 @@ export class FrKitComponent implements OnInit {
   sorted = false;
   sort(label: any) {
     this.sorted = !this.sorted;
-    console.log(this.sorted);
+    // console.log(this.sorted);
     var x = this.frTickets;
 
     if (this.sorted == false) {

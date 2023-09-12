@@ -119,15 +119,30 @@ export class FrComponent implements OnInit {
   sorted = false;
   sort(label: any) {
     this.sorted = !this.sorted;
-    console.log(this.sorted);
     var x = this.frTickets;
-    var y = this.indentItems;
-
     if (this.sorted == false) {
       x.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
-      y.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
     } else {
       x.sort((a: string, b: string) => b[label] > a[label] ? 1 : b[label] < a[label] ? -1 : 0);
+    }
+  }
+
+  sort1(label: any) {
+    this.sorted = !this.sorted;
+    var y = this.indentItems;
+    if (this.sorted == false) {
+      y.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
+    } else {
+      y.sort((a: string, b: string) => b[label] > a[label] ? 1 : b[label] < a[label] ? -1 : 0);
+    }
+  }
+
+  sort2(label: any) {
+    this.sorted = !this.sorted;
+    var y = this.tasks;
+    if (this.sorted == false) {
+      y.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
+    } else {
       y.sort((a: string, b: string) => b[label] > a[label] ? 1 : b[label] < a[label] ? -1 : 0);
     }
   }
@@ -139,7 +154,7 @@ export class FrComponent implements OnInit {
   ticketType: any;
   currentSite: any;
   openTasksDialog(data: any) {
-    console.log(data);
+    // console.log(data);
     this.ticketType = data?.typeId;
     this.currentSite = data?.siteId;
     this.dialog.open(this.currentTasksDialog, {maxWidth: '750px', maxHeight: '550px'});
@@ -165,7 +180,7 @@ export class FrComponent implements OnInit {
 
   @ViewChild('viewIndentDialog') viewIndentDialog = {} as TemplateRef<any>;
 
-  indentItems: any;
+  indentItems: any = [];
   openDetailsDialog(item: any) {
     // console.log(item);
     this.dialog.open(this.viewIndentDialog, {maxWidth: '750px', maxHeight: '550px'});
@@ -207,7 +222,7 @@ export class FrComponent implements OnInit {
   @ViewChild('replaceDialog') replaceDialog = {} as TemplateRef<any>;
 
   openCreateOrder(item: any) {
-    console.log(item)
+    // console.log(item)
     // this.currentItem = item;
     this.dialog.open(this.replaceDialog, { maxWidth: '650px', maxHeight: '550px'});
     this.inventorySer.listIndentItems(item).subscribe((res: any) => {
@@ -232,7 +247,7 @@ export class FrComponent implements OnInit {
   inventoryId: any;
   inventoryId2: any;
   openReplaceComponent(data: any) {
-    console.log(data)
+    // console.log(data)
     this.dialog.open(this.replaceStatusDialog, { maxWidth: '550px', maxHeight: '550px'});
     // this.inventoryId2 = data; imp
     // console.log(this.inventoryId2)
@@ -248,7 +263,7 @@ export class FrComponent implements OnInit {
     });
 
     this.inventorySer.listIndentItems(data).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       this.inventoryId2 = res;
     })
   }
@@ -287,7 +302,7 @@ export class FrComponent implements OnInit {
     this.body1.siteId = this.currentSite;
     this.body1.newInventoryId = data?.inventoryId;
     this.inventorySer.replaceComponent(this.body1).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       if(res?.statusCode == 200) {
         this.statusMsg = 'Installed'
       }
@@ -317,12 +332,11 @@ export class FrComponent implements OnInit {
 
     this.ticketSer.logTaskStatus(myObj).subscribe((res: any) => {
       // console.log(res)
-      if(res) {
-        this.alertSer.snackSuccess(res?.message);
-      }
-      setTimeout(() => {
-        // window.location.reload();
-      }, 2000)
+      this.alertSer.snackSuccess(res?.message);
+      this.ticketSer.listFRTasksOfCurrentVisit(1565).subscribe((res: any) => {
+        // console.log(res);
+        this.tasks = res;
+      })
     }, (err: any) => {
         if(err) {
           // this.alertSer.error(err?.error?.message);

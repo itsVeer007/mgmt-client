@@ -7,7 +7,6 @@ import { environment } from '../environments/environment';
 })
 export class MetadataService {
 
-  // metadata = 'http://usstaging.ivisecurity.com:777/common/getValuesListByType_1_0';
   baseUrl = `${environment.baseUrl}/common`;
 
   constructor(private http: HttpClient) { }

@@ -67,9 +67,7 @@ export class MetaDataComponent implements OnInit {
     this.metaDataSer.getMetadata().subscribe((res: any) => {
       this.showLoader = false;
       this.metaData = res;
-
-      const x = res.flatMap((item: any) => item.type);
-      this.typeToTable = x;
+      this.typeToTable = res.flatMap((item: any) => item.type);
     })
   }
 
@@ -116,21 +114,6 @@ export class MetaDataComponent implements OnInit {
     localStorage.setItem('metaType', val)
   }
 
-
-  selectedAll: any;
-  selectAll() {
-    for (var i = 0; i < this.newMetaData.length; i++) {
-      // console.log(this.metaData[i])
-      this.newMetaData[i].selected = this.selectedAll;
-    }
-  }
-  checkIfAllSelected() {
-    this.selectedAll = this.newMetaData.every(function (item: any) {
-      // console.log(item)
-      return item.selected == true;
-    })
-  }
-
   currentItem: any;
 
   @ViewChild('viewDataDialog') viewDataDialog = {} as TemplateRef<any>;
@@ -145,14 +128,14 @@ export class MetaDataComponent implements OnInit {
   @ViewChild('editDataDialog') editDataDialog = {} as TemplateRef<any>;
 
   typeFromLocal: any;
-  openEditPopup(item: any, val: any) {
-    localStorage.setItem('metaType', val);
+  openEditPopup(item: any, type: any) {
+    localStorage.setItem('metaType', type);
     this.typeFromLocal = localStorage.getItem('metaType');
     // console.log(this.typeFromLocal);
 
     this.currentItem = JSON.parse(JSON.stringify(item));
     this.dialog.open(this.editDataDialog, {maxWidth: '550px', maxHeight: '550px'});
-    // console.log(this.currentItem);
+    // console.log(item);
   }
 
   confirmEditRow() {
@@ -163,17 +146,10 @@ export class MetaDataComponent implements OnInit {
       "modifiedBy": 1,
       "remarks": this.currentItem.remarks
     }
-
-    this.alertSer.wait();
-
     this.metaDataSer.updateMetadataKeyValue(myObj).subscribe((res: any) => {
       // console.log(res);
-      if(res) {
-        this.alertSer.success(res?.message);
-      }
-      setTimeout(()=> {
-        window.location.reload()
-      }, 3000);
+        this.alertSer.snackSuccess(res?.message);
+        this.CustomerReport();
     }, (err: any) => {
       if(err) {
         this.alertSer.error(err?.error?.message);
@@ -204,8 +180,33 @@ export class MetaDataComponent implements OnInit {
     this.newMetaData = this.newMetaData.filter((item: any) => item.siteId !== this.currentItem.siteId);
   }
 
+  sorted = false;
+  sort(label: any) {
+    this.sorted = !this.sorted;
+    var x = this.newMetaData;
+    if (this.sorted == false) {
+      x.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
+    } else {
+      x.sort((a: string, b: string) => b[label] > a[label] ? 1 : b[label] < a[label] ? -1 : 0);
+    }
+  }
+
 
   /* checkbox control */
+
+  selectedAll: any;
+  selectAll() {
+    for (var i = 0; i < this.newMetaData.length; i++) {
+      // console.log(this.metaData[i])
+      this.newMetaData[i].selected = this.selectedAll;
+    }
+  }
+  checkIfAllSelected() {
+    this.selectedAll = this.newMetaData.every(function (item: any) {
+      // console.log(item)
+      return item.selected == true;
+    })
+  }
 
   viewArray: any = [];
   viewBySelectedOne() {
@@ -277,18 +278,6 @@ export class MetaDataComponent implements OnInit {
       this.newMetaData.forEach((el: any) => {
         this.newMetaData = this.newMetaData.filter((item: any) => item.siteId !== el.siteId);
       });
-    }
-  }
-
-
-  sorted = false;
-  sort(label: any) {
-    this.sorted = !this.sorted;
-    var x = this.newMetaData;
-    if (this.sorted == false) {
-      x.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
-    } else {
-      x.sort((a: string, b: string) => b[label] > a[label] ? 1 : b[label] < a[label] ? -1 : 0);
     }
   }
 

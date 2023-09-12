@@ -159,7 +159,7 @@ export class AddNewVendorComponent implements OnInit {
 
   submitted!: boolean;
   submit() {
-    console.log(this.vendorBody);
+    // console.log(this.vendorBody);
     if(this.vendorForm.valid) {
       this.newItemEvent.emit(false);
       this.alertSer.wait();

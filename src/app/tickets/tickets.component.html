@@ -765,14 +765,12 @@
 <!--/ delete popup -->
 
 <!-- used items-->
-<ng-template #indentItemsDialog>
+<ng-template #usedItemsDialog>
   <div style="background-color: #084982;">
-    <p class="dialog-title">view ticket</p>
+    <p class="dialog-title">used items</p>
   </div>
 
   <mat-dialog-content>
-    <p class="text-secondary" style="font-weight: 600;">Tasks</p>
-
     <div class="row">
       <div class="table-res col-lg-12">
         <table class="table" id="mytable">
@@ -781,35 +779,35 @@
               <th>
                 <p class="d-inline-flex">
                   <span>id</span>
-                  <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                  <img (click)="sort1('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
                 </p>
               </th>
 
               <th>
                 <p class="d-inline-flex">
                   <span>inventoryId</span>
-                  <img (click)="sort('inventoryId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                  <img (click)="sort1('inventoryId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
                 </p>
               </th>
 
               <th>
                 <p class="d-inline-flex">
                   <span>itemCode</span>
-                  <img (click)="sort('itemCode')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                  <img (click)="sort1('itemCode')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
                 </p>
               </th>
 
               <th>
                 <p class="d-inline-flex">
                   <span>statusId</span>
-                  <img (click)="sort('statusId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                  <img (click)="sort1('statusId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
                 </p>
               </th>
 
               <th>
                 <p class="d-inline-flex">
                   <span>modifiedTime</span>
-                  <img (click)="sort('modifiedTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                  <img (click)="sort1('modifiedTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
                 </p>
               </th>
 
@@ -845,6 +843,9 @@
             </tr>
           </tbody>
         </table>
+      </div>
+      <div class="d-flex align-items-center justify-content-center" style="height: 20vh;" *ngIf="usedItems.length == 0">
+        <h1 class="text-secondary">No Data</h1>
       </div>
     </div>
   </mat-dialog-content>

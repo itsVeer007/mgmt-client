@@ -20,7 +20,7 @@ export class IndentsComponent implements OnInit {
 
   ngOnInit(): void {
     this.listIndent();
-    this.listOrderItems();
+    // this.listOrderItems();
     this.onGetMetadata();
   }
 
@@ -224,15 +224,11 @@ export class IndentsComponent implements OnInit {
       'inventoryId': this.updateInventoryId,
       'remarks': this.currentItem.remarks
     }
-
-    // this.originalObject.inventoryId = null;
-    this.alertSer.wait();
+  
     this.inventorySer.updateIndentStatus(this.originalObject, null).subscribe((res: any) => {
       // console.log(res);
-      if(res) {
-        this.alertSer.success(res?.message);
+        this.alertSer.snackSuccess(res?.message);
         this.listIndent();
-      }
     }, (err: any) => {
       if(err) {
         this.alertSer.error(err?.error?.message);
@@ -295,11 +291,10 @@ export class IndentsComponent implements OnInit {
     replacedBy: 1
   }
   replaceComponent() {
-    this.alertSer.wait();
     this.inventorySer.replaceComponent(this.body).subscribe((res: any) => {
       // console.log(res);
       if(res) {
-        this.alertSer.success(res?.message);
+        this.alertSer.snackSuccess(res?.message);
       }
     }, (err: any) => {
       if(err) {
@@ -331,7 +326,7 @@ export class IndentsComponent implements OnInit {
 
     this.inventorySer.listInventoryByItemCode(id).subscribe((res: any) => {
       this.invenIds = res;
-      console.log(this.invenIds);
+      // console.log(this.invenIds);
     })
   }
 

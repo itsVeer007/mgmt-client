@@ -8,8 +8,8 @@ import { environment } from '../environments/environment';
 })
 export class InventoryService {
 
-  // baseUrl = `${environment.baseUrl}/inventoryAndtickets`;
-  baseUrl = 'http://192.168.0.137:8080';
+  baseUrl = `${environment.baseUrl}/inventoryAndtickets`;
+  // baseUrl = 'http://192.168.0.137:8080';
 
   constructor(private http: HttpClient, public datepipe: DatePipe) { }
 
