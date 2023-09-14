@@ -111,14 +111,14 @@ export class AddProductMasterComponent implements OnInit {
     });
 
     this.ongetDeviceMode();
-    this.getVendor();
+    // this.getVendor();
   }
 
   vendorDetail: any;
   getVendor() {
-    // this.inventorySer.listVendors().subscribe((res: any) => {
-    //   this.vendorDetail = res;
-    // })
+    this.inventorySer.listVendors().subscribe((res: any) => {
+      this.vendorDetail = res;
+    })
   }
 
   /* metadata filter */
@@ -160,29 +160,23 @@ export class AddProductMasterComponent implements OnInit {
   }
 
   closeAddUser() {
-    this.newItemEvent.emit(false);
+    this.newItemEvent.emit();
   }
 
   submit() {
-    // console.log(this.prductMasterObj);
-
     if(this.UserForm.valid) {
-      this.newItemEvent.emit(false);
       this.alertSer.wait();
       this.inventorySer.addingproduct(this.prductMasterObj).subscribe((res: any) => {
         // console.log(res);
-        if(res) {
-          this.alertSer.success(res?.message);
-        }
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
+        this.newItemEvent.emit();
+        this.alertSer.success(res?.message);
       }, (err: any) => {
         if(err) {
           this.alertSer.error(err?.error?.message);
         };
       })
     }
+    // console.log(this.prductMasterObj);
   }
 
 

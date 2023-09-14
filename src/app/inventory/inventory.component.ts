@@ -14,32 +14,6 @@ import Swal from 'sweetalert2';
 export class InventoryComponent implements OnInit {
 
 
-  @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
-    var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);
-    var y = <HTMLElement>document.getElementById(`address${this.addressid}`);
-
-    // console.log(`plus-img${this.currentid}`);
-    if (x != null) {
-      if (!x.contains(e.target)) {
-        if (x.style.display == 'flex' || x.style.display == 'block') {
-          x.style.display = 'none';
-        }
-      }
-    }
-
-    if (y != null) {
-      if(!y.contains(e.target)) {
-        if (y.style.display == 'flex' || y.style.display == 'block') {
-          y.style.display = 'none';
-        }
-      }
-    }
-  }
-
-
-  showLoader = false;
-  // @Output() addInventoryEvent = new EventEmitter<any>();
-
   constructor(
     private inventorySer: InventoryService,
     private metadataSer: MetadataService,
@@ -49,12 +23,13 @@ export class InventoryComponent implements OnInit {
     public alertSer: AlertService
     ) { }
 
-  ngOnInit(): void {
-    this.listInventory();
-    this.onMetadataChange();
-  }
+    ngOnInit(): void {
+      this.listInventory();
+      this.onMetadataChange();
+    }
 
 
+  showLoader = false;
   searchText: any;
   searchTx: any;
   inventoryTable: any = [];
@@ -71,7 +46,8 @@ export class InventoryComponent implements OnInit {
       // console.log(res);
       this.showLoader = false;
       this.inventoryTable = res;
-      this.newInventoryTable = this.inventoryTable;
+      this.inventorySer.mainInventoryData = res;
+      this.newInventoryTable = this.inventorySer.mainInventoryData;
 
       this.inStock = this.newInventoryTable.reduce((sum: any, current: any) => sum + current.inStock, 0);
       this.dispatched = this.newInventoryTable.reduce((sum: any, current: any) => sum + current.dispatched, 0);
@@ -577,7 +553,7 @@ export class InventoryComponent implements OnInit {
       y.sort((a: string, b: string) => b[label] > a[label] ? 1 : b[label] < a[label] ? -1 : 0);
     }
   }
-  
+
 
   // sortTable(label: any) {
   //   this.sorted = !this.sorted;

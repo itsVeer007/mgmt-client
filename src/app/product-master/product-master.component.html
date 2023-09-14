@@ -1,41 +1,41 @@
 <div class="container-fluid users" id="top">
 
-    <!-- header -->
-    <div class="d-flex justify-content-between">
-      <div class="users-header">
-        <p>List of all Products - <span>{{ newProductMaster?.length }}</span></p>
-      </div>
-      <div style="position: relative">
-        <!-- <a class="pointer" (click)="show('inventory')"><img src="assets/icons/add_circle.svg" alt="" width="40"></a> -->
-        <button mat-flat-button color="primary" class="py-0" (click)="show('inventory')">Create Product</button>
-      </div>
+  <!-- header -->
+  <div class="d-flex justify-content-between">
+    <div class="users-header">
+      <p>List of all Products - <span>{{ newProductMaster?.length }}</span></p>
     </div>
-    <!-- /header -->
+    <div style="position: relative">
+      <!-- <a class="pointer" (click)="show('inventory')"><img src="assets/icons/add_circle.svg" alt="" width="40"></a> -->
+      <button class="create-btn" (click)="show('product')">Create Product</button>
+    </div>
+  </div>
+  <!-- /header -->
 
   <!-- count -->
-    <div class="row mb-2">
-      <!-- <div class="col-lg-1 col-md-1 d-flex justify-content-start">
-        <div class="vl-green"></div>
-        <div class="mx-2">
-          <div class="status">Active</div>
-          <div class="count">{{ newProductMaster?.length }}</div>
-        </div>
+  <div class="row mb-2">
+    <!-- <div class="col-lg-1 col-md-1 d-flex justify-content-start">
+      <div class="vl-green"></div>
+      <div class="mx-2">
+        <div class="status">Active</div>
+        <div class="count">{{ newProductMaster?.length }}</div>
       </div>
-      <div class="col-lg-1 col-md-1 d-flex justify-content-start">
-        <div class="vl-yellow"></div>
-        <div class="mx-2">
-          <div class="status">Inactive</div>
-          <div class="count">0</div>
-        </div>
-      </div> -->
-      <!-- <div class="col-lg-2 d-flex justify-content-start">
-        <div class="vl-red"></div>
-        <div class="mx-2">
-          <div class="status">Removed</div>
-          <div class="count">{{ scrap.length }}</div>
-        </div>
-      </div> -->
     </div>
+    <div class="col-lg-1 col-md-1 d-flex justify-content-start">
+      <div class="vl-yellow"></div>
+      <div class="mx-2">
+        <div class="status">Inactive</div>
+        <div class="count">0</div>
+      </div>
+    </div> -->
+    <!-- <div class="col-lg-2 d-flex justify-content-start">
+      <div class="vl-red"></div>
+      <div class="mx-2">
+        <div class="status">Removed</div>
+        <div class="count">{{ scrap.length }}</div>
+      </div>
+    </div> -->
+  </div>
   <!-- /count -->
 
   <!-- form -->
@@ -96,7 +96,7 @@
       </mat-form-field>
     </div> -->
 
-    <div class="col-lg-2 col-md-2 col-sm-12">
+    <div class="col-lg-3 col-sm-12">
       <mat-form-field class="example-form-field" appearance="outline" class="w-100">
         <mat-label>Search</mat-label>
         <input matInput type="text"  [(ngModel)]="searchText">
@@ -112,7 +112,7 @@
   <div class="table-resp">
     <table class="table table-hover" id="mytable">
       <thead>
-        <tr class="form1" style="background-image: linear-gradient(to right, #084982, #D34124);">
+        <tr class="form1">
           <!-- <th>
             <input type="checkbox" class="form-check-input" [(ngModel)]="selectedAll" (change)="selectAll()"
               id="allcheck" style="
@@ -203,7 +203,7 @@
         </tr>
       </thead>
 
-      <tbody>
+      <tbody *ngIf="!showLoader">
         <tr *ngFor="let cust of newProductMaster | search : searchText; let i = index">
           <!-- <td>
             <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="cust.selected" (change)="
@@ -273,8 +273,8 @@
   </div>
 
   <!-- Loader -->
-  <div *ngIf="showLoader" class="d-flex justify-content-center align-items-center" style="height: 50vh;">
-    <app-loader></app-loader>
+  <div *ngIf="showLoader">
+    <app-loader class="d-flex justify-content-center align-items-center" style="height: 50vh;"></app-loader>
   </div>
   <!-- /Loader -->
 </div>
@@ -514,8 +514,8 @@
 <!-- /Delete Popup -->
 
 
-<div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showInventory">
-  <app-add-product-master [show]="showInventory" (newItemEvent)="closenow($event, 'inventory')"></app-add-product-master>
+<div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showProduct">
+  <app-add-product-master (newItemEvent)="closenow('product'); listProduct()"></app-add-product-master>
 </div>
 
 

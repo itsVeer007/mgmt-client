@@ -102,22 +102,14 @@ export class AddNewIndentComponent implements OnInit {
   arr: any = [];
   warrantyDetail: any = 'No';
   submit() {
-    // console.log(this.inventoryBody);
-    // console.log(this.warrantyDetail);
-
     if(this.UserForm.valid) {
       this.alertSer.wait();
-      this.newItemEvent.emit(false);
       this.inventoryBody.ticketId = this.ticketIdFrmFr?.ticketId;
       this.inventoryBody.items = this.items;
       this.inventorySer.createIndent(this.inventoryBody).subscribe((res: any) => {
         // console.log(res);
-        if(res) {
-          this.alertSer.success(res?.message);
-        }
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
+        this.newItemEvent.emit();
+        this.alertSer.success(res?.message);
       }, (err: any) => {
         if(err) {
           this.alertSer.error(err?.error?.message);

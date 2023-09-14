@@ -7,8 +7,7 @@
     </div>
     <div style="position: relative">
       <!-- <a class="pointer" (click)="show('user')"><img src="assets/icons/add.svg" alt="" /></a> -->
-
-      <button mat-flat-button color="primary" class="py-0" (click)="show('vendor')">Create Indent</button>
+      <button class="create-btn" (click)="show('indent')">Create Indent</button>
     </div>
   </div>
   <!-- header ends -->
@@ -108,7 +107,7 @@
       </mat-form-field>
     </div>
 
-    <div class="filter-search-btn col-lg-1 col-md-1">
+    <div class="  col-lg-1 col-md-1">
       <button (click)="applyFilter()">Submit</button>
     </div> -->
 
@@ -176,7 +175,7 @@
         </tr>
       </thead>
 
-      <tbody>
+      <tbody *ngIf="!showLoader">
         <tr *ngFor="let cust of newIndentTable | search : searchText; let i = index">
           <!-- <td>
             <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="cust.selected" (change)="
@@ -248,8 +247,6 @@
   <!-- /Loader -->
 
 </div>
-
-
 
 
 <!-- view Popup -->
@@ -600,6 +597,6 @@
 </ng-template>
 
 
-<div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showInventory">
-  <app-add-new-indent (newItemEvent)="closenow($event, 'vendor')"></app-add-new-indent>
+<div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showIndent">
+  <app-add-new-indent (newItemEvent)="closenow('indent'); listIndent()"></app-add-new-indent>
 </div>

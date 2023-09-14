@@ -13,6 +13,10 @@ export class InventoryService {
 
   constructor(private http: HttpClient, public datepipe: DatePipe) { }
 
+  mainInventoryData: any = [];
+  mainIndentData: any = [];
+  mainProductData: any = [];
+
   /* inventory */
 
   listItemCode(payload: any) {
@@ -121,7 +125,6 @@ export class InventoryService {
     return this.http.get(url, {params: params});
   }
 
-   /* inventory */
 
   /* warrenty */
 
@@ -188,7 +191,6 @@ export class InventoryService {
   // }
 
 
-
   /* product-master */
 
   listProduct() {
@@ -241,7 +243,6 @@ export class InventoryService {
 
     return this.http.get(url, {params: params});
   }
-
 
 
   /* indents */
@@ -297,7 +298,7 @@ export class InventoryService {
     if(payload.siteId) {
       params = params.set('siteId', payload.siteId);
     }
-    
+
     return this.http.put(url, null, {params: params});
   }
 
@@ -305,7 +306,6 @@ export class InventoryService {
     let url = this.baseUrl + `/listIndent_1_0`;
     return this.http.get(url, {params: payload});
   }
-
 
 
   /* orders */
@@ -365,7 +365,6 @@ export class InventoryService {
     let url = this.baseUrl + `/deleteOrderItem_1_0/${payload.id}`;
     return this.http.delete(url);
   }
-
 
 
   /* vendors */

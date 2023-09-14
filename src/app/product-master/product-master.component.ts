@@ -13,44 +13,19 @@ import { MetadataService } from 'src/services/metadata.service';
 })
 export class ProductMasterComponent implements OnInit {
 
-  @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
-    var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);
-    var y = <HTMLElement>document.getElementById(`address${this.addressid}`);
-
-    // console.log(`plus-img${this.currentid}`);
-    if (x != null) {
-      if (!x.contains(e.target)) {
-        if (x.style.display == 'flex' || x.style.display == 'block') {
-          x.style.display = 'none';
-        }
-      }
-    }
-
-    if (y != null) {
-      if(!y.contains(e.target)) {
-        if (y.style.display == 'flex' || y.style.display == 'block') {
-          y.style.display = 'none';
-        }
-      }
-    }
-  }
-
-
-
-
-  showLoader = false;
   constructor(
     private inventorySer: InventoryService,
     private metaDataSer: MetadataService,
     public dialog: MatDialog,
     public alertSer: AlertService
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.listProduct();
     this.onMetadataChange();
   }
 
+  showLoader = false;
   searchText: any;
   searchTx: any;
   productMaster: any = [];
@@ -64,7 +39,8 @@ export class ProductMasterComponent implements OnInit {
       // console.log(res);
       this.showLoader = false;
       this.productMaster = res;
-      this.newProductMaster = this.productMaster;
+      this.inventorySer.mainProductData = res;
+      this.newProductMaster = this.inventorySer.mainProductData;
 
       for(let item of this.productMaster) {
         if(item.statusId == 1) {
@@ -148,14 +124,17 @@ export class ProductMasterComponent implements OnInit {
     }
   }
 
-  closenow(value: any, type: String) {
-    if (type == 'inventory') { this.showInventory = value; }
+  showProduct: boolean = false;
+  show(type: string) {
+    if (type == 'product') {
+      this.showProduct = true;
+    }
   }
 
-  showInventory: boolean = false;
-
-  show(type: string) {
-    if (type == 'inventory') { this.showInventory = true; }
+  closenow(type: String) {
+    if (type == 'product') {
+      this.showProduct = false;
+    }
   }
 
   addressid = 0;

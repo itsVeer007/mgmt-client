@@ -1,15 +1,10 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
 import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
-import { DeviceService } from 'src/services/device.service';
 import { MetadataService } from 'src/services/metadata.service';
-import { SiteService } from 'src/services/site.service';
 
 @Component({
   selector: 'app-advertisements',
@@ -19,7 +14,6 @@ import { SiteService } from 'src/services/site.service';
 export class AdvertisementsComponent implements OnInit {
 
   constructor(
-    private http: HttpClient,
     private assetService: AssetService,
     private metadataSer: MetadataService,
     public datepipe: DatePipe,

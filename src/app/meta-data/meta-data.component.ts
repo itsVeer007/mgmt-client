@@ -96,23 +96,24 @@ export class MetaDataComponent implements OnInit {
     }
   }
 
-  showAddSite = false;
-  showAddCamera = false;
-  showAddCustomer = false;
-  showAddUser = false;
-  showAddBusinessVertical = false;
-  showSite = false;
-
-  closenow(value: any, type: String) {
-    if (type == 'ticket') { this.showTicket = value; }
-  }
-
   showTicket: boolean = false;
-
   show(type: string, val: any) {
-    if (type == 'ticket') { this.showTicket = true }
-    localStorage.setItem('metaType', val)
+    if(val != 'All') {
+      if (type == 'ticket') {
+        this.showTicket = true
+      }
+      localStorage.setItem('metaType', val)
+    } else {
+      this.alertSer.error('Please select type')
+    }
   }
+
+  closenow(type: String) {
+    if (type == 'ticket') {
+      this.showTicket = false;
+    }
+  }
+
 
   currentItem: any;
 
@@ -131,7 +132,6 @@ export class MetaDataComponent implements OnInit {
   openEditPopup(item: any, type: any) {
     localStorage.setItem('metaType', type);
     this.typeFromLocal = localStorage.getItem('metaType');
-    // console.log(this.typeFromLocal);
 
     this.currentItem = JSON.parse(JSON.stringify(item));
     this.dialog.open(this.editDataDialog, {maxWidth: '550px', maxHeight: '550px'});

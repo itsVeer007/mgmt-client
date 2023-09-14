@@ -64,7 +64,8 @@ export class TicketsComponent implements OnInit {
     this.ticketSer.listTickets().subscribe((res: any) => {
       this.showLoader = false;
       this.ticketData = res;
-      this.newTicketData = this.ticketData?.sort((a: any, b: any) => a?.ticketId < b?.ticketId ? 1 : a?.ticketId > b?.ticketId ? -1 : 0);
+      this.ticketSer.mainTicketData = res;
+      this.newTicketData = this.ticketSer.mainTicketData?.sort((a: any, b: any) => a?.ticketId < b?.ticketId ? 1 : a?.ticketId > b?.ticketId ? -1 : 0);
 
       for(let item of this.ticketData) {
         if(item.ticketStatus == 'Open') {

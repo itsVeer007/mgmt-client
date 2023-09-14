@@ -80,6 +80,11 @@
   border-radius: 5px;
 }
 
+.routeactive1{
+  background-color: #D34124;
+  border-radius: 5px;
+}
+
 .list-group img {
     margin-right: 10px;
 }
@@ -183,11 +188,10 @@
     align-items: center;
     justify-content: center;
   }
-
 }
 
 
-
+/* hover-menu */
 
 .navigation {
   padding: 0;
@@ -212,8 +216,6 @@
 
 .navigation ul li {
   float: left;
-  /* min-height: 0.05em; */
-  /* line-height: 1em; */
   vertical-align: middle;
   position: relative;
 }
@@ -238,11 +240,6 @@
   float: none;
 }
 
-/* .navigation ul ul ul {
-  top: 0;
-  right: 0;
-} */
-
 .navigation ul li:hover > ul {
   visibility: visible;
 }
@@ -256,26 +253,25 @@
   float: none;
 }
 
-.navigation ul ul {
+/* .navigation ul ul {
   margin-top: 0.05em;
-}
+} */
 
-.navigation {
+/* .navigation {
   width: 13em;
-  /* background: #333333; */
   zoom: 1;
-}
+} */
 
-.navigation:before {
+/* .navigation:before {
   content: '';
   display: block;
-}
+} */
 
-.navigation:after {
+/* .navigation:after {
   content: '';
   display: table;
   clear: both;
-}
+} */
 
 .navigation a {
   display: block;
@@ -288,12 +284,7 @@
   width: 15em;
 }
 
-/* .navigation ul ul {
-  width: 13em;
-} */
-
 .navigation > ul > li > a {
-  /* border-right: 0.3em solid #34A65F; */
   color: #ffffff;
 }
 
@@ -304,7 +295,6 @@
 .navigation > ul > li a:hover,
 .navigation > ul > li:hover a {
   background: #084982;
-  /* margin-left: 10px; */
 }
 
 .navigation li {
@@ -317,18 +307,17 @@
   right: 10px;
 }
 
-.navigation ul a {
+/* .navigation ul a {
   color: #ffffff;
-  /* padding: 10px; */
-}
+} */
 
 .navigation ul li ul li a {
   padding: 10px;
 }
 
-.navigation ul a:hover {
+/* .navigation ul a:hover {
   color: #ffffff;
-}
+} */
 
 .navigation ul li ul li:hover > a {
   background: #AA4337;
@@ -341,34 +330,35 @@
   right: 10px;
 }
 
-.navigation.align-right {
+/* .navigation.align-right {
   float: right;
-}
+} */
 
-.navigation.align-right li {
+/* .navigation.align-right li {
   text-align: right;
-}
+} */
 
-.navigation.align-right ul li.has-sub > a:before {
+/* .navigation.align-right ul li.has-sub > a:before {
   content: '+';
   position: absolute;
   top: 50%;
   left: 15px;
   margin-top: -6px;
-}
+} */
 
-.navigation.align-right ul li.has-sub > a:after {
+/* .navigation.align-right ul li.has-sub > a:after {
   content: none;
-}
+} */
 
-.navigation.align-right ul ul {
+/* .navigation.align-right ul ul {
   visibility: hidden;
   position: absolute;
   top: 0;
   left: -100%;
   z-index: 598;
   width: 100%;
-}
+} */
+
 
 ::ng-deep .mat-menu-content:not(:empty) {
   padding: 0 !important;

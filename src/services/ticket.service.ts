@@ -12,6 +12,8 @@ export class TicketService {
 
   constructor(private http: HttpClient) { }
 
+  mainTicketData: any = [];
+
   baseUrl = `${environment.baseUrl}/inventoryAndtickets`;
   // baseUrl = 'http://192.168.0.137:8080';
 

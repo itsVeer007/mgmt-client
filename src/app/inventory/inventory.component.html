@@ -1,6 +1,5 @@
 <div class="container-fluid users" id="top">
 
-  <!-- header -->
   <!-- <div class="users-header row">
     <div class="col-lg-6">
       <p>Total Items - <span>{{ inventoryTable.length }}</span></p>
@@ -68,15 +67,17 @@
     </div>
   </div> -->
 
+  <!-- header -->
   <div class="d-flex align-items-center justify-content-between">
     <div class="users-header">
       <p class="mt-2">List of Items - <span>{{ inventoryTable?.length }}</span></p>
     </div>
 
     <div>
-      <button class="py-0" mat-flat-button color="primary" (click)="show('inventory')">Create Inventory</button>
+      <button class="create-btn" (click)="show('inventory')">Create Inventory</button>
     </div>
   </div>
+  <!-- /header -->
 
   <!-- status -->
   <div class="row mb-2">
@@ -121,7 +122,6 @@
     </div>
   </div>
   <!-- /status -->
-  <!-- /header -->
 
   <!-- form -->
   <div class="row search-form">
@@ -184,12 +184,15 @@
       </mat-form-field>
     </div>
 
-    <div class="filter-search-btn col-lg-1 col-md-1">
+    <div class="col-lg-1">
       <!-- <button mat-flat-button color="primary" class="p-0" (click)="applyFilter()">Submit</button> -->
-      <button (click)="applyFilter()">Submit</button>
+      <!-- <button (click)="applyFilter()">Submit</button> -->
+      <button class="filter-btn" (click)="applyFilter()">Submit</button>
     </div>
 
     <div class="col-lg-3"></div>
+  </div>
+  <!-- /form -->
 
 
   <!-- table starts -->
@@ -312,7 +315,7 @@
         </tr>
       </thead>
 
-        <tbody>
+      <tbody *ngIf="!showLoader">
         <tr *ngFor="let cust of newInventoryTable | search : searchText; let i = index">
           <!-- <td>
             <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="cust.selected" (change)="
@@ -449,8 +452,8 @@
   </div>
 
   <!-- Loader -->
-  <div >
-    <app-loader *ngIf="showLoader" class="d-flex justify-content-center align-items-center" style="height: 50vh;"></app-loader>
+  <div *ngIf="showLoader">
+    <app-loader class="d-flex justify-content-center align-items-center" style="height: 50vh;"></app-loader>
   </div>
   <!-- /Loader -->
 </div>
@@ -859,7 +862,7 @@
                   <div style="background-color: #084982;">
                     <p class="dialog-title">view status</p>
                   </div>
-  
+
                   <mat-dialog-content>
                     <mat-form-field appearance="outline" class="w-100">
                       <mat-label>Edit Status</mat-label>
@@ -868,7 +871,7 @@
                       </mat-select>
                     </mat-form-field>
                   </mat-dialog-content>
-  
+
                   <div class="d-flex align-items-center justify-content-end">
                     <div mat-dialog-actions class="me-2">
                       <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
@@ -1034,5 +1037,5 @@
 
 
 <div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showInventory">
-  <app-add-new-inventory (newItemEvent)="closenow('inventory')"></app-add-new-inventory>
+  <app-add-new-inventory (newItemEvent)="closenow('inventory'); listInventory()"></app-add-new-inventory>
 </div>

@@ -32,6 +32,7 @@ import Swal from 'sweetalert2';
     ])
   ]
 })
+
 export class AddNewInventoryComponent implements OnInit {
   constructor(
     private router: Router,
@@ -245,7 +246,6 @@ export class AddNewInventoryComponent implements OnInit {
   arr: any = [];
   warrantyDetail: any = 'N';
   submit() {
-    // console.log(this.inventoryBody);
     this.inventoryBody.inventory.name = this.inventoryBody.inventory.itemCode;
     if(this.UserForm.valid) {
       this.alertSer.wait();
@@ -255,27 +255,21 @@ export class AddNewInventoryComponent implements OnInit {
         // this.inventoryBody.serialnos = this.inventoryBody.serialnos?.split(',').map((value: any) => value.trim());
         this.arr.push(this.inventoryBody.serialnos?.split(',').map((value: any) => value.trim()));
         this.inventoryBody.serialnos = this.arr[0];
-        // console.log(this.inventoryBody.serialnos);
       }
-
       this.inventoryBody.warranty.startDate = this.datepipe.transform(this.inventoryBody.warranty.startDate, 'yyyy-MM-dd');
       this.inventoryBody.warranty.endDate = this.datepipe.transform(this.inventoryBody.warranty.endDate, 'yyyy-MM-dd');
-      this.newItemEvent.emit(false);
 
       this.inventorySer.createInventory(this.inventoryBody, this.warrantyDetail).subscribe((res: any) => {
         // console.log(res);
-        if(res) {
-          this.alertSer.success(res?.message);
-        }
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
+        this.newItemEvent.emit();
+        this.alertSer.success(res?.message);
       }, (err: any) => {
         if(err) {
           this.alertSer.error(err?.error?.message);
         }
       });
     }
+    // console.log(this.inventoryBody);
   }
 
 

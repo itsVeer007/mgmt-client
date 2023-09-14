@@ -78,7 +78,7 @@ export class AddMetadataComponent implements OnInit {
   }
 
   closeAddCamera() {
-    this.newItemEvent.emit(false);
+    this.newItemEvent.emit();
   }
 
   type: Array<any> = [];

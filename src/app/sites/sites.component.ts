@@ -29,7 +29,6 @@ export class SitesComponent implements OnInit {
   tempSite: any;
   siteData: any;
 
-  siteNg: any = 'All'
   ngOnInit(): void {
     this.tempSite = JSON.parse(localStorage.getItem('temp_sites')!);
     this.siteData = JSON.parse(localStorage.getItem('siteIds')!)?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
@@ -43,16 +42,16 @@ export class SitesComponent implements OnInit {
   // getlistSites() {
   //   this.showLoader = true;
   //   this.siteSer.listSites().subscribe((res: any) => {
-  //     console.log(res);
+    //     console.log(res);
   //     this.showLoader = false;
   //     if(res?.Status == 'Success') {
   //       this.tableData = res?.siteList?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
   //       this.newTableData = this.tableData;
   //     }
   //     if(res?.Status == 'Failed') {
-  //       this.apiSer.logout();
-  //     }
-  //   }, (err: any) => {
+    //       this.apiSer.logout();
+    //     }
+    //   }, (err: any) => {
   //     console.log(err);
   //   });
   // }
@@ -92,6 +91,14 @@ export class SitesComponent implements OnInit {
 
   saveSiteData(site: any) {
     localStorage.setItem('temp_sites', JSON.stringify(site));
+  }
+
+  /* searches */
+
+  siteSearch: any;
+  siteNg: any = 'All'
+  searchSites(event: any) {
+    this.siteSearch = (event.target as HTMLInputElement).value
   }
 
   filterSites(site: any) {

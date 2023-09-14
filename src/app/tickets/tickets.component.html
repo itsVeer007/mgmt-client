@@ -7,7 +7,7 @@
     </div>
     <div>
       <!-- <a class="pointer" (click)="show('ticket')"><img style="rotate: 45deg;" src="assets/icons/close_form.svg" alt="" width="70"></a> -->
-      <button mat-flat-button color="primary" class="py-0" (click)="show('ticket')">Create Ticket</button>
+      <button class="create-btn" (click)="show('ticket')">Create Ticket</button>
     </div>
   </div>
   <!-- /header -->
@@ -102,9 +102,9 @@
       </mat-form-field>
     </div>
 
-    <div class="filter-search-btn col-lg-1 col-md-1">
+    <div class="  col-lg-1 col-md-1">
       <!-- <button mat-flat-button color="primary" class="p-0" (click)="applyFilter()">Submit</button> -->
-      <button (click)="applyFilter()">Submit</button>
+      <button class="filter-btn" (click)="applyFilter()">Submit</button>
     </div>
 
 
@@ -249,7 +249,7 @@
 
             <ng-template #assignedDialog>
               <div style="background-color: #084982;">
-                <p class="dialog-title">VIEW TICKET</p>
+                <p class="dialog-title">Assign</p>
               </div>
 
               <mat-dialog-content>
@@ -858,7 +858,7 @@
 
 
 <div *ngIf="showTicket" style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;">
-  <app-add-new-ticket (newItemEvent)="closenow('ticket')" (addTicket)="listTickets()"></app-add-new-ticket>
+  <app-add-new-ticket (newItemEvent)="closenow('ticket'); listTickets()"></app-add-new-ticket>
 </div>
 
 <div *ngIf="showIndent" style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;">

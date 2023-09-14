@@ -20,6 +20,8 @@ export class IndentsComponent implements OnInit {
 
   ngOnInit(): void {
     this.listIndent();
+    this.listProduct();
+    this.listInventory();
     // this.listOrderItems();
     this.onGetMetadata();
   }
@@ -47,7 +49,8 @@ export class IndentsComponent implements OnInit {
       // console.log(res);
       this.showLoader = false;
       this.indentTable = res;
-      this.newIndentTable = this.indentTable;
+      this.inventorySer.mainIndentData = res;
+      this.newIndentTable = this.inventorySer.mainIndentData;
 
       for(let item of this.indentTable) {
         if(item.statusId == 1) {
@@ -63,14 +66,18 @@ export class IndentsComponent implements OnInit {
         }
       }
     });
+  }
 
+  listProduct() {
     this.inventorySer.listProduct().subscribe((res: any) => {
       this.productIds = res;
-    })
+    });
+  }
 
+  listInventory() {
     this.inventorySer.listInventory().subscribe((res: any) => {
       this.inventoryDetail = res;
-    })
+    });
   }
 
   vendorDetail: any;
@@ -172,13 +179,17 @@ export class IndentsComponent implements OnInit {
     }
   }
 
-  showInventory: boolean = false;
-  closenow(value: any, type: String) {
-    if (type == 'vendor') { this.showInventory = value; }
+  showIndent: boolean = false;
+  closenow(type: String) {
+    if (type == 'indent') {
+      this.showIndent = false;
+    }
   }
 
   show(type: string) {
-    if (type == 'vendor') { this.showInventory = true; }
+    if (type == 'indent') {
+      this.showIndent = true;
+    }
   }
 
 
@@ -224,7 +235,7 @@ export class IndentsComponent implements OnInit {
       'inventoryId': this.updateInventoryId,
       'remarks': this.currentItem.remarks
     }
-  
+
     this.inventorySer.updateIndentStatus(this.originalObject, null).subscribe((res: any) => {
       // console.log(res);
         this.alertSer.snackSuccess(res?.message);

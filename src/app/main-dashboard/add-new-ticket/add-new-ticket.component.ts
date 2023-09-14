@@ -33,7 +33,6 @@ import Swal from 'sweetalert2';
 export class AddNewTicketComponent implements OnInit {
 
   @Output() newItemEvent = new EventEmitter<boolean>();
-  @Output() addTicket = new EventEmitter<any>();
 
   addAssetForm: any = FormGroup;
 
@@ -144,26 +143,20 @@ export class AddNewTicketComponent implements OnInit {
   }
 
   addNewAsset() {
-    // console.log(this.ticketBody);
     if(this.addAssetForm.valid) {
       this.alertSer.wait();
-      this.newItemEvent.emit();
       this.ticketBody.tasks = this.tasks;
       this.ticketSer.createTicket(this.ticketBody).subscribe((res: any) => {
         // console.log(res);
-        if(res) {
-          this.alertSer.success(res?.message);
-          // this.addTicket.emit();
-        }
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
+        this.newItemEvent.emit();
+        this.alertSer.success(res?.message);
       }, (err: any) => {
         if(err) {
           this.alertSer.error(err?.error?.message);
         };
       });
     }
+    // console.log(this.ticketBody);
   }
 
 }

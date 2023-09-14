@@ -362,12 +362,10 @@ export class AddNewAssetComponent implements OnInit {
         this.newItemEvent.emit();
         this.alertSer.wait();
         this.assetService.addAsset(this.assetData, this.selectedFile).subscribe((res: any) => {
-          if(res) {
-            this.alertSer.success(res?.message);
-            setTimeout(() => {
-              window.location.reload();
-            }, 2000);
-          }
+          this.alertSer.success(res?.message);
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
           }, (err: any) => {
             if(err) {
               this.alertSer.error(err?.error?.message);
