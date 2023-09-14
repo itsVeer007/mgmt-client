@@ -87,6 +87,7 @@ import { FrComponent } from './fr/fr.component';
 import { TicketReportsComponent } from './ticket-reports/ticket-reports.component';
 import { AdvertisementsComponent } from './advertisements/advertisements.component';
 import { FrKitComponent } from './fr-kit/fr-kit.component';
+import { AddNewFrkitComponent } from './main-dashboard/add-new-frkit/add-new-frkit.component';
 
 @NgModule({
   declarations: [
@@ -138,7 +139,8 @@ import { FrKitComponent } from './fr-kit/fr-kit.component';
     FrComponent,
     TicketReportsComponent,
     AdvertisementsComponent,
-    FrKitComponent
+    FrKitComponent,
+    AddNewFrkitComponent
   ],
   imports: [
     BrowserModule,

@@ -55,12 +55,17 @@ export class FrKitComponent implements OnInit {
     })
   }
 
-  showIndent: boolean = false;
+  showFrkit: boolean = false;
   show(type: string) {
-    if (type == 'indent') { this.showIndent = true }
+    if (type == 'frKit') {
+      this.showFrkit = true;
+    }
   }
+
   closenow(type: String) {
-    if (type == 'indent') { this.showIndent = false }
+    if (type == 'frKit') {
+      this.showFrkit = false;
+    }
   }
 
   ticketIdToFr(ticketId: any) {

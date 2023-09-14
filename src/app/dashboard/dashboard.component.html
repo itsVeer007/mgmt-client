@@ -93,6 +93,11 @@
                 <img src="assets/icons/user-white.svg" /><span>Users</span>
             </a>
 
+            <a class="list-group-item " [routerLink]="['/indents']" routerLinkActive="routeactive">
+              <img src="assets/icons/inventory.svg">
+              <span>Indents</span>
+            </a>
+
             <a class="list-group-item " [routerLink]="['/inventory']" routerLinkActive="routeactive">
               <img src="assets/icons/inventory.svg">
               <span>Inventory</span>
@@ -107,7 +112,7 @@
               <img src="assets/icons/devices.svg" /><span>Devices</span>
             </a>
 
-            <a class="list-group-item my-2" [routerLink]="['/assets']" routerLinkActive="routeactive">
+            <a class="list-group-item my-2" [routerLink]="['/advertisements']" routerLinkActive="routeactive">
                 <img src="assets/icons/asset.svg" /><span>Advertisements</span>
             </a>
 
@@ -117,10 +122,6 @@
 
             <a *ngIf="isAdmin == true" class="list-group-item my-2" [routerLink]="['/meta']" routerLinkActive="routeactive">
               <img src="assets/icons/storage.svg" /><span>Metadata</span>
-            </a>
-
-            <a *ngIf="isAdmin == true" class="list-group-item my-2" [routerLink]="['/vendors']" routerLinkActive="routeactive">
-              <span>Vendors</span>
             </a>
 
             <!-- <a class="list-group-item my-2" [routerLink]="['/reports']" routerLinkActive="routeactive">
