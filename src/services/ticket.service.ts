@@ -121,6 +121,12 @@ export class TicketService {
     return this.http.get(url);
   }
 
+  listFRItems(frId: any, statusId: any) {
+    let url = this.baseUrl + `/listFRItems_1_0`;
+    let params = new HttpParams().set('frId', frId).set('statusId', statusId)
+    return this.http.get(url, {params: params});
+  }
+
   fieldVisitEntry(payload: any) {
     let url = this.baseUrl + `/fieldVisitEntry_1_0`;
     let myObj = {
@@ -167,6 +173,7 @@ export class TicketService {
     let url = this.baseUrl + `/updateIndentStatus_1_0/${currentId.id}/${payload.statusId}/${payload.createdBy}`;
     return this.http.put(url, null);
   }
+
 
   /* ticket reort */
 

@@ -83,6 +83,21 @@ export class FrComponent implements OnInit {
     localStorage.setItem('ticketId', JSON.stringify(ticketId));
   }
 
+
+  statusItems: any;
+  // currentStatusItem1: any;
+  @ViewChild('statusItemsDialog') statusItemsDialog = {} as TemplateRef<any>;
+  openStatusItems(type: any, status: any) {
+    // this.currentStatusItem1 = data;
+    // console.log(this.currentStatusItem)
+    this.dialog.open(this.statusItemsDialog, {maxWidth: '750px', maxHeight: '550px'});
+
+    this.ticketSer.listFRItems(type, status).subscribe((res: any) => {
+      console.log(res);
+      this.statusItems = res;
+    })
+  }
+
   @ViewChild('ticketTaskDialog') ticketTaskDialog = {} as TemplateRef<any>;
   ticketTasks: any;
   ticketVisits: any;
@@ -296,7 +311,7 @@ export class FrComponent implements OnInit {
       };
     });
   }
-  
+
   statusMsg: string = '';
   changeToInstall(data: any) {
     this.body1.siteId = this.currentSite;
