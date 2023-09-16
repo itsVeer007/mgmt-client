@@ -29,7 +29,7 @@
             <mat-select formControlName="productId" [(ngModel)]="inventoryBody.items[i].itemCode">
               <mat-option *ngFor="let item of productIds" [value]="item.suggestedItemCode">{{ item.materialDescription }}</mat-option>
             </mat-select>
-            <mat-error class="mt-1">Product Id is required</mat-error>
+            <mat-error class="mt-1"> Itemcode is required</mat-error>
           </mat-form-field>
         </div>
 

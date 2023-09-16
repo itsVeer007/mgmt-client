@@ -102,12 +102,12 @@ export class AddProductMasterComponent implements OnInit {
       // 'remarks': new FormControl('')
 
       //new
-      'materialDescription': new FormControl(''),
-      'uomId': new FormControl(''),
-      'partType': new FormControl(''),
-      'partCategory': new FormControl(''),
-      'partCode': new FormControl(''),
-      'buildType': new FormControl('')
+      'materialDescription': new FormControl('', Validators.required),
+      'uomId': new FormControl('' , Validators.required),
+      'partType': new FormControl('' , Validators.required),
+      'partCategory': new FormControl('', Validators.required),
+      'partCode': new FormControl('' , Validators.required),
+      'buildType': new FormControl('', Validators.required)
     });
 
     this.ongetDeviceMode();

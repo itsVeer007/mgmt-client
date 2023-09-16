@@ -90,13 +90,13 @@ export class AddNewTicketComponent implements OnInit {
     this.addAssetForm = this.fb.group({
       'typeId': new FormControl('', Validators.required),
       'reasonDescription': new FormControl('', Validators.required),
-      'requestedBy': new FormControl(''),
-      'siteId': new FormControl(''),
-      'informedThrough': new FormControl(''),
+      'requestedBy': new FormControl('', Validators.required),
+      'siteId': new FormControl('', Validators.required),
+      'informedThrough': new FormControl('', Validators.required),
 
-      'categoryId': new FormControl(''),
-      'subCategoryId': new FormControl(''),
-      'priorityId': new FormControl(''),
+      'categoryId': new FormControl('', Validators.required),
+      'subCategoryId': new FormControl('', Validators.required),
+      'priorityId': new FormControl('', Validators.required),
       // 'reasonId': new FormControl('')
     });
 

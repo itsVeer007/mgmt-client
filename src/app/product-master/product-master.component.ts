@@ -156,7 +156,7 @@ export class ProductMasterComponent implements OnInit {
     this.metaDataSer.getMetadata().subscribe((res: any) => {
       for(let item of res) {
         if(item.type == 'Product_Status') {
-          this.productStatus = item.metadata;
+          this.productStatus= item.metadata;
         } else if(item.type == 'uom') {
           this.uom = item.metadata;
         }

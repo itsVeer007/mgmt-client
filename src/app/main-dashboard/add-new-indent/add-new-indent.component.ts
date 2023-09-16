@@ -61,7 +61,7 @@ export class AddNewIndentComponent implements OnInit {
     this.UserForm = this.fb.group({
       'jobOrTicketId': new FormControl(''),
       'productId': new FormControl('', Validators.required),
-      'quantity': new FormControl(''),
+      'quantity': new FormControl('', Validators.required),
       'remarks': new FormControl('')
     });
 

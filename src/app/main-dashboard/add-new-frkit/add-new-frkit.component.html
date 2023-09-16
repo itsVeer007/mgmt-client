@@ -6,14 +6,14 @@
     <div class="d-flex flex-row justify-content-between">
       <div class="d-flex flex-row justify-content-start">
         <a class="close-main pointer" (click)="closeAddUser()"><img src="assets/icons/close_form.svg" /></a>
-        <span class="form-heading">add indent</span>
+        <span class="form-heading">add frkit</span>
       </div>
     </div>
 
     <div>
       <!-- form -->
-      <form autocomplete="off" [formGroup]="UserForm" #addUserForm="ngForm">
-        <div class="row" *ngFor="let item of inventoryBody.items; let i = index">
+      <form autocomplete="off" [formGroup]="UserForm">
+        <!-- <div class="row" *ngFor="let item of inventoryBody.items; let i = index">
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>itemCode</mat-label>
@@ -44,7 +44,6 @@
             <button mat-stroked-button class="mt-2" style="color: #084982" (click)="onTaskAdd(item)">Add Item</button>
           </div>
 
-          <!-- list -->
           <div class="col-lg-12 col-md-12 mt-2" *ngIf="items.length > 0">
             <div class="list-header d-flex justify-content-between">
               <p>itemCode</p>
@@ -59,6 +58,38 @@
           <div class="text-center my-3">
             <button type="submit" class="btn add-btn" (click)="submit()">ADD</button>
           </div>
+        </div> -->
+
+        <div class="row">
+          <!-- <div class="col-lg-6 col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>inventorySlNo</mat-label>
+              <mat-select formControlName="productId" [(ngModel)]="inventoryBody">
+                <mat-option *ngFor="let item of productIds" [value]="item.suggestedItemCode">{{ item.materialDescription }}</mat-option>
+              </mat-select>
+              <mat-error class="mt-1">Product Id is required</mat-error>
+            </mat-form-field>
+          </div> -->
+
+          <div class="col-lg-6 col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>frId</mat-label>
+              <input matInput formControlName="frId" [(ngModel)]="inventoryBody.frId">
+              <mat-error class="mt-1">frId is required</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-6 col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>inventorySlNo</mat-label>
+              <input matInput formControlName="inventorySlNo" [(ngModel)]="inventoryBody.inventorySlNo">
+              <mat-error class="mt-1">inventorySlNo is required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="text-center my-3">
+          <button type="submit" class="btn add-btn" (click)="submit()">ADD</button>
         </div>
       </form>
     </div>

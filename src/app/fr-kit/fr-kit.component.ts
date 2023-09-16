@@ -28,7 +28,7 @@ export class FrKitComponent implements OnInit {
 
   frTickets: any
   listFRTickets() {
-    this.ticketSer.listFRTickets().subscribe((res: any) => {
+    this.ticketSer.listFRCount().subscribe((res: any) => {
       // console.log(res);
       this.frTickets = res;
     })

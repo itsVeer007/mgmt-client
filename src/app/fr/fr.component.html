@@ -2,7 +2,7 @@
   <!-- header -->
   <div class="d-flex justify-content-between align-items-center mb-2">
     <div class="users-header">
-      <p class="m-0">Total Tickets - <span>{{frTickets?.length}}</span></p>
+      <p class="m-0">Total Tasks - <span>{{frTickets?.length}}</span></p>
     </div>
 
     <div class="d-flex">
@@ -17,15 +17,15 @@
       </div> -->
 
       <div class="col-lg-4">
+        <button class="create-btn" (click)="openStatusItems(1565, null)">Instock</button>
+      </div>
+
+      <div class="col-lg-4">
         <button class="create-btn" (click)="openStatusItems(1565, 2)">Dispatched</button>
       </div>
 
       <div class="col-lg-4">
-        <button class="create-btn" (click)="openStatusItems(1565, 5)">Returned</button>
-      </div>
-
-      <div class="col-lg-4">
-        <button class="create-btn" (click)="openStatusItems(1565, 9)">Replaced</button>
+        <button class="create-btn" (click)="openStatusItems(1565, 5)">Removed</button>
       </div>
     </div>
   </div>
@@ -558,7 +558,7 @@
 
               <th>
                 <p class="d-inline-flex">
-                  <span>Item code</span>
+                  <span>Name</span>
                   <img (click)="sort1('itemCode')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
                 </p>
               </th>
@@ -596,11 +596,11 @@
           <tbody>
             <tr *ngFor="let inven of indentItems; let i = index">
               <td>
-                <p>{{ inven.id }}</p>
+                <p>{{ i+1 }}</p>
               </td>
 
               <td>
-                <p>{{ inven.itemCode }}</p>
+                <p>{{ inven.name }}</p>
               </td>
 
               <td>
@@ -798,7 +798,7 @@
     <div class="row">
       <div class="col-lg-6">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>oldInventoryId</mat-label>
+          <mat-label>Old inventoryid</mat-label>
           <mat-select [(ngModel)]="body.oldInventoryId">
             <mat-option *ngFor="let item of inventoryId" [value]="item.inventorySlNo">{{ item.inventorySlNo }} - {{ item.name }} </mat-option>
           </mat-select>
@@ -807,7 +807,7 @@
 
       <div class="col-lg-6">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>newInventoryId</mat-label>
+          <mat-label>New inventoryid</mat-label>
           <mat-select [(ngModel)]="body.newInventoryId">
             <mat-option *ngFor="let val of inventoryId2" [value]="val.inventoryId">{{ val.inventoryId }} - {{ val.name }}</mat-option>
           </mat-select>
@@ -819,6 +819,15 @@
           <mat-label>Edit Status</mat-label>
           <mat-select [(ngModel)]="statusObj.statusId">
             <mat-option *ngFor="let item of indentStatus" [value]="item.keyId">{{ item.value }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>FR inventory</mat-label>
+          <mat-select [(ngModel)]="body.newInventoryId" (focus)="latestFun(1565, null)">
+            <mat-option *ngFor="let val of statusItems" [value]="val.invNo">{{ val.invNo }} - {{ val.name }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -857,16 +866,12 @@
               <th>Name</th>
               <th>Serial no</th>
               <th>Quantity</th>
-              <th *ngIf="currentStatusItem == 5">status</th>
+              <!-- <th *ngIf="currentStatusItem == 5">status</th> -->
             </tr>
           </thead>
 
           <tbody>
-            <tr *ngFor="let task of statusItems; let i = index">
-              <td>
-                <p>{{ task.ticketId }}</p>
-              </td>
-
+            <tr *ngFor="let task of latestValue; let i = index">
               <td>
                 <p>{{ task.itemCode }}</p>
               </td>
@@ -876,9 +881,17 @@
               </td>
 
               <td>
-                <p>{{ task.siteName }}</p>
+                <p>{{ task.invNo }}</p>
               </td>
-              <td *ngIf="currentStatusItem == 5">
+
+              <td>
+                <p>{{ task.count }}</p>
+              </td>
+
+              <!-- <td>
+                <p>{{ task.siteName }}</p>
+              </td> -->
+              <!-- <td *ngIf="currentStatusItem == 5">
                 <p (click)="openEditStatus(task)">
                 {{
                   task.statusId  == 1 ? 'Requested'
@@ -888,7 +901,7 @@
                   : task.statusId == 5 ? 'Returned'
                   : ''
                 }} </p>
-              </td>
+              </td> -->
 
               <ng-template #editStatusDialog>
                 <div style="background-color: #084982;">

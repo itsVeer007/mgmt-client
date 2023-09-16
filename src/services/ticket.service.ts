@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from '../environments/environment';
+import { formatDate } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,8 @@ export class TicketService {
 
   mainTicketData: any = [];
 
-  baseUrl = `${environment.baseUrl}/inventoryAndtickets`;
-  // baseUrl = 'http://192.168.0.137:8080';
+  // baseUrl = `${environment.baseUrl}/inventoryAndtickets`;
+  baseUrl = 'http://192.168.0.137:8080';
 
   listTickets() {
     let url = this.baseUrl + "/listTickets_1_0";
@@ -90,10 +91,10 @@ export class TicketService {
       params = params.set('ticketStatus', payload.ticketStatus);
     }
     if(payload.startDate) {
-      params = params.set('startDate', payload.startDate);
+      params = params.set('startDate', formatDate(payload.startDate, 'yyyy-MM-dd', 'en-us'));
     }
     if(payload.endDate) {
-      params = params.set('endDate', payload.endDate);
+      params = params.set('endDate', formatDate(payload.endDate, 'yyyy-MM-dd', 'en-us'));
     }
 
     return this.http.get(url, {params: params});
@@ -123,7 +124,13 @@ export class TicketService {
 
   listFRItems(frId: any, statusId: any) {
     let url = this.baseUrl + `/listFRItems_1_0`;
-    let params = new HttpParams().set('frId', frId).set('statusId', statusId)
+    let params = new HttpParams()
+    if(frId) {
+      params = params.set('frId', frId)
+    }
+    if(statusId){
+      params = params.set('statusId', statusId)
+    }
     return this.http.get(url, {params: params});
   }
 
@@ -187,6 +194,16 @@ export class TicketService {
     let params = new HttpParams().set('siteId', payload?.siteId);
 
     return this.http.get(url, {params: params});
+  }
+
+  createFRKit(payload:any){
+    let url = this.baseUrl + `/createFRKit_1_0`;
+    return this.http.post(url, payload);
+  }
+
+  listFRCount() {
+    let url = this.baseUrl + `/listFRCount_1_0`;
+    return this.http.get(url);
   }
 
 }

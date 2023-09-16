@@ -65,7 +65,7 @@ export class FrComponent implements OnInit {
   siteNg: any;
   filterSites(site: any) {
     if(site != 'All') {
-      this.newFrTickets =  this.frTickets.filter((item: any) => item.sitename == site)
+      this.newFrTickets =  this.frTickets.filter((item: any) => item.sitename == site);
     } else {
       this.newFrTickets = this.frTickets;
     }
@@ -93,7 +93,14 @@ export class FrComponent implements OnInit {
     this.dialog.open(this.statusItemsDialog, {maxWidth: '750px', maxHeight: '550px'});
 
     this.ticketSer.listFRItems(type, status).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
+      this.statusItems = res;
+      this.removeDuplicatesAndCalculateQuantities(); 
+    })
+  }
+
+  latestFun(type: any, status: any) {
+    this.ticketSer.listFRItems(type, status).subscribe((res: any) => {
       this.statusItems = res;
     })
   }
@@ -378,6 +385,31 @@ export class FrComponent implements OnInit {
       // console.log(res);
       this.alertSer.snackSuccess(res?.message);
     })
+  }
+
+  latestValue: any;
+  removeDuplicatesAndCalculateQuantities() {
+  // Create a map to store unique items and their quantities and counts
+const itemMap = new Map();
+
+// Iterate through the items and update quantities and counts in the map
+for (const item of this.statusItems) {
+  const key = item.itemCode;
+  if (itemMap.has(key)) {
+    // If the item already exists in the map, update its quantity and count
+    itemMap.get(key).invNo += item.invNo;
+    itemMap.get(key).count += 1;
+  } else {
+    // If the item doesn't exist, add it to the map with initial quantity and count
+    itemMap.set(key, { ...item, count: 1 });
+  }
+}
+
+// Convert the map back to an array of items
+this.latestValue = Array.from(itemMap.values());
+console.log(this.latestValue)
+
+
   }
 
 }

@@ -151,7 +151,7 @@
 
           <th>
             <p>
-              <span>Cunt of indents</span>
+              <span>Count of indents</span>
               <img (click)="sort('countOfIndents')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </p>
           </th>
@@ -486,7 +486,7 @@
 
               <th>
                 <p>
-                  <span>itemCode</span>
+                  <span>name</span>
                   <img (click)="sort1('itemCode')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
                 </p>
               </th>
@@ -524,11 +524,11 @@
           <tbody>
             <tr *ngFor="let inven of inventoryItems; let i = index">
               <td>
-                <p>{{ inven.id }}</p>
+                <p>{{ i+1 }}</p>
               </td>
 
               <td>
-                <p>{{ inven.itemCode }}</p>
+                <p>{{ inven.name }}</p>
               </td>
 
               <td>

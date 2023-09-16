@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';
+import { TicketService } from 'src/services/ticket.service';
 
 @Component({
   selector: 'app-add-new-frkit',
@@ -36,7 +37,8 @@ export class AddNewFrkitComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     public alertSer: AlertService,
-    public datepipe: DatePipe
+    public datepipe: DatePipe,
+    public ticketser:TicketService
   ) { }
 
   @Input() show: any;
@@ -46,24 +48,17 @@ export class AddNewFrkitComponent implements OnInit {
   UserForm: any =  FormGroup;
 
   inventoryBody = {
-    ticketId: null,
-    createdBy: 1,
-    items: [
-      {
-        itemCode: null,
-        quantity: null
-      }
-    ],
-    remarks: null
+    frId:null,
+    inventorySlNo:null,
+    createdBy:1
+
   }
 
   ticketIdFrmFr: any;
   ngOnInit() {
     this.UserForm = this.fb.group({
-      'jobOrTicketId': new FormControl(''),
-      'productId': new FormControl('', Validators.required),
-      'quantity': new FormControl(''),
-      'remarks': new FormControl('')
+      'frId': new FormControl('',Validators.required),
+      'inventorySlNo': new FormControl('', Validators.required)
     });
 
     this.getVendor();
@@ -104,19 +99,11 @@ export class AddNewFrkitComponent implements OnInit {
   warrantyDetail: any = 'No';
   submit() {
     if(this.UserForm.valid) {
-      this.alertSer.wait();
-      this.inventoryBody.ticketId = this.ticketIdFrmFr?.ticketId;
-      this.inventoryBody.items = this.items;
-      this.inventorySer.createIndent(this.inventoryBody).subscribe((res: any) => {
-        // console.log(res);
-        this.newItemEvent.emit();
-        this.alertSer.success(res?.message);
-      }, (err: any) => {
-        if(err) {
-          this.alertSer.error(err?.error?.message);
-        }
-      });
+      this.ticketser.createFRKit(this.inventoryBody).subscribe((res:any)=>{
+        console.log(res);
+      })
     }
+    // console.log(this.inventoryBody)
   }
 
 
@@ -124,5 +111,4 @@ export class AddNewFrkitComponent implements OnInit {
   onCheck() {
     this.checkbox = !this.checkbox;
   }
-
 }

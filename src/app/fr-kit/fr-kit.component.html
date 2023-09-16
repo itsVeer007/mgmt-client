@@ -62,13 +62,6 @@
             </th> -->
 
             <th>
-              <p class="d-inline-flex">
-                <span>Replaced</span>
-                <img (click)="sort('siteName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-              </p>
-            </th>
-
-            <th>
               <p>
                 <span>Requested</span>
                 <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
@@ -81,21 +74,27 @@
                 <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
               </p>
             </th>
-
             <th>
+              <p class="d-inline-flex">
+                <span>Removed</span>
+                <img (click)="sort('siteName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
+            </th>
+
+            <!-- <th>
               <span></span>
               <p class="d-inline-flex">
                 <span>Total Tickets</span>
                 <img (click)="sort('reasonDescription')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
               </p>
-            </th>
+            </th> -->
           </tr>
         </thead>
 
         <tbody>
-          <tr *ngFor="let cust of frTickets">
+          <tr *ngFor="let cust of frTickets; let i = index">
             <td>
-              <p>{{ cust.ticketId }}</p>
+              <p>{{ i+1 }}</p>
             </td>
             <!-- <td>
               <p class="pointer text-primary" (click)="openSitesDialog(); fieldVisitEntry(cust)">Enter</p>
@@ -104,7 +103,7 @@
               <p class="pointer text-primary">View</p>
             </td> -->
             <td>
-              <p>{{ cust.ticketType }}</p>
+              <p>{{ cust.frId }}</p>
             </td>
 
             <!-- <td>
@@ -112,30 +111,34 @@
             </td> -->
 
             <td>
-              <p>{{ cust.siteName }}</p>
+              <p>{{ cust.frId == 1565 ? 'Brey Dominguez' : ''}}</p>
             </td>
-
+<!-- 
             <td>
               <a class="pointer" (click)="show('indent'); ticketIdToFr(cust)">
                 <img src="assets/icons/add.svg" width="40">
               </a>
+            </td> -->
+
+            <td>
+              <!-- <p class="text-primary pointer">View</p> -->
+              <p>{{cust.instock}}</p>
+            </td>
+            <td>
+              <p>{{ cust.requested }}</p>
             </td>
 
             <td>
-              <p class="text-primary pointer">View</p>
+              <p>{{ cust.dispatched }}</p>
             </td>
 
             <td>
-              <p>{{ cust.reasonDescription }}</p>
+              <p>{{ cust.removed }}</p>
             </td>
 
-            <td>
-              <p>{{ cust.createdTime }}</p>
-            </td>
-
-            <td>
+            <!-- <td>
               <p [style.color]="cust.status == 'Open' ? 'green' : cust.status == 'Indent Requested' ? 'orange' : cust.status == 'In Progress' ? 'violet' : cust.status == 'Indent Delivered' ? 'purple' : 'blue' ">{{ cust.status }}</p>
-            </td>
+            </td> -->
 
             <!-- <td>
               <p class="pointer text-primary">Exit</p>

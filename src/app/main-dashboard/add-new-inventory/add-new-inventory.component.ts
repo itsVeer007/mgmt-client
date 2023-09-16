@@ -96,10 +96,10 @@ export class AddNewInventoryComponent implements OnInit {
       'itemCode': new FormControl('', Validators.required),
       'brand': new FormControl('', Validators.required),
       'model': new FormControl('', Validators.required),
-      'department': new FormControl(''),
+      'department': new FormControl('', Validators.required),
       'remarks': new FormControl(''),
 
-      'quantity': new FormControl(''),
+      'quantity': new FormControl('', Validators.required),
       'serialnos': new FormControl(''),
 
       'wremarks': new FormControl(''),

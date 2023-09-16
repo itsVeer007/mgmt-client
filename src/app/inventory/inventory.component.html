@@ -291,7 +291,7 @@
 
           <th>
             <p style="display: inline-flex;">
-              <span>InStock</span>
+              <span>Others</span>
               <img (click)="sort('inStock')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
             </p>
           </th>
@@ -308,7 +308,7 @@
 
           <th class="text-center">
             <p style="display: inline-flex;">
-              <span>Others</span>
+              <span>InStock</span>
               <img (click)="sort('others')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
             </p>
           </th>
@@ -370,14 +370,15 @@
             <p (click)="listDetails(cust)">{{ cust.used }}</p>
           </td>
 
-          <td style="font-weight: 600;">
-            <p>{{ cust.inStock }}</p>
-          </td>
-
+          
           <td>
             <p>{{ cust.others }}</p>
           </td>
-
+          
+          <td style="font-weight: 600;">
+            <p>{{ cust.inStock }}</p>
+          </td>
+          
           <!-- <td>
             <p [style.color]="cust.inventoryStatusId == 1 ? '#00A44C'
               : cust.inventoryStatusId == 2 ? '#F5B400'
@@ -923,7 +924,7 @@
           <tbody>
             <tr *ngFor="let task of usedItems; let i = index">
               <td>
-                <p>{{ task.id }}</p>
+                <p>{{ task.ticketId }}</p>
               </td>
 
               <td>
