@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -8,7 +9,7 @@ export class ReportService {
 
   constructor(private http: HttpClient) { }
 
-  baseUrl = 'http://192.168.0.137:8000';
+  baseUrl = 'http://192.168.0.137:8080';
   // naik = 'http://192.168.0.120:8000'
 
   list() {
@@ -78,9 +79,11 @@ export class ReportService {
 
 
 
-  listFRReports() {
+  listFRReports(payload:any) {
     let url = this.baseUrl + "/listFRReports_1_0";
-    return this.http.get(url);
+    let params = new HttpParams().set('p_frId', payload.p_frId).set('p_startdate', formatDate(payload.p_startdate, 'yyyy-MM-dd', 'en-us')).set('p_enddate', formatDate(payload.p_enddate, 'yyyy-MM-dd', 'en-us'));
+
+    return this.http.get(url, {params:params});
 
   }
 }

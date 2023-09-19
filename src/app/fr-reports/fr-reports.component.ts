@@ -4,6 +4,7 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertService } from 'src/services/alert.service';
 import { MetadataService } from 'src/services/metadata.service';
+import { ReportService } from 'src/services/report.service';
 import { TicketService } from 'src/services/ticket.service';
 
 @Component({
@@ -21,7 +22,8 @@ export class FrReportsComponent implements OnInit {
     private datePipe: DatePipe,
 
     public dialog: MatDialog,
-    public alertSer: AlertService
+    public alertSer: AlertService,
+    private reportSer: ReportService
   ) { }
 
   siteData: any
@@ -48,6 +50,19 @@ export class FrReportsComponent implements OnInit {
   //     XLSX.writeFile(wb, this.fileName);
   // }
 
+  body = {
+    p_frId:null,
+    p_startdate:null,
+    p_enddate:null
+  }
+  reportsData:any;
+  listFRReports() {
+    this.reportSer.listFRReports(this.body).subscribe((res)=> {
+      console.log(res);
+      this.reportsData = res;
+
+    })
+  }
 
   searchText: any;
   ticketData: any = [];

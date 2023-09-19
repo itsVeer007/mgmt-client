@@ -72,10 +72,17 @@
           </div> -->
 
           <div class="col-lg-6 col-md-6">
-            <mat-form-field appearance="outline" class="w-100">
+            <!-- <mat-form-field appearance="outline" class="w-100">
               <mat-label>frId</mat-label>
               <input matInput formControlName="frId" [(ngModel)]="inventoryBody.frId">
               <mat-error class="mt-1">frId is required</mat-error>
+            </mat-form-field> -->
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Fr Name</mat-label>
+              <mat-select formControlName="productId" [(ngModel)]="inventoryBody">
+                <mat-option *ngFor="let item of productIds" [value]="item.suggestedItemCode">{{ item.materialDescription }}</mat-option>
+              </mat-select>
+              <mat-error class="mt-1">Product Id is required</mat-error>
             </mat-form-field>
           </div>
 

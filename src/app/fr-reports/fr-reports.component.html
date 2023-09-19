@@ -3,7 +3,7 @@
     <!-- header -->
     <div class="d-flex justify-content-between">
         <div class="users-header">
-            <p>List of Tickets - <span>{{ newTicketData?.length }}</span></p>
+            <p>FR-Reports</p>
         </div>
         <div>
             <!-- <a class="pointer" (click)="show('ticket')"><img style="rotate: 45deg;" src="assets/icons/close_form.svg" alt="" width="70"></a> -->
@@ -12,44 +12,38 @@
     </div>
     <!-- /header -->
 
-    <!-- count -->
-    <div class="row mb-2">
-        <div class="col-lg-1 col-md-1 d-flex justify-content-start">
-            <div class="vl-green"></div>
-            <div class="mx-2">
-                <div class="status">New</div>
-                <div class="count">{{ ticketOpen?.length }}</div>
-            </div>
-        </div> <!-- <div class="col-lg-1 col-md-1 d-flex justify-content-start">
-            <div class="vl-red"></div>
-            <div class="mx-2">
-            <div class="status">Analysis</div>
-            <div class="count">{{ ticketOpen?.length }}</div>
+    <div class="row">
+        <div class="col-lg-2 col-md-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Fr Name</mat-label>
+                <mat-select [(ngModel)]="body.p_frId">
+                    <mat-option [value]="1565">Brey</mat-option>
+                </mat-select>
+            </mat-form-field>
         </div>
-        </div> -->
-        <div class="col-lg-1 col-md-1 d-flex justify-content-start">
-            <div class="vl-yellow"></div>
-            <div class="mx-2">
-                <div class="status">InProgress</div>
-                <div class="count">{{ ticketProgress?.length }}</div>
-            </div>
+    
+        <div class="col-lg-2 col-md-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <input matInput [matDatepicker]="picker1" placeholder="Start Date" [(ngModel)]="body.p_startdate">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+                <mat-error class="mt-1">Start Date is required</mat-error>
+            </mat-form-field>
         </div>
-        <div class="col-lg-1 col-md-1 d-flex justify-content-start">
-            <div class="vl-orange"></div>
-            <div class="mx-2">
-                <div class="status">Rejected</div>
-                <div class="count">{{ ticketRejected?.length }}</div>
-            </div>
+    
+        <div class="col-lg-2 col-md-2">
+            <mat-form-field appearance="outline" class="w-100">
+                <input matInput [matDatepicker]="picker2" placeholder="End Date" [(ngModel)]="body.p_enddate">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+                <mat-error class="mt-1">End Date is required</mat-error>
+            </mat-form-field>
         </div>
-        <div class="col-lg-1 col-md-1 d-flex justify-content-start">
-            <div class="vl-red"></div>
-            <div class="mx-2">
-                <div class="status">Closed</div>
-                <div class="count">{{ ticketClose?.length }}</div>
-            </div>
+    
+        <div class="col-lg-2 mt-2">
+            <button class="btn btn-primary" (click)="listFRReports()">submit</button>
         </div>
     </div>
-    <!-- /count -->
 
     <!-- table starts -->
     <div class="table-resp">
@@ -66,37 +60,41 @@
             </th> -->
 
                     <th>
-                        <span>id</span>
+                        <span>Fr Name</span>
                         <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
                     </th>
 
                     <th>
-                        <span>siteName</span>
+                        <span>date</span>
+                        <img (click)="sort('siteId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                    </th>
+                    <th>
+                        <span>day</span>
                         <img (click)="sort('siteId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
                     </th>
 
                     <th>
-                        <span>ticketType</span>
+                        <span>inTime</span>
                         <img (click)="sort('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
                     </th>
 
                     <th>
-                        <span>ticketAttendedBy</span>
+                        <span>outTime</span>
                         <img (click)="sort('priorityId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
                     </th>
 
                     <th>
-                        <span>ticketStatus</span>
+                        <span>hoursWorked</span>
                         <img (click)="sort('requestedBy')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
                     </th>
 
                     <th>
-                        <span>ticketClosedDate</span>
+                        <span>totalHoursWorked</span>
                         <img (click)="sort('assignedTo')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
                     </th>
 
                     <th>
-                        <span>ticketAttendedDate</span>
+                        <span>cost</span>
                         <img (click)="sort('sourceOfRequestId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
                     </th>
 
@@ -105,7 +103,7 @@
             </thead>
 
             <tbody>
-                <tr *ngFor="let cust of newTicketData | search : searchText; let i = index"
+                <tr *ngFor="let cust of reportsData | search : searchText; let i = index"
                     (dblclick)="openViewPopup(cust)">
                     <!-- <td>
             <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="cust.selected" (change)="
@@ -116,30 +114,33 @@
                 " id="singleCheck" />
             </td> -->
                     <td>
-                        <p>{{ cust.ticketId }}</p>
+                        <p>{{ cust.frId == 1565 ? 'Brey Dominguez' : ''}}</p>
                     </td>
                     <td>
-                        <p>{{ cust.siteName }}</p>
-                    </td>
-
-                    <td>
-                        <p>{{ cust.ticketType }}</p>
+                        <p>{{ cust.date }}</p>
                     </td>
 
                     <td>
-                        <p>{{ cust.ticketAttendedBy }}</p>
+                        <p>{{ cust.day }}</p>
                     </td>
 
                     <td>
-                        <p>{{ cust.ticketStatus }}</p>
+                        <p>{{ cust.inTime }}</p>
                     </td>
 
                     <td>
-                        <p>{{ cust.ticketClosedDate | date: 'dd-MM-yyyy' }}</p>
+                        <p>{{ cust.outTime }}</p>
                     </td>
 
                     <td>
-                        <p>{{ cust.ticketAttendedDate | date: 'dd-MM-yyyy' }}</p>
+                        <p>{{ cust.hoursWorked}}</p>
+                    </td>
+
+                    <td>
+                        <p>{{ cust.totalHoursWorked}}</p>
+                    </td>
+                    <td>
+                        <p>{{ cust.cost}}</p>
                     </td>
 
 
