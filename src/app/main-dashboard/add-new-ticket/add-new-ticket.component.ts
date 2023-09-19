@@ -70,19 +70,24 @@ export class AddNewTicketComponent implements OnInit {
 
   tasks: any = [];
   onTaskAdd(item: any) {
-    let takBody = {
-      'categoryId': item.categoryId,
-      'subCategoryId': item.subCategoryId,
-      'priorityId': item.priorityId,
-      // 'reasonId': item.reasonId,
-      'createdBy': 1,
-    }
-    this.tasks.push(takBody);
+    // console.log(item);
+    if(item?.categoryId == null || item?.subCategoryId == null || item?.priorityId == null) {
+      this.alertSer.error('Please fill all fields');
+    } else {
+      let takBody = {
+        'categoryId': item.categoryId,
+        'subCategoryId': item.subCategoryId,
+        'priorityId': item.priorityId,
+        // 'reasonId': item.reasonId,
+        'createdBy': 1,
+      }
+      this.tasks.push(takBody);
 
-    this.ticketBody.tasks[0].categoryId = null;
-    this.ticketBody.tasks[0].subCategoryId = null;
-    this.ticketBody.tasks[0].priorityId = null;
-    // this.ticketBody.tasks[0].reasonId = null;
+      this.ticketBody.tasks[0].categoryId = null;
+      this.ticketBody.tasks[0].subCategoryId = null;
+      this.ticketBody.tasks[0].priorityId = null;
+      // this.ticketBody.tasks[0].reasonId = null;
+    }
   }
 
   siteIds: any
@@ -94,9 +99,9 @@ export class AddNewTicketComponent implements OnInit {
       'siteId': new FormControl('', Validators.required),
       'informedThrough': new FormControl('', Validators.required),
 
-      'categoryId': new FormControl('', Validators.required),
-      'subCategoryId': new FormControl('', Validators.required),
-      'priorityId': new FormControl('', Validators.required),
+      'categoryId': new FormControl(''),
+      'subCategoryId': new FormControl(''),
+      'priorityId': new FormControl(''),
       // 'reasonId': new FormControl('')
     });
 
@@ -144,17 +149,21 @@ export class AddNewTicketComponent implements OnInit {
 
   addNewAsset() {
     if(this.addAssetForm.valid) {
-      this.alertSer.wait();
-      this.ticketBody.tasks = this.tasks;
-      this.ticketSer.createTicket(this.ticketBody).subscribe((res: any) => {
-        // console.log(res);
-        this.newItemEvent.emit();
-        this.alertSer.success(res?.message);
-      }, (err: any) => {
-        if(err) {
-          this.alertSer.error(err?.error?.message);
-        };
-      });
+      if(this.tasks.length > 0) {
+        this.alertSer.wait();
+        this.ticketBody.tasks = this.tasks;
+        this.ticketSer.createTicket(this.ticketBody).subscribe((res: any) => {
+          // console.log(res);
+          this.newItemEvent.emit();
+          this.alertSer.success(res?.message);
+        }, (err: any) => {
+          if(err) {
+            this.alertSer.error(err?.error?.message);
+          };
+        });
+      } else {
+        this.alertSer.error('Please add atleast one task')
+      }
     }
     // console.log(this.ticketBody);
   }
