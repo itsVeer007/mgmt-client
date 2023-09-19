@@ -29,6 +29,7 @@ import { FrComponent } from './fr/fr.component';
 import { TicketReportsComponent } from './ticket-reports/ticket-reports.component';
 import { AdvertisementsComponent } from './advertisements/advertisements.component';
 import { FrKitComponent } from './fr-kit/fr-kit.component';
+import { FrReportsComponent } from './fr-reports/fr-reports.component';
 const routes: Routes = [];
 
 @NgModule({
@@ -63,10 +64,11 @@ const routes: Routes = [];
     { path: 'reports', component: ReportsComponent },
     { path: 'meta', component: MetaDataComponent },
     { path: 'vendors', component: VendorsComponent },
+    { path: 'fr-reports', component: FrReportsComponent },
 
     { path: 'qr-ads', component: QRAdsComponent },
     { path: 'wifi-ads', component: WifiAdsComponent },
-    { path:'fr-kit', component:FrKitComponent}
+    { path:'fr-kit', component: FrKitComponent}
   ])],
   exports: [RouterModule]
 })

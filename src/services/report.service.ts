@@ -8,8 +8,8 @@ export class ReportService {
 
   constructor(private http: HttpClient) { }
 
-  baseUrl = 'http://192.168.0.175:8000';
-  naik = 'http://192.168.0.120:8000'
+  baseUrl = 'http://192.168.0.137:8000';
+  // naik = 'http://192.168.0.120:8000'
 
   list() {
     let url = this.baseUrl + "/search";
@@ -18,7 +18,7 @@ export class ReportService {
   }
 
   wifiList() {
-    let url = this.naik + "/connected_details";
+    let url = this.baseUrl + "/connected_details";
     return this.http.get(url);
   }
 
@@ -76,4 +76,11 @@ export class ReportService {
     return this.http.get(url, {params: payload});
   }
 
+
+
+  listFRReports() {
+    let url = this.baseUrl + "/listFRReports_1_0";
+    return this.http.get(url);
+
+  }
 }
