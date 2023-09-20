@@ -58,8 +58,8 @@
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Site</mat-label>
         <mat-select [(ngModel)]="ticketStatusObj.siteId">
-          <mat-option value="">All</mat-option>
-          <mat-option *ngFor="let item of siteData" [value]="item.siteid">{{ item.siteid }} - {{ item.siteShortName }}</mat-option>
+          <mat-option value="" (click)="applyFilter()">All</mat-option>
+          <mat-option *ngFor="let item of siteData" [value]="item.siteid" (click)="applyFilter()">{{ item.siteid }} - {{ item.siteShortName }}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
@@ -68,8 +68,8 @@
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Type</mat-label>
         <mat-select [(ngModel)]="ticketStatusObj.typeId">
-          <mat-option value="">All</mat-option>
-          <mat-option *ngFor="let item of ticketType" [value]="item.keyId">{{ item.value }}</mat-option>
+          <mat-option value="" (click)="applyFilter()">All</mat-option>
+          <mat-option *ngFor="let item of ticketType" [value]="item.keyId" (click)="applyFilter()">{{ item.value }}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
@@ -78,16 +78,16 @@
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Status</mat-label>
         <mat-select [(ngModel)]="ticketStatusObj.ticketStatus">
-          <mat-option value="">All</mat-option>
-          <mat-option *ngFor="let item of statusVal" [value]="item.value">{{ item.value }}</mat-option>
+          <mat-option value="" (click)="applyFilter()">All</mat-option>
+          <mat-option *ngFor="let item of statusVal" [value]="item.value" (click)="applyFilter()">{{ item.value }}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
 
-    <div class="col-lg-2 col-md-2">
+    <!-- <div class="col-lg-2 col-md-2">
       <mat-form-field appearance="outline" class="w-100">
         <input matInput [matDatepicker]="picker1" placeholder="Created from" [(ngModel)]="ticketStatusObj.startDate">
-        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker-toggle matSuffix [for]="picker1" (focus)="applyFilter()"></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
         <mat-error class="mt-1">Start Date is required</mat-error>
       </mat-form-field>
@@ -95,17 +95,34 @@
 
     <div class="col-lg-2 col-md-2">
       <mat-form-field appearance="outline" class="w-100">
-        <input matInput [matDatepicker]="picker2" placeholder="Created to" [(ngModel)]="ticketStatusObj.endDate">
+        <input matInput [matDatepicker]="picker2" placeholder="Created to" [(ngModel)]="ticketStatusObj.endDate" (click)="applyFilter()">
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
         <mat-error class="mt-1">End Date is required</mat-error>
       </mat-form-field>
+    </div> -->
+
+    <div class="col-lg-3 from-date">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Enter a date range</mat-label>
+        <mat-date-range-input [rangePicker]="rangePicker">
+          <input matStartDate placeholder="Start date" [(ngModel)]="ticketStatusObj.startDate">
+          <input matEndDate placeholder="End date" [(ngModel)]="ticketStatusObj.endDate">
+        </mat-date-range-input>
+        <mat-datepicker-toggle matIconSuffix [for]="rangePicker"></mat-datepicker-toggle>
+
+        <mat-date-range-picker #rangePicker>
+          <mat-date-range-picker-actions>
+            <button mat-button matDateRangePickerCancel>Cancel</button>
+            <button mat-raised-button color="primary" matDateRangePickerApply (click)="applyFilter()">Apply</button>
+          </mat-date-range-picker-actions>
+        </mat-date-range-picker>
+      </mat-form-field>
     </div>
 
-    <div class="  col-lg-1 col-md-1">
-      <!-- <button mat-flat-button color="primary" class="p-0" (click)="applyFilter()">Submit</button> -->
+    <!-- <div class="  col-lg-1 col-md-1">
       <button class="filter-btn" (click)="applyFilter()">Submit</button>
-    </div>
+    </div> -->
 
 
     <!-- <div class="col-lg-2 col-md-2">
@@ -134,12 +151,12 @@
               " />
           </th> -->
 
-          <th>
+          <!-- <th>
             <p class="d-inline-flex">
               <span>Id</span>
               <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </p>
-          </th>
+          </th> -->
 
           <th>
             <p class="d-inline-flex">
@@ -171,14 +188,14 @@
 
           <th>
             <p class="d-inline-flex">
-              <span>Raised date</span>
+              <span>Raised on</span>
               <img (click)="sort('assignedTo')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </p>
           </th>
 
           <th>
             <p class="d-inline-flex">
-              <span>Closed date</span>
+              <span>Closed on</span>
               <img (click)="sort('sourceOfRequestId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </p>
           </th>
@@ -209,7 +226,7 @@
       </thead>
 
       <tbody *ngIf="!showLoader">
-        <tr *ngFor="let cust of newTicketData | search : searchText; let i = index" (dblclick)="openViewPopup(cust)">
+        <tr *ngFor="let cust of newTicketData | search : searchText; let i = index">
           <!-- <td>
             <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="cust.selected" (change)="
                 checkIfAllSelected();
@@ -218,9 +235,10 @@
                 EditByCheckbox(cust, i, $event)
               " id="singleCheck" />
           </td> -->
-          <td>
+          <!-- <td>
             <p>{{ cust.ticketId }}</p>
-          </td>
+          </td> -->
+
           <td>
             <p>{{ cust.siteName }}</p>
           </td>
@@ -350,17 +368,16 @@
     </table>
   </div>
 
-  <div class="d-flex align-items-center justify-content-center" style="height: 50vh;" *ngIf="newTicketData.length == 0 && !showLoader">
-    <h1 class="text-secondary">No Data</h1>
+  <!-- error message -->
+  <div class="d-flex align-items-center justify-content-center" style="height: 50vh;" *ngIf="errMsg && !showLoader">
+    <h1 class="text-secondary">{{ errMsg }}</h1>
   </div>
 
   <!-- Loader -->
-  <div >
-    <app-loader *ngIf="showLoader" class="d-flex justify-content-center align-items-center" style="height: 50vh;"></app-loader>
+  <div *ngIf="showLoader">
+    <app-loader class="d-flex justify-content-center align-items-center" style="height: 50vh;"></app-loader>
   </div>
-  <!-- /Loader -->
 </div>
-<!-- /table -->
 
 
 <!-- view popup -->

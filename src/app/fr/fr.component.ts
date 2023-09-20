@@ -21,23 +21,37 @@ export class FrComponent implements OnInit {
     public alertSer: AlertService
     ) { }
 
+  showLoader: boolean = false;
   siteIds: any;
   searchText: any;
   ngOnInit(): void {
     // this.listFRSites();
     this.listFRTickets();
     this.onGetMetadata();
-
     this.siteIds = JSON.parse(localStorage.getItem('siteIds')!)?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
   }
 
-  frTickets: any;
-  newFrTickets: any;
+  frTickets: any = [];
+  newFrTickets: any = [];
+  errMsg: any = null;
   listFRTickets() {
+    this.showLoader = true;
     this.ticketSer.listFRTickets().subscribe((res: any) => {
       // console.log(res);
+      this.showLoader = false;
       this.frTickets = res;
       this.newFrTickets = this.frTickets;
+      if(this.frTickets?.length == 0) {
+        this.errMsg = 'No tickets'
+      }
+    }, (err: any) => {
+      // console.log(err);
+      this.showLoader = false;
+      if(err?.status == 0) {
+        this.errMsg = 'Connection timed out';
+      } else {
+        this.errMsg = err?.message;
+      }
     })
   }
 
@@ -95,7 +109,7 @@ export class FrComponent implements OnInit {
     this.ticketSer.listFRItems(type, status).subscribe((res: any) => {
       // console.log(res);
       this.statusItems = res;
-      this.removeDuplicatesAndCalculateQuantities(); 
+      this.removeDuplicatesAndCalculateQuantities();
     })
   }
 

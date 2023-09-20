@@ -266,6 +266,27 @@ form .add-btn:active {
   opacity: 0.8;
 }
 
+.add-task-btn {
+  background-color: #d34124;
+  color: #fff;
+  width: 80px;
+  padding: 6px 0;
+  border-radius: 50px;
+  border-width: 0;
+  font-size: 12px;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+}
+
+.add-task-btn:hover {
+  color: #fff;
+}
+
+.add-task-btn:active {
+  opacity: 0.8;
+}
+
 .add-form .site-icons a:hover, .add-form .site-icons a:active {
   box-shadow: 5px 5px 10px #0000000D;
   border: 1px solid #EFEFEF;
@@ -462,7 +483,7 @@ form .add-btn:active {
 
 .table-resp {
   max-height: calc(100vh - (280px));
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 table thead tr {

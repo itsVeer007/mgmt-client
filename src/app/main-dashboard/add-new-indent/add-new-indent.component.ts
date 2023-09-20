@@ -56,35 +56,41 @@ export class AddNewIndentComponent implements OnInit {
     remarks: null
   }
 
+  items: any = [];
+  onTaskAdd(item: any) {
+    // console.log(item);
+    if(item?.itemCode == null || item?.quantity == null) {
+      this.alertSer.error('Please fill all fields');
+    } else {
+      let takBody = {
+        'itemCode': item.itemCode,
+        'quantity': item.quantity
+      }
+      this.items.push(takBody);
+      this.UserForm.get('itemCode').setValue(null);
+      this.UserForm.get('quantity').setValue(null);
+    }
+  }
+
   ticketIdFrmFr: any;
   ngOnInit() {
     this.UserForm = this.fb.group({
       'jobOrTicketId': new FormControl(''),
-      'productId': new FormControl('', Validators.required),
-      'quantity': new FormControl('', Validators.required),
+      'itemCode': new FormControl(''),
+      'quantity': new FormControl(''),
       'remarks': new FormControl('')
     });
 
-    this.getVendor();
+    // this.getVendor();
     this.getProducts();
     this.ticketIdFrmFr = JSON.parse(localStorage.getItem('ticketId')!);
   }
 
-  items: any = [];
-  onTaskAdd(item: any) {
-    let takBody = {
-      'itemCode': item.itemCode,
-      'quantity': item.quantity
-    }
-
-    this.items.push(takBody);
-  }
-
   vendorDetail: any;
   getVendor() {
-    // this.inventorySer.listVendors().subscribe((res: any) => {
-    //   this.vendorDetail = res;
-    // })
+    this.inventorySer.listVendors().subscribe((res: any) => {
+      this.vendorDetail = res;
+    })
   }
 
   productIds: any;
@@ -103,18 +109,22 @@ export class AddNewIndentComponent implements OnInit {
   warrantyDetail: any = 'No';
   submit() {
     if(this.UserForm.valid) {
-      this.alertSer.wait();
-      this.inventoryBody.ticketId = this.ticketIdFrmFr?.ticketId;
-      this.inventoryBody.items = this.items;
-      this.inventorySer.createIndent(this.inventoryBody).subscribe((res: any) => {
-        // console.log(res);
-        this.newItemEvent.emit();
-        this.alertSer.success(res?.message);
-      }, (err: any) => {
-        if(err) {
-          this.alertSer.error(err?.error?.message);
-        }
-      });
+      if(this.items.length > 0) {
+        this.alertSer.wait();
+        this.inventoryBody.ticketId = this.ticketIdFrmFr?.ticketId;
+        this.inventoryBody.items = this.items;
+        this.inventorySer.createIndent(this.inventoryBody).subscribe((res: any) => {
+          // console.log(res);
+          this.newItemEvent.emit();
+          this.alertSer.success(res?.message);
+        }, (err: any) => {
+          if(err) {
+            this.alertSer.error(err?.error?.message);
+          }
+        });
+      } else {
+        this.alertSer.error('Please add atleast one task')
+      }
     }
   }
 

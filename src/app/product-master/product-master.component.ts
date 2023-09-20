@@ -39,8 +39,7 @@ export class ProductMasterComponent implements OnInit {
       // console.log(res);
       this.showLoader = false;
       this.productMaster = res;
-      this.inventorySer.mainProductData = res;
-      this.newProductMaster = this.inventorySer.mainProductData;
+      this.newProductMaster = this.productMaster;
 
       for(let item of this.productMaster) {
         if(item.statusId == 1) {

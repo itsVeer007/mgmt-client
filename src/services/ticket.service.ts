@@ -1,8 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, throwError } from 'rxjs';
 import { environment } from '../environments/environment';
 import { formatDate } from '@angular/common';
+import { catchError, retry } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +14,8 @@ export class TicketService {
 
   constructor(private http: HttpClient) { }
 
-  mainTicketData: any = [];
-
-  // baseUrl = `${environment.baseUrl}/inventoryAndtickets`;
-  baseUrl = 'http://192.168.0.137:8080';
+  baseUrl = `${environment.baseUrl}/inventoryAndtickets`;
+  // baseUrl = 'http://192.168.0.137:8080';
 
   listTickets() {
     let url = this.baseUrl + "/listTickets_1_0";
@@ -115,6 +114,44 @@ export class TicketService {
   }
 
 
+    /* ticket reort */
+
+    getTicketsReport() {
+      let url = this.baseUrl + `/getTicketsReport_1_0`;
+      return this.http.get(url);
+    }
+
+    getItemsList(payload: any) {
+      let url = this.baseUrl + `/getItemsList_1_0`;
+      let params = new HttpParams().set('siteId', payload?.siteId);
+
+      return this.http.get(url, {params: params});
+    }
+
+    createFRKit(payload:any){
+      let url = this.baseUrl + `/createFRKit_1_0`;
+      return this.http.post(url, payload);
+    }
+
+    listFRCount() {
+      let url = this.baseUrl + `/listFRCount_1_0`;
+      return this.http.get(url);
+    }
+
+    getItemCodes(slNo: any) {
+      let url = this.baseUrl + `/getItemCodes_1_0`;
+      let params = new HttpParams().set('slNo', slNo)
+      return this.http.get(url, {params: params});
+    }
+
+    listInventoryByItemCode_1_0(itemCode: any) {
+      let url = this.baseUrl + `/listInventoryByItemCode_1_0`;
+      let params = new HttpParams().set('itemCode', itemCode)
+      return this.http.get(url, {params: params});
+    }
+
+
+
   /* FR Service */
 
   listFRSites(frId: any) {
@@ -182,40 +219,35 @@ export class TicketService {
   }
 
 
-  /* ticket reort */
+  /* fr-reports */
 
-  getTicketsReport() {
-    let url = this.baseUrl + `/getTicketsReport_1_0`;
-    return this.http.get(url);
+  listFRReports(payload:any) {
+    let url = this.baseUrl + "/listFRReports_1_0";
+    let params = new HttpParams();
+    if(payload.p_frId) {
+      params = params.set('p_frId', payload.p_frId)
+    }
+    if(payload.p_startdate) {
+      params = params.set('p_startdate', formatDate(payload.p_startdate, 'yyyy-MM-dd', 'en-us'))
+    }
+    if(payload.p_enddate) {
+      params = params.set('p_enddate', formatDate(payload.p_enddate, 'yyyy-MM-dd', 'en-us'))
+    }
+    return this.http.get(url, {params:params});
   }
 
-  getItemsList(payload: any) {
-    let url = this.baseUrl + `/getItemsList_1_0`;
-    let params = new HttpParams().set('siteId', payload?.siteId);
 
-    return this.http.get(url, {params: params});
-  }
+  /* error handling */
 
-  createFRKit(payload:any){
-    let url = this.baseUrl + `/createFRKit_1_0`;
-    return this.http.post(url, payload);
-  }
-
-  listFRCount() {
-    let url = this.baseUrl + `/listFRCount_1_0`;
-    return this.http.get(url);
-  }
-
-  getItemCodes(slNo: any) {
-    let url = this.baseUrl + `/getItemCodes_1_0`;
-    let params = new HttpParams().set('slNo', slNo)
-    return this.http.get(url, {params: params});
-  }
-
-  listInventoryByItemCode_1_0(itemCode: any) {
-    let url = this.baseUrl + `/listInventoryByItemCode_1_0`;
-    let params = new HttpParams().set('itemCode', itemCode)
-    return this.http.get(url, {params: params});
+  errMsg: any = null;
+  handleError(err: any) {
+    if (err.status === 0) {
+      this.errMsg = 'sd';
+    } else {
+      this.errMsg = err.message;
+    }
+    // window.alert(this.errMsg);
+    return this.errMsg;
   }
 
 }

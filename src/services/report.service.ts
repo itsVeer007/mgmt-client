@@ -57,14 +57,6 @@ export class ReportService {
   }
 
 
-
-
-
-
-
-
-  ////////////////////
-
   filteBody(payload: any) {
     let url = this.baseUrl + `/getListBySearchPM_1_0?`;
 
@@ -75,23 +67,5 @@ export class ReportService {
     // }
 
     return this.http.get(url, {params: payload});
-  }
-
-
-
-  listFRReports(payload:any) {
-    let url = this.baseUrl + "/listFRReports_1_0";
-    let params = new HttpParams();
-    if(payload.p_frId) {
-      params = params.set('p_frId', payload.p_frId)
-    }
-    if(payload.p_startdate) {
-      params = params.set('p_startdate', formatDate(payload.p_startdate, 'yyyy-MM-dd', 'en-us'))
-    }
-    if(payload.p_enddate) {
-      params = params.set('p_enddate', formatDate(payload.p_enddate, 'yyyy-MM-dd', 'en-us'))
-    }
-    return this.http.get(url, {params:params});
-
   }
 }

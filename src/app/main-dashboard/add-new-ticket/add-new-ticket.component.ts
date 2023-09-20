@@ -1,11 +1,9 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { AlertService } from 'src/services/alert.service';
 import { MetadataService } from 'src/services/metadata.service';
 import { TicketService } from 'src/services/ticket.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-new-ticket',
@@ -40,7 +38,6 @@ export class AddNewTicketComponent implements OnInit {
   file: File | null = null;
 
   constructor(
-    private router: Router,
     private fb: FormBuilder,
     private ticketSer: TicketService,
     private dropDown: MetadataService,
@@ -82,11 +79,10 @@ export class AddNewTicketComponent implements OnInit {
         'createdBy': 1,
       }
       this.tasks.push(takBody);
-
-      this.ticketBody.tasks[0].categoryId = null;
-      this.ticketBody.tasks[0].subCategoryId = null;
-      this.ticketBody.tasks[0].priorityId = null;
-      // this.ticketBody.tasks[0].reasonId = null;
+      this.addAssetForm.get('categoryId').setValue(null);
+      this.addAssetForm.get('subCategoryId').setValue(null);
+      this.addAssetForm.get('priorityId').setValue(null);
+      // this.addAssetForm.get('reasonId').setValue(null);
     }
   }
 

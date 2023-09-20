@@ -5,29 +5,19 @@
       <p class="m-0">Total Tasks - <span>{{frTickets?.length}}</span></p>
     </div>
 
-    <div class="d-flex">
-      <!-- <div class="mx-2">
-        <button mat-flat-button color="primary" class="py-0" (click)="openSitesDialog()">Site Entry</button>
-      </div> -->
-      <!-- <div class="mx-2">
-        <button mat-flat-button color="primary" class="py-0" (click)="openTasksDialog()">View Tasks</button>
-      </div> -->
-      <!-- <div class="mx-2">
-        <button mat-flat-button color="primary" class="py-0" (click)="openVisitExit()">Site Exit</button>
-      </div> -->
-
-      <div class="col-lg-3 mx-1">
+    <div class="row">
+      <div class="col-lg-3">
         <button class="create-btn" (click)="openStatusItems(1565, null)">Instock</button>
       </div>
-      <div class="col-lg-3 mx-1">
+      <div class="col-lg-3">
         <button class="create-btn" (click)="openStatusItems(1565, 1)">Requested</button>
       </div>
 
-      <div class="col-lg-3 mx-1">
+      <div class="col-lg-3">
         <button class="create-btn" (click)="openStatusItems(1565, 2)">Dispatched</button>
       </div>
 
-      <div class="col-lg-3 mx-1">
+      <div class="col-lg-3">
         <button class="create-btn" (click)="openStatusItems(1565, 5)">Removed</button>
       </div>
     </div>
@@ -60,139 +50,148 @@
     </div>
     <!-- /form -->
 
-  <!-- overall tasks -->
-    <div class="table-resp">
-      <table class="table table-hover" id="mytable">
-        <thead>
-          <tr class="form1">
-            <th>
-              <p class="d-inline-flex">
-                <span>id</span>
-                <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-              </p>
-              <!-- <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
-            </th>
+  <!-- table -->
+  <div class="table-resp">
+    <table class="table table-hover" id="mytable">
+      <thead>
+        <tr class="form1">
+          <th>
+            <p class="d-inline-flex">
+              <span>id</span>
+              <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </p>
+            <!-- <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
+          </th>
 
-            <th>
-              <span>Site entry</span>
-            </th>
+          <th>
+            <span>Site entry</span>
+          </th>
 
-            <th>
-              <span>View tasks</span>
-            </th>
+          <th>
+            <span>View tasks</span>
+          </th>
 
-            <th>
-              <p class="d-inline-flex">
-                <span>Ticket type</span>
-                <img (click)="sort('ticketType')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-              </p>
-            </th>
+          <th>
+            <p class="d-inline-flex">
+              <span>Ticket type</span>
+              <img (click)="sort('ticketType')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </p>
+          </th>
 
-            <!-- <th>
-              <p class="d-inline-flex">
-                <span>Site id</span>
-                <img (click)="sort('siteId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-              </p>
-            </th> -->
+          <!-- <th>
+            <p class="d-inline-flex">
+              <span>Site id</span>
+              <img (click)="sort('siteId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </p>
+          </th> -->
 
-            <th>
-              <p class="d-inline-flex">
-                <span>Site name</span>
-                <img (click)="sort('siteName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-              </p>
-            </th>
+          <th>
+            <p class="d-inline-flex">
+              <span>Site name</span>
+              <img (click)="sort('siteName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </p>
+          </th>
 
-            <th>
-              <span>Indent add</span>
-            </th>
+          <th>
+            <span>Indent add</span>
+          </th>
 
-            <th>
-              <span>Indent view</span>
-            </th>
+          <th>
+            <span>Indent view</span>
+          </th>
 
-            <th>
-              <span></span>
-              <p class="d-inline-flex">
-                <span>Reason description</span>
-                <img (click)="sort('reasonDescription')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-              </p>
-            </th>
+          <th>
+            <span></span>
+            <p class="d-inline-flex">
+              <span>Reason description</span>
+              <img (click)="sort('reasonDescription')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </p>
+          </th>
 
-            <th>
-              <p class="d-inline-flex">
-                <span>Created time</span>
-                <img (click)="sort('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-              </p>
-            </th>
+          <th>
+            <p class="d-inline-flex">
+              <span>Created time</span>
+              <img (click)="sort('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </p>
+          </th>
 
-            <th>
-              <p class="d-inline-flex">
-                <span>Status</span>
-                <!-- <img (click)="sort('siteName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
-              </p>
-            </th>
+          <th>
+            <p class="d-inline-flex">
+              <span>Status</span>
+              <!-- <img (click)="sort('siteName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
+            </p>
+          </th>
 
-            <th>
-              <span>Site exit</span>
-            </th>
-          </tr>
-        </thead>
+          <th>
+            <span>Site exit</span>
+          </th>
+        </tr>
+      </thead>
 
-        <tbody>
-          <tr *ngFor="let cust of newFrTickets; let i = index">
-            <td>
-              <p>{{ i+1 }}</p>
-            </td>
-            <td>
-              <p class="pointer text-primary" (click)="openSitesDialog(); fieldVisitEntry(cust)">Enter</p>
-            </td>
-            <td>
-              <p class="pointer text-primary" (click)="openTasksDialog(cust)">View</p>
-            </td>
-            <td>
-              <p>{{ cust.ticketType }}</p>
-            </td>
+      <tbody *ngIf="!showLoader">
+        <tr *ngFor="let cust of newFrTickets; let i = index">
+          <td>
+            <p>{{ i+1 }}</p>
+          </td>
+          <td>
+            <p class="pointer text-primary" (click)="openSitesDialog(); fieldVisitEntry(cust)">Enter</p>
+          </td>
+          <td>
+            <p class="pointer text-primary" (click)="openTasksDialog(cust)">View</p>
+          </td>
+          <td>
+            <p>{{ cust.ticketType }}</p>
+          </td>
 
-            <!-- <td>
-              <p>{{ cust.siteId }}</p>
-            </td> -->
+          <!-- <td>
+            <p>{{ cust.siteId }}</p>
+          </td> -->
 
-            <td>
-              <p>{{ cust.siteName }}</p>
-            </td>
+          <td>
+            <p>{{ cust.siteName }}</p>
+          </td>
 
-            <td>
-              <a class="pointer" (click)="show('indent'); ticketIdToFr(cust)">
-                <img src="assets/icons/add.svg" width="40">
-              </a>
-            </td>
+          <td>
+            <a class="pointer" (click)="show('indent'); ticketIdToFr(cust)">
+              <img src="assets/icons/add.svg" width="40">
+            </a>
+          </td>
 
-            <td>
-              <p class="text-primary pointer" (click)="openDetailsDialog(cust)">View</p>
-            </td>
+          <td>
+            <p class="text-primary pointer" (click)="openDetailsDialog(cust)">View</p>
+          </td>
 
-            <td>
-              <p>{{ cust.reasonDescription }}</p>
-            </td>
+          <td>
+            <p>{{ cust.reasonDescription }}</p>
+          </td>
 
-            <td>
-              <p>{{ cust.createdTime }}</p>
-            </td>
+          <td>
+            <p>{{ cust.createdTime }}</p>
+          </td>
 
-            <td>
-              <p [style.color]="cust.status == 'Open' ? 'green' : cust.status == 'Indent Requested' ? 'orange' : cust.status == 'In Progress' ? 'violet' : cust.status == 'Indent Delivered' ? 'purple' : 'blue' ">{{ cust.status }}</p>
-            </td>
+          <td>
+            <p [style.color]="cust.status == 'Open' ? 'green' : cust.status == 'Indent Requested' ? 'orange' : cust.status == 'In Progress' ? 'violet' : cust.status == 'Indent Delivered' ? 'purple' : 'blue' ">{{ cust.status }}</p>
+          </td>
 
-            <td>
-              <p class="pointer text-primary" (click)="openVisitExit()">Exit</p>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  <!-- /overall tasks -->
+          <td>
+            <p class="pointer text-primary" (click)="openVisitExit()">Exit</p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
+  <!-- error message -->
+  <div class="d-flex align-items-center justify-content-center" style="height: 50vh;" *ngIf="errMsg">
+    <h1 class="text-secondary">{{ errMsg }}</h1>
+  </div>
+
+  <!-- loader -->
+  <div *ngIf="showLoader">
+    <app-loader class="d-flex justify-content-center align-items-center" style="height: 50vh;"></app-loader>
+  </div>
 </div>
+
 
 <ng-template #currentTasksDialog>
   <div style="background-color: #084982;">

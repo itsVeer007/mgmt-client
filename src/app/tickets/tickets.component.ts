@@ -59,14 +59,19 @@ export class TicketsComponent implements OnInit {
   ticketClose: any = [];
   ticketProgress: any = [];
   ticketRejected: any = [];
+  errMsg: any = null;
   listTickets() {
     this.showLoader = true;
     this.ticketSer.listTickets().subscribe((res: any) => {
       this.showLoader = false;
       this.ticketData = res;
-      this.ticketSer.mainTicketData = res;
-      this.newTicketData = this.ticketSer.mainTicketData?.sort((a: any, b: any) => a?.ticketId < b?.ticketId ? 1 : a?.ticketId > b?.ticketId ? -1 : 0);
-
+      // this.ticketSer.mainTicketData = res;
+      this.newTicketData = this.ticketData?.sort((a: any, b: any) => a?.ticketId < b?.ticketId ? 1 : a?.ticketId > b?.ticketId ? -1 : 0);
+      if(this.ticketData?.length == 0) {
+        this.errMsg = 'No tickets';
+      } else {
+        this.errMsg = null;
+      }
       for(let item of this.ticketData) {
         if(item.ticketStatus == 'Open') {
           this.ticketOpen.push(item)
@@ -78,6 +83,16 @@ export class TicketsComponent implements OnInit {
         // else if(item.ticketStatus == 'Rejected') {
         //   this.ticketRejected.push(item)
         // }
+      }
+    }, (err: any) => {
+      // console.log(err);
+      this.showLoader = false;
+      if(err?.status == 0) {
+        this.errMsg = 'Connection timed out';
+      } else if(err.error) {
+        this.errMsg = err?.message;
+      } else {
+        this.errMsg = null;
       }
     })
   }
@@ -177,17 +192,16 @@ export class TicketsComponent implements OnInit {
   }
 
   applyFilter() {
-    // let myObj = {
-    //   'siteId': this.sId ? this.sId : -1,
-    //   'typeId': this.tId ? this.tId : -1,
-    //   'ticketStatus': this.tStatus ? this.tStatus : '',
-    //   'startDate': this.stDt ? this.datePipe.transform(this.stDt,'yyyy-MM-dd HH:mm:ss') : '',
-    //   'endDate': this.enDt ? this.datePipe.transform(this.enDt,'yyyy-MM-dd HH:mm:ss') : ''
-    // }
-
+    this.showLoader = true;
     this.ticketSer.filterTicket(this.ticketStatusObj).subscribe((res: any) => {
       // console.log(res);
+      this.showLoader = false;
       this.newTicketData = res;
+      if(this.newTicketData?.length == 0) {
+        this.errMsg = 'No tickets'
+      } else {
+        this.errMsg = null;
+      }
     })
   }
 

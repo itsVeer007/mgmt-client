@@ -46,8 +46,7 @@ export class InventoryComponent implements OnInit {
       // console.log(res);
       this.showLoader = false;
       this.inventoryTable = res;
-      this.inventorySer.mainInventoryData = res;
-      this.newInventoryTable = this.inventorySer.mainInventoryData;
+      this.newInventoryTable = this.inventoryTable;
 
       this.inStock = this.newInventoryTable.reduce((sum: any, current: any) => sum + current.inStock, 0);
       this.dispatched = this.newInventoryTable.reduce((sum: any, current: any) => sum + current.dispatched, 0);

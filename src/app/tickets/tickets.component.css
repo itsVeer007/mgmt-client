@@ -1,9 +1,11 @@
+/* common ng-deep */
+::ng-deep .from-date .mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 1px;
+  display: inline-flex;
+}
 
-
-
-/* ng-deep */
-::ng-deep .mat-flat-button.mat-primary {
-  background-color: #084982;
+::ng-deep .from-date .mat-date-range-input-container {
+  padding-top: 8px;
 }
 
 /* common mat-button */
@@ -66,52 +68,3 @@
 ::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
   color: #084982!important;
 }
-
-
-
-
-
-
-.container {
-  /* border: 2px solid #dedede; */
-  background-color: #f1f1f1;
-  border-radius: 5px;
-  /* padding: 10px; */
-  margin: 5px 0;
-}
-
-.darker {
-  border-color: #ccc;
-  background-color: #ddd;
-}
-
-.container::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-
-.container img {
-  float: left;
-  max-width: 60px;
-  /* width: 100%; */
-  margin-right: 20px;
-  border-radius: 50%;
-}
-
-.container img.right {
-  float: right;
-  margin-left: 20px;
-  margin-right:0;
-}
-
-.time-right {
-  float: right;
-  color: #aaa;
-}
-
-.time-left {
-  float: left;
-  color: #999;
-}
-

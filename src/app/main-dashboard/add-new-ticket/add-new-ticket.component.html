@@ -61,81 +61,95 @@
 
 
           <!-- tasks -->
-          <div class="d-flex justify-content-start align-items-center my-2">
-            <p style="font-weight: 500;">Tasks</p>
-          </div>
-
-          <div class="col-lg-6 col-md-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Ticket category</mat-label>
-              <mat-select formControlName="categoryId" [(ngModel)]="ticketBody.tasks[i].categoryId">
-                <mat-option *ngFor="let val of ticketCategory" [value]="val.keyId">{{ val.value }}</mat-option>
-              </mat-select>
-              <mat-error class="mt-1">categoryId is required</mat-error>
-            </mat-form-field>
-          </div>
-
-          <div class="col-lg-6 col-md-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Sub category</mat-label>
-              <mat-select formControlName="subCategoryId" [(ngModel)]="ticketBody.tasks[i].subCategoryId">
-                <mat-option *ngFor="let val of ticketSubCategory" [value]="val.keyId">{{ val.value }}</mat-option>
-              </mat-select>
-              <mat-error class="mt-1">subCategoryId is required</mat-error>
-            </mat-form-field>
-          </div>
-
-          <!-- <div class="col-lg-6 col-md-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>reasonId</mat-label>
-              <mat-select formControlName="reasonId" [(ngModel)]="ticketBody.tasks[i].reasonId">
-                <mat-option *ngFor="let val of taskReason" [value]="val.keyId">{{ val.value }}</mat-option>
-              </mat-select>
-              <mat-error class="mt-1">reasonId is required</mat-error>
-            </mat-form-field>
-          </div> -->
-
-          <div class="col-lg-4 col-md-4">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Priority</mat-label>
-              <mat-select formControlName="priorityId" [(ngModel)]="ticketBody.tasks[i].priorityId">
-                <mat-option *ngFor="let val of ticketPriority" [value]="val.keyId">{{ val.value }}</mat-option>
-              </mat-select>
-              <mat-error class="mt-1">priorityId is required</mat-error>
-            </mat-form-field>
-          </div>
-
-          <!-- <div class="col-lg-6 col-md-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Remarks</mat-label>
-              <input matInput formControlName="remarks" [(ngModel)]="ticketBody.tasks[i].remarks">
-              <mat-error class="mt-1">Remarks is required</mat-error>
-            </mat-form-field>
-          </div> -->
-
-          <div class="col-lg-2">
-            <!-- <button mat-stroked-button class="mt-2" style="color: #084982" (click)="onTaskAdd(item)">Add</button> -->
-            <a class="pointer" (click)="onTaskAdd(item)"><img src="assets/icons/add_circle.svg" alt="" width="40" style="opacity: 0.5;"></a>
-          </div>
-
-          <div class="col-lg-12 col-md-12 mt-2" *ngIf="tasks.length > 0">
-            <div class="list-header row">
-              <p class="col-lg-2">Category</p>
-              <p class="col-lg-3">Sub category</p>
-              <p class="col-lg-2">Priority</p>
-              <p class="col-lg-2">Reason</p>
+          <mat-card>
+            <div class="d-flex justify-content-start align-items-center my-2">
+              <p style="font-weight: 500;">Tasks</p>
             </div>
 
-            <div *ngFor="let task of tasks" class="list-item row">
-              <p class="col-lg-2">{{ task.categoryId == 1 ? 'Assets' : task.categoryId == 2 ? 'Camers' : '' }}</p>
-              <p class="col-lg-3">{{ task.subCategoryId == 1 ? 'Site Down' : task.subCategoryId == 2 ? 'Footage Required' : task.subCategoryId == 3 ? 'Screen Blank' : task.subCategoryId == 4 ? 'Add not playing' : '' }}</p>
-              <p class="col-lg-2">{{ task.priorityId == 1 ? 'Low' : task.priorityId == 2 ? 'Medium' : task.priorityId == 3 ? 'High' : '' }}</p>
-              <p class="col-lg-4">{{ task.reasonId == 1 ? 'No streem from camera' : task.reasonId == 2 ? 'Want new camers' : '' }}</p>
-            </div>
-          </div>
-          <!-- /tasks -->
+            <div class="row">
+              <div class="col-lg-4">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Ticket category</mat-label>
+                  <mat-select formControlName="categoryId" [(ngModel)]="ticketBody.tasks[i].categoryId">
+                    <mat-option *ngFor="let val of ticketCategory" [value]="val.keyId">{{ val.value }}</mat-option>
+                  </mat-select>
+                  <mat-error class="mt-1">categoryId is required</mat-error>
+                </mat-form-field>
+              </div>
 
-          <div class="text-center my-3">
+              <div class="col-lg-4">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Sub category</mat-label>
+                  <mat-select formControlName="subCategoryId" [(ngModel)]="ticketBody.tasks[i].subCategoryId">
+                    <mat-option *ngFor="let val of ticketSubCategory" [value]="val.keyId">{{ val.value }}</mat-option>
+                  </mat-select>
+                  <mat-error class="mt-1">subCategoryId is required</mat-error>
+                </mat-form-field>
+              </div>
+
+              <!-- <div class="col-lg-4">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>reasonId</mat-label>
+                  <mat-select formControlName="reasonId" [(ngModel)]="ticketBody.tasks[i].reasonId">
+                    <mat-option *ngFor="let val of taskReason" [value]="val.keyId">{{ val.value }}</mat-option>
+                  </mat-select>
+                  <mat-error class="mt-1">reasonId is required</mat-error>
+                </mat-form-field>
+              </div> -->
+
+              <div class="col-lg-4">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Priority</mat-label>
+                  <mat-select formControlName="priorityId" [(ngModel)]="ticketBody.tasks[i].priorityId">
+                    <mat-option *ngFor="let val of ticketPriority" [value]="val.keyId">{{ val.value }}</mat-option>
+                  </mat-select>
+                  <mat-error class="mt-1">priorityId is required</mat-error>
+                </mat-form-field>
+              </div>
+
+              <!-- <div class="col-lg-4">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Remarks</mat-label>
+                  <input matInput formControlName="remarks" [(ngModel)]="ticketBody.tasks[i].remarks">
+                  <mat-error class="mt-1">Remarks is required</mat-error>
+                </mat-form-field>
+              </div> -->
+
+              <div class="d-flex justify-content-end">
+                <a class="add-task-btn" (click)="onTaskAdd(item)">Add Task</a>
+                <!-- <a class="pointer" (click)="onTaskAdd(item)"><img src="assets/icons/add_circle.svg" alt="" width="40" style="opacity: 0.5;"></a> -->
+              </div>
+            </div>
+          </mat-card>
+
+          <!-- list -->
+          <div class="mt-2" *ngIf="tasks.length > 0">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Category</th>
+                  <th>Sub category</th>
+                  <th>Priority</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let task of tasks; let j = index">
+                  <th>{{ j + 1 }}</th>
+                  <!-- <td>{{ task.categoryId }}</td>
+                  <td>{{ task.subCategoryId }}</td>
+                  <td>{{ task.priorityId }}</td> -->
+                  <td>{{ task.categoryId == 1 ? 'Camera' : task.categoryId == 2 ? 'Assets' : '' }}</td>
+                  <td>{{ task.subCategoryId == 1 ? 'Site Down' : task.subCategoryId == 2 ? 'Footage Required' : task.subCategoryId == 3 ? 'Screen Blank' : task.subCategoryId == 4 ? 'Add not playing' : '' }}</td>
+                  <td>{{ task.priorityId == 1 ? 'Low' : task.priorityId == 2 ? 'Medium' : task.priorityId == 3 ? 'High' : '' }}</td>
+
+                  <!-- <td>{{ task.reasonId == 1 ? 'No streem from camera' : task.reasonId == 2 ? 'Want new camers' : '' }}</td> -->
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="text-center mt-5">
             <button class="btn add-btn" (click)="addNewAsset()">CREATE</button>
           </div>
         </div>

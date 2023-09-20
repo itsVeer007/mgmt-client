@@ -1,4 +1,4 @@
-.list-header {
+/* .list-header {
   background-color: #084982;
   color: #ffffff;
   padding: 5px;
@@ -12,12 +12,11 @@
   background-color: #ABABAB;
   padding: 3px;
   border-radius: 5px;
-  /* margin: 2px 0; */
 }
 
 .list-item p{
   margin: 0;
-}
+} */
 
 
 /* common ng-deep */

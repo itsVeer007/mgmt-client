@@ -49,8 +49,7 @@ export class IndentsComponent implements OnInit {
       // console.log(res);
       this.showLoader = false;
       this.indentTable = res;
-      this.inventorySer.mainIndentData = res;
-      this.newIndentTable = this.inventorySer.mainIndentData;
+      this.newIndentTable = this.indentTable;
 
       for(let item of this.indentTable) {
         if(item.statusId == 1) {
