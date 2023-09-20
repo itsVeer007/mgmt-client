@@ -72,25 +72,41 @@
           </div> -->
 
           <div class="col-lg-6 col-md-6">
-            <!-- <mat-form-field appearance="outline" class="w-100">
-              <mat-label>frId</mat-label>
-              <input matInput formControlName="frId" [(ngModel)]="inventoryBody.frId">
-              <mat-error class="mt-1">frId is required</mat-error>
-            </mat-form-field> -->
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Fr Name</mat-label>
-              <mat-select formControlName="productId" [(ngModel)]="inventoryBody">
-                <mat-option *ngFor="let item of productIds" [value]="item.suggestedItemCode">{{ item.materialDescription }}</mat-option>
+              <mat-select formControlName="frId" [(ngModel)]="inventoryBody.frId">
+                <mat-option [value]="1565">Brey</mat-option>
               </mat-select>
-              <mat-error class="mt-1">Product Id is required</mat-error>
+              <mat-error class="mt-1">Fr Name is required</mat-error>
             </mat-form-field>
           </div>
 
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>inventorySlNo</mat-label>
-              <input matInput formControlName="inventorySlNo" [(ngModel)]="inventoryBody.inventorySlNo">
+              <input matInput type="number" formControlName="inventorySlNo" [(ngModel)]="inventoryBody.inventorySlNo" (keyup)="getItemCodes(inventoryBody.inventorySlNo)">
               <mat-error class="mt-1">inventorySlNo is required</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-6 col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>itemCode</mat-label>
+              <mat-select formControlName="itemCode" [(ngModel)]="inventoryBody.itemCode">
+                <!-- <mat-option *ngFor="let item of productIds" [value]="item.suggestedItemCode">{{ item.materialDescription }}</mat-option> -->
+                <mat-option [value]="itemCodes?.code" (click)="listInventoryByItemCode(itemCodes?.code)">{{itemCodes?.code}}</mat-option>
+              </mat-select>
+              <mat-error class="mt-1">itemCode is required</mat-error>
+            </mat-form-field>
+          </div>
+  
+          <div class="col-lg-6 col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Name</mat-label>
+              <mat-select formControlName="name" [(ngModel)]="inventoryBody.name">
+                <mat-option *ngFor="let item of names" [value]="item.name">{{ item.name }}</mat-option>
+              </mat-select>
+              <mat-error class="mt-1">Name is required</mat-error>
             </mat-form-field>
           </div>
         </div>

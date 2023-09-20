@@ -48,21 +48,21 @@ export class AddNewFrkitComponent implements OnInit {
   UserForm: any =  FormGroup;
 
   inventoryBody = {
-    frId:null,
-    inventorySlNo:null,
-    createdBy:1
-
+    frId: null,
+    inventorySlNo: null,
+    itemCode: null,
+    name: null,
+    createdBy: 1
   }
 
   ticketIdFrmFr: any;
   ngOnInit() {
     this.UserForm = this.fb.group({
       'frId': new FormControl('',Validators.required),
-      'inventorySlNo': new FormControl('', Validators.required)
+      'inventorySlNo': new FormControl('', Validators.required),
+      'itemCode': new FormControl('',Validators.required),
+      'name': new FormControl('', Validators.required)
     });
-
-    this.getVendor();
-    this.getProducts();
     this.ticketIdFrmFr = JSON.parse(localStorage.getItem('ticketId')!);
   }
 
@@ -76,22 +76,24 @@ export class AddNewFrkitComponent implements OnInit {
     this.items.push(takBody);
   }
 
-  vendorDetail: any;
-  getVendor() {
-    // this.inventorySer.listVendors().subscribe((res: any) => {
-    //   this.vendorDetail = res;
-    // })
-  }
-
-  productIds: any;
-  getProducts() {
-    this.inventorySer.listProduct().subscribe((res: any) => {
-      this.productIds = res;
-    })
-  }
-
   closeAddUser() {
     this.newItemEvent.emit(false);
+  }
+
+  itemCodes: any;
+  getItemCodes(slNo: any) {
+    this.ticketser.getItemCodes(slNo).subscribe((res: any) => {
+      // console.log(res);
+      this.itemCodes = res;
+    })
+  } 
+
+  names: any;
+  listInventoryByItemCode(itemCode: any) {
+    this.ticketser.listInventoryByItemCode_1_0(itemCode).subscribe((res: any) => {
+      // console.log(res);
+      this.names = res;
+    })
   }
 
   submitted!: boolean;
@@ -100,7 +102,11 @@ export class AddNewFrkitComponent implements OnInit {
   submit() {
     if(this.UserForm.valid) {
       this.ticketser.createFRKit(this.inventoryBody).subscribe((res:any)=>{
-        console.log(res);
+        // console.log(res);
+        this.newItemEvent.emit();
+        this.alertSer.success(res?.message);
+      } , (err: any) => {
+        this.alertSer.error(err?.error?.message);
       })
     }
     // console.log(this.inventoryBody)
@@ -111,4 +117,5 @@ export class AddNewFrkitComponent implements OnInit {
   onCheck() {
     this.checkbox = !this.checkbox;
   }
+
 }

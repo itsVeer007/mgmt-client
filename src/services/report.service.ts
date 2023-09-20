@@ -81,8 +81,16 @@ export class ReportService {
 
   listFRReports(payload:any) {
     let url = this.baseUrl + "/listFRReports_1_0";
-    let params = new HttpParams().set('p_frId', payload.p_frId).set('p_startdate', formatDate(payload.p_startdate, 'yyyy-MM-dd', 'en-us')).set('p_enddate', formatDate(payload.p_enddate, 'yyyy-MM-dd', 'en-us'));
-
+    let params = new HttpParams();
+    if(payload.p_frId) {
+      params = params.set('p_frId', payload.p_frId)
+    }
+    if(payload.p_startdate) {
+      params = params.set('p_startdate', formatDate(payload.p_startdate, 'yyyy-MM-dd', 'en-us'))
+    }
+    if(payload.p_enddate) {
+      params = params.set('p_enddate', formatDate(payload.p_enddate, 'yyyy-MM-dd', 'en-us'))
+    }
     return this.http.get(url, {params:params});
 
   }

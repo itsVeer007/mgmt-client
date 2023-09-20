@@ -28,34 +28,15 @@ export class FrReportsComponent implements OnInit {
 
   siteData: any
   ngOnInit(): void {
-    this.CustomerReport();
     this.onGetMetadata();
-
-    this.siteData = JSON.parse(localStorage.getItem('siteIds')!);
-
-    // this.ticketSer.comment$.subscribe((comments: any) => {
-    //   this.ticketComments = comments;
-    // });
   }
-
-  // fileName= 'ExcelSheet.xlsx';
-
-  // exportexcel(): void {
-  //     let element = document.getElementById('excel-table');
-  //     const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
-
-  //     const wb: XLSX.WorkBook = XLSX.utils.book_new();
-  //     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-
-  //     XLSX.writeFile(wb, this.fileName);
-  // }
 
   body = {
     p_frId:null,
     p_startdate:null,
     p_enddate:null
   }
-  reportsData:any;
+  reportsData:any = [];
   listFRReports() {
     this.reportSer.listFRReports(this.body).subscribe((res)=> {
       console.log(res);
@@ -65,22 +46,11 @@ export class FrReportsComponent implements OnInit {
   }
 
   searchText: any;
-  ticketData: any = [];
-  newTicketData: any = [];
 
   ticketOpen: any = [];
   ticketClose: any = [];
   ticketProgress: any = [];
   ticketRejected: any = [];
-  CustomerReport() {
-    this.showLoader = true;
-    this.ticketSer.getTicketsReport().subscribe((res: any) => {
-      this.showLoader = false;
-      this.ticketData = res;
-      this.newTicketData = this.ticketData;
-
-    })
-  }
 
 
   priorityVal: any;
@@ -124,7 +94,7 @@ export class FrReportsComponent implements OnInit {
 
     this.ticketSer.filterTicket(myObj).subscribe((res: any) => {
       // console.log(res);
-      this.newTicketData = res;
+      // this.newTicketData = res;
     })
   }
 
@@ -213,7 +183,6 @@ export class FrReportsComponent implements OnInit {
     this.ticketSer.assignTicket(myObj).subscribe((res: any) => {
       // console.log(res);
         this.alertSer.snackSuccess(res?.message);
-        this.CustomerReport();
     }, (err: any) => {
         if(err) {
           this.alertSer.error(err?.error?.message);
@@ -242,7 +211,7 @@ export class FrReportsComponent implements OnInit {
   sorted = false;
   sort(label: any) {
     this.sorted = !this.sorted;
-    var x = this.ticketData;
+    var x = this.reportsData;
     if (this.sorted == false) {
       x.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
     } else {

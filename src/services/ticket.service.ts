@@ -206,4 +206,16 @@ export class TicketService {
     return this.http.get(url);
   }
 
+  getItemCodes(slNo: any) {
+    let url = this.baseUrl + `/getItemCodes_1_0`;
+    let params = new HttpParams().set('slNo', slNo)
+    return this.http.get(url, {params: params});
+  }
+
+  listInventoryByItemCode_1_0(itemCode: any) {
+    let url = this.baseUrl + `/listInventoryByItemCode_1_0`;
+    let params = new HttpParams().set('itemCode', itemCode)
+    return this.http.get(url, {params: params});
+  }
+
 }
