@@ -101,7 +101,7 @@ export class TicketsComponent implements OnInit {
   @ViewChild('usedItemsDialog') usedItemsDialog = {} as TemplateRef<any>;
   listIndentItems(data: any) {
     // console.log(data)
-    this.dialog.open(this.usedItemsDialog, {maxWidth: '750px', maxHeight: '550px'});
+    this.dialog.open(this.usedItemsDialog);
 
     this.ticketSer.listIndentItems(data).subscribe((res: any) => {
       // console.log(res);
@@ -271,7 +271,7 @@ export class TicketsComponent implements OnInit {
   ticketComments: any = [];
   openViewPopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.viewTicketDialog, {maxWidth: '850px', maxHeight: '550px'});
+    this.dialog.open(this.viewTicketDialog);
     this.ticketSer.getTasks(item?.ticketId).subscribe((tasks: any) => {
       // console.log(res);
       this.ticketTasks = tasks;

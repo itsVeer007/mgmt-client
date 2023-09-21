@@ -317,8 +317,8 @@ export class IndentsComponent implements OnInit {
 
   inventoryItems: any;
   openviewDetailsDialog(data: any) {
-    this.dialog.open(this.viewDetailsDialog, { maxWidth: '750px', maxHeight: '550px'});
     // console.log(data)
+    this.dialog.open(this.viewDetailsDialog, { maxWidth: '650px', maxHeight: '550px'});
 
     this.inventorySer.listIndentItems(data).subscribe((res: any) => {
       this.inventoryItems = res;
@@ -329,7 +329,6 @@ export class IndentsComponent implements OnInit {
 
   currentStatusId: any;
   invenIds: any = null;
-  // invenId: any;
   openEditStatus(id: any) {
     this.currentStatusId = id;
     this.dialog.open(this.editStatus, {maxWidth: '250px', maxHeight: '250px'});
@@ -340,7 +339,6 @@ export class IndentsComponent implements OnInit {
     })
   }
 
-  // statusId: any;
   statusObj = {
     statusId: null,
     inventoryId: null,
@@ -348,17 +346,12 @@ export class IndentsComponent implements OnInit {
   }
   updateInventoryStatus() {
     this.alertSer.wait();
-
     this.inventorySer.updateIndentStatus(this.currentStatusId, this.statusObj).subscribe((res: any) => {
       // console.log(res);
-      if(res) {
-        this.alertSer.success(res?.message);
-        this.listIndent();
-      }
+      this.alertSer.success(res?.message);
+      this.listIndent();
     }, (err: any) => {
-      if(err) {
-        this.alertSer.error(err?.error?.message);
-      };
+      this.alertSer.error(err?.error?.message);
     });
   }
 

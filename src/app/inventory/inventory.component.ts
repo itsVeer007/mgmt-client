@@ -81,10 +81,10 @@ export class InventoryComponent implements OnInit {
     })
   }
 
-  usedItems: any;
-  @ViewChild('indentItemsDialog') indentItemsDialog = {} as TemplateRef<any>;
+  usedItems: any = [];
+  @ViewChild('usedItemsDialog') usedItemsDialog = {} as TemplateRef<any>;
   listDetails(data: any) {
-    this.dialog.open(this.indentItemsDialog, {maxWidth: '750px', maxHeight: '550px'});
+    this.dialog.open(this.usedItemsDialog);
 
     this.inventorySer.listDetails(data).subscribe((res: any) => {
       // console.log(res);
@@ -441,11 +441,11 @@ export class InventoryComponent implements OnInit {
     });
   }
 
-  @ViewChild('viewDetailsDialog') viewDetailsDialog = {} as TemplateRef<any>;
+  @ViewChild('inventoryItemsDialog') inventoryItemsDialog = {} as TemplateRef<any>;
 
-  inventoryItems: any;
+  inventoryItems: any = [];
   openDetailsDialog(item: any) {
-    this.dialog.open(this.viewDetailsDialog, {maxWidth: '850px', maxHeight: '550px'});
+    this.dialog.open(this.inventoryItemsDialog);
 
     this.inventorySer.listInventoryByItemCode(item).subscribe((res: any) => {
       this.inventoryItems = res;

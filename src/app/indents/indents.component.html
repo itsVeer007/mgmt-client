@@ -249,7 +249,6 @@
 </div>
 
 
-<!-- view Popup -->
 <ng-template #viewInventoryDialog>
   <div style="background-color: #084982;">
     <p class="dialog-title">VIEW INDENT</p>
@@ -305,9 +304,7 @@
     <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
   </div>
 </ng-template>
-<!-- view Popup -->
 
-<!-- edit Popup -->
 <ng-template #editInventoryDialog>
   <div style="background-color: #084982;">
     <p class="dialog-title">MODIFY INDENT</p>
@@ -365,9 +362,7 @@
       </div>
     </div>
 </ng-template>
-<!-- edit Popup -->
 
-<!-- delete Popup -->
 <ng-template #deleteInventoryDialog>
   <div style="background-color: #084982;">
     <p class="dialog-title">DELETE INDENT</p>
@@ -386,7 +381,6 @@
     </div>
   </mat-dialog-content>
 </ng-template>
-<!-- /delete Popup -->
 
 <ng-template #createOrderDialog>
   <div style="background-color: #084982;">
@@ -472,122 +466,120 @@
   </div>
 
   <mat-dialog-content>
-    <div class="row">
-      <div class="table-res col-lg-12">
-        <table class="table" id="mytable">
-          <thead>
-            <tr class="task-table">
-              <th>
-                <p>
-                  <span>id</span>
-                  <img (click)="sort1('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-                </p>
-              </th>
+    <div class="table-res">
+      <table class="table" id="mytable">
+        <thead>
+          <tr class="task-table">
+            <th>
+              <p>
+                <span>id</span>
+                <img (click)="sort1('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
+            </th>
 
-              <th>
-                <p>
-                  <span>name</span>
-                  <img (click)="sort1('itemCode')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-                </p>
-              </th>
+            <th>
+              <p>
+                <span>name</span>
+                <img (click)="sort1('itemCode')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
+            </th>
 
-              <th>
-                <p>
-                  <span>serialNo</span>
-                  <img (click)="sort1('serialNo')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-                </p>
-              </th>
+            <th>
+              <p>
+                <span>serialNo</span>
+                <img (click)="sort1('serialNo')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
+            </th>
 
-              <th>
-                <p>
-                  <span>createdTime</span>
-                  <img (click)="sort1('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-                </p>
-              </th>
+            <th>
+              <p>
+                <span>createdTime</span>
+                <img (click)="sort1('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
+            </th>
 
-              <th>
-                <p>
-                  <span>modifiedTime</span>
-                  <img (click)="sort1('modifiedTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-                </p>
-              </th>
+            <th>
+              <p>
+                <span>modifiedTime</span>
+                <img (click)="sort1('modifiedTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
+            </th>
 
-              <th>
-                <p>
-                  <span>status</span>
-                  <img (click)="sort1('countOfIndents')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-                </p>
-              </th>
-            </tr>
-          </thead>
+            <th>
+              <p>
+                <span>status</span>
+                <img (click)="sort1('countOfIndents')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
+            </th>
+          </tr>
+        </thead>
 
-          <tbody>
-            <tr *ngFor="let inven of inventoryItems; let i = index">
-              <td>
-                <p>{{ i+1 }}</p>
-              </td>
+        <tbody>
+          <tr *ngFor="let inven of inventoryItems; let i = index">
+            <td>
+              <p>{{ i+1 }}</p>
+            </td>
 
-              <td>
-                <p>{{ inven.name }}</p>
-              </td>
+            <td>
+              <p>{{ inven.name }}</p>
+            </td>
 
-              <td>
-                <p>{{ inven.serialNo }}</p>
-              </td>
+            <td>
+              <p>{{ inven.serialNo }}</p>
+            </td>
 
-              <td>
-                <p>{{ inven.createdTime }}</p>
-              </td>
+            <td>
+              <p>{{ inven.createdTime }}</p>
+            </td>
 
-              <td>
-                <p>{{ inven.modifiedTime }}</p>
-              </td>
+            <td>
+              <p>{{ inven.modifiedTime }}</p>
+            </td>
 
-              <td>
-                <p class="d-inline-flex">
-                  <span>
-                    {{ inven.statusId == 1 ? "Requested" : inven.statusId == 2 ? "Dispatched" : inven.statusId == 3 ? "Received" : inven.statusId == 4 ? "Installed" : inven.statusId == 5 ? "Returned" : '' }}
-                  </span>
-                  <a (click)="openEditStatus(inven)" class="ms-2 pointer">
-                    <img src="assets/icons/edit.svg"  width="13">
-                  </a>
-                </p>
-              </td>
+            <td>
+              <p class="d-inline-flex">
+                <span>
+                  {{ inven.statusId == 1 ? "Requested" : inven.statusId == 2 ? "Dispatched" : inven.statusId == 3 ? "Received" : inven.statusId == 4 ? "Installed" : inven.statusId == 5 ? "Returned" : '' }}
+                </span>
+                <a (click)="openEditStatus(inven)" class="ms-2 pointer">
+                  <img src="assets/icons/edit.svg"  width="13">
+                </a>
+              </p>
+            </td>
 
-              <ng-template #editStatusDialog>
-                <div style="background-color: #084982;">
-                  <p class="dialog-title">view status</p>
+            <ng-template #editStatusDialog>
+              <div style="background-color: #084982;">
+                <p class="dialog-title">view status</p>
+              </div>
+
+              <mat-dialog-content>
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Inventory Id</mat-label>
+                  <mat-select [(ngModel)]="statusObj.inventoryId">
+                    <mat-option *ngFor="let item of invenIds" [value]="item.slNo" [hidden]="item.statusId != 1">{{ item.slNo }} - {{ item.name }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Edit Status</mat-label>
+                  <mat-select [(ngModel)]="statusObj.statusId">
+                    <mat-option *ngFor="let item of indentStatus" [value]="item.keyId">{{ item.value }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </mat-dialog-content>
+
+              <div class="d-flex align-items-center justify-content-end">
+                <div mat-dialog-actions class="me-2">
+                  <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
                 </div>
-
-                <mat-dialog-content>
-                  <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Inventory Id</mat-label>
-                    <mat-select [(ngModel)]="statusObj.inventoryId">
-                      <mat-option *ngFor="let item of invenIds" [value]="item.slNo" [hidden]="item.statusId != 1">{{ item.slNo }} - {{ item.name }}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-
-                  <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Edit Status</mat-label>
-                    <mat-select [(ngModel)]="statusObj.statusId">
-                      <mat-option *ngFor="let item of indentStatus" [value]="item.keyId">{{ item.value }}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </mat-dialog-content>
-
-                <div class="d-flex align-items-center justify-content-end">
-                  <div mat-dialog-actions class="me-2">
-                    <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
-                  </div>
-                  <div mat-dialog-actions>
-                    <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="updateInventoryStatus()">Update</button>
-                  </div>
+                <div mat-dialog-actions>
+                  <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="updateInventoryStatus()">Update</button>
                 </div>
-              </ng-template>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+              </div>
+            </ng-template>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </mat-dialog-content>
 

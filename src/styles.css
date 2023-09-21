@@ -482,7 +482,14 @@ form .add-btn:active {
 /* table css */
 
 .table-resp {
-  max-height: calc(100vh - (280px));
+  /* max-height: calc(100vh - (280px)); */
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.table-res {
+  max-width: 85vw;
+  max-height: 50vh;
   overflow-y: auto;
 }
 

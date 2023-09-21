@@ -380,7 +380,6 @@
 </div>
 
 
-<!-- view popup -->
 <ng-template #viewTicketDialog>
   <div class="d-flex align-items-center justify-content-between" style="background-color: #084982;">
     <p class="dialog-title">view ticket</p>
@@ -395,188 +394,186 @@
       <button class="py-1 text-white" style="background-color: #084982; border: none;" (click)="openAddTask()">Create Task</button>
     </div>
 
-    <div class="row">
-      <div class="table-res col-lg-12">
-        <table class="table" id="mytable">
-          <thead>
-            <tr class="task-table">
-              <th>
-                <p class="d-inline-flex">
-                  <span>Id</span>
-                  <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-                </p>
-              </th>
+    <div class="table-res">
+      <table class="table" id="mytable">
+        <thead>
+          <tr class="task-table">
+            <th>
+              <p class="d-inline-flex">
+                <span>Id</span>
+                <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
+            </th>
 
-              <th>
-                <p class="d-inline-flex">
-                  <span>Ticket id</span>
-                  <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-                </p>
-              </th>
+            <th>
+              <p class="d-inline-flex">
+                <span>Ticket id</span>
+                <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
+            </th>
 
-              <th>
-                <p class="d-inline-flex">
-                  <span>Category id</span>
-                  <img (click)="sort('categoryId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-                </p>
-              </th>
+            <th>
+              <p class="d-inline-flex">
+                <span>Category id</span>
+                <img (click)="sort('categoryId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
+            </th>
 
-              <th>
-                <p class="d-inline-flex">
-                  <span>SubCategory id</span>
-                  <img (click)="sort('subCategoryId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-                </p>
-              </th>
+            <th>
+              <p class="d-inline-flex">
+                <span>SubCategory id</span>
+                <img (click)="sort('subCategoryId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
+            </th>
 
-              <th>
-                <p class="d-inline-flex">
-                  <span>Description</span>
-                  <img (click)="sort('description')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-                </p>
-              </th>
+            <th>
+              <p class="d-inline-flex">
+                <span>Description</span>
+                <img (click)="sort('description')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
+            </th>
 
-              <th>Status</th>
-            </tr>
-          </thead>
+            <th>Status</th>
+          </tr>
+        </thead>
 
-          <tbody>
-            <tr *ngFor="let task of ticketTasks; let i = index">
-              <td>
-                <p>{{ i+1 }}</p>
-              </td>
+        <tbody>
+          <tr *ngFor="let task of ticketTasks; let i = index">
+            <td>
+              <p>{{ i+1 }}</p>
+            </td>
 
-              <td>
-                <p>{{ task.ticketId }}</p>
-              </td>
+            <td>
+              <p>{{ task.ticketId }}</p>
+            </td>
 
-              <td>
-                <p>{{ task.categoryId == 1 ? 'Camera' : task.categoryId == 2 ? 'Assets' : '' }}</p>
-              </td>
+            <td>
+              <p>{{ task.categoryId == 1 ? 'Camera' : task.categoryId == 2 ? 'Assets' : '' }}</p>
+            </td>
 
-              <td>
-                <p>{{ task.subCategoryId == 1 ? 'Site Down' : task.subCategoryId == 2 ? 'Footage Required' : task.subCategoryId == 3 ? 'Blank Screen' : ''  }}</p>
-              </td>
+            <td>
+              <p>{{ task.subCategoryId == 1 ? 'Site Down' : task.subCategoryId == 2 ? 'Footage Required' : task.subCategoryId == 3 ? 'Blank Screen' : ''  }}</p>
+            </td>
 
-              <td>
-                <p>{{ task.description }}</p>
-              </td>
+            <td>
+              <p>{{ task.description }}</p>
+            </td>
 
-              <td>
-                <p>{{ task.statusId == 1 ? 'Open' : task.statusId == 2 ? 'In-Progress' : task.statusId == 3 ? 'Closed' : task.statusId == 4 ? 'Rejected' : '' }}</p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+            <td>
+              <p>{{ task.statusId == 1 ? 'Open' : task.statusId == 2 ? 'In-Progress' : task.statusId == 3 ? 'Closed' : task.statusId == 4 ? 'Rejected' : '' }}</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-      <div class="d-flex align-items-center justify-content-center" style="height: 10vh;" *ngIf="ticketTasks.length == 0 && !showLoader">
-        <h1 class="text-secondary">No Tasks</h1>
-      </div>
+    <div class="d-flex align-items-center justify-content-center" style="height: 10vh;" *ngIf="ticketTasks.length == 0 && !showLoader">
+      <h1 class="text-secondary">No Tasks</h1>
+    </div>
 
-      <p class="text-secondary" style="font-weight: 600;">Visits</p>
-      <div class="table-res col-lg-12">
-        <table class="table" id="mytable">
-          <thead>
-            <tr class="task-table">
-              <th>
-                <p class="d-inline-flex">
-                  <span>Id</span>
-                  <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-                </p>
-              </th>
+    <p class="text-secondary" style="font-weight: 600;">Visits</p>
+    <div class="table-res">
+      <table class="table" id="mytable">
+        <thead>
+          <tr class="task-table">
+            <th>
+              <p class="d-inline-flex">
+                <span>Id</span>
+                <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
+            </th>
 
-              <th>
-                <p class="d-inline-flex">
-                  <span>Fr id</span>
-                  <img (click)="sort('frId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-                </p>
-              </th>
+            <th>
+              <p class="d-inline-flex">
+                <span>Fr id</span>
+                <img (click)="sort('frId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
+            </th>
 
-              <!-- <th>
-                <p class="d-inline-flex">
-                  <span>Site id</span>
-                  <img (click)="sort('siteId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-                </p>
-              </th> -->
+            <!-- <th>
+              <p class="d-inline-flex">
+                <span>Site id</span>
+                <img (click)="sort('siteId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
+            </th> -->
 
-              <th>
-                <p class="d-inline-flex">
-                  <span>Attended from</span>
-                  <img (click)="sort('attendedFrom')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-                </p>
-              </th>
+            <th>
+              <p class="d-inline-flex">
+                <span>Attended from</span>
+                <img (click)="sort('attendedFrom')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
+            </th>
 
-              <th>
-                <p class="d-inline-flex">
-                  <span>  Attended to</span>
-                  <img (click)="sort('attendedTo')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-                </p>
-              </th>
+            <th>
+              <p class="d-inline-flex">
+                <span>  Attended to</span>
+                <img (click)="sort('attendedTo')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
+            </th>
 
-              <th>
-                <p class="d-inline-flex">
-                  <span>Travel allowance</span>
-                  <img (click)="sort('travelAllowance')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-                </p>
-              </th>
+            <th>
+              <p class="d-inline-flex">
+                <span>Travel allowance</span>
+                <img (click)="sort('travelAllowance')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
+            </th>
 
-              <th>
-                <p class="d-inline-flex">
-                  <span>Food allowance</span>
-                  <img (click)="sort('foodAllowance')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-                </p>
-              </th>
+            <th>
+              <p class="d-inline-flex">
+                <span>Food allowance</span>
+                <img (click)="sort('foodAllowance')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
+            </th>
 
-              <th>
-                <p class="d-inline-flex">
-                  <span>Other allowance</span>
-                  <img (click)="sort('otherAllowance')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-                </p>
-              </th>
-            </tr>
-          </thead>
+            <th>
+              <p class="d-inline-flex">
+                <span>Other allowance</span>
+                <img (click)="sort('otherAllowance')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
+            </th>
+          </tr>
+        </thead>
 
-          <tbody>
-            <tr *ngFor="let visit of ticketVisits; let i = index">
-              <td>
-                <p>{{ i+1 }}</p>
-              </td>
+        <tbody>
+          <tr *ngFor="let visit of ticketVisits; let i = index">
+            <td>
+              <p>{{ i+1 }}</p>
+            </td>
 
-              <td>
-                <p>{{ visit.frId }}</p>
-              </td>
+            <td>
+              <p>{{ visit.frId }}</p>
+            </td>
 
-              <!-- <td>
-                <p>{{ visit.siteId }}</p>
-              </td> -->
+            <!-- <td>
+              <p>{{ visit.siteId }}</p>
+            </td> -->
 
-              <td>
-                <p>{{ visit.attendedFrom }}</p>
-              </td>
+            <td>
+              <p>{{ visit.attendedFrom }}</p>
+            </td>
 
-              <td>
-                <p>{{ visit.attendedTo }}</p>
-              </td>
+            <td>
+              <p>{{ visit.attendedTo }}</p>
+            </td>
 
-              <td>
-                <p>{{ visit.travelAllowance }}</p>
-              </td>
+            <td>
+              <p>{{ visit.travelAllowance }}</p>
+            </td>
 
-              <td>
-                <p>{{ visit.foodAllowance }}</p>
-              </td>
+            <td>
+              <p>{{ visit.foodAllowance }}</p>
+            </td>
 
-              <td>
-                <p>{{ visit.otherAllowance }}</p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+            <td>
+              <p>{{ visit.otherAllowance }}</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-      <div class="d-flex align-items-center justify-content-center" style="height: 10vh;" *ngIf="ticketVisits.length == 0 && !showLoader">
-        <h1 class="text-secondary">No Visits</h1>
-      </div>
+    <div class="d-flex align-items-center justify-content-center" style="height: 10vh;" *ngIf="ticketVisits.length == 0 && !showLoader">
+      <h1 class="text-secondary">No Visits</h1>
     </div>
   </mat-dialog-content>
 
@@ -584,7 +581,6 @@
     <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
   </div>
 </ng-template>
-<!--/ view popup -->
 
 <ng-template #addTaskDialog>
   <div></div>
@@ -657,7 +653,6 @@
   </div>
 </ng-template>
 
-<!-- edit popup -->
 <ng-template #editTicketDialog>
   <div style="background-color: #084982;">
     <p class="dialog-title">MODIFY TICKET</p>
@@ -758,9 +753,7 @@
     </div>
   </div>
 </ng-template>
-<!--/ edit popup -->
 
-<!-- delete popup -->
 <ng-template #deleteTicketDialog>
   <div style="background-color: #084982;">
     <p class="dialog-title">Delete ticket</p>
@@ -779,91 +772,87 @@
     </div>
   </div>
 </ng-template>
-<!--/ delete popup -->
 
-<!-- used items-->
 <ng-template #usedItemsDialog>
   <div style="background-color: #084982;">
     <p class="dialog-title">used items</p>
   </div>
 
   <mat-dialog-content>
-    <div class="row">
-      <div class="table-res col-lg-12">
-        <table class="table" id="mytable">
-          <thead>
-            <tr class="task-table">
-              <th>
-                <p class="d-inline-flex">
-                  <span>id</span>
-                  <img (click)="sort1('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-                </p>
-              </th>
+    <div class="table-res">
+      <table class="table" id="mytable">
+        <thead>
+          <tr class="task-table">
+            <th>
+              <p class="d-inline-flex">
+                <span>id</span>
+                <img (click)="sort1('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
+            </th>
 
-              <th>
-                <p class="d-inline-flex">
-                  <span>inventoryId</span>
-                  <img (click)="sort1('inventoryId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-                </p>
-              </th>
+            <th>
+              <p class="d-inline-flex">
+                <span>inventoryId</span>
+                <img (click)="sort1('inventoryId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
+            </th>
 
-              <th>
-                <p class="d-inline-flex">
-                  <span>itemCode</span>
-                  <img (click)="sort1('itemCode')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-                </p>
-              </th>
+            <th>
+              <p class="d-inline-flex">
+                <span>itemCode</span>
+                <img (click)="sort1('itemCode')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
+            </th>
 
-              <th>
-                <p class="d-inline-flex">
-                  <span>statusId</span>
-                  <img (click)="sort1('statusId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-                </p>
-              </th>
+            <th>
+              <p class="d-inline-flex">
+                <span>statusId</span>
+                <img (click)="sort1('statusId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
+            </th>
 
-              <th>
-                <p class="d-inline-flex">
-                  <span>modifiedTime</span>
-                  <img (click)="sort1('modifiedTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-                </p>
-              </th>
+            <th>
+              <p class="d-inline-flex">
+                <span>modifiedTime</span>
+                <img (click)="sort1('modifiedTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              </p>
+            </th>
 
-              <!-- <th>status</th> -->
-            </tr>
-          </thead>
+            <!-- <th>status</th> -->
+          </tr>
+        </thead>
 
-          <tbody>
-            <tr *ngFor="let task of usedItems; let i = index">
-              <td>
-                <p>{{ task.id }}</p>
-              </td>
+        <tbody>
+          <tr *ngFor="let task of usedItems; let i = index">
+            <td>
+              <p>{{ task.id }}</p>
+            </td>
 
-              <td>
-                <p>{{ task.inventoryId }}</p>
-              </td>
+            <td>
+              <p>{{ task.inventoryId }}</p>
+            </td>
 
-              <td>
-                <p>{{ task.itemCode }}</p>
-              </td>
+            <td>
+              <p>{{ task.itemCode }}</p>
+            </td>
 
-              <td>
-                <p>{{ task.statusId  }}</p>
-              </td>
+            <td>
+              <p>{{ task.statusId  }}</p>
+            </td>
 
-              <td>
-                <p>{{ task.modifiedTime }}</p>
-              </td>
+            <td>
+              <p>{{ task.modifiedTime }}</p>
+            </td>
 
-              <!-- <td>
-                <p>{{ task.statusId == 1 ? 'Open' : task.statusId == 2 ? 'In-Progress' : task.statusId == 3 ? 'Closed' : task.statusId == 4 ? 'Rejected' : '' }}</p>
-              </td> -->
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="d-flex align-items-center justify-content-center" style="height: 20vh;" *ngIf="usedItems.length == 0">
-        <h1 class="text-secondary">No Data</h1>
-      </div>
+            <!-- <td>
+              <p>{{ task.statusId == 1 ? 'Open' : task.statusId == 2 ? 'In-Progress' : task.statusId == 3 ? 'Closed' : task.statusId == 4 ? 'Rejected' : '' }}</p>
+            </td> -->
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="d-flex align-items-center justify-content-center" style="height: 10vh;" *ngIf="usedItems.length == 0">
+      <h1 class="text-secondary">No Data</h1>
     </div>
   </mat-dialog-content>
 
@@ -871,7 +860,6 @@
     <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
   </div>
 </ng-template>
-<!-- /used items-->
 
 
 <div *ngIf="showTicket" style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;">
