@@ -60,13 +60,13 @@
     <div class="col-lg-3 col-sm-12">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Select site</mat-label>
-        <input matInput #siteIdInput [matAutocomplete]="site" [(ngModel)]="siteNg" (keyup)="searchSites($event)" (focus)="deviceIdInput.value = 'All'">
+        <input matInput #siteIdInput [matAutocomplete]="site" [(ngModel)]="filterObj.siteId" (keyup)="searchSites($event)">
         <button matSuffix mat-icon-button>
           <mat-icon>arrow_drop_down</mat-icon>
         </button>
         <mat-autocomplete #site="matAutocomplete">
-          <mat-option value="All" (click)="filterSites('All')">All</mat-option>
-          <mat-option *ngFor="let item of siteData | search: siteSearch" [value]="item.siteid" (click)="filterSites(item.siteid)">
+          <mat-option value="" (click)="filterAdvertisements()">All</mat-option>
+          <mat-option *ngFor="let item of siteData | search: siteSearch" [value]="item.siteid" (click)="filterAdvertisements()">
             {{ item.siteid }} - {{ item.sitename }}
           </mat-option>
         </mat-autocomplete>
@@ -76,13 +76,13 @@
     <div class="col-lg-3 col-sm-12">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Select Device</mat-label>
-        <input matInput #deviceIdInput type="text" [matAutocomplete]="device" [(ngModel)]="deviceNg" (keyup)="searchDevices($event)">
+        <input matInput #deviceIdInput type="text" [matAutocomplete]="device" [(ngModel)]="filterObj.deviceId" (keyup)="searchDevices($event)">
         <button matSuffix mat-icon-button>
           <mat-icon>arrow_drop_down</mat-icon>
         </button>
         <mat-autocomplete #device="matAutocomplete">
-          <mat-option value="All" (click)="filterDevices('All')">All</mat-option>
-          <mat-option *ngFor="let device of filteredDevices | search: deviceSearch" [value]="device.deviceId" (click)="filterDevices(device.deviceId)">{{ device.deviceId }}</mat-option>
+          <mat-option value="" (click)="filterAdvertisements()">All</mat-option>
+          <mat-option *ngFor="let device of filteredDevices | search: deviceSearch" [value]="device.deviceId" (click)="filterAdvertisements()">{{ device.deviceId }}</mat-option>
         </mat-autocomplete>
       </mat-form-field>
     </div>
@@ -276,15 +276,16 @@
         </tr>
       </tbody>
     </table>
-    <!-- table -->
+
+    <!-- error message -->
     <div class="d-flex align-items-center justify-content-center" style="height: 50vh;" *ngIf="newAdvertisements.length == 0 && !showLoader">
       <h1 class="text-secondary">No Advertisements</h1>
     </div>
-    <!-- Loader -->
+
+    <!-- loader -->
     <div *ngIf="showLoader">
       <app-loader class="d-flex justify-content-center align-items-center" style="height: 50vh;"></app-loader>
     </div>
-    <!-- /Loader -->
   </div>
 </div>
 

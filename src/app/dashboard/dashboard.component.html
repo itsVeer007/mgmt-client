@@ -59,7 +59,6 @@
         </div>
       </div>
     </mat-menu>
-    <!-- /profile details -->
 
     <!-- Mobile View Menu -->
     <mat-menu #menu1="matMenu">
@@ -89,6 +88,7 @@
             <!-- <a class="list-group-item my-2">
                 <img src="assets/icons/analytic.svg" /><span> Analytics</span>
             </a> -->
+
             <a *ngIf="isAdmin == true" class="list-group-item my-2" [routerLink]="['/users']" routerLinkActive="routeactive">
                 <img src="assets/icons/user-white.svg" /><span>Users</span>
             </a>
@@ -120,6 +120,14 @@
               <img src="assets/icons/ticket.svg" /><span>Tickets/Jobs</span>
             </a>
 
+            <a class="list-group-item my-2" [routerLink]="['/tickets']" routerLinkActive="routeactive">
+              <img src="assets/icons/ticket.svg" /><span>Tickets</span>
+            </a>
+
+            <a class="list-group-item my-2" [routerLink]="['/fr']" routerLinkActive="routeactive">
+              <img src="assets/icons/ticket.svg" /><span>FR</span>
+            </a>
+
             <a *ngIf="isAdmin == true" class="list-group-item my-2" [routerLink]="['/meta']" routerLinkActive="routeactive">
               <img src="assets/icons/storage.svg" /><span>Metadata</span>
             </a>
@@ -131,8 +139,8 @@
         </nav>
       </div>
     </mat-menu>
-    <!-- /Mobile View Menu -->
 
+    <!-- desktop menu -->
     <div class="left-content sidemenu col-lg-2 col-md-2">
       <nav class="collapse d-block sidebar" id="navbarToggleExternalContent">
         <div class="list-group m-3">

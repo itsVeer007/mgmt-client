@@ -37,6 +37,19 @@ export class AssetService {
     return this.http.get(url);
   }
 
+  listAssets1(payload: any) {
+    let url = this.baseUrl + "/listAssets_1_0";
+    let params = new HttpParams();
+    if(payload?.siteId) {
+      params = params.set('siteId', payload?.siteId);
+    }
+    if(payload?.deviceId) {
+      params = params.set('deviceId', payload?.deviceId);
+    }
+
+    return this.http.get(url, {params: params});
+  }
+
   getAssetBySiteId(siteId: any) {
     let url = this.baseUrl + "/listAssets_1_0";
 

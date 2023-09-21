@@ -48,7 +48,6 @@ export class AdvertisementsComponent implements OnInit {
       this.showLoader = false;
       this.advertisements = res.flatMap((item: any) => item.assets);
       this.newAdvertisements = this.advertisements;
-      // console.log(this.newAdvertisements);
 
       this.pending = [];
       this.added = [];
@@ -83,7 +82,6 @@ export class AdvertisementsComponent implements OnInit {
     })
   }
 
-
   /* searches */
 
   siteSearch: any;
@@ -91,117 +89,34 @@ export class AdvertisementsComponent implements OnInit {
     this.siteSearch = (event.target as HTMLInputElement).value
   }
 
-  siteNg: any = 'All';
-  filteredDevices: any;
-  filterSites(value: any) {
-    if(value != 'All') {
-      this.showLoader = true;
-      this.assetService.getAssetBySiteId(value).subscribe((res: any) => {
-        this.showLoader = false;
-        this.newAdvertisements = res.flatMap((item: any) => item.assets);
-
-        this.pending = [];
-        this.added = [];
-        this.sycedAfterAddition = [];
-        this.sycedAfterRemoval = [];
-        this.removed = [];
-        for(let item of this.newAdvertisements) {
-          if(item.status == 1) {
-            this.pending.push(item);
-          }
-          if(item.status == 2) {
-            this.added.push(item);
-          }
-          if(item.status == 4) {
-            this.sycedAfterAddition.push(item);
-          }
-          if(item.status == 5) {
-            this.sycedAfterRemoval.push(item);
-          }
-          if(item.status == 3) {
-            this.removed.push(item);
-          }
-        }
-      });
-
-      this.assetService.listDeviceBySiteId(value).subscribe((res: any) => {
-        this.filteredDevices = res.flatMap((item: any) => item.adsDevices);
-      });
-    } else {
-      this.newAdvertisements = this.advertisements;
-      this.filteredDevices = this.deviceData;
-
-      this.pending = [];
-      this.added = [];
-      this.sycedAfterAddition = [];
-      this.sycedAfterRemoval = [];
-      this.removed = [];
-      for(let item of this.advertisements) {
-        if(item.status == 1) {
-          this.pending.push(item);
-        }
-        if(item.status == 2) {
-          this.added.push(item);
-        }
-        if(item.status == 4) {
-          this.sycedAfterAddition.push(item);
-        }
-        if(item.status == 5) {
-          this.sycedAfterRemoval.push(item);
-        }
-        if(item.status == 3) {
-          this.removed.push(item);
-        }
-      }
-    }
-  }
-
   deviceSearch: any;
   searchDevices(event: any) {
     this.deviceSearch = (event.target as HTMLInputElement).value
   }
 
-  deviceNg: any = 'All';
-  filterDevices(value: any) {
-    if(value != 'All') {
-      this.showLoader = true;
-      this.assetService.getAssetByDevId(value).subscribe((res: any) => {
-        this.showLoader = false;
-        this.newAdvertisements = res.flatMap((item: any) => item.assets);
+  filterObj = {
+    siteId: null,
+    deviceId: null,
+  }
 
-        this.pending = [];
-        this.added = [];
-        this.sycedAfterAddition = [];
-        this.sycedAfterRemoval = [];
-        this.removed = [];
-        for(let item of this.newAdvertisements) {
-          if(item.status == 1) {
-            this.pending.push(item);
-          }
-          if(item.status == 2) {
-            this.added.push(item);
-          }
-          if(item.status == 4) {
-            this.sycedAfterAddition.push(item);
-          }
-          if(item.status == 5) {
-            this.sycedAfterRemoval.push(item);
-          }
-          if(item.status == 3) {
-            this.removed.push(item);
-          }
-        }
-      });
-    } else {
-      this.newAdvertisements = this.advertisements;
-      // this.filteredDevices = this.deviceData;
+  filteredDevices: any;
+  filterAdvertisements() {
+    this.showLoader = true;
+    this.assetService.listAssets1(this.filterObj).subscribe((res: any) => {
+      this.showLoader = false;
+      this.newAdvertisements = res.flatMap((item: any) => item.assets);
+      if(this.filterObj.siteId != null) {
+        this.assetService.listDeviceBySiteId(this.filterObj.siteId).subscribe((res: any) => {
+          this.filteredDevices = res.flatMap((item: any) => item.adsDevices);
+        });
+      }
 
       this.pending = [];
       this.added = [];
       this.sycedAfterAddition = [];
       this.sycedAfterRemoval = [];
       this.removed = [];
-      for(let item of this.advertisements) {
+      for(let item of this.newAdvertisements) {
         if(item.status == 1) {
           this.pending.push(item);
         }
@@ -218,7 +133,7 @@ export class AdvertisementsComponent implements OnInit {
           this.removed.push(item);
         }
       }
-    }
+    })
   }
 
   deviceType: any;
@@ -232,15 +147,15 @@ export class AdvertisementsComponent implements OnInit {
   showAsset: boolean = false;
   addErr: any = null;
   showAddAsset(siteId: any, deviceId: any) {
-    if(siteId != 'All' && deviceId != 'All') {
+    if(siteId == '' && deviceId == '') {
+      this.alertSer.error('Please select site and device to create advertisement');
+    } else {
       this.showAsset = true;
       let addBody = {
         'siteId': siteId,
         'deviceId': deviceId
       }
       localStorage.setItem('add_body', JSON.stringify(addBody));
-    } else {
-      this.alertSer.error('Please select site and device to create advertisement');
     }
   }
 
@@ -249,7 +164,6 @@ export class AdvertisementsComponent implements OnInit {
       this.showAsset = false;
     }
   }
-
 
 
   /* Edit Asset Status */
@@ -320,8 +234,6 @@ export class AdvertisementsComponent implements OnInit {
     if(!(this.changedKeys.includes(x))) {
       this.changedKeys.push(x);
     }
-
-    // console.log(this.changedKeys);
   }
 
   onSelectChange(event: any) {

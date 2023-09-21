@@ -689,3 +689,7 @@ thead tr th{
     transform: translateX(0);
   }
 }
+
+::ng-deep .mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-label {
+  color: #000000 !important;
+}

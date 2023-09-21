@@ -1,14 +1,15 @@
 .add-btn {
   background-color: #084982;
   color: #fff;
-  width: 200px;
-  height: 50px;
+  width: 150px;
+  padding: 10px 0;
   border-radius: 25px;
-  font-size: 13px;
+  border-width: 0;
+  font-size: 12px;
 }
 
 .add-btn:hover {
-  background-color: #084982;
+  opacity: 0.8;
 }
 
 .added-device {
@@ -37,7 +38,7 @@
   bottom: 8px;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   /* .close {
     left: 300px;
     top: 0;
@@ -92,8 +93,18 @@
   padding: 0 !important;
 }
 
+/* common mat disable color */
 
-/* common ng-deep */
+::ng-deep .mat-input-element:disabled, .mat-form-field-type-mat-native-select.mat-form-field-disabled .mat-form-field-infix::after {
+  color: #000;
+}
+
+::ng-deep .mat-select-disabled .mat-select-value {
+  color: #000000;
+}
+
+
+/* common mat-form */
 
 .mat-form-field-appearance-outline ::ng-deep .mat-form-field-outline {
   top: 5px;
@@ -120,4 +131,8 @@
 
 ::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
   color: #084982!important;
+}
+
+::ng-deep .mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-label {
+  color: #000000 !important;
 }

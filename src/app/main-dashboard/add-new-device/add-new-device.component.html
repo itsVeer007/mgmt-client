@@ -51,7 +51,7 @@
               <mat-label>Select Device Mode</mat-label>
               <mat-select formControlName="deviceModeId" [(ngModel)]="adInfo.deviceModeId">
                 <mat-option *ngFor="let item of deviceMode" [value]="item.keyId" [disabled]="(adInfo.deviceTypeId == 3 || adInfo.deviceTypeId == 4) && item.keyId == 3">
-                  {{ item.value }}
+                  {{ item.remarks }}
                 </mat-option>
               </mat-select>
               <mat-error class="mt-1">Device mode is required</mat-error>
