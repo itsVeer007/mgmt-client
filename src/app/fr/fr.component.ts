@@ -107,9 +107,13 @@ export class FrComponent implements OnInit {
     this.dialog.open(this.statusItemsDialog, {maxWidth: '750px', maxHeight: '550px'});
 
     this.ticketSer.listFRItems(type, status).subscribe((res: any) => {
-      // console.log(res);
+      console.log(res);
       this.statusItems = res;
       this.removeDuplicatesAndCalculateQuantities();
+
+      if(status == 5) {
+        this.latestValue = this.statusItems
+      }
     })
   }
 
@@ -403,27 +407,54 @@ export class FrComponent implements OnInit {
 
   latestValue: any;
   removeDuplicatesAndCalculateQuantities() {
-  // Create a map to store unique items and their quantities and counts
-const itemMap = new Map();
+    const itemMap = new Map();
+    for (const item of this.statusItems) {
+      const key = item.itemCode;
+      if (itemMap.has(key)) {
+        itemMap.get(key).invNo += item.invNo;
+        itemMap.get(key).count += 1;
+      } else {
+        itemMap.set(key, { ...item, count: 1 });
+      }
+    }
 
-// Iterate through the items and update quantities and counts in the map
-for (const item of this.statusItems) {
-  const key = item.itemCode;
-  if (itemMap.has(key)) {
-    // If the item already exists in the map, update its quantity and count
-    itemMap.get(key).invNo += item.invNo;
-    itemMap.get(key).count += 1;
-  } else {
-    // If the item doesn't exist, add it to the map with initial quantity and count
-    itemMap.set(key, { ...item, count: 1 });
+    this.latestValue = Array.from(itemMap.values());
   }
+
+  @ViewChild('viewInventoryToDispatch') viewInventoryToDispatch = {} as TemplateRef<any>
+  currentItem:any;
+  open(task:any) {
+      // console.log(task);
+    this.dialog.open(this.viewInventoryToDispatch, {maxHeight:'550px', maxWidth:'600px'});
+    this.currentItem = task;
+    
+  }
+  
+  cost:any;
+  updateDispatchToInventory() {
+    let obj = {
+      oldSlNo: this.currentItem?.invNo,
+      cost: this.cost
+    }
+    this.ticketSer.updateDispatchToInventory(obj).subscribe((res:any)=>{
+      // console.log(res);
+        this.alertSer.snackSuccess(res?.message);
+    }),(err: any) => {
+        this.alertSer.error(err?.error?.message);
+    }
+    
+    
+  }
+
+  @ViewChild('viewDcDialog') viewDcDialog = {} as TemplateRef<any>
+items:any;
+openDc() {
+  this.dialog.open(this.viewDcDialog, {maxHeight:'550px', maxWidth:'600px'})
+  this.ticketSer.listDC().subscribe((res:any)=>{
+    // console.log(res);
+    this.items = res;
+
+  })
 }
-
-// Convert the map back to an array of items
-this.latestValue = Array.from(itemMap.values());
-console.log(this.latestValue)
-
-
-  }
 
 }

@@ -14,8 +14,8 @@ export class TicketService {
 
   constructor(private http: HttpClient) { }
 
-  baseUrl = `${environment.baseUrl}/inventoryAndtickets`;
-  // baseUrl = 'http://192.168.0.137:8080';
+  // baseUrl = `${environment.baseUrl}/inventoryAndtickets`;
+  baseUrl = 'http://192.168.0.137:8080';
 
   listTickets() {
     let url = this.baseUrl + "/listTickets_1_0";
@@ -202,20 +202,26 @@ export class TicketService {
 
   fieldVisitExit(payload: any) {
     let url = this.baseUrl + `/fieldVisitExit_1_0`;
-    let myObj = {
-      'frId': payload.frId,
-      'travelAllowance': payload.travelAllowance,
-      'foodAllowance': payload.foodAllowance,
-      'otherAllowance': payload.otherAllowance,
-      'remarks': payload.remarks
-    }
+    // let myObj = {
+    //   'frId': payload.frId,
+    //   'travelAllowance': payload.travelAllowance,
+    //   'foodAllowance': payload.foodAllowance,
+    //   'otherAllowance': payload.otherAllowance,
+    //   'remarks': payload.remarks
+    // }
 
-    return this.http.put(url, myObj);
+    return this.http.put(url, payload);
   }
 
   updateIndentStatus(currentId: any, payload: any){
     let url = this.baseUrl + `/updateIndentStatus_1_0/${currentId.id}/${payload.statusId}/${payload.createdBy}`;
     return this.http.put(url, null);
+  }
+
+  updateDispatchToInventory(payload:any) {
+    let url = this.baseUrl + `/updateDispatchToInventory_1_0`;
+    let params = new HttpParams().set('oldSlNo', payload?.oldSlNo).set('cost', payload?.cost)
+    return this.http.put(url, null, {params: params});
   }
 
 
@@ -249,5 +255,11 @@ export class TicketService {
     // window.alert(this.errMsg);
     return this.errMsg;
   }
+
+// dc
+  listDC() {
+    let url = this.baseUrl + `/listDC_1_0`;
+    return this.http.get(url);
+}
 
 }

@@ -6,19 +6,23 @@
     </div>
 
     <div class="row">
-      <div class="col-lg-3">
+      <div class="col-lg-2 mx-2">
         <button class="create-btn" (click)="openStatusItems(1565, null)">Instock</button>
       </div>
-      <div class="col-lg-3">
+      <div class="col-lg-2 mx-2">
         <button class="create-btn" (click)="openStatusItems(1565, 1)">Requested</button>
       </div>
 
-      <div class="col-lg-3">
+      <div class="col-lg-2 mx-2">
         <button class="create-btn" (click)="openStatusItems(1565, 2)">Dispatched</button>
       </div>
 
-      <div class="col-lg-3">
+      <div class="col-lg-2 mx-2">
         <button class="create-btn" (click)="openStatusItems(1565, 5)">Removed</button>
+      </div>
+
+      <div class="col-lg-2 mx-2">
+        <button class="create-btn" (click)="openDc()">Open Dc</button>
       </div>
     </div>
   </div>
@@ -863,6 +867,7 @@
             <th>Name</th>
             <th>Serial no</th>
             <th>Quantity</th>
+            <th>Data</th>
             <!-- <th *ngIf="currentStatusItem == 5">status</th> -->
           </tr>
         </thead>
@@ -882,7 +887,11 @@
             </td>
 
             <td>
-              <p>{{ task.count }}</p>
+              <p>{{ task.count ? task.count : 1 }}</p>
+            </td>
+
+            <td>
+              <p class="pointer text-primary" matTooltip="dispatch to inventory" (click)="open(task)">Dispatch</p>
             </td>
 
             <!-- <td>
@@ -923,11 +932,102 @@
                 </div>
               </div>
             </ng-template>
+
+            <ng-template #viewInventoryToDispatch>
+              <div style="background-color: #084982; color: aliceblue;">
+                <h1 class="dialog-title">view</h1>
+              </div>
+              <mat-dialog-content>
+                <div class="row">
+                  <div class="col-lg-12">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>Enter cost</mat-label>
+                      <input matInput [(ngModel)]="cost">
+                    </mat-form-field>
+                  </div>
+                </div>
+              </mat-dialog-content>
+              <div class="d-flex align-items-center justify-content-end">
+                <div mat-dialog-actions class="me-2">
+                  <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+                </div>
+                <div mat-dialog-actions>
+                  <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="updateDispatchToInventory()">Update</button>
+                </div>
+              </div>
+            </ng-template>
+            <!-- <div mat-dialog-actions>
+              <button mat-raised-button color="warn" matDialogClose>close</button>
+            </div> -->
           </tr>
         </tbody>
       </table>
     </div>
   </mat-dialog-content>
+  <div class="d-flex justify-content-end" mat-dialog-actions>
+    <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+  </div>
+</ng-template>
+
+<ng-template #viewDcDialog>
+  <div style="background-color: #084982;">
+    <p class="dialog-title">VIEW DC</p>
+  </div>
+
+  <mat-dialog-content>
+    <div class="table-res">
+      <table class="table" id="mytable">
+        <thead>
+          <tr class="task-table">
+            <th>
+              <p>No</p>
+            </th>
+            <th>
+              <p class="d-inline-flex">
+                <span>Name</span>
+                <!-- <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
+              </p>
+            </th>
+
+            <th>
+              <p class="d-inline-flex">
+                <span>Date</span>
+                <!-- <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
+              </p>
+            </th>
+
+            <th>
+              <p class="d-inline-flex">
+                <span>Cost</span>
+                <!-- <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
+              </p>
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let item of items; let i = index">
+            <td>
+              <p>{{i+1}}</p>
+            </td>
+            <td>
+              <p>{{ item.name }}</p>
+            </td>
+
+            <td>
+              <p>{{ item.dispatchedDate | date:'mediumDate'}}</p>
+            </td>
+
+            <td>
+              <p>{{ item.cost }}</p>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </mat-dialog-content>
+
   <div class="d-flex justify-content-end" mat-dialog-actions>
     <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
   </div>

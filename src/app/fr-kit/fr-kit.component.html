@@ -16,6 +16,9 @@
       <div class="mx-2">
         <button class="create-btn" (click)="show('frKit')">Create Frkit</button>
       </div>
+      <!-- <div class="mx-2">
+        <button class="create-btn" (click)="openDc()">Open Dc</button>
+      </div> -->
     </div>
   </div>
   <!-- /header -->
@@ -149,6 +152,7 @@
     </div>
   <!-- /overall tasks -->
 </div>
+
 
 <div *ngIf="showFrkit">
   <app-add-new-frkit style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" (newItemEvent)="closenow('frKit'); listFRTickets()"></app-add-new-frkit>

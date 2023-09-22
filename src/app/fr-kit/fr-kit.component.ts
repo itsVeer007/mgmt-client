@@ -118,4 +118,15 @@ export class FrKitComponent implements OnInit {
     }
   }
 
+// @ViewChild('viewDcDialog') viewDcDialog = {} as TemplateRef<any>
+// items:any;
+// openDc() {
+//   this.dialog.open(this.viewDcDialog, {maxHeight:'550px', maxWidth:'600px'})
+//   this.ticketSer.listDC().subscribe((res:any)=>{
+//     // console.log(res);
+//     this.items = res;
+
+//   })
+// }
+
 }
