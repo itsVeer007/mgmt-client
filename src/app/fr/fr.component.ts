@@ -457,4 +457,16 @@ openDc() {
   })
 }
 
+selectedAll: any;
+  selectAll() {
+    for (var i = 0; i < this.latestValue.length; i++) {
+      this.latestValue[i].selected = this.selectedAll;
+    }
+  }
+  checkIfAllSelected() {
+    this.selectedAll = this.latestValue.every(function (item: any) {
+      return item.selected == true;
+    })
+  }
+
 }
