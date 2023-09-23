@@ -107,7 +107,7 @@ export class FrComponent implements OnInit {
     this.dialog.open(this.statusItemsDialog, {maxWidth: '750px', maxHeight: '550px'});
 
     this.ticketSer.listFRItems(type, status).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       this.statusItems = res;
       this.removeDuplicatesAndCalculateQuantities();
 
@@ -433,8 +433,8 @@ export class FrComponent implements OnInit {
   cost:any;
   updateDispatchToInventory() {
     let obj = {
-      oldSlNo: this.currentItem?.invNo,
-      cost: this.cost
+      oldSlNo: this.arr,
+      dcNumber: this.cost
     }
     this.ticketSer.updateDispatchToInventory(obj).subscribe((res:any)=>{
       // console.log(res);
@@ -447,23 +447,71 @@ export class FrComponent implements OnInit {
   }
 
   @ViewChild('viewDcDialog') viewDcDialog = {} as TemplateRef<any>
-items:any;
-openDc() {
-  this.dialog.open(this.viewDcDialog, {maxHeight:'550px', maxWidth:'600px'})
-  this.ticketSer.listDC().subscribe((res:any)=>{
-    // console.log(res);
-    this.items = res;
+  items:any;
+  openDc() {
+    this.dialog.open(this.viewDcDialog, {maxHeight:'550px', maxWidth:'600px'})
+    this.ticketSer.listDC().subscribe((res:any)=>{
+      console.log(res);
+      this.items = res;
 
+    })
+  }
+
+  Items:any;
+@ViewChild('dcStatusDialog') dcStatusDialog = {} as TemplateRef<any>
+dcItems() {
+this.dialog.open(this.dcStatusDialog, {maxHeight:'550px', maxWidth:'600px'})
+  this.ticketSer.listDCItems().subscribe((res:any)=>{
+    // console.log(res);
+    this.Items = res;
   })
 }
 
-selectedAll: any;
+
+data = {
+  receiptNo:null,
+  cost:null,
+  dcNumber:null
+}
+
+
+@ViewChild('dcFinalDialog') dcFinalDialog = {} as TemplateRef<any>
+openPopUp(item:any){
+  this.dialog.open(this.dcFinalDialog, {maxHeight:'350px', maxWidth:'300px'})
+  // this.ticketSer.updateDC(this.data).subscribe((res:any)=>{
+this.currentItem= item;
+  // })
+}
+
+updateDC(){
+  this.data.dcNumber=this.currentItem.dcNumber
+   this.ticketSer.updateDC(this.data).subscribe((res:any)=>{
+    this.alertSer.snackSuccess(res?.message)
+  }, (error)=>{
+    this.alertSer.error(error?.err?.res);
+  })
+}
+
+
+
+  selectedAll: any;
+  arr: any = [];
   selectAll() {
     for (var i = 0; i < this.latestValue.length; i++) {
       this.latestValue[i].selected = this.selectedAll;
     }
   }
-  checkIfAllSelected() {
+
+  checkIfAllSelected(current: any, e: any) {
+    let x = e?.srcElement?.checked;
+    if(x == true) {
+      this.arr.push(current?.invNo)
+      console.log(this.arr);
+    } else {
+      this.arr.splice(this.arr.indexOf(current), 1);
+      console.log(this.arr);
+    }
+
     this.selectedAll = this.latestValue.every(function (item: any) {
       return item.selected == true;
     })

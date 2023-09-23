@@ -218,12 +218,16 @@ export class TicketService {
     return this.http.put(url, null);
   }
 
+  // updateDispatchToInventory(payload:any) {
+  //   let url = this.baseUrl + `/updateDispatchToInventory_1_0`;
+  //   let params = new HttpParams().set('oldSlNo', payload?.oldSlNo).set('cost', payload?.cost)
+  //   return this.http.put(url, null, {params: params});
+  // }
+
   updateDispatchToInventory(payload:any) {
     let url = this.baseUrl + `/updateDispatchToInventory_1_0`;
-    let params = new HttpParams().set('oldSlNo', payload?.oldSlNo).set('cost', payload?.cost)
-    return this.http.put(url, null, {params: params});
+    return this.http.post(url, payload);
   }
-
 
   /* fr-reports */
 
@@ -262,4 +266,14 @@ export class TicketService {
     return this.http.get(url);
 }
 
+listDCItems() {
+  let url = this.baseUrl + `/listDCItems_1_0`;
+    return this.http.get(url);
+}
+
+updateDC(payload:any) {
+  let url = this.baseUrl + `/updateDC_1_0`;
+  let params = new HttpParams().set('dcNumber', payload.dcNumber).set('cost',payload.cost).set('receiptNo', payload.receiptNo)
+  return this.http.put(url, null, {params:params})
+}
 }
