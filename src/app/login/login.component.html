@@ -6,7 +6,6 @@
 
 
 <div class="login">
-
   <!-- <div class="main-header">
       <div class="heading">
           <span>SIGN IN</span>
@@ -47,4 +46,8 @@
     </mat-card-content>
     <p class="text-center text-danger mt-3">{{ errMsg }}</p>
   </mat-card>
+</div>
+
+<div *ngIf="showLoader">
+  <app-login-loader></app-login-loader>
 </div>

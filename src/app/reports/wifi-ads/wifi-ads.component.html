@@ -140,15 +140,6 @@
       <thead>
         <tr class="form1" style="background-image: linear-gradient(to right, #084982, #D34124);">
           <th>
-            <input type="checkbox" class="form-check-input" [(ngModel)]="selectedAll" (change)="selectAll()"
-              id="allcheck" style="
-                background-color: #00000000;
-                border-color: #fff;
-                margin-left: 10px;
-              " />
-          </th>
-
-          <th>
             <span>url</span>
             <img (click)="sort('url')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
@@ -198,15 +189,6 @@
 
       <tbody>
         <tr *ngFor="let cust of newProductMaster | search : searchText; let i = index" (dblclick)="openViewPopup(cust)">
-          <td>
-            <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="cust.selected" (change)="
-                checkIfAllSelected();
-                deleteMultiRecords(cust, i, $event);
-                ViewByCheckbox(cust, i, $event);
-                EditByCheckbox(cust, i, $event)
-              " id="singleCheck" />
-          </td>
-
           <td>
             <p>{{ cust.url }}</p>
           </td>

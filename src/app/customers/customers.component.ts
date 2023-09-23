@@ -1,7 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, HostListener, OnInit } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SearchPipe } from '../utilities/search.pipe';
 
 @Component({
   selector: 'app-customers',

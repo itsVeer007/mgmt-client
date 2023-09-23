@@ -40,19 +40,28 @@
                 </mat-form-field>
               </div>
               <div class="col-lg-12 col-xl-12">
-                <!-- <select class="form-select m-1" id="customers" formControlName="customers" required>
-                  <option value="" selected>All Customers</option>
-                  <option value="count" name="count">count</option>
-                </select> -->
-                <!-- <app-multi-select-search></app-multi-select-search> -->
-                <mat-form-field appearance="outline" class="w-100">
+                <mat-form-field class="w-100 m-1" appearance="outline">
+                  <mat-select placeholder="Select Site (Multi-Site)" [formControl]="selectFormControl" multiple>
+                    <div class="select-container">
+                      <mat-optgroup>
+                        <mat-form-field style="width:100%;">
+                          <input #search autocomplete="off" placeholder="Search" aria-label="Search" matInput [formControl]="searchTextboxControl">
+                        </mat-form-field>
+                      </mat-optgroup>
+                      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                        {{option}}
+                      </mat-option>
+                    </div>
+                  </mat-select>
+                </mat-form-field>
+                <!-- <mat-form-field appearance="outline" class="w-100">
                   <input matInput placeholder="Site Id" [matAutocomplete]="auto" formControlName="customers" [(ngModel)]="searchText">
                   <mat-autocomplete #auto="matAutocomplete">
                     <mat-option *ngFor="let item of siteIdList | search : searchText; let i=index" [value]="item">
                       {{ item }}
                     </mat-option>
                   </mat-autocomplete>
-                </mat-form-field>
+                </mat-form-field> -->
               </div>
 
               <div class="col-lg-12 col-xl-12 my-3">

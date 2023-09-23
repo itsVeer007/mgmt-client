@@ -130,20 +130,18 @@ export class AddNewAssetComponent implements OnInit {
     // this.deviceIdFromStorage = JSON.parse(sessionStorage.getItem('user')!);
 
     this.onMetadataChange()
-    this.getRes();
+    // this.getRes();
   };
 
   data: any;
   siteIdList: any;
   deviceIdList: any;
-  // x: any;
 
   getRes() {
     this.siteService.listSites().subscribe((res: any) => {
       // console.log(res);
       this.siteIdList = res.sitesList;
     })
-
 
     this.devService.listDeviceAdsInfo().subscribe((res: any) => {
       const assets = res.flatMap((item: any) => item.adsDevices);
