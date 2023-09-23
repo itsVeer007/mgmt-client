@@ -56,18 +56,15 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 //utilities
-import { MultiSelectSearchComponent } from './utilities/multi-select-search/multi-select-search.component';
 import { VjsPlayerComponent } from './utilities/vjs-player/vjs-player.component';
 import { LoaderComponent } from './utilities/loader/loader.component';
 import { ChartService } from 'src/services/chart.service';
-import { SearchPipe } from './utilities/search.pipe';
 import { DatePipe } from '@angular/common';
 import { AdInfoComponent } from './assets/ad-info/ad-info.component';
 import { ReportsComponent } from './reports/reports.component';
 import { MetaDataComponent } from './meta-data/meta-data.component';
 import { AddMetadataComponent } from './main-dashboard/add-metadata/add-metadata.component';
 
-import { SortPipe } from './utilities/sort.pipe';
 import { DeviceViewComponent } from './main-dashboard/add-device/device-view/device-view.component';
 import { DevicesComponent } from './devices/devices.component';
 
@@ -89,6 +86,9 @@ import { AdvertisementsComponent } from './advertisements/advertisements.compone
 import { FrKitComponent } from './fr-kit/fr-kit.component';
 import { AddNewFrkitComponent } from './main-dashboard/add-new-frkit/add-new-frkit.component';
 import { FrReportsComponent } from './fr-reports/fr-reports.component';
+import { LoginLoaderComponent } from './utilities/loader/login-loader.component';
+import { SearchPipe } from './pipes/search.pipe';
+import { SortPipe } from './pipes/sort.pipe';
 
 @NgModule({
   declarations: [
@@ -103,11 +103,10 @@ import { FrReportsComponent } from './fr-reports/fr-reports.component';
     SitesComponent,
     CustomersComponent,
     LoaderComponent,
-    SearchPipe,
+    LoginLoaderComponent,
     LoginComponent,
     UsersComponent,
     AddAdditionalSiteComponent,
-    MultiSelectSearchComponent,
     AssetsComponent,
     TicketsComponent,
     InventoryComponent,
@@ -123,7 +122,6 @@ import { FrReportsComponent } from './fr-reports/fr-reports.component';
     ReportsComponent,
     MetaDataComponent,
     AddMetadataComponent,
-    SortPipe,
     DeviceViewComponent,
     DevicesComponent,
     ProductMasterComponent,
@@ -142,7 +140,9 @@ import { FrReportsComponent } from './fr-reports/fr-reports.component';
     AdvertisementsComponent,
     FrKitComponent,
     AddNewFrkitComponent,
-    FrReportsComponent
+    FrReportsComponent,
+    SearchPipe,
+    SortPipe,
   ],
   imports: [
     BrowserModule,
@@ -179,7 +179,8 @@ import { FrReportsComponent } from './fr-reports/fr-reports.component';
   ],
   providers: [
     ChartService,
-    SearchPipe,
+    // SearchPipe,
+    // SortPipe,
     DatePipe,
     {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],

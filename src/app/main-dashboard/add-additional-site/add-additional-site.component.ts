@@ -3,6 +3,7 @@ import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Outpu
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 import { ApiService } from 'src/services/api.service';
 
 @Component({
@@ -63,6 +64,7 @@ export class AddAdditionalSiteComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private apiser: ApiService) { }
 
+  filteredOptions!: Observable<any>;
   ngOnInit(): void {
     this.addSiteForm = this.fb.group({
       'userId': new FormControl(''),
@@ -73,24 +75,32 @@ export class AddAdditionalSiteComponent implements OnInit {
       'checked': new FormControl()
     });
 
-    // this.getSiteDetails()
+    this.filteredOptions = this.searchTextboxControl.valueChanges
+    .pipe(
+      startWith<string>(''),
+      map(name => this.filter(name))
+    );
   }
 
-  // getSiteDetails(){
-  //   this.apiser.getUser().subscribe((res:any)=>{
-  //     // console.log(res)
-  //     if(res.Status == 'Success'){
-  //       this.site.userId= "";
-  //       this.site.userName= "";
-  //       this.site.verticals= res.verticals ;
-  //       this.site.customers= res.customers ;
-  //       this.site.selectSite= res.selectSite;
+  @ViewChild('search') searchTextBox!: ElementRef;
 
-  //     }
-  //   })
-  // }
+  selectFormControl = new FormControl();
+  searchTextboxControl = new FormControl();
+  selectedValues = [];
+  data: string[] = [
+    'US00010',
+    'US00011',
+    'US00012',
+    'US00013',
+    'US00014',
+    'US00015',
+  ]
 
-  onSubmit(): void {
+  filter(name: string) {
+    const filterValue = name.toLowerCase();
+    this.selectFormControl.patchValue(this.selectedValues);
+    let filteredList = this.data.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
+    return filteredList;
   }
 
   closeAddAdditionalSite() {

@@ -129,24 +129,22 @@ export class TicketsComponent implements OnInit {
         return acc;
       }
     }, []);
+  }
 
-    // this.priorityVal = this.ticketData.reduce((acc: any, current: any) => {
-    //   const x = acc.find((item: any) => item.priorityId == current.priorityId);
-    //   if (!x) {
-    //     return acc.concat([current]);
-    //   } else {
-    //     return acc;
+  filteredSites: any;
+  filterSites() {
+    // this.siteData?.forEach((item: any) => {
+    //   if(!this.filteredSites.includes(item?.siteid, item.sitename)) {
+    //     this.filteredSites.push(item?.siteid, item.sitename);
+    //       console.log(this.filteredSites)
     //   }
-    // }, []);
+    // })
 
-    // this.statusVal = this.ticketData.reduce((acc: any, current: any) => {
-    //   const x = acc.find((item: any) => item.statusId == current.statusId);
-    //   if (!x) {
-    //     return acc.concat([current]);
-    //   } else {
-    //     return acc;
-    //   }
-    // }, []);
+    this.filteredSites = this.siteData.filter((obj: any, index: any, self: any) =>
+      index === self.findIndex((o: any) => {
+        return o.siteid === obj.siteid;
+      })
+    );
   }
 
   priorityVal: any;

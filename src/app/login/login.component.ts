@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private apiser: ApiService, private siteSer: SiteService, private route: Router, private fb: FormBuilder) { }
 
+  showLoader: boolean = false;
   loginForm: any = FormGroup;
 
   ngOnInit() {
@@ -36,14 +37,10 @@ export class LoginComponent implements OnInit {
 
   errMsg: any = null;
   login() {
-    // let loginDetails = {
-    //   "userName": this.username,
-    //   "password": this.password,
-    //   "calling_System_Detail": "portal"
-    // }
-
+    this.showLoader = true;
     this.apiser.login(this.loginBody).subscribe((res: any) => {
       // console.log(res);
+      this.showLoader = false;
       if(res?.Status == "Success") {
         sessionStorage.setItem('user', JSON.stringify(res));
         this.apiser.user$.next(res);

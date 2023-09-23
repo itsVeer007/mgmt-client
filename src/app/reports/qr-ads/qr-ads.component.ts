@@ -12,32 +12,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./qr-ads.component.css']
 })
 export class QRAdsComponent implements OnInit {
-filterbody: any;
-
-  @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
-    var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);
-    var y = <HTMLElement>document.getElementById(`address${this.addressid}`);
-
-    // console.log(`plus-img${this.currentid}`);
-    if (x != null) {
-      if (!x.contains(e.target)) {
-        if (x.style.display == 'flex' || x.style.display == 'block') {
-          x.style.display = 'none';
-        }
-      }
-    }
-
-    if (y != null) {
-      if(!y.contains(e.target)) {
-        if (y.style.display == 'flex' || y.style.display == 'block') {
-          y.style.display = 'none';
-        }
-      }
-    }
-  }
-
-
-
+  filterbody: any;
 
   showLoader = false;
   constructor(
@@ -171,18 +146,6 @@ filterbody: any;
     })
   }
 
-  currentid = 0;
-  closeDot(e: any, i: any) {
-    this.currentid = i;
-    var x = e.target.parentNode.nextElementSibling;
-    // console.log("THREE DOTS:: ",e.target.parentNode.nextElementSibling);
-    if (x.style.display == 'none') {
-      x.style.display = 'block';
-    } else {
-      x.style.display = 'none';
-    }
-  }
-
   closenow(value: any, type: String) {
     if (type == 'inventory') { this.showInventory = value; }
   }
@@ -191,19 +154,6 @@ filterbody: any;
 
   show(type: string) {
     if (type == 'inventory') { this.showInventory = true; }
-  }
-
-  addressid = 0;
-  addressView(e: any, i: any) {
-    this.addressid = i;
-    var x = e.target.nextElementSibling;
-    // console.log("AddressView:: ",x)
-    if (x.style.display == 'none') {
-      x.style.display = 'flex';
-    } else {
-      x.style.display = 'none';
-    }
-    // this.address = !this.address;
   }
 
   masterSelected: boolean = false;
@@ -292,16 +242,6 @@ filterbody: any;
   }
 
 
-  // deleteRow: any;
-  // deleteRow1(item: any, i: any) {
-  //   this.showLoader = true;
-  //   setTimeout(() => {
-  //     this.showLoader = false;
-  //     this.qrData.splice(i, 1);
-  //   }, 1000);
-  // }
-
-
   @ViewChild('deleteInventoryDialog') deleteInventoryDialog = {} as TemplateRef<any>;
 
   openDeletePopup(item: any) {
@@ -327,87 +267,6 @@ filterbody: any;
       };
     });
   }
-
-
-/* checkbox control */
-
-  viewArray: any = [];
-  ViewByCheckbox(itemV: any, i: any, e: any) {
-    var checked = (e.target.checked);
-    // console.log("View By Checkbox:: ",itemV);
-    // console.log("View Array::" ,this.viewArray);
-    // console.log("present in array : "+this.viewArray.includes(itemV),  " checked : "+ checked)
-    if (checked == true && this.viewArray.includes(itemV) == false) {
-      this.viewArray.push(itemV);
-      this.currentItem = this.viewArray[(this.viewArray.length - 1)];
-    }
-    if (checked == false && this.viewArray.includes(itemV) == true) {
-      this.viewArray.splice(this.viewArray.indexOf(itemV), 1)
-    }
-  }
-
-  viewBySelectedOne() {
-    if (this.viewArray.length > 0) {
-      this.dialog.open(this.viewInventoryDialog)
-    }
-  }
-
-  editArray: any = [];
-  EditByCheckbox(itemE: any, i: any, e: any) {
-    var checked = (e.target.checked);
-    // console.log("Edit By Checkbox:: ",itemE);
-    // console.log("Edit Array::" ,this.editArray);
-    // console.log("present in array : "+this.editArray.includes(itemE),  " checked : "+ checked)
-    if (checked == true && this.editArray.includes(itemE) == false) {
-      this.editArray.push(itemE);
-      this.currentItem = this.editArray[(this.editArray.length - 1)];
-    }
-    if (checked == false && this.editArray.includes(itemE) == true) {
-      this.editArray.splice(this.editArray.indexOf(itemE), 1)
-    }
-  }
-
-  editBySelectedOne() {
-    if (this.editArray.length > 0) {
-      this.dialog.open(this.editInventoryDialog)
-    }
-  }
-
-
-  deletearray: any = [];
-  deleteMultiRecords(item: any, i: any, e: any) {
-    var checked = (e.target.checked);
-    // console.log("Delete Multiple Records:: ", item);
-    if (this.deletearray.length == 0) { this.deletearray.push(item) }
-
-    this.deletearray.forEach((el: any) => {
-      if (el.siteId != item.siteId && checked) {
-        this.deletearray.push(item);
-        this.deletearray = [...new Set(this.deletearray.map((item: any) => item))]
-      }
-      if (el.siteId == item.siteId && !checked) {
-        var currentindex = this.deletearray.indexOf(item);
-        this.deletearray.splice(currentindex, 1)
-      }
-    });
-    // console.log(this.deletearray)
-  }
-
-  deleteSelected() {
-    if (this.selectedAll == false) {
-      this.deletearray.forEach((el: any) => {
-        // this.currentItem = el;
-        // this.deleteInventory();
-        this.qrData = this.qrData.filter((item: any) => item.siteId !== el.siteId);
-      });
-      this.deletearray = []
-    } else {
-      this.qrData.forEach((el: any) => {
-        this.qrData = this.qrData.filter((item: any) => item.siteId !== el.siteId);
-      });
-    }
-  }
-
 
 
   sorted = false;

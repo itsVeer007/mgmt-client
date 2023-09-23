@@ -57,9 +57,9 @@
     <div class="col-lg-2 col-md-2">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Site</mat-label>
-        <mat-select [(ngModel)]="ticketStatusObj.siteId">
+        <mat-select [(ngModel)]="ticketStatusObj.siteId" (focus)="filterSites()">
           <mat-option value="" (click)="applyFilter()">All</mat-option>
-          <mat-option *ngFor="let item of siteData" [value]="item.siteid" (click)="applyFilter()">{{ item.siteid }} - {{ item.siteShortName }}</mat-option>
+          <mat-option *ngFor="let item of filteredSites" [value]="item.siteid" (click)="applyFilter()">{{ item.siteid }} - {{ item.sitename }}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
