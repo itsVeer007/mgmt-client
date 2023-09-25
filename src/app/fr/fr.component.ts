@@ -78,10 +78,11 @@ export class FrComponent implements OnInit {
 
   siteNg: any;
   filterSites(site: any) {
-    if(site != 'All') {
-      this.newFrTickets =  this.frTickets.filter((item: any) => item.sitename == site);
-    } else {
+    if(site == 'All') {
       this.newFrTickets = this.frTickets;
+    } else {
+      this.newFrTickets =  this.frTickets.filter((item: any) => item.sitename == site);
+    
     }
   }
 
@@ -446,6 +447,7 @@ export class FrComponent implements OnInit {
     
   }
 
+  // dcDialog
   @ViewChild('viewDcDialog') viewDcDialog = {} as TemplateRef<any>
   items:any;
   openDc() {
@@ -485,13 +487,14 @@ this.currentItem= item;
 
 updateDC(){
   this.data.dcNumber=this.currentItem.dcNumber
-   this.ticketSer.updateDC(this.data).subscribe((res:any)=>{
+  this.ticketSer.updateDC(this.data).subscribe((res:any)=>{
     this.alertSer.snackSuccess(res?.message)
   }, (error)=>{
     this.alertSer.error(error?.err?.res);
   })
 }
 
+// dcDialogClose
 
 
   selectedAll: any;
