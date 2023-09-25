@@ -1,4 +1,4 @@
-/* common ng-deep */
+/* ng-deep */
 ::ng-deep .from-date .mat-form-field-appearance-outline .mat-form-field-infix {
   padding: 1px;
   display: inline-flex;
@@ -22,12 +22,6 @@
 
 ::ng-deep .mat-dialog-container {
   overflow: hidden !important;
-  padding: 0 !important;
-}
-
-::ng-deep .mat-dialog-actions {
-  margin-bottom: 0 !important;
-  margin-right: 10px !important;
   padding: 0 !important;
 }
 

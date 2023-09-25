@@ -149,11 +149,11 @@ export class AddNewVendorComponent implements OnInit {
   }
 
   closeAddUser() {
-    this.newItemEvent.emit(false);
+    this.newItemEvent.emit();
   }
 
   openAnotherForm(newform:any) {
-    this.newItemEvent.emit(false);
+    this.newItemEvent.emit();
     localStorage.setItem('opennewform', newform)
   }
 
@@ -161,7 +161,7 @@ export class AddNewVendorComponent implements OnInit {
   submit() {
     // console.log(this.vendorBody);
     if(this.vendorForm.valid) {
-      this.newItemEvent.emit(false);
+      this.newItemEvent.emit();
       this.alertSer.wait();
       this.inventorySer.createVendors(this.vendorBody).subscribe((res: any) => {
         // console.log(res);

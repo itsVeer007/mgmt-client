@@ -252,17 +252,55 @@ form .add-btn:active {
 }
 
 .filter-btn {
-  background-color: #d34124;
+  background-color: #084982;
   color: #fff;
   width: 80px;
-  padding: 12px 0;
-  margin-bottom: 10px;
-  border-radius: 5px;
+  padding: 6px 0;
+  border-radius: 50px;
   border-width: 0;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .filter-btn:active {
+  opacity: 0.8;
+}
+
+.dialog-content {
+  padding: 0 20px;
+  max-width: 700px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+/*Dialog update-btn*/
+.dialog-update-btn {
+  background-color: #084982;
+  color: #fff;
+  width: 70px;
+  padding: 6px 0;
+  border-radius: 5px;
+  border-width: 0;
+  font-size: 12px;
+  margin: 0 10px 10px 0;
+}
+
+.dialog-update-btn:active {
+  opacity: 0.8;
+}
+
+/*Dialog close-btn*/
+.dialog-close-btn {
+  background-color: #d34124;
+  color: #fff;
+  width: 70px;
+  padding: 6px 0;
+  border-radius: 5px;
+  border-width: 0;
+  font-size: 12px;
+  margin: 0 10px 10px 0;
+}
+
+.dialog-close-btn:active {
   opacity: 0.8;
 }
 

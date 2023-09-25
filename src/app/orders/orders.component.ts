@@ -357,7 +357,7 @@ export class OrdersComponent implements OnInit {
 
   viewBySelectedOne() {
     if (this.viewArray.length > 0) {
-      this.dialog.open(this.viewInventoryDialog, {maxHeight: '550px', maxWidth: '750px'})
+      this.dialog.open(this.viewInventoryDialog)
     }
   }
 
@@ -375,7 +375,7 @@ export class OrdersComponent implements OnInit {
 
   editBySelectedOne() {
     if (this.editArray.length > 0) {
-      this.dialog.open(this.editInventoryDialog, {maxHeight: '550px', maxWidth: '750px'})
+      this.dialog.open(this.editInventoryDialog)
     }
   }
 

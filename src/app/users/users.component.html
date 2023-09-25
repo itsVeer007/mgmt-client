@@ -150,13 +150,13 @@
         </td>
 
         <td class="text-center">
-          <a class="mx-1" (click)="openViewPopup(cust, i)" matTooltip="View">
+          <a class="mx-1" matTooltip="View">
             <img src="assets/icons/view.svg">
           </a>
-          <a class="mx-1" (click)="openEditPopup(cust, i)" matTooltip="Edit">
+          <a class="mx-1" matTooltip="Edit">
             <img src="assets/icons/edit.svg">
           </a>
-          <a class="mx-1" value="Delete" (click)="openDeletePopup(cust, i)" matTooltip="Delete">
+          <a class="mx-1" value="Delete" matTooltip="Delete">
             <img src="assets/icons/delete.svg">
           </a>
         </td>
@@ -165,157 +165,8 @@
     </table>
   </div>
 </div>
-<!-- table ends -->
 
-<div class="modalitem max-center" [hidden]="deletePopup">
-  <!-- <div  class="deletePopup" > -->
-  <div class="card">
-    <div class="card-header d-flex justify-content-between">
-      <p>Delete Row</p>
-      <img src="assets/icons/close_form.svg" width="40" height="40" (click)="closeDeletePopup()" />
-    </div>
-    <div class="card-body text-center">Do you want to delete this item?</div>
-    <div class="card-footer">
-      <button type="button" class="btn btn-primary mx-2" (click)="confirmDeleteRow()">
-        OK
-      </button>
-      <button type="button" class="btn btn-danger" (click)="closeDeletePopup()">
-        Close
-      </button>
-    </div>
-  </div>
-  <!-- </div> -->
-</div>
 
-<div class="modalitem max-center" [hidden]="editPopup">
-  <div class="card">
-    <div class="card-header d-flex justify-content-between">
-      <p>Edit</p>
-      <img src="assets/icons/close_form.svg" width="40" height="40" (click)="closeEditPopup()" />
-    </div>
-    <div class="card-body text-center">
-      <ul *ngIf="currentItem">
-        <li>
-          <h6 style="width: 110px">User Id</h6>
-          :
-          <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.employeeId" />
-          </div>
-        </li>
-        <li>
-          <h6 style="width: 110px">User Name</h6>
-          :
-          <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.username" />
-          </div>
-        </li>
-        <li>
-          <h6 style="width: 110px">Cust Type</h6>
-          :
-          <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.custType" />
-          </div>
-        </li>
-        <li>
-          <h6 style="width: 110px">Contact Number</h6>
-          :
-          <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.contactNumber1" />
-          </div>
-        </li>
-        <li>
-          <h6 style="width: 110px">Email Id</h6>
-          :
-          <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.email" />
-          </div>
-        </li>
-        <li>
-          <h6 style="width: 110px">Contact Person</h6>
-          :
-          <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.contactPerson" />
-          </div>
-        </li>
-        <li>
-          <h6 style="width: 110px">Address</h6>
-          :
-          <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.address" />
-          </div>
-        </li>
-        <li>
-          <h6 style="width: 110px">Status</h6>
-          :
-          <div>
-            <input type="text" class="form-control my-1" [(ngModel)]="currentItem.status" />
-          </div>
-        </li>
-      </ul>
-    </div>
-    <div class="card-footer">
-      <button type="button" class="btn btn-primary mx-2" (click)="confirmEditRow()">
-        Update
-      </button>
-      <button type="button" class="btn btn-danger" (click)="closeEditPopup()">
-        Close
-      </button>
-    </div>
-  </div>
-  <!-- </div>   -->
-</div>
-
-<div class="modalitem max-center" [hidden]="viewPopup">
-  <div class="card">
-    <div class="card-header d-flex justify-content-between">
-      <p>Customers</p>
-      <img src="assets/icons/close_form.svg" width="40" height="40" (click)="closeViewPopup()" />
-    </div>
-    <div class="card-body text-center">
-      <ul *ngIf="currentItem">
-        <li>
-          <h6 style="width: 110px">Site Id</h6>
-          : {{ currentItem?.employeeId }}
-        </li>
-        <li>
-          <h6 style="width: 110px">Customer Name</h6>
-          : {{ currentItem?.username }}
-        </li>
-        <li>
-          <h6 style="width: 110px">Cust Type</h6>
-          : {{ currentItem?.custType }}
-        </li>
-        <li>
-          <h6 style="width: 110px">Contact Number</h6>
-          : {{ currentItem?.contactNumber1 }}
-        </li>
-        <li>
-          <h6 style="width: 110px">Email Id</h6>
-          : {{ currentItem?.email }}
-        </li>
-        <li>
-          <h6 style="width: 110px">Contact Person</h6>
-          : {{ currentItem?.contactPerson }}
-        </li>
-        <li>
-          <h6 style="width: 110px">Address</h6>
-          : {{ currentItem?.address }}
-        </li>
-        <li>
-          <h6 style="width: 110px">Status</h6>
-          : {{ currentItem?.status }}
-        </li>
-      </ul>
-    </div>
-    <div class="card-footer">
-      <!-- <button type="button" class="btn btn-primary" (click)="confirmViewRow()">OK</button> -->
-      <button type="button" class="btn btn-danger" (click)="closeViewPopup()">
-        Close
-      </button>
-    </div>
-  </div>
-  <!-- </div> -->
-</div>
 
 <div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showAddUser">
   <app-add-new-user (newItemEvent)="closenow($event, 'user')"></app-add-new-user>

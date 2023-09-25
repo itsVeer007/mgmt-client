@@ -176,7 +176,7 @@ export class TicketReportsComponent implements OnInit {
   ticketComments: any = [];
   openViewPopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.viewTicketDialog, {maxHeight: '550px', maxWidth: '850px'});
+    this.dialog.open(this.viewTicketDialog);
     // console.log(this.currentItem);
     this.ticketSer.getTasks(item.ticketId).subscribe((tasks: any) => {
       // console.log(res);
@@ -209,7 +209,7 @@ export class TicketReportsComponent implements OnInit {
   openAssigned(item: any) {
     // console.log(item)
     this.toAssign = item;
-    this.dialog.open(this.assignedDialog, {maxHeight: '250px', maxWidth: '250px'});
+    this.dialog.open(this.assignedDialog);
   }
 
   toAssigned() {

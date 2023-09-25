@@ -251,7 +251,7 @@ export class AddDeviceComponent implements OnInit {
   currentItem: any;
   openEditDevice(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.editDevice, {maxWidth: '750px', maxHeight: '650px'});
+    this.dialog.open(this.editDevice);
     this.currentItem.workingDays = this.currentItem.workingDays.toString().split(',');
   }
 
@@ -383,7 +383,7 @@ export class AddDeviceComponent implements OnInit {
         this.originalObject.workingDays = arr;
       }
     }
-    this.newItemEvent.emit(false);
+    this.newItemEvent.emit();
     this.devService.updateDeviceAdsInfo({adsDevice: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
       // console.log(res);
       if(res) {
@@ -412,7 +412,7 @@ export class AddDeviceComponent implements OnInit {
 
   addDeviceDtl() {
     if(this.addDevice.valid) {
-      this.newItemEvent.emit(false);
+      this.newItemEvent.emit();
 
       this.adInfo.siteId = this.siteData.siteid;
 

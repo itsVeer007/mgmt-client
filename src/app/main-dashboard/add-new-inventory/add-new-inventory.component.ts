@@ -234,11 +234,11 @@ export class AddNewInventoryComponent implements OnInit {
   }
 
   closeAddUser() {
-    this.newItemEvent.emit(false);
+    this.newItemEvent.emit();
   }
 
   openAnotherForm(newform:any) {
-    this.newItemEvent.emit(false);
+    this.newItemEvent.emit();
     localStorage.setItem('opennewform', newform)
   }
 

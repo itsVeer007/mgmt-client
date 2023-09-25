@@ -82,7 +82,7 @@ export class FrComponent implements OnInit {
       this.newFrTickets = this.frTickets;
     } else {
       this.newFrTickets =  this.frTickets.filter((item: any) => item.sitename == site);
-    
+
     }
   }
 
@@ -105,7 +105,7 @@ export class FrComponent implements OnInit {
   openStatusItems(type: any, status: any) {
     // this.currentStatusItem1 = data;
     // console.log(this.currentStatusItem)
-    this.dialog.open(this.statusItemsDialog, {maxWidth: '750px', maxHeight: '550px'});
+    this.dialog.open(this.statusItemsDialog);
 
     this.ticketSer.listFRItems(type, status).subscribe((res: any) => {
       // console.log(res);
@@ -129,7 +129,7 @@ export class FrComponent implements OnInit {
   ticketVisits: any;
   ticketComments: any = [];
   openTicketTaskDialog(item: any) {
-    this.dialog.open(this.ticketTaskDialog, {maxHeight: '550px', maxWidth: '850px'});
+    this.dialog.open(this.ticketTaskDialog);
     this.ticketSer.getTasks(item.ticketId).subscribe((tasks: any) => {
       this.ticketTasks = tasks;
     });
@@ -139,7 +139,7 @@ export class FrComponent implements OnInit {
 
   sites: any
   openSitesDialog() {
-    // this.dialog.open(this.viewSitesDialog, {maxWidth: '550px', maxHeight: '550px'});
+    // this.dialog.open(this.viewSitesDialog);
 
     this.ticketSer.listFRSites(1565).subscribe((res: any) => {
       // console.log(res);
@@ -198,7 +198,7 @@ export class FrComponent implements OnInit {
     // console.log(data);
     this.ticketType = data?.typeId;
     this.currentSite = data?.siteId;
-    this.dialog.open(this.currentTasksDialog, {maxWidth: '750px', maxHeight: '550px'});
+    this.dialog.open(this.currentTasksDialog);
     this.ticketSer.listFRTasksOfCurrentVisit(1565).subscribe((res: any) => {
       // console.log(res);
       this.tasks = res;
@@ -215,7 +215,7 @@ export class FrComponent implements OnInit {
   currentTask: any;
   openTaskStatus(item: any) {
     this.currentTask = item;
-    // this.dialog.open(this.assignedDialog, {maxWidth: '550px', maxHeight: '250px'});
+    // this.dialog.open(this.assignedDialog);
   }
 
 
@@ -224,7 +224,7 @@ export class FrComponent implements OnInit {
   indentItems: any = [];
   openDetailsDialog(item: any) {
     // console.log(item);
-    this.dialog.open(this.viewIndentDialog, {maxWidth: '750px', maxHeight: '550px'});
+    this.dialog.open(this.viewIndentDialog);
     this.inventorySer.listIndentItems(item).subscribe((res: any) => {
       // console.log(res);
       this.indentItems = res;
@@ -357,7 +357,7 @@ export class FrComponent implements OnInit {
   openCnfrmStatusDialogt(item: any, type: any) {
     this.currentStatusItem = item;
     this.currentStatusType = type
-    this.dialog.open(this.cnfrmStatusDialog, {maxWidth: '550px', maxHeight: '550px'});
+    this.dialog.open(this.cnfrmStatusDialog);
   }
 
   logTaskStatus(item: any, status: any) {
@@ -396,7 +396,7 @@ export class FrComponent implements OnInit {
   @ViewChild('exitDialog') exitDialog = {} as TemplateRef<any>;
 
   openVisitExit() {
-    this.dialog.open(this.exitDialog, {maxWidth: '550px', maxHeight: '550px'});
+    this.dialog.open(this.exitDialog);
   }
 
   fieldVisitExit() {
@@ -426,11 +426,11 @@ export class FrComponent implements OnInit {
   currentItem:any;
   open(task:any) {
       // console.log(task);
-    this.dialog.open(this.viewInventoryToDispatch, {maxHeight:'550px', maxWidth:'600px'});
+    this.dialog.open(this.viewInventoryToDispatch);
     this.currentItem = task;
-    
+
   }
-  
+
   cost:any;
   updateDispatchToInventory() {
     let obj = {
@@ -443,15 +443,15 @@ export class FrComponent implements OnInit {
     }),(err: any) => {
         this.alertSer.error(err?.error?.message);
     }
-    
-    
+
+
   }
 
   // dcDialog
   @ViewChild('viewDcDialog') viewDcDialog = {} as TemplateRef<any>
   items:any;
   openDc() {
-    this.dialog.open(this.viewDcDialog, {maxHeight:'550px', maxWidth:'600px'})
+    this.dialog.open(this.viewDcDialog)
     this.ticketSer.listDC().subscribe((res:any)=>{
       console.log(res);
       this.items = res;
@@ -462,7 +462,7 @@ export class FrComponent implements OnInit {
   Items:any;
 @ViewChild('dcStatusDialog') dcStatusDialog = {} as TemplateRef<any>
 dcItems() {
-this.dialog.open(this.dcStatusDialog, {maxHeight:'550px', maxWidth:'600px'})
+this.dialog.open(this.dcStatusDialog)
   this.ticketSer.listDCItems().subscribe((res:any)=>{
     // console.log(res);
     this.Items = res;
@@ -479,7 +479,7 @@ data = {
 
 @ViewChild('dcFinalDialog') dcFinalDialog = {} as TemplateRef<any>
 openPopUp(item:any){
-  this.dialog.open(this.dcFinalDialog, {maxHeight:'350px', maxWidth:'300px'})
+  this.dialog.open(this.dcFinalDialog)
   // this.ticketSer.updateDC(this.data).subscribe((res:any)=>{
 this.currentItem= item;
   // })

@@ -1,6 +1,3 @@
-
-
-
 /* ng-deep */
 ::ng-deep .mat-stroked-button {
   border: 1px solid #084982 !important;
@@ -25,12 +22,6 @@
 
 ::ng-deep .mat-dialog-container {
   overflow: hidden !important;
-  padding: 0 !important;
-}
-
-::ng-deep .mat-dialog-actions {
-  margin-bottom: 0 !important;
-  margin-right: 10px !important;
   padding: 0 !important;
 }
 

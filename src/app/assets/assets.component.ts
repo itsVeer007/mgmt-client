@@ -330,7 +330,7 @@ export class AssetsComponent implements OnInit {
 
   openViewPopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.viewAssetDialog, {maxWidth: '550px', maxHeight: '500px'});
+    this.dialog.open(this.viewAssetDialog);
 
     // console.log(this.currentItem);
   }
@@ -342,7 +342,7 @@ export class AssetsComponent implements OnInit {
   @ViewChild('editAssetDialog') editAssetDialog = {} as TemplateRef<any>;
 
   openEditPopupp(item: any) {
-    this.dialog.open(this.editAssetDialog, {maxWidth: '550px', maxHeight: '550px'});
+    this.dialog.open(this.editAssetDialog);
 
     this.currentItem = JSON.parse(JSON.stringify(item));
     // console.log(item);
@@ -442,7 +442,7 @@ export class AssetsComponent implements OnInit {
   deleteRow: any;
   openDeletePopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.deleteAssetDialog, {maxHeight: '250px', maxWidth: '250px'});
+    this.dialog.open(this.deleteAssetDialog);
   }
 
   deleteRow1(item: any, i: any) {
@@ -477,7 +477,7 @@ export class AssetsComponent implements OnInit {
   viewArray: any = [];
   viewBySelectedOne() {
     if (this.viewArray.length > 0) {
-      this.dialog.open(this.viewAssetDialog, {maxWidth: '550px', maxHeight: '550px'});
+      this.dialog.open(this.viewAssetDialog);
     }
   }
 
@@ -496,7 +496,7 @@ export class AssetsComponent implements OnInit {
   editArray: any = [];
   editBySelectedOne() {
     if (this.editArray.length > 0) {
-      this.dialog.open(this.editAssetDialog, {maxWidth: '550px', maxHeight: '550px'});
+      this.dialog.open(this.editAssetDialog);
     }
   }
 
@@ -554,7 +554,7 @@ export class AssetsComponent implements OnInit {
 
   currentStatusId: any
   openEditStatus(id: any) {
-    this.dialog.open(this.editStatus, {maxWidth: '250px', maxHeight:'250px'});
+    this.dialog.open(this.editStatus);
     this.currentStatusId = id;
   }
 

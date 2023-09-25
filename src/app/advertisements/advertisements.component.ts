@@ -173,7 +173,7 @@ export class AdvertisementsComponent implements OnInit {
   currentStatusId: any
   openEditStatus(id: any) {
     this.currentStatusId = id;
-    this.dialog.open(this.editStatus, {maxWidth: '250px', maxHeight:'250px'});
+    this.dialog.open(this.editStatus);
   }
 
   statusObj = {
@@ -209,7 +209,7 @@ export class AdvertisementsComponent implements OnInit {
       this.addStatus = res[0]?.metadata;
     });
 
-    this.dialog.open(this.editAssetDialog, {maxWidth: '550px', maxHeight: '550px'});
+    this.dialog.open(this.editAssetDialog);
     // console.log(item);
   }
 
@@ -304,7 +304,7 @@ export class AdvertisementsComponent implements OnInit {
   deleteRow: any;
   openDeletePopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.deleteAssetDialog, {maxHeight: '250px', maxWidth: '250px'});
+    this.dialog.open(this.deleteAssetDialog);
   }
 
   deleteRow1(item: any, i: any) {

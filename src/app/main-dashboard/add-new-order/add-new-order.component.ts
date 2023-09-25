@@ -71,11 +71,11 @@ export class AddNewOrderComponent implements OnInit {
   }
 
   closeAddUser() {
-    this.newItemEvent.emit(false);
+    this.newItemEvent.emit();
   }
 
   openAnotherForm(newform:any) {
-    this.newItemEvent.emit(false);
+    this.newItemEvent.emit();
     localStorage.setItem('opennewform', newform)
   }
 
@@ -91,7 +91,7 @@ export class AddNewOrderComponent implements OnInit {
 
     if(this.UserForm.valid) {
       this.alertSer.wait();
-      this.newItemEvent.emit(false);
+      this.newItemEvent.emit();
       this.inventorySer.createOrder(this.inventoryBody).subscribe((res: any) => {
         // console.log(res);
         if(res) {

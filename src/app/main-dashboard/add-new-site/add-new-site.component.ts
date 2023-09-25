@@ -41,7 +41,7 @@ export class AddNewSiteComponent implements OnInit {
   // }
 
   closeAddSite() {
-    this.newItemEvent.emit(false);
+    this.newItemEvent.emit();
   }
 
   constructor(private router: Router) { }
@@ -116,7 +116,7 @@ export class AddNewSiteComponent implements OnInit {
   // }
 
   openAnotherForm(newform: any) {
-    this.newItemEvent.emit(false);
+    this.newItemEvent.emit();
     localStorage.setItem('opennewform', newform);
   }
 

@@ -34,12 +34,6 @@
   padding: 0 !important;
 }
 
-::ng-deep .mat-dialog-actions {
-  margin-bottom: 0 !important;
-  margin-right: 10px !important;
-  padding: 0 !important;
-}
-
 /* common mat disable color */
 
 ::ng-deep .mat-input-element:disabled, .mat-form-field-type-mat-native-select.mat-form-field-disabled .mat-form-field-infix::after {

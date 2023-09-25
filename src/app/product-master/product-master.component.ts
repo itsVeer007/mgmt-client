@@ -174,7 +174,7 @@ export class ProductMasterComponent implements OnInit {
 
   openViewPopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.viewInventoryDialog, {maxWidth: '550px', maxHeight: '550px'});
+    this.dialog.open(this.viewInventoryDialog);
     // console.log(this.currentItem);
   }
 
@@ -185,7 +185,7 @@ export class ProductMasterComponent implements OnInit {
 
   openEditPopup(item: any) {
     this.currentItem = JSON.parse(JSON.stringify(item));
-    this.dialog.open(this.editInventoryDialog, {maxWidth: '550px', maxHeight: '550px'});
+    this.dialog.open(this.editInventoryDialog);
     // console.log(item);
   }
 
@@ -311,7 +311,7 @@ export class ProductMasterComponent implements OnInit {
 
   openDeletePopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.deleteInventoryDialog, {maxWidth: '250px', maxHeight: '250px'});
+    this.dialog.open(this.deleteInventoryDialog);
   }
 
   deleteProduct() {
@@ -367,7 +367,7 @@ export class ProductMasterComponent implements OnInit {
 
   viewBySelectedOne() {
     if (this.viewArray.length > 0) {
-      this.dialog.open(this.viewInventoryDialog, {maxWidth: '550px', maxHeight: '550px'})
+      this.dialog.open(this.viewInventoryDialog)
     }
   }
 
@@ -385,7 +385,7 @@ export class ProductMasterComponent implements OnInit {
 
   editBySelectedOne() {
     if (this.editArray.length > 0) {
-      this.dialog.open(this.editInventoryDialog, {maxWidth: '550px', maxHeight: '550px'})
+      this.dialog.open(this.editInventoryDialog)
     }
   }
 

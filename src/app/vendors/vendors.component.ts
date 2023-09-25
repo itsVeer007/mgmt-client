@@ -165,7 +165,7 @@ export class VendorsComponent implements OnInit {
   listVendorsById(i: any) {
     this.inventorySer.listVendorsById(i.id).subscribe((res: any) => {
       this.itemDetail = res;
-      this.dialog.open(this.itemsDialog, {maxWidth: '550px', maxHeight: '550px'});
+      this.dialog.open(this.itemsDialog);
     })
   }
 
@@ -175,7 +175,7 @@ export class VendorsComponent implements OnInit {
   currentDetail: any;
   openProprietorDialog(i: any) {
     this.currentDetail = i;
-    this.dialog.open(this.proprietorDialog, {maxWidth: '550px', maxHeight: '550px'});
+    this.dialog.open(this.proprietorDialog);
   }
 
 
@@ -184,7 +184,7 @@ export class VendorsComponent implements OnInit {
   addressId: any;
   addressView(i: any) {
     this.addressId = i;
-    this.dialog.open(this.addressDialog, {maxWidth: '550px', maxHeight: '550px'})
+    this.dialog.open(this.addressDialog)
   }
 
 
@@ -197,7 +197,7 @@ export class VendorsComponent implements OnInit {
   @ViewChild('viewInventoryDialog') viewInventoryDialog = {} as TemplateRef<any>;
   openViewPopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.viewInventoryDialog, {maxWidth: '750px', maxHeight: '550px'});
+    this.dialog.open(this.viewInventoryDialog);
     // console.log(this.currentItem);
   }
 
@@ -207,7 +207,7 @@ export class VendorsComponent implements OnInit {
   @ViewChild('editInventoryDialog') editInventoryDialog = {} as TemplateRef<any>;
   openEditPopup(item: any) {
     this.currentItem = JSON.parse(JSON.stringify(item));
-    this.dialog.open(this.editInventoryDialog, {maxWidth: '750px', maxHeight: '550px'});
+    this.dialog.open(this.editInventoryDialog);
     // console.log(item);
   }
 
@@ -327,7 +327,7 @@ export class VendorsComponent implements OnInit {
 
   openDeletePopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.deleteInventoryDialog, {maxWidth: '750px', maxHeight: '550px'});
+    this.dialog.open(this.deleteInventoryDialog);
   }
 
   deleteVendor() {
@@ -394,7 +394,7 @@ export class VendorsComponent implements OnInit {
 
   viewBySelectedOne() {
     if (this.viewArray.length > 0) {
-      this.dialog.open(this.viewInventoryDialog, {maxHeight: '550px', maxWidth: '750px'})
+      this.dialog.open(this.viewInventoryDialog)
     }
   }
 
@@ -412,7 +412,7 @@ export class VendorsComponent implements OnInit {
 
   editBySelectedOne() {
     if (this.editArray.length > 0) {
-      this.dialog.open(this.editInventoryDialog, {maxHeight: '550px', maxWidth: '750px'})
+      this.dialog.open(this.editInventoryDialog)
     }
   }
 

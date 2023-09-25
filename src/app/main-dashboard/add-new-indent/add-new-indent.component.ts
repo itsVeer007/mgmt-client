@@ -101,7 +101,7 @@ export class AddNewIndentComponent implements OnInit {
   }
 
   closeAddUser() {
-    this.newItemEvent.emit(false);
+    this.newItemEvent.emit();
   }
 
   submitted!: boolean;

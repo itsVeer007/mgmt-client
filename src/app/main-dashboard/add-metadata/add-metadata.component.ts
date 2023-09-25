@@ -128,7 +128,7 @@ export class AddMetadataComponent implements OnInit {
     }
 
     if(this.metadataForm.valid) {
-      this.newItemEvent.emit(false);
+      this.newItemEvent.emit();
       this.alertSer.wait();
       this.metaDataSer.add(this.metaDataBody).subscribe((res: any) => {
         // console.log(res);

@@ -177,7 +177,7 @@ export class AddNewDeviceComponent implements OnInit {
   }
 
   closeAddDevice() {
-    this.newItemEvent.emit(false);
+    this.newItemEvent.emit();
   }
 
   /* metadata methods */
@@ -273,7 +273,7 @@ export class AddNewDeviceComponent implements OnInit {
   addDeviceDtl() {
     // console.log(this.addDevice);
     if(this.addDevice.valid) {
-      this.newItemEvent.emit(false);
+      this.newItemEvent.emit();
       let arr = JSON.parse(JSON.stringify(this.adInfo.workingDays)).join(',');
       if(this.toAddDevice == 8) {
         var myString = arr.substring(1);

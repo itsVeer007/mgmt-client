@@ -98,7 +98,7 @@ export class InventoryComponent implements OnInit {
   openStatusItems(data: any, type: any) {
     this.currentStatusItem = data;
     // console.log(this.currentStatusItem)
-    this.dialog.open(this.statusItemsDialog, {maxWidth: '750px', maxHeight: '550px'});
+    this.dialog.open(this.statusItemsDialog);
 
     this.inventorySer.listDetailsByStatus(data).subscribe((res: any) => {
       // console.log(res);
@@ -263,7 +263,7 @@ export class InventoryComponent implements OnInit {
   @ViewChild('viewWarrantyDialog') viewWarrantyDialog = {} as TemplateRef<any>;
 
   viewWarrantyPopup() {
-    this.dialog.open(this.viewWarrantyDialog, {maxWidth: '550px', maxHeight: '550px'});
+    this.dialog.open(this.viewWarrantyDialog);
   }
 
 
@@ -273,7 +273,7 @@ export class InventoryComponent implements OnInit {
 
   openViewPopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.viewInventoryDialog, {maxWidth: '550px', maxHeight: '550px'});
+    this.dialog.open(this.viewInventoryDialog);
     // console.log(this.currentItem);
   }
 
@@ -354,7 +354,7 @@ export class InventoryComponent implements OnInit {
 
   openDeletePopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.deleteInventoryDialog, {maxWidth: '250px', maxHeight: '250px'});
+    this.dialog.open(this.deleteInventoryDialog);
     // console.log("Selected Item:: ", item);
   }
 
@@ -380,7 +380,7 @@ export class InventoryComponent implements OnInit {
   @ViewChild('editWarrantyDialog') editWarrantyDialog = {} as TemplateRef<any>;
 
   openWarrantyPopup(item: any) {
-    this.dialog.open(this.editWarrantyDialog, {maxWidth: '550px', maxHeight: '550px'});
+    this.dialog.open(this.editWarrantyDialog);
 
     this.inventorySer.getWarranty(item.id).subscribe((res: any) => {
       this.currentItem = res;
@@ -469,7 +469,7 @@ export class InventoryComponent implements OnInit {
 
   viewBySelectedOne() {
     if (this.viewArray.length > 0) {
-      this.dialog.open(this.viewInventoryDialog, {maxHeight: '550px', maxWidth: '550px'});
+      this.dialog.open(this.viewInventoryDialog);
     }
   }
 
@@ -487,7 +487,7 @@ export class InventoryComponent implements OnInit {
 
   editBySelectedOne() {
     if (this.editArray.length > 0) {
-      this.dialog.open(this.editInventoryDialog, {maxHeight: '550px', maxWidth: '550px'});
+      this.dialog.open(this.editInventoryDialog);
     }
   }
 

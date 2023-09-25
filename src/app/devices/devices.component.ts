@@ -317,7 +317,7 @@ export class DevicesComponent implements OnInit {
   openViewPopup(item: any) {
     this.currentItem = item;
     this.currentWorkingDays = JSON.parse(JSON.stringify(this.currentItem.workingDays.split(',').map((item: any) => +item)));
-    this.dialog.open(this.viewSiteDialog, {maxWidth: '650px', maxHeight: '650px'});
+    this.dialog.open(this.viewSiteDialog);
     // console.log(item);
     // console.log(this.currentWorkingDays);
   }
@@ -435,7 +435,7 @@ export class DevicesComponent implements OnInit {
   openEditPopup(item: any) {
     this.currentItem = JSON.parse(JSON.stringify(item));
     this.currentWorkingDays = JSON.parse(JSON.stringify(this.currentItem.workingDays.split(',').map((item: any) => +item)));
-    this.dialog.open(this.editSiteDialog, {maxWidth: '650px', maxHeight: '650px'});
+    this.dialog.open(this.editSiteDialog);
     // console.log(item);
   }
 
@@ -456,7 +456,7 @@ export class DevicesComponent implements OnInit {
         this.originalObject.workingDays = arr;
       }
     }
-    this.newItemEvent.emit(false);
+    this.newItemEvent.emit();
     this.devService.updateDeviceAdsInfo({adsDevice: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
       // console.log(res);
       if(res) {

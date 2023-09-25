@@ -173,7 +173,7 @@ export class SitesComponent implements OnInit {
 
   openViewPopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.viewSiteDialog, {maxWidth: '650px', maxHeight: '650px'});
+    this.dialog.open(this.viewSiteDialog);
     // console.log(this.currentItem);
   }
 
@@ -185,7 +185,7 @@ export class SitesComponent implements OnInit {
 
   openEditPopup(item: any) {
     this.currentItem = JSON.parse(JSON.stringify(item));
-    this.dialog.open(this.editSiteDialog, {maxWidth: '650px', maxHeight: '650px'});
+    this.dialog.open(this.editSiteDialog);
   }
 
   confirmEditRow() {
@@ -197,7 +197,7 @@ export class SitesComponent implements OnInit {
 
   openDeletePopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.deleteSiteDialog, {maxWidth: '250px', maxHeight: '250px'});
+    this.dialog.open(this.deleteSiteDialog);
   }
 
   confirmDeleteRow() {

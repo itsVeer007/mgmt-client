@@ -201,7 +201,7 @@ export class IndentsComponent implements OnInit {
   @ViewChild('viewInventoryDialog') viewInventoryDialog = {} as TemplateRef<any>;
   openViewPopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.viewInventoryDialog, {maxWidth: '650px', maxHeight: '550px'});
+    this.dialog.open(this.viewInventoryDialog);
     // console.log(this.currentItem);
   }
 
@@ -213,7 +213,7 @@ export class IndentsComponent implements OnInit {
   inventorySerial: any;
   openEditPopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.editInventoryDialog, {maxWidth: '650px', maxHeight: '550px'});
+    this.dialog.open(this.editInventoryDialog);
 
     this.inventorySer.listInventoryByProductId(item.productId).subscribe((res: any) => {
       // console.log(res);
@@ -331,7 +331,7 @@ export class IndentsComponent implements OnInit {
   invenIds: any = null;
   openEditStatus(id: any) {
     this.currentStatusId = id;
-    this.dialog.open(this.editStatus, {maxWidth: '250px', maxHeight: '250px'});
+    this.dialog.open(this.editStatus);
 
     this.inventorySer.listInventoryByItemCode(id).subscribe((res: any) => {
       this.invenIds = res;
@@ -414,7 +414,7 @@ export class IndentsComponent implements OnInit {
 
   viewBySelectedOne() {
     if (this.viewArray.length > 0) {
-      this.dialog.open(this.viewInventoryDialog, {maxWidth: '750px', maxHeight: '550px'})
+      this.dialog.open(this.viewInventoryDialog)
     }
   }
 
@@ -432,7 +432,7 @@ export class IndentsComponent implements OnInit {
 
   editBySelectedOne() {
     if (this.editArray.length > 0) {
-      this.dialog.open(this.editInventoryDialog, {maxWidth: '750px', maxHeight: '550px'})
+      this.dialog.open(this.editInventoryDialog)
     }
   }
 

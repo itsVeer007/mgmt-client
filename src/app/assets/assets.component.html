@@ -309,13 +309,13 @@
                 </mat-dialog-content>
 
                   <div class="d-flex align-items-center justify-content-end">
-                    <div mat-dialog-actions class="me-2">
-                      <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124;" mat-dialog-close>
+  <div>
+                      <button class="dialog-close-btn" mat-dialog-close>
                         Close
                       </button>
                     </div>
-                    <div mat-dialog-actions>
-                      <button mat-stroked-button style="color: #084982; border: 1px solid #084982;" mat-dialog-close (click)="changeAssetStatus()" [disabled]="statusObj.status == null">
+                    <div  >
+                      <button class="dialog-update-btn" mat-dialog-close (click)="changeAssetStatus()" [disabled]="statusObj.status == null">
                         Submit
                       </button>
                     </div>
@@ -432,13 +432,13 @@
                   </mat-dialog-content>
 
                   <div class="d-flex align-items-center justify-content-end">
-                    <div mat-dialog-actions class="me-2">
-                      <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124;" mat-dialog-close >
+  <div>
+                      <button class="dialog-close-btn" mat-dialog-close >
                         Close
                       </button>
                     </div>
-                    <div mat-dialog-actions>
-                      <button mat-stroked-button style="color: #084982; border: 1px solid #084982;" mat-dialog-close (click)="changeAssetStatus()" [disabled]="statusObj.status == null">
+                    <div  >
+                      <button class="dialog-update-btn" mat-dialog-close (click)="changeAssetStatus()" [disabled]="statusObj.status == null">
                         Submit
                       </button>
                     </div>
@@ -556,7 +556,7 @@
     </div>
   </mat-dialog-content>
 
-  <div class="d-flex justify-content-end" mat-dialog-actions>
+  <div class="d-flex justify-content-end"  >
     <button mat-stroked-button style="color: #D34124 ;" mat-dialog-close>Close</button>
   </div>
 </ng-template> -->
@@ -625,11 +625,11 @@
   </mat-dialog-content>
 
   <div class="d-flex align-items-center justify-content-end">
-    <div mat-dialog-actions class="me-2">
-      <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124;" mat-dialog-close>Close</button>
+<div>
+      <button class="dialog-close-btn" mat-dialog-close>Close</button>
     </div>
-    <div mat-dialog-actions>
-      <button mat-stroked-button style="color: #084982; border: 1px solid #084982;" mat-dialog-close (click)="confirmEditRow()">Update</button>
+    <div  >
+      <button class="dialog-update-btn" mat-dialog-close (click)="confirmEditRow()">Update</button>
     </div>
   </div>
 </ng-template>
@@ -644,11 +644,11 @@
   </mat-dialog-content>
 
   <div class="d-flex align-items-center justify-content-end">
-    <div mat-dialog-actions class="me-2">
-      <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124;" mat-dialog-close>Close</button>
+<div>
+      <button class="dialog-close-btn" mat-dialog-close>Close</button>
     </div>
-    <div mat-dialog-actions>
-      <button mat-stroked-button style="color: #084982; border: 1px solid #084982;" mat-dialog-close (click)="confirmDeleteRow()">OK</button>
+    <div  >
+      <button class="dialog-update-btn" mat-dialog-close (click)="confirmDeleteRow()">OK</button>
     </div>
   </div>
 </ng-template>

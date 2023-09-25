@@ -41,7 +41,7 @@ export class AddNewBusinessVerticalComponent implements OnInit {
   // }
 
   closeAddVertical() {
-    this.newItemEvent.emit(false);
+    this.newItemEvent.emit();
   }
 
   constructor(
@@ -52,7 +52,7 @@ export class AddNewBusinessVerticalComponent implements OnInit {
   }
 
   openAnotherForm(newform:any) {
-    this.newItemEvent.emit(false);
+    this.newItemEvent.emit();
     localStorage.setItem('opennewform', newform)
     // this.closeAddVertical();
   }

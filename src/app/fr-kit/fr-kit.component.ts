@@ -77,7 +77,7 @@ export class FrKitComponent implements OnInit {
   ticketVisits: any;
   ticketComments: any = [];
   openTicketTaskDialog(item: any) {
-    this.dialog.open(this.ticketTaskDialog, {maxHeight: '550px', maxWidth: '850px'});
+    this.dialog.open(this.ticketTaskDialog);
     this.ticketSer.getTasks(item.ticketId).subscribe((tasks: any) => {
       this.ticketTasks = tasks;
     });
@@ -87,7 +87,7 @@ export class FrKitComponent implements OnInit {
 
   sites: any
   openSitesDialog() {
-    // this.dialog.open(this.viewSitesDialog, {maxWidth: '550px', maxHeight: '550px'});
+    // this.dialog.open(this.viewSitesDialog);
 
     this.ticketSer.listFRSites(1565).subscribe((res: any) => {
       // console.log(res);
@@ -121,7 +121,7 @@ export class FrKitComponent implements OnInit {
 // @ViewChild('viewDcDialog') viewDcDialog = {} as TemplateRef<any>
 // items:any;
 // openDc() {
-//   this.dialog.open(this.viewDcDialog, {maxHeight:'550px', maxWidth:'600px'})
+//   this.dialog.open(this.viewDcDialog)
 //   this.ticketSer.listDC().subscribe((res:any)=>{
 //     // console.log(res);
 //     this.items = res;

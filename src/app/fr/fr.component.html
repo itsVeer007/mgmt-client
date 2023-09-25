@@ -6,59 +6,56 @@
     </div>
 
     <div class="row">
-      <div class="col-lg-2 mx-2">
-        <button class="create-btn" (click)="openStatusItems(1565, null)">Instock</button>
+      <div class="col-lg-2 m-1">
+        <button class="filter-btn" (click)="openStatusItems(1565, null)">Instock</button>
       </div>
-      <div class="col-lg-2 mx-2">
-        <button class="create-btn" (click)="openStatusItems(1565, 1)">Requested</button>
-      </div>
-
-      <div class="col-lg-2 mx-2">
-        <button class="create-btn" (click)="openStatusItems(1565, 2)">Dispatched</button>
+      <div class="col-lg-2 m-1">
+        <button class="filter-btn" (click)="openStatusItems(1565, 1)">Requested</button>
       </div>
 
-      <div class="col-lg-2 mx-2">
-        <button class="create-btn" (click)="openStatusItems(1565, 5)">Removed</button>
+      <div class="col-lg-2 m-1">
+        <button class="filter-btn" (click)="openStatusItems(1565, 2)">Dispatched</button>
       </div>
 
-      <!-- <div class="col-lg-2 mx-2">
+      <div class="col-lg-2 m-1">
+        <button class="filter-btn" (click)="openStatusItems(1565, 5)">Removed</button>
+      </div>
+
+      <!-- <div class="col-lg-2 m-1">
         <button class="create-btn" (click)="openDc()">Dc</button>
       </div> -->
     </div>
-      
   </div>
-  
-  <!-- /header -->
 
-    <!-- form -->
-    <div class="search-form">
-      <div class="row col-lg-10 col-md-10">
-        <div class="col-lg-3 col-md-3 col-sm-12">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Site Name</mat-label>
-            <mat-select [(ngModel)]="siteNg">
-              <mat-option value="All" (click)="filterSites('All')">All</mat-option>
-              <mat-option *ngFor="let data of siteIds" (click)="filterSites(data.sitename)" [value]="data.sitename">{{ data.siteid }} - {{ data.siteShortName }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-
-        <div class="col-lg-3 col-md-3 col-sm-12">
-          <mat-form-field class="example-form-field" appearance="outline" class="w-100">
-            <mat-label>Search</mat-label>
-            <input matInput type="text"  [(ngModel)]="searchText">
-            <button matSuffix mat-icon-button>
-              <mat-icon>search</mat-icon>
-            </button>
-          </mat-form-field>
-        </div>
+  <!-- form -->
+  <div class="">
+    <div class="row">
+      <div class="col-lg-2 col-sm-12">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Site Name</mat-label>
+          <mat-select [(ngModel)]="siteNg">
+            <mat-option value="All" (click)="filterSites('All')">All</mat-option>
+            <mat-option *ngFor="let data of siteIds" (click)="filterSites(data.sitename)" [value]="data.sitename">{{
+              data.siteid }} - {{ data.siteShortName }}</mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
 
-      <div class="col-lg-2 mx-2 mb-3">
-        <button class="create-btn" (click)="openDc()">Dc</button>
+      <div class="col-lg-2 col-sm-12">
+        <mat-form-field class="example-form-field" appearance="outline" class="w-100">
+          <mat-label>Search</mat-label>
+          <input matInput type="text" [(ngModel)]="searchText">
+          <button matSuffix mat-icon-button>
+            <mat-icon>search</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-2">
+        <button class="create-btn m-2" (click)="openDc()">Dc</button>
       </div>
     </div>
-    <!-- /form -->
+  </div>
 
   <!-- table -->
   <div class="table-resp">
@@ -114,7 +111,8 @@
             <span></span>
             <p class="d-inline-flex">
               <span>Reason description</span>
-              <img (click)="sort('reasonDescription')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              <img (click)="sort('reasonDescription')" class="pointer ms-1" src="assets/icons/sorticon.svg"
+                width="15px">
             </p>
           </th>
 
@@ -180,7 +178,9 @@
           </td>
 
           <td>
-            <p [style.color]="cust.status == 'Open' ? 'green' : cust.status == 'Indent Requested' ? 'orange' : cust.status == 'In Progress' ? 'violet' : cust.status == 'Indent Delivered' ? 'purple' : 'blue' ">{{ cust.status }}</p>
+            <p
+              [style.color]="cust.status == 'Open' ? 'green' : cust.status == 'Indent Requested' ? 'orange' : cust.status == 'In Progress' ? 'violet' : cust.status == 'Indent Delivered' ? 'purple' : 'blue' ">
+              {{ cust.status }}</p>
           </td>
 
           <td>
@@ -208,8 +208,8 @@
     <p class="dialog-title">current tasks</p>
   </div>
 
-  <mat-dialog-content>
-    <div class="table-resp">
+  <div class="dialog-content">
+    <div class="table-res">
       <table class="table table-hover" id="mytable">
         <thead>
           <tr class="form1">
@@ -314,10 +314,10 @@
         <h1 class="text-secondary">No Tasks</h1>
       </div>
     </div>
-  </mat-dialog-content>
+  </div>
 
-  <div class="d-flex justify-content-end" mat-dialog-actions>
-    <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+  <div class="d-flex justify-content-end">
+    <button class="dialog-close-btn" mat-dialog-close>Close</button>
   </div>
 </ng-template>
 
@@ -327,16 +327,16 @@
       <p class="dialog-title">pause status</p>
     </div>
 
-    <mat-dialog-content>
+    <div class="dialog-content">
       <p>Are you want to pause the status <span style="font-weight: 600;">{{currentStatusItem?.subCategory}}</span></p>
-    </mat-dialog-content>
+    </div>
 
     <div class="d-flex align-items-center justify-content-end">
-      <div mat-dialog-actions class="me-2">
-        <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+      <div>
+        <button class="dialog-close-btn" mat-dialog-close>Close</button>
       </div>
-      <div mat-dialog-actions>
-        <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="logTaskStatus(currentStatusItem, 3)">Submit</button>
+      <div>
+        <button class="dialog-update-btn" mat-dialog-close (click)="logTaskStatus(currentStatusItem, 3)">Submit</button>
       </div>
     </div>
   </div>
@@ -347,15 +347,16 @@
     </div>
 
     <mat-dialog-content>
-      <p>Are you want to shedule the status <span style="font-weight: 600;">{{currentStatusItem?.subCategory}}</span></p>
+      <p>Are you want to shedule the status <span style="font-weight: 600;">{{currentStatusItem?.subCategory}}</span>
+      </p>
     </mat-dialog-content>
 
     <div class="d-flex align-items-center justify-content-end">
-      <div mat-dialog-actions class="me-2">
-        <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+      <div>
+        <button class="dialog-close-btn" mat-dialog-close>Close</button>
       </div>
-      <div mat-dialog-actions>
-        <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="logTaskStatus(currentStatusItem, 4)">Submit</button>
+      <div>
+        <button class="dialog-update-btn" mat-dialog-close (click)="logTaskStatus(currentStatusItem, 4)">Submit</button>
       </div>
     </div>
   </div>
@@ -370,11 +371,11 @@
     </mat-dialog-content>
 
     <div class="d-flex align-items-center justify-content-end">
-      <div mat-dialog-actions class="me-2">
-        <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+      <div>
+        <button class="dialog-close-btn" mat-dialog-close>Close</button>
       </div>
-      <div mat-dialog-actions>
-        <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="logTaskStatus(currentStatusItem, 5)">Submit</button>
+      <div>
+        <button class="dialog-update-btn" mat-dialog-close (click)="logTaskStatus(currentStatusItem, 5)">Submit</button>
       </div>
     </div>
   </div>
@@ -386,7 +387,7 @@
     <p class="dialog-title">view tasks</p>
   </div>
 
-  <mat-dialog-content>
+  <div class="dialog-content">
     <div class="table-res">
       <table class="table" id="mytable">
         <thead>
@@ -446,7 +447,8 @@
             </td>
 
             <td>
-              <p>{{ cust.subCategoryId == 1 ? 'Site Down' : cust.subCategoryId == 2 ? 'Footage Required' : cust.subCategoryId == 3 ? 'Blank Screen' : ''  }}</p>
+              <p>{{ cust.subCategoryId == 1 ? 'Site Down' : cust.subCategoryId == 2 ? 'Footage Required' :
+                cust.subCategoryId == 3 ? 'Blank Screen' : '' }}</p>
             </td>
 
             <td>
@@ -458,7 +460,8 @@
             </td>
 
             <td>
-              <p>{{ cust.priorityId == 1 ? 'Low' : cust.priorityId == 2 ? 'Medium' :cust.priorityId == 3 ? 'High' : '' }}</p>
+              <p>{{ cust.priorityId == 1 ? 'Low' : cust.priorityId == 2 ? 'Medium' :cust.priorityId == 3 ? 'High' : ''
+                }}</p>
             </td>
 
             <!-- <td>
@@ -468,10 +471,10 @@
         </tbody>
       </table>
     </div>
-  </mat-dialog-content>
+  </div>
 
-  <div class="d-flex justify-content-end" mat-dialog-actions>
-    <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+  <div class="d-flex justify-content-end">
+    <button class="dialog-close-btn" mat-dialog-close>Close</button>
   </div>
 </ng-template>
 
@@ -480,25 +483,23 @@
     <p class="dialog-title">view site</p>
   </div>
 
-  <mat-dialog-content>
-    <div class="row">
-      <div class="col-lg-12 col-md-12">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Sites</mat-label>
-          <mat-select [(ngModel)]="assignedObj.statusId">
-            <mat-option *ngFor="let item of sites" [value]="item.siteId">{{item.siteName}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
+  <div class="row dialog-content">
+    <div class="col-lg-12 col-md-12">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Sites</mat-label>
+        <mat-select [(ngModel)]="assignedObj.statusId">
+          <mat-option *ngFor="let item of sites" [value]="item.siteId">{{item.siteName}}</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
-  </mat-dialog-content>
+  </div>
 
   <div class="d-flex align-items-center justify-content-end">
-    <div mat-dialog-actions class="me-2">
-      <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+    <div>
+      <button class="dialog-close-btn" mat-dialog-close>Close</button>
     </div>
-    <div mat-dialog-actions>
-      <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="fieldVisitEntry(assignedObj.statusId)">Entry</button>
+    <div>
+      <button class="dialog-update-btn" mat-dialog-close (click)="fieldVisitEntry(assignedObj.statusId)">Entry</button>
     </div>
   </div>
 </ng-template>
@@ -508,44 +509,42 @@
     <p class="dialog-title">exit site</p>
   </div>
 
-  <mat-dialog-content>
-    <div class="row">
-      <div class="col-lg-12 col-md-12">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>travelAllowance</mat-label>
-          <input matInput [(ngModel)]="fieldExitBody.travelAllowance">
-        </mat-form-field>
-      </div>
-
-      <div class="col-lg-12 col-md-12">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>foodAllowance</mat-label>
-          <input matInput [(ngModel)]="fieldExitBody.foodAllowance">
-        </mat-form-field>
-      </div>
-
-      <div class="col-lg-12 col-md-12">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>otherAllowance</mat-label>
-          <input matInput [(ngModel)]="fieldExitBody.otherAllowance">
-        </mat-form-field>
-      </div>
-
-      <div class="col-lg-12 col-md-12">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>remarks</mat-label>
-          <input matInput [(ngModel)]="fieldExitBody.remarks">
-        </mat-form-field>
-      </div>
+  <div class="row dialog-content">
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>travelAllowance</mat-label>
+        <input matInput [(ngModel)]="fieldExitBody.travelAllowance">
+      </mat-form-field>
     </div>
-  </mat-dialog-content>
+
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>foodAllowance</mat-label>
+        <input matInput [(ngModel)]="fieldExitBody.foodAllowance">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>otherAllowance</mat-label>
+        <input matInput [(ngModel)]="fieldExitBody.otherAllowance">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>remarks</mat-label>
+        <input matInput [(ngModel)]="fieldExitBody.remarks">
+      </mat-form-field>
+    </div>
+  </div>
 
   <div class="d-flex align-items-center justify-content-end">
-    <div mat-dialog-actions class="me-2">
-      <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+    <div>
+      <button class="dialog-close-btn" mat-dialog-close>Close</button>
     </div>
-    <div mat-dialog-actions>
-      <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="fieldVisitExit()">Submit</button>
+    <div>
+      <button class="dialog-update-btn" mat-dialog-close (click)="fieldVisitExit()">Submit</button>
     </div>
   </div>
 </ng-template>
@@ -555,48 +554,48 @@
     <p class="dialog-title">view indent</p>
   </div>
 
-  <mat-dialog-content>
+  <div class="dialog-content">
     <div class="table-res">
       <table class="table" id="mytable">
         <thead>
           <tr class="task-table">
             <th>
-              <p class="d-inline-flex">
+              <p>
                 <span>No</span>
                 <img (click)="sort1('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
               </p>
             </th>
 
             <th>
-              <p class="d-inline-flex">
+              <p>
                 <span>Name</span>
                 <img (click)="sort1('itemCode')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
               </p>
             </th>
 
             <th>
-              <p class="d-inline-flex">
+              <p>
                 <span>Serial no</span>
                 <img (click)="sort1('serialNo')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
               </p>
             </th>
 
             <th>
-              <p class="d-inline-flex">
+              <p>
                 <span>Created time</span>
                 <img (click)="sort1('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
               </p>
             </th>
 
             <th>
-              <p class="d-inline-flex">
+              <p>
                 <span>Modified time</span>
                 <img (click)="sort1('modifiedTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
               </p>
             </th>
 
             <th>
-              <p class="d-inline-flex">
+              <p>
                 <span>Status</span>
                 <img (click)="sort1('statusId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
               </p>
@@ -628,7 +627,8 @@
 
             <td>
               <p (click)="openEditStatus(inven)">
-                {{ inven.statusId == 1 ? "Requested" : inven.statusId == 2 ? "Dispatched" : inven.statusId == 3 ? "Received" : inven.statusId == 4 ? "Installed" : inven.statusId == 5 ? "Returned" : '' }}
+                {{ inven.statusId == 1 ? "Requested" : inven.statusId == 2 ? "Dispatched" : inven.statusId == 3 ?
+                "Received" : inven.statusId == 4 ? "Installed" : inven.statusId == 5 ? "Returned" : '' }}
               </p>
 
               <ng-template #editStatusDialog>
@@ -645,27 +645,28 @@
                   </mat-form-field>
                 </mat-dialog-content>
 
-                <div class="d-flex align-items-center justify-content-end">
-                  <div mat-dialog-actions class="me-2">
-                    <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
-                  </div>
-                  <div mat-dialog-actions>
-                    <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="updateInventoryStatus()">Update</button>
-                  </div>
-                </div>
-              </ng-template>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+                <div>
+                  <button class="dialog-close-btn" mat-dialog-close>
+                    Close
+                  </button>
+                </div><button class="dialog-close-btn" mat-dialog-close>Close</button>
+                </ng-template>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+    <div>
+      <button class="dialog-update-btn" mat-dialog-close (click)="updateInventoryStatus()">Update</button>
     </div>
-    <div class="d-flex align-items-center justify-content-center" style="height: 20vh;" *ngIf="indentItems.length == 0">
-      <h1 class="text-secondary">No Data</h1>
-    </div>
-  </mat-dialog-content>
+  </div>
+  <!-- error message -->
+  <div class="d-flex align-items-center justify-content-center" style="height: 10vh;" *ngIf="indentItems.length == 0">
+    <h1 class="text-secondary">No Data</h1>
+  </div>
 
-  <div class="d-flex justify-content-end" mat-dialog-actions>
-    <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+  <div class="d-flex justify-content-end">
+    <button class="dialog-close-btn" mat-dialog-close>Close</button>
   </div>
 </ng-template>
 
@@ -674,7 +675,7 @@
     <p class="dialog-title">replace</p>
   </div>
 
-  <mat-dialog-content>
+  <div class="dialog-content">
     <div class="table-res">
       <table class="table" id="mytable">
         <thead>
@@ -776,11 +777,11 @@
                 </mat-dialog-content>
 
                 <div class="d-flex align-items-center justify-content-end">
-                  <div mat-dialog-actions class="me-2">
-                    <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+<div>
+                    <button class="dialog-close-btn" mat-dialog-close>Close</button>
                   </div>
-                  <div mat-dialog-actions>
-                    <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="updateInventoryStatus()">Update</button>
+                  <div  >
+                    <button class="dialog-update-btn" mat-dialog-close (click)="updateInventoryStatus()">Update</button>
                   </div>
                 </div>
               </ng-template> -->
@@ -789,10 +790,10 @@
         </tbody>
       </table>
     </div>
-  </mat-dialog-content>
+  </div>
 
-  <div class="d-flex justify-content-end" mat-dialog-actions>
-    <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+  <div class="d-flex justify-content-end">
+    <button class="dialog-close-btn" mat-dialog-close>Close</button>
   </div>
 </ng-template>
 
@@ -801,60 +802,59 @@
     <p class="dialog-title">modify status</p>
   </div>
 
-
-  <mat-dialog-content>
-    <div class="row">
-      <div class="col-lg-6">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Old inventoryid</mat-label>
-          <mat-select [(ngModel)]="body.oldInventoryId">
-            <mat-option *ngFor="let item of inventoryId" [value]="item.inventorySlNo">{{ item.inventorySlNo }} - {{ item.name }} </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-      <div class="col-lg-6">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>New inventoryid</mat-label>
-          <mat-select [(ngModel)]="body.newInventoryId">
-            <mat-option *ngFor="let val of inventoryId2" [value]="val.inventoryId">{{ val.inventoryId }} - {{ val.name }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-      <div class="col-lg-6">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Edit Status</mat-label>
-          <mat-select [(ngModel)]="statusObj.statusId">
-            <mat-option *ngFor="let item of indentStatus" [value]="item.keyId">{{ item.value }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-      <div class="col-lg-6">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>FR inventory</mat-label>
-          <mat-select [(ngModel)]="body.newInventoryId" (focus)="latestFun(1565, null)">
-            <mat-option *ngFor="let val of statusItems" [value]="val.invNo">{{ val.invNo }} - {{ val.name }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-      <!-- <div class="col-lg-6">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Remarks</mat-label>
-          <input matInput>
-        </mat-form-field>
-      </div> -->
+  <div class="row dialog-content">
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Old inventoryid</mat-label>
+        <mat-select [(ngModel)]="body.oldInventoryId">
+          <mat-option *ngFor="let item of inventoryId" [value]="item.inventorySlNo">{{ item.inventorySlNo }} - {{
+            item.name }} </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
-  </mat-dialog-content>
+
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>New inventoryid</mat-label>
+        <mat-select [(ngModel)]="body.newInventoryId">
+          <mat-option *ngFor="let val of inventoryId2" [value]="val.inventoryId">{{ val.inventoryId }} - {{ val.name
+            }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Edit Status</mat-label>
+        <mat-select [(ngModel)]="statusObj.statusId">
+          <mat-option *ngFor="let item of indentStatus" [value]="item.keyId">{{ item.value }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>FR inventory</mat-label>
+        <mat-select [(ngModel)]="body.newInventoryId" (focus)="latestFun(1565, null)">
+          <mat-option *ngFor="let val of statusItems" [value]="val.invNo">{{ val.invNo }} - {{ val.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <!-- <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Remarks</mat-label>
+        <input matInput>
+      </mat-form-field>
+    </div> -->
+  </div>
 
   <div class="d-flex align-items-center justify-content-end">
-    <div mat-dialog-actions class="me-2">
-      <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+    <div>
+      <button class="dialog-close-btn" mat-dialog-close>Close</button>
     </div>
-    <div mat-dialog-actions>
-      <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="replaceComponent()">Update</button>
+    <div>
+      <button class="dialog-update-btn" mat-dialog-close (click)="replaceComponent()">Update</button>
     </div>
   </div>
 </ng-template>
@@ -864,18 +864,14 @@
     <p class="dialog-title">view</p>
   </div>
 
-  <mat-dialog-content>
+  <div class="dialog-content">
     <div class="table-res">
       <table class="table" id="mytable">
         <thead>
           <tr class="task-table">
             <th>
               <input type="checkbox" class="form-check-input" [(ngModel)]="selectedAll" (change)="selectAll()"
-                id="allcheck" style="
-                  background-color: #00000000;
-                  border-color: #fff;
-                  margin-left: 10px;
-                " />
+                id="allcheck" style="background-color: #00000000;border-color: #fff;">
             </th>
             <th>Item Code</th>
             <th>Name</th>
@@ -890,7 +886,8 @@
           <tr *ngFor="let task of latestValue; let i = index">
 
             <td>
-              <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="task.selected" (change)="checkIfAllSelected(task, $event);" id="singleCheck" />
+              <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="task.selected"
+                (change)="checkIfAllSelected(task, $event);" id="singleCheck" />
             </td>
             <td>
               <p>{{ task.itemCode }}</p>
@@ -907,7 +904,7 @@
             <td>
               <p>{{ task.count ? task.count : 1 }}</p>
             </td>
-            
+
 
             <!-- <td>
               <p class="pointer text-primary" matTooltip="dispatch to inventory" (click)="open(task)">Dispatch</p>
@@ -943,11 +940,11 @@
               </mat-dialog-content>
 
               <div class="d-flex align-items-center justify-content-end">
-                <div mat-dialog-actions class="me-2">
-                  <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+<div>
+                  <button class="dialog-close-btn" mat-dialog-close>Close</button>
                 </div>
-                <div mat-dialog-actions>
-                  <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="updateInventoryStatus()">Update</button>
+                <div  >
+                  <button class="dialog-update-btn" mat-dialog-close (click)="updateInventoryStatus()">Update</button>
                 </div>
               </div>
             </ng-template> -->
@@ -974,28 +971,30 @@
                 </div>
               </mat-dialog-content>
               <div class="d-flex align-items-center justify-content-end">
-                <div mat-dialog-actions class="me-2">
-                  <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+                <div>
+                  <button class="dialog-close-btn" mat-dialog-close>Close</button>
                 </div>
-                <div mat-dialog-actions>
-                  <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="updateDispatchToInventory()">Update</button>
+                <div>
+                  <button class="dialog-update-btn" mat-dialog-close
+                    (click)="updateDispatchToInventory()">Update</button>
                 </div>
               </div>
             </ng-template>
-            <!-- <div mat-dialog-actions>
+            <!-- <div  >
               <button mat-raised-button color="warn" matDialogClose>close</button>
             </div> -->
           </tr>
         </tbody>
       </table>
     </div>
-  </mat-dialog-content>
+  </div>
+
   <div class="d-flex align-items-center justify-content-end">
-    <div mat-dialog-actions class="me-2">
-      <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+    <div>
+      <button class="dialog-close-btn" mat-dialog-close>Close</button>
     </div>
-    <div mat-dialog-actions>
-      <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="open('')">Dispatch</button>
+    <div>
+      <button class="dialog-update-btn" mat-dialog-close (click)="open('')">Dispatch</button>
     </div>
   </div>
 </ng-template>
@@ -1005,7 +1004,7 @@
     <p class="dialog-title">VIEW DC</p>
   </div>
 
-  <mat-dialog-content>
+  <div class="dialog-content">
     <div class="table-res">
       <table class="table" id="mytable">
         <thead>
@@ -1064,24 +1063,23 @@
             </td>
 
             <td>
-              <p>{{ item.dispatchedDate  | date:'mediumDate'}}</p>
+              <p>{{ item.dispatchedDate | date:'mediumDate'}}</p>
             </td>
 
             <td class="pointer text-primary" (click)="dcItems()">
               <p>View</p>
             </td>
-            <td class="pointer text-primary"(click)="openPopUp(item)">
+            <td class="pointer text-primary" (click)="openPopUp(item)">
               <p>Update Dc</p>
             </td>
-
           </tr>
         </tbody>
       </table>
     </div>
-  </mat-dialog-content>
+  </div>
 
-  <div class="d-flex justify-content-end" mat-dialog-actions>
-    <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+  <div class="d-flex justify-content-end">
+    <button class="dialog-close-btn" mat-dialog-close>Close</button>
   </div>
 </ng-template>
 
@@ -1090,7 +1088,7 @@
     <p class="dialog-title">VIEW DC</p>
   </div>
 
-  <mat-dialog-content>
+  <div class="dialog-content">
     <div class="table-res">
       <table class="table" id="mytable">
         <thead>
@@ -1152,10 +1150,10 @@
         </tbody>
       </table>
     </div>
-  </mat-dialog-content>
+  </div>
 
-  <div class="d-flex justify-content-end" mat-dialog-actions>
-    <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+  <div class="d-flex justify-content-end">
+    <button class="dialog-close-btn" mat-dialog-close>Close</button>
   </div>
 </ng-template>
 
@@ -1163,8 +1161,8 @@
   <div style="background-color: #084982;">
     <p class="dialog-title">UPDATE DC</p>
   </div>
-  <mat-dialog-content>
-  <div class="row">
+
+  <div class="row dialog-content">
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Receipt No</mat-label>
@@ -1178,13 +1176,13 @@
       </mat-form-field>
     </div>
   </div>
-  </mat-dialog-content>
+
   <div class="d-flex align-items-center justify-content-end">
-    <div mat-dialog-actions class="me-2">
-      <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+    <div>
+      <button class="dialog-close-btn" mat-dialog-close>Close</button>
     </div>
-    <div mat-dialog-actions>
-      <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="updateDC()">Update</button>
+    <div>
+      <button class="dialog-update-btn" mat-dialog-close (click)="updateDC()">Update</button>
     </div>
   </div>
 </ng-template>

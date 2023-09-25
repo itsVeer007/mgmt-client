@@ -121,7 +121,7 @@ export class MetaDataComponent implements OnInit {
 
   openViewPopup(item: any, i: any) {
     this.currentItem = item;
-    this.dialog.open(this.viewDataDialog, {maxWidth: '550px', maxHeight: '550px'});
+    this.dialog.open(this.viewDataDialog);
     // console.log(this.currentItem);
   }
 
@@ -134,7 +134,7 @@ export class MetaDataComponent implements OnInit {
     this.typeFromLocal = localStorage.getItem('metaType');
 
     this.currentItem = JSON.parse(JSON.stringify(item));
-    this.dialog.open(this.editDataDialog, {maxWidth: '550px', maxHeight: '550px'});
+    this.dialog.open(this.editDataDialog);
     // console.log(item);
   }
 
@@ -162,7 +162,7 @@ export class MetaDataComponent implements OnInit {
 
   openDeletePopup(item: any, i: any) {
     this.currentItem = item;
-    this.dialog.open(this.deleteDataDialog, {maxWidth: '250px', maxHeight: '250px'});
+    this.dialog.open(this.deleteDataDialog);
   }
 
 
@@ -211,7 +211,7 @@ export class MetaDataComponent implements OnInit {
   viewArray: any = [];
   viewBySelectedOne() {
     if (this.viewArray.length > 0) {
-      this.dialog.open(this.viewDataDialog, {maxWidth: '550px', maxHeight: '550px'});
+      this.dialog.open(this.viewDataDialog);
     }
   }
 
@@ -241,7 +241,7 @@ export class MetaDataComponent implements OnInit {
 
   editBySelectedOne() {
     if (this.editArray.length > 0) {
-      this.dialog.open(this.editDataDialog, {maxWidth: '550px', maxHeight: '550px'});
+      this.dialog.open(this.editDataDialog);
     }
     this.CustomerReport();
   }

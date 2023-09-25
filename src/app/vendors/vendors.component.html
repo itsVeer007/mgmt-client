@@ -169,8 +169,8 @@
                 </div>
               </mat-dialog-content>
 
-              <div class="d-flex justify-content-end" mat-dialog-actions>
-                <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+              <div class="d-flex justify-content-end"  >
+                <button class="dialog-close-btn" mat-dialog-close>Close</button>
               </div>
             </ng-template>
           </td>
@@ -197,8 +197,8 @@
               </div>
               </mat-dialog-content>
 
-              <div class="d-flex justify-content-end" mat-dialog-actions>
-                <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+              <div class="d-flex justify-content-end"  >
+                <button class="dialog-close-btn" mat-dialog-close>Close</button>
               </div>
             </ng-template>
           </td>
@@ -384,8 +384,8 @@
     </div>
   </mat-dialog-content>
 
-  <div class="d-flex justify-content-end" mat-dialog-actions>
-    <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+  <div class="d-flex justify-content-end"  >
+    <button class="dialog-close-btn" mat-dialog-close>Close</button>
   </div>
 </ng-template>
 <!-- view Popup -->
@@ -543,11 +543,11 @@
   </mat-dialog-content>
 
   <div class="d-flex align-items-center justify-content-end">
-    <div mat-dialog-actions class="me-2">
-      <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+<div>
+      <button class="dialog-close-btn" mat-dialog-close>Close</button>
     </div>
-    <div mat-dialog-actions>
-      <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="updatevendor()">Update</button>
+    <div  >
+      <button class="dialog-update-btn" mat-dialog-close (click)="updatevendor()">Update</button>
     </div>
   </div>
 </ng-template>
@@ -563,11 +563,11 @@
   </mat-dialog-content>
 
   <div class="d-flex align-items-center justify-content-end">
-    <div mat-dialog-actions class="me-2">
-      <button mat-stroked-button style="color: #D34124; border: 1px solid #D34124; padding: 0;" mat-dialog-close>Close</button>
+<div>
+      <button class="dialog-close-btn" mat-dialog-close>Close</button>
     </div>
-    <div mat-dialog-actions>
-      <button mat-stroked-button style="color: #084982; border: 1px solid #084982; padding: 0;" mat-dialog-close (click)="deleteVendor()">OK</button>
+    <div  >
+      <button class="dialog-update-btn" mat-dialog-close (click)="deleteVendor()">OK</button>
     </div>
   </div>
 </ng-template>

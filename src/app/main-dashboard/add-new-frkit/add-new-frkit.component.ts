@@ -77,7 +77,7 @@ export class AddNewFrkitComponent implements OnInit {
   }
 
   closeAddUser() {
-    this.newItemEvent.emit(false);
+    this.newItemEvent.emit();
   }
 
   itemCodes: any;
@@ -86,7 +86,7 @@ export class AddNewFrkitComponent implements OnInit {
       // console.log(res);
       this.itemCodes = res;
     })
-  } 
+  }
 
   names: any;
   listInventoryByItemCode(itemCode: any) {

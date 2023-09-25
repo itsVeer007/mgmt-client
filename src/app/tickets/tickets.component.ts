@@ -244,7 +244,7 @@ export class TicketsComponent implements OnInit {
   @ViewChild('addTaskDialog') addTaskDialog = {} as TemplateRef<any>;
   openAddTask() {
     // this.currentItem = item;
-    this.dialog.open(this.addTaskDialog, {maxWidth: '550px', maxHeight: '550px'});
+    this.dialog.open(this.addTaskDialog);
   }
 
   createTask() {
@@ -289,7 +289,7 @@ export class TicketsComponent implements OnInit {
   @ViewChild('editTicketDialog') editTicketDialog = {} as TemplateRef<any>;
   openEditPopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.editTicketDialog, {maxWidth: '550px', maxHeight: '550px'});
+    this.dialog.open(this.editTicketDialog);
   }
 
   onInputChange(e: any) {
@@ -371,7 +371,7 @@ export class TicketsComponent implements OnInit {
 
   openDeletePopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.deleteTicketDialog, {maxWidth: '250px', maxHeight: '250px'})
+    this.dialog.open(this.deleteTicketDialog)
     // console.log(item);
   }
 
@@ -400,7 +400,7 @@ export class TicketsComponent implements OnInit {
   toAssign: any;
   openAssigned(item: any) {
     this.toAssign = item;
-    this.dialog.open(this.assignedDialog, {maxWidth: '250px', maxHeight: '250px'});
+    this.dialog.open(this.assignedDialog);
   }
 
   toAssigned() {
@@ -429,7 +429,7 @@ export class TicketsComponent implements OnInit {
   y: any
   openEditStatus(id: any) {
     this.y = id;
-    this.dialog.open(this.editStatusDialog, {maxWidth: '250px', maxHeight: '250px'});
+    this.dialog.open(this.editStatusDialog);
   }
 
   staObj = {
@@ -516,7 +516,7 @@ export class TicketsComponent implements OnInit {
   viewArray: any = [];
   viewBySelectedOne() {
     if (this.viewArray.length > 0) {
-      this.dialog.open(this.viewTicketDialog, {maxWidth: '850px', maxHeight: '550px'})
+      this.dialog.open(this.viewTicketDialog)
     }
   }
 
@@ -534,7 +534,7 @@ export class TicketsComponent implements OnInit {
   editArray: any = [];
   editBySelectedOne() {
     if (this.editArray.length > 0) {
-      this.dialog.open(this.editTicketDialog, {maxWidth: '550px', maxHeight: '550px'})
+      this.dialog.open(this.editTicketDialog)
     }
     this.listTickets();
   }

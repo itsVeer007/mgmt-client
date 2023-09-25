@@ -164,11 +164,11 @@ export class AddNewUserComponent implements OnInit {
   }
 
   closeAddUser() {
-    this.newItemEvent.emit(false);
+    this.newItemEvent.emit();
   }
 
   openAnotherForm(newform:any) {
-    this.newItemEvent.emit(false);
+    this.newItemEvent.emit();
     localStorage.setItem('opennewform', newform)
   }
 
@@ -178,7 +178,7 @@ export class AddNewUserComponent implements OnInit {
   addUser2: any;
   submit() {
     if(this.UserForm.valid) {
-      this.newItemEvent.emit(false);
+      this.newItemEvent.emit();
 
       this.addUser2 = Swal.fire({
         text: "Please wait",
