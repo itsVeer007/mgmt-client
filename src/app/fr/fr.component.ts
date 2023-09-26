@@ -100,13 +100,9 @@ export class FrComponent implements OnInit {
 
 
   statusItems: any;
-  // currentStatusItem1: any;
   @ViewChild('statusItemsDialog') statusItemsDialog = {} as TemplateRef<any>;
   openStatusItems(type: any, status: any) {
-    // this.currentStatusItem1 = data;
-    // console.log(this.currentStatusItem)
     this.dialog.open(this.statusItemsDialog);
-
     this.ticketSer.listFRItems(type, status).subscribe((res: any) => {
       // console.log(res);
       this.statusItems = res;
@@ -406,7 +402,7 @@ export class FrComponent implements OnInit {
     })
   }
 
-  latestValue: any;
+  latestValue: any = [];
   removeDuplicatesAndCalculateQuantities() {
     const itemMap = new Map();
     for (const item of this.statusItems) {
@@ -422,17 +418,13 @@ export class FrComponent implements OnInit {
     this.latestValue = Array.from(itemMap.values());
   }
 
-  @ViewChild('viewInventoryToDispatch') viewInventoryToDispatch = {} as TemplateRef<any>
+  // @ViewChild('viewInventoryToDispatch') viewInventoryToDispatch = {} as TemplateRef<any>
   currentItem:any;
-  open(task:any) {
-      // console.log(task);
-    this.dialog.open(this.viewInventoryToDispatch);
-    this.currentItem = task;
-
-  }
-
   cost:any;
+  @ViewChild ('dcChallan') dcChallan = {} as TemplateRef<any>;
   updateDispatchToInventory() {
+    this.dialog.open(this.dcChallan);
+
     let obj = {
       oldSlNo: this.arr,
       dcNumber: this.cost
@@ -451,7 +443,8 @@ export class FrComponent implements OnInit {
   @ViewChild('viewDcDialog') viewDcDialog = {} as TemplateRef<any>
   items:any;
   openDc() {
-    this.dialog.open(this.viewDcDialog)
+    this.dialog.open(this.viewDcDialog);
+
     this.ticketSer.listDC().subscribe((res:any)=>{
       console.log(res);
       this.items = res;
@@ -460,41 +453,42 @@ export class FrComponent implements OnInit {
   }
 
   Items:any;
-@ViewChild('dcStatusDialog') dcStatusDialog = {} as TemplateRef<any>
-dcItems() {
-this.dialog.open(this.dcStatusDialog)
-  this.ticketSer.listDCItems().subscribe((res:any)=>{
-    // console.log(res);
-    this.Items = res;
-  })
-}
+  @ViewChild('dcStatusDialog') dcStatusDialog = {} as TemplateRef<any>
+  dcItems() {
+  this.dialog.open(this.dcStatusDialog)
+    this.ticketSer.listDCItems().subscribe((res:any)=>{
+      // console.log(res);
+      this.Items = res;
+    })
+  }
 
 
-data = {
-  receiptNo:null,
-  cost:null,
-  dcNumber:null
-}
+  data = {
+    receiptNo:null,
+    cost:null,
+    dcNumber:null
+  }
 
 
-@ViewChild('dcFinalDialog') dcFinalDialog = {} as TemplateRef<any>
-openPopUp(item:any){
-  this.dialog.open(this.dcFinalDialog)
-  // this.ticketSer.updateDC(this.data).subscribe((res:any)=>{
-this.currentItem= item;
-  // })
-}
+  @ViewChild('dcFinalDialog') dcFinalDialog = {} as TemplateRef<any>
+  openPopUp(item:any){
+    this.dialog.open(this.dcFinalDialog)
+    // this.ticketSer.updateDC(this.data).subscribe((res:any)=>{
+    this.currentItem= item;
+    // })
+  }
 
-updateDC(){
-  this.data.dcNumber=this.currentItem.dcNumber
-  this.ticketSer.updateDC(this.data).subscribe((res:any)=>{
-    this.alertSer.snackSuccess(res?.message)
-  }, (error)=>{
-    this.alertSer.error(error?.err?.res);
-  })
-}
+  updateDC(){
 
-// dcDialogClose
+
+    // this.data.dcNumber=this.currentItem.dcNumber
+    // this.ticketSer.updateDC(this.data).subscribe((res:any)=>{
+    //   this.alertSer.snackSuccess(res?.message)
+    // }, (error)=>{
+    //   this.alertSer.error(error?.err?.res);
+    // })
+  }
+
 
 
   selectedAll: any;

@@ -39,7 +39,6 @@ export class AddNewInventoryComponent implements OnInit {
     private inventorySer: InventoryService,
     private fb: FormBuilder,
     private metadataSer: MetadataService,
-
     public alertSer: AlertService,
     public datepipe: DatePipe,
     public dialog: MatDialog,
