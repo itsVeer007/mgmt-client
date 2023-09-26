@@ -39,7 +39,6 @@ export class AddNewIndentComponent implements OnInit {
   ) { }
 
   @Input() show: any;
-  // @Input() ticketIdFrmFr: any;
   @Output() newItemEvent = new EventEmitter<boolean>();
 
   UserForm: any =  FormGroup;
@@ -100,7 +99,7 @@ export class AddNewIndentComponent implements OnInit {
     })
   }
 
-  closeAddUser() {
+  closeIndent() {
     this.newItemEvent.emit();
   }
 
