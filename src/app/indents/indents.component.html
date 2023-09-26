@@ -1,6 +1,6 @@
 <div class="container-fluid users" id="top">
 
-  <!-- header starts -->
+  <!-- header -->
   <div class="d-flex justify-content-between">
     <div class="users-header">
       <p>List of Indents - <span>{{ indentTable?.length }}</span></p>
@@ -10,9 +10,8 @@
       <button class="create-btn" (click)="show('indent')">Create Indent</button>
     </div>
   </div>
-  <!-- header ends -->
 
-  <!-- count starts -->
+  <!-- count -->
   <!-- <div class="row mb-2">
     <div class="col-lg-1 col-md-1 col-sm-1 d-flex justify-content-start">
       <div class="vl-green"></div>
@@ -50,7 +49,6 @@
       </div>
     </div>
   </div> -->
-  <!-- count ends -->
 
   <!-- form -->
   <div class="search-form row">
@@ -110,11 +108,9 @@
     <div class="  col-lg-1 col-md-1">
       <button (click)="applyFilter()">Submit</button>
     </div> -->
-
   </div>
-  <!-- /form -->
 
-  <!-- table starts -->
+  <!-- table -->
   <div class="table-resp">
     <table class="table table-hover" id="mytable">
       <thead>
@@ -233,19 +229,17 @@
         </tr>
       </tbody>
     </table>
-    <!-- table ends -->
   </div>
 
+  <!-- err msg-->
   <div class="d-flex align-items-center justify-content-center" style="height: 50vh;" *ngIf="indentTable.length == 0 && !showLoader">
     <h1 class="text-secondary">No Data</h1>
   </div>
 
-  <!-- Loader -->
+  <!-- loader -->
   <div >
     <app-loader *ngIf="showLoader" class="d-flex justify-content-center align-items-center" style="height: 50vh;"></app-loader>
   </div>
-  <!-- /Loader -->
-
 </div>
 
 
@@ -254,51 +248,49 @@
     <p class="dialog-title">VIEW INDENT</p>
   </div>
 
-  <mat-dialog-content>
-    <div *ngIf="currentItem">
-      <mat-list>
-        <div class="row">
-          <div class="col-lg-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Id</mat-label>
-              <input matInput [(ngModel)]="currentItem.id" disabled>
-            </mat-form-field>
-          </div>
-
-          <div class="col-lg-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>jobOrTicketId</mat-label>
-              <input matInput [(ngModel)]="currentItem.jobOrTicketId" disabled>
-            </mat-form-field>
-          </div>
-
-          <div class="col-lg-6 col-md-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <input matInput [matDatepicker]="picker1" placeholder="indentedDate" [(ngModel)]="currentItem.indentedDate" disabled>
-              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-              <mat-datepicker #picker1></mat-datepicker>
-            </mat-form-field>
-          </div>
-
-          <div class="col-lg-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>productName</mat-label>
-              <input matInput [(ngModel)]="currentItem.productName" disabled>
-            </mat-form-field>
-          </div>
-
-          <div class="col-lg-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>inventoryId</mat-label>
-              <mat-select [(ngModel)]="currentItem.statusId" disabled>
-                <mat-option *ngFor="let item of indentStatus" [value]="item.keyId">{{ item.value }}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
+  <div class="dialog-content">
+    <mat-list>
+      <div class="row">
+        <div class="col-lg-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Id</mat-label>
+            <input matInput [(ngModel)]="currentItem.id" disabled>
+          </mat-form-field>
         </div>
-      </mat-list>
-    </div>
-  </mat-dialog-content>
+
+        <div class="col-lg-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>jobOrTicketId</mat-label>
+            <input matInput [(ngModel)]="currentItem.jobOrTicketId" disabled>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <input matInput [matDatepicker]="picker1" placeholder="indentedDate" [(ngModel)]="currentItem.indentedDate" disabled>
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>productName</mat-label>
+            <input matInput [(ngModel)]="currentItem.productName" disabled>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>inventoryId</mat-label>
+            <mat-select [(ngModel)]="currentItem.statusId" disabled>
+              <mat-option *ngFor="let item of indentStatus" [value]="item.keyId">{{ item.value }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-list>
+  </div>
 
   <div class="d-flex justify-content-end"  >
     <button class="dialog-close-btn" mat-dialog-close>Close</button>
@@ -310,48 +302,46 @@
     <p class="dialog-title">MODIFY INDENT</p>
   </div>
 
-  <mat-dialog-content>
-      <div class="row" *ngIf="currentItem">
-        <div class="col-lg-6">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Id</mat-label>
-            <input matInput [(ngModel)]="currentItem.id" disabled>
-          </mat-form-field>
-        </div>
+  <div class="row dialog-content">
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Id</mat-label>
+        <input matInput [(ngModel)]="currentItem.id" disabled>
+      </mat-form-field>
+    </div>
 
-        <div class="col-lg-6">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>inventoryId</mat-label>
-            <mat-select [(ngModel)]="updateInventoryId">
-              <mat-option *ngFor="let item of inventorySerial" [value]="item.id">{{ item.id }} - {{ item.serialNo }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>inventoryId</mat-label>
+        <mat-select [(ngModel)]="updateInventoryId">
+          <mat-option *ngFor="let item of inventorySerial" [value]="item.id">{{ item.id }} - {{ item.serialNo }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
-        <!-- <div class="col-lg-6">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Serial No</mat-label>
-            <input matInput [(ngModel)]="currentItem.remarks">
-          </mat-form-field>
-        </div> -->
+    <!-- <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Serial No</mat-label>
+        <input matInput [(ngModel)]="currentItem.remarks">
+      </mat-form-field>
+    </div> -->
 
-        <div class="col-lg-6">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Status</mat-label>
-            <mat-select [(ngModel)]="currentItem.statusId">
-              <mat-option *ngFor="let item of indentStatus" [value]="item.keyId">{{ item.value }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Status</mat-label>
+        <mat-select [(ngModel)]="currentItem.statusId">
+          <mat-option *ngFor="let item of indentStatus" [value]="item.keyId">{{ item.value }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
-        <div class="col-lg-6">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Remarks</mat-label>
-            <input matInput [(ngModel)]="currentItem.remarks">
-          </mat-form-field>
-        </div>
-      </div>
-    </mat-dialog-content>
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Remarks</mat-label>
+        <input matInput [(ngModel)]="currentItem.remarks">
+      </mat-form-field>
+    </div>
+  </div>
 
     <div class="d-flex align-items-center justify-content-end">
 <div>
@@ -368,25 +358,24 @@
     <p class="dialog-title">DELETE INDENT</p>
   </div>
 
-  <mat-dialog-content>
-    <div class="text-center">Do you want to delete this item?</div>
+  <div class="dialog-content">
+    <p>Do you want to delete this item?</p>
+  </div>
 
     <div class="d-flex align-items-center justify-content-end">
-<div>
+      <div>
         <button class="dialog-close-btn" mat-dialog-close>Close</button>
       </div>
-      <div  >
+      <div>
         <button class="dialog-update-btn" mat-dialog-close (click)="deleteIndent()">OK</button>
       </div>
     </div>
-  </mat-dialog-content>
 </ng-template>
 
 <ng-template #createOrderDialog>
   <div style="background-color: #084982;">
     <p class="dialog-title">CREATE CENTRALBOX</p>
   </div>
-
 
   <mat-dialog-content>
     <div class="row">
@@ -590,5 +579,5 @@
 
 
 <div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showIndent">
-  <app-add-new-indent (newItemEvent)="closenow('indent'); listIndent()"></app-add-new-indent>
+  <app-add-new-indent (newItemEvent)="closenow(); listIndent()"></app-add-new-indent>
 </div>

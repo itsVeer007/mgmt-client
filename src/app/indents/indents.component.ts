@@ -23,7 +23,7 @@ export class IndentsComponent implements OnInit {
     this.listProduct();
     this.listInventory();
     // this.listOrderItems();
-    this.onGetMetadata();
+    // this.onGetMetadata();
   }
 
   showLoader = false;
@@ -117,34 +117,16 @@ export class IndentsComponent implements OnInit {
         return acc;
       }
     }, []);
-
-    this.statusVal = this.indentTable.reduce((acc: any, current: any) => {
-      const x = acc.find((item: any) => item.status == current.status);
-      if (!x) {
-        return acc.concat([current]);
-      } else {
-        return acc;
-      }
-    }, []);
   }
 
-  vendorStatus: any
-  indentStatus: any
-  onGetMetadata() {
-    this.metaDatSer.getMetadata().subscribe((res: any) => {
-      // console.log(res);
-      for(let item of res) {
-        if(item.type == 'Ticket_Status') {
-          this.statusVal = item.metadata;
-        } else if(item.type == "Vendor_Status") {
-          this.vendorStatus = item.metadata;
-        } else if(item.type == "Indent_Status") {
-          this.indentStatus = item.metadata;
-        }
-
-      }
-    })
-  }
+  // getMetadataByType(type: any) {
+  //   this.metaDatSer.getMetadataByType(type).subscribe((res: any) => {
+  //     console.log(res);
+  //     for(let item of res) {
+  //       this.indentStatus = item.metadata;
+  //     }
+  //   })
+  // }
 
   ojobOrTicketId: any = null;
   oproductId: any = null;
@@ -179,17 +161,16 @@ export class IndentsComponent implements OnInit {
   }
 
   showIndent: boolean = false;
-  closenow(type: String) {
-    if (type == 'indent') {
-      this.showIndent = false;
-    }
-  }
-
   show(type: string) {
     if (type == 'indent') {
       this.showIndent = true;
     }
   }
+
+  closenow() {
+    this.showIndent = false;
+  }
+
 
 
   currentItem: any;
@@ -198,8 +179,12 @@ export class IndentsComponent implements OnInit {
 
   /* view inventory */
 
+  indentStatus: any;
   @ViewChild('viewInventoryDialog') viewInventoryDialog = {} as TemplateRef<any>;
   openViewPopup(item: any) {
+    this.metaDatSer.getMetadataByType('Indent_Status').subscribe((res: any) => {
+      this.indentStatus = res[0]?.metadata;
+    });
     this.currentItem = item;
     this.dialog.open(this.viewInventoryDialog);
     // console.log(this.currentItem);
@@ -212,6 +197,9 @@ export class IndentsComponent implements OnInit {
 
   inventorySerial: any;
   openEditPopup(item: any) {
+    this.metaDatSer.getMetadataByType('Indent_Status').subscribe((res: any) => {
+      this.indentStatus = res[0]?.metadata;
+    });
     this.currentItem = item;
     this.dialog.open(this.editInventoryDialog);
 
