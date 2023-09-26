@@ -14,8 +14,8 @@ export class TicketService {
 
   constructor(private http: HttpClient) { }
 
-  // baseUrl = `${environment.baseUrl}/inventoryAndtickets`;
-  baseUrl = 'http://192.168.0.137:8080';
+  baseUrl = `${environment.baseUrl}/inventoryAndtickets`;
+  // baseUrl = 'http://192.168.0.137:8080';
 
   listTickets() {
     let url = this.baseUrl + "/listTickets_1_0";
@@ -246,6 +246,23 @@ export class TicketService {
     return this.http.get(url, {params:params});
   }
 
+  listDC() {
+    let url = this.baseUrl + `/listDC_1_0`;
+    return this.http.get(url);
+  }
+
+  listDCItems() {
+    let url = this.baseUrl + `/listDCItems_1_0`;
+      return this.http.get(url);
+  }
+
+  updateDC(payload:any) {
+    let url = this.baseUrl + `/updateDC_1_0`;
+    let params = new HttpParams().set('dcNumber', payload.dcNumber).set('cost',payload.cost).set('receiptNo', payload.receiptNo)
+    return this.http.put(url, null, {params:params})
+  }
+
+
 
   /* error handling */
 
@@ -260,20 +277,5 @@ export class TicketService {
     return this.errMsg;
   }
 
-// dc
-  listDC() {
-    let url = this.baseUrl + `/listDC_1_0`;
-    return this.http.get(url);
-}
 
-listDCItems() {
-  let url = this.baseUrl + `/listDCItems_1_0`;
-    return this.http.get(url);
-}
-
-updateDC(payload:any) {
-  let url = this.baseUrl + `/updateDC_1_0`;
-  let params = new HttpParams().set('dcNumber', payload.dcNumber).set('cost',payload.cost).set('receiptNo', payload.receiptNo)
-  return this.http.put(url, null, {params:params})
-}
 }

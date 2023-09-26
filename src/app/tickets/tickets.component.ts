@@ -103,7 +103,7 @@ export class TicketsComponent implements OnInit {
     // console.log(data)
     this.dialog.open(this.usedItemsDialog);
 
-    this.ticketSer.listIndentItems(data).subscribe((res: any) => {
+    this.inventorySer.listIndentItems1(data).subscribe((res: any) => {
       // console.log(res);
       this.usedItems = res;
     })

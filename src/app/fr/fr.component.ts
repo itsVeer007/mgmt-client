@@ -244,7 +244,7 @@ export class FrComponent implements OnInit {
   updateInventoryStatus() {
     // this.alertSer.wait();
 
-    this.ticketSer.updateIndentStatus(this.currentId, this.statusObj).subscribe((res: any) => {
+    this.inventorySer.updateIndentStatus1(this.currentId, this.statusObj).subscribe((res: any) => {
       // console.log(res);
       if(res) {
         this.alertSer.snackSuccess(res?.message);
@@ -357,8 +357,6 @@ export class FrComponent implements OnInit {
   }
 
   logTaskStatus(item: any, status: any) {
-    // console.log(status)
-    // this.alertSer.wait();
     let myObj = {
       'taskId': item.id,
       'statusId': status,
@@ -366,7 +364,6 @@ export class FrComponent implements OnInit {
       'changedBy': 1565,
       'remarks': '',
     }
-
     this.ticketSer.logTaskStatus(myObj).subscribe((res: any) => {
       // console.log(res)
       this.alertSer.snackSuccess(res?.message);

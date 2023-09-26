@@ -68,6 +68,7 @@ export class AddNewIndentComponent implements OnInit {
       this.items.push(takBody);
       this.UserForm.get('itemCode').setValue(null);
       this.UserForm.get('quantity').setValue(null);
+      this.UserForm.get('remarks').setValue(null);
     }
   }
 

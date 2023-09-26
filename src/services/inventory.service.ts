@@ -78,7 +78,6 @@ export class InventoryService {
     let payload1;
     let payload2;
     let payload3;
-
     //optional
     let payload4;
 
@@ -96,7 +95,6 @@ export class InventoryService {
       'inventory': payload1,
       'serialnos': payload2,
       'quantity': payload3,
-
       'warranty': payload4
     };
 
@@ -122,7 +120,7 @@ export class InventoryService {
   }
 
 
-  /* warrenty */
+  /* warrenty service */
 
   getWarranty(id: any) {
     let url = this.baseUrl + `/listWarranty_1_0/${id}`;
@@ -142,9 +140,7 @@ export class InventoryService {
 
   updateInventoryStatus(payload: any) {
     let url = this.baseUrl + "/updateInventoryStatus_1_0";
-
     let params = new HttpParams();
-
     if (payload.slNo) {
       params = params.set('slNo', payload.slNo);
     }
@@ -161,9 +157,6 @@ export class InventoryService {
   listInventoryByItemCode(payload: any) {
     let url = this.baseUrl + "/listInventoryByItemCode_1_0";
     let params = new HttpParams().set('itemCode', payload.itemCode ? payload.itemCode : payload.suggestedItemCode);
-    // if(payload.itemCode) {
-    //   params = params.set('itemCode', payload.itemCode);
-    // }
 
     return this.http.get(url, {params: params});
   }
@@ -174,17 +167,6 @@ export class InventoryService {
 
     return this.http.get(url, {params: params});
   }
-
-  // listIndentItems(ticketId: any) {
-  //   let url = this.baseUrl + "/listIndentItems_1_0";
-  //   let params = new HttpParams();
-
-  //   if (ticketId) {
-  //     params = params.set('ticketId', ticketId);
-  //   }
-
-  //   return this.http.get(url, {params: params});
-  // }
 
 
   /* product-master */
@@ -259,6 +241,13 @@ export class InventoryService {
     return this.http.get(url, {params: params});
   }
 
+  listIndentItems1(payload: any) {
+    let url = this.baseUrl + `/listIndentItems_1_0`;
+    let params = new HttpParams().set('ticketId', payload?.ticketId).set('status', 4);
+
+    return this.http.get(url, {params: params});
+  }
+
   createIndent(payload: any) {
     let url = this.baseUrl + '/createIndent_1_0';
     return this.http.post(url, payload)
@@ -271,6 +260,11 @@ export class InventoryService {
 
   updateIndentStatus(payload1: any, payload2: any){
     let url = this.baseUrl + `/updateIndentStatus_1_0/${payload1.id}/${payload2.statusId}/${payload2.createdBy}/${payload2.inventoryId}`;
+    return this.http.put(url, null);
+  }
+
+  updateIndentStatus1(currentId: any, payload: any){
+    let url = this.baseUrl + `/updateIndentStatus_1_0/${currentId.id}/${payload.statusId}/${payload.createdBy}`;
     return this.http.put(url, null);
   }
 
@@ -302,6 +296,223 @@ export class InventoryService {
     let url = this.baseUrl + `/listIndent_1_0`;
     return this.http.get(url, {params: payload});
   }
+
+
+  /* ticket sevice */
+
+  listTickets() {
+    let url = this.baseUrl + "/listTickets_1_0";
+    return this.http.get(url);
+  }
+
+  createTicket(payload: any) {
+    let url = this.baseUrl + '/createTicket_1_0';
+    return this.http.post(url, payload);
+  }
+
+  createTask(payload: any) {
+    let url = this.baseUrl + '/createTask_1_0';
+    return this.http.post(url, payload);
+  }
+
+  updateTicket(payload: any) {
+    let url = this.baseUrl + '/updateTicket_1_0';
+    return this.http.put(url, payload);
+  }
+
+  deleteTicket(payload: any) {
+    let url = this.baseUrl + `/DeleteTicket?ticketId=${payload.ticketId}`;
+    return this.http.delete(url);
+  }
+
+  listFRTickets() {
+    let url = this.baseUrl + `/listFRTickets_1_0/${1565}`;
+    return this.http.get(url);
+  }
+
+  getTasks(ticketId: any) {
+    let url = this.baseUrl + `/listTasks_1_0/${ticketId}`;
+    return this.http.get(url);
+  }
+
+  getTicketVisits(siteId: any) {
+    let url = this.baseUrl + `/listFieldVisits_1_0/${siteId}`;
+    // let myObj = {
+    //   'ticketId': ticketId,
+    // }
+    return this.http.get(url);
+  }
+
+  assignTicket(payload: any) {
+    let url = this.baseUrl + '/assignTicket_1_0';
+    return this.http.put(url, payload);
+  }
+
+  updateTask(payload: any) {
+    let url = this.baseUrl + '/updateTask_1_0';
+    return this.http.put(url, payload);
+  }
+
+  filterTicket(payload: any) {
+    let url = this.baseUrl + `/listTickets_1_0`;
+    let params = new HttpParams();
+    if(payload.siteId) {
+      params = params.set('siteId', payload.siteId);
+    }
+    if(payload.typeId) {
+      params = params.set('typeId', payload.typeId);
+    }
+    if(payload.ticketStatus) {
+      params = params.set('ticketStatus', payload.ticketStatus);
+    }
+    if(payload.startDate) {
+      params = params.set('startDate', formatDate(payload.startDate, 'yyyy-MM-dd', 'en-us'));
+    }
+    if(payload.endDate) {
+      params = params.set('endDate', formatDate(payload.endDate, 'yyyy-MM-dd', 'en-us'));
+    }
+
+    return this.http.get(url, {params: params});
+  }
+
+
+  getcomments(ticketId: any) {
+    let url = this.baseUrl + "/getComments_1_0";
+    let myObj = {
+      'ticketId': ticketId,
+    }
+    return this.http.get(url, {params: myObj});
+  }
+
+  createComment(payload: any) {
+    let url = this.baseUrl + '/createComment_1_0';
+    return this.http.post(url, payload);
+  }
+
+
+  /* ticket reort service */
+
+  getTicketsReport() {
+    let url = this.baseUrl + `/getTicketsReport_1_0`;
+    return this.http.get(url);
+  }
+
+  getItemsList(payload: any) {
+    let url = this.baseUrl + `/getItemsList_1_0`;
+    let params = new HttpParams().set('siteId', payload?.siteId);
+
+    return this.http.get(url, {params: params});
+  }
+
+  createFRKit(payload:any){
+    let url = this.baseUrl + `/createFRKit_1_0`;
+    return this.http.post(url, payload);
+  }
+
+  listFRCount() {
+    let url = this.baseUrl + `/listFRCount_1_0`;
+    return this.http.get(url);
+  }
+
+  getItemCodes(slNo: any) {
+    let url = this.baseUrl + `/getItemCodes_1_0`;
+    let params = new HttpParams().set('slNo', slNo)
+    return this.http.get(url, {params: params});
+  }
+
+  listInventoryByItemCode_1_0(itemCode: any) {
+    let url = this.baseUrl + `/listInventoryByItemCode_1_0`;
+    let params = new HttpParams().set('itemCode', itemCode)
+    return this.http.get(url, {params: params});
+  }
+
+
+
+  /* FR Service */
+
+  listFRSites(frId: any) {
+    let url = this.baseUrl + `/listFRSites_1_0/${frId}`;
+    return this.http.get(url);
+  }
+
+  listFRItems(frId: any, statusId: any) {
+    let url = this.baseUrl + `/listFRItems_1_0`;
+    let params = new HttpParams()
+    if(frId) {
+      params = params.set('frId', frId)
+    }
+    if(statusId){
+      params = params.set('statusId', statusId)
+    }
+    return this.http.get(url, {params: params});
+  }
+
+  fieldVisitEntry(payload: any) {
+    let url = this.baseUrl + `/fieldVisitEntry_1_0`;
+    let myObj = {
+      'frId': 1565,
+      'siteId': payload?.siteId,
+      'ticketId': payload?.ticketId
+    }
+
+    return this.http.post(url, myObj);
+  }
+
+  listFRTasksOfCurrentVisit(frId: any) {
+    let url = this.baseUrl + `/listFRTasksOfCurrentVisit_1_0/${frId}`;
+    return this.http.get(url);
+  }
+
+  logTaskStatus(payload: any) {
+    let url = this.baseUrl + `/logTaskStatus_1_0`;
+    return this.http.post(url, payload);
+  }
+
+  fieldVisitExit(payload: any) {
+    let url = this.baseUrl + `/fieldVisitExit_1_0`;
+    return this.http.put(url, payload);
+  }
+
+  updateDispatchToInventory(payload:any) {
+    let url = this.baseUrl + `/updateDispatchToInventory_1_0`;
+    return this.http.post(url, payload);
+  }
+
+  /* fr-reports */
+
+  listFRReports(payload:any) {
+    let url = this.baseUrl + "/listFRReports_1_0";
+    let params = new HttpParams();
+    if(payload.p_frId) {
+      params = params.set('p_frId', payload.p_frId)
+    }
+    if(payload.p_startdate) {
+      params = params.set('p_startdate', formatDate(payload.p_startdate, 'yyyy-MM-dd', 'en-us'))
+    }
+    if(payload.p_enddate) {
+      params = params.set('p_enddate', formatDate(payload.p_enddate, 'yyyy-MM-dd', 'en-us'))
+    }
+    return this.http.get(url, {params:params});
+  }
+
+  listDC() {
+    let url = this.baseUrl + `/listDC_1_0`;
+    return this.http.get(url);
+  }
+
+  listDCItems() {
+    let url = this.baseUrl + `/listDCItems_1_0`;
+      return this.http.get(url);
+  }
+
+  updateDC(payload:any) {
+    let url = this.baseUrl + `/updateDC_1_0`;
+    let params = new HttpParams().set('dcNumber', payload.dcNumber).set('cost',payload.cost).set('receiptNo', payload.receiptNo)
+    return this.http.put(url, null, {params:params})
+  }
+
+
+  /* -------------------------------------------------------------- end ------------------------------------------------------------------------------------ */
 
 
   /* orders */
@@ -363,7 +574,8 @@ export class InventoryService {
   }
 
 
-  /* vendors */
+
+  /* vendor service */
 
   listVendors() {
     let url = this.baseUrl + '/listVendors_1_0';

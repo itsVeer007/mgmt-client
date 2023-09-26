@@ -4,12 +4,12 @@ import { Component } from '@angular/core';
   selector: 'app-login-loader',
   template: `
     <div class="bg">
-    <div class="lds-ellipsis" >
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    </div>
+      <div class="lds-ellipsis">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
     </div>
   `,
   styles: [`
@@ -35,7 +35,7 @@ import { Component } from '@angular/core';
       margin-top: -40px;
     }
 
-    .lds-ellipsis<div> {
+    .lds-ellipsis div {
       position: absolute;
       top: 50%;
       margin-left: auto;
