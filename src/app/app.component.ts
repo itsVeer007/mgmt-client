@@ -12,7 +12,7 @@ export class AppComponent {
   constructor(private apiser: ApiService) {}
 
   user = null;
-  ngOnInit(){
+  ngOnInit() {
     isDevMode() ? console.log('Stagging!') : console.log('Production!');
 
     this.apiser.user$.subscribe(() => {

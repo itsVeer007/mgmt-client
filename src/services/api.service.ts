@@ -20,6 +20,11 @@ export class ApiService {
     return this.http.post(url, payload);
   }
 
+  loginNew(payload: any) {
+    let url  = `http://3.239.251.173:80/userDetails/user_login_1_0`;
+    return this.http.post(url, payload);
+  }
+
   logout() {
     localStorage.clear();
     sessionStorage.clear();

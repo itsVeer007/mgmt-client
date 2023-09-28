@@ -11,7 +11,13 @@ import { SiteService } from 'src/services/site.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private apiser: ApiService, private siteSer: SiteService, private route: Router, private fb: FormBuilder) { }
+  constructor(
+    private apiser: ApiService,
+    private siteSer: SiteService,
+    private route: Router,
+    private fb: FormBuilder,
+    private router: Router
+  ) { }
 
   showLoader: boolean = false;
   loginForm: any = FormGroup;
@@ -57,6 +63,28 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  showPassword: boolean = false;
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
+  forgotPassVisible: boolean = false;
+  loginNew() {
+    this.apiser.loginNew(this.loginBody).subscribe((res: any) => {
+      if(res?.message == 'User authentication failed') {
+        this.errMsg = 'Please contact support-team';
+        setTimeout(() => {
+          this.errMsg = null;
+        }, 3000);
+      } else {
+        sessionStorage.setItem('user', JSON.stringify(res));
+        this.apiser.user$.next(res);
+        this.router.navigate(['/main-dashboard']);
+        this.getlistSites();
+      }
+    })
+  }
+
   // inputToAssets: any;
   getlistSites() {
     this.siteSer.listSites().subscribe((res: any) => {
@@ -65,7 +93,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('siteIds', JSON.stringify(res?.siteList));
       }
       if(res?.Status == 'Failed') {
-        this.apiser.logout();
+        // this.apiser.logout();
       }
     }, (err: any) => {
       // console.log(err)

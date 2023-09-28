@@ -16,8 +16,8 @@ export class SiteService {
     let user = JSON.parse(sessionStorage.getItem('user')!);
 
     let payload = {
-      userName : user.UserName,
-      accessToken : user.access_token,
+      userName : user.User_Name,
+      accessToken : 'abc',
       calling_System_Detail: "portal",
     }
 
