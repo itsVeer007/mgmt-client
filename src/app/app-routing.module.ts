@@ -9,7 +9,6 @@ import { AddNewBusinessVerticalComponent } from './main-dashboard/add-new-busine
 import { SitesComponent } from './sites/sites.component';
 import { CustomersComponent } from './customers/customers.component';
 import { LoginComponent } from './login/login.component'
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { UsersComponent } from './users/users.component';
 import { InventoryComponent } from './inventory/inventory.component';
 import { AssetsComponent } from './assets/assets.component';
@@ -30,46 +29,42 @@ import { TicketReportsComponent } from './ticket-reports/ticket-reports.componen
 import { AdvertisementsComponent } from './advertisements/advertisements.component';
 import { FrKitComponent } from './fr-kit/fr-kit.component';
 import { FrReportsComponent } from './fr-reports/fr-reports.component';
-const routes: Routes = [];
+
+const routes: Routes = [
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  { path: 'main-dashboard', component: MainDashboardComponent },
+  { path: 'verticals', component: VerticalsComponent },
+  { path: 'add-new-site', component: AddNewSiteComponent },
+  { path: 'add-new-camera', component: AddNewCameraComponent },
+  { path: 'add-new-customer', component: AddNewCustomerComponent },
+  { path: 'add-new-user', component: AddNewUserComponent },
+  { path: 'add-new-business', component: AddNewBusinessVerticalComponent },
+  { path: 'sites', component: SitesComponent },
+  { path: 'devices', component: DevicesComponent },
+  { path: 'analytics', component: AnalyticsComponent },
+  { path: 'customers', component: CustomersComponent },
+  { path: 'users', component: UsersComponent },
+  { path: 'inventory', component: InventoryComponent },
+  { path: 'product-master', component: ProductMasterComponent },
+  { path: 'orders', component: OrdersComponent },
+  { path: 'indents', component: IndentsComponent },
+  { path: 'tickets', component: TicketsComponent },
+  { path: 'ticket-reports', component: TicketReportsComponent },
+  { path: 'fr', component: FrComponent },
+  { path: 'assets', component: AssetsComponent },
+  { path: 'advertisements', component: AdvertisementsComponent },
+  { path: 'reports', component: ReportsComponent },
+  { path: 'meta', component: MetaDataComponent },
+  { path: 'vendors', component: VendorsComponent },
+  { path: 'fr-reports', component: FrReportsComponent },
+  { path: 'qr-ads', component: QRAdsComponent },
+  { path: 'wifi-ads', component: WifiAdsComponent },
+  { path:'fr-kit', component: FrKitComponent}
+];
 
 @NgModule({
-  imports: [RouterModule.forRoot([
-    { path: '', redirectTo: '/login', pathMatch: 'full' },
-    { path: 'login', component: LoginComponent },
-    { path: 'main-dashboard', component: MainDashboardComponent },
-    { path: 'verticals', component: VerticalsComponent },
-    { path: 'add-new-site', component: AddNewSiteComponent },
-    { path: 'add-new-camera', component: AddNewCameraComponent },
-    { path: 'add-new-customer', component: AddNewCustomerComponent },
-    { path: 'add-new-user', component: AddNewUserComponent },
-    { path: 'add-new-business', component: AddNewBusinessVerticalComponent },
-    { path: 'sites', component: SitesComponent },
-    { path: 'devices', component: DevicesComponent },
-    { path: 'analytics', component: AnalyticsComponent },
-    { path: 'customers', component: CustomersComponent },
-    { path: 'users', component: UsersComponent },
-
-    { path: 'inventory', component: InventoryComponent },
-    { path: 'product-master', component: ProductMasterComponent },
-    { path: 'orders', component: OrdersComponent },
-    { path: 'indents', component: IndentsComponent },
-
-    { path: 'tickets', component: TicketsComponent },
-    { path: 'ticket-reports', component: TicketReportsComponent },
-    { path: 'fr', component: FrComponent },
-
-    { path: 'assets', component: AssetsComponent },
-    { path: 'advertisements', component: AdvertisementsComponent },
-
-    { path: 'reports', component: ReportsComponent },
-    { path: 'meta', component: MetaDataComponent },
-    { path: 'vendors', component: VendorsComponent },
-    { path: 'fr-reports', component: FrReportsComponent },
-
-    { path: 'qr-ads', component: QRAdsComponent },
-    { path: 'wifi-ads', component: WifiAdsComponent },
-    { path:'fr-kit', component: FrKitComponent}
-  ])],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -443,7 +443,7 @@ export class FrComponent implements OnInit {
     this.dialog.open(this.viewDcDialog);
 
     this.ticketSer.listDC().subscribe((res:any)=>{
-      console.log(res);
+      // console.log(res);
       this.items = res;
 
     })
@@ -500,10 +500,10 @@ export class FrComponent implements OnInit {
     let x = e?.srcElement?.checked;
     if(x == true) {
       this.arr.push(current?.invNo)
-      console.log(this.arr);
+      // console.log(this.arr);
     } else {
       this.arr.splice(this.arr.indexOf(current), 1);
-      console.log(this.arr);
+      // console.log(this.arr);
     }
 
     this.selectedAll = this.latestValue.every(function (item: any) {

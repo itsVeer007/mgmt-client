@@ -11,7 +11,7 @@ export class AppComponent {
 
   constructor(private apiser: ApiService) {}
 
-  user = null;
+  user: any = null;
   ngOnInit() {
     isDevMode() ? console.log('Stagging!') : console.log('Production!');
 

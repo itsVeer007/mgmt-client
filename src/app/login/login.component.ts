@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
     private router: Router
   ) { }
 
+  user = null;
   showLoader: boolean = false;
   loginForm: any = FormGroup;
 
@@ -30,10 +31,10 @@ export class LoginComponent implements OnInit {
 
     sessionStorage.clear();
     localStorage.clear();
+    this.apiser.user$.subscribe((res: any) => {
+      this.user = res
+    });
   }
-
-  // username: any;
-  // password: any;
 
   loginBody = {
     userName: null,
@@ -54,9 +55,7 @@ export class LoginComponent implements OnInit {
         this.getlistSites();
       } else if(res?.Status == "Failed") {
         this.errMsg = res.Message;
-        setTimeout(() => {
-          this.errMsg = null;
-        }, 3000);
+        this.clearErrMsg();
       }
     }, (err: any) => {
       // console.log(err);
@@ -73,9 +72,7 @@ export class LoginComponent implements OnInit {
     this.apiser.loginNew(this.loginBody).subscribe((res: any) => {
       if(res?.message == 'User authentication failed') {
         this.errMsg = 'Please contact support-team';
-        setTimeout(() => {
-          this.errMsg = null;
-        }, 3000);
+        this.clearErrMsg();
       } else {
         sessionStorage.setItem('user', JSON.stringify(res));
         this.apiser.user$.next(res);
@@ -98,6 +95,12 @@ export class LoginComponent implements OnInit {
     }, (err: any) => {
       // console.log(err)
     })
+  }
+
+  clearErrMsg() {
+    setTimeout(() => {
+      this.errMsg = null;
+    }, 5000)
   }
 
 }
