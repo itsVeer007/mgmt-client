@@ -45,7 +45,7 @@ export class QRAdsComponent implements OnInit {
 
   getInventory() {
     this.reportSer.list().subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
 
       this.qrData = res;
       // console.log(this.qrData);
@@ -201,7 +201,7 @@ export class QRAdsComponent implements OnInit {
   openEditPopup(item: any) {
     this.currentItem = JSON.parse(JSON.stringify(item));
     this.dialog.open(this.editInventoryDialog);
-    console.log(item);
+    // console.log(item);
   }
 
   updateInventory0: any;

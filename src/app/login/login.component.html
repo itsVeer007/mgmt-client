@@ -21,28 +21,39 @@
       </form>
   </div> -->
 
-  <mat-card class="mx-2">
+  <mat-card class="mx-2" *ngIf="!forgotPassVisible">
     <mat-card-content>
       <p class="text-center mb-2" style="font-weight: 600; font-size: 16px;">Login</p>
-      <form class="p-0 mx-2" [formGroup]="loginForm" (ngSubmit)="login()">
+      <form class="p-0 mx-2" [formGroup]="loginForm">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>User Name</mat-label>
           <input matInput formControlName="userName" [(ngModel)]="loginBody.userName">
-          <mat-error>
-            Please inform your user name
-          </mat-error>
+          <mat-error>Please inform your user name</mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Password</mat-label>
-          <input matInput type="password" formControlName="password" [(ngModel)]="loginBody.password">
-          <mat-error>
-            Please inform your password
-          </mat-error>
+          <input matInput [type]="showPassword ? 'text' : 'password'" formControlName="password" [(ngModel)]="loginBody.password">
+          <mat-icon class="pointer" matSuffix (click)="togglePasswordVisibility()">{{ showPassword ? 'visibility' : 'visibility_off' }}</mat-icon>
+          <mat-error>Please inform your password</mat-error>
         </mat-form-field>
         <div class="text-center">
-          <button type="submit" class="btn mt-2" (click)="login()">LOGIN</button>
+          <button type="submit" class="btn mt-2" (click)="loginNew()">LOGIN</button>
         </div>
       </form>
+    </mat-card-content>
+    <p class="text-center text-danger mt-3">{{ errMsg }}</p>
+  </mat-card>
+
+  <mat-card class="mx-2" *ngIf="forgotPassVisible">
+    <mat-card-content>
+      <p class="text-center mb-2" style="font-weight: 600; font-size: 16px;">Please change your password</p>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>User Name</mat-label>
+          <input matInput [(ngModel)]="loginBody.userName">
+        </mat-form-field>
+        <div class="text-center">
+          <button type="submit" class="btn mt-2" (click)="login()">Submit</button>
+        </div>
     </mat-card-content>
     <p class="text-center text-danger mt-3">{{ errMsg }}</p>
   </mat-card>

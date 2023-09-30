@@ -11,8 +11,15 @@ import { SiteService } from 'src/services/site.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private apiser: ApiService, private siteSer: SiteService, private route: Router, private fb: FormBuilder) { }
+  constructor(
+    private apiser: ApiService,
+    private siteSer: SiteService,
+    private route: Router,
+    private fb: FormBuilder,
+    private router: Router
+  ) { }
 
+  user = null;
   showLoader: boolean = false;
   loginForm: any = FormGroup;
 
@@ -24,10 +31,10 @@ export class LoginComponent implements OnInit {
 
     sessionStorage.clear();
     localStorage.clear();
+    this.apiser.user$.subscribe((res: any) => {
+      this.user = res
+    });
   }
-
-  // username: any;
-  // password: any;
 
   loginBody = {
     userName: null,
@@ -48,13 +55,31 @@ export class LoginComponent implements OnInit {
         this.getlistSites();
       } else if(res?.Status == "Failed") {
         this.errMsg = res.Message;
-        setTimeout(() => {
-          this.errMsg = null;
-        }, 3000);
+        this.clearErrMsg();
       }
     }, (err: any) => {
       // console.log(err);
     });
+  }
+
+  showPassword: boolean = false;
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
+  forgotPassVisible: boolean = false;
+  loginNew() {
+    this.apiser.loginNew(this.loginBody).subscribe((res: any) => {
+      if(res?.message == 'User authentication failed') {
+        this.errMsg = 'Please contact support-team';
+        this.clearErrMsg();
+      } else {
+        sessionStorage.setItem('user', JSON.stringify(res));
+        this.apiser.user$.next(res);
+        this.router.navigate(['/main-dashboard']);
+        this.getlistSites();
+      }
+    })
   }
 
   // inputToAssets: any;
@@ -65,11 +90,17 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('siteIds', JSON.stringify(res?.siteList));
       }
       if(res?.Status == 'Failed') {
-        this.apiser.logout();
+        // this.apiser.logout();
       }
     }, (err: any) => {
       // console.log(err)
     })
+  }
+
+  clearErrMsg() {
+    setTimeout(() => {
+      this.errMsg = null;
+    }, 5000)
   }
 
 }

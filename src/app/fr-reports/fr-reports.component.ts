@@ -37,7 +37,7 @@ export class FrReportsComponent implements OnInit {
   reportsData:any = [];
   listFRReports() {
     this.ticketSer.listFRReports(this.body).subscribe((res)=> {
-      console.log(res);
+      // console.log(res);
       this.reportsData = res;
 
     })

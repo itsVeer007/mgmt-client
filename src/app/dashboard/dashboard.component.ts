@@ -26,12 +26,11 @@ export class DashboardComponent implements OnInit {
     // );
 
     this.user = JSON.parse(sessionStorage.getItem('user')!);
-    for(let item of this.user?.Roles) {
-      if(item == 'adminus') {
+    for(let item of this.user?.role) {
+      if(item == 'Administrator') {
         this.isAdmin = true;
       }
     }
-    // this.apiser.autoLogout(1200000);
   }
 
   logout() {

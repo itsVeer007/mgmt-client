@@ -14,14 +14,12 @@ export class SiteService {
 
   listSites() {
     let user = JSON.parse(sessionStorage.getItem('user')!);
-
+    let url = this.baseUrl + '/sitesList_2_0';
     let payload = {
-      userName : user.UserName,
-      accessToken : user.access_token,
+      userName : user?.UserName,
+      accessToken : 'abc',
       calling_System_Detail: "portal",
     }
-
-    let url = this.baseUrl + '/sitesList_2_0';
 
     return this.http.post(url, payload);
   }
