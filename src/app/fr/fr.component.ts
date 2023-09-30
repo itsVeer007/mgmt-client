@@ -85,10 +85,14 @@ export class FrComponent implements OnInit {
 
   showIndent: boolean = false;
   show(type: string) {
-    if (type == 'indent') { this.showIndent = true }
+    if (type == 'indent') {
+      this.showIndent = true
+    }
   }
   closenow(type: String) {
-    if (type == 'indent') { this.showIndent = false }
+    if (type == 'indent') {
+      this.showIndent = false
+      }
   }
 
   ticketIdToFr(ticketId: any) {
@@ -442,7 +446,6 @@ export class FrComponent implements OnInit {
     this.inventorySer.listDC().subscribe((res:any)=>{
       // console.log(res);
       this.items = res;
-
     })
   }
 
@@ -473,8 +476,6 @@ export class FrComponent implements OnInit {
   }
 
   updateDC(){
-
-
     // this.data.dcNumber=this.currentItem.dcNumber
     // this.inventorySer.updateDC(this.data).subscribe((res:any)=>{
     //   this.alertSer.snackSuccess(res?.message)
