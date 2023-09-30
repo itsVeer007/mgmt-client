@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';
 import { MetadataService } from 'src/services/metadata.service';
-import { TicketService } from 'src/services/ticket.service';
 
 @Component({
   selector: 'app-fr-kit',
@@ -13,7 +12,6 @@ import { TicketService } from 'src/services/ticket.service';
 export class FrKitComponent implements OnInit {
 
   constructor(
-    private ticketSer: TicketService,
     public dialog: MatDialog,
     private inventorySer: InventoryService,
     private metaDatSer: MetadataService,
@@ -28,7 +26,7 @@ export class FrKitComponent implements OnInit {
 
   frTickets: any
   listFRTickets() {
-    this.ticketSer.listFRCount().subscribe((res: any) => {
+    this.inventorySer.listFRCount().subscribe((res: any) => {
       // console.log(res);
       this.frTickets = res;
     })
@@ -78,7 +76,7 @@ export class FrKitComponent implements OnInit {
   ticketComments: any = [];
   openTicketTaskDialog(item: any) {
     this.dialog.open(this.ticketTaskDialog);
-    this.ticketSer.getTasks(item.ticketId).subscribe((tasks: any) => {
+    this.inventorySer.getTasks(item.ticketId).subscribe((tasks: any) => {
       this.ticketTasks = tasks;
     });
   }
@@ -89,7 +87,7 @@ export class FrKitComponent implements OnInit {
   openSitesDialog() {
     // this.dialog.open(this.viewSitesDialog);
 
-    this.ticketSer.listFRSites(1565).subscribe((res: any) => {
+    this.inventorySer.listFRSites(1565).subscribe((res: any) => {
       // console.log(res);
       this.sites = res;
     })
@@ -97,7 +95,7 @@ export class FrKitComponent implements OnInit {
 
 
   fieldVisitEntry(item: any) {
-    this.ticketSer.fieldVisitEntry(item).subscribe((res: any) => {
+    this.inventorySer.fieldVisitEntry(item).subscribe((res: any) => {
       // console.log(res);
       this.alertSer.snackSuccess('Entry Successful');
     }, (err: any) => {
@@ -122,7 +120,7 @@ export class FrKitComponent implements OnInit {
 // items:any;
 // openDc() {
 //   this.dialog.open(this.viewDcDialog)
-//   this.ticketSer.listDC().subscribe((res:any)=>{
+//   this.inventorySer.listDC().subscribe((res:any)=>{
 //     // console.log(res);
 //     this.items = res;
 

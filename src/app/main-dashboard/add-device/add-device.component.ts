@@ -5,9 +5,8 @@ import { MatOption } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSelect } from '@angular/material/select';
 import { AlertService } from 'src/services/alert.service';
-import { DeviceService } from 'src/services/device.service';
+import { AssetService } from 'src/services/asset.service';
 import { MetadataService } from 'src/services/metadata.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-device',
@@ -42,7 +41,7 @@ export class AddDeviceComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private devService: DeviceService,
+    private assetSer: AssetService,
     private dropDown: MetadataService,
     private alertSer: AlertService,
     public dialog: MatDialog
@@ -149,7 +148,7 @@ export class AddDeviceComponent implements OnInit {
   convertedArray: any;
   // deviceMap: any;
   getDeviceDetail() {
-    this.devService.listDeviceAdsInfo().subscribe((res: any) => {
+    this.assetSer.listDeviceAdsInfo().subscribe((res: any) => {
       for(let item of res) {
         if(this.siteData.siteid == item.siteId) {
           // let x = item?.adsDevices.forEach((el: any) => el.workingDays);
@@ -173,7 +172,7 @@ export class AddDeviceComponent implements OnInit {
 
   getCurrentDevice(data: any) {
     // console.log('hello')
-    this.devService.listDeviceByDeviceId(data?.deviceId).subscribe((res: any) => {
+    this.assetSer.listDeviceByDeviceId(data?.deviceId).subscribe((res: any) => {
       // console.log(res)
     })
   }
@@ -384,7 +383,7 @@ export class AddDeviceComponent implements OnInit {
       }
     }
     this.newItemEvent.emit();
-    this.devService.updateDeviceAdsInfo({adsDevice: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
+    this.assetSer.updateDeviceAdsInfo({adsDevice: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
       // console.log(res);
       if(res) {
         this.alertSer.snackSuccess(res?.message ? res?.message : 'Device updated successfully');
@@ -432,7 +431,7 @@ export class AddDeviceComponent implements OnInit {
         }
       }
       this.alertSer.wait();
-      this.devService.createDeviceandAdsInfo(this.adInfo).subscribe((res: any) => {
+      this.assetSer.createDeviceandAdsInfo(this.adInfo).subscribe((res: any) => {
         // console.log(res);
         if(res) {
           this.alertSer.success(res?.message ? res?.message : 'Device created successfully');

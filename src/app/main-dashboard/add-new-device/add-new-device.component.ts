@@ -5,7 +5,7 @@ import { MatOption } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSelect } from '@angular/material/select';
 import { AlertService } from 'src/services/alert.service';
-import { DeviceService } from 'src/services/device.service';
+import { AssetService } from 'src/services/asset.service';
 import { MetadataService } from 'src/services/metadata.service';
 
 @Component({
@@ -50,7 +50,7 @@ export class AddNewDeviceComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private devService: DeviceService,
+    private assetSer: AssetService,
     private dropDown: MetadataService,
     private alertSer: AlertService,
     public dialog: MatDialog
@@ -283,7 +283,7 @@ export class AddNewDeviceComponent implements OnInit {
       }
       this.alertSer.wait();
 
-      this.devService.createDeviceandAdsInfo(this.adInfo).subscribe((res: any) => {
+      this.assetSer.createDeviceandAdsInfo(this.adInfo).subscribe((res: any) => {
         // console.log(res);
         if(res) {
           this.alertSer.success(res?.message ? res?.message : 'Device created successfully');

@@ -5,10 +5,9 @@ import { MatOption } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSelect } from '@angular/material/select';
 import { AlertService } from 'src/services/alert.service';
-import { DeviceService } from 'src/services/device.service';
+import { AssetService } from 'src/services/asset.service';
+import { InventoryService } from 'src/services/inventory.service';
 import { MetadataService } from 'src/services/metadata.service';
-import { TicketService } from 'src/services/ticket.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-devices',
@@ -17,27 +16,6 @@ import Swal from 'sweetalert2';
 })
 export class DevicesComponent implements OnInit {
 
-  @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
-    var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);
-    var y = <HTMLElement>document.getElementById(`icons-site`);
-
-    // console.log(`plus-img${this.currentid}`);
-    if (x != null) {
-      if (!x.contains(e.target)) {
-        if (x.style.display == 'flex' || x.style.display == 'block') {
-          x.style.display = 'none';
-        }
-      }
-    }
-
-    // if (y != null) {
-    //   console.log(`icons-site`);
-    //   if (!y.contains(e.target)) {
-    //     this.icons1 = false;
-    //   }
-    // }
-  }
-
   @Output() newItemEvent = new EventEmitter<boolean>();
 
 
@@ -45,11 +23,9 @@ export class DevicesComponent implements OnInit {
 
   showLoader = false;
   constructor(
-    private http: HttpClient,
-    private ticketSer: TicketService,
-    private devService: DeviceService,
+    private inventorySer: InventoryService,
+    private assetSer: AssetService,
     private metadataSer: MetadataService,
-
     public dialog: MatDialog,
     public datePipe: DatePipe,
     public alertSer: AlertService
@@ -80,7 +56,7 @@ export class DevicesComponent implements OnInit {
   inActive: any = [];
   listDeviceAdsInfo() {
     this.showLoader = true;
-    this.devService.listDeviceAdsInfo().subscribe((res: any) => {
+    this.assetSer.listDeviceAdsInfo().subscribe((res: any) => {
       // console.log(res);
       this.showLoader = false;
       this.deviceData = res.flatMap((item: any) => item.adsDevices);
@@ -102,7 +78,7 @@ export class DevicesComponent implements OnInit {
 
   upTime: any;
   getStatus() {
-    this.devService.getHealth().subscribe((res: any) => {
+    this.assetSer.getHealth().subscribe((res: any) => {
       this.upTime = res.flatMap((item: any) => item.on);
       // console.log(this.upTime[0]?.firstConnected.this.da - this.upTime[0]?.lastConnected)
     })
@@ -228,7 +204,7 @@ export class DevicesComponent implements OnInit {
   rebootDevice(id: any) {
     this.alertSer.wait();
 
-    this.devService.updateRebootDevice(id).subscribe((res: any) => {
+    this.assetSer.updateRebootDevice(id).subscribe((res: any) => {
       // console.log(res)
       if(res) {
         this.alertSer.success(res?.message);
@@ -304,7 +280,7 @@ export class DevicesComponent implements OnInit {
       status: this.staObj.status
     }
 
-    this.ticketSer.updateTask(statusObj).subscribe((res: any) => {
+    this.inventorySer.updateTask(statusObj).subscribe((res: any) => {
       // console.log(res);
     })
   }
@@ -457,7 +433,7 @@ export class DevicesComponent implements OnInit {
       }
     }
     this.newItemEvent.emit();
-    this.devService.updateDeviceAdsInfo({adsDevice: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
+    this.assetSer.updateDeviceAdsInfo({adsDevice: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
       // console.log(res);
       if(res) {
         this.alertSer.snackSuccess(res?.message ? res?.message : 'Device updated successfully');

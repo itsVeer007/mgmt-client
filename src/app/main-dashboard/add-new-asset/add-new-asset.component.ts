@@ -6,8 +6,6 @@ import { AssetService } from 'src/services/asset.service';
 import { AlertService } from 'src/services/alert.service';
 import { SiteService } from 'src/services/site.service';
 import { MetadataService } from 'src/services/metadata.service';
-import { DeviceService } from 'src/services/device.service';
-import Swal from 'sweetalert2';
 import { formatDate } from '@angular/common';
 
 @Component({
@@ -40,11 +38,10 @@ export class AddNewAssetComponent implements OnInit {
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private assetService: AssetService,
+    private assetSer: AssetService,
     private dropDown: MetadataService,
     private alertSer: AlertService,
     private siteService: SiteService,
-    private devService: DeviceService
   ) { }
 
     addAssetForm: any = FormGroup;
@@ -143,7 +140,7 @@ export class AddNewAssetComponent implements OnInit {
       this.siteIdList = res.sitesList;
     })
 
-    this.devService.listDeviceAdsInfo().subscribe((res: any) => {
+    this.assetSer.listDeviceAdsInfo().subscribe((res: any) => {
       const assets = res.flatMap((item: any) => item.adsDevices);
       // console.log(assets);
       this.deviceIdList = assets;
@@ -359,7 +356,7 @@ export class AddNewAssetComponent implements OnInit {
       if(this.addAssetForm.valid) {
         this.newItemEvent.emit();
         this.alertSer.wait();
-        this.assetService.addAsset(this.assetData, this.selectedFile).subscribe((res: any) => {
+        this.assetSer.addAsset(this.assetData, this.selectedFile).subscribe((res: any) => {
           this.alertSer.success(res?.message);
           setTimeout(() => {
             window.location.reload();

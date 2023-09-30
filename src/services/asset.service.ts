@@ -73,9 +73,7 @@ export class AssetService {
 
   addAsset(payload: any, file: any) {
     let formData: any = new FormData();
-
     formData.append('file', file);
-
     let assetData = {
       'deviceId': payload?.asset.deviceId,
       'deviceModeId': payload?.asset.deviceModeId,
@@ -83,16 +81,13 @@ export class AssetService {
       'createdBy': payload?.asset.createdBy,
       'name': payload?.asset.name,
       'splRuleId': payload?.asset.splRuleId,
-      'fromDate': formatDate(payload?.asset.fromDate, 'yyyy-MM-dd', 'en-us') ? formatDate(payload?.asset.fromDate, 'yyyy-MM-dd', 'en-us') : formatDate(new Date(), 'yyyy-MM-dd', 'en-us'),
-      'toDate': formatDate(payload?.asset.toDate, 'yyyy-MM-dd', 'en-us') ? formatDate(payload?.asset.toDate, 'yyyy-MM-dd', 'en-us') : '2999-12-31'
+      'fromDate': payload?.asset.fromDate ? formatDate(payload?.asset.fromDate, 'yyyy-MM-dd', 'en-us') : formatDate(new Date(), 'yyyy-MM-dd', 'en-us'),
+      'toDate': payload?.asset.toDate ? formatDate(payload?.asset.toDate, 'yyyy-MM-dd', 'en-us') : '2999-12-31'
     }
-
     const ass = new Blob([JSON.stringify(assetData)], {
       type: 'application/json',
     });
-
     formData.append('asset', ass);
-
 
     let paramData = {
       'timeId': payload.nameParams.timeId,
@@ -104,14 +99,11 @@ export class AssetService {
       'maleAdults': payload.nameParams.maleAdults,
       'femaleAdults': payload.nameParams.femaleAdults,
       'vehicles': payload.nameParams.vehicles,
-
       'persons': payload.nameParams.persons
     }
-
     const param = new Blob([JSON.stringify(paramData)], {
       type: 'application/json',
     });
-
     formData.append('nameParams', param);
 
     let url = this.baseUrl + "/createAssetforDevice_1_0";
@@ -164,7 +156,6 @@ export class AssetService {
 
   getHealth() {
     let url = this.baseUrl + '/getHealth_1_0';
-
     // var payload = {
     //   'deviceId': deviceId
     // }
@@ -174,7 +165,6 @@ export class AssetService {
 
   updateRebootDevice(id: any) {
     let url = this.baseUrl + '/updateRebootDevice_1_0';
-
     const params = new HttpParams().set('deviceId', id.toString()).set('modifiedBy', 1);
 
     return this.http.put(url, null, { params: params });

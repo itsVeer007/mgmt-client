@@ -3,8 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';
 import { MetadataService } from 'src/services/metadata.service';
-import { TicketService } from 'src/services/ticket.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-fr',
@@ -14,7 +12,6 @@ import Swal from 'sweetalert2';
 export class FrComponent implements OnInit {
 
   constructor(
-    private ticketSer: TicketService,
     public dialog: MatDialog,
     private inventorySer: InventoryService,
     private metaDatSer: MetadataService,
@@ -36,7 +33,7 @@ export class FrComponent implements OnInit {
   errMsg: any = null;
   listFRTickets() {
     this.showLoader = true;
-    this.ticketSer.listFRTickets().subscribe((res: any) => {
+    this.inventorySer.listFRTickets().subscribe((res: any) => {
       // console.log(res);
       this.showLoader = false;
       this.frTickets = res;
@@ -103,7 +100,7 @@ export class FrComponent implements OnInit {
   @ViewChild('statusItemsDialog') statusItemsDialog = {} as TemplateRef<any>;
   openStatusItems(type: any, status: any) {
     this.dialog.open(this.statusItemsDialog);
-    this.ticketSer.listFRItems(type, status).subscribe((res: any) => {
+    this.inventorySer.listFRItems(type, status).subscribe((res: any) => {
       // console.log(res);
       this.statusItems = res;
       this.removeDuplicatesAndCalculateQuantities();
@@ -115,7 +112,7 @@ export class FrComponent implements OnInit {
   }
 
   latestFun(type: any, status: any) {
-    this.ticketSer.listFRItems(type, status).subscribe((res: any) => {
+    this.inventorySer.listFRItems(type, status).subscribe((res: any) => {
       this.statusItems = res;
     })
   }
@@ -126,7 +123,7 @@ export class FrComponent implements OnInit {
   ticketComments: any = [];
   openTicketTaskDialog(item: any) {
     this.dialog.open(this.ticketTaskDialog);
-    this.ticketSer.getTasks(item.ticketId).subscribe((tasks: any) => {
+    this.inventorySer.getTasks(item.ticketId).subscribe((tasks: any) => {
       this.ticketTasks = tasks;
     });
   }
@@ -137,7 +134,7 @@ export class FrComponent implements OnInit {
   openSitesDialog() {
     // this.dialog.open(this.viewSitesDialog);
 
-    this.ticketSer.listFRSites(1565).subscribe((res: any) => {
+    this.inventorySer.listFRSites(1565).subscribe((res: any) => {
       // console.log(res);
       this.sites = res;
     })
@@ -145,7 +142,7 @@ export class FrComponent implements OnInit {
 
 
   fieldVisitEntry(item: any) {
-    this.ticketSer.fieldVisitEntry(item).subscribe((res: any) => {
+    this.inventorySer.fieldVisitEntry(item).subscribe((res: any) => {
       // console.log(res);
       this.alertSer.snackSuccess('Entry Successful');
     }, (err: any) => {
@@ -195,7 +192,7 @@ export class FrComponent implements OnInit {
     this.ticketType = data?.typeId;
     this.currentSite = data?.siteId;
     this.dialog.open(this.currentTasksDialog);
-    this.ticketSer.listFRTasksOfCurrentVisit(1565).subscribe((res: any) => {
+    this.inventorySer.listFRTasksOfCurrentVisit(1565).subscribe((res: any) => {
       // console.log(res);
       this.tasks = res;
     })
@@ -294,7 +291,7 @@ export class FrComponent implements OnInit {
     //   this.inventoryId = res;
     // });
 
-    this.ticketSer.getItemsList(data).subscribe((res: any) => {
+    this.inventorySer.getItemsList(data).subscribe((res: any) => {
       // console.log(res);
       this.inventoryId = res;
     });
@@ -364,10 +361,10 @@ export class FrComponent implements OnInit {
       'changedBy': 1565,
       'remarks': '',
     }
-    this.ticketSer.logTaskStatus(myObj).subscribe((res: any) => {
+    this.inventorySer.logTaskStatus(myObj).subscribe((res: any) => {
       // console.log(res)
       this.alertSer.snackSuccess(res?.message);
-      this.ticketSer.listFRTasksOfCurrentVisit(1565).subscribe((res: any) => {
+      this.inventorySer.listFRTasksOfCurrentVisit(1565).subscribe((res: any) => {
         // console.log(res);
         this.tasks = res;
       })
@@ -393,7 +390,7 @@ export class FrComponent implements OnInit {
   }
 
   fieldVisitExit() {
-    this.ticketSer.fieldVisitExit(this.fieldExitBody).subscribe((res: any) => {
+    this.inventorySer.fieldVisitExit(this.fieldExitBody).subscribe((res: any) => {
       // console.log(res);
       this.alertSer.snackSuccess(res?.message);
     })
@@ -426,7 +423,7 @@ export class FrComponent implements OnInit {
       oldSlNo: this.arr,
       dcNumber: this.cost
     }
-    this.ticketSer.updateDispatchToInventory(obj).subscribe((res:any)=>{
+    this.inventorySer.updateDispatchToInventory(obj).subscribe((res:any)=>{
       // console.log(res);
         this.alertSer.snackSuccess(res?.message);
     }),(err: any) => {
@@ -442,7 +439,7 @@ export class FrComponent implements OnInit {
   openDc() {
     this.dialog.open(this.viewDcDialog);
 
-    this.ticketSer.listDC().subscribe((res:any)=>{
+    this.inventorySer.listDC().subscribe((res:any)=>{
       // console.log(res);
       this.items = res;
 
@@ -453,7 +450,7 @@ export class FrComponent implements OnInit {
   @ViewChild('dcStatusDialog') dcStatusDialog = {} as TemplateRef<any>
   dcItems() {
   this.dialog.open(this.dcStatusDialog)
-    this.ticketSer.listDCItems().subscribe((res:any)=>{
+    this.inventorySer.listDCItems().subscribe((res:any)=>{
       // console.log(res);
       this.Items = res;
     })
@@ -470,7 +467,7 @@ export class FrComponent implements OnInit {
   @ViewChild('dcFinalDialog') dcFinalDialog = {} as TemplateRef<any>
   openPopUp(item:any){
     this.dialog.open(this.dcFinalDialog)
-    // this.ticketSer.updateDC(this.data).subscribe((res:any)=>{
+    // this.inventorySer.updateDC(this.data).subscribe((res:any)=>{
     this.currentItem= item;
     // })
   }
@@ -479,7 +476,7 @@ export class FrComponent implements OnInit {
 
 
     // this.data.dcNumber=this.currentItem.dcNumber
-    // this.ticketSer.updateDC(this.data).subscribe((res:any)=>{
+    // this.inventorySer.updateDC(this.data).subscribe((res:any)=>{
     //   this.alertSer.snackSuccess(res?.message)
     // }, (error)=>{
     //   this.alertSer.error(error?.err?.res);

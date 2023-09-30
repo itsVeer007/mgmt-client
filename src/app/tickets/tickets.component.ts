@@ -1,11 +1,9 @@
 import { DatePipe } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';
 import { MetadataService } from 'src/services/metadata.service';
-import { TicketService } from 'src/services/ticket.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -17,8 +15,6 @@ export class TicketsComponent implements OnInit {
 
   showLoader = false;
   constructor(
-    private http: HttpClient,
-    private ticketSer: TicketService,
     private inventorySer: InventoryService,
     private metaDatSer: MetadataService,
     private datePipe: DatePipe,
@@ -34,7 +30,7 @@ export class TicketsComponent implements OnInit {
 
     this.siteData = JSON.parse(localStorage.getItem('siteIds')!);
 
-    // this.ticketSer.comment$.subscribe((comments: any) => {
+    // this.inventorySer.comment$.subscribe((comments: any) => {
     //   this.ticketComments = comments;
     // });
   }
@@ -62,10 +58,10 @@ export class TicketsComponent implements OnInit {
   errMsg: any = null;
   listTickets() {
     this.showLoader = true;
-    this.ticketSer.listTickets().subscribe((res: any) => {
+    this.inventorySer.listTickets().subscribe((res: any) => {
       this.showLoader = false;
       this.ticketData = res;
-      // this.ticketSer.mainTicketData = res;
+      // this.inventorySer.mainTicketData = res;
       this.newTicketData = this.ticketData?.sort((a: any, b: any) => a?.ticketId < b?.ticketId ? 1 : a?.ticketId > b?.ticketId ? -1 : 0);
       if(this.ticketData?.length == 0) {
         this.errMsg = 'No tickets';
@@ -191,7 +187,7 @@ export class TicketsComponent implements OnInit {
 
   applyFilter() {
     this.showLoader = true;
-    this.ticketSer.filterTicket(this.ticketStatusObj).subscribe((res: any) => {
+    this.inventorySer.filterTicket(this.ticketStatusObj).subscribe((res: any) => {
       // console.log(res);
       this.showLoader = false;
       this.newTicketData = res;
@@ -249,7 +245,7 @@ export class TicketsComponent implements OnInit {
 
   createTask() {
     this.taskBody.ticketId = this.currentItem?.ticketId;
-    this.ticketSer.createTask(this.taskBody).subscribe((res: any) => {
+    this.inventorySer.createTask(this.taskBody).subscribe((res: any) => {
       // console.log(res);
       this.alertSer.snackSuccess(res?.message);
     }, (err: any) => {
@@ -270,17 +266,17 @@ export class TicketsComponent implements OnInit {
   openViewPopup(item: any) {
     this.currentItem = item;
     this.dialog.open(this.viewTicketDialog);
-    this.ticketSer.getTasks(item?.ticketId).subscribe((tasks: any) => {
+    this.inventorySer.getTasks(item?.ticketId).subscribe((tasks: any) => {
       // console.log(res);
       this.ticketTasks = tasks;
     });
 
-    this.ticketSer.getTicketVisits(item.ticketId).subscribe((visits: any) => {
+    this.inventorySer.getTicketVisits(item.ticketId).subscribe((visits: any) => {
       // console.log(res);
       this.ticketVisits = visits;
     });
 
-    // this.ticketSer.getcomments(item.ticketId).subscribe((comments: any) => {
+    // this.inventorySer.getcomments(item.ticketId).subscribe((comments: any) => {
     //   this.ticketComments = comments;
     // });
   }
@@ -353,7 +349,7 @@ export class TicketsComponent implements OnInit {
     };
 
     this.alertSer.wait();
-    this.ticketSer.updateTicket({ticket: this.originalObject, updprops: this.changedKeys}).subscribe((res: any) => {
+    this.inventorySer.updateTicket({ticket: this.originalObject, updprops: this.changedKeys}).subscribe((res: any) => {
       // console.log(res);
       if(res) {
         this.alertSer.success(res?.message);
@@ -376,7 +372,7 @@ export class TicketsComponent implements OnInit {
   }
 
   confirmDeleteRow() {
-    this.ticketSer.deleteTicket(this.currentItem).subscribe((res: any) => {
+    this.inventorySer.deleteTicket(this.currentItem).subscribe((res: any) => {
       // console.log(res);
 
       if(res) {
@@ -411,7 +407,7 @@ export class TicketsComponent implements OnInit {
       "assignedBy": 1
     }
 
-    this.ticketSer.assignTicket(myObj).subscribe((res: any) => {
+    this.inventorySer.assignTicket(myObj).subscribe((res: any) => {
       // console.log(res)
       if(res) {
         this.alertSer.snackSuccess(res?.message);
@@ -442,7 +438,7 @@ export class TicketsComponent implements OnInit {
       status: this.staObj.status
     }
     // this.alertSer.wait();
-    this.ticketSer.updateTask(statusObj).subscribe((res: any) => {
+    this.inventorySer.updateTask(statusObj).subscribe((res: any) => {
       // console.log(res);
       if(res) {
         this.alertSer.snackSuccess(res?.message);
@@ -470,8 +466,8 @@ export class TicketsComponent implements OnInit {
       'createdBy': 1
     }
 
-    this.ticketSer.createComment(myObj).subscribe((res: any) => {
-    this.ticketSer.comment$.next(res);
+    this.inventorySer.createComment(myObj).subscribe((res: any) => {
+    this.inventorySer.comment$.next(res);
     });
     this.cmtValue = ''
   }
