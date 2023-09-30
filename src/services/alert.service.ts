@@ -28,7 +28,6 @@ export class AlertService {
 
   snackWait(message: any, config?: MatSnackBarConfig) {
     this.config.panelClass = ["wait"];
-
     config = config || this.config;
     this.zone.run(() => {
       this.snackbar.open(message, '', config);
