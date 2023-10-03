@@ -5,11 +5,11 @@
 }
 
 .login {
-  background: url('../../assets/icons/bgimg.png');
+  /* background: url('../../assets/icons/bgimg.png'); */
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  /* background-image: linear-gradient(to right, #084982 , #D34124); */
+  background-image: linear-gradient(to right, #084982 , #D34124);
   height: 100vh;
   display: flex;
   align-items: center;
