@@ -69,7 +69,9 @@ export class LoginComponent implements OnInit {
 
   forgotPassVisible: boolean = false;
   loginNew() {
+    this.showLoader = true;
     this.apiser.loginNew(this.loginBody).subscribe((res: any) => {
+      this.showLoader = false;
       if(res?.message == 'User authentication failed') {
         this.errMsg = 'Please contact support-team';
         this.clearErrMsg();

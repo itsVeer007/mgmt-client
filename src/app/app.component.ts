@@ -15,9 +15,15 @@ export class AppComponent {
   ngOnInit() {
     isDevMode() ? console.log('Stagging!') : console.log('Production!');
 
-    this.apiser.user$.subscribe(() => {
+    this.apiser.user$.subscribe((res) => {
       this.user = JSON.parse(sessionStorage.getItem('user')!);
     });
   }
+
+  // ngDoCheck() {
+  //   this.apiser.user$.subscribe((res) => {
+  //     console.log(res)
+  //   });
+  // }
 
 }
