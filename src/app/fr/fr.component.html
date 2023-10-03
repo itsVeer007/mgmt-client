@@ -51,11 +51,16 @@
         </mat-form-field>
       </div>
 
-      <div class="col-lg-2">
+      <!-- <div class="col-lg-2">
         <button class="create-btn m-2" (click)="openDc()">Dc</button>
+      </div> -->
+
+      <div class="col-lg-2">
+        <button class="create-btn m-2" (click)="show('dc')">Create Dc</button>
       </div>
     </div>
   </div>
+
 
   <!-- table -->
   <div class="table-resp">
@@ -1295,4 +1300,7 @@
 
 <div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showIndent">
   <app-add-new-indent (newItemEvent)="closenow('indent')"></app-add-new-indent>
+</div>
+<div  style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showDc">
+  <app-add-new-dc (newItemEvent)="closenow('dc')"></app-add-new-dc>
 </div>

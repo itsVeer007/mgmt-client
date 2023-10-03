@@ -89,6 +89,7 @@ import { FrReportsComponent } from './fr-reports/fr-reports.component';
 import { LoginLoaderComponent } from './utilities/loader/login-loader.component';
 import { SearchPipe } from './pipes/search.pipe';
 import { SortPipe } from './pipes/sort.pipe';
+import { AddNewDcComponent } from './main-dashboard/add-new-dc/add-new-dc.component';
 
 @NgModule({
   declarations: [
@@ -143,6 +144,7 @@ import { SortPipe } from './pipes/sort.pipe';
     FrReportsComponent,
     SearchPipe,
     SortPipe,
+    AddNewDcComponent,
   ],
   imports: [
     BrowserModule,

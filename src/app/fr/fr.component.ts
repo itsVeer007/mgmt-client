@@ -87,15 +87,22 @@ export class FrComponent implements OnInit {
   }
 
   showIndent: boolean = false;
+  showDc: boolean = false;
   show(type: string) {
     if (type == 'indent') { 
       this.showIndent = true 
+    }
+    if (type == 'dc') { 
+      this.showDc = true 
     }
   }
   closenow(type: String) {
     if (type == 'indent') {
       this.showIndent = false 
       }
+      if (type == 'dc') {
+        this.showDc = false 
+        }
   }
 
   ticketIdToFr(ticketId: any) {
