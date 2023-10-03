@@ -9,8 +9,8 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class InventoryService {
 
-  baseUrl = `${environment.baseUrl}/inventoryAndtickets`;
-  // baseUrl = 'http://192.168.0.137:8080';
+  // baseUrl = `${environment.baseUrl}/inventoryAndtickets`;
+  baseUrl = 'http://192.168.0.137:8080';
   comment$: any = new BehaviorSubject(null);
 
   constructor(private http: HttpClient, public datepipe: DatePipe) { }
@@ -603,6 +603,9 @@ export class InventoryService {
     let url = this.baseUrl + `/deleteVendor_1_0/${payload.id}/${1}`;
     return this.http.delete(url);
   }
+
+ 
+  
 
 }
 
