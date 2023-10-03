@@ -502,6 +502,11 @@ export class InventoryService {
     return this.http.get(url);
   }
 
+  createDC(payload:any) {
+    let url = this.baseUrl + '/createDC_1_0';
+    return this.http.post(url, payload )
+  }
+
   listDCItems() {
     let url = this.baseUrl + `/listDCItems_1_0`;
       return this.http.get(url);

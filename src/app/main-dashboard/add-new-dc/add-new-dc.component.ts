@@ -47,41 +47,49 @@ export class AddNewDcComponent implements OnInit {
   UserForm: any =  FormGroup;
 
   inventoryBody = {
-    ticketId: null,
-    createdBy: 1,
     items: [
       {
+        name: null,
+        // descriptionOfGoods: null,
         itemCode: null,
-        quantity: null
+        address:null,
+        state:null,
+        code:null,
+        createdBy: 1
       }
-    ],
-    remarks: null
+    ]
   }
 
   items: any = [];
   onTaskAdd(item: any) {
     // console.log(item);
-    if(item?.itemCode == null || item?.quantity == null) {
+    if(item?.name == null || item?.itemCode == null) {
       this.alertSer.error('Please fill all fields');
     } else {
       let takBody = {
+        'name': item.name,
         'itemCode': item.itemCode,
-        'quantity': item.quantity
+        'address': item.address,
+        'state': item.state,
+        'code': item.code
       }
       this.items.push(takBody);
-      this.UserForm.get('itemCode').setValue(null);
-      this.UserForm.get('quantity').setValue(null);
-      this.UserForm.get('remarks').setValue(null);
+      this.UserForm.get('name').setValue(null);
+      this.UserForm.get('descriptionOfGoods').setValue(null);
+      this.UserForm.get('address').setValue(null);
+      this.UserForm.get('state').setValue(null);
+      this.UserForm.get('code').setValue(null);
     }
   }
 
   ticketIdFrmFr: any;
   ngOnInit() {
     this.UserForm = this.fb.group({
-      'jobOrTicketId': new FormControl(''),
-      'itemCode': new FormControl(''),
-      'quantity': new FormControl(''),
-      'remarks': new FormControl('')
+      'name': new FormControl(''),
+      'descriptionOfGoods': new FormControl(''),
+      'address': new FormControl(''),
+      'state': new FormControl(''),
+      'code': new FormControl('')
     });
 
     // this.getVendor();
@@ -98,7 +106,7 @@ export class AddNewDcComponent implements OnInit {
 
   productIds: any;
   getProducts() {
-    this.inventorySer.listProduct().subscribe((res: any) => {
+    this.inventorySer.listFRItems(1565, 5).subscribe((res: any) => {
       this.productIds = res;
     })
   }
@@ -110,13 +118,13 @@ export class AddNewDcComponent implements OnInit {
   submitted!: boolean;
   arr: any = [];
   warrantyDetail: any = 'No';
-  submit() {
+  submit() { 
     if(this.UserForm.valid) {
       if(this.items.length > 0) {
         this.alertSer.wait();
-        this.inventoryBody.ticketId = this.ticketIdFrmFr?.ticketId;
         this.inventoryBody.items = this.items;
-        this.inventorySer.createIndent(this.inventoryBody).subscribe((res: any) => {
+        // this.inventoryBody.items[0].itemCode = this.inventoryBody.items[0].descriptionOfGoods;
+        this.inventorySer.createDC(this.inventoryBody).subscribe((res: any) => {
           // console.log(res);
           this.newItemEvent.emit();
           this.alertSer.success(res?.message);
