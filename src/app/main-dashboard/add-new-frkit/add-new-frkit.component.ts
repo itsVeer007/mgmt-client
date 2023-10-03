@@ -5,7 +5,6 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';
-import { TicketService } from 'src/services/ticket.service';
 
 @Component({
   selector: 'app-add-new-frkit',
@@ -38,7 +37,6 @@ export class AddNewFrkitComponent implements OnInit {
     private fb: FormBuilder,
     public alertSer: AlertService,
     public datepipe: DatePipe,
-    public ticketser:TicketService
   ) { }
 
   @Input() show: any;
@@ -82,7 +80,7 @@ export class AddNewFrkitComponent implements OnInit {
 
   itemCodes: any;
   getItemCodes(slNo: any) {
-    this.ticketser.getItemCodes(slNo).subscribe((res: any) => {
+    this.inventorySer.getItemCodes(slNo).subscribe((res: any) => {
       // console.log(res);
       this.itemCodes = res;
     })
@@ -90,7 +88,7 @@ export class AddNewFrkitComponent implements OnInit {
 
   names: any;
   listInventoryByItemCode(itemCode: any) {
-    this.ticketser.listInventoryByItemCode_1_0(itemCode).subscribe((res: any) => {
+    this.inventorySer.listInventoryByItemCode_1_0(itemCode).subscribe((res: any) => {
       // console.log(res);
       this.names = res;
     })
@@ -101,7 +99,7 @@ export class AddNewFrkitComponent implements OnInit {
   warrantyDetail: any = 'No';
   submit() {
     if(this.UserForm.valid) {
-      this.ticketser.createFRKit(this.inventoryBody).subscribe((res:any)=>{
+      this.inventorySer.createFRKit(this.inventoryBody).subscribe((res:any)=>{
         // console.log(res);
         this.newItemEvent.emit();
         this.alertSer.success(res?.message);

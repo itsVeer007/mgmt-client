@@ -1,10 +1,9 @@
 import { DatePipe } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertService } from 'src/services/alert.service';
+import { InventoryService } from 'src/services/inventory.service';
 import { MetadataService } from 'src/services/metadata.service';
-import { TicketService } from 'src/services/ticket.service';
 
 @Component({
   selector: 'app-fr-reports',
@@ -15,11 +14,9 @@ export class FrReportsComponent implements OnInit {
 
   showLoader = false;
   constructor(
-    private http: HttpClient,
-    private ticketSer: TicketService,
+    private inventorySer: InventoryService,
     private metaDatSer: MetadataService,
     private datePipe: DatePipe,
-
     public dialog: MatDialog,
     public alertSer: AlertService
   ) { }
@@ -36,7 +33,7 @@ export class FrReportsComponent implements OnInit {
   }
   reportsData:any = [];
   listFRReports() {
-    this.ticketSer.listFRReports(this.body).subscribe((res)=> {
+    this.inventorySer.listFRReports(this.body).subscribe((res: any)=> {
       // console.log(res);
       this.reportsData = res;
 
@@ -90,7 +87,7 @@ export class FrReportsComponent implements OnInit {
       'endDate': this.enDt ? this.datePipe.transform(this.enDt,'yyyy-MM-dd HH:mm:ss') : ''
     }
 
-    this.ticketSer.filterTicket(myObj).subscribe((res: any) => {
+    this.inventorySer.filterTicket(myObj).subscribe((res: any) => {
       // console.log(res);
       // this.newTicketData = res;
     })
@@ -137,21 +134,21 @@ export class FrReportsComponent implements OnInit {
     this.currentItem = item;
     this.dialog.open(this.viewTicketDialog);
     // console.log(this.currentItem);
-    this.ticketSer.getTasks(item.ticketId).subscribe((tasks: any) => {
+    this.inventorySer.getTasks(item.ticketId).subscribe((tasks: any) => {
       // console.log(res);
       this.ticketTasks = tasks;
     });
 
-    this.ticketSer.getTicketVisits(item.ticketId).subscribe((visits: any) => {
+    this.inventorySer.getTicketVisits(item.ticketId).subscribe((visits: any) => {
       // console.log(res);
       this.ticketVisits = visits;
     });
 
-    this.ticketSer.getcomments(item.ticketId).subscribe((comments: any) => {
+    this.inventorySer.getcomments(item.ticketId).subscribe((comments: any) => {
       this.ticketComments = comments;
     });
 
-    // this.ticketSer.comment$.subscribe((cmt: any) => {
+    // this.inventorySer.comment$.subscribe((cmt: any) => {
     //   console.log(cmt);
     //   this.ticketComments = cmt;
     // })
@@ -178,7 +175,7 @@ export class FrReportsComponent implements OnInit {
       "assignedBy": 1
     }
 
-    this.ticketSer.assignTicket(myObj).subscribe((res: any) => {
+    this.inventorySer.assignTicket(myObj).subscribe((res: any) => {
       // console.log(res);
         this.alertSer.snackSuccess(res?.message);
     }, (err: any) => {
@@ -200,8 +197,8 @@ export class FrReportsComponent implements OnInit {
       'createdBy': 1
     }
 
-    this.ticketSer.createComment(myObj).subscribe((res: any) => {
-    this.ticketSer.comment$.next(res);
+    this.inventorySer.createComment(myObj).subscribe((res: any) => {
+    this.inventorySer.comment$.next(res);
     });
     this.cmtValue = ''
   }

@@ -2,6 +2,7 @@ import { DatePipe, formatDate } from '@angular/common';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ export class InventoryService {
 
   baseUrl = `${environment.baseUrl}/inventoryAndtickets`;
   // baseUrl = 'http://192.168.0.137:8080';
+  comment$: any = new BehaviorSubject(null);
 
   constructor(private http: HttpClient, public datepipe: DatePipe) { }
 

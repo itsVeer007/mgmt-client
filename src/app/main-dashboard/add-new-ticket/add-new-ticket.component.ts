@@ -2,8 +2,8 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from 'src/services/alert.service';
+import { InventoryService } from 'src/services/inventory.service';
 import { MetadataService } from 'src/services/metadata.service';
-import { TicketService } from 'src/services/ticket.service';
 
 @Component({
   selector: 'app-add-new-ticket',
@@ -39,7 +39,7 @@ export class AddNewTicketComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private ticketSer: TicketService,
+    private inventorySer: InventoryService,
     private dropDown: MetadataService,
     public alertSer: AlertService
   ) { }
@@ -148,7 +148,7 @@ export class AddNewTicketComponent implements OnInit {
       if(this.tasks.length > 0) {
         this.alertSer.wait();
         this.ticketBody.tasks = this.tasks;
-        this.ticketSer.createTicket(this.ticketBody).subscribe((res: any) => {
+        this.inventorySer.createTicket(this.ticketBody).subscribe((res: any) => {
           // console.log(res);
           this.newItemEvent.emit();
           this.alertSer.success(res?.message);

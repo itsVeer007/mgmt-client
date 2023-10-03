@@ -1,7 +1,7 @@
 import { Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { SiteService } from 'src/services/site.service';
 import { MatDialog } from '@angular/material/dialog';
-import { DeviceService } from 'src/services/device.service';
+import { AssetService } from 'src/services/asset.service';
 
 @Component({
   selector: 'app-sites',
@@ -12,7 +12,7 @@ export class SitesComponent implements OnInit {
 
   constructor(
     private siteSer: SiteService,
-    private devService: DeviceService,
+    private assetSer: AssetService,
     public dialog: MatDialog
   ) { }
 
@@ -60,7 +60,7 @@ export class SitesComponent implements OnInit {
   deviceData: any;
   inputToDevices: any;
   getDevices(siteId: any) {
-    this.devService.listDeviceBySiteId(siteId).subscribe((res: any) => {
+    this.assetSer.listDeviceBySiteId(siteId).subscribe((res: any) => {
       this.deviceData = res.flatMap((item: any) => item.adsDevices);
       this.inputToDevices = this.deviceData;
       // console.log('site',this.inputToDevices);

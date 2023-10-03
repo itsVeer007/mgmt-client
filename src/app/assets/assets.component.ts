@@ -1,14 +1,11 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, EventEmitter, HostListener, OnInit, Output, QueryList, TemplateRef, ViewChild, ViewChildren, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DeviceService } from 'src/services/device.service';
 import { MetadataService } from 'src/services/metadata.service';
 import { SiteService } from 'src/services/site.service';
 import { AssetService } from '../../services/asset.service';
 import { AdInfoComponent } from './ad-info/ad-info.component';
-import { MatTabGroup } from '@angular/material/tabs';
-import Swal from 'sweetalert2';
 import { FormControl } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import { AlertService } from 'src/services/alert.service';
@@ -46,11 +43,10 @@ export class AssetsComponent implements OnInit {
 
   constructor(
     private http: HttpClient,
-    private assetService: AssetService,
+    private assetSer: AssetService,
     private dropDown: MetadataService,
     public datepipe: DatePipe,
     public dialog: MatDialog,
-    private devSercice: DeviceService,
     private siteService: SiteService,
     private alertSer: AlertService,
     public cdr:ChangeDetectorRef
@@ -99,7 +95,7 @@ export class AssetsComponent implements OnInit {
   /* search for site id */
 
   getSiteData() {
-    this.devSercice.listDeviceAdsInfo().subscribe((res: any) => {
+    this.assetSer.listDeviceAdsInfo().subscribe((res: any) => {
       // console.log(res);
       let sites = res.sort((a: any, b: any) => a.siteId < b.siteId ? -1 : a.siteId > b.siteId ? 1 : 0);
       this.siteIdToTable = sites.flatMap((item: any) => item.siteId);
@@ -108,7 +104,7 @@ export class AssetsComponent implements OnInit {
     })
 
     this.showLoader = true;
-    this.assetService.listAssets().subscribe((res: any) => {
+    this.assetSer.listAssets().subscribe((res: any) => {
       // console.log(res);
       this.showLoader = false;
       // this.assetTable = res;
@@ -159,7 +155,7 @@ export class AssetsComponent implements OnInit {
   filterSiteId(data: any) {
     if(data == 'All') {
       this.showLoader = true;
-      this.assetService.listAssets().subscribe((res: any) => {
+      this.assetSer.listAssets().subscribe((res: any) => {
         this.showLoader = false;
         this.newAssetTable = res.flatMap((item: any) => item.assets);
 
@@ -189,13 +185,13 @@ export class AssetsComponent implements OnInit {
         this.cdr.detectChanges();
       })
     } else {
-      this.devSercice.listDeviceBySiteId(data).subscribe((res: any) => {
+      this.assetSer.listDeviceBySiteId(data).subscribe((res: any) => {
         this.deviceId = res.flatMap((item: any) => item.adsDevices);
         this.newDeviceId = this.deviceId;
         this.cdr.detectChanges();
       });
 
-      this.assetService.getAssetBySiteId(data).subscribe((res: any) => {
+      this.assetSer.getAssetBySiteId(data).subscribe((res: any) => {
         this.newAssetTable = res.flatMap((item: any) => item.assets);
         this.myData = this.newAssetTable;
 
@@ -237,7 +233,7 @@ export class AssetsComponent implements OnInit {
   }
 
   filterDevices(data: any) {
-    this.assetService.getAssetByDevId(data).subscribe((res: any) => {
+    this.assetSer.getAssetByDevId(data).subscribe((res: any) => {
       if(data == 'All') {
         this.newAssetTable = this.myData;
         this.cdr.detectChanges();
@@ -422,7 +418,7 @@ export class AssetsComponent implements OnInit {
     this.originalObject.toDate = this.datepipe.transform(this.currentItem.toDate, 'yyyy-MM-dd');
     this.alertSer.wait();
 
-    this.assetService.modifyAssetForDevice({asset: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
+    this.assetSer.modifyAssetForDevice({asset: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
       // console.log(res);
       if(res) {
         this.alertSer.success(res?.message);
@@ -564,7 +560,7 @@ export class AssetsComponent implements OnInit {
   }
 
   changeAssetStatus() {
-    this.assetService.updateAssetStatus(this.currentStatusId, this.statusObj).subscribe((res: any) => {
+    this.assetSer.updateAssetStatus(this.currentStatusId, this.statusObj).subscribe((res: any) => {
       // console.log(res);
         this.getSiteData();
         this.alertSer.snackSuccess(res?.message);
