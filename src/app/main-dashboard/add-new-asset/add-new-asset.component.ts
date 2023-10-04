@@ -65,8 +65,8 @@ export class AddNewAssetComponent implements OnInit {
     },
 
     nameParams: {
-      timeId: 3,
-      tempId: 4,
+      timeId: 0,
+      tempId: 0,
       maleKids: 0,
       femaleKids: 0,
       maleYouth: 0,
@@ -353,14 +353,16 @@ export class AddNewAssetComponent implements OnInit {
     addNewAsset() {
       this.submit = true;
       this.assetData.asset.deviceId = this.deviceIdFromStorage?.deviceId;
+      if(this.assetData.nameParams.timeId == 0 && this.assetData.nameParams.timeId == 0) {
+        this.assetData.asset.deviceModeId = 1;
+      } else {
+        this.assetData.asset.deviceModeId = 2;
+      }
       if(this.addAssetForm.valid) {
-        this.newItemEvent.emit();
         this.alertSer.wait();
         this.assetSer.addAsset(this.assetData, this.selectedFile).subscribe((res: any) => {
+          this.newItemEvent.emit();
           this.alertSer.success(res?.message);
-          setTimeout(() => {
-            window.location.reload();
-          }, 2000);
           }, (err: any) => {
             if(err) {
               this.alertSer.error(err?.error?.message);
