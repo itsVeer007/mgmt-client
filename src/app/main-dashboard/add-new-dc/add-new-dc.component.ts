@@ -31,11 +31,10 @@ import { MetadataService } from 'src/services/metadata.service';
     ])
   ]
 })
-export class AddNewDcComponent implements OnInit {
+export class AddNewDcComponent {
 
   constructor(
     private inventorySer: InventoryService,
-    private router: Router,
     private fb: FormBuilder,
     public alertSer: AlertService,
     public datepipe: DatePipe
@@ -44,18 +43,19 @@ export class AddNewDcComponent implements OnInit {
   @Input() show: any;
   @Output() newItemEvent = new EventEmitter<boolean>();
 
+
   UserForm: any =  FormGroup;
 
   inventoryBody = {
-    items: [
+    name: null,
+    address:null,
+    state:null,
+    code:null,
+    createdBy: 1,
+    itemCode: [
       {
-        name: null,
-        // descriptionOfGoods: null,
         itemCode: null,
-        address:null,
-        state:null,
-        code:null,
-        createdBy: 1
+        descriptionOfGoods:null
       }
     ]
   }
@@ -63,51 +63,52 @@ export class AddNewDcComponent implements OnInit {
   items: any = [];
   onTaskAdd(item: any) {
     // console.log(item);
-    if(item?.name == null || item?.itemCode == null) {
+    if(item?.itemCode == null) {
       this.alertSer.error('Please fill all fields');
     } else {
       let takBody = {
-        'name': item.name,
         'itemCode': item.itemCode,
-        'address': item.address,
-        'state': item.state,
-        'code': item.code
+        'descriptionOfGoods': item.descriptionOfGoods,
       }
       this.items.push(takBody);
-      this.UserForm.get('name').setValue(null);
-      this.UserForm.get('descriptionOfGoods').setValue(null);
-      this.UserForm.get('address').setValue(null);
-      this.UserForm.get('state').setValue(null);
-      this.UserForm.get('code').setValue(null);
+
+      // this.UserForm.get('name').setValue(null);
+      // this.UserForm.get('itemCode').setValue(null);
+      // this.UserForm.get('address').setValue(null);
+      // this.UserForm.get('state').setValue(null);
+      // this.UserForm.get('code').setValue(null);
     }
+    // console.log(this.items)
   }
 
-  ticketIdFrmFr: any;
   ngOnInit() {
     this.UserForm = this.fb.group({
-      'name': new FormControl(''),
-      'descriptionOfGoods': new FormControl(''),
-      'address': new FormControl(''),
-      'state': new FormControl(''),
-      'code': new FormControl('')
+      'name': new FormControl('', Validators.required),
+      'itemCode': new FormControl('', Validators.required),
+      'address': new FormControl('', Validators.required),
+      'state': new FormControl('', Validators.required),
+      'code': new FormControl('', Validators.required),
+      'descriptionOfGoods':new FormControl('', Validators.required)
     });
 
     // this.getVendor();
     this.getProducts();
-    this.ticketIdFrmFr = JSON.parse(localStorage.getItem('ticketId')!);
-  }
+    // console.log(this.show);
 
-  vendorDetail: any;
-  getVendor() {
-    this.inventorySer.listVendors().subscribe((res: any) => {
-      this.vendorDetail = res;
-    })
   }
 
   productIds: any;
   getProducts() {
-    this.inventorySer.listFRItems(1565, 5).subscribe((res: any) => {
+    let statusId = null;
+    if(this.show == 'dc1') {
+      statusId = 2
+    }
+    else {
+      statusId = 5
+    }
+    this.inventorySer.listFRItems(1565, statusId).subscribe((res: any) => {
       this.productIds = res;
+      console.log(res);
     })
   }
 
@@ -115,15 +116,12 @@ export class AddNewDcComponent implements OnInit {
     this.newItemEvent.emit();
   }
 
-  submitted!: boolean;
-  arr: any = [];
   warrantyDetail: any = 'No';
   submit() { 
     if(this.UserForm.valid) {
       if(this.items.length > 0) {
         this.alertSer.wait();
-        this.inventoryBody.items = this.items;
-        // this.inventoryBody.items[0].itemCode = this.inventoryBody.items[0].descriptionOfGoods;
+        this.inventoryBody.itemCode = this.items;
         this.inventorySer.createDC(this.inventoryBody).subscribe((res: any) => {
           // console.log(res);
           this.newItemEvent.emit();
@@ -137,8 +135,8 @@ export class AddNewDcComponent implements OnInit {
         this.alertSer.error('Please add atleast one task')
       }
     }
+    console.log(this.inventoryBody);
   }
-
 
   checkbox: boolean = false;
   onCheck() {

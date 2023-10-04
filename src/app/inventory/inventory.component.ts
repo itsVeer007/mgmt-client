@@ -185,12 +185,23 @@ export class InventoryComponent implements OnInit {
   }
 
   showInventory: boolean = false;
+  showdc1: boolean = false;
   closenow(type: String) {
-    if (type == 'inventory') { this.showInventory = false; }
+    if (type == 'inventory') {
+      this.showInventory = false;
+      }
+      if(type == 'dc1') {
+        this.showdc1 = false
+      }
   }
 
   show(type: string) {
-    if (type == 'inventory') { this.showInventory = true; }
+    if (type == 'inventory') { 
+      this.showInventory = true; 
+    }
+    if(type == 'dc1') {
+        this.showdc1 = true;
+    }
   }
 
   addressid = 0;
