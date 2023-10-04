@@ -29,6 +29,31 @@ import { AnalyticsComponent } from './analytics/analytics.component';
 import { AddNewInventoryComponent } from './main-dashboard/add-new-inventory/add-new-inventory.component';
 import { AddNewAnalyticComponent } from './main-dashboard/add-new-analytic/add-new-analytic.component';
 import { AddNewTicketComponent } from './main-dashboard/add-new-ticket/add-new-ticket.component';
+import { AdInfoComponent } from './assets/ad-info/ad-info.component';
+import { ReportsComponent } from './reports/reports.component';
+import { MetaDataComponent } from './meta-data/meta-data.component';
+import { AddMetadataComponent } from './main-dashboard/add-metadata/add-metadata.component';
+import { DeviceViewComponent } from './main-dashboard/add-device/device-view/device-view.component';
+import { DevicesComponent } from './devices/devices.component';
+import { ProductMasterComponent } from './product-master/product-master.component';
+import { AddProductMasterComponent } from './main-dashboard/add-product-master/add-product-master.component';
+import { QRAdsComponent } from './reports/qr-ads/qr-ads.component';
+import { WifiAdsComponent } from './reports/wifi-ads/wifi-ads.component';
+import { VendorsComponent } from './vendors/vendors.component';
+import { AddNewVendorComponent } from './main-dashboard/add-new-vendor/add-new-vendor.component';
+import { AddNewDeviceComponent } from './main-dashboard/add-new-device/add-new-device.component';
+import { OrdersComponent } from './orders/orders.component';
+import { AddNewOrderComponent } from './main-dashboard/add-new-order/add-new-order.component';
+import { IndentsComponent } from './indents/indents.component';
+import { AddNewIndentComponent } from './main-dashboard/add-new-indent/add-new-indent.component';
+import { FrComponent } from './fr/fr.component';
+import { TicketReportsComponent } from './ticket-reports/ticket-reports.component';
+import { AdvertisementsComponent } from './advertisements/advertisements.component';
+import { FrKitComponent } from './fr-kit/fr-kit.component';
+import { AddNewFrkitComponent } from './main-dashboard/add-new-frkit/add-new-frkit.component';
+import { FrReportsComponent } from './fr-reports/fr-reports.component';
+import { LoginLoaderComponent } from './utilities/loader/login-loader.component';
+import { AddNewDcComponent } from './main-dashboard/add-new-dc/add-new-dc.component';
 
 // material module
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -56,40 +81,14 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 //utilities
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { VjsPlayerComponent } from './utilities/vjs-player/vjs-player.component';
 import { LoaderComponent } from './utilities/loader/loader.component';
 import { ChartService } from 'src/services/chart.service';
 import { DatePipe } from '@angular/common';
-import { AdInfoComponent } from './assets/ad-info/ad-info.component';
-import { ReportsComponent } from './reports/reports.component';
-import { MetaDataComponent } from './meta-data/meta-data.component';
-import { AddMetadataComponent } from './main-dashboard/add-metadata/add-metadata.component';
-
-import { DeviceViewComponent } from './main-dashboard/add-device/device-view/device-view.component';
-import { DevicesComponent } from './devices/devices.component';
-
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-import { ProductMasterComponent } from './product-master/product-master.component';
-import { AddProductMasterComponent } from './main-dashboard/add-product-master/add-product-master.component';
-import { QRAdsComponent } from './reports/qr-ads/qr-ads.component';
-import { WifiAdsComponent } from './reports/wifi-ads/wifi-ads.component';
-import { VendorsComponent } from './vendors/vendors.component';
-import { AddNewVendorComponent } from './main-dashboard/add-new-vendor/add-new-vendor.component';
-import { AddNewDeviceComponent } from './main-dashboard/add-new-device/add-new-device.component';
-import { OrdersComponent } from './orders/orders.component';
-import { AddNewOrderComponent } from './main-dashboard/add-new-order/add-new-order.component';
-import { IndentsComponent } from './indents/indents.component';
-import { AddNewIndentComponent } from './main-dashboard/add-new-indent/add-new-indent.component';
-import { FrComponent } from './fr/fr.component';
-import { TicketReportsComponent } from './ticket-reports/ticket-reports.component';
-import { AdvertisementsComponent } from './advertisements/advertisements.component';
-import { FrKitComponent } from './fr-kit/fr-kit.component';
-import { AddNewFrkitComponent } from './main-dashboard/add-new-frkit/add-new-frkit.component';
-import { FrReportsComponent } from './fr-reports/fr-reports.component';
-import { LoginLoaderComponent } from './utilities/loader/login-loader.component';
 import { SearchPipe } from './pipes/search.pipe';
 import { SortPipe } from './pipes/sort.pipe';
-import { AddNewDcComponent } from './main-dashboard/add-new-dc/add-new-dc.component';
+
 
 @NgModule({
   declarations: [
@@ -142,9 +141,9 @@ import { AddNewDcComponent } from './main-dashboard/add-new-dc/add-new-dc.compon
     FrKitComponent,
     AddNewFrkitComponent,
     FrReportsComponent,
-    SearchPipe,
-    SortPipe,
     AddNewDcComponent,
+    SearchPipe,
+    SortPipe
   ],
   imports: [
     BrowserModule,
@@ -153,8 +152,6 @@ import { AddNewDcComponent } from './main-dashboard/add-new-dc/add-new-dc.compon
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-
-    //Mat Module
     MatFormFieldModule,
     MatSelectModule,
     MatIconModule,
@@ -180,9 +177,7 @@ import { AddNewDcComponent } from './main-dashboard/add-new-dc/add-new-dc.compon
     MatTooltipModule
   ],
   providers: [
-    ChartService,
-    // SearchPipe,
-    // SortPipe,
+    // ChartService,
     DatePipe,
     {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],

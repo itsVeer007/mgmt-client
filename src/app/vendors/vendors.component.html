@@ -106,7 +106,7 @@
       </thead>
 
       <tbody>
-        <tr *ngFor="let cust of newVendorTable | search : searchText; let i = index" (dblclick)="openViewPopup(cust)">
+        <tr *ngFor="let cust of newVendorTable | search : searchText; let i = index">
           <!-- <td>
             <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="cust.selected" (change)="
                 checkIfAllSelected();
