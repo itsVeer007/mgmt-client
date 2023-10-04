@@ -31,7 +31,7 @@
           <div class="col-lg-12 my-3">
             <mat-radio-group name="radioOpt1" class="w-100" formControlName="timeId" [(ngModel)]="assetData.nameParams.timeId">
               <mat-label>Time</mat-label>
-              <mat-radio-button class="ms-3" name="time" [value]="3">All</mat-radio-button>
+              <mat-radio-button class="ms-3" name="time" [value]="0">All</mat-radio-button>
               <mat-radio-button class="ms-3" name="time" [value]="1">AM</mat-radio-button>
               <mat-radio-button class="ms-3" name="time" [value]="2">PM</mat-radio-button>
             </mat-radio-group>
@@ -40,7 +40,7 @@
           <div class="col-lg-12 my-3">
             <mat-radio-group name="radioOpt2" class="w-100" formControlName="tempId" [(ngModel)]="assetData.nameParams.tempId">
               <mat-label>Temp</mat-label>
-              <mat-radio-button class="ms-3" name="tenp" [value]="4">All</mat-radio-button>
+              <mat-radio-button class="ms-3" name="tenp" [value]="0">All</mat-radio-button>
               <mat-radio-button class="ms-3" name="tenp" [value]="1">-10 to 20</mat-radio-button>
               <mat-radio-button class="ms-3" name="tenp" [value]="2">21 to 40</mat-radio-button>
               <mat-radio-button class="ms-3" name="tenp" [value]="3">>40</mat-radio-button>

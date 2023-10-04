@@ -282,20 +282,12 @@ export class AdvertisementsComponent implements OnInit {
   confirmEditRow() {
     this.originalObject.fromDate = this.datepipe.transform(this.currentItem.fromDate, 'yyyy-MM-dd');
     this.originalObject.toDate = this.datepipe.transform(this.currentItem.toDate, 'yyyy-MM-dd');
-    this.alertSer.wait();
 
     this.assetService.modifyAssetForDevice({asset: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
       // console.log(res);
-      if(res) {
-        this.alertSer.success(res?.message);
-      }
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
+      this.alertSer.snackSuccess(res?.message);
     }, (err: any) => {
-      if(err) {
         this.alertSer.wait();
-      };
     })
   }
 
