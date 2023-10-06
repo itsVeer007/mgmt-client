@@ -65,8 +65,8 @@ export class AddNewAssetComponent implements OnInit {
     },
 
     nameParams: {
-      timeId: 0,
-      tempId: 0,
+      timeId: 3,
+      tempId: 4,
       maleKids: 0,
       femaleKids: 0,
       maleYouth: 0,
@@ -74,8 +74,9 @@ export class AddNewAssetComponent implements OnInit {
       maleAdults: 0,
       femaleAdults: 0,
       vehicles: 0,
+      persons: 0,
 
-      persons: 0
+      object: 0
     }
   }
 
@@ -107,8 +108,9 @@ export class AddNewAssetComponent implements OnInit {
       'maleAdults': new FormControl(''),
       'femaleAdults': new FormControl(''),
       'vehicles': new FormControl(''),
+      'persons': new FormControl(''),
 
-      'persons': new FormControl('')
+      'object': new FormControl('')
     });
 
     this.addAssetForm.get('deviceModeId').valueChanges.subscribe((val: any) => {
@@ -353,8 +355,10 @@ export class AddNewAssetComponent implements OnInit {
     addNewAsset() {
       this.submit = true;
       this.assetData.asset.deviceId = this.deviceIdFromStorage?.deviceId;
-      if(this.assetData.nameParams.timeId == 0 && this.assetData.nameParams.timeId == 0) {
+      if(this.assetData.nameParams.timeId == 3 && this.assetData.nameParams.tempId == 4 && this.assetData.nameParams.object == 0) {
         this.assetData.asset.deviceModeId = 1;
+      } else if(this.assetData.nameParams.object == 1) {
+        this.assetData.asset.deviceModeId = 3;
       } else {
         this.assetData.asset.deviceModeId = 2;
       }
