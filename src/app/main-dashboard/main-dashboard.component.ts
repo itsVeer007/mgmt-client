@@ -4,6 +4,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 import { ChartService } from 'src/services/chart.service';
 import { SiteService } from 'src/services/site.service';
 import { ApiService } from 'src/services/api.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-main-dashboard',
@@ -53,7 +54,7 @@ export class MainDashboardComponent implements OnInit {
   constructor(
     private chartservice: ChartService,
     private http: HttpClient,
-    private apiser: ApiService
+    private route: ActivatedRoute
   ) { }
 
 
