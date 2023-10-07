@@ -29,42 +29,46 @@ import { TicketReportsComponent } from './ticket-reports/ticket-reports.componen
 import { AdvertisementsComponent } from './advertisements/advertisements.component';
 import { FrKitComponent } from './fr-kit/fr-kit.component';
 import { FrReportsComponent } from './fr-reports/fr-reports.component';
+import { AuthGuard } from './utilities/auth/auth.guard';
+import { ErrorPageComponent } from './utilities/error-page/error-page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'main-dashboard', component: MainDashboardComponent },
-  { path: 'verticals', component: VerticalsComponent },
-  { path: 'add-new-site', component: AddNewSiteComponent },
-  { path: 'add-new-camera', component: AddNewCameraComponent },
-  { path: 'add-new-customer', component: AddNewCustomerComponent },
-  { path: 'add-new-user', component: AddNewUserComponent },
-  { path: 'add-new-business', component: AddNewBusinessVerticalComponent },
-  { path: 'sites', component: SitesComponent },
-  { path: 'devices', component: DevicesComponent },
-  { path: 'analytics', component: AnalyticsComponent },
-  { path: 'customers', component: CustomersComponent },
-  { path: 'users', component: UsersComponent },
-  { path: 'inventory', component: InventoryComponent },
-  { path: 'product-master', component: ProductMasterComponent },
-  { path: 'orders', component: OrdersComponent },
-  { path: 'indents', component: IndentsComponent },
-  { path: 'tickets', component: TicketsComponent },
-  { path: 'ticket-reports', component: TicketReportsComponent },
-  { path: 'fr', component: FrComponent },
-  { path: 'assets', component: AssetsComponent },
-  { path: 'advertisements', component: AdvertisementsComponent },
-  { path: 'reports', component: ReportsComponent },
-  { path: 'meta', component: MetaDataComponent },
-  { path: 'vendors', component: VendorsComponent },
-  { path: 'fr-reports', component: FrReportsComponent },
-  { path: 'qr-ads', component: QRAdsComponent },
-  { path: 'wifi-ads', component: WifiAdsComponent },
-  { path:'fr-kit', component: FrKitComponent}
+  { path: 'main-dashboard', component: MainDashboardComponent, canActivate:[AuthGuard] },
+  { path: 'verticals', component: VerticalsComponent, canActivate:[AuthGuard] },
+  { path: 'add-new-site', component: AddNewSiteComponent, canActivate:[AuthGuard] },
+  { path: 'add-new-camera', component: AddNewCameraComponent, canActivate:[AuthGuard] },
+  { path: 'add-new-customer', component: AddNewCustomerComponent, canActivate:[AuthGuard] },
+  { path: 'add-new-user', component: AddNewUserComponent, canActivate:[AuthGuard]},
+  { path: 'add-new-business', component: AddNewBusinessVerticalComponent, canActivate:[AuthGuard]},
+  { path: 'sites', component: SitesComponent, canActivate:[AuthGuard]},
+  { path: 'devices', component: DevicesComponent, canActivate:[AuthGuard]},
+  { path: 'analytics', component: AnalyticsComponent, canActivate:[AuthGuard]},
+  { path: 'customers', component: CustomersComponent, canActivate:[AuthGuard]},
+  { path: 'users', component: UsersComponent, canActivate:[AuthGuard]},
+  { path: 'inventory', component: InventoryComponent, canActivate:[AuthGuard]},
+  { path: 'product-master', component: ProductMasterComponent, canActivate:[AuthGuard]},
+  { path: 'orders', component: OrdersComponent, canActivate:[AuthGuard]},
+  { path: 'indents', component: IndentsComponent, canActivate:[AuthGuard]},
+  { path: 'tickets', component: TicketsComponent, canActivate:[AuthGuard]},
+  { path: 'ticket-reports', component: TicketReportsComponent, canActivate:[AuthGuard]},
+  { path: 'fr', component: FrComponent, canActivate:[AuthGuard]},
+  { path: 'assets', component: AssetsComponent, canActivate:[AuthGuard]},
+  { path: 'advertisements', component: AdvertisementsComponent, canActivate:[AuthGuard]},
+  { path: 'reports', component: ReportsComponent, canActivate:[AuthGuard]},
+  { path: 'meta', component: MetaDataComponent, canActivate:[AuthGuard]},
+  { path: 'vendors', component: VendorsComponent, canActivate:[AuthGuard]},
+  { path: 'fr-reports', component: FrReportsComponent, canActivate:[AuthGuard]},
+  { path: 'qr-ads', component: QRAdsComponent, canActivate:[AuthGuard]},
+  { path: 'wifi-ads', component: WifiAdsComponent, canActivate:[AuthGuard]},
+  { path:'fr-kit', component: FrKitComponent, canActivate:[AuthGuard]},
+  // { path: 'error-page',  component: ErrorPageComponent},
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard]
 })
 export class AppRoutingModule { }

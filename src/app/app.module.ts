@@ -88,6 +88,7 @@ import { ChartService } from 'src/services/chart.service';
 import { DatePipe } from '@angular/common';
 import { SearchPipe } from './pipes/search.pipe';
 import { SortPipe } from './pipes/sort.pipe';
+import { ErrorPageComponent } from './utilities/error-page/error-page.component';
 
 
 @NgModule({
@@ -143,7 +144,8 @@ import { SortPipe } from './pipes/sort.pipe';
     FrReportsComponent,
     AddNewDcComponent,
     SearchPipe,
-    SortPipe
+    SortPipe,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,

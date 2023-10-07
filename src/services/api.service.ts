@@ -9,6 +9,7 @@ import { BehaviorSubject } from 'rxjs';
 export class ApiService {
 
   user$ = new BehaviorSubject(null);
+  error$ = new BehaviorSubject<any>('');
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -21,7 +22,7 @@ export class ApiService {
   }
 
   loginNew(payload: any) {
-    let url  = `http://3.239.251.173:80/userDetails/user_login_1_0`;
+    let url  = `http://34.206.37.237/userDetails/user_login_1_0`;
     return this.http.post(url, payload);
   }
 
@@ -32,10 +33,24 @@ export class ApiService {
     this.router.navigate(['/login']);
   }
 
+  getAuthStatus() {
+    let user = JSON.parse(sessionStorage.getItem('user')!);
+    if (user == null) {
+      return false;
+    }else{
+      return true;
+    }
+  }
+
   autoLogout(timer: any) {
     setTimeout(() => {
       this.logout();
     }, timer)
+  }
+
+  onHTTPerror(e: any) {
+    this.error$.next(e)
+    this.router.navigateByUrl('/error-page');
   }
 
   refresh() {
