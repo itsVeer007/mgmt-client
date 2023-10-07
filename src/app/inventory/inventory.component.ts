@@ -185,13 +185,13 @@ export class InventoryComponent implements OnInit {
   }
 
   showInventory: boolean = false;
-  showdc1: boolean = false;
+  showDcInventory: boolean = false;
   closenow(type: String) {
     if (type == 'inventory') {
       this.showInventory = false;
       }
-      if(type == 'dc1') {
-        this.showdc1 = false
+      if(type == 'showDcInventory') {
+        this.showDcInventory = false
       }
   }
 
@@ -199,8 +199,8 @@ export class InventoryComponent implements OnInit {
     if (type == 'inventory') { 
       this.showInventory = true; 
     }
-    if(type == 'dc1') {
-        this.showdc1 = true;
+    if(type == 'showDcInventory') {
+        this.showDcInventory = true;
     }
   }
 

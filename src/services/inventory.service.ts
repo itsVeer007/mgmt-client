@@ -9,8 +9,8 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class InventoryService {
 
-  baseUrl = `${environment.baseUrl}/inventoryAndtickets`;
-  // baseUrl = 'http://192.168.0.137:8080';
+  // baseUrl = `${environment.baseUrl}/inventoryAndtickets`;
+  baseUrl = 'http://192.168.0.137:8080';
   comment$: any = new BehaviorSubject(null);
 
   constructor(private http: HttpClient, public datepipe: DatePipe) { }
@@ -165,7 +165,7 @@ export class InventoryService {
 
   getItemCode(payload: any) {
     let url = this.baseUrl + "/getItemCode_1_0";
-    let params = new HttpParams().set('name', payload?.materialDescription);
+    let params = new HttpParams().set('name', payload?.materialDescription ? payload?.materialDescription : payload);
 
     return this.http.get(url, {params: params});
   }
@@ -498,8 +498,14 @@ export class InventoryService {
   }
 
   listDC() {
-    let url = this.baseUrl + `/listDC_1_0`;
+    let url = this.baseUrl + `/listDC_2_0`;
     return this.http.get(url);
+  }
+
+  getlistByCreatedBy(createdBy: any) {
+    let url = this.baseUrl + `/getlistByCreatedBy_1_0`;
+    let params = new HttpParams().set('createdBy',createdBy)
+    return this.http.get(url, {params: params});
   }
 
   createDC(payload:any) {
@@ -507,9 +513,10 @@ export class InventoryService {
     return this.http.post(url, payload )
   }
 
-  listDCItems() {
-    let url = this.baseUrl + `/listDCItems_1_0`;
-      return this.http.get(url);
+  listDescriptionOfGoodsByDcNumber(payload:any) {
+    let url = this.baseUrl + `/listDescriptionOfGoodsByDcNumber_1_0`;
+    let params = new HttpParams().set('dcNumber', payload.dcNumber)
+      return this.http.get(url, {params:params});
   }
 
   updateDC(payload:any) {

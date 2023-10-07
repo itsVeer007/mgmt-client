@@ -52,12 +52,12 @@
       </div>
       
       <div class="col-lg-2">
-        <button class="create-btn m-2" (click)="show('dc')">Create Dc</button>
+        <button class="create-btn mt-2" (click)="show('showDcFr')">Create Dc</button>
       </div>
 
-      <!-- <div class="col-lg-2">
-        <button class="create-btn m-2" (click)="openDc()">Dc</button>
-      </div> -->
+      <div class="col-lg-2">
+        <button class="create-btn mt-2" (click)="openDc1();">List Dc</button>
+      </div>
     </div>
   </div>
 
@@ -1009,6 +1009,7 @@
   </div>
 </ng-template>
 
+<!-- use -->
 <ng-template #viewDcDialog>
   <div style="background-color: #084982;">
     <p class="dialog-title">VIEW DC</p>
@@ -1024,64 +1025,67 @@
             </th>
             <th>
               <p class="d-inline-flex">
-                <span>receiptNo</span>
+                <span>dateOfChallan</span>
                 <!-- <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
               </p>
             </th>
 
             <th>
               <p class="d-inline-flex">
-                <span>cost</span>
+                <span>name</span>
                 <!-- <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
               </p>
             </th>
-
+<!-- 
             <th>
               <p class="d-inline-flex">
-                <span>dispatchedDate</span>
-                <!-- <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
+                <span>descriptionOfGoods</span>
+              
               </p>
-            </th>
-
-            <th>
-              <p class="d-inline-flex">
-                <span>Details</span>
-                <!-- <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
-              </p>
-            </th>
+            </th> -->
 
             <th>
               <p class="d-inline-flex">
                 <span>Details</span>
-                <!-- <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
+              
               </p>
             </th>
+
+            <!-- <th>
+              <p class="d-inline-flex">
+                <span>Details</span>
+              </p>
+            </th> -->
           </tr>
         </thead>
 
         <tbody>
-          <tr *ngFor="let item of items; let i = index">
+          <tr *ngFor="let item of duplicateDc; let i = index">
             <td>
               <p>{{item.dcNumber}}</p>
             </td>
             <td>
-              <p>{{ item.receiptNo }}</p>
+              <p>{{ item.dateOfChallan }}</p>
             </td>
 
             <td>
-              <p>{{ item.cost}}</p>
+              <p>{{ item.name}}</p>
             </td>
-
+<!-- 
             <td>
-              <p>{{ item.dispatchedDate | date:'mediumDate'}}</p>
+              <p>{{ item.descriptionOfGoods}}</p>
+            </td> -->
+
+            <td style="color: #084982;">
+              <p (click)="openViewDc(item)"  [matMenuTriggerFor]="viewDcItems">view</p>
             </td>
 
-            <td class="pointer text-primary" (click)="dcItems()">
+            <!-- <td class="pointer text-primary" (click)="dcItems()">
               <p>View</p>
             </td>
             <td class="pointer text-primary" (click)="openPopUp(item)">
               <p>Update Dc</p>
-            </td>
+            </td> -->
           </tr>
         </tbody>
       </table>
@@ -1093,79 +1097,13 @@
   </div>
 </ng-template>
 
-<ng-template #dcStatusDialog>
-  <div style="background-color: #084982;">
-    <p class="dialog-title">VIEW DC</p>
+
+<mat-menu #viewDcItems="matMenu">
+  <div  *ngFor="let part of dc; let i = index">
+    <button mat-menu-item>{{i+1}}. {{part}}</button>
   </div>
+</mat-menu>
 
-  <div class="dialog-content">
-    <div class="table-res">
-      <table class="table" id="mytable">
-        <thead>
-          <tr class="task-table">
-            <th>
-              <p>name</p>
-            </th>
-            <th>
-              <p class="d-inline-flex">
-                <span>SlNo</span>
-                <!-- <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
-              </p>
-            </th>
-
-            <th>
-              <p class="d-inline-flex">
-                <span>itemCode</span>
-                <!-- <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
-              </p>
-            </th>
-
-            <!-- <th>
-              <p class="d-inline-flex">
-                <span>dispatchedDate</span>
-                <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-              </p>
-            </th> -->
-
-            <!-- <th>
-              <p class="d-inline-flex">
-                <span>Details</span>
-              </p>
-            </th> -->
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr *ngFor="let item of Items; let i = index">
-            <td>
-              <p>{{item.name}}</p>
-            </td>
-            <td>
-              <p>{{ item.oldSlNo }}</p>
-            </td>
-
-            <td>
-              <p>{{ item.itemCode}}</p>
-            </td>
-
-            <!-- <td>
-              <p>{{ item.dispatchedDate  | date:'mediumDate'}}</p>
-            </td> -->
-
-            <!-- <td class="pointer text-primary" (click)="openView()">
-              <p>View</p>
-            </td> -->
-
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <div class="d-flex justify-content-end">
-    <button class="dialog-close-btn" mat-dialog-close>Close</button>
-  </div>
-</ng-template>
 
 <ng-template #dcFinalDialog>
   <div style="background-color: #084982;">
@@ -1298,9 +1236,10 @@
   </div>
 </ng-template>
 
-<div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showIndent">
+<!-- <div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showIndent">
   <app-add-new-indent (newItemEvent)="closenow('indent')"></app-add-new-indent>
-</div>
-<div  style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showDc">
-  <app-add-new-dc (newItemEvent)="closenow('dc')"></app-add-new-dc>
+</div> -->
+
+<div  style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showDcFr">
+  <app-add-new-dc [show]="'fromFr'" (newItemEvent)="closenow('showDcFr')"></app-add-new-dc>
 </div>
