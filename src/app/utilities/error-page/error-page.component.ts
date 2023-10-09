@@ -73,7 +73,7 @@ export class ErrorPageComponent implements OnInit {
     private apiSer: ApiService
   ) { }
 
-  httpError:any;
+  httpError: any;
   ngOnInit(): void {
     this.apiSer.error$.subscribe((res: any)=>{
       this.httpError = res;
