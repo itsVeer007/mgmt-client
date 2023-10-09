@@ -2,11 +2,8 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';
-import { MetadataService } from 'src/services/metadata.service';
 
 @Component({
   selector: 'app-add-new-dc',
@@ -60,10 +57,24 @@ export class AddNewDcComponent {
     ]
   }
 
+  ngOnInit() {
+    this.UserForm = this.fb.group({
+      'name': new FormControl(''),
+      'itemCode': new FormControl(''),
+      'address': new FormControl(''),
+      'state': new FormControl(''),
+      'code': new FormControl(''),
+      'descriptionOfGoods':new FormControl('')
+    });
+
+    // this.getVendor();
+    this.getProducts();
+    console.log(this.show)
+  }
+
   items: any = [];
   onTaskAdd(item: any) {
-    // console.log(item);
-    if(item?.itemCode == null) {
+    if(item?.descriptionOfGoods == null || item?.itemCode == null) {
       this.alertSer.error('Please fill all fields');
     } else {
       let takBody = {
@@ -71,50 +82,34 @@ export class AddNewDcComponent {
         'descriptionOfGoods': item.descriptionOfGoods,
       }
       this.items.push(takBody);
-
-      // this.UserForm.get('name').setValue(null);
-      // this.UserForm.get('itemCode').setValue(null);
-      // this.UserForm.get('address').setValue(null);
-      // this.UserForm.get('state').setValue(null);
-      // this.UserForm.get('code').setValue(null);
+      this.UserForm.get('itemCode').setValue(null);
+      this.UserForm.get('descriptionOfGoods').setValue(null);
     }
     // console.log(this.items)
-  }
-
-  ngOnInit() {
-    this.UserForm = this.fb.group({
-      'name': new FormControl('', Validators.required),
-      'itemCode': new FormControl('', Validators.required),
-      'address': new FormControl('', Validators.required),
-      'state': new FormControl('', Validators.required),
-      'code': new FormControl('', Validators.required),
-      'descriptionOfGoods':new FormControl('', Validators.required)
-    });
-
-    // this.getVendor();
-    this.getProducts();
-    // console.log(this.show);
-
   }
 
   productIds: any;
   getProducts() {
     let statusId = null;
-    if(this.show == 'dc1') {
-      statusId = 2
-    }
-    else {
-      statusId = 5
-    }
+    this.show == 'fromInventory' ? statusId = 2 : statusId = 5;
     this.inventorySer.listFRItems(1565, statusId).subscribe((res: any) => {
+      // console.log(res)
       this.productIds = res;
-      console.log(res);
     })
   }
 
   closeIndent() {
     this.newItemEvent.emit();
   }
+
+  currentItemCode: any;
+  getItemCode(name: any) {
+    this.inventorySer.getItemCode(name).subscribe((res: any) => {
+      // console.log(res)
+      this.currentItemCode = res
+    })
+  }
+
 
   warrantyDetail: any = 'No';
   submit() { 

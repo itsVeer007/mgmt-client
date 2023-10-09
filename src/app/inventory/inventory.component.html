@@ -78,7 +78,7 @@
       </div>
       
       <div>
-        <button class="create-btn mx-1" (click)="show('dc1')">Create Dc</button>
+        <button class="create-btn mx-1" (click)="show('showDcInventory')">Create Dc</button>
       </div>
     </div>
   </div>
@@ -1050,6 +1050,7 @@
 <div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showInventory">
   <app-add-new-inventory (newItemEvent)="closenow('inventory'); listInventory()"></app-add-new-inventory>
 </div>
-<div  style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showdc1">
-  <app-add-new-dc [show]="'dc1'" (newItemEvent)="closenow('dc1'); listInventory()"></app-add-new-dc>
+
+<div  style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showDcInventory">
+  <app-add-new-dc [show]="'fromInventory'" (newItemEvent)="closenow('showDcInventory'); listInventory()"></app-add-new-dc>
 </div>

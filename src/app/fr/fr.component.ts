@@ -83,22 +83,15 @@ export class FrComponent implements OnInit {
     }
   }
 
-  showIndent: boolean = false;
-  showDc: boolean = false;
+  showDcFr: boolean = false;
   show(type: string) {
-    if (type == 'indent') {
-      this.showIndent = true
-    }
-    if (type == 'dc') { 
-      this.showDc = true 
+    if (type == 'showDcFr') { 
+      this.showDcFr = true 
     }
   }
   closenow(type: String) {
-    if (type == 'indent') {
-      this.showIndent = false
-      }
-      if (type == 'dc') {
-        this.showDc = false 
+      if (type == 'showDcFr') {
+        this.showDcFr = false 
         }
   }
 
@@ -444,27 +437,64 @@ export class FrComponent implements OnInit {
 
   }
 
-  // dcDialog
+  // dcDialoglist
   @ViewChild('viewDcDialog') viewDcDialog = {} as TemplateRef<any>
   items:any;
   openDc() {
     this.dialog.open(this.viewDcDialog);
-
     this.inventorySer.listDC().subscribe((res:any)=>{
       // console.log(res);
       this.items = res;
+        this.duplicateDc = this.items.reduce((acc: any, current: any) => {
+          const x = acc.find((item: any) => item.dcNumber == current.dcNumber);
+          if (!x) {
+            return acc.concat([current]);
+          } else {
+            return acc;
+          }
+        }, []);
     })
   }
 
-  Items:any;
-  @ViewChild('dcStatusDialog') dcStatusDialog = {} as TemplateRef<any>
-  dcItems() {
-  this.dialog.open(this.dcStatusDialog)
-    this.inventorySer.listDCItems().subscribe((res:any)=>{
+  openDc1() {
+    this.dialog.open(this.viewDcDialog);
+    this.inventorySer.getlistByCreatedBy(1565).subscribe((res:any)=>{
       // console.log(res);
-      this.Items = res;
+      this.items = res;
+        this.duplicateDc = this.items.reduce((acc: any, current: any) => {
+          const x = acc.find((item: any) => item.dcNumber == current.dcNumber);
+          if (!x) {
+            return acc.concat([current]);
+          } else {
+            return acc;
+          }
+        }, []);
     })
   }
+
+  dc:any;
+  @ViewChild('dcStatusDialog') dcStatusDialog = {} as TemplateRef<any>
+  openViewDc(datas:any) {
+    // console.log(datas);
+    this.inventorySer.listDescriptionOfGoodsByDcNumber(datas).subscribe((res:any)=>{
+      // console.log(res);
+      this.dc = res;
+    })
+
+    //   console.log(res);
+    //   this.Items = res;
+    // })
+  }
+
+  // listDescriptionOfGoodsByDcNumber(data:any) {
+  //   this.inventorySer.listDescriptionOfGoodsByDcNumber(datas).subscribe((res:any)=>{
+  //     console.log(res);
+  //   })
+  // }
+
+
+  duplicateDc: any;
+  
 
 
   data = {
