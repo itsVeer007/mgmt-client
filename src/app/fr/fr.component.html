@@ -1051,11 +1051,23 @@
               </p>
             </th>
 
-            <!-- <th>
+            <th>
               <p class="d-inline-flex">
-                <span>Details</span>
+                <span>Amount</span>
               </p>
-            </th> -->
+            </th>
+
+            <th>
+              <p class="d-inline-flex">
+                <span>Receipt No</span>
+              </p>
+            </th>
+
+            <th>
+              <p class="d-inline-flex">
+                <span>Update</span>
+              </p>
+            </th>
           </tr>
         </thead>
 
@@ -1071,13 +1083,23 @@
             <td>
               <p>{{ item.name}}</p>
             </td>
-<!-- 
-            <td>
-              <p>{{ item.descriptionOfGoods}}</p>
-            </td> -->
 
             <td style="color: #084982;">
               <p (click)="openViewDc(item)"  [matMenuTriggerFor]="viewDcItems">view</p>
+            </td>
+            <td>
+              <p>{{ item.amount}}</p>
+            </td>
+
+            
+            <td>
+              <p>{{ item.receiptNo}}</p>
+            </td>
+
+            <td>
+              <p><a class="mx-1 pointer" (click)="openDcUpdateDialog(item)"  matTooltip="Edit">
+                <img src="assets/icons/edit.svg">
+              </a></p>
             </td>
 
             <!-- <td class="pointer text-primary" (click)="dcItems()">
@@ -1105,7 +1127,7 @@
 </mat-menu>
 
 
-<ng-template #dcFinalDialog>
+<ng-template #dcUpdateDialog>
   <div style="background-color: #084982;">
     <p class="dialog-title">UPDATE DC</p>
   </div>
@@ -1119,8 +1141,8 @@
     </div>
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Cost</mat-label>
-        <input matInput type="number" [(ngModel)]="data.cost">
+        <mat-label>Amount</mat-label>
+        <input matInput type="number" [(ngModel)]="data.amount">
       </mat-form-field>
     </div>
   </div>
@@ -1130,7 +1152,7 @@
       <button class="dialog-close-btn" mat-dialog-close>Close</button>
     </div>
     <div>
-      <button class="dialog-update-btn" mat-dialog-close (click)="updateDC()">Update</button>
+      <button class="dialog-update-btn" mat-dialog-close  (click)="updateDC()">Update</button>
     </div>
   </div>
 </ng-template>

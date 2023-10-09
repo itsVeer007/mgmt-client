@@ -520,8 +520,8 @@ export class InventoryService {
   }
 
   updateDC(payload:any) {
-    let url = this.baseUrl + `/updateDC_1_0`;
-    let params = new HttpParams().set('dcNumber', payload.dcNumber).set('cost',payload.cost).set('receiptNo', payload.receiptNo)
+    let url = this.baseUrl + `/updateDC_2_0`;
+    let params = new HttpParams().set('dcNumber', payload.dcNumber).set('amount',payload.amount).set('receiptNo', payload.receiptNo).set('modifiedBy', payload.modifiedBy).set('quantity', payload.quantity)
     return this.http.put(url, null, {params:params})
   }
 

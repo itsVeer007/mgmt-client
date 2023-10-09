@@ -52,7 +52,8 @@ export class AddNewDcComponent {
     itemCode: [
       {
         itemCode: null,
-        descriptionOfGoods:null
+        descriptionOfGoods:null,
+        quantity:null,
       }
     ]
   }
@@ -64,7 +65,8 @@ export class AddNewDcComponent {
       'address': new FormControl(''),
       'state': new FormControl(''),
       'code': new FormControl(''),
-      'descriptionOfGoods':new FormControl('')
+      'descriptionOfGoods':new FormControl(''),
+      'formControlName':new FormControl('')
     });
 
     // this.getVendor();
@@ -91,6 +93,14 @@ export class AddNewDcComponent {
   productIds: any;
   getProducts() {
     let statusId = null;
+    // let frId = null;
+    // if(this.show == 'fromInventory') {
+    //   statusId = 2
+    //   frId = 1565
+    // } else {
+    //   statusId = 5
+    //   frId = 1565
+    // }
     this.show == 'fromInventory' ? statusId = 2 : statusId = 5;
     this.inventorySer.listFRItems(1565, statusId).subscribe((res: any) => {
       // console.log(res)

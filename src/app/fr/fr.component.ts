@@ -472,8 +472,9 @@ export class FrComponent implements OnInit {
     })
   }
 
+
   dc:any;
-  @ViewChild('dcStatusDialog') dcStatusDialog = {} as TemplateRef<any>
+  // @ViewChild('dcStatusDialog') dcStatusDialog = {} as TemplateRef<any>
   openViewDc(datas:any) {
     // console.log(datas);
     this.inventorySer.listDescriptionOfGoodsByDcNumber(datas).subscribe((res:any)=>{
@@ -499,26 +500,23 @@ export class FrComponent implements OnInit {
 
   data = {
     receiptNo:null,
-    cost:null,
-    dcNumber:null
+    amount:null,
+    dcNumber:null,
+    modifiedBy:1
   }
 
 
-  @ViewChild('dcFinalDialog') dcFinalDialog = {} as TemplateRef<any>
-  openPopUp(item:any){
-    this.dialog.open(this.dcFinalDialog)
-    // this.inventorySer.updateDC(this.data).subscribe((res:any)=>{
+  @ViewChild('dcUpdateDialog') dcUpdateDialog = {} as TemplateRef<any>
+  openDcUpdateDialog(item:any){
+    this.dialog.open(this.dcUpdateDialog)
     this.currentItem= item;
-    // })
   }
 
   updateDC(){
-    // this.data.dcNumber=this.currentItem.dcNumber
-    // this.inventorySer.updateDC(this.data).subscribe((res:any)=>{
-    //   this.alertSer.snackSuccess(res?.message)
-    // }, (error)=>{
-    //   this.alertSer.error(error?.err?.res);
-    // })
+    this.data.dcNumber = this.currentItem.dcNumber
+    this.inventorySer.updateDC(this.data).subscribe((res:any)=>{
+      console.log(res);
+      })
   }
 
 

@@ -80,6 +80,10 @@
       <div>
         <button class="create-btn mx-1" (click)="show('showDcInventory')">Create Dc</button>
       </div>
+
+      <!-- <div class="col-lg-2">
+        <button class="create-btn mt-2" (click)="openDc1();">List Dc</button>
+      </div> -->
     </div>
   </div>
 
@@ -1044,6 +1048,14 @@
     <button class="dialog-close-btn" mat-dialog-close>Close</button>
   </div>
 </ng-template>
+
+
+<mat-menu #viewDcItems="matMenu">
+  <div  *ngFor="let part of dc; let i = index">
+    <button mat-menu-item>{{i+1}}. {{part}}</button>
+  </div>
+</mat-menu>
+
 
 
 

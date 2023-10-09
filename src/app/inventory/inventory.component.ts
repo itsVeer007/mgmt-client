@@ -204,6 +204,38 @@ export class InventoryComponent implements OnInit {
     }
   }
 
+  // items:any;
+  // @ViewChild('viewDcDialog') viewDcDialog = {} as TemplateRef<any>
+  // openDc1() {
+  //   this.dialog.open(this.viewDcDialog);
+  //   this.inventorySer.getlistByCreatedBy(1565).subscribe((res:any)=>{
+  //     // console.log(res);
+  //     this.items = res;
+  //       this.duplicateDc = this.items.reduce((acc: any, current: any) => {
+  //         const x = acc.find((item: any) => item.dcNumber == current.dcNumber);
+  //         if (!x) {
+  //           return acc.concat([current]);
+  //         } else {
+  //           return acc;
+  //         }
+  //       }, []);
+  //   })
+  // }
+
+  dc:any;
+  // @ViewChild('dcStatusDialog') dcStatusDialog = {} as TemplateRef<any>
+  openViewDc(datas:any) {
+    // console.log(datas);
+    this.inventorySer.listDescriptionOfGoodsByDcNumber(datas).subscribe((res:any)=>{
+      // console.log(res);
+      this.dc = res;
+    })
+
+    //   console.log(res);
+    //   this.Items = res;
+    // })
+  }
+
   addressid = 0;
   addressView(e: any, i: any) {
     this.addressid = i;
