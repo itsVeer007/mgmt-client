@@ -1,4 +1,4 @@
-<div class="container-fluid col-lg-12 col-md-12 col-sm-12 col-xs-12 main-dashboard">
+<div class="container-fluid col-lg-12 main-dashboard">
     <!-- <div class="d-flex justify-content-between  dashboard-header" style="position: sticky;">
         <h4 class="head">DASHBOARD</h4>
         <div [hidden]="icons111" class="icons1">
@@ -359,7 +359,6 @@
             <div id="chart4"></div>
         </div>
     </div>
-
 </div>
 
 
@@ -367,18 +366,6 @@
     <app-add-new-site (newItemEvent)="closenow($event, 'site')"></app-add-new-site>
 </div>
 
-<!-- <div style="position: fixed; top:0;" *ngIf="showAddCamera">
-    <app-add-new-camera (newItemEvent)="closenow($event, 'camr')" ></app-add-new-camera>
-</div> -->
-
-<!-- <div style="position: fixed; top:0;" *ngIf="showAddCustomer">
-    <app-add-new-customer (newItemEvent)="closenow($event, 'cust')" ></app-add-new-customer>
-</div> -->
-
 <div style="position: fixed; top:0;" *ngIf="showAddUser">
     <app-add-new-user (newItemEvent)="closenow($event, 'user')"></app-add-new-user>
 </div>
-
-<!-- <div style="position: fixed; top:0;" *ngIf="showAddBusinessVertical">
-    <app-add-new-business-vertical [show]="showAddBusinessVertical" (newItemEvent)="closenow($event, 'vert')" ></app-add-new-business-vertical>
-</div> -->

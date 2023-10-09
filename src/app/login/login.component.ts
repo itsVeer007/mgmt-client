@@ -69,25 +69,26 @@ export class LoginComponent implements OnInit {
 
   forgotPassVisible: boolean = false;
   loginNew() {
-    this.showLoader = true;
-    this.apiser.loginNew(this.loginBody).subscribe((res: any) => {
-      this.showLoader = false;
-      if(res?.message == 'User authentication failed') {
-        this.errMsg = 'Please contact support-team';
-        this.clearErrMsg();
-      } else {
-        sessionStorage.setItem('user', JSON.stringify(res));
-        this.apiser.user$.next(res);
-        this.router.navigate(['/main-dashboard']);
-        this.getlistSites();
-      }
-    })
+    if(this.loginForm.valid) {
+      this.showLoader = true;
+      this.apiser.loginNew(this.loginBody).subscribe((res: any) => {
+        this.showLoader = false;
+        if(res?.Status == 'Success') {
+          this.apiser.isLoggedin.next(true);
+          sessionStorage.setItem('user', JSON.stringify(res));
+          this.apiser.user$.next(res);
+          this.router.navigate(['/main-dashboard']);
+          this.getlistSites();
+        } else if(res?.Status == 'Failed') {
+          this.errMsg = res?.message;
+          this.clearErrMsg();
+        }
+      })
+    }
   }
 
-  // inputToAssets: any;
   getlistSites() {
     this.siteSer.listSites().subscribe((res: any) => {
-      // console.log(res);
       if(res?.Status == 'Success') {
         localStorage.setItem('siteIds', JSON.stringify(res?.siteList));
       }
@@ -100,9 +101,7 @@ export class LoginComponent implements OnInit {
   }
 
   clearErrMsg() {
-    setTimeout(() => {
-      this.errMsg = null;
-    }, 5000)
+    setTimeout(() => {this.errMsg = null}, 5000)
   }
 
 }

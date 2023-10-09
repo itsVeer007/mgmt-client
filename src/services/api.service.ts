@@ -8,7 +8,8 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ApiService {
 
-  user$ = new BehaviorSubject(null);
+  isLoggedin = new BehaviorSubject<boolean>(false);
+  user$ = new BehaviorSubject<any>(null);
   error$ = new BehaviorSubject<any>('');
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -29,6 +30,7 @@ export class ApiService {
   logout() {
     localStorage.clear();
     sessionStorage.clear();
+    this.isLoggedin.next(false);
     this.user$.next(null);
     this.router.navigate(['/login']);
   }

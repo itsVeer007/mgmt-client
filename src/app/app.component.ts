@@ -20,10 +20,12 @@ export class AppComponent {
     });
   }
 
-  // ngDoCheck() {
-  //   this.apiser.user$.subscribe((res) => {
-  //     console.log(res)
-  //   });
-  // }
+  ngDoCheck() {
+    // this.apiser.user$.subscribe((res) => {
+    //   console.log(res)
+    // });
+
+    // this.apiser.isLoggedin.subscribe(res => console.log(res))
+  }
 
 }

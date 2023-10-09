@@ -63,7 +63,7 @@ const routes: Routes = [
   { path: 'qr-ads', component: QRAdsComponent, canActivate:[AuthGuard]},
   { path: 'wifi-ads', component: WifiAdsComponent, canActivate:[AuthGuard]},
   { path:'fr-kit', component: FrKitComponent, canActivate:[AuthGuard]},
-  // { path: 'error-page',  component: ErrorPageComponent},
+  // { path: '**',  component: ErrorPageComponent},
 ];
 
 @NgModule({
