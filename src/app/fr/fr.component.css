@@ -4,6 +4,15 @@
   padding: 2px !important;
 }
 
+::ng-deep .from-date .mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 1px;
+  display: inline-flex;
+}
+
+::ng-deep .from-date .mat-date-range-input-container {
+  padding-top: 8px;
+}
+
 ::ng-deep .mat-flat-button.mat-primary {
   background-color: #084982;
 }

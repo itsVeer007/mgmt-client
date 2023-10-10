@@ -66,7 +66,7 @@ export class AddNewDcComponent {
       'state': new FormControl(''),
       'code': new FormControl(''),
       'descriptionOfGoods':new FormControl(''),
-      'formControlName':new FormControl('')
+      'quantity':new FormControl('')
     });
 
     // this.getVendor();

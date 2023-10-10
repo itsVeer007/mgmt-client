@@ -81,9 +81,9 @@
         <button class="create-btn mx-1" (click)="show('showDcInventory')">Create Dc</button>
       </div>
 
-      <!-- <div class="col-lg-2">
-        <button class="create-btn mt-2" (click)="openDc1();">List Dc</button>
-      </div> -->
+      <div class="col-lg-2">
+        <button class="create-btn mx-1" (click)="opendc()">List Dc</button>
+      </div>
     </div>
   </div>
 
@@ -1055,6 +1055,92 @@
     <button mat-menu-item>{{i+1}}. {{part}}</button>
   </div>
 </mat-menu>
+
+<ng-template #dcListDialog>
+  <div style="background-color: #084982;" class="d-flex">
+    <p class="dialog-title">view</p>
+    <div class="dialog-content mt-2">
+      <button  mat-raised-button color="warn" class="mx-2"  (click)="open()">Maintainance dc</button>
+      <button  mat-raised-button color="warn" class="mx-2">List all dc</button>
+    </div>
+  </div>
+
+ <div class="d-flex">
+  <div class="col-lg-4 mx-3">
+    <mat-form-field appearance="outline" class="w-100">
+        <input matInput [matDatepicker]="picker1" placeholder="Start Date">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+        <mat-error class="mt-1">Start Date is required</mat-error>
+    </mat-form-field>
+  </div>
+  <div class="col-lg-4 mx-3">
+    <mat-form-field appearance="outline" class="w-100">
+        <input matInput [matDatepicker]="picker2" placeholder="Start Date">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+        <mat-error class="mt-1">End Date is required</mat-error>
+    </mat-form-field>
+  </div>
+ </div>
+
+
+ <div class="dialog-content mt-2">
+  <div class="table-res">
+    <table class="table" id="mytable">
+      <thead>
+        <tr class="task-table">
+          <th>dcNumber</th>
+          <th>dateOfChallan</th>
+          <th>name</th>
+          <th>Details</th>
+          <th>Amount</th>
+          <th>Receipt No</th>
+          <th>Update</th>
+          <!-- <th>siteName</th> -->
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let item of items; let i = index">
+          <td>
+            <p>{{ item.dcNumber }}</p>
+          </td>
+
+          <td>
+            <p>{{ item.dateOfChallan }}</p>
+          </td>
+
+          <td>
+            <p>{{ item.name }}</p>
+          </td>
+
+          <td>
+            <p style="color: #084982;">view</p>
+          </td>
+          <td>
+            <p>{{item.amount}}</p>
+          </td>
+          <td>
+            <p>{{item.receiptNo}}</p>
+          </td>
+          <td>
+            <a class="mx-1 pointer" matTooltip="Edit">
+              <img src="assets/icons/edit.svg">
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+ </div>
+  
+  <div class="d-flex align-items-center justify-content-end">
+    <div>
+      <button class="dialog-close-btn mt-2" mat-dialog-close>Close</button>
+    </div>
+  </div>
+</ng-template>
 
 
 

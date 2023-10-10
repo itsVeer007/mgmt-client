@@ -454,11 +454,16 @@ export class FrComponent implements OnInit {
           }
         }, []);
     })
+  }     
+
+  filterBody = {
+    dateOfChallan:null,
+    createdBy:1565
   }
 
   openDc1() {
     this.dialog.open(this.viewDcDialog);
-    this.inventorySer.getlistByCreatedBy(1565).subscribe((res:any)=>{
+    this.inventorySer.getlistByCreatedBy(this.filterBody).subscribe((res:any)=>{
       // console.log(res);
       this.items = res;
         this.duplicateDc = this.items.reduce((acc: any, current: any) => {
@@ -517,6 +522,10 @@ export class FrComponent implements OnInit {
     this.inventorySer.updateDC(this.data).subscribe((res:any)=>{
       console.log(res);
       })
+  }
+
+  applyFilter() {
+
   }
 
 

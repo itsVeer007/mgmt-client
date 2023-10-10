@@ -1015,6 +1015,16 @@
     <p class="dialog-title">VIEW DC</p>
   </div>
 
+  <div class="col-lg-4 mx-3">
+    <mat-form-field appearance="outline" class="w-100">
+        <input matInput [matDatepicker]="picker1" placeholder="Start Date" [(ngModel)]="filterBody.dateOfChallan">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+        <mat-error class="mt-1">Start Date is required</mat-error>
+    </mat-form-field>
+</div>
+
+
   <div class="dialog-content">
     <div class="table-res">
       <table class="table" id="mytable">
@@ -1115,8 +1125,14 @@
   </div>
 
   <div class="d-flex justify-content-end">
-    <button class="dialog-close-btn" mat-dialog-close>Close</button>
+    <div>
+      <button class="dialog-close-btn" mat-dialog-close>Close</button>
+    </div>
+      <div>
+        <button class="dialog-update-btn" mat-dialog-close>Submit</button>
+      </div>
   </div>
+  
 </ng-template>
 
 

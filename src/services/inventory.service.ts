@@ -163,6 +163,7 @@ export class InventoryService {
     return this.http.get(url, {params: params});
   }
 
+  // dcgetitemcode
   getItemCode(payload: any) {
     let url = this.baseUrl + "/getItemCode_1_0";
     let params = new HttpParams().set('name', payload?.materialDescription ? payload?.materialDescription : payload);
@@ -436,7 +437,7 @@ export class InventoryService {
     let url = this.baseUrl + `/listFRSites_1_0/${frId}`;
     return this.http.get(url);
   }
-
+// dcfritems
   listFRItems(frId: any, statusId: any) {
     let url = this.baseUrl + `/listFRItems_1_0`;
     let params = new HttpParams()
@@ -502,12 +503,19 @@ export class InventoryService {
     return this.http.get(url);
   }
 
-  getlistByCreatedBy(createdBy: any) {
+  getlistByCreatedBy(payload: any) {
     let url = this.baseUrl + `/getlistByCreatedBy_1_0`;
-    let params = new HttpParams().set('createdBy',createdBy)
+    let params = new HttpParams()
+    if(payload.createdBy) {
+      params = params.set('createdBy',payload.createdBy)
+    } 
+    if(payload.dateOfChallan) {
+      params = params.set('dateOfChallan', payload.dateOfChallan)
+    }
     return this.http.get(url, {params: params});
   }
 
+  // dccreateDC
   createDC(payload:any) {
     let url = this.baseUrl + '/createDC_1_0';
     return this.http.post(url, payload )

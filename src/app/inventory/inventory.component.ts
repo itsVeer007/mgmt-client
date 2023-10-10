@@ -614,4 +614,22 @@ export class InventoryComponent implements OnInit {
     this.showDetail = !this.showDetail
   }
 
+  createdByBody = {
+    dateOfChallan:null,
+    createdBy:1
+  }
+
+@ViewChild('dcListDialog') dcListDialog = {} as TemplateRef<any>
+  opendc() {
+    this.dialog.open(this.dcListDialog);
+  }
+
+  items:any
+  open() {
+    this .inventorySer.getlistByCreatedBy(this.createdByBody).subscribe((res:any)=> {
+      // console.log(res);
+      this.items = res;
+    })
+  }
+
 }
