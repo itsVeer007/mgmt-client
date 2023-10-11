@@ -438,58 +438,58 @@ export class FrComponent implements OnInit {
   }
 
   // dcDialoglist
-  @ViewChild('viewDcDialog') viewDcDialog = {} as TemplateRef<any>
-  items:any;
-  openDc() {
-    this.dialog.open(this.viewDcDialog);
-    this.inventorySer.listDC().subscribe((res:any)=>{
-      // console.log(res);
-      this.items = res;
-        this.duplicateDc = this.items.reduce((acc: any, current: any) => {
-          const x = acc.find((item: any) => item.dcNumber == current.dcNumber);
-          if (!x) {
-            return acc.concat([current]);
-          } else {
-            return acc;
-          }
-        }, []);
-    })
-  }     
+  @ViewChild('viewDcDialog') viewDcDialog = {} as TemplateRef<any>;
+
+  // openDc() {
+  //   this.dialog.open(this.viewDcDialog);
+  //   this.inventorySer.listDC().subscribe((res:any)=>{
+  //       this.duplicateDc = res.reduce((acc: any, current: any) => {
+  //         const x = acc.find((item: any) => item.dcNumber == current.dcNumber);
+  //         if (!x) {
+  //           return acc.concat([current]);
+  //         } else {
+  //           return acc;
+  //         }
+  //       }, []);
+  //   })
+  // }     
 
   filterBody = {
-    dateOfChallan:null,
-    createdBy:1565
+    createdBy: 1565
+  }
+  filterBody1 = {
+    dateOfChallan: null
   }
 
-  openDc1() {
-    this.dialog.open(this.viewDcDialog);
-    this.inventorySer.getlistByCreatedBy(this.filterBody).subscribe((res:any)=>{
-      // console.log(res);
-      this.items = res;
-        this.duplicateDc = this.items.reduce((acc: any, current: any) => {
-          const x = acc.find((item: any) => item.dcNumber == current.dcNumber);
-          if (!x) {
-            return acc.concat([current]);
-          } else {
-            return acc;
-          }
-        }, []);
+  duplicateDc: any;
+  newDuplicateDc: any
+  getlistByCreatedBy(type: string) {
+    if(type == 'list') {
+      this.dialog.open(this.viewDcDialog);
+    }
+    this.inventorySer.getlistByCreatedBy(type == 'list' ? this.filterBody : this.filterBody1).subscribe((res:any) => {
+      this.duplicateDc = res;
+      this.newDuplicateDc = this.duplicateDc;
+      
+      this.newDuplicateDc = this.duplicateDc.reduce((acc: any, current: any) => {
+        const x = acc.find((item: any) => item.dcNumber == current.dcNumber);
+        if (!x) {
+          return acc.concat([current]);
+        } else {
+          return acc;
+        }
+      }, []);
     })
   }
 
+  // @ViewChild('dcStatusDialog') dcStatusDialog = {} as TemplateRef<any>;
 
-  dc:any;
-  // @ViewChild('dcStatusDialog') dcStatusDialog = {} as TemplateRef<any>
-  openViewDc(datas:any) {
-    // console.log(datas);
-    this.inventorySer.listDescriptionOfGoodsByDcNumber(datas).subscribe((res:any)=>{
+  dc: any;
+  openViewDc(data:any) {
+    this.inventorySer.listDescriptionOfGoodsByDcNumber(data).subscribe((res:any)=>{
       // console.log(res);
       this.dc = res;
     })
-
-    //   console.log(res);
-    //   this.Items = res;
-    // })
   }
 
   // listDescriptionOfGoodsByDcNumber(data:any) {
@@ -498,18 +498,12 @@ export class FrComponent implements OnInit {
   //   })
   // }
 
-
-  duplicateDc: any;
-  
-
-
   data = {
     receiptNo:null,
     amount:null,
     dcNumber:null,
     modifiedBy:1
   }
-
 
   @ViewChild('dcUpdateDialog') dcUpdateDialog = {} as TemplateRef<any>
   openDcUpdateDialog(item:any){
@@ -521,13 +515,10 @@ export class FrComponent implements OnInit {
     this.data.dcNumber = this.currentItem.dcNumber
     this.inventorySer.updateDC(this.data).subscribe((res:any)=>{
       console.log(res);
-      })
+    })
   }
 
-  applyFilter() {
-
-  }
-
+ 
 
 
   selectedAll: any;

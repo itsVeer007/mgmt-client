@@ -45,15 +45,15 @@ export class AddNewDcComponent {
 
   inventoryBody = {
     name: null,
-    address:null,
-    state:null,
-    code:null,
+    address: null,
+    state: null,
+    code: null,
     createdBy: 1,
     itemCode: [
       {
         itemCode: null,
-        descriptionOfGoods:null,
-        quantity:null,
+        descriptionOfGoods: null,
+        quantity: null,
       }
     ]
   }
@@ -71,21 +71,22 @@ export class AddNewDcComponent {
 
     // this.getVendor();
     this.getProducts();
-    console.log(this.show)
   }
 
   items: any = [];
   onTaskAdd(item: any) {
-    if(item?.descriptionOfGoods == null || item?.itemCode == null) {
+    if(item?.descriptionOfGoods == null && item?.quantity == null &&  item?.itemCode == null) {
       this.alertSer.error('Please fill all fields');
     } else {
       let takBody = {
         'itemCode': item.itemCode,
         'descriptionOfGoods': item.descriptionOfGoods,
+        'quantity':item.quantity
       }
       this.items.push(takBody);
       this.UserForm.get('itemCode').setValue(null);
       this.UserForm.get('descriptionOfGoods').setValue(null);
+      this.UserForm.get('quantity').setValue(null)
     }
     // console.log(this.items)
   }
@@ -119,6 +120,23 @@ export class AddNewDcComponent {
       this.currentItemCode = res
     })
   }
+
+
+
+  listQuantityBody = {
+    itemCode: null,
+    modifiedBy:1565,
+    statusId:5
+  }
+
+  // inventoryQty: any;
+  // listQuantity() {
+  //   this.listQuantityBody.itemCode = this.currentItemCode?.code;
+  //   this.inventorySer.listQuantity(this.listQuantityBody).subscribe((res:any)=> {
+  //     // console.log(res);
+  //     this.inventoryQty = res;
+  //   })
+  // }
 
 
   warrantyDetail: any = 'No';

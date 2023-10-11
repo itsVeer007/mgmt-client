@@ -614,22 +614,41 @@ export class InventoryComponent implements OnInit {
     this.showDetail = !this.showDetail
   }
 
+ 
   createdByBody = {
-    dateOfChallan:null,
+    dateOfChallan: null,
     createdBy:1
   }
 
-@ViewChild('dcListDialog') dcListDialog = {} as TemplateRef<any>
-  opendc() {
-    this.dialog.open(this.dcListDialog);
+  createdByBody1 = {
+    dateOfChallan: null
   }
 
-  items:any
-  open() {
-    this .inventorySer.getlistByCreatedBy(this.createdByBody).subscribe((res:any)=> {
-      // console.log(res);
-      this.items = res;
-    })
+  @ViewChild('dcListDialog') dcListDialog = {} as TemplateRef<any>;
+
+  items:any;
+  newItems: any;
+  getAllDC(type: string) {
+    if(type == 'allDc') {
+      this.dialog.open(this.dcListDialog);
+      this.inventorySer.getAllDC().subscribe((res:any)=>{
+        // console.log(res);
+        this.items= res;
+        this.newItems = this.items;
+      });
+    } else if(type == 'maintenanceDc') {
+      this .inventorySer.getlistByCreatedBy(this.createdByBody).subscribe((res:any)=> {
+        // console.log(res);
+        this.items = res;
+        this.newItems = this.items;
+      });
+    } else if(type == 'maintenanceDc1') {
+      this .inventorySer.getlistByCreatedBy(this.createdByBody1).subscribe((res:any)=> {
+        // console.log(res);
+        this.items = res;
+        this.newItems = this.items;
+      });
+    }
   }
 
 }

@@ -155,12 +155,13 @@
                                             <mat-error class="mt-1">itemCode is required</mat-error>
                                         </mat-form-field>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <!-- <div class="col-lg-6">
                                         <mat-form-field appearance="outline" class="w-100">
                                         <mat-label>quantity</mat-label>
-                                        <input  matInput type="number" formControlName="quantity" [(ngModel)]="inventoryBody.itemCode[i].quantity" >
+                                        <input  matInput type="number" formControlName="quantity" [(ngModel)]="inventoryBody.itemCode[i].quantity">
+                                        <mat-hint class="mt-2">Available quantity:&nbsp;{{ inventoryQty }}</mat-hint>
                                         </mat-form-field>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 
     
@@ -180,6 +181,7 @@
                                 <th>no</th>
                                 <th>itemCode</th>
                                 <th>descriptionOfGoods</th>
+                                <!-- <th>quantity</th> -->
                             </tr>
                         </thead>
                         <tbody>
@@ -187,6 +189,9 @@
                                 <th>{{ j + 1 }}</th>
                                 <td>{{ task.itemCode }}</td>
                                 <td>{{ task.descriptionOfGoods }}</td>
+                                <!-- <td class="pointer">
+                                    <img src="assets\icons\plus.svg" alt="">quantity<img src="assets\icons\minus.svg" alt="">
+                                </td> -->
                             </tr>
                         </tbody>
                     </table>

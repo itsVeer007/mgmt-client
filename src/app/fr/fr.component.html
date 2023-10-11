@@ -56,7 +56,7 @@
       </div>
 
       <div class="col-lg-2">
-        <button class="create-btn mt-2" (click)="openDc1();">List Dc</button>
+        <button class="create-btn mt-2" (click)="getlistByCreatedBy('list')">List Dc</button>
       </div>
     </div>
   </div>
@@ -1009,20 +1009,26 @@
   </div>
 </ng-template>
 
-<!-- use -->
 <ng-template #viewDcDialog>
   <div style="background-color: #084982;">
     <p class="dialog-title">VIEW DC</p>
   </div>
 
-  <div class="col-lg-4 mx-3">
-    <mat-form-field appearance="outline" class="w-100">
-        <input matInput [matDatepicker]="picker1" placeholder="Start Date" [(ngModel)]="filterBody.dateOfChallan">
-        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-        <mat-datepicker #picker1></mat-datepicker>
-        <mat-error class="mt-1">Start Date is required</mat-error>
-    </mat-form-field>
-</div>
+  <div class="row">
+    <div class="col-lg-4 mx-3">
+      <mat-form-field appearance="outline" class="w-100">
+          <input matInput [matDatepicker]="picker1" placeholder="Start Date" [(ngModel)]="filterBody1.dateOfChallan">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+          <mat-error class="mt-1">Start Date is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-2">
+      <button  class="filter-btn mt-2" (click)="getlistByCreatedBy('filter')">Apply</button>
+    </div>
+  </div>
+
 
 
   <div class="dialog-content">
@@ -1036,28 +1042,17 @@
             <th>
               <p class="d-inline-flex">
                 <span>dateOfChallan</span>
-                <!-- <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
               </p>
             </th>
-
             <th>
               <p class="d-inline-flex">
                 <span>name</span>
-                <!-- <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
               </p>
             </th>
-<!-- 
-            <th>
-              <p class="d-inline-flex">
-                <span>descriptionOfGoods</span>
-              
-              </p>
-            </th> -->
 
             <th>
               <p class="d-inline-flex">
                 <span>Details</span>
-              
               </p>
             </th>
 
@@ -1082,7 +1077,7 @@
         </thead>
 
         <tbody>
-          <tr *ngFor="let item of duplicateDc; let i = index">
+          <tr *ngFor="let item of newDuplicateDc; let i = index">
             <td>
               <p>{{item.dcNumber}}</p>
             </td>
@@ -1112,12 +1107,6 @@
               </a></p>
             </td>
 
-            <!-- <td class="pointer text-primary" (click)="dcItems()">
-              <p>View</p>
-            </td>
-            <td class="pointer text-primary" (click)="openPopUp(item)">
-              <p>Update Dc</p>
-            </td> -->
           </tr>
         </tbody>
       </table>
@@ -1128,9 +1117,9 @@
     <div>
       <button class="dialog-close-btn" mat-dialog-close>Close</button>
     </div>
-      <div>
+      <!-- <div>
         <button class="dialog-update-btn" mat-dialog-close>Submit</button>
-      </div>
+      </div> -->
   </div>
   
 </ng-template>
@@ -1141,7 +1130,6 @@
     <button mat-menu-item>{{i+1}}. {{part}}</button>
   </div>
 </mat-menu>
-
 
 <ng-template #dcUpdateDialog>
   <div style="background-color: #084982;">

@@ -510,7 +510,7 @@ export class InventoryService {
       params = params.set('createdBy',payload.createdBy)
     } 
     if(payload.dateOfChallan) {
-      params = params.set('dateOfChallan', payload.dateOfChallan)
+      params = params.set('dateOfChallan', formatDate(payload.dateOfChallan, 'yyyy-MM-dd', 'en-us'))
     }
     return this.http.get(url, {params: params});
   }
@@ -531,6 +531,27 @@ export class InventoryService {
     let url = this.baseUrl + `/updateDC_2_0`;
     let params = new HttpParams().set('dcNumber', payload.dcNumber).set('amount',payload.amount).set('receiptNo', payload.receiptNo).set('modifiedBy', payload.modifiedBy).set('quantity', payload.quantity)
     return this.http.put(url, null, {params:params})
+  }
+
+  listQuantity(payload:any) {
+    let url = this.baseUrl + `/listQuantity_1_0`;
+    let params = new HttpParams().set('itemCode', payload?.itemCode).set('statusId', payload?.statusId).set('modifiedBy', payload?.modifiedBy)
+      return this.http.get(url, {params:params});
+  }
+
+  getAllDC() {
+    let url = this.baseUrl + '/getAllDC_2_0';
+    // let params = new HttpParams()
+    // if(payload.dateOfChallan){
+    //   params = params.set('dateOfChallan', payload?.dateOfChallan)
+    // }
+    // if(payload.state){
+    //   params = params.set('state', payload?.state)
+    // }
+    // if(payload.createdBy) {
+    //   params = params.set('createdBy', payload?.createdBy)
+    // }
+    return this.http.get(url)
   }
 
 
