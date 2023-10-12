@@ -321,6 +321,10 @@ export class IndentsComponent implements OnInit {
     this.currentStatusId = id;
     this.dialog.open(this.editStatus);
 
+    this.metaDatSer.getMetadataByType('Indent_Status').subscribe((res: any) => {
+      this.indentStatus = res[0]?.metadata;
+    });
+
     this.inventorySer.listInventoryByItemCode(id).subscribe((res: any) => {
       this.invenIds = res;
       // console.log(this.invenIds);

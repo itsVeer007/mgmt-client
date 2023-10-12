@@ -83,15 +83,22 @@ export class FrComponent implements OnInit {
     }
   }
 
+  showIndent:boolean = false;
   showDcFr: boolean = false;
+  // show(type:string) {
+  //   if(type =='showIndent') {
+  //     this.showIndent = true
+  //   }
+  // }
+
   show(type: string) {
-    if (type == 'showDcFr') { 
-      this.showDcFr = true 
+    if (type == 'showIndent') { 
+      this.showIndent = true 
     }
   }
   closenow(type: String) {
-      if (type == 'showDcFr') {
-        this.showDcFr = false 
+      if (type == 'showIndent') {
+        this.showIndent = false 
         }
   }
 
@@ -437,23 +444,18 @@ export class FrComponent implements OnInit {
 
   }
 
+  descriptionGoods:any;
+  @ViewChild('viewItemsDialog') viewItemsDialog = {} as TemplateRef<any>
+  listDescriptionOfGoodsByDcNumber(item:any) {
+    this.dialog.open(this.viewItemsDialog);
+    this.inventorySer.listDescriptionOfGoodsByDcNumber(item).subscribe((res:any)=>{
+      // console.log(res);
+      this.descriptionGoods = res;
+    })
+  }
+
   // dcDialoglist
   @ViewChild('viewDcDialog') viewDcDialog = {} as TemplateRef<any>;
-
-  // openDc() {
-  //   this.dialog.open(this.viewDcDialog);
-  //   this.inventorySer.listDC().subscribe((res:any)=>{
-  //       this.duplicateDc = res.reduce((acc: any, current: any) => {
-  //         const x = acc.find((item: any) => item.dcNumber == current.dcNumber);
-  //         if (!x) {
-  //           return acc.concat([current]);
-  //         } else {
-  //           return acc;
-  //         }
-  //       }, []);
-  //   })
-  // }     
-
   filterBody = {
     createdBy: 1565
   }
@@ -468,6 +470,7 @@ export class FrComponent implements OnInit {
       this.dialog.open(this.viewDcDialog);
     }
     this.inventorySer.getlistByCreatedBy(type == 'list' ? this.filterBody : this.filterBody1).subscribe((res:any) => {
+      // console.log(res);
       this.duplicateDc = res;
       this.newDuplicateDc = this.duplicateDc;
       
@@ -484,13 +487,13 @@ export class FrComponent implements OnInit {
 
   // @ViewChild('dcStatusDialog') dcStatusDialog = {} as TemplateRef<any>;
 
-  dc: any;
-  openViewDc(data:any) {
-    this.inventorySer.listDescriptionOfGoodsByDcNumber(data).subscribe((res:any)=>{
-      // console.log(res);
-      this.dc = res;
-    })
-  }
+  // dc: any;
+  // openViewDc(data:any) {
+  //   this.inventorySer.listDescriptionOfGoodsByDcNumber(data).subscribe((res:any)=>{
+  //     // console.log(res);
+  //     this.dc = res;
+  //   })
+  // }
 
   // listDescriptionOfGoodsByDcNumber(data:any) {
   //   this.inventorySer.listDescriptionOfGoodsByDcNumber(datas).subscribe((res:any)=>{

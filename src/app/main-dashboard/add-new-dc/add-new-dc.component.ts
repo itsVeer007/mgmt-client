@@ -2,6 +2,8 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { DcChallanComponent } from 'src/app/utilities/dc-challan/dc-challan.component';
 import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';
 
@@ -33,7 +35,8 @@ export class AddNewDcComponent {
   constructor(
     private inventorySer: InventoryService,
     private fb: FormBuilder,
-    public alertSer: AlertService,
+    private alertSer: AlertService,
+    private dialog: MatDialog,
     public datepipe: DatePipe
   ) { }
 
@@ -143,12 +146,14 @@ export class AddNewDcComponent {
   submit() { 
     if(this.UserForm.valid) {
       if(this.items.length > 0) {
-        this.alertSer.wait();
+        // this.alertSer.wait();
         this.inventoryBody.itemCode = this.items;
+        localStorage.setItem('dcItems', JSON.stringify(this.items))
         this.inventorySer.createDC(this.inventoryBody).subscribe((res: any) => {
           // console.log(res);
           this.newItemEvent.emit();
-          this.alertSer.success(res?.message);
+          this.alertSer.snackSuccess(res?.message);
+          this.dialog.open(DcChallanComponent);
         }, (err: any) => {
           if(err) {
             this.alertSer.error(err?.error?.message);

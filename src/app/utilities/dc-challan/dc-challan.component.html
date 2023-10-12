@@ -1,0 +1,76 @@
+<!-- <ng-template #dcChallan> -->
+    <div class="d-flex justify-content-between align-items-center mt-2 mx-3">
+        <div>
+            <img src="http://usmgmt.iviscloud.net:777/clientPortalUs/assets/IVISsecurity_logo.png" alt="" width="150px">
+        </div>
+        <div>
+            <p>ivisecurity</p>
+            <p>Mangalagiri</p>
+            <p>Pincode-302001</p>
+            <p>Mobile No-9876543899</p>
+            <p>GSTIN-27#PR5$$95N1</p>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <h1 style="font-weight: bold; margin-bottom: 3px;">Delivery Challan</h1>
+    </div>
+
+    <div class="dialog-content">
+        <div class="table-res">
+            <table class="table" id="mytable">
+                <thead>
+                    <tr class="task-table">
+                        <th>
+                            <p class="d-inline-flex">
+                                <span>S.No</span>
+                            </p>
+                        </th>
+
+                        <th>
+                            <p class="d-inline-flex">
+                                <span>descriptionOfGoods</span>
+                            </p>
+                        </th>
+
+                        <th>
+                            <p class="d-inline-flex">
+                                <span>itemCode</span>
+                            </p>
+                        </th>
+
+                        <th>
+                            <p class="d-inline-flex">
+                                <span>quantity</span>
+                            </p>
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let cust of dcItems; let i = index">
+                        <td>
+                            <p>{{ i+1}}</p>
+                        </td>
+
+                        <td>
+                            <p>{{ cust.descriptionOfGoods }}</p>
+                        </td>
+
+                        <td>
+                            <p>{{ cust.itemCode }}</p>
+                        </td>
+
+                        <td>
+                            <p>{{ cust.quantity }}</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="text-center my-3">
+        <button type="submit" class="add-task-btn">Print</button>
+    </div>
+<!-- </ng-template> -->

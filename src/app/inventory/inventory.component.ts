@@ -222,20 +222,8 @@ export class InventoryComponent implements OnInit {
   //   })
   // }
 
-  dc:any;
+
   // @ViewChild('dcStatusDialog') dcStatusDialog = {} as TemplateRef<any>
-  openViewDc(datas:any) {
-    // console.log(datas);
-    this.inventorySer.listDescriptionOfGoodsByDcNumber(datas).subscribe((res:any)=>{
-      // console.log(res);
-      this.dc = res;
-    })
-
-    //   console.log(res);
-    //   this.Items = res;
-    // })
-  }
-
   addressid = 0;
   addressView(e: any, i: any) {
     this.addressid = i;
@@ -614,6 +602,23 @@ export class InventoryComponent implements OnInit {
     this.showDetail = !this.showDetail
   }
 
+  // DCFULL
+
+  listDescriptionOfGoodsByDcNumberBody = {
+    dcNumber:null
+  }
+  items:any;
+  @ViewChild('viewItemsDialog') viewItemsDialog = {} as TemplateRef<any>
+  listDescriptionOfGoodsByDcNumber(item:any) {
+    console.log(item);
+    this.dialog.open(this.viewItemsDialog);
+    this.inventorySer.listDescriptionOfGoodsByDcNumber(item).subscribe((res:any)=>{
+      // console.log(res);
+      this.items = res;
+    })
+  }
+ 
+
  
   createdByBody = {
     dateOfChallan: null,
@@ -621,22 +626,30 @@ export class InventoryComponent implements OnInit {
   }
 
   createdByBody1 = {
-    dateOfChallan: null
+    dateOfChallan: null,
+    state:null,
+    createdBy:null
   }
 
   @ViewChild('dcListDialog') dcListDialog = {} as TemplateRef<any>;
 
-  items:any;
+
   newItems: any;
+  showFilter1:boolean = false;
+  showFilter2:boolean = false;
   getAllDC(type: string) {
     if(type == 'allDc') {
       this.dialog.open(this.dcListDialog);
-      this.inventorySer.getAllDC().subscribe((res:any)=>{
+      this.showFilter1 = true;
+      this.showFilter2 = false;
+      this.inventorySer.getAllDC(this.createdByBody1).subscribe((res:any)=>{
         // console.log(res);
         this.items= res;
         this.newItems = this.items;
       });
-    } else if(type == 'maintenanceDc') {
+    } else if(type == 'maintenance') {
+      this.showFilter2 = true;
+      this.showFilter1 = false;
       this .inventorySer.getlistByCreatedBy(this.createdByBody).subscribe((res:any)=> {
         // console.log(res);
         this.items = res;
@@ -649,6 +662,33 @@ export class InventoryComponent implements OnInit {
         this.newItems = this.items;
       });
     }
+  }
+
+  apply() {
+    this.inventorySer.getAllDC(this.createdByBody1).subscribe((res:any) => {
+      // console.log(res);
+      this.items = res;
+        this.newItems = this.items;
+    })
+  }
+
+  data = {
+    receiptNo:null,
+    amount:null,
+    dcNumber:null,
+    modifiedBy:1
+  }
+  @ViewChild('dcUpdateDialog') dcUpdateDialog = {} as TemplateRef<any>
+  openDcUpdateDialog(item:any){
+    this.dialog.open(this.dcUpdateDialog)
+    this.currentItem= item;
+  }
+
+  updateDC(){
+    this.data.dcNumber = this.currentItem.dcNumber
+    this.inventorySer.updateDC(this.data).subscribe((res:any)=>{
+      console.log(res);
+    })
   }
 
 }

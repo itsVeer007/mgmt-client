@@ -529,7 +529,7 @@ export class InventoryService {
 
   updateDC(payload:any) {
     let url = this.baseUrl + `/updateDC_2_0`;
-    let params = new HttpParams().set('dcNumber', payload.dcNumber).set('amount',payload.amount).set('receiptNo', payload.receiptNo).set('modifiedBy', payload.modifiedBy).set('quantity', payload.quantity)
+    let params = new HttpParams().set('dcNumber', payload.dcNumber).set('amount',payload.amount).set('receiptNo', payload.receiptNo).set('modifiedBy', payload.modifiedBy)
     return this.http.put(url, null, {params:params})
   }
 
@@ -539,19 +539,19 @@ export class InventoryService {
       return this.http.get(url, {params:params});
   }
 
-  getAllDC() {
+  getAllDC(payload:any) {
     let url = this.baseUrl + '/getAllDC_2_0';
-    // let params = new HttpParams()
-    // if(payload.dateOfChallan){
-    //   params = params.set('dateOfChallan', payload?.dateOfChallan)
-    // }
-    // if(payload.state){
-    //   params = params.set('state', payload?.state)
-    // }
-    // if(payload.createdBy) {
-    //   params = params.set('createdBy', payload?.createdBy)
-    // }
-    return this.http.get(url)
+    let params = new HttpParams()
+    if(payload.createdBy) {
+      params = params.set('createdBy',payload.createdBy)
+    } 
+    if(payload.dateOfChallan) {
+      params = params.set('dateOfChallan', formatDate(payload.dateOfChallan, 'yyyy-MM-dd', 'en-us'))
+    }
+    if(payload.state) {
+      params = params.set('state', payload.state)
+    }
+    return this.http.get(url, {params:params})
   }
 
 

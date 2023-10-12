@@ -89,6 +89,7 @@ import { DatePipe } from '@angular/common';
 import { SearchPipe } from './pipes/search.pipe';
 import { SortPipe } from './pipes/sort.pipe';
 import { ErrorPageComponent } from './utilities/error-page/error-page.component';
+import { DcChallanComponent } from './utilities/dc-challan/dc-challan.component';
 
 
 @NgModule({
@@ -145,7 +146,8 @@ import { ErrorPageComponent } from './utilities/error-page/error-page.component'
     AddNewDcComponent,
     SearchPipe,
     SortPipe,
-    ErrorPageComponent
+    ErrorPageComponent,
+    DcChallanComponent,
   ],
   imports: [
     BrowserModule,

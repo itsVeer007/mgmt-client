@@ -343,14 +343,14 @@
     </div>
   </div>
 
-    <div class="d-flex align-items-center justify-content-end">
-<div>
-        <button class="dialog-close-btn" mat-dialog-close>Close</button>
-      </div>
-      <div  >
-        <button class="dialog-update-btn" mat-dialog-close (click)="updateIndent()">Update</button>
-      </div>
+  <div class="d-flex align-items-center justify-content-end">
+    <div>
+      <button class="dialog-close-btn" mat-dialog-close>Close</button>
     </div>
+    <div  >
+      <button class="dialog-update-btn" mat-dialog-close (click)="updateIndent()">Update</button>
+    </div>
+  </div>
 </ng-template>
 
 <ng-template #deleteInventoryDialog>
@@ -538,14 +538,22 @@
 
             <ng-template #editStatusDialog>
               <div style="background-color: #084982;">
-                <p class="dialog-title">view status</p>
+                <p class="dialog-title">edit status</p>
               </div>
 
-              <mat-dialog-content>
+              <!-- <mat-dialog-content>
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Inventory Id</mat-label>
                   <mat-select [(ngModel)]="statusObj.inventoryId">
                     <mat-option *ngFor="let item of invenIds" [value]="item.slNo" [hidden]="item.statusId != 1">{{ item.slNo }} - {{ item.name }}</mat-option>
+                  </mat-select>
+                </mat-form-field> -->
+                
+              <mat-dialog-content>
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Inventory Id</mat-label>
+                  <mat-select [(ngModel)]="statusObj.inventoryId">
+                    <mat-option *ngFor="let item of invenIds" [value]="item.slNo">{{ item.slNo }} - {{ item.name }}</mat-option>
                   </mat-select>
                 </mat-form-field>
 
@@ -558,7 +566,7 @@
               </mat-dialog-content>
 
               <div class="d-flex align-items-center justify-content-end">
-<div>
+                <div>
                   <button class="dialog-close-btn" mat-dialog-close>Close</button>
                 </div>
                 <div  >
