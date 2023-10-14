@@ -124,8 +124,6 @@ export class AddNewDcComponent {
     })
   }
 
-
-
   listQuantityBody = {
     itemCode: null,
     modifiedBy:1565,
@@ -143,7 +141,7 @@ export class AddNewDcComponent {
 
 
   warrantyDetail: any = 'No';
-  submit() { 
+  submit() {
     if(this.UserForm.valid) {
       if(this.items.length > 0) {
         // this.alertSer.wait();
@@ -155,15 +153,13 @@ export class AddNewDcComponent {
           this.alertSer.snackSuccess(res?.message);
           this.dialog.open(DcChallanComponent);
         }, (err: any) => {
-          if(err) {
-            this.alertSer.error(err?.error?.message);
-          }
+          this.alertSer.error(err?.error?.message);
         });
       } else {
         this.alertSer.error('Please add atleast one task')
       }
     }
-    console.log(this.inventoryBody);
+    // console.log(this.inventoryBody);
   }
 
   checkbox: boolean = false;

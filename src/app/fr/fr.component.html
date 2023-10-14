@@ -311,6 +311,66 @@
                 <img src="assets/icons/add.svg" width="35">
               </a>
             </td>
+
+            <ng-template #replaceStatusDialog>
+              <div style="background-color: #084982;">
+                <p class="dialog-title">modify status</p>
+              </div>
+            
+              <div class="row dialog-content">
+                <div class="col-lg-6">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Old inventoryid</mat-label>
+                    <mat-select [(ngModel)]="body.oldInventoryId">
+                      <mat-option *ngFor="let item of duplicateInventoryId" [value]="item.inventorySlNo">{{ item.inventorySlNo }} - {{ item.name }} </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+            
+                <div class="col-lg-6">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>New inventoryid</mat-label>
+                    <mat-select [(ngModel)]="body.newInventoryId">
+                      <mat-option *ngFor="let val of inventoryId2" [value]="val.inventoryId">{{ val.inventoryId }} - {{ val.name }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+            
+                <div class="col-lg-6">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Edit Status</mat-label>
+                    <mat-select [(ngModel)]="statusObj.statusId">
+                      <mat-option *ngFor="let item of indentStatus" [value]="item.keyId">{{ item.value }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+<!--             
+                <div class="col-lg-6">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>FR inventory</mat-label>
+                    <mat-select [(ngModel)]="body.newInventoryId" (focus)="latestFun(1565, null)">
+                      <mat-option *ngFor="let val of statusItems" [value]="val.invNo">{{ val.invNo }} - {{ val.name }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+             -->
+                <!-- <div class="col-lg-6">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Remarks</mat-label>
+                    <input matInput>
+                  </mat-form-field>
+                </div> -->
+              </div>
+            
+              <div class="d-flex align-items-center justify-content-end">
+                <div>
+                  <button class="dialog-close-btn" mat-dialog-close>Close</button>
+                </div>
+                <div>
+                  <button class="dialog-update-btn" mat-dialog-close (click)="replaceComponent()">Update</button>
+                </div>
+              </div>
+            </ng-template>
           </tr>
         </tbody>
       </table>
@@ -806,68 +866,6 @@
   </div>
 </ng-template>
 
-<ng-template #replaceStatusDialog>
-  <div style="background-color: #084982;">
-    <p class="dialog-title">modify status</p>
-  </div>
-
-  <div class="row dialog-content">
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Old inventoryid</mat-label>
-        <mat-select [(ngModel)]="body.oldInventoryId">
-          <mat-option *ngFor="let item of inventoryId" [value]="item.inventorySlNo">{{ item.inventorySlNo }} - {{
-            item.name }} </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>New inventoryid</mat-label>
-        <mat-select [(ngModel)]="body.newInventoryId">
-          <mat-option *ngFor="let val of inventoryId2" [value]="val.inventoryId">{{ val.inventoryId }} - {{ val.name
-            }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Edit Status</mat-label>
-        <mat-select [(ngModel)]="statusObj.statusId">
-          <mat-option *ngFor="let item of indentStatus" [value]="item.keyId">{{ item.value }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>FR inventory</mat-label>
-        <mat-select [(ngModel)]="body.newInventoryId" (focus)="latestFun(1565, null)">
-          <mat-option *ngFor="let val of statusItems" [value]="val.invNo">{{ val.invNo }} - {{ val.name }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <!-- <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Remarks</mat-label>
-        <input matInput>
-      </mat-form-field>
-    </div> -->
-  </div>
-
-  <div class="d-flex align-items-center justify-content-end">
-    <div>
-      <button class="dialog-close-btn" mat-dialog-close>Close</button>
-    </div>
-    <div>
-      <button class="dialog-update-btn" mat-dialog-close (click)="replaceComponent()">Update</button>
-    </div>
-  </div>
-</ng-template>
-
 <ng-template #statusItemsDialog>
   <div style="background-color: #084982;">
     <p class="dialog-title">view</p>
@@ -979,7 +977,6 @@
     </div>
   </div>
 </ng-template>
-
 
 <!-- not in use -->
 <ng-template #viewInventoryToDispatch>
@@ -1167,9 +1164,7 @@
       <button class="dialog-close-btn" mat-dialog-close>Close</button>
     </div>
   </div>
-
 </ng-template>
-
 
 <ng-template #dcUpdateDialog>
   <div style="background-color: #084982;">
@@ -1308,11 +1303,11 @@
     </div>
   </div>
 </ng-template>
-
+<!-- 
 <div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showIndent">
   <app-add-new-indent (newItemEvent)="closenow('showIndent')"></app-add-new-indent>
-</div>
-
-<!-- <div  style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showDcFr">
-  <app-add-new-dc [show]="'fromFr'" (newItemEvent)="closenow('showDcFr')"></app-add-new-dc>
 </div> -->
+
+<div  style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showDcFr">
+  <app-add-new-dc [show]="'fromFr'" (newItemEvent)="closenow('showDcFr')"></app-add-new-dc>
+</div>

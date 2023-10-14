@@ -92,13 +92,13 @@ export class FrComponent implements OnInit {
   // }
 
   show(type: string) {
-    if (type == 'showIndent') { 
-      this.showIndent = true 
+    if (type == 'showDcFr') { 
+      this.showDcFr = true 
     }
   }
   closenow(type: String) {
-      if (type == 'showIndent') {
-        this.showIndent = false 
+      if (type == 'showDcFr') {
+        this.showDcFr = false 
         }
   }
 
@@ -290,10 +290,10 @@ export class FrComponent implements OnInit {
   @ViewChild('replaceStatusDialog') replaceStatusDialog = {} as TemplateRef<any>;
 
   inventoryId: any;
+  duplicateInventoryId: any;
   inventoryId2: any;
   openReplaceComponent(data: any) {
     // console.log(data)
-    this.dialog.open(this.replaceStatusDialog, { maxWidth: '550px', maxHeight: '550px'});
     // this.inventoryId2 = data; imp
     // console.log(this.inventoryId2)
 
@@ -301,10 +301,20 @@ export class FrComponent implements OnInit {
     //   console.log(res)
     //   this.inventoryId = res;
     // });
-
+    
+    this.dialog.open(this.replaceStatusDialog);
     this.inventorySer.getItemsList(data).subscribe((res: any) => {
       // console.log(res);
       this.inventoryId = res;
+
+      this.duplicateInventoryId = this.inventoryId.reduce((acc: any, current: any) => {
+        const x = acc.find((item: any) => item.inventorySlNo == current.inventorySlNo);
+        if (!x) {
+          return acc.concat([current]);
+        } else {
+          return acc;
+        }
+      }, []);
     });
 
     this.inventorySer.listIndentItems(data).subscribe((res: any) => {

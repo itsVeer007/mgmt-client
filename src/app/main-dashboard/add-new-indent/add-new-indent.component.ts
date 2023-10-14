@@ -45,7 +45,7 @@ export class AddNewIndentComponent implements OnInit {
 
   inventoryBody = {
     ticketId: null,
-    createdBy: 1,
+    createdBy: 1565,
     items: [
       {
         itemCode: null,
