@@ -166,7 +166,7 @@ export class InventoryService {
   // dcgetitemcode
   getItemCode(payload: any) {
     let url = this.baseUrl + "/getItemCode_1_0";
-    let params = new HttpParams().set('name', payload?.materialDescription ? payload?.materialDescription : payload);
+    let params = new HttpParams().set('name', payload?.materialDescription ?(payload?.materialDescription) : payload);
 
     return this.http.get(url, {params: params});
   }

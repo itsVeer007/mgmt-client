@@ -172,6 +172,8 @@ export class AddNewInventoryComponent implements OnInit {
 
   itemCodes: any;
   getItemCode(data: any) {
+    let x = encodeURIComponent(data?.materialDescription);
+    console.log(x)
     this.inventorySer.getItemCode(data).subscribe((res: any) => {
       // this.model = res?.model;
       // console.log(res);

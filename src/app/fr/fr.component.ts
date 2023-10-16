@@ -94,11 +94,15 @@ export class FrComponent implements OnInit {
   show(type: string) {
     if (type == 'showDcFr') { 
       this.showDcFr = true 
-    }
+    } else if(type =='showIndent') {
+          this.showIndent = true
+        }
   }
   closenow(type: String) {
       if (type == 'showDcFr') {
         this.showDcFr = false 
+        } else if(type =='showIndent') {
+          this.showIndent = false
         }
   }
 

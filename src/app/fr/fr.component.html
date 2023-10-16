@@ -35,8 +35,7 @@
           <mat-label>Site Name</mat-label>
           <mat-select [(ngModel)]="siteNg">
             <mat-option value="All" (click)="filterSites('All')">All</mat-option>
-            <mat-option *ngFor="let data of siteIds" (click)="filterSites(data.sitename)" [value]="data.sitename">{{
-              data.siteid }} - {{ data.siteShortName }}</mat-option>
+            <mat-option *ngFor="let data of siteIds" (click)="filterSites(data.sitename)" [value]="data.sitename">{{  data.siteid }} - {{ data.siteShortName }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -876,10 +875,10 @@
       <table class="table" id="mytable">
         <thead>
           <tr class="task-table">
-            <th>
+            <!-- <th>
               <input type="checkbox" class="form-check-input" [(ngModel)]="selectedAll" (change)="selectAll()"
                 id="allcheck" style="background-color: #00000000;border-color: #fff;">
-            </th>
+            </th> -->
             <th>Item Code</th>
             <th>Name</th>
             <th>Serial no</th>
@@ -892,10 +891,10 @@
         <tbody>
           <tr *ngFor="let task of latestValue; let i = index">
 
-            <td>
+            <!-- <td>
               <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="task.selected"
                 (change)="checkIfAllSelected(task, $event);" id="singleCheck" />
-            </td>
+            </td> -->
             <td>
               <p>{{ task.itemCode }}</p>
             </td>
@@ -1303,10 +1302,10 @@
     </div>
   </div>
 </ng-template>
-<!-- 
+
 <div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showIndent">
   <app-add-new-indent (newItemEvent)="closenow('showIndent')"></app-add-new-indent>
-</div> -->
+</div>
 
 <div  style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showDcFr">
   <app-add-new-dc [show]="'fromFr'" (newItemEvent)="closenow('showDcFr')"></app-add-new-dc>
