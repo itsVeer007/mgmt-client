@@ -602,13 +602,13 @@ export class InventoryComponent implements OnInit {
     this.showDetail = !this.showDetail
   }
 
-  // DCFULL
-
   listDescriptionOfGoodsByDcNumberBody = {
     dcNumber:null
   }
+
   items:any;
-  @ViewChild('viewItemsDialog') viewItemsDialog = {} as TemplateRef<any>
+
+  @ViewChild('viewItemsDialog') viewItemsDialog = {} as TemplateRef<any>;
   listDescriptionOfGoodsByDcNumber(item:any) {
     console.log(item);
     this.dialog.open(this.viewItemsDialog);
@@ -617,46 +617,45 @@ export class InventoryComponent implements OnInit {
       this.items = res;
     })
   }
- 
 
- 
-  createdByBody = {
-    dateOfChallan: null,
-    createdBy:1
-  }
-
-  createdByBody1 = {
-    dateOfChallan: null,
-    state:null,
-    createdBy:null
-  }
 
   @ViewChild('dcListDialog') dcListDialog = {} as TemplateRef<any>;
 
+  filterDcBody_All = {
+    dateOfChallan: null,
+    state: null,
+    createdBy: null
+  }
 
-  newItems: any;
-  showFilter1:boolean = false;
-  showFilter2:boolean = false;
+  filterDcBody_Maintenance = {
+    dateOfChallan: null,
+    createdBy: 1
+  }
+
+  newItems: any = [];
+  allDc: boolean = true;
+  
+  toggleDc() {
+    this.allDc = !this.allDc;
+  }
+
+  openDcDialog() {
+    this.dialog.open(this.dcListDialog);
+    this.inventorySer.getAllDC(this.filterDcBody_All).subscribe((res: any) => {
+      this.items= res;
+      this.newItems = this.items;
+    });
+  }
+
   getAllDC(type: string) {
     if(type == 'allDc') {
-      this.dialog.open(this.dcListDialog);
-      this.showFilter1 = true;
-      this.showFilter2 = false;
-      this.inventorySer.getAllDC(this.createdByBody1).subscribe((res:any)=>{
+      this.inventorySer.getAllDC(this.filterDcBody_All).subscribe((res: any) => {
         // console.log(res);
         this.items= res;
         this.newItems = this.items;
       });
     } else if(type == 'maintenance') {
-      this.showFilter2 = true;
-      this.showFilter1 = false;
-      this .inventorySer.getlistByCreatedBy(this.createdByBody).subscribe((res:any)=> {
-        // console.log(res);
-        this.items = res;
-        this.newItems = this.items;
-      });
-    } else if(type == 'maintenanceDc1') {
-      this .inventorySer.getlistByCreatedBy(this.createdByBody1).subscribe((res:any)=> {
+      this .inventorySer.getlistByCreatedBy(this.filterDcBody_Maintenance).subscribe((res: any) => {
         // console.log(res);
         this.items = res;
         this.newItems = this.items;
@@ -664,20 +663,27 @@ export class InventoryComponent implements OnInit {
     }
   }
 
-  apply() {
-    this.inventorySer.getAllDC(this.createdByBody1).subscribe((res:any) => {
-      // console.log(res);
-      this.items = res;
+  filterDc(type: string) {
+    if(type == 'All') {
+      this.inventorySer.getAllDC(this.filterDcBody_All).subscribe((res:any) => {
+        this.items = res;
         this.newItems = this.items;
-    })
+      })
+    } else if(type == 'Maintenance') {
+      this.inventorySer.getAllDC(this.filterDcBody_Maintenance).subscribe((res:any) => {
+        this.items = res;
+        this.newItems = this.items;
+      })
+    }
   }
 
-  data = {
+  updateDcBody = {
     receiptNo:null,
     amount:null,
     dcNumber:null,
     modifiedBy:1
   }
+
   @ViewChild('dcUpdateDialog') dcUpdateDialog = {} as TemplateRef<any>
   openDcUpdateDialog(item:any){
     this.dialog.open(this.dcUpdateDialog)
@@ -685,8 +691,8 @@ export class InventoryComponent implements OnInit {
   }
 
   updateDC(){
-    this.data.dcNumber = this.currentItem.dcNumber
-    this.inventorySer.updateDC(this.data).subscribe((res:any)=>{
+    this.updateDcBody.dcNumber = this.currentItem.dcNumber
+    this.inventorySer.updateDC(this.updateDcBody).subscribe((res:any)=>{
       console.log(res);
     })
   }

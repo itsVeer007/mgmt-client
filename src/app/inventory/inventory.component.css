@@ -1,10 +1,15 @@
 /* ng-deep */
-::ng-deep .from-date .mat-form-field-appearance-outline .mat-form-field-infix {
+.from-date ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
   padding: 1px;
   display: inline-flex;
 }
 
-::ng-deep .from-date .mat-date-range-input-container {
+.from-date ::ng-deep .mat-icon-button {
+  position: relative !important;
+  top: -3px !important;
+}
+
+.from-date ::ng-deep .mat-date-range-input-container {
   padding-top: 8px;
 }
 

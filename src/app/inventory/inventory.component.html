@@ -82,7 +82,7 @@
       </div>
 
       <div class="col-lg-2">
-        <button class="create-btn mx-1" (click)="getAllDC('allDc')">List Dc</button>
+        <button class="create-btn mx-1" (click)="openDcDialog()">List Dc</button>
       </div>
     </div>
   </div>
@@ -1068,27 +1068,35 @@
 </ng-template> -->
 
 <ng-template #dcListDialog>
-  <div class="d-flex justify-content-between align-items-center" style="background-color: #084982;">
-    <p class="dialog-title">view dc</p>
-    <div class="col-lg-2">
-      <button  class="filter-btn mt-2" style="background-color: #D34124 ; width: 110px;" (click)="getAllDC('maintenance')">Maintainance</button>
+  <div style="background-color: #084982;" class="d-flex justify-content-between align-items-center">
+    <p *ngIf="allDc" class="dialog-title m-0">dc items (All)</p>
+    <p *ngIf="!allDc" class="dialog-title m-0">dc items (Maintenance)</p>
+
+    <div class="d-flex justify-content-end">
+      <button *ngIf="!allDc" class="filter-btn" style="background-color: #D34124 ; width: 110px;" (click)="getAllDC('allDc'); toggleDc()">View All</button>
+      <button *ngIf="allDc" class="filter-btn" style="background-color: #D34124 ; width: 110px;" (click)="getAllDC('maintenance'); toggleDc()">View Maintainance</button>
     </div>
   </div>
 
-  <!-- <div class="row mt-2">
-    <div class="col-lg-3 mx-3">
+  <div class="row m-1" *ngIf="allDc">
+    <div class="col-lg-3 from-date">
       <mat-form-field appearance="outline" class="w-100">
-          <input matInput [matDatepicker]="picker1" placeholder="Start Date" [(ngModel)]="createdByBody1.dateOfChallan">
-          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-          <mat-datepicker #picker1></mat-datepicker>
-          <mat-error class="mt-1">Start Date is required</mat-error>
+        <mat-label>Start Date</mat-label>
+        <input matInput [matDatepicker]="filterDcDate1" [(ngModel)]="filterDcBody_All.dateOfChallan">
+        <mat-datepicker-toggle matIconSuffix [for]="filterDcDate1"></mat-datepicker-toggle>
+        <mat-datepicker #filterDcDate1>
+          <mat-datepicker-actions>
+            <button mat-button matDatepickerCancel>Cancel</button>
+            <button mat-raised-button color="primary" matDatepickerApply (click)="filterDc('All')">Apply</button>
+          </mat-datepicker-actions>
+        </mat-datepicker>
       </mat-form-field>
     </div>
 
     <div class="col-lg-3">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>state</mat-label>
-        <mat-select>
+        <mat-select [(ngModel)]="filterDcBody_All.state" (selectionChange)="filterDc('All')">
           <mat-option value="Andhra pradesh">Andhra pradesh</mat-option>
           <mat-option value="odessa">odessa</mat-option>
         </mat-select>
@@ -1097,68 +1105,30 @@
 
     <div class="col-lg-3">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>createdBy</mat-label>
-        <mat-select>
+        <mat-label>name</mat-label>
+        <mat-select [(ngModel)]="filterDcBody_All.createdBy" (selectionChange)="filterDc('All')">
           <mat-option [value]="1565">Brey</mat-option>
           <mat-option [value]="1">Dany</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
-  
-    <div class="col-lg-2">
-      <button  class="filter-btn mt-2" (click)="getAllDC('maintenanceDc1')">Apply</button>
+  </div>
+
+  <div class="row m-1" *ngIf="!allDc">
+    <div class="col-lg-3 from-date">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Start Date</mat-label>
+        <input matInput [matDatepicker]="filterDcDate2" [(ngModel)]="filterDcBody_Maintenance.dateOfChallan">
+        <mat-datepicker-toggle matIconSuffix [for]="filterDcDate2"></mat-datepicker-toggle>
+        <mat-datepicker #filterDcDate2>
+          <mat-datepicker-actions>
+            <button mat-button matDatepickerCancel>Cancel</button>
+            <button mat-raised-button color="primary" matDatepickerApply (click)="filterDc('Maintenance')">Apply</button>
+          </mat-datepicker-actions>
+        </mat-datepicker>
+      </mat-form-field>
     </div>
-    </div> -->
-
-    <div class="row" *ngIf="showFilter2">
-      <div class="col-lg-3 mx-3">
-        <mat-form-field appearance="outline" class="w-100">
-            <input matInput [matDatepicker]="picker1" placeholder="Start Date" [(ngModel)]="createdByBody1.dateOfChallan">
-            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-            <mat-datepicker #picker1></mat-datepicker>
-            <mat-error class="mt-1">Start Date is required</mat-error>
-        </mat-form-field>
-      </div>
-      <div class="col-lg-2">
-        <button  class="filter-btn mt-2" (click)="getAllDC('maintenanceDc1')">Apply</button>
-      </div>
-    </div>
-
-    <div class="row mx-2" *ngIf="showFilter1">
-      <div class="col-lg-3 mx-3">
-        <mat-form-field appearance="outline" class="w-100">
-            <input matInput [matDatepicker]="picker1" placeholder="Start Date" [(ngModel)]="createdByBody1.dateOfChallan">
-            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-            <mat-datepicker #picker1></mat-datepicker>
-            <mat-error class="mt-1">Start Date is required</mat-error>
-        </mat-form-field>
-      </div>
-
-      <div class="col-lg-3">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>state</mat-label>
-          <mat-select [(ngModel)]="createdByBody1.state">
-            <mat-option value="Andhra pradesh">Andhra pradesh</mat-option>
-            <mat-option value="odessa">odessa</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-  
-      <div class="col-lg-3">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>name</mat-label>
-          <mat-select [(ngModel)]="createdByBody1.createdBy">
-            <mat-option [value]="1565">Brey</mat-option>
-            <mat-option [value]="1">Dany</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-    
-      <div class="col-lg-2">
-        <button  class="filter-btn mt-2" (click)="apply()">Apply</button>
-      </div>
-    </div>
-
+  </div>
 
   <div class="dialog-content mt-2">
     <div class="table-res">
@@ -1191,7 +1161,7 @@
             </td>
   
             <td>
-              <p style="color: #084982;" (click)="listDescriptionOfGoodsByDcNumber(item)">view</p>
+              <p class="pointer text-primary" (click)="listDescriptionOfGoodsByDcNumber(item)">view</p>
             </td>
             <td>
               <p>{{item.amount}}</p>
@@ -1207,6 +1177,10 @@
           </tr>
         </tbody>
       </table>
+    </div>
+
+    <div class="d-flex align-items-center justify-content-center" style="height: 20vh;" *ngIf="newItems?.length == 0 || newItems?.length == null">
+      <h1 class="text-secondary">No Data</h1>
     </div>
   </div>
 
@@ -1268,13 +1242,13 @@
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Receipt No</mat-label>
-        <input matInput [(ngModel)]="data.receiptNo">
+        <input matInput [(ngModel)]="updateDcBody.receiptNo">
       </mat-form-field>
     </div>
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Amount</mat-label>
-        <input matInput type="number" [(ngModel)]="data.amount">
+        <input matInput type="number" [(ngModel)]="updateDcBody.amount">
       </mat-form-field>
     </div>
   </div>

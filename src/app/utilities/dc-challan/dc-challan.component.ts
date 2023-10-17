@@ -14,6 +14,7 @@ export class DcChallanComponent implements OnInit {
   dcItems: any;
   ngOnInit(): void {
     this.dcItems = JSON.parse(localStorage.getItem('dcItems')!);
+    console.log(this.dcItems?.itemCode.length);
   }
 
   @ViewChild('table', { static: false }) table!: ElementRef;

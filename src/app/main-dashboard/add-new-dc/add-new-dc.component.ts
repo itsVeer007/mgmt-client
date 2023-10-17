@@ -126,8 +126,8 @@ export class AddNewDcComponent {
 
   listQuantityBody = {
     itemCode: null,
-    modifiedBy:1565,
-    statusId:5
+    modifiedBy: 1565,
+    statusId: 5
   }
 
   // inventoryQty: any;
@@ -146,7 +146,7 @@ export class AddNewDcComponent {
       if(this.items.length > 0) {
         // this.alertSer.wait();
         this.inventoryBody.itemCode = this.items;
-        localStorage.setItem('dcItems', JSON.stringify(this.items))
+        localStorage.setItem('dcItems', JSON.stringify(this.inventoryBody));
         this.inventorySer.createDC(this.inventoryBody).subscribe((res: any) => {
           // console.log(res);
           this.newItemEvent.emit();

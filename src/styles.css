@@ -267,6 +267,7 @@ form .add-btn:active {
 
 .dialog-content {
   padding: 0 20px;
+  min-width: 500px;
   max-width: 800px;
   max-height: 500px;
   overflow-y: auto;
@@ -531,9 +532,20 @@ form .add-btn:active {
   overflow-y: auto;
 }
 
-table thead tr {
+.table-resp table thead tr {
   background-image: linear-gradient(to right, #084982, #D34124);
   background-size: cover;
+  border-radius: 5px;
+  margin-top: 20px;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  font-weight: 100;
+  z-index: 1;
+}
+
+.table-res table thead tr {
+  background-color: #919191;
   border-radius: 5px;
   margin-top: 20px;
   position: -webkit-sticky;
