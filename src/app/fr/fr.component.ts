@@ -16,7 +16,7 @@ export class FrComponent implements OnInit {
     private inventorySer: InventoryService,
     private metaDatSer: MetadataService,
     public alertSer: AlertService
-    ) { }
+  ) { }
 
   showLoader: boolean = false;
   siteIds: any;
@@ -30,7 +30,7 @@ export class FrComponent implements OnInit {
 
   frTickets: any = [];
   newFrTickets: any = [];
-  errMsg: any = null;
+  errInfo: any = null;
   listFRTickets() {
     this.showLoader = true;
     this.inventorySer.listFRTickets().subscribe((res: any) => {
@@ -39,15 +39,15 @@ export class FrComponent implements OnInit {
       this.frTickets = res;
       this.newFrTickets = this.frTickets;
       if(this.frTickets?.length == 0) {
-        this.errMsg = 'No tickets'
+        this.errInfo = 'No tickets'
       }
     }, (err: any) => {
       // console.log(err);
       this.showLoader = false;
       if(err?.status == 0) {
-        this.errMsg = 'Connection timed out';
+        this.errInfo = 'Connection timed out';
       } else {
-        this.errMsg = err?.message;
+        this.errInfo = err?.message;
       }
     })
   }
@@ -79,7 +79,6 @@ export class FrComponent implements OnInit {
       this.newFrTickets = this.frTickets;
     } else {
       this.newFrTickets =  this.frTickets.filter((item: any) => item.sitename == site);
-
     }
   }
 
@@ -92,15 +91,15 @@ export class FrComponent implements OnInit {
   // }
 
   show(type: string) {
-    if (type == 'showDcFr') { 
-      this.showDcFr = true 
+    if (type == 'showDcFr') {
+      this.showDcFr = true
     } else if(type =='showIndent') {
           this.showIndent = true
         }
   }
   closenow(type: String) {
       if (type == 'showDcFr') {
-        this.showDcFr = false 
+        this.showDcFr = false
         } else if(type =='showIndent') {
           this.showIndent = false
         }
@@ -144,7 +143,6 @@ export class FrComponent implements OnInit {
   }
 
   @ViewChild('viewSitesDialog') viewSitesDialog = {} as TemplateRef<any>;
-
   sites: any
   openSitesDialog() {
     // this.dialog.open(this.viewSitesDialog);
@@ -198,7 +196,6 @@ export class FrComponent implements OnInit {
 
 
   @ViewChild('currentTasksDialog') currentTasksDialog = {} as TemplateRef<any>;
-
   tasks: any = [];
   ticketType: any;
   currentSite: any;
@@ -219,7 +216,6 @@ export class FrComponent implements OnInit {
   }
 
   @ViewChild('assignedDialog') assignedDialog = {} as TemplateRef<any>;
-
   currentTask: any;
   openTaskStatus(item: any) {
     this.currentTask = item;
@@ -228,7 +224,6 @@ export class FrComponent implements OnInit {
 
 
   @ViewChild('viewIndentDialog') viewIndentDialog = {} as TemplateRef<any>;
-
   indentItems: any = [];
   openDetailsDialog(item: any) {
     // console.log(item);
@@ -240,7 +235,6 @@ export class FrComponent implements OnInit {
   }
 
   @ViewChild('editStatusDialog') editStatus = {} as TemplateRef<any>;
-
   currentId: any = null;
   openEditStatus(id: any) {
     this.dialog.open(this.editStatus);
@@ -269,7 +263,6 @@ export class FrComponent implements OnInit {
   }
 
   @ViewChild('replaceDialog') replaceDialog = {} as TemplateRef<any>;
-
   openCreateOrder(item: any) {
     // console.log(item)
     // this.currentItem = item;
@@ -292,7 +285,6 @@ export class FrComponent implements OnInit {
   }
 
   @ViewChild('replaceStatusDialog') replaceStatusDialog = {} as TemplateRef<any>;
-
   inventoryId: any;
   duplicateInventoryId: any;
   inventoryId2: any;
@@ -305,7 +297,7 @@ export class FrComponent implements OnInit {
     //   console.log(res)
     //   this.inventoryId = res;
     // });
-    
+
     this.dialog.open(this.replaceStatusDialog);
     this.inventorySer.getItemsList(data).subscribe((res: any) => {
       // console.log(res);
@@ -369,7 +361,6 @@ export class FrComponent implements OnInit {
   }
 
   @ViewChild('cnfrmStatusDialog') cnfrmStatusDialog = {} as TemplateRef<any>;
-
   currentStatusItem: any;
   currentStatusType: any;
   openCnfrmStatusDialogt(item: any, type: any) {
@@ -386,17 +377,14 @@ export class FrComponent implements OnInit {
       'changedBy': 1565,
       'remarks': '',
     }
+
     this.inventorySer.logTaskStatus(myObj).subscribe((res: any) => {
-      // console.log(res)
       this.alertSer.snackSuccess(res?.message);
-      this.inventorySer.listFRTasksOfCurrentVisit(1565).subscribe((res: any) => {
-        // console.log(res);
-        this.tasks = res;
-      })
+      // this.inventorySer.listFRTasksOfCurrentVisit(1565).subscribe((res: any) => {
+      //   this.tasks = res;
+      // })
     }, (err: any) => {
-        if(err) {
-          // this.alertSer.error(err?.error?.message);
-        }
+      this.alertSer.error(err?.error?.message);
     })
   }
 
@@ -409,7 +397,6 @@ export class FrComponent implements OnInit {
   }
 
   @ViewChild('exitDialog') exitDialog = {} as TemplateRef<any>;
-
   openVisitExit() {
     this.dialog.open(this.exitDialog);
   }
@@ -433,43 +420,38 @@ export class FrComponent implements OnInit {
         itemMap.set(key, { ...item, count: 1 });
       }
     }
-
     this.latestValue = Array.from(itemMap.values());
   }
 
-  // @ViewChild('viewInventoryToDispatch') viewInventoryToDispatch = {} as TemplateRef<any>
   currentItem:any;
   cost:any;
   @ViewChild ('dcChallan') dcChallan = {} as TemplateRef<any>;
   updateDispatchToInventory() {
     this.dialog.open(this.dcChallan);
-
     let obj = {
       oldSlNo: this.arr,
       dcNumber: this.cost
     }
+
     this.inventorySer.updateDispatchToInventory(obj).subscribe((res:any)=>{
       // console.log(res);
         this.alertSer.snackSuccess(res?.message);
     }),(err: any) => {
         this.alertSer.error(err?.error?.message);
     }
-
-
   }
 
   descriptionGoods:any;
-  @ViewChild('viewItemsDialog') viewItemsDialog = {} as TemplateRef<any>
+  @ViewChild('dcDescriptionDialog') dcDescriptionDialog = {} as TemplateRef<any>
   listDescriptionOfGoodsByDcNumber(item:any) {
-    this.dialog.open(this.viewItemsDialog);
+    this.dialog.open(this.dcDescriptionDialog);
     this.inventorySer.listDescriptionOfGoodsByDcNumber(item).subscribe((res:any)=>{
       // console.log(res);
       this.descriptionGoods = res;
     })
   }
 
-  // dcDialoglist
-  @ViewChild('viewDcDialog') viewDcDialog = {} as TemplateRef<any>;
+
   filterBody = {
     createdBy: 1565
   }
@@ -477,18 +459,18 @@ export class FrComponent implements OnInit {
     dateOfChallan: null
   }
 
+  @ViewChild('dcItemsDialog') dcItemsDialog = {} as TemplateRef<any>;
   duplicateDc: any;
-  newDuplicateDc: any
+  newDuplicateDc: any;
   getlistByCreatedBy(type: string) {
     if(type == 'list') {
-      this.dialog.open(this.viewDcDialog);
+      this.dialog.open(this.dcItemsDialog);
     }
     this.inventorySer.getlistByCreatedBy(type == 'list' ? this.filterBody : this.filterBody1).subscribe((res:any) => {
       // console.log(res);
       this.duplicateDc = res;
       this.newDuplicateDc = this.duplicateDc;
-      
-      this.newDuplicateDc = this.duplicateDc.reduce((acc: any, current: any) => {
+      this.newDuplicateDc = this.duplicateDc?.reduce((acc: any, current: any) => {
         const x = acc.find((item: any) => item.dcNumber == current.dcNumber);
         if (!x) {
           return acc.concat([current]);
@@ -534,8 +516,6 @@ export class FrComponent implements OnInit {
       console.log(res);
     })
   }
-
- 
 
 
   selectedAll: any;

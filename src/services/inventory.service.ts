@@ -9,14 +9,14 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class InventoryService {
 
-  // baseUrl = `${environment.baseUrl}/inventoryAndtickets`;
-  baseUrl = 'http://192.168.0.137:8080';
   comment$: any = new BehaviorSubject(null);
 
   constructor(private http: HttpClient, public datepipe: DatePipe) { }
 
-  /* inventory */
+  // baseUrl = `${environment.baseUrl}/inventoryAndtickets`;
+  baseUrl = 'http://192.168.0.137:8080';
 
+  /* inventory */
   listItemCode(payload: any) {
     let url = this.baseUrl + '/listItemCode_1_0';
     let params = new HttpParams();
@@ -123,7 +123,6 @@ export class InventoryService {
 
 
   /* warrenty service */
-
   getWarranty(id: any) {
     let url = this.baseUrl + `/listWarranty_1_0/${id}`;
     return this.http.get(url);
@@ -158,12 +157,20 @@ export class InventoryService {
 
   listInventoryByItemCode(payload: any) {
     let url = this.baseUrl + "/listInventoryByItemCode_1_0";
-    let params = new HttpParams().set('itemCode', payload.itemCode ? payload.itemCode : payload.suggestedItemCode).set('brand', payload.brand).set('model',payload.model);
+    let params = new HttpParams().set('itemCode', payload.itemCode ? payload.itemCode : payload.suggestedItemCode);
+    // if(payload.itemCode) {
+    //   params = params.set('itemCode', payload.itemCode);
+    // }
+    if(payload.brand) {
+      params = params.set('brand', payload.brand);
+    }
+    if(payload.model) {
+      params = params.set('model', payload.model);
+    }
 
     return this.http.get(url, {params: params});
   }
 
-  // dcgetitemcode
   getItemCode(payload: any) {
     let url = this.baseUrl + "/getItemCode_1_0";
     let params = new HttpParams().set('name', payload?.materialDescription ?(payload?.materialDescription) : payload);
@@ -173,7 +180,6 @@ export class InventoryService {
 
 
   /* product-master */
-
   listProduct() {
     let url = this.baseUrl + "/listProducts_1_0";
     return this.http.get(url);
@@ -227,7 +233,6 @@ export class InventoryService {
 
 
   /* indents */
-
   listIndent() {
     let url = this.baseUrl + "/listIndents_1_0";
     return this.http.get(url);
@@ -302,7 +307,6 @@ export class InventoryService {
 
 
   /* ticket sevice */
-
   listTickets() {
     let url = this.baseUrl + "/listTickets_1_0";
     return this.http.get(url);
@@ -393,8 +397,7 @@ export class InventoryService {
   }
 
 
-  /* ticket reort service */
-
+  /* ticket reorts */
   getTicketsReport() {
     let url = this.baseUrl + `/getTicketsReport_1_0`;
     return this.http.get(url);
@@ -431,13 +434,12 @@ export class InventoryService {
 
 
 
-  /* FR Service */
-
+  /* fr services */
   listFRSites(frId: any) {
     let url = this.baseUrl + `/listFRSites_1_0/${frId}`;
     return this.http.get(url);
   }
-// dcfritems
+
   listFRItems(frId: any, statusId: any) {
     let url = this.baseUrl + `/listFRItems_1_0`;
     let params = new HttpParams()
@@ -481,8 +483,8 @@ export class InventoryService {
     return this.http.post(url, payload);
   }
 
-  /* fr-reports */
 
+  /* fr-reports */
   listFRReports(payload:any) {
     let url = this.baseUrl + "/listFRReports_1_0";
     let params = new HttpParams();
@@ -508,14 +510,15 @@ export class InventoryService {
     let params = new HttpParams()
     if(payload.createdBy) {
       params = params.set('createdBy',payload.createdBy)
-    } 
+    }
     if(payload.dateOfChallan) {
       params = params.set('dateOfChallan', formatDate(payload.dateOfChallan, 'yyyy-MM-dd', 'en-us'))
     }
     return this.http.get(url, {params: params});
   }
 
-  // dccreateDC
+
+  /* dc challan */
   createDC(payload:any) {
     let url = this.baseUrl + '/createDC_1_0';
     return this.http.post(url, payload )
@@ -544,7 +547,7 @@ export class InventoryService {
     let params = new HttpParams()
     if(payload.createdBy) {
       params = params.set('createdBy',payload.createdBy)
-    } 
+    }
     if(payload.dateOfChallan) {
       params = params.set('dateOfChallan', formatDate(payload.dateOfChallan, 'yyyy-MM-dd', 'en-us'))
     }
@@ -559,7 +562,6 @@ export class InventoryService {
 
 
   /* orders */
-
   listOrders() {
     let url = this.baseUrl + "/listOrders_1_0";
     return this.http.get(url);
@@ -619,7 +621,6 @@ export class InventoryService {
 
 
   /* vendor service */
-
   listVendors() {
     let url = this.baseUrl + '/listVendors_1_0';
     return this.http.get(url)
@@ -644,9 +645,6 @@ export class InventoryService {
     let url = this.baseUrl + `/deleteVendor_1_0/${payload.id}/${1}`;
     return this.http.delete(url);
   }
-
-
-
 
 }
 

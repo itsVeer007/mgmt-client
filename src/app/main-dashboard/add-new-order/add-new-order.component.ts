@@ -94,16 +94,9 @@ export class AddNewOrderComponent implements OnInit {
       this.newItemEvent.emit();
       this.inventorySer.createOrder(this.inventoryBody).subscribe((res: any) => {
         // console.log(res);
-        if(res) {
-          this.alertSer.success(res?.message);
-        }
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
+        this.alertSer.success(res?.message);
       }, (err: any) => {
-        if(err) {
-          this.alertSer.error(err?.error?.message);
-        }
+        this.alertSer.error(err?.error?.message);
       });
     }
   }

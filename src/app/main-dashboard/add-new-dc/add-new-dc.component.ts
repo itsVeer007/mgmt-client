@@ -46,12 +46,12 @@ export class AddNewDcComponent {
 
   UserForm: any =  FormGroup;
 
-  inventoryBody = {
+  inventoryBody: any = {
     name: null,
     address: null,
     state: null,
     code: null,
-    createdBy: 1,
+    createdBy: null,
     itemCode: [
       {
         itemCode: null,
@@ -142,16 +142,28 @@ export class AddNewDcComponent {
 
   warrantyDetail: any = 'No';
   submit() {
+    if(this.show == 'fromFr') {
+      this.inventoryBody.createdBy = 1565;
+    } else {
+      this.inventoryBody.createdBy = 1;
+    }
     if(this.UserForm.valid) {
       if(this.items.length > 0) {
         // this.alertSer.wait();
+        // localStorage.setItem('dcItems', JSON.stringify(this.inventoryBody));
         this.inventoryBody.itemCode = this.items;
-        localStorage.setItem('dcItems', JSON.stringify(this.inventoryBody));
         this.inventorySer.createDC(this.inventoryBody).subscribe((res: any) => {
           // console.log(res);
           this.newItemEvent.emit();
           this.alertSer.snackSuccess(res?.message);
-          this.dialog.open(DcChallanComponent);
+          let myObj = {
+            createdBy: 1565
+          }
+          this.inventorySer.getlistByCreatedBy(myObj).subscribe((newRes: any) => {
+            let cropeData = newRes.slice(-(this.items.length))
+            localStorage.setItem('dcItems', JSON.stringify(cropeData));
+            this.dialog.open(DcChallanComponent);
+          })
         }, (err: any) => {
           this.alertSer.error(err?.error?.message);
         });

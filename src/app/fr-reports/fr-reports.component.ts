@@ -1,6 +1,8 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';
 import { MetadataService } from 'src/services/metadata.service';
@@ -26,14 +28,16 @@ export class FrReportsComponent implements OnInit {
     this.onGetMetadata();
   }
 
-  body = {
-    p_frId:null,
+  frFilterBody: any = {
+    p_frId: null,
     p_startdate:null,
     p_enddate:null
   }
+
   reportsData:any = [];
   listFRReports() {
-    this.inventorySer.listFRReports(this.body).subscribe((res: any)=> {
+    this.frFilterBody.p_frId = 1565;
+    this.inventorySer.listFRReports(this.frFilterBody).subscribe((res: any)=> {
       // console.log(res);
       this.reportsData = res;
 
@@ -201,6 +205,17 @@ export class FrReportsComponent implements OnInit {
     this.inventorySer.comment$.next(res);
     });
     this.cmtValue = ''
+  }
+
+  @ViewChild('table', { static: false }) table!: ElementRef;
+  generatePDF() {
+    const doc = new jsPDF();
+    const table = this.table.nativeElement;
+    html2canvas(table).then((canvas) => {
+      const imgData = canvas.toDataURL('image/png');
+      doc.addImage(imgData, 'PNG', 10, 10, 190, 0);
+      doc.save('table-data.pdf');
+    });
   }
 
   sorted = false;

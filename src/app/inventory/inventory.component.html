@@ -76,7 +76,7 @@
       <div>
         <button class="create-btn mx-1" (click)="show('inventory')">Create Inventory</button>
       </div>
-      
+
       <div>
         <button class="create-btn mx-1" (click)="show('showDcInventory')">Create Dc</button>
       </div>
@@ -474,16 +474,481 @@
     <!-- table ends -->
   </div>
 
+  <!-- error msg -->
   <div class="d-flex align-items-center justify-content-center" style="height: 50vh;" *ngIf="inventoryTable.length == 0 && !showLoader">
     <h1 class="text-secondary">No Data</h1>
   </div>
 
-  <!-- Loader -->
+  <!-- loader -->
   <div *ngIf="showLoader">
     <app-loader class="d-flex justify-content-center align-items-center" style="height: 50vh;"></app-loader>
   </div>
-  <!-- /Loader -->
 </div>
+
+
+<ng-template #inventoryItemsDialog>
+  <div style="background-color: #084982;">
+    <p class="dialog-title">inventory items</p>
+  </div>
+
+  <mat-dialog-content>
+    <div class="table-res">
+      <table class="table" id="mytable">
+        <thead>
+          <tr class="task-table">
+            <th>
+              <p style="display: inline-flex;">
+                <span>slNo</span>
+                <img (click)="sort1('slNo')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
+              </p>
+            </th>
+
+            <th>
+              <p style="display: inline-flex;">
+                <span>Name</span>
+                <img (click)="sort1('itemCode')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
+              </p>
+            </th>
+
+            <th>
+              <p style="display: inline-flex;">
+                <span>serialNo</span>
+                <img (click)="sort1('serialNo')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
+              </p>
+            </th>
+
+            <th>
+              <p style="display: inline-flex;">
+                <span>createdTime</span>
+                <img (click)="sort1('createdTime')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
+              </p>
+            </th>
+
+            <th>
+              <p style="display: inline-flex;">
+                <span>modifiedTime</span>
+                <img (click)="sort1('modifiedTime')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
+              </p>
+            </th>
+
+            <th>
+              <p style="display: inline-flex;">
+                <span>status</span>
+                <img (click)="sort1('statusId')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
+              </p>
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let inven of inventoryItems; let i = index">
+            <td>
+              <p>{{ inven.slNo }}</p>
+            </td>
+
+            <td>
+              <p>{{ inven.name }}</p>
+            </td>
+
+            <td>
+              <p>{{ inven.serialNo }}</p>
+            </td>
+
+            <td>
+              <p>{{ inven.createdTime }}</p>
+            </td>
+
+            <td>
+              <p>{{ inven.modifiedTime }}</p>
+            </td>
+
+            <td>
+              <span class="d-inline-flex">
+                <p style="width: 60px;">
+                  {{
+                    inven.statusId  == 1 ? 'Instock'
+                    : inven.statusId == 2 ? 'Dispatched'
+                    : inven.statusId == 3 ? 'Installed'
+                    : inven.statusId == 4 ? 'Returned'
+                    : inven.statusId == 5 ? 'Replaced'
+                    : inven.statusId == 6 ? 'Removed'
+                    : inven.statusId == 7 ? 'Refurbished'
+                    : inven.statusId == 8 ? 'Scrap'
+                    : inven.statusId == 9 ? 'Warranty Replaced'
+                    : ''
+                  }}
+                </p>
+
+                <a (click)="openEditStatus(inven)" class="ms-2 pointer">
+                  <img src="assets/icons/edit.svg"  width="13">
+                </a>
+              </span>
+              <ng-template #editStatusDialog>
+                <div style="background-color: #084982;">
+                  <p class="dialog-title">view status</p>
+                </div>
+
+                <mat-dialog-content>
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Edit Status</mat-label>
+                    <mat-select [(ngModel)]="statusObj.statusId">
+                      <mat-option *ngFor="let item of inventoryStatus" [value]="item.keyId">{{ item.value }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </mat-dialog-content>
+
+                <div class="d-flex align-items-center justify-content-end">
+                  <div class="me-2">
+                    <button class="dialog-close-btn" mat-dialog-close>Close</button>
+                  </div>
+                  <div>
+                    <button class="dialog-update-btn" mat-dialog-close (click)="updateInventoryStatus()">Update</button>
+                  </div>
+                </div>
+              </ng-template>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="d-flex align-items-center justify-content-center" style="height: 50vh;" *ngIf="inventoryItems?.length == 0">
+      <h1 class="text-secondary">No Data</h1>
+    </div>
+  </mat-dialog-content>
+
+  <div class="d-flex justify-content-end">
+    <button class="dialog-close-btn" mat-dialog-close>Close</button>
+  </div>
+</ng-template>
+
+<ng-template #usedItemsDialog>
+  <div style="background-color: #084982;">
+    <p class="dialog-title">used items</p>
+  </div>
+
+  <mat-dialog-content>
+    <div class="table-res">
+      <table class="table" id="mytable">
+        <thead>
+          <tr class="task-table">
+            <th>ticketId</th>
+
+            <th>siteName</th>
+
+            <th>usedBy</th>
+
+            <th>usedTime</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let task of usedItems; let i = index">
+            <td>
+              <p>{{ task.ticketId }}</p>
+            </td>
+
+            <td>
+              <p>{{ task.siteName }}</p>
+            </td>
+
+            <td>
+              <p>{{ task.modifiedBy }}</p>
+            </td>
+
+            <td>
+              <p>{{ task.modifiedTime }}</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- error message -->
+    <div class="d-flex align-items-center justify-content-center" style="height: 10vh;" *ngIf="usedItems?.length == 0">
+      <h1 class="text-secondary">No Data</h1>
+    </div>
+  </mat-dialog-content>
+
+  <div class="d-flex justify-content-end" mat-dialog-actions>
+    <button class="dialog-close-btn" mat-dialog-close>Close</button>
+  </div>
+</ng-template>
+
+<ng-template #statusItemsDialog>
+  <div style="background-color: #084982;">
+    <p class="dialog-title">view</p>
+  </div>
+
+  <mat-dialog-content>
+    <div class="table-res">
+      <table class="table" id="mytable">
+        <thead>
+          <tr class="task-table">
+            <th>ticketId</th>
+            <th>ItemCode</th>
+            <th>Name</th>
+            <th>siteName</th>
+            <th *ngIf="currentStatusItem == 5">status</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let task of statusItems; let i = index">
+            <td>
+              <p>{{ task.ticketId }}</p>
+            </td>
+
+            <td>
+              <p>{{ task.itemCode }}</p>
+            </td>
+
+            <td>
+              <p>{{ task.name }}</p>
+            </td>
+
+            <td>
+              <p>{{ task.siteName }}</p>
+            </td>
+            <td *ngIf="currentStatusItem == 5">
+              <p (click)="openEditStatus(task)">
+              {{
+                task.statusId  == 1 ? 'Requested'
+                : task.statusId == 2 ? 'Dispatched'
+                : task.statusId == 3 ? 'Received'
+                : task.statusId == 4 ? 'Installed'
+                : task.statusId == 5 ? 'Returned'
+                : ''
+              }} </p>
+            </td>
+
+            <ng-template #editStatusDialog>
+              <div style="background-color: #084982;">
+                <p class="dialog-title">view status</p>
+              </div>
+
+              <mat-dialog-content>
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Edit Status</mat-label>
+                  <mat-select [(ngModel)]="statusObj.statusId">
+                    <mat-option *ngFor="let item of inventoryStatus" [value]="item.keyId">{{ item.value }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </mat-dialog-content>
+
+              <div class="d-flex align-items-center justify-content-end">
+                <div mat-dialog-actions class="me-2">
+                  <button class="dialog-close-btn" mat-dialog-close>Close</button>
+                </div>
+                <div mat-dialog-actions>
+                  <button class="dialog-update-btn" mat-dialog-close (click)="updateInventoryStatus()">Update</button>
+                </div>
+              </div>
+            </ng-template>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </mat-dialog-content>
+  <div class="d-flex justify-content-end" mat-dialog-actions>
+    <button class="dialog-close-btn" mat-dialog-close>Close</button>
+  </div>
+</ng-template>
+
+<ng-template #dcListDialog>
+  <div style="background-color: #084982;" class="d-flex justify-content-between align-items-center">
+    <p *ngIf="allDc" class="dialog-title m-0">dc items (All)</p>
+    <p *ngIf="!allDc" class="dialog-title m-0">dc items (Maintenance)</p>
+
+    <div class="d-flex justify-content-end">
+      <button *ngIf="!allDc" class="filter-btn" style="background-color: #D34124 ; width: 110px;" (click)="getAllDC('allDc'); toggleDc()">View All</button>
+      <button *ngIf="allDc" class="filter-btn" style="background-color: #D34124 ; width: 110px;" (click)="getAllDC('maintenance'); toggleDc()">View Maintainance</button>
+    </div>
+  </div>
+
+  <div class="row m-1" *ngIf="allDc">
+    <div class="col-lg-3 from-date">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Start Date</mat-label>
+        <input matInput [matDatepicker]="filterDcDate1" [(ngModel)]="filterDcBody_All.dateOfChallan">
+        <mat-datepicker-toggle matIconSuffix [for]="filterDcDate1"></mat-datepicker-toggle>
+        <mat-datepicker #filterDcDate1>
+          <mat-datepicker-actions>
+            <button mat-button matDatepickerCancel>Cancel</button>
+            <button mat-raised-button color="primary" matDatepickerApply (click)="filterDc('All')">Apply</button>
+          </mat-datepicker-actions>
+        </mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-3">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>state</mat-label>
+        <mat-select [(ngModel)]="filterDcBody_All.state" (selectionChange)="filterDc('All')">
+          <mat-option value="Andhra pradesh">Andhra pradesh</mat-option>
+          <mat-option value="odessa">odessa</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-3">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>name</mat-label>
+        <mat-select [(ngModel)]="filterDcBody_All.createdBy" (selectionChange)="filterDc('All')">
+          <mat-option [value]="1565">Brey</mat-option>
+          <mat-option [value]="1">Dany</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row m-1" *ngIf="!allDc">
+    <div class="col-lg-3 from-date">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Start Date</mat-label>
+        <input matInput [matDatepicker]="filterDcDate2" [(ngModel)]="filterDcBody_Maintenance.dateOfChallan">
+        <mat-datepicker-toggle matIconSuffix [for]="filterDcDate2"></mat-datepicker-toggle>
+        <mat-datepicker #filterDcDate2>
+          <mat-datepicker-actions>
+            <button mat-button matDatepickerCancel>Cancel</button>
+            <button mat-raised-button color="primary" matDatepickerApply (click)="filterDc('Maintenance')">Apply</button>
+          </mat-datepicker-actions>
+        </mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="dialog-content mt-2">
+    <div class="table-res">
+      <table class="table" id="mytable">
+        <thead>
+          <tr class="task-table">
+            <th>dcNumber</th>
+            <th>dateOfChallan</th>
+            <th>name</th>
+            <th>Details</th>
+            <th>Amount</th>
+            <th>Receipt No</th>
+            <th>Update</th>
+            <!-- <th>siteName</th> -->
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let item of newItems; let i = index">
+            <td>
+              <p>{{ item.dcNumber }}</p>
+            </td>
+
+            <td>
+              <p>{{ item.dateOfChallan }}</p>
+            </td>
+
+            <td>
+              <p>{{ item.name }}</p>
+            </td>
+
+            <td>
+              <p class="pointer text-primary" (click)="listDescriptionOfGoodsByDcNumber(item)">view</p>
+            </td>
+            <td>
+              <p>{{item.amount}}</p>
+            </td>
+            <td>
+              <p>{{item.receiptNo}}</p>
+            </td>
+            <td>
+              <a class="mx-1 pointer" matTooltip="Edit" (click)="openDcUpdateDialog(item)">
+                <img src="assets/icons/edit.svg">
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="d-flex align-items-center justify-content-center" style="height: 20vh;" *ngIf="newItems?.length == 0 || newItems?.length == null">
+      <h1 class="text-secondary">No Data</h1>
+    </div>
+  </div>
+
+  <div class="d-flex align-items-center justify-content-end">
+    <div>
+      <button class="dialog-close-btn mt-2" mat-dialog-close>Close</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #viewItemsDialog>
+  <div style="background-color: #084982;">
+    <p class="dialog-title">VIEW DC</p>
+  </div>
+  <div class="dialog-content">
+    <div class="table-res">
+      <table class="table" id="mytable">
+        <thead>
+          <tr class="task-table">
+            <th>
+              <p>slNO</p>
+            </th>
+            <th>
+              <p class="d-inline-flex">
+                <span>descriptionOfGoods</span>
+              </p>
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let item of items; let i = index">
+            <td>
+              <p>{{i+1}}</p>
+            </td>
+            <td>
+              <p>{{ item }}</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-end">
+    <div>
+      <button class="dialog-close-btn" mat-dialog-close>Close</button>
+    </div>
+  </div>
+
+</ng-template>
+
+<ng-template #dcUpdateDialog>
+  <div style="background-color: #084982;">
+    <p class="dialog-title">UPDATE DC</p>
+  </div>
+
+  <div class="row dialog-content">
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Receipt No</mat-label>
+        <input matInput [(ngModel)]="updateDcBody.receiptNo">
+      </mat-form-field>
+    </div>
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Amount</mat-label>
+        <input matInput type="number" [(ngModel)]="updateDcBody.amount">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="d-flex align-items-center justify-content-end">
+    <div>
+      <button class="dialog-close-btn" mat-dialog-close>Close</button>
+    </div>
+    <div>
+      <button class="dialog-update-btn" mat-dialog-close  (click)="updateDC()">Update</button>
+    </div>
+  </div>
+</ng-template>
 
 
 <!-- not using -->
@@ -780,490 +1245,6 @@
     </div>
   </div>
 </ng-template>
-
-<ng-template #inventoryItemsDialog>
-  <div style="background-color: #084982;">
-    <p class="dialog-title">inventory items</p>
-  </div>
-
-  <mat-dialog-content>
-    <div class="table-res">
-      <table class="table" id="mytable">
-        <thead>
-          <tr class="task-table">
-            <th>
-              <p style="display: inline-flex;">
-                <span>slNo</span>
-                <img (click)="sort1('slNo')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
-              </p>
-            </th>
-
-            <th>
-              <p style="display: inline-flex;">
-                <span>Name</span>
-                <img (click)="sort1('itemCode')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
-              </p>
-            </th>
-
-            <th>
-              <p style="display: inline-flex;">
-                <span>serialNo</span>
-                <img (click)="sort1('serialNo')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
-              </p>
-            </th>
-
-            <th>
-              <p style="display: inline-flex;">
-                <span>createdTime</span>
-                <img (click)="sort1('createdTime')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
-              </p>
-            </th>
-
-            <th>
-              <p style="display: inline-flex;">
-                <span>modifiedTime</span>
-                <img (click)="sort1('modifiedTime')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
-              </p>
-            </th>
-
-            <th>
-              <p style="display: inline-flex;">
-                <span>status</span>
-                <img (click)="sort1('statusId')" class="pointer" src="assets/icons/sorticon.svg" width="12px">
-              </p>
-            </th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr *ngFor="let inven of inventoryItems; let i = index">
-            <td>
-              <p>{{ inven.slNo }}</p>
-            </td>
-
-            <td>
-              <p>{{ inven.name }}</p>
-            </td>
-
-            <td>
-              <p>{{ inven.serialNo }}</p>
-            </td>
-
-            <td>
-              <p>{{ inven.createdTime }}</p>
-            </td>
-
-            <td>
-              <p>{{ inven.modifiedTime }}</p>
-            </td>
-
-            <td>
-              <span class="d-inline-flex">
-                <p style="width: 60px;">
-                  {{
-                    inven.statusId  == 1 ? 'Instock'
-                    : inven.statusId == 2 ? 'Dispatched'
-                    : inven.statusId == 3 ? 'Installed'
-                    : inven.statusId == 4 ? 'Returned'
-                    : inven.statusId == 5 ? 'Replaced'
-                    : inven.statusId == 6 ? 'Removed'
-                    : inven.statusId == 7 ? 'Refurbished'
-                    : inven.statusId == 8 ? 'Scrap'
-                    : inven.statusId == 9 ? 'Warranty Replaced'
-                    : ''
-                  }}
-                </p>
-
-                <a (click)="openEditStatus(inven)" class="ms-2 pointer">
-                  <img src="assets/icons/edit.svg"  width="13">
-                </a>
-              </span>
-              <ng-template #editStatusDialog>
-                <div style="background-color: #084982;">
-                  <p class="dialog-title">view status</p>
-                </div>
-
-                <mat-dialog-content>
-                  <mat-form-field appearance="outline" class="w-100">
-                    <mat-label>Edit Status</mat-label>
-                    <mat-select [(ngModel)]="statusObj.statusId">
-                      <mat-option *ngFor="let item of inventoryStatus" [value]="item.keyId">{{ item.value }}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </mat-dialog-content>
-
-                <div class="d-flex align-items-center justify-content-end">
-                  <div class="me-2">
-                    <button class="dialog-close-btn" mat-dialog-close>Close</button>
-                  </div>
-                  <div>
-                    <button class="dialog-update-btn" mat-dialog-close (click)="updateInventoryStatus()">Update</button>
-                  </div>
-                </div>
-              </ng-template>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="d-flex align-items-center justify-content-center" style="height: 50vh;" *ngIf="inventoryItems?.length == 0">
-      <h1 class="text-secondary">No Data</h1>
-    </div>
-  </mat-dialog-content>
-
-  <div class="d-flex justify-content-end">
-    <button class="dialog-close-btn" mat-dialog-close>Close</button>
-  </div>
-</ng-template>
-
-<ng-template #usedItemsDialog>
-  <div style="background-color: #084982;">
-    <p class="dialog-title">used items</p>
-  </div>
-
-  <mat-dialog-content>
-    <div class="table-res">
-      <table class="table" id="mytable">
-        <thead>
-          <tr class="task-table">
-            <th>ticketId</th>
-
-            <th>siteName</th>
-
-            <th>usedBy</th>
-
-            <th>usedTime</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr *ngFor="let task of usedItems; let i = index">
-            <td>
-              <p>{{ task.ticketId }}</p>
-            </td>
-
-            <td>
-              <p>{{ task.siteName }}</p>
-            </td>
-
-            <td>
-              <p>{{ task.modifiedBy }}</p>
-            </td>
-
-            <td>
-              <p>{{ task.modifiedTime }}</p>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- error message -->
-    <div class="d-flex align-items-center justify-content-center" style="height: 10vh;" *ngIf="usedItems?.length == 0">
-      <h1 class="text-secondary">No Data</h1>
-    </div>
-  </mat-dialog-content>
-
-  <div class="d-flex justify-content-end" mat-dialog-actions>
-    <button class="dialog-close-btn" mat-dialog-close>Close</button>
-  </div>
-</ng-template>
-
-<ng-template #statusItemsDialog>
-  <div style="background-color: #084982;">
-    <p class="dialog-title">view</p>
-  </div>
-
-  <mat-dialog-content>
-    <div class="table-res">
-      <table class="table" id="mytable">
-        <thead>
-          <tr class="task-table">
-            <th>ticketId</th>
-            <th>ItemCode</th>
-            <th>Name</th>
-            <th>siteName</th>
-            <th *ngIf="currentStatusItem == 5">status</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr *ngFor="let task of statusItems; let i = index">
-            <td>
-              <p>{{ task.ticketId }}</p>
-            </td>
-
-            <td>
-              <p>{{ task.itemCode }}</p>
-            </td>
-
-            <td>
-              <p>{{ task.name }}</p>
-            </td>
-
-            <td>
-              <p>{{ task.siteName }}</p>
-            </td>
-            <td *ngIf="currentStatusItem == 5">
-              <p (click)="openEditStatus(task)">
-              {{
-                task.statusId  == 1 ? 'Requested'
-                : task.statusId == 2 ? 'Dispatched'
-                : task.statusId == 3 ? 'Received'
-                : task.statusId == 4 ? 'Installed'
-                : task.statusId == 5 ? 'Returned'
-                : ''
-              }} </p>
-            </td>
-
-            <ng-template #editStatusDialog>
-              <div style="background-color: #084982;">
-                <p class="dialog-title">view status</p>
-              </div>
-
-              <mat-dialog-content>
-                <mat-form-field appearance="outline" class="w-100">
-                  <mat-label>Edit Status</mat-label>
-                  <mat-select [(ngModel)]="statusObj.statusId">
-                    <mat-option *ngFor="let item of inventoryStatus" [value]="item.keyId">{{ item.value }}</mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </mat-dialog-content>
-
-              <div class="d-flex align-items-center justify-content-end">
-                <div mat-dialog-actions class="me-2">
-                  <button class="dialog-close-btn" mat-dialog-close>Close</button>
-                </div>
-                <div mat-dialog-actions>
-                  <button class="dialog-update-btn" mat-dialog-close (click)="updateInventoryStatus()">Update</button>
-                </div>
-              </div>
-            </ng-template>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </mat-dialog-content>
-  <div class="d-flex justify-content-end" mat-dialog-actions>
-    <button class="dialog-close-btn" mat-dialog-close>Close</button>
-  </div>
-</ng-template>
-
-
-
-<!-- <ng-template #dcListDialog>
-  <div style="background-color: #084982;" class="d-flex justify-content-between align-items-center">
-    <p class="dialog-title">view</p>
-  </div>
-  <div class="dialog-content  mt-2">
-    <button  class="create-btn mx-1" (click)="getlistByCreatedBy()">Maintainance dc</button>
-    <button  class="create-btn mx-1">List all dc</button>
-  </div>
-
-  <div class="d-flex align-items-center justify-content-end">
-    <div>
-      <button class="dialog-close-btn mt-2" mat-dialog-close>Close</button>
-    </div>
-  </div>
-</ng-template> -->
-
-<ng-template #dcListDialog>
-  <div style="background-color: #084982;" class="d-flex justify-content-between align-items-center">
-    <p *ngIf="allDc" class="dialog-title m-0">dc items (All)</p>
-    <p *ngIf="!allDc" class="dialog-title m-0">dc items (Maintenance)</p>
-
-    <div class="d-flex justify-content-end">
-      <button *ngIf="!allDc" class="filter-btn" style="background-color: #D34124 ; width: 110px;" (click)="getAllDC('allDc'); toggleDc()">View All</button>
-      <button *ngIf="allDc" class="filter-btn" style="background-color: #D34124 ; width: 110px;" (click)="getAllDC('maintenance'); toggleDc()">View Maintainance</button>
-    </div>
-  </div>
-
-  <div class="row m-1" *ngIf="allDc">
-    <div class="col-lg-3 from-date">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Start Date</mat-label>
-        <input matInput [matDatepicker]="filterDcDate1" [(ngModel)]="filterDcBody_All.dateOfChallan">
-        <mat-datepicker-toggle matIconSuffix [for]="filterDcDate1"></mat-datepicker-toggle>
-        <mat-datepicker #filterDcDate1>
-          <mat-datepicker-actions>
-            <button mat-button matDatepickerCancel>Cancel</button>
-            <button mat-raised-button color="primary" matDatepickerApply (click)="filterDc('All')">Apply</button>
-          </mat-datepicker-actions>
-        </mat-datepicker>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-3">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>state</mat-label>
-        <mat-select [(ngModel)]="filterDcBody_All.state" (selectionChange)="filterDc('All')">
-          <mat-option value="Andhra pradesh">Andhra pradesh</mat-option>
-          <mat-option value="odessa">odessa</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-3">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>name</mat-label>
-        <mat-select [(ngModel)]="filterDcBody_All.createdBy" (selectionChange)="filterDc('All')">
-          <mat-option [value]="1565">Brey</mat-option>
-          <mat-option [value]="1">Dany</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-  </div>
-
-  <div class="row m-1" *ngIf="!allDc">
-    <div class="col-lg-3 from-date">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Start Date</mat-label>
-        <input matInput [matDatepicker]="filterDcDate2" [(ngModel)]="filterDcBody_Maintenance.dateOfChallan">
-        <mat-datepicker-toggle matIconSuffix [for]="filterDcDate2"></mat-datepicker-toggle>
-        <mat-datepicker #filterDcDate2>
-          <mat-datepicker-actions>
-            <button mat-button matDatepickerCancel>Cancel</button>
-            <button mat-raised-button color="primary" matDatepickerApply (click)="filterDc('Maintenance')">Apply</button>
-          </mat-datepicker-actions>
-        </mat-datepicker>
-      </mat-form-field>
-    </div>
-  </div>
-
-  <div class="dialog-content mt-2">
-    <div class="table-res">
-      <table class="table" id="mytable">
-        <thead>
-          <tr class="task-table">
-            <th>dcNumber</th>
-            <th>dateOfChallan</th>
-            <th>name</th>
-            <th>Details</th>
-            <th>Amount</th>
-            <th>Receipt No</th>
-            <th>Update</th>
-            <!-- <th>siteName</th> -->
-          </tr>
-        </thead>
-  
-        <tbody>
-          <tr *ngFor="let item of newItems; let i = index">
-            <td>
-              <p>{{ item.dcNumber }}</p>
-            </td>
-  
-            <td>
-              <p>{{ item.dateOfChallan }}</p>
-            </td>
-  
-            <td>
-              <p>{{ item.name }}</p>
-            </td>
-  
-            <td>
-              <p class="pointer text-primary" (click)="listDescriptionOfGoodsByDcNumber(item)">view</p>
-            </td>
-            <td>
-              <p>{{item.amount}}</p>
-            </td>
-            <td>
-              <p>{{item.receiptNo}}</p>
-            </td>
-            <td>
-              <a class="mx-1 pointer" matTooltip="Edit" (click)="openDcUpdateDialog(item)">
-                <img src="assets/icons/edit.svg">
-              </a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="d-flex align-items-center justify-content-center" style="height: 20vh;" *ngIf="newItems?.length == 0 || newItems?.length == null">
-      <h1 class="text-secondary">No Data</h1>
-    </div>
-  </div>
-
-  <div class="d-flex align-items-center justify-content-end">
-    <div>
-      <button class="dialog-close-btn mt-2" mat-dialog-close>Close</button>
-    </div>
-  </div>
-</ng-template>
-
-<ng-template #viewItemsDialog>
-  <div style="background-color: #084982;">
-    <p class="dialog-title">VIEW DC</p>
-  </div>
-  <div class="dialog-content">
-    <div class="table-res">
-      <table class="table" id="mytable">
-        <thead>
-          <tr class="task-table">
-            <th>
-              <p>slNO</p>
-            </th>
-            <th>
-              <p class="d-inline-flex">
-                <span>descriptionOfGoods</span>
-              </p>
-            </th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr *ngFor="let item of items; let i = index">
-            <td>
-              <p>{{i+1}}</p>
-            </td>
-            <td>
-              <p>{{ item }}</p>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <div class="d-flex justify-content-end">
-    <div>
-      <button class="dialog-close-btn" mat-dialog-close>Close</button>
-    </div>
-  </div>
-
-</ng-template>
-
-<ng-template #dcUpdateDialog>
-  <div style="background-color: #084982;">
-    <p class="dialog-title">UPDATE DC</p>
-  </div>
-
-  <div class="row dialog-content">
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Receipt No</mat-label>
-        <input matInput [(ngModel)]="updateDcBody.receiptNo">
-      </mat-form-field>
-    </div>
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Amount</mat-label>
-        <input matInput type="number" [(ngModel)]="updateDcBody.amount">
-      </mat-form-field>
-    </div>
-  </div>
-
-  <div class="d-flex align-items-center justify-content-end">
-    <div>
-      <button class="dialog-close-btn" mat-dialog-close>Close</button>
-    </div>
-    <div>
-      <button class="dialog-update-btn" mat-dialog-close  (click)="updateDC()">Update</button>
-    </div>
-  </div>
-</ng-template>
-
-
 
 
 <div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showInventory">

@@ -288,9 +288,6 @@ export class AddNewDeviceComponent implements OnInit {
         if(res) {
           this.alertSer.success(res?.message ? res?.message : 'Device created successfully');
         }
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
       },
       (err: any) => {
         if(err) {

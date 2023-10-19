@@ -1,211 +1,213 @@
 <div class="row formModal">
-    <div class="col-lg-6 col-md-6"></div>
+  <div class="col-lg-6 col-md-6"></div>
 
-    <div class="col-lg-6 col-md-6 add-form" id="user" @inOutPaneAnimation>
-        <div class="d-flex flex-row justify-content-between">
-            <div class="d-flex flex-row justify-content-start">
-                <a class="close-main pointer" (click)="closeIndent()"><img src="assets/icons/close_form.svg" /></a>
-                <span class="form-heading">add dc</span>
-            </div>
-        </div>
-
-        <!-- Form -->
-        <div>
-            <form autocomplete="off" [formGroup]="UserForm">
-                <div *ngIf="show == 'fromInventory'">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <mat-form-field appearance="outline" class="w-100">
-                                <mat-label>name</mat-label>
-                                <mat-select formControlName="name" [(ngModel)]="inventoryBody.name">
-                                    <mat-option [value]="1565">Brey</mat-option>
-                                </mat-select>
-                                <mat-error class="mt-1"> name is required</mat-error>
-                            </mat-form-field>
-                        </div>
-
-
-
-                        <div class="col-lg-4">
-                            <mat-form-field appearance="outline" class="w-100">
-                                <mat-label>Address</mat-label>
-                                <mat-select formControlName="address" [(ngModel)]="inventoryBody.address">
-                                    <mat-option value="ALS Grocery Store">ALS Grocery Store</mat-option>
-                                </mat-select>
-                                <mat-error class="mt-1">Address is required</mat-error>
-                            </mat-form-field>
-                        </div>
-
-                        <div class="col-lg-4">
-                            <mat-form-field appearance="outline" class="w-100">
-                                <mat-label>state</mat-label>
-                                <mat-select formControlName="state" [(ngModel)]="inventoryBody.state">
-                                    <mat-option value="Odessa">Odessa</mat-option>
-                                </mat-select>
-                                <mat-error class="mt-1">state is required</mat-error>
-                            </mat-form-field>
-                        </div>
-
-                        <div class="col-lg-4">
-                            <mat-form-field appearance="outline" class="w-100">
-                                <mat-label>code</mat-label>
-                                <mat-select formControlName="code" [(ngModel)]="inventoryBody.code">
-                                    <mat-option [value]="522503">522503</mat-option>
-                                </mat-select>
-                                <mat-error class="mt-1"> code is required</mat-error>
-                            </mat-form-field>
-                        </div>
-
-                        <mat-card>
-                            <div *ngFor="let item of inventoryBody.itemCode; let i = index">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <mat-form-field appearance="outline" class="w-100">
-                                            <mat-label>descriptionOfGoods</mat-label>
-                                            <mat-select formControlName="descriptionOfGoods" [(ngModel)]="inventoryBody.itemCode[i].descriptionOfGoods">
-                                                <mat-option *ngFor="let val of productIds" [value]="val.name" (click)="getItemCode(val.name)">{{val.name}}</mat-option>
-                                            </mat-select>
-                                            <mat-error class="mt-1"> descriptionOfGoods is required</mat-error>
-                                        </mat-form-field>
-                                    </div>
-        
-                                    <div class="col-lg-6">
-                                        <mat-form-field appearance="outline" class="w-100">
-                                            <mat-label>itemCode</mat-label>
-                                            <mat-select formControlName="itemCode" [(ngModel)]="inventoryBody.itemCode[i].itemCode">
-                                                <mat-option [value]="currentItemCode?.code">{{ currentItemCode?.code }}</mat-option>
-                                            </mat-select>
-                                            <mat-error class="mt-1">itemCode is required</mat-error>
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <mat-form-field appearance="outline" class="w-100">
-                                        <mat-label>quantity</mat-label>
-                                        <input  matInput type="number" formControlName="quantity" [(ngModel)]="inventoryBody.itemCode[i].quantity">
-                                        <!-- <mat-hint class="mt-2">Available quantity:&nbsp;{{ inventoryQty }}</mat-hint> -->
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-    
-                                <div class="d-flex justify-content-end">
-                                    <a class="add-task-btn" (click)="onTaskAdd(item)">Add Item</a>
-                                </div>
-                            </div>
-                        </mat-card>
-                    </div>
-                </div>
-
-                <div *ngIf="show == 'fromFr'">
-                    <div class="row" *ngFor="let item of inventoryBody.itemCode; let i = index">
-                        <div class="col-lg-4">
-                            <mat-form-field appearance="outline" class="w-100">
-                                <mat-label>name</mat-label>
-                                <mat-select formControlName="name" [(ngModel)]="inventoryBody.name">
-                                        <mat-option value="RiverSide Solutions">RiverSide Solutions</mat-option>
-                                </mat-select>
-                                <mat-error class="mt-1"> name is required</mat-error>
-                            </mat-form-field>
-                        </div>
-
-                        <div class="col-lg-4">
-                            <mat-form-field appearance="outline" class="w-100">
-                                <mat-label>Address</mat-label>
-                                <mat-select formControlName="address" [(ngModel)]="inventoryBody.address">
-                                    <mat-option value="Atmakur Rural">Atmakur Rural</mat-option>
-                                </mat-select>
-                                <mat-error class="mt-1">Address is required</mat-error>
-                            </mat-form-field>
-                        </div>
-
-                        <div class="col-lg-4">
-                            <mat-form-field appearance="outline" class="w-100">
-                                <mat-label>State</mat-label>
-                                <mat-select formControlName="state" [(ngModel)]="inventoryBody.state">
-                                    <mat-option value="Andhra Pradesh">Andhra Pradesh</mat-option>
-                                </mat-select>
-                                <mat-error class="mt-1">State is required</mat-error>
-                            </mat-form-field>
-                        </div>
-
-                        <div class="col-lg-4">
-                            <mat-form-field appearance="outline" class="w-100">
-                                <mat-label>code</mat-label>
-                                <mat-select formControlName="code" [(ngModel)]="inventoryBody.code">
-                                    <mat-option [value]="522503">522503</mat-option>
-                                </mat-select>
-                                <mat-error class="mt-1"> code is required</mat-error>
-                            </mat-form-field>
-                        </div>
-
-                        <mat-card>
-                            <div *ngFor="let item of inventoryBody.itemCode; let i = index">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <mat-form-field appearance="outline" class="w-100">
-                                            <mat-label>descriptionOfGoods</mat-label>
-                                            <mat-select formControlName="descriptionOfGoods" [(ngModel)]="inventoryBody.itemCode[i].descriptionOfGoods">
-                                                <mat-option *ngFor="let val of productIds" [value]="val.name" (click)="getItemCode(val.name)">{{val.name}}</mat-option>
-                                            </mat-select>
-                                            <mat-error class="mt-1"> descriptionOfGoods is required</mat-error>
-                                        </mat-form-field>
-                                    </div>
-        
-                                    <div class="col-lg-6">
-                                        <mat-form-field appearance="outline" class="w-100">
-                                            <mat-label>itemCode</mat-label>
-                                            <mat-select formControlName="itemCode" [(ngModel)]="inventoryBody.itemCode[i].itemCode">
-                                                <mat-option [value]="currentItemCode?.code">{{ currentItemCode?.code }}</mat-option>
-                                            </mat-select>
-                                            <mat-error class="mt-1">itemCode is required</mat-error>
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <mat-form-field appearance="outline" class="w-100">
-                                        <mat-label>quantity</mat-label>
-                                        <input  matInput type="number" formControlName="quantity" [(ngModel)]="inventoryBody.itemCode[i].quantity">
-                                        <!-- <mat-hint class="mt-2">Available quantity:&nbsp;{{ inventoryQty }}</mat-hint> -->
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-                                
-    
-                                <div class="d-flex justify-content-end">
-                                    <a class="add-task-btn" (click)="onTaskAdd(item)">Add Item</a>
-                                </div>
-                            </div>
-                        </mat-card>
-                    </div>
-                </div>
-
-                <!-- list -->
-                <div class="col-lg-12 col-md-12 mt-2" *ngIf="items.length > 0">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>no</th>
-                                <th>itemCode</th>
-                                <th>descriptionOfGoods</th>
-                                <th>quantity</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let task of items; let j = index">
-                                <th>{{ j + 1 }}</th>
-                                <td>{{ task.itemCode }}</td>
-                                <td>{{ task.descriptionOfGoods }}</td>
-                                <td>{{task.quantity}}</td>
-                                <!-- <td class="pointer">
-                                    <img src="assets\icons\plus.svg" alt="">quantity<img src="assets\icons\minus.svg" alt="">
-                                </td> -->
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="text-center my-3">
-                    <button type="submit" class="btn add-btn" (click)="submit()">ADD</button>
-                </div>
-            </form>
-        </div>
+  <div class="col-lg-6 col-md-6 add-form" id="user" @inOutPaneAnimation>
+    <div class="d-flex flex-row justify-content-between">
+      <div class="d-flex flex-row justify-content-start">
+        <a class="close-main pointer" (click)="closeIndent()"><img src="assets/icons/close_form.svg" /></a>
+        <span class="form-heading">add dc</span>
+      </div>
     </div>
+
+    <!-- Form -->
+    <div>
+      <form autocomplete="off" [formGroup]="UserForm">
+        <div *ngIf="show == 'fromInventory'">
+          <div class="row">
+            <div class="col-lg-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>name</mat-label>
+                <mat-select formControlName="name" [(ngModel)]="inventoryBody.name">
+                  <mat-option [value]="1565">Brey</mat-option>
+                </mat-select>
+                <mat-error class="mt-1"> name is required</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Address</mat-label>
+                <mat-select formControlName="address" [(ngModel)]="inventoryBody.address">
+                  <mat-option value="ALS Grocery Store">ALS Grocery Store</mat-option>
+                </mat-select>
+                <mat-error class="mt-1">Address is required</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>state</mat-label>
+                <mat-select formControlName="state" [(ngModel)]="inventoryBody.state">
+                  <mat-option value="Odessa">Odessa</mat-option>
+                </mat-select>
+                <mat-error class="mt-1">state is required</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>code</mat-label>
+                <mat-select formControlName="code" [(ngModel)]="inventoryBody.code">
+                  <mat-option [value]="522503">522503</mat-option>
+                </mat-select>
+                <mat-error class="mt-1"> code is required</mat-error>
+              </mat-form-field>
+            </div>
+
+            <mat-card>
+              <div *ngFor="let item of inventoryBody.itemCode; let i = index">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>descriptionOfGoods</mat-label>
+                      <mat-select formControlName="descriptionOfGoods"
+                        [(ngModel)]="inventoryBody.itemCode[i].descriptionOfGoods">
+                        <mat-option *ngFor="let val of productIds" [value]="val.name"
+                          (click)="getItemCode(val.name)">{{val.name}}</mat-option>
+                      </mat-select>
+                      <mat-error class="mt-1"> descriptionOfGoods is required</mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>itemCode</mat-label>
+                      <mat-select formControlName="itemCode" [(ngModel)]="inventoryBody.itemCode[i].itemCode">
+                        <mat-option [value]="currentItemCode?.code">{{ currentItemCode?.code }}</mat-option>
+                      </mat-select>
+                      <mat-error class="mt-1">itemCode is required</mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-lg-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>quantity</mat-label>
+                      <input matInput type="number" formControlName="quantity"
+                        [(ngModel)]="inventoryBody.itemCode[i].quantity">
+                      <!-- <mat-hint class="mt-2">Available quantity:&nbsp;{{ inventoryQty }}</mat-hint> -->
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-end">
+                  <a class="add-task-btn" (click)="onTaskAdd(item)">Add Item</a>
+                </div>
+              </div>
+            </mat-card>
+          </div>
+        </div>
+
+        <div *ngIf="show == 'fromFr'">
+          <div class="row" *ngFor="let item of inventoryBody.itemCode; let i = index">
+            <div class="col-lg-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>name</mat-label>
+                <mat-select formControlName="name" [(ngModel)]="inventoryBody.name">
+                  <mat-option value="RiverSide Solutions">RiverSide Solutions</mat-option>
+                </mat-select>
+                <mat-error class="mt-1"> name is required</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Address</mat-label>
+                <mat-select formControlName="address" [(ngModel)]="inventoryBody.address">
+                  <mat-option value="Atmakur Rural">Atmakur Rural</mat-option>
+                </mat-select>
+                <mat-error class="mt-1">Address is required</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>State</mat-label>
+                <mat-select formControlName="state" [(ngModel)]="inventoryBody.state">
+                  <mat-option value="Andhra Pradesh">Andhra Pradesh</mat-option>
+                </mat-select>
+                <mat-error class="mt-1">State is required</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>code</mat-label>
+                <mat-select formControlName="code" [(ngModel)]="inventoryBody.code">
+                  <mat-option [value]="522503">522503</mat-option>
+                </mat-select>
+                <mat-error class="mt-1"> code is required</mat-error>
+              </mat-form-field>
+            </div>
+
+            <mat-card>
+              <div *ngFor="let item of inventoryBody.itemCode; let i = index">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>descriptionOfGoods</mat-label>
+                      <mat-select formControlName="descriptionOfGoods"
+                        [(ngModel)]="inventoryBody.itemCode[i].descriptionOfGoods">
+                        <mat-option *ngFor="let val of productIds" [value]="val.name"
+                          (click)="getItemCode(val.name)">{{val.name}}</mat-option>
+                      </mat-select>
+                      <mat-error class="mt-1"> descriptionOfGoods is required</mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>itemCode</mat-label>
+                      <mat-select formControlName="itemCode" [(ngModel)]="inventoryBody.itemCode[i].itemCode">
+                        <mat-option [value]="currentItemCode?.code">{{ currentItemCode?.code }}</mat-option>
+                      </mat-select>
+                      <mat-error class="mt-1">itemCode is required</mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-lg-6">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>quantity</mat-label>
+                      <input matInput type="number" formControlName="quantity"
+                        [(ngModel)]="inventoryBody.itemCode[i].quantity">
+                      <!-- <mat-hint class="mt-2">Available quantity:&nbsp;{{ inventoryQty }}</mat-hint> -->
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-end">
+                  <a class="add-task-btn" (click)="onTaskAdd(item)">Add Item</a>
+                </div>
+              </div>
+            </mat-card>
+          </div>
+        </div>
+
+        <!-- list -->
+        <div class="table-task col-lg-12 col-md-12 mt-2" *ngIf="items.length > 0">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>no</th>
+                <th>itemCode</th>
+                <th>descriptionOfGoods</th>
+                <th>quantity</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let task of items; let j = index">
+                <th>{{ j + 1 }}</th>
+                <td>{{ task.itemCode }}</td>
+                <td>{{ task.descriptionOfGoods }}</td>
+                <td>{{task.quantity}}</td>
+                <!-- <td class="pointer">
+                          <img src="assets\icons\plus.svg" alt="">quantity<img src="assets\icons\minus.svg" alt="">
+                      </td> -->
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="text-center my-3">
+          <button type="submit" class="btn add-btn" (click)="submit()">ADD</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>

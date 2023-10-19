@@ -200,10 +200,6 @@ export class AddNewUserComponent implements OnInit {
           });
         }
 
-        setTimeout(() => {
-          window.location.reload();
-        }, 3000);
-
       }, (err: any) => {
         if(err) {
           this.addUser0 = Swal.fire({

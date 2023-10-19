@@ -3,11 +3,10 @@
   <!-- header -->
   <div class="d-flex justify-content-between">
     <div class="users-header">
-      <p>List of Tickets - <span>{{ newTicketData?.length }}</span></p>
+      <p>Tickets Reports - <span>{{ newTicketData?.length }}</span></p>
     </div>
     <div>
-      <!-- <a class="pointer" (click)="show('ticket')"><img style="rotate: 45deg;" src="assets/icons/close_form.svg" alt="" width="70"></a> -->
-      <button mat-flat-button color="primary" class="py-0" (click)="show('ticket')">Download Report</button>
+      <button class="create-btn" (click)="generatePDF()">Download Report</button>
     </div>
   </div>
   <!-- /header -->
@@ -54,7 +53,7 @@
 
   <!-- table starts -->
   <div class="table-resp">
-    <table class="table table-hover" id="mytable">
+    <table class="table table-hover" id="mytable" #table>
       <thead>
         <tr class="form1">
           <!-- <th>
@@ -141,10 +140,6 @@
           <td>
             <p>{{ cust.ticketAttendedDate  | date: 'dd-MM-yyyy' }}</p>
           </td>
-
-
-
-
         </tr>
       </tbody>
     </table>

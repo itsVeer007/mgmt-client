@@ -438,9 +438,6 @@ export class DevicesComponent implements OnInit {
       if(res) {
         this.alertSer.snackSuccess(res?.message ? res?.message : 'Device updated successfully');
       }
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
     }, (err: any) => {
       if(err) {
         this.alertSer.error(err?.error?.message);

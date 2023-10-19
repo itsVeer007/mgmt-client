@@ -51,28 +51,24 @@
           </a> -->
 
           <a *ngIf="isAdmin == true" class="list-group-item " [routerLink]="['/users']" routerLinkActive="routeactive">
-              <img src="assets/icons/user-white.svg">
-              <span>Users</span>
+            <img src="assets/icons/user-white.svg">
+            <span>Users</span>
           </a>
 
           <div class="navigation">
             <ul>
               <li class="m-2 has-sub">
-                <a><img src="assets/icons/inventory.svg">Inventory Manager</a>
-
+                <a><img src="assets/icons/inventory.svg">Inventory Manager<span><img src="assets/icons/arrow_right.svg" alt=""></span></a>
                 <ul>
                   <li>
                     <a [routerLink]="['/indents']" routerLinkActive="routeactive1">Indents</a>
                   </li>
-
                   <li>
                     <a [routerLink]="['/inventory']" routerLinkActive="routeactive1">Inventory</a>
                   </li>
-
                   <li>
                     <a [routerLink]="['/product-master']" routerLinkActive="routeactive1">Product Master</a>
                   </li>
-
                   <!-- <li>
                     <a [routerLink]="['/orders']" routerLinkActive="routeactive">Orders</a>
                   </li> -->
@@ -100,14 +96,16 @@
           <div class="navigation">
             <ul>
               <li class="m-2 has-sub">
-                <a><img src="assets/icons/ticket.svg">Ticket Manager</a>
+                <a><img src="assets/icons/ticket.svg">Ticket Manager<span><img src="assets/icons/arrow_right.svg" alt=""></span></a>
                 <ul>
                   <li>
                     <a [routerLink]="['/tickets']" routerLinkActive="routeactive">Tickets</a>
                   </li>
-
                   <li>
                     <a [routerLink]="['/fr']" routerLinkActive="routeactive">FR</a>
+                  </li>
+                  <li>
+                    <a [routerLink]="['/fr-kit']" routerLinkActive="routeactive">FR Kit</a>
                   </li>
                 </ul>
               </li>
@@ -132,10 +130,7 @@
           <div class="navigation">
             <ul>
               <li class="has-sub m-2">
-                <a>
-                  <img src="assets/icons/report.svg">
-                  Reports
-                </a>
+                <a><img src="assets/icons/report.svg">Reports<span><img src="assets/icons/arrow_right.svg" alt=""></span></a>
                 <ul>
                   <li class="sub">
                     <a>Advertisements</a>
@@ -160,16 +155,11 @@
           <div class="navigation">
             <ul>
               <li class="m-2 has-sub">
-                <a><img src="assets/icons/miscellaneous.svg">Miscellaneous</a>
-
+                <a><img src="assets/icons/miscellaneous.svg">Miscellaneous<span><img src="assets/icons/arrow_right.svg" alt=""></span></a>
                 <ul>
                   <li>
                     <a [routerLink]="['/vendors']" routerLinkActive="routeactive">Vendors</a>
                   </li>
-                  <li>
-                    <a [routerLink]="['/fr-kit']" routerLinkActive="routeactive">Field Representative Kit</a>
-                  </li>
-
                 </ul>
               </li>
             </ul>

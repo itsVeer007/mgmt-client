@@ -1,7 +1,9 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';
 import { MetadataService } from 'src/services/metadata.service';
@@ -70,6 +72,24 @@ export class TicketReportsComponent implements OnInit {
 
   //     XLSX.writeFile(wb, this.fileName);
   // }
+
+  @ViewChild('table', { static: false }) table!: ElementRef;
+
+  generatePDF() {
+    const doc = new jsPDF();
+    const table = this.table.nativeElement;
+
+    // Use html2canvas to capture the table as an image
+    html2canvas(table).then((canvas) => {
+      const imgData = canvas.toDataURL('image/png');
+
+      // Add the image to the PDF
+      doc.addImage(imgData, 'PNG', 10, 10, 190, 0);
+
+      // Save the PDF
+      doc.save('table-data.pdf');
+    });
+  }
 
 
   searchText: any;

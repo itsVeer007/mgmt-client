@@ -10,7 +10,7 @@ export class ApiService {
 
   isLoggedin = new BehaviorSubject<boolean>(false);
   user$ = new BehaviorSubject<any>(null);
-  error$ = new BehaviorSubject<any>('');
+  error$ = new BehaviorSubject<string>('');
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -29,14 +29,14 @@ export class ApiService {
 
   logout() {
     localStorage.clear();
-    sessionStorage.clear();
+    localStorage.clear();
     this.isLoggedin.next(false);
     this.user$.next(null);
     this.router.navigate(['/login']);
   }
 
   getAuthStatus() {
-    let user = JSON.parse(sessionStorage.getItem('user')!);
+    let user = JSON.parse(localStorage.getItem('user')!);
     if (user == null) {
       return false;
     }else{
@@ -57,7 +57,7 @@ export class ApiService {
 
   refresh() {
     let url = this.baseUrl + '/businessInterface/login/refreshtoken';
-    var user = JSON.parse(sessionStorage.getItem('user')!);
+    var user = JSON.parse(localStorage.getItem('user')!);
     let payload = {
       userName: user.UserName,
       calling_System_Detail: "portal",
@@ -71,7 +71,7 @@ export class ApiService {
 
   addUser(payload: any) {
     let url = this.baseUrl + "/businessInterface/User/addUser_1_0";
-    var user = JSON.parse(sessionStorage.getItem('user')!);
+    var user = JSON.parse(localStorage.getItem('user')!);
     // console.log(user);
     payload.accesstoken = user.access_token;
     payload.callingUsername = user.UserName;
@@ -80,7 +80,7 @@ export class ApiService {
 
   getUser(email: string) {
     let url = this.baseUrl+"/businessInterface/User/getUser_1_0";
-    var user = JSON.parse(sessionStorage.getItem('user')!);
+    var user = JSON.parse(localStorage.getItem('user')!);
     // console.log(user);
 
     var payload = {
@@ -94,7 +94,7 @@ export class ApiService {
 
   updateUser(user:any) {
     let url = this.baseUrl+"/businessInterface/User/getUser_1_0";
-    var a = JSON.parse(sessionStorage.getItem('user')!);
+    var a = JSON.parse(localStorage.getItem('user')!);
     user.accesstoken = a.access_token;
     user.callingUsername = a.UserName;
     return this.http.post(url, user);

@@ -135,9 +135,6 @@ export class AddMetadataComponent implements OnInit {
         if(res) {
           this.alertSer.success(res?.message);
         }
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
       }, (err: any) => {
         if(err) {
           this.alertSer.error(err?.error?.message);

@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required]
     });
 
-    sessionStorage.clear();
+    localStorage.clear();
     localStorage.clear();
     this.apiser.user$.subscribe((res: any) => {
       this.user = res
@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
       // console.log(res);
       this.showLoader = false;
       if(res?.Status == "Success") {
-        sessionStorage.setItem('user', JSON.stringify(res));
+        localStorage.setItem('user', JSON.stringify(res));
         this.apiser.user$.next(res);
         this.route.navigate(['/main-dashboard']);
         this.getlistSites();
@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit {
         this.showLoader = false;
         if(res?.Status == 'Success') {
           this.apiser.isLoggedin.next(true);
-          sessionStorage.setItem('user', JSON.stringify(res));
+          localStorage.setItem('user', JSON.stringify(res));
           this.apiser.user$.next(res);
           this.router.navigate(['/main-dashboard']);
           this.getlistSites();

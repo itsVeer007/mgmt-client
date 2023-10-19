@@ -14,18 +14,18 @@ export class AppComponent {
   user: any = null;
   ngOnInit() {
     isDevMode() ? console.log('Stagging!') : console.log('Production!');
-
-    this.apiser.user$.subscribe((res) => {
-      this.user = JSON.parse(sessionStorage.getItem('user')!);
-    });
+    // this.apiser.user$.subscribe((res) => {
+    //   this.user = res;
+    // });
   }
 
   ngDoCheck() {
-    // this.apiser.user$.subscribe((res) => {
-    //   console.log(res)
-    // });
-
-    // this.apiser.isLoggedin.subscribe(res => console.log(res))
+    let isAuthenticated = this.apiser.getAuthStatus();
+    if(isAuthenticated) {
+      this.user = 'Success';
+    } else {
+      this.user = null;
+    }
   }
 
 }

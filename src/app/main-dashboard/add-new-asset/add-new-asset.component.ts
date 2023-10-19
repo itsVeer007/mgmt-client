@@ -126,7 +126,7 @@ export class AddNewAssetComponent implements OnInit {
     });
 
     this.deviceIdFromStorage = JSON.parse(localStorage.getItem('add_body')!);
-    // this.deviceIdFromStorage = JSON.parse(sessionStorage.getItem('user')!);
+    // this.deviceIdFromStorage = JSON.parse(localStorage.getItem('user')!);
 
     this.onMetadataChange()
     // this.getRes();
@@ -261,9 +261,6 @@ export class AddNewAssetComponent implements OnInit {
   //       this.assetService.addAsset(this.assetData, this.selectedFile).subscribe((res: any) => {
   //         console.log(res);
   //         this.alertSer.success( res?.message);
-  //         setTimeout(() => {
-  //           window.location.reload();
-  //         }, 2000);
   //       });
   //     }
 
@@ -294,9 +291,6 @@ export class AddNewAssetComponent implements OnInit {
   //               this.assetService.addAsset(this.assetData, this.selectedFile).subscribe((res: any) => {
   //                 console.log(res);
   //                 this.alertSer.success( res?.message);
-  //                 setTimeout(() => {
-  //                   window.location.reload();
-  //                 }, 2000);
   //               })
   //             }
   //             })
@@ -324,9 +318,6 @@ export class AddNewAssetComponent implements OnInit {
   //             this.assetService.addAsset(this.assetData, this.selectedFile).subscribe((res: any) => {
   //               console.log(res);
   //               this.alertSer.success(res?.message);
-  //               setTimeout(() => {
-  //                 window.location.reload();
-  //               }, 2000);
   //             });
   //           }
   //         });
@@ -343,9 +334,6 @@ export class AddNewAssetComponent implements OnInit {
   //         this.assetService.addAsset(this.assetData, this.selectedFile).subscribe((res: any) => {
   //           console.log(res);
   //           this.alertSer.success( res?.message);
-  //           setTimeout(() => {
-  //             window.location.reload();
-  //           }, 2000);
   //         });
   //       }
   //     }

@@ -13,7 +13,7 @@ export class SiteService {
   constructor(private http: HttpClient) { }
 
   listSites() {
-    let user = JSON.parse(sessionStorage.getItem('user')!);
+    let user = JSON.parse(localStorage.getItem('user')!);
     let url = this.baseUrl + '/sitesList_2_0';
     let payload = {
       userName : user?.UserName,

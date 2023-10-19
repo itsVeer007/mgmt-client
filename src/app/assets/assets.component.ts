@@ -423,9 +423,6 @@ export class AssetsComponent implements OnInit {
       if(res) {
         this.alertSer.success(res?.message);
       }
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
     }, (err: any) => {
       if(err) {
         this.alertSer.wait();
