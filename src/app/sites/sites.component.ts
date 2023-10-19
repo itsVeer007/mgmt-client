@@ -113,13 +113,21 @@ export class SitesComponent implements OnInit {
   showAddDevice: boolean = false;
 
   show(value: string) {
-    if(value == 'site') {this.showAddSite = true}
-    if(value == 'device') {this.showAddDevice = true}
+    if(value == 'site') {
+      this.showAddSite = true
+    }
+    if(value == 'device') {
+      this.showAddDevice = true
+    }
   }
 
   closenow(type: string) {
-    if (type == 'site') { this.showAddSite = false }
-    if (type == 'device') { this.showAddDevice = false }
+    if (type == 'site') { 
+      this.showAddSite = false 
+    }
+    if (type == 'device') {
+      this.showAddDevice = false 
+      }
   }
 
   addressid = 0;

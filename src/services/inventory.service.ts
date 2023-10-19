@@ -158,7 +158,7 @@ export class InventoryService {
 
   listInventoryByItemCode(payload: any) {
     let url = this.baseUrl + "/listInventoryByItemCode_1_0";
-    let params = new HttpParams().set('itemCode', payload.itemCode ? payload.itemCode : payload.suggestedItemCode);
+    let params = new HttpParams().set('itemCode', payload.itemCode ? payload.itemCode : payload.suggestedItemCode).set('brand', payload.brand).set('model',payload.model);
 
     return this.http.get(url, {params: params});
   }
