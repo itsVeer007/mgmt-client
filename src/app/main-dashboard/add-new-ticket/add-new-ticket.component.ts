@@ -101,43 +101,42 @@ export class AddNewTicketComponent implements OnInit {
       // 'reasonId': new FormControl('')
     });
 
-    this.onMetadataChange();
+    this.getMetadata();
     this.siteIds = JSON.parse(localStorage.getItem('siteIds')!)?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
   }
 
-    /* metadata methods */
+  /* metadata */
 
-    deviceType: any;
-    deviceMode: any;
-    ticketType: any;
-    sourceOfRequest: any;
-    ticketPriority: any;
-    ticketCategory: any;
-    ticketSubCategory: any;
-    taskReason: any;
-    onMetadataChange() {
-      this.dropDown.getMetadata().subscribe((res: any) => {
-        for(let item of res) {
-          if(item.type == 'Device_Type') {
-            this.deviceType = item.metadata;
-          } else if(item.type == 'Device_Mode') {
-            this.deviceMode = item.metadata;
-          } else if(item.type == 'Ticket_Type') {
-            this.ticketType = item.metadata;
-          } else if(item.type == 'Source_of_Request') {
-            this.sourceOfRequest = item.metadata;
-          } else if(item.type == 'Ticket_Priority') {
-            this.ticketPriority = item.metadata;
-          } else if(item.type == 'Ticket_Category') {
-            this.ticketCategory = item.metadata;
-          } else if(item.type == 'Ticket_Sub_Category') {
-            this.ticketSubCategory = item.metadata;
-          } else if(item.type == 'Task_Reason') {
-            this.taskReason = item.metadata;
-          }
-        }
-      })
+  deviceType: any;
+  deviceMode: any;
+  ticketType: any;
+  sourceOfRequest: any;
+  ticketPriority: any;
+  ticketCategory: any;
+  ticketSubCategory: any;
+  taskReason: any;
+  getMetadata() {
+    let data = JSON.parse(localStorage.getItem('metaData')!);
+    for(let item of data) {
+      if(item.type == 'Device_Type') {
+        this.deviceType = item.metadata;
+      } else if(item.type == 'Device_Mode') {
+        this.deviceMode = item.metadata;
+      } else if(item.type == 'Ticket_Type') {
+        this.ticketType = item.metadata;
+      } else if(item.type == 'Source_of_Request') {
+        this.sourceOfRequest = item.metadata;
+      } else if(item.type == 'Ticket_Priority') {
+        this.ticketPriority = item.metadata;
+      } else if(item.type == 'Ticket_Category') {
+        this.ticketCategory = item.metadata;
+      } else if(item.type == 'Ticket_Sub_Category') {
+        this.ticketSubCategory = item.metadata;
+      } else if(item.type == 'Task_Reason') {
+        this.taskReason = item.metadata;
+      }
     }
+  }
 
   closeTicket() {
     this.newItemEvent.emit();

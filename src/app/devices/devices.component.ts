@@ -35,7 +35,7 @@ export class DevicesComponent implements OnInit {
   ngOnInit(): void {
     this.listDeviceAdsInfo();
     this.getStatus();
-    this.onMetadataChange();
+    this.getMetadata();
     this.siteData = JSON.parse(localStorage.getItem('siteIds')!);
     // console.log(this.siteData);
   }
@@ -161,49 +161,37 @@ export class DevicesComponent implements OnInit {
     softwareVersion: any;
     weatherInterval: any;
     deviceStatus: any
-    onMetadataChange() {
-      this.metadataSer.getMetadata().subscribe((res: any) => {
-        for(let item of res) {
-          if(item.type == 'Device_Type') {
-            this.deviceType = item.metadata;
-          }
-          else if(item.type == 'Device_Mode') {
-            this.deviceMode = item.metadata;
-          }
-          else if(item.type == 'Working_Day') {
-            this.workingDay = item.metadata;
-          }
-          else if(item.type == 'Ads_Temp_Range') {
-            this.tempRange = item.metadata;
-          }
-          else if(item.type == 'Ads_Age_Range') {
-            this.ageRange = item.metadata;
-          }
-          else if(item.type == 'model_object_type') {
-            this.modelObjectType = item.metadata;
-          }
-          else if(item.type == 'Model') {
-            this.model = item.metadata;
-          }
-          else if(item.type == 'Model Resolution') {
-            this.modelResolution = item.metadata;
-          }
-          else if(item.type == 'Ads_Software_Version') {
-            this.softwareVersion = item.metadata;
-          }
-          else if(item.type == 'Weather_Interval') {
-            this.weatherInterval = item.metadata;
-          }
-          else if(item.type == 'Device_Status') {
-            this.deviceStatus = item.metadata;
-          }
+    getMetadata() {
+      let data = JSON.parse(localStorage.getItem('metaData')!);
+      for(let item of data) {
+        if(item.type == 'Device_Type') {
+          this.deviceType = item.metadata;
+        } else if(item.type == 'Device_Mode') {
+          this.deviceMode = item.metadata;
+        } else if(item.type == 'Working_Day') {
+          this.workingDay = item.metadata;
+        } else if(item.type == 'Ads_Temp_Range') {
+          this.tempRange = item.metadata;
+        } else if(item.type == 'Ads_Age_Range') {
+          this.ageRange = item.metadata;
+        } else if(item.type == 'model_object_type') {
+          this.modelObjectType = item.metadata;
+        } else if(item.type == 'Model') {
+          this.model = item.metadata;
+        } else if(item.type == 'Model Resolution') {
+          this.modelResolution = item.metadata;
+        } else if(item.type == 'Ads_Software_Version') {
+          this.softwareVersion = item.metadata;
+        } else if(item.type == 'Weather_Interval') {
+          this.weatherInterval = item.metadata;
+        } else if(item.type == 'Device_Status') {
+          this.deviceStatus = item.metadata;
         }
-      })
+      }
     }
 
   rebootDevice(id: any) {
     this.alertSer.wait();
-
     this.assetSer.updateRebootDevice(id).subscribe((res: any) => {
       // console.log(res)
       if(res) {
@@ -261,7 +249,6 @@ export class DevicesComponent implements OnInit {
 
 
   @ViewChild('editStatusDialog') editStatusDialog = {} as TemplateRef<any>;
-
   y: any
   openEditStatus(id: any) {
     // console.log(id);
@@ -289,7 +276,6 @@ export class DevicesComponent implements OnInit {
 
   currentItem: any;
   @ViewChild('viewSiteDialog') viewSiteDialog = {} as TemplateRef<any>;
-
   openViewPopup(item: any) {
     this.currentItem = item;
     this.currentWorkingDays = JSON.parse(JSON.stringify(this.currentItem.workingDays.split(',').map((item: any) => +item)));

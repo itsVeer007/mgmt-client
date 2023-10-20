@@ -24,7 +24,7 @@ export class FrComponent implements OnInit {
   ngOnInit(): void {
     // this.listFRSites();
     this.listFRTickets();
-    this.onGetMetadata();
+    this.getMetadata();
     this.siteIds = JSON.parse(localStorage.getItem('siteIds')!)?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
   }
 
@@ -56,21 +56,19 @@ export class FrComponent implements OnInit {
   taskStatus: any;
   sourceOfRequest: any;
   indentStatus: any;
-  onGetMetadata() {
-    this.metaDatSer.getMetadata().subscribe((res: any) => {
-      // console.log(res);
-      for(let item of res) {
-        if(item.type == "Assigned_To") {
-          this.assignedTo = item.metadata;
-        } else if(item.type == "Task_Status") {
-          this.taskStatus = item.metadata;
-        } else if(item.type == "Source_of_Request") {
-          this.sourceOfRequest = item.metadata;
-        } else if(item.type == "Indent_Status") {
-          this.indentStatus = item.metadata;
-        }
+  getMetadata() {
+    let data = JSON.parse(localStorage.getItem('metaData')!);
+    for(let item of data) {
+      if(item.type == "Assigned_To") {
+        this.assignedTo = item.metadata;
+      } else if(item.type == "Task_Status") {
+        this.taskStatus = item.metadata;
+      } else if(item.type == "Source_of_Request") {
+        this.sourceOfRequest = item.metadata;
+      } else if(item.type == "Indent_Status") {
+        this.indentStatus = item.metadata;
       }
-    })
+    }
   }
 
   siteNg: any;

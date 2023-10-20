@@ -1312,10 +1312,10 @@
 </ng-template>
 
 
-<div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showIndent">
+<div  *ngIf="showIndent">
   <app-add-new-indent (newItemEvent)="closenow('showIndent')"></app-add-new-indent>
 </div>
 
-<div  style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showDcFr">
+<div   *ngIf="showDcFr">
   <app-add-new-dc [show]="'fromFr'" (newItemEvent)="closenow('showDcFr')"></app-add-new-dc>
 </div>

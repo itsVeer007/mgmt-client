@@ -1,10 +1,7 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
-import { ReportService } from 'src/services/report.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-wifi-ads',
@@ -14,7 +11,11 @@ import Swal from 'sweetalert2';
 export class WifiAdsComponent implements OnInit {
 
   showLoader = false;
-  constructor(private http: HttpClient, private ass: AssetService, private reportSer: ReportService, public alertSer: AlertService, public dialog: MatDialog) { }
+  constructor(
+    private assetSer: AssetService,
+    private alertSer: AlertService,
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
     this.getInventory();
@@ -31,7 +32,7 @@ export class WifiAdsComponent implements OnInit {
   scrap: any = [];
   redyToUse: any = [];
   getInventory() {
-    this.reportSer.wifiList().subscribe((res: any) => {
+    this.assetSer.wifiList().subscribe((res: any) => {
       // console.log(res);
 
       this.productMaster = res;
@@ -89,7 +90,7 @@ export class WifiAdsComponent implements OnInit {
       'productStatusId': this.productStatusId ? this.productStatusId : '',
     }
 
-    this.reportSer.filteBody(myObj).subscribe((res: any) => {
+    this.assetSer.filteBody(myObj).subscribe((res: any) => {
       // console.log(res);
       this.newProductMaster = res;
     })
@@ -162,7 +163,7 @@ export class WifiAdsComponent implements OnInit {
     }
 
     this.alertSer.wait();
-    this.reportSer.updateProductMaster(this.originalObject).subscribe((res: any) => {
+    this.assetSer.updateProductMaster(this.originalObject).subscribe((res: any) => {
       this.alertSer.success('Success');
     }, (err: any) => {
         this.alertSer.error('Error');
@@ -180,7 +181,7 @@ export class WifiAdsComponent implements OnInit {
 
   deleteInventory() {
     this.alertSer.wait();
-    this.reportSer.deleteProduct(this.currentItem).subscribe((res: any) => {
+    this.assetSer.deleteProduct(this.currentItem).subscribe((res: any) => {
       // console.log(res);
       this.alertSer.success('Success');
     }, (err: any) => {

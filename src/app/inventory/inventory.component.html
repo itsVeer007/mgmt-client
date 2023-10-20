@@ -1247,11 +1247,11 @@
 </ng-template>
 
 
-<div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showInventory">
+<div  *ngIf="showInventory">
   <app-add-new-inventory (newItemEvent)="closenow('inventory'); listInventory()"></app-add-new-inventory>
 </div>
 
-<div  style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showDcInventory">
+<div   *ngIf="showDcInventory">
   <app-add-new-dc [show]="'fromInventory'" (newItemEvent)="closenow('showDcInventory'); listInventory()"></app-add-new-dc>
 </div>
 

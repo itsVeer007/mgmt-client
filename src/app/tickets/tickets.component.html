@@ -354,7 +354,7 @@
             <a class="mx-1 pointer" (click)="openViewPopup(cust)" matTooltip="View">
               <img src="assets/icons/view.svg" >
             </a>
-<!-- 
+<!--
             <a class="mx-1 pointer" (click)="openEditPopup(cust)" matTooltip="Edit">
               <img src="assets/icons/edit.svg">
             </a>
@@ -860,10 +860,10 @@
 </ng-template>
 
 
-<div *ngIf="showTicket" style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;">
+<div *ngIf="showTicket" >
   <app-add-new-ticket (newItemEvent)="closenow('ticket'); listTickets()"></app-add-new-ticket>
 </div>
 
-<div *ngIf="showIndent" style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;">
+<div *ngIf="showIndent" >
   <app-add-new-indent (newItemEvent)="closenow('indent')"></app-add-new-indent>
 </div>

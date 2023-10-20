@@ -31,6 +31,7 @@ export class AdvertisementsComponent implements OnInit {
     this.siteData = JSON.parse(localStorage.getItem('siteIds')!);
     this.listAssets();
     this.listDevices();
+    this.getMetadata();
   }
 
   advertisements: any = [];
@@ -137,10 +138,19 @@ export class AdvertisementsComponent implements OnInit {
   }
 
   deviceType: any;
-  getMetadataByType(type: any) {
-    this.metadataSer.getMetadataByType(type).subscribe((res: any) => {
-      this.deviceType = res[0]?.metadata;
-    });
+  deviceMode: any;
+  addStatus: any;
+  getMetadata() {
+    let data = JSON.parse(localStorage.getItem('metaData')!);
+    for(let item of data) {
+      if(item.type == 'Device_Type') {
+        this.deviceType = item.metadata;
+      } else if(item.type == 'Device_Mode') {
+        this.deviceMode = item.metadata;
+      } else if(item.type == 'Asset_Status') {
+        this.addStatus = item.metadata;
+      }
+    }
   }
 
 
@@ -198,19 +208,10 @@ export class AdvertisementsComponent implements OnInit {
 
   @ViewChild('editAssetDialog') editAssetDialog = {} as TemplateRef<any>;
 
-  deviceMode: any;
-  addStatus: any;
+
   openEditPopupp(item: any) {
     this.currentItem = JSON.parse(JSON.stringify(item));
-    this.metadataSer.getMetadataByType('Device_Mode').subscribe((res: any) => {
-      this.deviceMode = res[0]?.metadata;
-    });
-    this.metadataSer.getMetadataByType('Asset_Status').subscribe((res: any) => {
-      this.addStatus = res[0]?.metadata;
-    });
-
     this.dialog.open(this.editAssetDialog);
-    // console.log(item);
   }
 
   originalObject: any;

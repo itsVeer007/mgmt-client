@@ -168,11 +168,11 @@
 
 
 
-<div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showAddUser">
+<div  *ngIf="showAddUser">
   <app-add-new-user (newItemEvent)="closenow($event, 'user')"></app-add-new-user>
 </div>
 
 
-<div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showAddSite">
+<div  *ngIf="showAddSite">
   <app-add-additional-site (newItemEvent)="closenow($event, 'additionalSite')"></app-add-additional-site>
 </div>

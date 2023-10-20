@@ -25,7 +25,7 @@ export class InventoryComponent implements OnInit {
 
     ngOnInit(): void {
       this.listInventory();
-      this.onMetadataChange();
+      this.getMetadata();
     }
 
 
@@ -142,14 +142,13 @@ export class InventoryComponent implements OnInit {
   /* metadata methods */
 
   inventoryStatus: any;
-  onMetadataChange() {
-    this.metadataSer.getMetadata().subscribe((res: any) => {
-      for(let item of res) {
-        if(item.type == 'Inventory_Status') {
-          this.inventoryStatus = item.metadata;
-        }
+  getMetadata() {
+    let data = JSON.parse(localStorage.getItem('metaData')!);
+    for(let item of data) {
+      if(item.type == 'Inventory_Status') {
+        this.inventoryStatus = item.metadata;
       }
-    })
+    }
   }
 
   filterBody = {
@@ -196,8 +195,8 @@ export class InventoryComponent implements OnInit {
   }
 
   show(type: string) {
-    if (type == 'inventory') { 
-      this.showInventory = true; 
+    if (type == 'inventory') {
+      this.showInventory = true;
     }
     if(type == 'showDcInventory') {
         this.showDcInventory = true;
@@ -634,7 +633,7 @@ export class InventoryComponent implements OnInit {
 
   newItems: any = [];
   allDc: boolean = true;
-  
+
   toggleDc() {
     this.allDc = !this.allDc;
   }

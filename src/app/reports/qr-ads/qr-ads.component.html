@@ -657,7 +657,7 @@
 <!-- /Detai View Popup -->
 
 
-<div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showInventory">
+<div  *ngIf="showInventory">
   <app-add-product-master [show]="showInventory" (newItemEvent)="closenow($event, 'inventory')"></app-add-product-master>
 </div>
 

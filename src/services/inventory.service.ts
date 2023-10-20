@@ -13,8 +13,8 @@ export class InventoryService {
 
   constructor(private http: HttpClient, public datepipe: DatePipe) { }
 
-  // baseUrl = `${environment.baseUrl}/inventoryAndtickets`;
-  baseUrl = 'http://192.168.0.137:8080';
+  baseUrl = `${environment.baseUrl}/inventoryAndtickets`;
+  // baseUrl = 'http://192.168.0.137:8080';
 
   /* inventory */
   listItemCode(payload: any) {

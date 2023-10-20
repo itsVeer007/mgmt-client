@@ -327,6 +327,6 @@
 
 
 
-<div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showTicket">
+<div  *ngIf="showTicket">
   <app-add-metadata [metadataDetail]="newMetaData" (newItemEvent)="closenow('ticket')"></app-add-metadata>
 </div>

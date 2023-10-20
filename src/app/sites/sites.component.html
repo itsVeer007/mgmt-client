@@ -353,10 +353,10 @@
 
 
 
-<div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showAddSite">
+<div  *ngIf="showAddSite">
   <app-add-new-site (newItemEvent)="closenow('site')"></app-add-new-site>
 </div>
 
-<div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showAddDevice">
+<div  *ngIf="showAddDevice">
   <app-add-device [fromSites]="inputToDevices" (newItemEvent)="closenow('device')"></app-add-device>
 </div>

@@ -514,7 +514,7 @@
 <!-- /Delete Popup -->
 
 
-<div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showProduct">
+<div  *ngIf="showProduct">
   <app-add-product-master (newItemEvent)="closenow('product'); listProduct()"></app-add-product-master>
 </div>
 

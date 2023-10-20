@@ -476,6 +476,6 @@
 <!-- /order items popup-->
 
 
-<div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showInventory">
+<div  *ngIf="showInventory">
   <app-add-new-order (newItemEvent)="closenow($event, 'vendor')"></app-add-new-order>
 </div>

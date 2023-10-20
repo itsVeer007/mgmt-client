@@ -1,5 +1,5 @@
 .main-dashboard {
-    margin-top: 85px;
+    /* margin-top: 85px; */
     max-height: calc(110vh - (185px));
     overflow-y: scroll;
 }
@@ -481,9 +481,4 @@ table tbody tr th .badge {
     .nextvert {
       display: none;
     }
-
 }
-
-/* .lists {
-    margin-top: -10px;
-} */

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AlertService } from 'src/services/alert.service';
 import { ApiService } from 'src/services/api.service';
+import { MetadataService } from 'src/services/metadata.service';
 import { SiteService } from 'src/services/site.service';
 
 @Component({
@@ -16,7 +18,9 @@ export class LoginComponent implements OnInit {
     private siteSer: SiteService,
     private route: Router,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private alertSer: AlertService,
+    private metaDataSer: MetadataService
   ) { }
 
   user = null;
@@ -30,10 +34,9 @@ export class LoginComponent implements OnInit {
     });
 
     localStorage.clear();
-    localStorage.clear();
-    this.apiser.user$.subscribe((res: any) => {
-      this.user = res
-    });
+    // this.apiser.user$.subscribe((res: any) => {
+    //   this.user = res
+    // });
   }
 
   loginBody = {
@@ -42,7 +45,6 @@ export class LoginComponent implements OnInit {
     calling_System_Detail: "portal"
   }
 
-  errMsg: any = null;
   login() {
     this.showLoader = true;
     this.apiser.login(this.loginBody).subscribe((res: any) => {
@@ -54,11 +56,11 @@ export class LoginComponent implements OnInit {
         this.route.navigate(['/main-dashboard']);
         this.getlistSites();
       } else if(res?.Status == "Failed") {
-        this.errMsg = res.Message;
-        this.clearErrMsg();
+        this.alertSer.snackError(res?.message);
       }
     }, (err: any) => {
-      // console.log(err);
+      this.showLoader = false;
+      this.alertSer.snackError(err?.error?.message);
     });
   }
 
@@ -79,10 +81,13 @@ export class LoginComponent implements OnInit {
           this.apiser.user$.next(res);
           this.router.navigate(['/main-dashboard']);
           this.getlistSites();
+          this.getMetadata();
         } else if(res?.Status == 'Failed') {
-          this.errMsg = res?.message;
-          this.clearErrMsg();
+          this.alertSer.snackError(res?.message);
         }
+      }, (err: any) => {
+        this.showLoader = false;
+        this.alertSer.snackError(err?.error?.message);
       })
     }
   }
@@ -100,8 +105,10 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  clearErrMsg() {
-    setTimeout(() => {this.errMsg = null}, 5000)
+  getMetadata() {
+    this.metaDataSer.getMetadata().subscribe((res: any) => {
+      localStorage.setItem('metaData', JSON.stringify(res));
+    })
   }
 
 }

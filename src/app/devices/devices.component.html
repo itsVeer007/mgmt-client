@@ -696,6 +696,6 @@
 </ng-template>
 
 
-<div style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" *ngIf="showAddDevice">
+<div *ngIf="showAddDevice">
   <app-add-new-device (newItemEvent)="closenow('device', $event)"></app-add-new-device>
 </div>

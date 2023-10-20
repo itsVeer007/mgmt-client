@@ -116,7 +116,7 @@
             <td>
               <p>{{ cust.frId == 1565 ? 'Brey Dominguez' : ''}}</p>
             </td>
-<!-- 
+<!--
             <td>
               <a class="pointer" (click)="show('indent'); ticketIdToFr(cust)">
                 <img src="assets/icons/add.svg" width="40">
@@ -155,5 +155,5 @@
 
 
 <div *ngIf="showFrkit">
-  <app-add-new-frkit style="position: fixed; top: 70px; right: 0; z-index: 99; width: 100%;" (newItemEvent)="closenow('frKit'); listFRTickets()"></app-add-new-frkit>
+  <app-add-new-frkit  (newItemEvent)="closenow('frKit'); listFRTickets()"></app-add-new-frkit>
 </div>

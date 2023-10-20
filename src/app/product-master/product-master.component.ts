@@ -22,7 +22,7 @@ export class ProductMasterComponent implements OnInit {
 
   ngOnInit(): void {
     this.listProduct();
-    this.onMetadataChange();
+    this.getMetadata();
   }
 
   showLoader = false;
@@ -97,15 +97,6 @@ export class ProductMasterComponent implements OnInit {
   }
 
   applyFilter() {
-    // let myObj = {
-    //   'categoryId': this.categoryId ? this.categoryId : -1,
-    //   'typeId': this.typeId ? this.typeId : -1,
-    //   'statusId': this.statusId ? this.statusId : -1,
-    //   'startDate': this.startDate ? this.startDate : '',
-    //   'endDate': this.endDate ? this.endDate : '',
-    //   'vendorId': this.vendorId ? this.vendorId : ''
-    // }
-
     this.inventorySer.filterProductMaster(this.filterBody).subscribe((res: any) => {
       // console.log(res);
       this.newProductMaster = res;
@@ -151,16 +142,15 @@ export class ProductMasterComponent implements OnInit {
 
   productStatus: any;
   uom: any;
-  onMetadataChange() {
-    this.metaDataSer.getMetadata().subscribe((res: any) => {
-      for(let item of res) {
-        if(item.type == 'Product_Status') {
-          this.productStatus= item.metadata;
-        } else if(item.type == 'uom') {
-          this.uom = item.metadata;
-        }
+  getMetadata() {
+    let data = JSON.parse(localStorage.getItem('metaData')!);
+    for(let item of data) {
+      if(item.type == 'Product_Status') {
+        this.productStatus= item.metadata;
+      } else if(item.type == 'uom') {
+        this.uom = item.metadata;
       }
-    })
+    }
   }
 
 

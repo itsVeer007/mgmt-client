@@ -190,4 +190,59 @@ export class AssetService {
     return this.http.delete(url, {body: myObj})
   }
 
+
+  /* advertisement reports */
+
+  reportUrl = 'http://192.168.0.137:8080';
+
+  list() {
+    let url = this.reportUrl + "/search";
+    return this.http.get(url);
+
+  }
+
+  wifiList() {
+    let url = this.reportUrl + "/connected_details";
+    return this.http.get(url);
+  }
+
+
+  updateProductMaster(payload: any) {
+    let url = this.reportUrl + '/updatingproduct_1_0';
+    return this.http.put(url, payload)
+  }
+
+  deleteProduct(payload: any) {
+    let url = this.reportUrl + `/deletion_1_0?Id=${payload.id}`;
+
+    return this.http.delete(url);
+  }
+
+
+  filterReports(payload: any) {
+    let url = this.reportUrl + '/search';
+    let params = new HttpParams();
+
+    if(payload.siteId) {
+      params = params.set('siteId', payload.siteId)
+    }
+    if(payload.deviceId) {
+      params = params.set('deviceId', payload.deviceId)
+    }
+    if(payload.from_date) {
+      params = params.set('from_date', payload.from_date)
+    }
+    if(payload.to_date) {
+      params = params.set('to_date', payload.to_date)
+    }
+
+    return this.http.get(url, {params: params})
+  }
+
+
+  filteBody(payload: any) {
+    let url = this.reportUrl + `/getListBySearchPM_1_0?`;
+    return this.http.get(url, {params: payload});
+  }
+
 }

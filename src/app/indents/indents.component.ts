@@ -22,8 +22,8 @@ export class IndentsComponent implements OnInit {
     this.listIndent();
     this.listProduct();
     this.listInventory();
+    this.getMetadata();
     // this.listOrderItems();
-    // this.onGetMetadata();
   }
 
   showLoader = false;
@@ -50,7 +50,6 @@ export class IndentsComponent implements OnInit {
       this.showLoader = false;
       this.indentTable = res;
       this.newIndentTable = this.indentTable;
-
       for(let item of this.indentTable) {
         if(item.statusId == 1) {
           this.requested.push(item);
@@ -119,15 +118,6 @@ export class IndentsComponent implements OnInit {
     }, []);
   }
 
-  // getMetadataByType(type: any) {
-  //   this.metaDatSer.getMetadataByType(type).subscribe((res: any) => {
-  //     console.log(res);
-  //     for(let item of res) {
-  //       this.indentStatus = item.metadata;
-  //     }
-  //   })
-  // }
-
   ojobOrTicketId: any = null;
   oproductId: any = null;
   ostatus: any = null;
@@ -171,6 +161,16 @@ export class IndentsComponent implements OnInit {
     this.showIndent = false;
   }
 
+  indentStatus: any;
+  getMetadata() {
+    let data = JSON.parse(localStorage.getItem('metaData')!);
+    for(let item of data) {
+      if(item.type == 'Indent_Status') {
+        this.indentStatus = item.metadata;
+      }
+    }
+  }
+
 
 
   currentItem: any;
@@ -179,12 +179,9 @@ export class IndentsComponent implements OnInit {
 
   /* view inventory */
 
-  indentStatus: any;
+
   @ViewChild('viewInventoryDialog') viewInventoryDialog = {} as TemplateRef<any>;
   openViewPopup(item: any) {
-    this.metaDatSer.getMetadataByType('Indent_Status').subscribe((res: any) => {
-      this.indentStatus = res[0]?.metadata;
-    });
     this.currentItem = item;
     this.dialog.open(this.viewInventoryDialog);
     // console.log(this.currentItem);
@@ -194,15 +191,10 @@ export class IndentsComponent implements OnInit {
   /* update inventory */
 
   @ViewChild('editInventoryDialog') editInventoryDialog = {} as TemplateRef<any>;
-
   inventorySerial: any;
   openEditPopup(item: any) {
-    this.metaDatSer.getMetadataByType('Indent_Status').subscribe((res: any) => {
-      this.indentStatus = res[0]?.metadata;
-    });
     this.currentItem = item;
     this.dialog.open(this.editInventoryDialog);
-
     this.inventorySer.listInventoryByProductId(item.productId).subscribe((res: any) => {
       // console.log(res);
       for(let item of this.inventoryDetail) {
@@ -239,7 +231,7 @@ export class IndentsComponent implements OnInit {
 
   openDeletePopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.deleteInventoryDialog, { maxWidth: '650px', maxHeight: '550px'});
+    this.dialog.open(this.deleteInventoryDialog);
   }
 
   deleteIndent() {
@@ -261,7 +253,7 @@ export class IndentsComponent implements OnInit {
 
   openCreateOrder() {
     // this.currentItem = item;
-    this.dialog.open(this.createOrderDialog, { maxWidth: '650px', maxHeight: '550px'});
+    this.dialog.open(this.createOrderDialog);
   }
 
   centralboxBody = {
@@ -280,7 +272,7 @@ export class IndentsComponent implements OnInit {
   @ViewChild('replaceComponentDialog') replaceComponentDialog = {} as TemplateRef<any>;
 
   openReplaceComponent() {
-    this.dialog.open(this.replaceComponentDialog, { maxWidth: '550px', maxHeight: '550px'});
+    this.dialog.open(this.replaceComponentDialog);
   }
 
   body = {
@@ -306,7 +298,7 @@ export class IndentsComponent implements OnInit {
   inventoryItems: any;
   openviewDetailsDialog(data: any) {
     // console.log(data)
-    this.dialog.open(this.viewDetailsDialog, { maxWidth: '650px', maxHeight: '550px'});
+    this.dialog.open(this.viewDetailsDialog);
 
     this.inventorySer.listIndentItems(data).subscribe((res: any) => {
       this.inventoryItems = res;
@@ -320,11 +312,6 @@ export class IndentsComponent implements OnInit {
   openEditStatus(id: any) {
     this.currentStatusId = id;
     this.dialog.open(this.editStatus);
-
-    this.metaDatSer.getMetadataByType('Indent_Status').subscribe((res: any) => {
-      this.indentStatus = res[0]?.metadata;
-    });
-
     this.inventorySer.listInventoryByItemCode(id).subscribe((res: any) => {
       this.invenIds = res;
       // console.log(this.invenIds);

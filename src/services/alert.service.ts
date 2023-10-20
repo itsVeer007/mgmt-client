@@ -23,6 +23,7 @@ export class AlertService {
 
   snackError(message: any) {
     this.config.panelClass = ["error"];
+    this.config.panelClass = ['blue-snackbar']
     this.show(message);
   }
 

@@ -72,9 +72,9 @@ p {
 
 /* main- dashboard */
 
-.users {
+/* .users {
   margin-top: 80px;
-}
+} */
 
 .users-header {
   display: flex;
@@ -155,25 +155,27 @@ p {
 
 
 .formModal {
-  display: none;
-  z-index: 1;
-  height: 93vh;
-  overflow-x: hidden;
+  /* display: none;
+  z-index: 1; */
+  height: calc(100vh - 70px);
   overflow-y: scroll;
   background-color: rgba(0, 0, 0, 0.4);
-  /* position: fixed;  */
-  /* width: 100%;  */
-  /* min-width: 1625px; */
-  /* background-color: rgb(0, 0, 0); */
+
+  position: fixed;
+  top: 70px;
+  right: 0;
+  z-index: 99;
+  width: 100%;
 }
 
 .add-form {
   margin-top: 0 !important;
   background-color: #fff;
+
   /* max-height: calc(110vh - (200px));
   background: none repeat scroll 0 0 ;
   overflow-y: scroll;
-    height: 95vh;
+  height: 95vh;
   height: max-content;
   position: relative;
   overflow: visible; */
@@ -245,6 +247,7 @@ form .add-btn:active {
   border-radius: 25px;
   border-width: 0;
   font-size: 12px;
+  margin-top: 5px;
 }
 
 .create-btn:active {
@@ -615,6 +618,14 @@ thead tr th {
   color: #ababab;
   font-size: 16px;
   font-weight: 600;
+}
+
+.mat-mdc-snack-bar-container {
+  &.blue-snackbar {
+    --mdc-snackbar-container-color: #084982 !important;
+    --mat-mdc-snack-bar-button-color: #fff !important;
+    --mdc-snackbar-supporting-text-color: #fff !important;
+  }
 }
 
 

@@ -9,7 +9,7 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  background-image: linear-gradient(to right, #084982 , #D34124);
+  background-image: linear-gradient(325deg, #D34124, #084982);
   height: 100vh;
   display: flex;
   align-items: center;
@@ -62,9 +62,16 @@ form .btn:hover {
   width: 50% !important;
 }
 
+.mat-mdc-snack-bar-container {
+  &.blue-snackbar {
+    --mdc-snackbar-container-color: #084982 !important;
+    --mat-mdc-snack-bar-button-color: #fff !important;
+    --mdc-snackbar-supporting-text-color: #fff !important;
+  }
+}
 
-/* common ng-deep */
 
+/* ng-deep */
 .mat-form-field-appearance-outline ::ng-deep .mat-form-field-outline {
   top: 5px;
   bottom: 5px;
