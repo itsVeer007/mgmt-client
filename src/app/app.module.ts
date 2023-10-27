@@ -90,6 +90,7 @@ import { SearchPipe } from './pipes/search.pipe';
 import { SortPipe } from './pipes/sort.pipe';
 import { ErrorPageComponent } from './utilities/error-page/error-page.component';
 import { DcChallanComponent } from './utilities/dc-challan/dc-challan.component';
+import { RemoveDuplicatesPipe } from './utilities/pipes/remove-duplicates.pipe';
 
 
 @NgModule({
@@ -148,6 +149,7 @@ import { DcChallanComponent } from './utilities/dc-challan/dc-challan.component'
     SortPipe,
     ErrorPageComponent,
     DcChallanComponent,
+    RemoveDuplicatesPipe,
   ],
   imports: [
     BrowserModule,

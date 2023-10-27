@@ -173,10 +173,7 @@ export class AddNewInventoryComponent implements OnInit {
   itemCodes: any;
   getItemCode(data: any) {
     let x = encodeURIComponent(data?.materialDescription);
-    console.log(x)
     this.inventorySer.getItemCode(data).subscribe((res: any) => {
-      // this.model = res?.model;
-      // console.log(res);
       this.itemCodes = res;
     })
   }
@@ -184,8 +181,6 @@ export class AddNewInventoryComponent implements OnInit {
   brandNames: any = [];
   listInventoryByItemCode(data: any) {
     this.inventorySer.listInventoryByItemCode(data).subscribe((res: any) => {
-      // this.model = res?.model;
-      // console.log(res);
       this.brandNames = res;
     })
   }
@@ -199,19 +194,6 @@ export class AddNewInventoryComponent implements OnInit {
     // })
 
     this.modelNames = data
-  }
-
-  filteredBrandNames: any;
-  removeDuplicates() {
-    this.filteredBrandNames = this.brandNames.reduce((acc: any, current: any) => {
-      const x = acc.find((item: any) => item.productBrand == current.productBrand);
-      if (!x) {
-        return acc.concat([current]);
-      } else {
-        return acc;
-      }
-    }, []);
-    // console.log(this.filteredBrandNames)
   }
 
   partType: any;

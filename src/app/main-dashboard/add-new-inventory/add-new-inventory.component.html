@@ -93,13 +93,12 @@
               [(ngModel)]="inventoryBody.inventory.brand"
               [matAutocomplete]="brand"
               placeholder="Create new brand"
-              (focus)="removeDuplicates()"
             >
             <button matSuffix mat-icon-button>
               <mat-icon>arrow_drop_down</mat-icon>
             </button>
             <mat-autocomplete #brand="matAutocomplete">
-              <mat-option *ngFor="let br of filteredBrandNames" [value]="br.brand" (click)="listBrandAndModel(br)">{{br.brand}}</mat-option>
+              <mat-option *ngFor="let br of brandNames | removeDuplicates: 'productBrand'" [value]="br.brand" (click)="listBrandAndModel(br)">{{br.brand}}</mat-option>
             </mat-autocomplete>
             <mat-error class="mt-1">brand is required</mat-error>
           </mat-form-field>

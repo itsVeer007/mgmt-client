@@ -106,41 +106,7 @@ export class InventoryComponent implements OnInit {
     })
   }
 
-
-  brandNames: any;
-  categoryTypes: any;
-  statusVal: any;
-  removeDuplicates() {
-    this.brandNames = this.inventoryTable.reduce((acc: any, current: any) => {
-      const x = acc.find((item: any) => item.productBrand == current.productBrand);
-      if (!x) {
-        return acc.concat([current]);
-      } else {
-        return acc;
-      }
-    }, []);
-
-    this.categoryTypes = this.inventoryTable.reduce((acc: any, current: any) => {
-      const x = acc.find((item: any) => item.productCategory == current.productCategory);
-      if (!x) {
-        return acc.concat([current]);
-      } else {
-        return acc;
-      }
-    }, []);
-
-    this.statusVal = this.inventoryTable.reduce((acc: any, current: any) => {
-      const x = acc.find((item: any) => item.status == current.status);
-      if (!x) {
-        return acc.concat([current]);
-      } else {
-        return acc;
-      }
-    }, []);
-  }
-
   /* metadata methods */
-
   inventoryStatus: any;
   getMetadata() {
     let data = JSON.parse(localStorage.getItem('metaData')!);
@@ -159,13 +125,6 @@ export class InventoryComponent implements OnInit {
   }
 
   applyFilter() {
-    // let myObj = {
-    //   'name': this.prName ? this.prName : '',
-    //   'statusId': this.prStatus ? this.prStatus : -1,
-    //   'startDate': this.prCreatedTime ? this.datepipe.transform(this.prCreatedTime, 'yyyy-MM-ddThh-MM-ss') : '',
-    //   'endDate': this.prCreatedTime1 ? this.datepipe.transform(this.prCreatedTime1, 'yyyy-MM-ddThh-MM-ss') : ''
-    // }
-
     this.inventorySer.filterInventory(this.filterBody).subscribe((res: any) => {
       // console.log(res);
       this.newInventoryTable = res;
@@ -264,8 +223,6 @@ export class InventoryComponent implements OnInit {
     modifiedBy: 1,
   }
 
-  // statusId: any;
-
   updateInventoryStatus() {
     // this.alertSer.wait();
     this.statusObj.slNo = this.currentStatusId?.slNo;
@@ -289,7 +246,6 @@ export class InventoryComponent implements OnInit {
   changedKeys: any = [];
 
   /* view warranty */
-
   @ViewChild('viewWarrantyDialog') viewWarrantyDialog = {} as TemplateRef<any>;
 
   viewWarrantyPopup() {
@@ -298,7 +254,6 @@ export class InventoryComponent implements OnInit {
 
 
   /* view inventory */
-
   @ViewChild('viewInventoryDialog') viewInventoryDialog = {} as TemplateRef<any>;
 
   openViewPopup(item: any) {
@@ -309,7 +264,6 @@ export class InventoryComponent implements OnInit {
 
 
   /* update inventory */
-
   @ViewChild('editInventoryDialog') editInventoryDialog = {} as TemplateRef<any>;
 
   openEditPopup(item: any) {
@@ -406,9 +360,7 @@ export class InventoryComponent implements OnInit {
 
 
   /* update warranty */
-
   @ViewChild('editWarrantyDialog') editWarrantyDialog = {} as TemplateRef<any>;
-
   openWarrantyPopup(item: any) {
     this.dialog.open(this.editWarrantyDialog);
 
@@ -483,8 +435,7 @@ export class InventoryComponent implements OnInit {
   }
 
 
-/* checkbox control */
-
+  /* checkbox control */
   viewArray: any = [];
   ViewByCheckbox(itemV: any, i: any, e: any) {
     var checked = (e.target.checked);

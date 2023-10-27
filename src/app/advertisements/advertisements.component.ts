@@ -15,7 +15,6 @@ export class AdvertisementsComponent implements OnInit {
 
   constructor(
     private assetService: AssetService,
-    private metadataSer: MetadataService,
     public datepipe: DatePipe,
     public dialog: MatDialog,
     public alertSer: AlertService
@@ -311,8 +310,6 @@ export class AdvertisementsComponent implements OnInit {
     // console.log(this.currentItem);
     // this.assetTable = this.assetTable.filter((item: any) => item.siteId !== this.currentItem.siteId);
   }
-
-
 
   sorted = false;
   sort(label: any) {

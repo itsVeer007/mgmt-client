@@ -55,38 +55,6 @@ export class ProductMasterComponent implements OnInit {
     // })
   }
 
-  brandNames: any;
-  productTypes: any;
-  // statusVal: any;
-  removeDuplicates() {
-    this.brandNames = this.productMaster.reduce((acc: any, current: any) => {
-      const x = acc.find((item: any) => item.categoryId == current.categoryId);
-      if (!x) {
-        return acc.concat([current]);
-      } else {
-        return acc;
-      }
-    }, []);
-
-    this.productTypes = this.productMaster.reduce((acc: any, current: any) => {
-      const x = acc.find((item: any) => item.typeId == current.typeId);
-      if (!x) {
-        return acc.concat([current]);
-      } else {
-        return acc;
-      }
-    }, []);
-
-    // this.statusVal = this.productMaster.reduce((acc: any, current: any) => {
-    //   const x = acc.find((item: any) => item.statusId == current.statusId);
-    //   if (!x) {
-    //     return acc.concat([current]);
-    //   } else {
-    //     return acc;
-    //   }
-    // }, []);
-  }
-
   filterBody = {
     categoryId:  '',
     typeId:  '',
