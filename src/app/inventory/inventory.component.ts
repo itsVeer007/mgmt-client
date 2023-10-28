@@ -215,6 +215,7 @@ export class InventoryComponent implements OnInit {
   openEditStatus(id: any) {
     this.dialog.open(this.editStatus);
     this.currentStatusId = id;
+    // console.log(id);
   }
 
   statusObj = {
