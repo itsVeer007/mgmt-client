@@ -76,9 +76,19 @@ export class AddNewAssetComponent implements OnInit {
       vehicles: 0,
       persons: 0,
 
-      object: 0
+      object: 0,
+      person_vehicle:0
     }
   }
+
+  personshow : boolean = false;
+  toggleShowOnOff() {
+  this.personshow = !this.personshow;
+  }
+  
+
+
+
 
   adFor: any = null;
   enableDemo: boolean = false;
@@ -110,7 +120,8 @@ export class AddNewAssetComponent implements OnInit {
       'vehicles': new FormControl(''),
       'persons': new FormControl(''),
 
-      'object': new FormControl('')
+      'object': new FormControl(''),
+      'person_vehicle': new FormControl('')
     });
 
     this.addAssetForm.get('deviceModeId').valueChanges.subscribe((val: any) => {
@@ -190,8 +201,8 @@ export class AddNewAssetComponent implements OnInit {
   weatherInterval: any;
   adsTime: any;
   onMetadataChange() {
-    this.dropDown.getMetadata().subscribe((res: any) => {
-      for(let item of res) {
+    let data = JSON.parse(localStorage.getItem('metaData')!);
+      for(let item of data) {
         if(item.type == 'Device_Type') {
           this.deviceType = item.metadata;
         }
@@ -226,7 +237,6 @@ export class AddNewAssetComponent implements OnInit {
           this.adsTime = item.metadata;
         }
       }
-    })
   }
 
 

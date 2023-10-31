@@ -156,7 +156,7 @@ export class AdvertisementsComponent implements OnInit {
   showAsset: boolean = false;
   addErr: any = null;
   showAddAsset(siteId: any, deviceId: any) {
-    if(siteId == '' && deviceId == '') {
+    if(siteId == '' || deviceId == '') {
       this.alertSer.error('Please select site and device to create advertisement');
     } else {
       this.showAsset = true;
