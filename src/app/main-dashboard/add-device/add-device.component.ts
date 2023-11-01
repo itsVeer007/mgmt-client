@@ -57,7 +57,7 @@ export class AddDeviceComponent implements OnInit {
     deviceModeId: null,
     adsHours: '0-23',
     workingDays: ['',0,1,2,3,4,5,6],
-    createdBy: 1,
+    createdBy: null,
     softwareVersion: 'v1.0.1',
     socketServer: 'ec2-18-213-63-73.compute-1.amazonaws.com',
     socketPort: 6666,
@@ -66,7 +66,7 @@ export class AddDeviceComponent implements OnInit {
     weatherInterval: null, //BSR
 
     cameraId: 'Cam01', //ODR
-    modelName: 'YoloV8', //ODR
+    modelName: 'Yolov8', //ODR
     modelWidth: 640, //ODR
     modelHeight: 720, //ODR
     modelMaxResults: 3, //ODR
@@ -78,7 +78,7 @@ export class AddDeviceComponent implements OnInit {
     loggerFreq: 60,  //ODR
   }
 
-
+  user: any;
   ngOnInit() {
     this.addDevice = this.fb.group({
       'deviceDescription': new FormControl('', Validators.required),
@@ -141,6 +141,7 @@ export class AddDeviceComponent implements OnInit {
     this.onMetadataChange();
     // this.toggleCreateWorkingDays();
     this.siteData = JSON.parse(localStorage.getItem('temp_sites')!);
+    this.user = JSON.parse(localStorage.getItem('user')!);
   }
 
   deviceData: any = [];
@@ -291,7 +292,7 @@ export class AddDeviceComponent implements OnInit {
       "debugLogs": this.currentItem.debugLogs,
       "refreshRules": this.currentItem.refreshRules,
 
-      "modifiedBy": 1,
+      "modifiedBy": this.user?.UserId,
     };
 
     let x = event.source.name;
@@ -325,7 +326,7 @@ export class AddDeviceComponent implements OnInit {
       "debugLogs": this.currentItem.debugLogs,
       "refreshRules": this.currentItem.refreshRules,
 
-      "modifiedBy": 1,
+      "modifiedBy": this.user?.UserId,
     };
 
     let x = event.source.ngControl.name;
@@ -359,7 +360,7 @@ export class AddDeviceComponent implements OnInit {
       "debugLogs": this.currentItem.debugLogs,
       "refreshRules": this.currentItem.refreshRules,
 
-      "modifiedBy": 1,
+      "modifiedBy": this.user?.UserId,
     };
 
     let x = event.target['name'];
@@ -372,6 +373,7 @@ export class AddDeviceComponent implements OnInit {
   /* update device */
 
   updateDeviceDtl() {
+    this.adInfo.createdBy = this.user?.UserId;
     if(this.changedKeys.length > 0) {
       // this.alertSer.wait();
       let arr = this.currentItem.workingDays.join(',');

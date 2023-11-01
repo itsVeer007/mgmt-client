@@ -20,9 +20,19 @@ export class ProductMasterComponent implements OnInit {
     public alertSer: AlertService
   ) { }
 
+
+  user: any;
+  notFr = false;
   ngOnInit(): void {
     this.listProduct();
     this.getMetadata();
+
+    this.user = JSON.parse(localStorage.getItem('user')!);
+    for(let item of this.user?.role) {
+      if(item == 'Administrator' || item == 'Support') {
+        this.notFr = true;
+      }
+    }
   }
 
   showLoader = false;

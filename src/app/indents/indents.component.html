@@ -1,11 +1,11 @@
-<div class="container-fluid users" id="top">
+<div class="container-fluid" id="top">
 
   <!-- header -->
   <div class="d-flex justify-content-between">
     <div class="users-header">
       <p>List of Indents - <span>{{ indentTable?.length }}</span></p>
     </div>
-    <div style="position: relative">
+    <div style="position: relative" *ngIf="notFr">
       <!-- <a class="pointer" (click)="show('user')"><img src="assets/icons/add.svg" alt="" /></a> -->
       <button class="create-btn" (click)="show('indent')">Create Indent</button>
     </div>
@@ -558,7 +558,7 @@
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="w-100">
-                  <mat-label>Edit Status</mat-label>
+                  <mat-label>Status</mat-label>
                   <mat-select [(ngModel)]="statusObj.statusId">
                     <mat-option *ngFor="let item of indentStatus" [value]="item.keyId">{{ item.value }}</mat-option>
                   </mat-select>
@@ -570,7 +570,7 @@
                   <button class="dialog-close-btn" mat-dialog-close>Close</button>
                 </div>
                 <div  >
-                  <button class="dialog-update-btn" mat-dialog-close (click)="updateInventoryStatus()">Update</button>
+                  <button class="dialog-update-btn" (click)="updateInventoryStatus()">Update</button>
                 </div>
               </div>
             </ng-template>

@@ -75,7 +75,6 @@ export class AddProductMasterComponent implements OnInit {
     // purchaseLink: null,
     // remarks: null
 
-    //new
     materialDescription: null,
     uomId: null,
     partType: null,
@@ -101,7 +100,6 @@ export class AddProductMasterComponent implements OnInit {
       // 'purchaseLink': new FormControl(''),
       // 'remarks': new FormControl('')
 
-      //new
       'materialDescription': new FormControl('', Validators.required),
       'uomId': new FormControl('' , Validators.required),
       'partType': new FormControl('' , Validators.required),

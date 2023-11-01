@@ -1,4 +1,4 @@
-<div class="container-fluid users" id="top">
+<div class="container-fluid" id="top">
 
   <!-- <div class="users-header row">
     <div class="col-lg-6">
@@ -73,7 +73,7 @@
       <p class="mt-2">List of Items - <span>{{ inventoryTable?.length }}</span></p>
     </div>
     <div class="d-flex">
-      <div>
+      <div *ngIf="notFr">
         <button class="create-btn mx-1" (click)="show('inventory')">Create Inventory</button>
       </div>
 
@@ -794,8 +794,7 @@
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>name</mat-label>
         <mat-select [(ngModel)]="filterDcBody_All.createdBy" (selectionChange)="filterDc('All')">
-          <mat-option [value]="1565">Brey</mat-option>
-          <mat-option [value]="1">Dany</mat-option>
+          <mat-option [value]="user?.UserId">{{user?.UserName}}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>

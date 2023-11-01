@@ -1,5 +1,5 @@
 <!-- <app-loader *ngIf="showLoader"></app-loader> -->
-<div class="container-fluid users" id="top">
+<div class="container-fluid" id="top">
     <!-- header -->
     <div class="d-flex justify-content-between">
         <div class="users-header">
@@ -16,7 +16,7 @@
           <mat-form-field appearance="outline" class="w-100">
               <mat-label>Fr Name</mat-label>
               <mat-select [(ngModel)]="frFilterBody.p_frId">
-                  <mat-option [value]="1565" (click)="listFRReports()">Brey</mat-option>
+                  <mat-option [value]="user?.UserId" (click)="listFRReports()">{{user?.UserName}}</mat-option>
               </mat-select>
           </mat-form-field>
         </div>
@@ -89,7 +89,7 @@
         <tbody>
             <tr *ngFor="let cust of reportsData | search : searchText; let i = index">
               <td>
-                  <p>{{ cust.frId == 1565 ? 'Brey Dominguez' : ''}}</p>
+                  <p>{{ cust.frId }}</p>
               </td>
               <td>
                   <p>{{ cust.date }}</p>

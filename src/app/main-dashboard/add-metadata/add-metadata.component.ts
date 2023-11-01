@@ -58,13 +58,14 @@ export class AddMetadataComponent implements OnInit {
     ) { }
 
   metaDataBody = {
-    createdBy: 1,
+    createdBy: null,
     type: '',
     value: '',
     // remarks: ''
   }
 
-  metaType: any
+  metaType: any;
+  user: any;
   ngOnInit(): void {
     this.metadataForm = this.fb.group({
       'createdBy': new FormControl(''),
@@ -75,6 +76,7 @@ export class AddMetadataComponent implements OnInit {
 
     this.getDeviceType();
     this.metaType = JSON.parse(JSON.stringify(localStorage.getItem('metaType')!));
+    this.user = JSON.parse(localStorage.getItem('user')!);
   }
 
   closeAddCamera() {
@@ -115,12 +117,14 @@ export class AddMetadataComponent implements OnInit {
 
   newList: any[] = [];
   addtoList() {
+    this.metaDataBody.createdBy = this.user.UserId;
     this.newList.push(this.metaDataBody)
   }
 
 
   addMetadata() {
     // console.log(this.metaDataBody);
+    this.metaDataBody.createdBy = this.user.UserId;
     if(this.metaType == 'Create_New') {
       this.metaDataBody.type =  this.metaDataBody.type;
     } else {

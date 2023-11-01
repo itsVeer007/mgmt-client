@@ -74,7 +74,7 @@ export class AddNewVendorComponent implements OnInit {
     // serviceEndDate: null,
     // createdTime: null,
     // modifiedTime: null,
-    createdBy: 1,
+    createdBy: null,
     addressLine1: null,
     addressLine2: null,
     country: null,
@@ -95,7 +95,7 @@ export class AddNewVendorComponent implements OnInit {
     this.proparatorThree = !this.proparatorThree;
   }
 
-
+  user: any;
   ngOnInit() {
     this.vendorForm = this.fb.group({
       'name': new FormControl('', Validators.required),
@@ -125,6 +125,7 @@ export class AddNewVendorComponent implements OnInit {
     });
 
     this.getCountry();
+    this.user = JSON.parse(localStorage.getItem('user')!);
   }
 
   countryList: any;
@@ -163,6 +164,7 @@ export class AddNewVendorComponent implements OnInit {
     if(this.vendorForm.valid) {
       this.newItemEvent.emit();
       this.alertSer.wait();
+      this.vendorBody.createdBy = this.user?.UserId;
       this.inventorySer.createVendors(this.vendorBody).subscribe((res: any) => {
         // console.log(res);
         this.alertSer.success(res?.message);

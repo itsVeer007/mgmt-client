@@ -51,7 +51,7 @@ export class AddNewTicketComponent implements OnInit {
       requestedBy: null,
       siteId: null,
       informedThrough: null,
-      createdBy: 1,
+      createdBy: null,
     },
 
     tasks: [
@@ -60,7 +60,7 @@ export class AddNewTicketComponent implements OnInit {
         subCategoryId: null,
         priorityId: null,
         // reasonId: null,
-        createdBy: 1,
+        createdBy: null,
       }
     ]
   }
@@ -76,7 +76,7 @@ export class AddNewTicketComponent implements OnInit {
         'subCategoryId': item.subCategoryId,
         'priorityId': item.priorityId,
         // 'reasonId': item.reasonId,
-        'createdBy': 1,
+        'createdBy': this.user?.UserId,
       }
       this.tasks.push(takBody);
       this.addAssetForm.get('categoryId').setValue(null);
@@ -86,7 +86,8 @@ export class AddNewTicketComponent implements OnInit {
     }
   }
 
-  siteIds: any
+  siteIds: any;
+  user: any;
   ngOnInit(): void {
     this.addAssetForm = this.fb.group({
       'typeId': new FormControl('', Validators.required),
@@ -103,6 +104,7 @@ export class AddNewTicketComponent implements OnInit {
 
     this.getMetadata();
     this.siteIds = JSON.parse(localStorage.getItem('siteIds')!)?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
+    this.user = JSON.parse(localStorage.getItem('user')!);
   }
 
   /* metadata */
@@ -146,6 +148,7 @@ export class AddNewTicketComponent implements OnInit {
     if(this.addAssetForm.valid) {
       if(this.tasks.length > 0) {
         this.alertSer.wait();
+        this.ticketBody.ticket.createdBy = this.user?.UserId;
         this.ticketBody.tasks = this.tasks;
         this.inventorySer.createTicket(this.ticketBody).subscribe((res: any) => {
           // console.log(res);

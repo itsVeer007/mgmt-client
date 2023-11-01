@@ -22,7 +22,9 @@ export class TicketsComponent implements OnInit {
     private alertSer: AlertService
   ) { }
 
-  siteData: any
+  siteData: any;
+  user: any;
+  notFr = false;
   ngOnInit(): void {
     this.listTickets();
     this.getMetadata();
@@ -32,6 +34,13 @@ export class TicketsComponent implements OnInit {
     // this.inventorySer.comment$.subscribe((comments: any) => {
     //   this.ticketComments = comments;
     // });
+
+    this.user = JSON.parse(localStorage.getItem('user')!);
+    for(let item of this.user?.role) {
+      if(item == 'Administrator' || item == 'Support') {
+        this.notFr = true;
+      }
+    }
   }
 
   // fileName= 'ExcelSheet.xlsx';
@@ -230,7 +239,7 @@ export class TicketsComponent implements OnInit {
     categoryId: null,
     subCategoryId: null,
     // reasonId: null,
-    createdBy: 1,
+    createdBy: null,
     priorityId: null
   }
 
@@ -242,6 +251,7 @@ export class TicketsComponent implements OnInit {
 
   createTask() {
     this.taskBody.ticketId = this.currentItem?.ticketId;
+    this.taskBody.createdBy = this.user?.UserId;
     this.inventorySer.createTask(this.taskBody).subscribe((res: any) => {
       // console.log(res);
       this.alertSer.snackSuccess(res?.message);
@@ -397,23 +407,17 @@ export class TicketsComponent implements OnInit {
   }
 
   toAssigned() {
-    // this.alertSer.wait();
     let myObj = {
       'ticketId': this.toAssign.ticketId,
       'assignedTo': this.assignedObj.assignedTo,
-      "assignedBy": 1
+      "assignedBy": this.user?.UserId
     }
-
     this.inventorySer.assignTicket(myObj).subscribe((res: any) => {
       // console.log(res)
-      if(res) {
-        this.alertSer.snackSuccess(res?.message);
-        this.listTickets();
-      }
+      this.alertSer.snackSuccess(res?.message);
+      this.listTickets();
     }, (err: any) => {
-        if(err) {
-          this.alertSer.error(err?.error?.message);
-        }
+        this.alertSer.error(err?.error?.message);
     })
   }
 
@@ -460,7 +464,7 @@ export class TicketsComponent implements OnInit {
     let myObj = {
       'ticketId': this.currentItem.ticketId,
       'message': this.cmtValue,
-      'createdBy': 1
+      'createdBy': this.user?.UserId
     }
 
     this.inventorySer.createComment(myObj).subscribe((res: any) => {

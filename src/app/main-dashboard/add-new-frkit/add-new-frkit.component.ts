@@ -50,10 +50,11 @@ export class AddNewFrkitComponent implements OnInit {
     inventorySlNo: null,
     itemCode: null,
     name: null,
-    createdBy: 1
+    createdBy: null
   }
 
   ticketIdFrmFr: any;
+  user: any;
   ngOnInit() {
     this.UserForm = this.fb.group({
       'frId': new FormControl('',Validators.required),
@@ -62,6 +63,7 @@ export class AddNewFrkitComponent implements OnInit {
       'name': new FormControl('', Validators.required)
     });
     this.ticketIdFrmFr = JSON.parse(localStorage.getItem('ticketId')!);
+    this.user = JSON.parse(localStorage.getItem('user')!);
   }
 
   items: any = [];
@@ -99,6 +101,7 @@ export class AddNewFrkitComponent implements OnInit {
   warrantyDetail: any = 'No';
   submit() {
     if(this.UserForm.valid) {
+      this.inventoryBody.createdBy = this.user?.UserId;
       this.inventorySer.createFRKit(this.inventoryBody).subscribe((res:any)=>{
         // console.log(res);
         this.newItemEvent.emit();

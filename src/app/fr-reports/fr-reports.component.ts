@@ -23,9 +23,11 @@ export class FrReportsComponent implements OnInit {
     public alertSer: AlertService
   ) { }
 
-  siteData: any
+  siteData: any;
+  user: any;
   ngOnInit(): void {
     this.getMetadata();
+    this.user = JSON.parse(localStorage.getItem('user')!);
   }
 
   frFilterBody: any = {
@@ -36,7 +38,7 @@ export class FrReportsComponent implements OnInit {
 
   reportsData:any = [];
   listFRReports() {
-    this.frFilterBody.p_frId = 1565;
+    this.frFilterBody.p_frId = this.user?.UserId;
     this.inventorySer.listFRReports(this.frFilterBody).subscribe((res: any)=> {
       // console.log(res);
       this.reportsData = res;
@@ -196,7 +198,7 @@ export class FrReportsComponent implements OnInit {
     let myObj = {
       'ticketId': this.currentItem.ticketId,
       'message': this.cmtValue,
-      'createdBy': 1
+      'createdBy': this.user?.UserId
     }
 
     this.inventorySer.createComment(myObj).subscribe((res: any) => {

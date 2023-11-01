@@ -1,11 +1,11 @@
-<div class="container-fluid users" id="top">
+<div class="container-fluid" id="top">
 
   <!-- header -->
   <div class="d-flex justify-content-between">
     <div class="users-header">
-      <p>List of all Products - <span>{{ newProductMaster?.length }}</span></p>
+      <p>List of Products - <span>{{ newProductMaster?.length }}</span></p>
     </div>
-    <div style="position: relative">
+    <div style="position: relative" *ngIf="notFr">
       <!-- <a class="pointer" (click)="show('inventory')"><img src="assets/icons/add_circle.svg" alt="" width="40"></a> -->
       <button class="create-btn" (click)="show('product')">Create Product</button>
     </div>

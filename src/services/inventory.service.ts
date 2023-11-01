@@ -333,7 +333,8 @@ export class InventoryService {
   }
 
   listFRTickets() {
-    let url = this.baseUrl + `/listFRTickets_1_0/${1565}`;
+    // let x = JSON.parse(localStorage.getItem('user')!);
+    let url = this.baseUrl + `/listFRTickets_1_0/${1619}`;
     return this.http.get(url);
   }
 
@@ -453,9 +454,10 @@ export class InventoryService {
   }
 
   fieldVisitEntry(payload: any) {
+    let user = JSON.parse(localStorage.getItem('user')!);
     let url = this.baseUrl + `/fieldVisitEntry_1_0`;
     let myObj = {
-      'frId': 1565,
+      'frId': user?.UserId,
       'siteId': payload?.siteId,
       'ticketId': payload?.ticketId
     }

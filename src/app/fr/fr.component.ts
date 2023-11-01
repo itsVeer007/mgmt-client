@@ -21,11 +21,13 @@ export class FrComponent implements OnInit {
   showLoader: boolean = false;
   siteIds: any;
   searchText: any;
+  user: any;
   ngOnInit(): void {
     // this.listFRSites();
     this.listFRTickets();
     this.getMetadata();
     this.siteIds = JSON.parse(localStorage.getItem('siteIds')!)?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
+    this.user = JSON.parse(localStorage.getItem('user')!);
   }
 
   frTickets: any = [];
@@ -145,7 +147,7 @@ export class FrComponent implements OnInit {
   openSitesDialog() {
     // this.dialog.open(this.viewSitesDialog);
 
-    this.inventorySer.listFRSites(1565).subscribe((res: any) => {
+    this.inventorySer.listFRSites(this.user?.UserId).subscribe((res: any) => {
       // console.log(res);
       this.sites = res;
     })
@@ -172,7 +174,7 @@ export class FrComponent implements OnInit {
     }
   }
 
-  sort1(label: any) {
+  sortIndentViewIndent(label: any) {
     this.sorted = !this.sorted;
     var y = this.indentItems;
     if (this.sorted == false) {
@@ -182,7 +184,7 @@ export class FrComponent implements OnInit {
     }
   }
 
-  sort2(label: any) {
+  sortCurrentTasks(label: any) {
     this.sorted = !this.sorted;
     var y = this.tasks;
     if (this.sorted == false) {
@@ -202,7 +204,7 @@ export class FrComponent implements OnInit {
     this.ticketType = data?.typeId;
     this.currentSite = data?.siteId;
     this.dialog.open(this.currentTasksDialog);
-    this.inventorySer.listFRTasksOfCurrentVisit(1565).subscribe((res: any) => {
+    this.inventorySer.listFRTasksOfCurrentVisit(1619).subscribe((res: any) => {
       // console.log(res);
       this.tasks = res;
     })
@@ -243,11 +245,12 @@ export class FrComponent implements OnInit {
   statusObj = {
     // id: this.currentId,
     statusId: null,
-    createdBy: 1565
+    createdBy: null
   }
+
   updateInventoryStatus() {
     // this.alertSer.wait();
-
+    this.statusObj.createdBy = this.user?.UserId;
     this.inventorySer.updateIndentStatus1(this.currentId, this.statusObj).subscribe((res: any) => {
       // console.log(res);
       if(res) {
@@ -273,10 +276,11 @@ export class FrComponent implements OnInit {
   centralboxBody = {
     centralBoxId: null,
     inventoryId: null,
-    createdBy: 1
+    createdBy: null
   }
 
   addComponent() {
+    this.centralboxBody.createdBy = this.user?.UserId;
     this.inventorySer.addComponent(this.centralboxBody).subscribe((res: any) => {
       // console.log(res)
     })
@@ -372,13 +376,13 @@ export class FrComponent implements OnInit {
       'taskId': item.id,
       'statusId': status,
       'fieldVisitId': item.fieldVisitId,
-      'changedBy': 1565,
+      'changedBy': this.user?.UserId,
       'remarks': '',
     }
 
     this.inventorySer.logTaskStatus(myObj).subscribe((res: any) => {
       this.alertSer.snackSuccess(res?.message);
-      // this.inventorySer.listFRTasksOfCurrentVisit(1565).subscribe((res: any) => {
+      // this.inventorySer.listFRTasksOfCurrentVisit(user?.UserId).subscribe((res: any) => {
       //   this.tasks = res;
       // })
     }, (err: any) => {
@@ -387,7 +391,7 @@ export class FrComponent implements OnInit {
   }
 
   fieldExitBody = {
-    frId: 1565,
+    frId: null,
     travelAllowance: null,
     foodAllowance: null,
     otherAllowance: null,
@@ -400,6 +404,7 @@ export class FrComponent implements OnInit {
   }
 
   fieldVisitExit() {
+    this.fieldExitBody.frId = this.user.UserId;
     this.inventorySer.fieldVisitExit(this.fieldExitBody).subscribe((res: any) => {
       // console.log(res);
       this.alertSer.snackSuccess(res?.message);
@@ -449,10 +454,10 @@ export class FrComponent implements OnInit {
     })
   }
 
-
   filterBody = {
-    createdBy: 1565
+    createdBy: null
   }
+
   filterBody1 = {
     dateOfChallan: null
   }
@@ -462,6 +467,7 @@ export class FrComponent implements OnInit {
   newDuplicateDc: any;
   getlistByCreatedBy(type: string) {
     if(type == 'list') {
+      this.filterBody.createdBy = this.user?.UserId;
       this.dialog.open(this.dcItemsDialog);
     }
     this.inventorySer.getlistByCreatedBy(type == 'list' ? this.filterBody : this.filterBody1).subscribe((res:any) => {

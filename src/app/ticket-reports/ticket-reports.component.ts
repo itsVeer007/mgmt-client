@@ -49,12 +49,14 @@ export class TicketReportsComponent implements OnInit {
     public alertSer: AlertService
   ) { }
 
-  siteData: any
+  siteData: any;
+  user: any;
   ngOnInit(): void {
     this.CustomerReport();
     this.getMetadata();
 
     this.siteData = JSON.parse(localStorage.getItem('siteIds')!);
+    this.user = JSON.parse(localStorage.getItem('user')!);
 
     // this.inventorySer.comment$.subscribe((comments: any) => {
     //   this.ticketComments = comments;
@@ -256,7 +258,7 @@ export class TicketReportsComponent implements OnInit {
     let myObj = {
       'ticketId': this.currentItem.ticketId,
       'message': this.cmtValue,
-      'createdBy': 1
+      'createdBy': this.user?.UserId
     }
 
     this.inventorySer.createComment(myObj).subscribe((res: any) => {

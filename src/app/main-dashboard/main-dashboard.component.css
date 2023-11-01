@@ -1,7 +1,7 @@
 .main-dashboard {
     /* margin-top: 85px; */
     max-height: calc(110vh - (185px));
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .head {

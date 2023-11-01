@@ -54,6 +54,7 @@ export class AddNewOrderComponent implements OnInit {
 
   // email: string = "";
 
+  user: any;
   ngOnInit() {
     this.UserForm = this.fb.group({
       'vendorId': new FormControl('', Validators.required),
@@ -61,6 +62,7 @@ export class AddNewOrderComponent implements OnInit {
     });
 
     this.getVendor();
+    this.user = JSON.parse(localStorage.getItem('user')!);
   }
 
   vendorDetail: any;
@@ -91,6 +93,7 @@ export class AddNewOrderComponent implements OnInit {
 
     if(this.UserForm.valid) {
       this.alertSer.wait();
+      this.inventoryBody.createdBy = this.user?.UserId;
       this.newItemEvent.emit();
       this.inventorySer.createOrder(this.inventoryBody).subscribe((res: any) => {
         // console.log(res);

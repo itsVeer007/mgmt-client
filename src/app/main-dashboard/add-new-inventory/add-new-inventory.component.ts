@@ -70,7 +70,7 @@ export class AddNewInventoryComponent implements OnInit {
       brand: null,
       model: null,
       department: null,
-      createdBy: 1,
+      createdBy: null,
       remarks: null
     },
 
@@ -80,7 +80,7 @@ export class AddNewInventoryComponent implements OnInit {
     warranty: {
       startDate: null,
       endDate: null,
-      createdBy: 1,
+      createdBy: null,
       remarks: null
     }
   }
@@ -89,6 +89,7 @@ export class AddNewInventoryComponent implements OnInit {
 
   productData: any;
   orderIds: any;
+  user: any;
   ngOnInit() {
     this.UserForm = this.fb.group({
       'name': new FormControl('', Validators.required),
@@ -115,6 +116,7 @@ export class AddNewInventoryComponent implements OnInit {
 
     this.listProduct();
     this.onMetadataChange();
+    this.user = JSON.parse(localStorage.getItem('user')!);
   }
 
   listProduct() {
@@ -232,6 +234,8 @@ export class AddNewInventoryComponent implements OnInit {
     this.inventoryBody.inventory.name = this.inventoryBody.inventory.itemCode;
     if(this.UserForm.valid) {
       this.alertSer.wait();
+      this.inventoryBody.inventory.createdBy = this.user?.UserId;
+      this.inventoryBody.warranty.createdBy = this.user?.UserId;
       if(this.inventoryBody.serialnos == '') {
         this.inventoryBody.serialnos = this.arr;
       } else {

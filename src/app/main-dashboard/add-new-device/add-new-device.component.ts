@@ -66,7 +66,7 @@ export class AddNewDeviceComponent implements OnInit {
     deviceModeId: null,
     adsHours: '0-23',
     workingDays: '',
-    createdBy: 1,
+    createdBy: null,
     softwareVersion: '',
     socketServer: 'ec2-18-213-63-73.compute-1.amazonaws.com',
     socketPort: 6666,
@@ -87,7 +87,7 @@ export class AddNewDeviceComponent implements OnInit {
     loggerFreq: 60,  //ODR
   }
 
-
+  user: any;
   ngOnInit() {
     this.addDevice = this.fb.group({
       'siteId': new FormControl('', Validators.required),
@@ -150,6 +150,7 @@ export class AddNewDeviceComponent implements OnInit {
     this.getDeviceDetail();
     this.onMetadataChange();
     this.siteData = JSON.parse(localStorage.getItem('siteIds')!);
+    this.user = JSON.parse(localStorage.getItem('user')!);
   }
 
   deviceData: any = [];
@@ -274,6 +275,7 @@ export class AddNewDeviceComponent implements OnInit {
     // console.log(this.addDevice);
     if(this.addDevice.valid) {
       this.newItemEvent.emit();
+      this.adInfo.createdBy = this.user?.UserId;
       let arr = JSON.parse(JSON.stringify(this.adInfo.workingDays)).join(',');
       if(this.toAddDevice == 8) {
         var myString = arr.substring(1);

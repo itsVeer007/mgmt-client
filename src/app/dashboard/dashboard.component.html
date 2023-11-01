@@ -34,7 +34,7 @@
               Category
           </a> -->
 
-          <a class="list-group-item " [routerLink]="['/sites']" routerLinkActive="routeactive">
+          <a *ngIf="isAdmin || isSupport" class="list-group-item " [routerLink]="['/sites']" routerLinkActive="routeactive">
               <img src="assets/icons/sites.svg">
               <span>Sites</span>
           </a>
@@ -47,12 +47,12 @@
               <spanAnalytics</span>
           </a> -->
 
-          <a *ngIf="isAdmin == true" class="list-group-item " [routerLink]="['/users']" routerLinkActive="routeactive">
+          <a *ngIf="isAdmin" class="list-group-item " [routerLink]="['/users']" routerLinkActive="routeactive">
             <img src="assets/icons/user-white.svg">
             <span>Users</span>
           </a>
 
-          <div class="navigation">
+          <div class="navigation" *ngIf="isAdmin || isSupport || isFr">
             <ul>
               <li class="m-2 has-sub">
                 <a><img src="assets/icons/inventory.svg">Inventory Manager<span><img src="assets/icons/arrow_right.svg" alt=""></span></a>
@@ -74,7 +74,7 @@
             </ul>
           </div>
 
-          <a class="list-group-item " [routerLink]="['/devices']" routerLinkActive="routeactive">
+          <a *ngIf="isAdmin || isSupport" class="list-group-item " [routerLink]="['/devices']" routerLinkActive="routeactive">
             <img src="assets/icons/devices.svg">
             <span>Devices</span>
           </a>
@@ -85,12 +85,12 @@
             <span>Advertisements</span>
           </a> -->
 
-          <a class="list-group-item " [routerLink]="['/advertisements']" routerLinkActive="routeactive">
+          <a *ngIf="isAdmin || isSupport" class="list-group-item " [routerLink]="['/advertisements']" routerLinkActive="routeactive">
             <img src="assets/icons/asset.svg">
             <span>Advertisements</span>
           </a>
 
-          <div class="navigation">
+          <div class="navigation" *ngIf="isAdmin || isSupport || isFr">
             <ul>
               <li class="m-2 has-sub">
                 <a><img src="assets/icons/ticket.svg">Ticket Manager<span><img src="assets/icons/arrow_right.svg" alt=""></span></a>
@@ -114,7 +114,7 @@
             <span>Tickets/Jobs</span>
           </a> -->
 
-          <a  class="list-group-item " [routerLink]="['/meta']" routerLinkActive="routeactive">
+          <a *ngIf="isAdmin" class="list-group-item " [routerLink]="['/meta']" routerLinkActive="routeactive">
             <img src="assets/icons/storage.svg">
             <span>Metadata</span>
           </a>
@@ -124,7 +124,7 @@
             <span>Reports</span>
           </a> -->
 
-          <div class="navigation">
+          <div class="navigation" *ngIf="isAdmin || isSupport">
             <ul>
               <li class="has-sub m-2">
                 <a><img src="assets/icons/report.svg">Reports<span><img src="assets/icons/arrow_right.svg" alt=""></span></a>
@@ -149,7 +149,7 @@
             </ul>
           </div>
 
-          <div class="navigation">
+          <div class="navigation" *ngIf="isAdmin || isSupport">
             <ul>
               <li class="m-2 has-sub">
                 <a><img src="assets/icons/miscellaneous.svg">Miscellaneous<span><img src="assets/icons/arrow_right.svg" alt=""></span></a>
@@ -186,15 +186,15 @@
 
         <div class="d-flex justify-content-center text-white my-2">
           <div class="d-flex flex-column">
-            <span>User Name</span>
-            <span>Contact</span>
+            <span>Name</span>
+            <span>Mobile</span>
             <span>Email</span>
           </div>
 
-          <div class="d-flex flex-column ms-3">
-            <span style="font-weight: 600;">: {{ user?.UserName }}</span>
-            <span style="font-weight: 600;">: {{ user?.contact }}</span>
-            <span style="font-weight: 600;">: {{ user?.email }}</span>
+          <div class="d-flex flex-column ms-3" *ngIf="user">
+            <span style="font-weight: 600;">:&nbsp;{{ user?.UserName }}</span>
+            <span style="font-weight: 600;">:&nbsp;{{ user?.contact }}</span>
+            <span style="font-weight: 600;">:&nbsp;{{ user?.email }}</span>
           </div>
         </div>
       </div>
@@ -210,8 +210,8 @@
           <a class="mx-2 pointer"><img src="assets/icons/info-outline.svg" width="15" height="15" /> <span class="mx-2">Terms & Conditions</span></a>
         </div>
       </div>
-      <div class="card-footer">
-          <button class="btn text-white" (click)="logout()">LOG OUT</button>
+      <div>
+        <button class="logout-btn" (click)="logout()">LOG OUT</button>
       </div>
     </div>
   </mat-menu>
@@ -245,7 +245,7 @@
               <img src="assets/icons/analytic.svg" /><span> Analytics</span>
           </a> -->
 
-          <a *ngIf="isAdmin == true" class="list-group-item my-2" [routerLink]="['/users']" routerLinkActive="routeactive">
+          <a class="list-group-item my-2" [routerLink]="['/users']" routerLinkActive="routeactive">
               <img src="assets/icons/user-white.svg" /><span>Users</span>
           </a>
 
@@ -284,7 +284,7 @@
             <img src="assets/icons/ticket.svg" /><span>FR</span>
           </a>
 
-          <a *ngIf="isAdmin == true" class="list-group-item my-2" [routerLink]="['/meta']" routerLinkActive="routeactive">
+          <a class="list-group-item my-2" [routerLink]="['/meta']" routerLinkActive="routeactive">
             <img src="assets/icons/storage.svg" /><span>Metadata</span>
           </a>
 

@@ -61,6 +61,7 @@ export class AddNewDcComponent {
     ]
   }
 
+  user: any;
   ngOnInit() {
     this.UserForm = this.fb.group({
       'name': new FormControl(''),
@@ -73,6 +74,7 @@ export class AddNewDcComponent {
     });
 
     // this.getVendor();
+    this.user = JSON.parse(localStorage.getItem('user')!);
     this.getProducts();
   }
 
@@ -106,7 +108,7 @@ export class AddNewDcComponent {
     //   frId = 1565
     // }
     this.show == 'fromInventory' ? statusId = 2 : statusId = 5;
-    this.inventorySer.listFRItems(1565, statusId).subscribe((res: any) => {
+    this.inventorySer.listFRItems(this.user?.UserId, statusId).subscribe((res: any) => {
       // console.log(res)
       this.productIds = res;
     })
@@ -124,11 +126,11 @@ export class AddNewDcComponent {
     })
   }
 
-  listQuantityBody = {
-    itemCode: null,
-    modifiedBy: 1565,
-    statusId: 5
-  }
+  // listQuantityBody = {
+  //   itemCode: null,
+  //   modifiedBy: 1565,
+  //   statusId: 5
+  // }
 
   // inventoryQty: any;
   // listQuantity() {
@@ -143,9 +145,9 @@ export class AddNewDcComponent {
   warrantyDetail: any = 'No';
   submit() {
     if(this.show == 'fromFr') {
-      this.inventoryBody.createdBy = 1565;
+      this.inventoryBody.createdBy = 1619;
     } else {
-      this.inventoryBody.createdBy = 1;
+      this.inventoryBody.createdBy = this.user?.UserId;
     }
     if(this.UserForm.valid) {
       if(this.items.length > 0) {
@@ -156,10 +158,10 @@ export class AddNewDcComponent {
           // console.log(res);
           this.newItemEvent.emit();
           this.alertSer.snackSuccess(res?.message);
-          let myObj = {
-            createdBy: 1565
+          let obj = {
+            createdBy: this.user?.UserId
           }
-          this.inventorySer.getlistByCreatedBy(myObj).subscribe((newRes: any) => {
+          this.inventorySer.getlistByCreatedBy(obj).subscribe((newRes: any) => {
             let cropeData = newRes.slice(-(this.items.length))
             localStorage.setItem('dcItems', JSON.stringify(cropeData));
             this.dialog.open(DcChallanComponent);

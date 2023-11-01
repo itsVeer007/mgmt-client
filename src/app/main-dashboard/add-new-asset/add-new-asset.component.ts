@@ -58,7 +58,7 @@ export class AddNewAssetComponent implements OnInit {
       deviceModeId: null,
       name: '',
       playOrder: 1,
-      createdBy: 1,
+      createdBy: null,
       splRuleId: 0,
       fromDate: formatDate(this.currentDate, 'yyyy-MM-dd', 'en-us'),
       toDate: '2999-12-31'
@@ -85,15 +85,13 @@ export class AddNewAssetComponent implements OnInit {
   toggleShowOnOff() {
   this.personshow = !this.personshow;
   }
-  
-
-
 
 
   adFor: any = null;
   enableDemo: boolean = false;
 
-  deviceIdFromStorage: any
+  deviceIdFromStorage: any;
+  user: any;
   ngOnInit(): void {
     this.addAssetForm = this.fb.group({
       'file': new FormControl('', Validators.required),
@@ -141,6 +139,7 @@ export class AddNewAssetComponent implements OnInit {
 
     this.onMetadataChange()
     // this.getRes();
+    this.user = JSON.parse(localStorage.getItem('user')!);
   };
 
   data: any;
@@ -352,6 +351,7 @@ export class AddNewAssetComponent implements OnInit {
 
     addNewAsset() {
       this.submit = true;
+      this.assetData.createdBy = this.user?.UserId;
       this.assetData.asset.deviceId = this.deviceIdFromStorage?.deviceId;
       if(this.assetData.nameParams.timeId == 3 && this.assetData.nameParams.tempId == 4 && this.assetData.nameParams.object == 0) {
         this.assetData.asset.deviceModeId = 1;

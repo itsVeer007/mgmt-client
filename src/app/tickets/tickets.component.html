@@ -1,5 +1,5 @@
 <!-- <app-loader *ngIf="showLoader"></app-loader> -->
-<div class="container-fluid users" id="top">
+<div class="container-fluid" id="top">
   <!-- header -->
   <div class="d-flex justify-content-between">
     <div class="users-header">
@@ -274,8 +274,8 @@
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Assign To</mat-label>
                   <mat-select [(ngModel)]="assignedObj.assignedTo">
-                    <!-- <mat-option *ngFor="let item of assignedTo" [value]="item.keyId">{{item.value}}</mat-option> -->
-                    <mat-option [value]="1565">Brey Dominguez</mat-option>
+                    <!-- <mat-option [value]="user?.UserId">{{user?.UserName}}</mat-option> -->
+                    <mat-option [value]="1619">Installer</mat-option>
                   </mat-select>
                 </mat-form-field>
               </mat-dialog-content>

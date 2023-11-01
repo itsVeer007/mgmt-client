@@ -1,4 +1,4 @@
-<div class="container-fluid users" id="top">
+<div class="container-fluid" id="top">
   <!-- header -->
   <div class="d-flex justify-content-between align-items-center mb-2">
     <div class="users-header">
@@ -41,19 +41,19 @@
 
       <div class="col-lg-8 d-flex justify-content-end mt-2">
         <div>
-          <button class="filter-btn me-1" (click)="openStatusItems(1565, null)">Instock</button>
+          <button class="filter-btn me-1" (click)="openStatusItems(user?.UserId, null)">Instock</button>
         </div>
 
         <div>
-          <button class="filter-btn me-1" (click)="openStatusItems(1565, 1)">Requested</button>
+          <button class="filter-btn me-1" (click)="openStatusItems(user?.UserId, 1)">Requested</button>
         </div>
 
         <div>
-          <button class="filter-btn me-1" (click)="openStatusItems(1565, 2)">Dispatched</button>
+          <button class="filter-btn me-1" (click)="openStatusItems(user?.UserId, 2)">Dispatched</button>
         </div>
 
         <div>
-          <button class="filter-btn" (click)="openStatusItems(1565, 5)">Removed</button>
+          <button class="filter-btn" (click)="openStatusItems(user?.UserId, 5)">Removed</button>
         </div>
       </div>
     </div>
@@ -219,7 +219,7 @@
             <th>
               <p class="d-inline-flex">
                 <span>Id</span>
-                <img (click)="sort2('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                <img (click)="sortCurrentTasks('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
               </p>
               <!-- <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
             </th>
@@ -228,14 +228,14 @@
 
               <p class="d-inline-flex">
                 <span>Category</span>
-                <img (click)="sort2('category')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                <img (click)="sortCurrentTasks('category')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
               </p>
             </th>
 
             <th>
               <p class="d-inline-flex">
                 <span>Sub category</span>
-                <img (click)="sort2('subCategory')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                <img (click)="sortCurrentTasks('subCategory')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
               </p>
             </th>
 
@@ -346,7 +346,7 @@
                 <!-- <div class="col-lg-6">
                   <mat-form-field appearance="outline" class="w-100">
                     <mat-label>FR inventory</mat-label>
-                    <mat-select [(ngModel)]="body.newInventoryId" (focus)="latestFun(1565, null)">
+                    <mat-select [(ngModel)]="body.newInventoryId" (focus)="latestFun(user?.UserId, null)">
                       <mat-option *ngFor="let val of statusItems" [value]="val.invNo">{{ val.invNo }} - {{ val.name }}</mat-option>
                     </mat-select>
                   </mat-form-field>
@@ -736,42 +736,42 @@
             <th>
               <p>
                 <span>No</span>
-                <img (click)="sort1('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                <img (click)="sortIndentViewIndent('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
               </p>
             </th>
 
             <th>
               <p>
                 <span>Name</span>
-                <img (click)="sort1('itemCode')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                <img (click)="sortIndentViewIndent('itemCode')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
               </p>
             </th>
 
             <th>
               <p>
                 <span>Serial no</span>
-                <img (click)="sort1('serialNo')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                <img (click)="sortIndentViewIndent('serialNo')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
               </p>
             </th>
 
             <th>
               <p>
                 <span>Created time</span>
-                <img (click)="sort1('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                <img (click)="sortIndentViewIndent('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
               </p>
             </th>
 
             <th>
               <p>
                 <span>Modified time</span>
-                <img (click)="sort1('modifiedTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                <img (click)="sortIndentViewIndent('modifiedTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
               </p>
             </th>
 
             <th>
               <p>
                 <span>Status</span>
-                <img (click)="sort1('statusId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+                <img (click)="sortIndentViewIndent('statusId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
               </p>
             </th>
           </tr>

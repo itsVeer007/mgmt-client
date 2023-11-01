@@ -23,9 +23,18 @@ export class InventoryComponent implements OnInit {
     public alertSer: AlertService
     ) { }
 
+    user: any;
+    notFr = false;
     ngOnInit(): void {
       this.listInventory();
       this.getMetadata();
+
+      this.user = JSON.parse(localStorage.getItem('user')!);
+      for(let item of this.user?.role) {
+        if(item == 'Administrator' || item == 'Support') {
+          this.notFr = true;
+        }
+      }
     }
 
 
@@ -578,9 +587,9 @@ export class InventoryComponent implements OnInit {
     createdBy: null
   }
 
-  filterDcBody_Maintenance = {
+  filterDcBody_Maintenance: any = {
     dateOfChallan: null,
-    createdBy: 1
+    createdBy: null
   }
 
   newItems: any = [];
@@ -591,6 +600,7 @@ export class InventoryComponent implements OnInit {
   }
 
   openDcDialog() {
+    // this.filterDcBody_All = this.user?.UserId;
     this.dialog.open(this.dcListDialog);
     this.inventorySer.getAllDC(this.filterDcBody_All).subscribe((res: any) => {
       this.items= res;
@@ -606,6 +616,7 @@ export class InventoryComponent implements OnInit {
         this.newItems = this.items;
       });
     } else if(type == 'maintenance') {
+      this.filterDcBody_Maintenance.createdBy = this.user?.UserId;
       this .inventorySer.getlistByCreatedBy(this.filterDcBody_Maintenance).subscribe((res: any) => {
         // console.log(res);
         this.items = res;

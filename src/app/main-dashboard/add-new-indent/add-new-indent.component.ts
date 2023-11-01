@@ -45,7 +45,7 @@ export class AddNewIndentComponent implements OnInit {
 
   inventoryBody = {
     ticketId: null,
-    createdBy: 1565,
+    createdBy: null,
     items: [
       {
         itemCode: null,
@@ -73,6 +73,7 @@ export class AddNewIndentComponent implements OnInit {
   }
 
   ticketIdFrmFr: any;
+  user: any;
   ngOnInit() {
     this.UserForm = this.fb.group({
       'jobOrTicketId': new FormControl(''),
@@ -84,6 +85,7 @@ export class AddNewIndentComponent implements OnInit {
     // this.getVendor();
     this.getProducts();
     this.ticketIdFrmFr = JSON.parse(localStorage.getItem('ticketId')!);
+    this.user = JSON.parse(localStorage.getItem('user')!);
   }
 
   vendorDetail: any;
@@ -109,6 +111,7 @@ export class AddNewIndentComponent implements OnInit {
   warrantyDetail: any = 'No';
   submit() {
     if(this.UserForm.valid) {
+      this.inventoryBody.createdBy = this.user?.UserId;
       if(this.items.length > 0) {
         this.alertSer.wait();
         this.inventoryBody.ticketId = this.ticketIdFrmFr?.ticketId;
