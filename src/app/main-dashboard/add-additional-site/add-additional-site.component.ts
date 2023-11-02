@@ -1,10 +1,9 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { ApiService } from 'src/services/api.service';
+import { UserService } from 'src/services/user.service';
 
 @Component({
   selector: 'app-add-additional-site',
@@ -62,7 +61,7 @@ export class AddAdditionalSiteComponent implements OnInit {
   items = ['john', 'mark', 'cooper', 'henry', 'roben'];
   siteIdList = [ '3001', '3002', '3003', '3004'];
 
-  constructor(private fb: FormBuilder, private apiser: ApiService) { }
+  constructor(private fb: FormBuilder, private userSer: UserService) { }
 
   filteredOptions!: Observable<any>;
   ngOnInit(): void {

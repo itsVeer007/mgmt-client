@@ -1,5 +1,5 @@
 import { Component, isDevMode } from '@angular/core';
-import { ApiService } from 'src/services/api.service';
+import { UserService } from 'src/services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -9,18 +9,18 @@ import { ApiService } from 'src/services/api.service';
 export class AppComponent {
   title = 'mgmtClient';
 
-  constructor(private apiser: ApiService) {}
+  constructor(private userSer: UserService) {}
 
   user: any = null;
   ngOnInit() {
     isDevMode() ? console.log('Stagging!') : console.log('Production!');
-    // this.apiser.user$.subscribe((res) => {
+    // this.userSer.user$.subscribe((res) => {
     //   this.user = res;
     // });
   }
 
   ngDoCheck() {
-    let isAuthenticated = this.apiser.getAuthStatus();
+    let isAuthenticated = this.userSer.getAuthStatus();
     if(isAuthenticated) {
       this.user = 'Success';
     } else {

@@ -72,22 +72,19 @@
     <div class="users-header">
       <p class="mt-2">List of Items - <span>{{ inventoryTable?.length }}</span></p>
     </div>
-    <div class="d-flex">
-      <div *ngIf="notFr">
-        <button class="create-btn mx-1" (click)="show('inventory')">Create Inventory</button>
-      </div>
-
+    <div class="d-lg-flex flex-lg-row flex-md-column">
       <div>
         <button class="create-btn mx-1" (click)="show('showDcInventory')">Create Dc</button>
       </div>
-
-      <div class="col-lg-2">
+      <div>
         <button class="create-btn mx-1" (click)="openDcDialog()">List Dc</button>
+      </div>
+
+      <div *ngIf="notFr">
+        <button class="create-btn mx-1" (click)="show('inventory')">Create Inventory</button>
       </div>
     </div>
   </div>
-
-  <!-- /header -->
 
   <!-- status -->
   <div class="row mb-2">
@@ -491,7 +488,7 @@
     <p class="dialog-title">inventory items</p>
   </div>
 
-  <mat-dialog-content>
+  <div class="dialog-content">
     <div class="table-res">
       <table class="table" id="mytable">
         <thead>
@@ -614,7 +611,7 @@
     <div class="d-flex align-items-center justify-content-center" style="height: 50vh;" *ngIf="inventoryItems?.length == 0">
       <h1 class="text-secondary">No Data</h1>
     </div>
-  </mat-dialog-content>
+  </div>
 
   <div class="d-flex justify-content-end">
     <button class="dialog-close-btn" mat-dialog-close>Close</button>
@@ -626,17 +623,14 @@
     <p class="dialog-title">used items</p>
   </div>
 
-  <mat-dialog-content>
+  <div class="dialog-content">
     <div class="table-res">
       <table class="table" id="mytable">
         <thead>
           <tr class="task-table">
             <th>ticketId</th>
-
             <th>siteName</th>
-
             <th>usedBy</th>
-
             <th>usedTime</th>
           </tr>
         </thead>
@@ -646,15 +640,12 @@
             <td>
               <p>{{ task.ticketId }}</p>
             </td>
-
             <td>
               <p>{{ task.siteName }}</p>
             </td>
-
             <td>
               <p>{{ task.modifiedBy }}</p>
             </td>
-
             <td>
               <p>{{ task.modifiedTime }}</p>
             </td>
@@ -667,9 +658,9 @@
     <div class="d-flex align-items-center justify-content-center" style="height: 10vh;" *ngIf="usedItems?.length == 0">
       <h1 class="text-secondary">No Data</h1>
     </div>
-  </mat-dialog-content>
+  </div>
 
-  <div class="d-flex justify-content-end" mat-dialog-actions>
+  <div class="d-flex justify-content-end">
     <button class="dialog-close-btn" mat-dialog-close>Close</button>
   </div>
 </ng-template>

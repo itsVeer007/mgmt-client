@@ -2,9 +2,9 @@ import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@a
 import { animate, style, transition, trigger } from '@angular/animations';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ApiService } from 'src/services/api.service';
 import Swal from 'sweetalert2';
 import { HttpClient } from '@angular/common/http';
+import { UserService } from 'src/services/user.service';
 
 @Component({
   selector: 'app-add-new-user',
@@ -31,7 +31,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AddNewUserComponent implements OnInit {
 
-  constructor(private router:Router, private apiser: ApiService, private fb: FormBuilder, private http: HttpClient) { }
+  constructor(private router:Router, private userSer: UserService, private fb: FormBuilder, private http: HttpClient) { }
 
   // @Input() show:any;
 
@@ -133,7 +133,7 @@ export class AddNewUserComponent implements OnInit {
 
   email: string = "";
   getUserDetails(){
-    this.apiser.getUser(this.email).subscribe((res:any)=>{
+    this.userSer.getUser(this.email).subscribe((res:any)=>{
       // console.log(res)
       if(res.Status == 'Success'){
         this.user.username= "";
@@ -187,7 +187,7 @@ export class AddNewUserComponent implements OnInit {
         allowOutsideClick: false
       });
 
-      this.apiser.addUser(this.user).subscribe((res: any) => {
+      this.userSer.addUser(this.user).subscribe((res: any) => {
         if(res.Status == "Success") {
           localStorage.setItem('userCreated', JSON.stringify(res));
         }

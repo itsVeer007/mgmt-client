@@ -2,17 +2,17 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ApiService {
-
+export class UserService {
   isLoggedin = new BehaviorSubject<boolean>(false);
   user$ = new BehaviorSubject<any>(null);
   error$ = new BehaviorSubject<string>('');
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private storageSer: StorageService) { }
 
   baseUrl = "http://usmgmt.iviscloud.net:777";
 
@@ -72,7 +72,6 @@ export class ApiService {
   addUser(payload: any) {
     let url = this.baseUrl + "/businessInterface/User/addUser_1_0";
     var user = JSON.parse(localStorage.getItem('user')!);
-    // console.log(user);
     payload.accesstoken = user.access_token;
     payload.callingUsername = user.UserName;
     return this.http.post(url, payload);
@@ -81,7 +80,6 @@ export class ApiService {
   getUser(email: string) {
     let url = this.baseUrl+"/businessInterface/User/getUser_1_0";
     var user = JSON.parse(localStorage.getItem('user')!);
-    // console.log(user);
 
     var payload = {
       "email": email,
@@ -99,5 +97,4 @@ export class ApiService {
     user.callingUsername = a.UserName;
     return this.http.post(url, user);
   }
-
 }

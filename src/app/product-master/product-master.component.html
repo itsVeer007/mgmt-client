@@ -5,7 +5,7 @@
     <div class="users-header">
       <p>List of Products - <span>{{ newProductMaster?.length }}</span></p>
     </div>
-    <div style="position: relative" *ngIf="notFr">
+    <div *ngIf="notFr">
       <!-- <a class="pointer" (click)="show('inventory')"><img src="assets/icons/add_circle.svg" alt="" width="40"></a> -->
       <button class="create-btn" (click)="show('product')">Create Product</button>
     </div>
@@ -280,8 +280,7 @@
 </div>
 
 
-<!-- view Popup -->
-<ng-template #viewInventoryDialog>
+<ng-template #viewProductDialog>
   <div style="background-color: #084982;">
     <p class="dialog-title">VIEW PRODUCT</p>
   </div>
@@ -359,10 +358,8 @@
     <button class="dialog-close-btn" mat-dialog-close>Close</button>
   </div>
 </ng-template>
-<!-- view Popup -->
 
-<!-- edit Popup -->
-<ng-template #editInventoryDialog>
+<ng-template #editProductDialog>
   <div style="background-color: #084982;">
     <p class="dialog-title">MODIFY PRODUCT</p>
   </div>
@@ -490,10 +487,8 @@
     </div>
   </div>
 </ng-template>
-<!-- edit Popup -->
 
-<!-- Delete Popup -->
-<ng-template #deleteInventoryDialog>
+<ng-template #deleteProductDialog>
   <div style="background-color: #084982;">
     <p class="dialog-title">DELETE PRODUCT</p>
   </div>
@@ -511,7 +506,6 @@
     </div>
   </div>
 </ng-template>
-<!-- /Delete Popup -->
 
 
 <div  *ngIf="showProduct">

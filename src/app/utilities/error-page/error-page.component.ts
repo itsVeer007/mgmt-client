@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiService } from 'src/services/api.service';
+import { UserService } from 'src/services/user.service';
 
 @Component({
   selector: 'app-error-page',
@@ -70,19 +70,19 @@ export class ErrorPageComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private apiSer: ApiService
+    private userSer: UserService
   ) { }
 
   httpError: any;
   ngOnInit(): void {
-    this.apiSer.error$.subscribe((res: any)=>{
+    this.userSer.error$.subscribe((res: any)=>{
       this.httpError = res;
       // console.log(this.httpError.status)
     });
   }
 
   public loginpage(){
-    this.apiSer.logout();
+    this.userSer.logout();
     localStorage.clear();
     this.router.navigateByUrl('/login');
   }

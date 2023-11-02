@@ -37,13 +37,13 @@
       <div class="col-lg-3 col-sm-12">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Select site</mat-label>
-          <input matInput [matAutocomplete]="site" [(ngModel)]="siteNg" (keyup)="searchSites($event)">
+          <input matInput [matAutocomplete]="site" [(ngModel)]="filterObj.siteId" (keyup)="searchSites($event)" (focus)="makeNull()">
           <button matSuffix mat-icon-button>
             <mat-icon>arrow_drop_down</mat-icon>
           </button>
           <mat-autocomplete #site="matAutocomplete">
-            <mat-option value="All" (click)="filterSiteIdName('All')">All</mat-option>
-            <mat-option *ngFor="let item of siteData | search: siteSearch" [value]="item.siteid" (click)="filterSiteIdName(item.siteid)">
+            <!-- <mat-option value="All" (click)="filterDevices()">All</mat-option> -->
+            <mat-option *ngFor="let item of siteData | search: siteSearch" [value]="item.siteid" (click)="filterDevices()">
               {{ item.siteid }} - {{ item.sitename }}
             </mat-option>
           </mat-autocomplete>
@@ -53,24 +53,24 @@
       <div class="col-lg-3 col-sm-12">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Device Type</mat-label>
-          <mat-select [(ngModel)]="deviceNg">
-            <mat-option value="All" (click)="filterDeviceType('All')">All</mat-option>
-            <mat-option *ngFor="let item of deviceType" [value]="item.keyId" (click)="filterDeviceType(item.keyId)">{{ item.value }}</mat-option>
+          <mat-select [(ngModel)]="filterObj.deviceId">
+            <!-- <mat-option value="All" (click)="filterDeviceType('All')">All</mat-option> -->
+            <mat-option *ngFor="let item of deviceType" [value]="item.keyId" (click)="filterDevices()">{{ item.value }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
 
-      <div class="col-lg-3 col-sm-12">
+      <!-- <div class="col-lg-3 col-sm-12">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Status</mat-label>
           <mat-select [(ngModel)]="statusNg">
             <mat-option value="All" (click)="filterStatus('All')">All</mat-option>
-            <!-- <mat-option *ngFor="let item of deviceStatus" [value]="item.keyId" (click)="filterStatus(item.keyId)">{{ item.value }}</mat-option> -->
+            <mat-option *ngFor="let item of deviceStatus" [value]="item.keyId" (click)="filterStatus(item.keyId)">{{ item.value }}</mat-option>
             <mat-option [value]="1" (click)="filterStatus(1)">Online</mat-option>
             <mat-option [value]="2" (click)="filterStatus(2)">Offline</mat-option>
           </mat-select>
         </mat-form-field>
-      </div>
+      </div> -->
 
       <!-- <div class="  col-lg-2 col-sm-12">
         <button>Submit</button>
@@ -283,6 +283,11 @@
         </tr>
       </tbody>
     </table>
+  </div>
+
+  <!-- error info -->
+  <div class="err-info" style="height: 50vh;" *ngIf="newDeviceData.length == 0 && !showLoader">
+    <h1 class="text-secondary">No Devices</h1>
   </div>
 
   <!-- loader -->

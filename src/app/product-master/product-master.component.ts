@@ -138,22 +138,22 @@ export class ProductMasterComponent implements OnInit {
 
   /* view inventory */
 
-  @ViewChild('viewInventoryDialog') viewInventoryDialog = {} as TemplateRef<any>;
+  @ViewChild('viewProductDialog') viewProductDialog = {} as TemplateRef<any>;
 
   openViewPopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.viewInventoryDialog);
+    this.dialog.open(this.viewProductDialog);
     // console.log(this.currentItem);
   }
 
 
   /* update inventory */
 
-  @ViewChild('editInventoryDialog') editInventoryDialog = {} as TemplateRef<any>;
+  @ViewChild('editProductDialog') editProductDialog = {} as TemplateRef<any>;
 
   openEditPopup(item: any) {
     this.currentItem = JSON.parse(JSON.stringify(item));
-    this.dialog.open(this.editInventoryDialog);
+    this.dialog.open(this.editProductDialog);
     // console.log(item);
   }
 
@@ -275,11 +275,11 @@ export class ProductMasterComponent implements OnInit {
     });
   }
 
-  @ViewChild('deleteInventoryDialog') deleteInventoryDialog = {} as TemplateRef<any>;
+  @ViewChild('deleteProductDialog') deleteProductDialog = {} as TemplateRef<any>;
 
   openDeletePopup(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.deleteInventoryDialog);
+    this.dialog.open(this.deleteProductDialog);
   }
 
   deleteProduct() {
@@ -335,7 +335,7 @@ export class ProductMasterComponent implements OnInit {
 
   viewBySelectedOne() {
     if (this.viewArray.length > 0) {
-      this.dialog.open(this.viewInventoryDialog)
+      this.dialog.open(this.viewProductDialog)
     }
   }
 
@@ -353,7 +353,7 @@ export class ProductMasterComponent implements OnInit {
 
   editBySelectedOne() {
     if (this.editArray.length > 0) {
-      this.dialog.open(this.editInventoryDialog)
+      this.dialog.open(this.editProductDialog)
     }
   }
 

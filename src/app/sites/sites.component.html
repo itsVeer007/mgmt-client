@@ -128,7 +128,7 @@
         </tr>
       </thead>
 
-      <tbody>
+      <tbody *ngIf="!showLoader">
         <tr *ngFor="let data of newTableData | search : searchText; let i=index" (dblclick)="openViewPopup(data)">
             <!-- <td>
               <input type="checkbox" class="form-check-input" [(ngModel)]="data.selected" (change)="checkIfAllSelected(); deleteMultiRecords(data, i, $event); ViewByCheckbox(data, i, $event); EditByCheckbox(data, i, $event)" id="singleCheck">
@@ -240,10 +240,15 @@
       </tbody>
     </table>
 
-    <!-- Loader -->
-    <div >
-      <app-loader *ngIf="showLoader" class="d-flex justify-content-center align-items-center" style="height: 50vh;"></app-loader>
-    </div>
+  <!-- error info -->
+  <div class="err-info" style="height: 50vh;" *ngIf="newTableData?.length == 0 && !showLoader">
+    <h1 class="text-secondary">No Devices</h1>
+  </div>
+
+  <!-- loader -->
+  <div *ngIf="showLoader" class="d-flex justify-content-center align-items-center" style="height: 50vh;">
+    <app-loader></app-loader>
+  </div>
   </div>
 </div>
 

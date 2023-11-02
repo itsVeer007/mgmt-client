@@ -726,6 +726,17 @@ thead tr th {
     height: 40px;
     border-radius: 25px;
   }
+
+  .users-header p, .users-header span {
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  .filter-btn {
+    width: 70px;
+    padding: 4px 0;
+    font-size: 10px;
+  }
 }
 
 

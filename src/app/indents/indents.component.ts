@@ -317,27 +317,28 @@ export class IndentsComponent implements OnInit {
   }
 
   @ViewChild('editStatusDialog') editStatusDialog = {} as TemplateRef<any>;
-
-  currentStatusId: any;
-  invenIds: any = null;
-  openEditStatus(id: any) {
-    this.currentStatusId = id;
-    this.dialog.open(this.editStatusDialog);
-    this.inventorySer.listInventoryByItemCode(id).subscribe((res: any) => {
-      this.invenIds = res;
-      // console.log(this.invenIds);
-    })
-  }
-
   statusObj = {
     statusId: null,
     inventoryId: null,
     createdBy: null
   }
 
+  currentStatusId: any;
+  invenIds: any = null;
+  openEditStatus(id: any) {
+    this.currentStatusId = id;
+    this.statusObj.statusId = null;
+    this.statusObj.inventoryId = null;
+    this.dialog.open(this.editStatusDialog);
+    this.inventorySer.listInventoryByItemCode(id).subscribe((res: any) => {
+      this.invenIds = res;
+    })
+  }
+
+
   updateInventoryStatus() {
     this.statusObj.createdBy = this.user?.UserId;
-    if(this.statusObj.statusId != null && this.statusObj.inventoryId != null && this.statusObj.createdBy != null) {
+    // if(this.statusObj.statusId != null && this.statusObj.inventoryId != null && this.statusObj.createdBy != null) {
       this.inventorySer.updateIndentStatus(this.currentStatusId, this.statusObj).subscribe((res: any) => {
         // console.log(res);
         this.alertSer.snackSuccess(res?.message);
@@ -345,7 +346,7 @@ export class IndentsComponent implements OnInit {
       }, (err: any) => {
         this.alertSer.error(err?.error?.message);
       });
-    }
+    // }
   }
 
 
@@ -371,7 +372,6 @@ export class IndentsComponent implements OnInit {
 
 
   //Show Detail
-
   showDetail: boolean = false;
   onShowDetail() {
     this.showDetail = !this.showDetail
@@ -379,7 +379,6 @@ export class IndentsComponent implements OnInit {
 
 
  /* checkbox control */
-
   selectedAll: any;
   selectAll() {
     for (var i = 0; i < this.indentTable.length; i++) {

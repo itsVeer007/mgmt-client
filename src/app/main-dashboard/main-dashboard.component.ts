@@ -1,9 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
-import { trigger, state, style, animate, transition } from '@angular/animations';
 import { ChartService } from 'src/services/chart.service';
-import { SiteService } from 'src/services/site.service';
-import { ApiService } from 'src/services/api.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

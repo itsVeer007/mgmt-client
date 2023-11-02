@@ -4,7 +4,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/services/alert.service';
-import { ApiService } from 'src/services/api.service';
 import { InventoryService } from 'src/services/inventory.service';
 
 @Component({

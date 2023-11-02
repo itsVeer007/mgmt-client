@@ -33,28 +33,24 @@ export class SitesComponent implements OnInit {
     this.tempSite = JSON.parse(localStorage.getItem('temp_sites')!);
     this.siteData = JSON.parse(localStorage.getItem('siteIds')!)?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
 
-    this.tableData = this.siteData;
-    this.newTableData = this.tableData;
-
-    // this.getlistSites()
+    // this.tableData = this.siteData;
+    // this.newTableData = this.tableData;
+    this.listSites()
   }
 
-  // getlistSites() {
-  //   this.showLoader = true;
-  //   this.siteSer.listSites().subscribe((res: any) => {
-    //     console.log(res);
-  //     this.showLoader = false;
-  //     if(res?.Status == 'Success') {
-  //       this.tableData = res?.siteList?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
-  //       this.newTableData = this.tableData;
-  //     }
-  //     if(res?.Status == 'Failed') {
-    //       this.apiSer.logout();
-    //     }
-    //   }, (err: any) => {
-  //     console.log(err);
-  //   });
-  // }
+  listSites() {
+    this.showLoader = true;
+    this.siteSer.listSites().subscribe((res: any) => {
+      // console.log(res);
+      this.showLoader = false;
+      if(res?.Status == 'Success') {
+        this.tableData = res?.siteList?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
+        this.newTableData = this.tableData;
+      }
+      }, (err: any) => {
+        this.showLoader = false;
+    });
+  }
 
 
   deviceData: any;
@@ -103,7 +99,7 @@ export class SitesComponent implements OnInit {
 
   filterSites(site: any) {
     if(site != 'All') {
-      this.newTableData =  this.tableData.filter((item: any) => item.sitename == site)
+      this.newTableData =  this.tableData.filter((item: any) => item.siteid == site)
     } else {
       this.newTableData = this.tableData;
     }
@@ -122,11 +118,11 @@ export class SitesComponent implements OnInit {
   }
 
   closenow(type: string) {
-    if (type == 'site') { 
-      this.showAddSite = false 
+    if (type == 'site') {
+      this.showAddSite = false
     }
     if (type == 'device') {
-      this.showAddDevice = false 
+      this.showAddDevice = false
       }
   }
 

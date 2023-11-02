@@ -28,8 +28,10 @@ export class AdvertisementsComponent implements OnInit {
   siteData: any;
   ngOnInit() {
     this.siteData = JSON.parse(localStorage.getItem('siteIds')!);
-    this.listAssets();
-    this.listDevices();
+    if(this.siteData) {
+      this.getAssetBySiteId(this.siteData[0]?.siteid);
+      // this.listDevices();
+    }
     this.getMetadata();
   }
 
@@ -42,12 +44,19 @@ export class AdvertisementsComponent implements OnInit {
   sycedAfterRemoval: any = [];
   removed: any = [];
 
-  listAssets() {
+  getAssetBySiteId(siteId: any) {
     this.showLoader = true;
-    this.assetService.listAssets().subscribe((res: any) => {
+    /* list assets by siteid */
+    this.assetService.getAssetBySiteId(siteId).subscribe((res: any) => {
       this.showLoader = false;
+      this.filterObj.siteId = this.siteData[0]?.siteid;
       this.advertisements = res.flatMap((item: any) => item.assets);
       this.newAdvertisements = this.advertisements;
+
+      /* list devices by siteid */
+      this.assetService.listDeviceBySiteId(this.siteData[0]?.siteid).subscribe((ress: any) => {
+        this.filteredDevices = res.flatMap((item: any) => item.adsDevices);
+      })
 
       this.pending = [];
       this.added = [];
@@ -57,17 +66,13 @@ export class AdvertisementsComponent implements OnInit {
       for(let item of this.newAdvertisements) {
         if(item.status == 1) {
           this.pending.push(item);
-        }
-        if(item.status == 2) {
+        } else if(item.status == 2) {
           this.added.push(item);
-        }
-        if(item.status == 4) {
+        } else if(item.status == 4) {
           this.sycedAfterAddition.push(item);
-        }
-        if(item.status == 5) {
+        } else if(item.status == 5) {
           this.sycedAfterRemoval.push(item);
-        }
-        if(item.status == 3) {
+        } else if(item.status == 3) {
           this.removed.push(item);
         }
       }
@@ -83,7 +88,6 @@ export class AdvertisementsComponent implements OnInit {
   }
 
   /* searches */
-
   siteSearch: any;
   searchSites(event: any) {
     this.siteSearch = (event.target as HTMLInputElement).value
@@ -119,21 +123,21 @@ export class AdvertisementsComponent implements OnInit {
       for(let item of this.newAdvertisements) {
         if(item.status == 1) {
           this.pending.push(item);
-        }
-        if(item.status == 2) {
+        } else if(item.status == 2) {
           this.added.push(item);
-        }
-        if(item.status == 4) {
+        } else if(item.status == 4) {
           this.sycedAfterAddition.push(item);
-        }
-        if(item.status == 5) {
+        } else if(item.status == 5) {
           this.sycedAfterRemoval.push(item);
-        }
-        if(item.status == 3) {
+        } else if(item.status == 3) {
           this.removed.push(item);
         }
       }
     })
+  }
+
+  makeNull() {
+    this.filterObj.deviceId = null;
   }
 
   deviceType: any;
@@ -151,7 +155,6 @@ export class AdvertisementsComponent implements OnInit {
       }
     }
   }
-
 
   showAsset: boolean = false;
   addErr: any = null;
@@ -193,7 +196,7 @@ export class AdvertisementsComponent implements OnInit {
   changeAssetStatus() {
     this.assetService.updateAssetStatus(this.currentStatusId, this.statusObj).subscribe((res: any) => {
       // console.log(res);
-      this.listAssets();
+      this.getAssetBySiteId(this.siteData[0]?.siteid);
       this.alertSer.snackSuccess(res?.message);
     }, (err: any) => {
       if(err) {

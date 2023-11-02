@@ -25,7 +25,6 @@ export class DevicesComponent implements OnInit {
   constructor(
     private inventorySer: InventoryService,
     private assetSer: AssetService,
-    private metadataSer: MetadataService,
     public dialog: MatDialog,
     public datePipe: DatePipe,
     public alertSer: AlertService
@@ -33,10 +32,12 @@ export class DevicesComponent implements OnInit {
 
   siteData: any
   ngOnInit(): void {
-    this.listDeviceAdsInfo();
+    this.siteData = JSON.parse(localStorage.getItem('siteIds')!);
+    if(this.siteData) {
+      this.listDeviceBySiteId(this.siteData[0]?.siteid);
+    }
     this.getStatus();
     this.getMetadata();
-    this.siteData = JSON.parse(localStorage.getItem('siteIds')!);
     // console.log(this.siteData);
   }
 
@@ -54,16 +55,14 @@ export class DevicesComponent implements OnInit {
 
   active: any = [];
   inActive: any = [];
-  listDeviceAdsInfo() {
+  listDeviceBySiteId(siteId: any) {
     this.showLoader = true;
-    this.assetSer.listDeviceAdsInfo().subscribe((res: any) => {
+    this.assetSer.listDeviceBySiteId(siteId).subscribe((res: any) => {
       // console.log(res);
       this.showLoader = false;
+      this.filterObj.siteId = this.siteData[0]?.siteid;
       this.deviceData = res.flatMap((item: any) => item.adsDevices);
       this.newDeviceData = this.deviceData;
-      // console.log(this.deviceData);
-      // localStorage.setItem('deviceData', JSON.stringify(x));
-
       this.active = [];
       this.inActive = []
       for(let item of this.newDeviceData) {
@@ -85,22 +84,24 @@ export class DevicesComponent implements OnInit {
   }
 
   /* searches */
-
   siteSearch: any;
   searchSites(event: any) {
     this.siteSearch = (event.target as HTMLInputElement).value
   }
 
-  siteNg: any = 'All';
-  filterSiteIdName(value: any) {
-    if(value != 'All') {
-      this.newDeviceData = this.deviceData.filter((el: any) => el.siteId == value);
-    } else {
-      this.newDeviceData = this.deviceData;
-    }
+  filterObj = {
+    siteId: null,
+    deviceId: null,
+  }
 
+  filterDevices() {
+    this.showLoader = true;
+    this.assetSer.listDeviceAdsInfo1(this.filterObj).subscribe((res: any) => {
+      this.showLoader = false;
+      this.newDeviceData = res.flatMap((item: any) => item.adsDevices);
+    })
     this.active = [];
-    this.inActive = []
+    this.inActive = [];
     for(let item of this.newDeviceData) {
       if(item.status == 1) {
         this.active.push(item);
@@ -110,23 +111,8 @@ export class DevicesComponent implements OnInit {
     }
   }
 
-  deviceNg: any = 'All';
-  filterDeviceType(value: any) {
-    if(value != 'All') {
-      this.newDeviceData = this.deviceData.filter((el: any) => el.deviceTypeId == value);
-    } else {
-      this.newDeviceData = this.deviceData;
-    }
-
-    this.active = [];
-    this.inActive = []
-    for(let item of this.newDeviceData) {
-      if(item.status == 1) {
-        this.active.push(item);
-      } else if(item.status == 2) {
-        this.inActive.push(item);
-      }
-    }
+  makeNull() {
+    this.filterObj.deviceId = null;
   }
 
   statusNg: any = 'All';
@@ -136,7 +122,6 @@ export class DevicesComponent implements OnInit {
     } else {
       this.newDeviceData = this.deviceData;
     }
-
     this.active = [];
     this.inActive = []
     for(let item of this.newDeviceData) {
@@ -148,8 +133,7 @@ export class DevicesComponent implements OnInit {
     }
   }
 
-    /* metadata methods */
-
+    /* metadata */
     deviceType: any;
     deviceMode: any;
     workingDay: any;
@@ -507,7 +491,7 @@ export class DevicesComponent implements OnInit {
   editBySelectedOne() {
     if (this.editArray.length > 0) {
     }
-    this.listDeviceAdsInfo();
+    this.listDeviceBySiteId(this.siteData[0]?.siteid);
   }
 
   viewArray: any = [];

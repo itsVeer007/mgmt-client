@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/services/alert.service';
-import { ApiService } from 'src/services/api.service';
 import { MetadataService } from 'src/services/metadata.service';
 import { SiteService } from 'src/services/site.service';
+import { StorageService } from 'src/services/storage.service';
+import { UserService } from 'src/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -14,13 +15,14 @@ import { SiteService } from 'src/services/site.service';
 export class LoginComponent implements OnInit {
 
   constructor(
-    private apiser: ApiService,
+    private userSer: UserService,
     private siteSer: SiteService,
     private route: Router,
     private fb: FormBuilder,
     private router: Router,
     private alertSer: AlertService,
-    private metaDataSer: MetadataService
+    private metaDataSer: MetadataService,
+    private storageSer: StorageService
   ) { }
 
   user = null;
@@ -34,7 +36,7 @@ export class LoginComponent implements OnInit {
     });
 
     localStorage.clear();
-    // this.apiser.user$.subscribe((res: any) => {
+    // this.userSer.user$.subscribe((res: any) => {
     //   this.user = res
     // });
   }
@@ -47,12 +49,12 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.showLoader = true;
-    this.apiser.login(this.loginBody).subscribe((res: any) => {
+    this.userSer.login(this.loginBody).subscribe((res: any) => {
       // console.log(res);
       this.showLoader = false;
       if(res?.Status == "Success") {
         localStorage.setItem('user', JSON.stringify(res));
-        this.apiser.user$.next(res);
+        this.userSer.user$.next(res);
         this.route.navigate(['/main-dashboard']);
         this.getlistSites();
       } else if(res?.Status == "Failed") {
@@ -73,12 +75,12 @@ export class LoginComponent implements OnInit {
   loginNew() {
     if(this.loginForm.valid) {
       this.showLoader = true;
-      this.apiser.loginNew(this.loginBody).subscribe((res: any) => {
+      this.userSer.loginNew(this.loginBody).subscribe((res: any) => {
         this.showLoader = false;
         if(res?.Status == 'Success') {
-          this.apiser.isLoggedin.next(true);
+          this.userSer.isLoggedin.next(true);
           localStorage.setItem('user', JSON.stringify(res));
-          this.apiser.user$.next(res);
+          this.userSer.user$.next(res);
           this.router.navigate(['/main-dashboard']);
           this.getlistSites();
           this.getMetadata();
@@ -98,7 +100,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('siteIds', JSON.stringify(res?.siteList));
       }
       if(res?.Status == 'Failed') {
-        // this.apiser.logout();
+        // this.userSer.logout();
       }
     }, (err: any) => {
       // console.log(err)

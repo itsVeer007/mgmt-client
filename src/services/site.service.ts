@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { environment } from '../environments/environment';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class SiteService {
 
   baseUrl = `${environment.baseUrl}/businessInterface/sites`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private storageSer: StorageService) { }
 
   listSites() {
     let user = JSON.parse(localStorage.getItem('user')!);
