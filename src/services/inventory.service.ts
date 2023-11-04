@@ -332,9 +332,9 @@ export class InventoryService {
     return this.http.delete(url);
   }
 
-  listFRTickets() {
+  listFRTickets(frId: any) {
     // let x = JSON.parse(localStorage.getItem('user')!);
-    let url = this.baseUrl + `/listFRTickets_1_0/${1619}`;
+    let url = this.baseUrl + `/listFRTickets_1_0/${frId}`;
     return this.http.get(url);
   }
 
@@ -407,7 +407,6 @@ export class InventoryService {
   getItemsList(payload: any) {
     let url = this.baseUrl + `/getItemsList_1_0`;
     let params = new HttpParams().set('siteId', payload?.siteId);
-
     return this.http.get(url, {params: params});
   }
 
@@ -646,6 +645,12 @@ export class InventoryService {
   deleteVendor(payload: any) {
     let url = this.baseUrl + `/deleteVendor_1_0/${payload.id}/${1}`;
     return this.http.delete(url);
+  }
+
+  listUsersByRole() {
+    let url = 'http://34.206.37.237:80/userDetails' + '/listUsersByRole_1_0';
+    let params = new HttpParams().set('roleId', 30);
+    return this.http.get(url, {params: params});
   }
 
 }

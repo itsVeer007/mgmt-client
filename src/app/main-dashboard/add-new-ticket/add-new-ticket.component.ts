@@ -48,7 +48,7 @@ export class AddNewTicketComponent implements OnInit {
     ticket: {
       typeId: null,
       reasonDescription: null,
-      requestedBy: null,
+      requestedBy: 1,
       siteId: null,
       informedThrough: null,
       createdBy: null,
@@ -92,7 +92,7 @@ export class AddNewTicketComponent implements OnInit {
     this.addAssetForm = this.fb.group({
       'typeId': new FormControl('', Validators.required),
       'reasonDescription': new FormControl('', Validators.required),
-      'requestedBy': new FormControl('', Validators.required),
+      'requestedBy': new FormControl(''),
       'siteId': new FormControl('', Validators.required),
       'informedThrough': new FormControl('', Validators.required),
 

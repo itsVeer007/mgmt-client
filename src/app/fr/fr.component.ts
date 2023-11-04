@@ -23,11 +23,11 @@ export class FrComponent implements OnInit {
   searchText: any;
   user: any;
   ngOnInit(): void {
+    this.siteIds = JSON.parse(localStorage.getItem('siteIds')!)?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
+    this.user = JSON.parse(localStorage.getItem('user')!);
     // this.listFRSites();
     this.listFRTickets();
     this.getMetadata();
-    this.siteIds = JSON.parse(localStorage.getItem('siteIds')!)?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
-    this.user = JSON.parse(localStorage.getItem('user')!);
   }
 
   frTickets: any = [];
@@ -35,7 +35,7 @@ export class FrComponent implements OnInit {
   errInfo: any = null;
   listFRTickets() {
     this.showLoader = true;
-    this.inventorySer.listFRTickets().subscribe((res: any) => {
+    this.inventorySer.listFRTickets(this.user?.UserId).subscribe((res: any) => {
       // console.log(res);
       this.showLoader = false;
       this.frTickets = res;
@@ -204,7 +204,7 @@ export class FrComponent implements OnInit {
     this.ticketType = data?.typeId;
     this.currentSite = data?.siteId;
     this.dialog.open(this.currentTasksDialog);
-    this.inventorySer.listFRTasksOfCurrentVisit(1619).subscribe((res: any) => {
+    this.inventorySer.listFRTasksOfCurrentVisit(this.user?.UserId).subscribe((res: any) => {
       // console.log(res);
       this.tasks = res;
     })
@@ -267,7 +267,7 @@ export class FrComponent implements OnInit {
   openCreateOrder(item: any) {
     // console.log(item)
     // this.currentItem = item;
-    this.dialog.open(this.replaceDialog, { maxWidth: '650px', maxHeight: '550px'});
+    this.dialog.open(this.replaceDialog);
     this.inventorySer.listIndentItems(item).subscribe((res: any) => {
       this.indentItems = res;
     })
@@ -291,18 +291,9 @@ export class FrComponent implements OnInit {
   duplicateInventoryId: any;
   inventoryId2: any;
   openReplaceComponent(data: any) {
-    // console.log(data)
-    // this.inventoryId2 = data; imp
-    // console.log(this.inventoryId2)
-
-    // this.inventorySer.listInventoryByItemCode(data).subscribe((res: any) => {
-    //   console.log(res)
-    //   this.inventoryId = res;
-    // });
-
     this.dialog.open(this.replaceStatusDialog);
     this.inventorySer.getItemsList(data).subscribe((res: any) => {
-      // console.log(res);
+      console.log(res);
       this.inventoryId = res;
 
       this.duplicateInventoryId = this.inventoryId.reduce((acc: any, current: any) => {

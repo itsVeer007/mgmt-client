@@ -26,7 +26,9 @@ export class AdvertisementsComponent implements OnInit {
   // endDateTime: any;
 
   siteData: any;
+  user: any;
   ngOnInit() {
+    this.user=JSON.parse(localStorage.getItem('user')!);
     this.siteData = JSON.parse(localStorage.getItem('siteIds')!);
     if(this.siteData) {
       this.getAssetBySiteId(this.siteData[0]?.siteid);
@@ -55,7 +57,7 @@ export class AdvertisementsComponent implements OnInit {
 
       /* list devices by siteid */
       this.assetService.listDeviceBySiteId(this.siteData[0]?.siteid).subscribe((ress: any) => {
-        this.filteredDevices = res.flatMap((item: any) => item.adsDevices);
+        this.filteredDevices = ress.flatMap((item: any) => item.adsDevices);
       })
 
       this.pending = [];
@@ -179,21 +181,21 @@ export class AdvertisementsComponent implements OnInit {
 
 
   /* Edit Asset Status */
-
   @ViewChild('editStatusDialog') editStatus = {} as TemplateRef<any>;
+  statusObj = {
+    status: null,
+    modifiedBy: null
+  }
 
   currentStatusId: any
   openEditStatus(id: any) {
+    this.statusObj.status = null;
     this.currentStatusId = id;
     this.dialog.open(this.editStatus);
   }
 
-  statusObj = {
-    status: null,
-    modifiedBy: 1
-  }
-
   changeAssetStatus() {
+    this.statusObj.modifiedBy = this.user?.UserId;
     this.assetService.updateAssetStatus(this.currentStatusId, this.statusObj).subscribe((res: any) => {
       // console.log(res);
       this.getAssetBySiteId(this.siteData[0]?.siteid);
@@ -207,10 +209,7 @@ export class AdvertisementsComponent implements OnInit {
 
 
   /* add actions */
-
   @ViewChild('editAssetDialog') editAssetDialog = {} as TemplateRef<any>;
-
-
   openEditPopupp(item: any) {
     this.currentItem = JSON.parse(JSON.stringify(item));
     this.dialog.open(this.editAssetDialog);
@@ -256,8 +255,6 @@ export class AdvertisementsComponent implements OnInit {
     if(!(this.changedKeys.includes(x))) {
       this.changedKeys.push(x);
     }
-
-    // console.log(this.changedKeys);
   }
 
   onInputChange(event: any) {
@@ -278,8 +275,6 @@ export class AdvertisementsComponent implements OnInit {
       this.changedKeys.push(x);
       // this.originalObject[x] = event.target.value;
     }
-
-    // console.log(this.changedKeys);
   }
 
   confirmEditRow() {
@@ -295,7 +290,6 @@ export class AdvertisementsComponent implements OnInit {
   }
 
   @ViewChild('deleteAssetDialog') deleteAssetDialog = {} as TemplateRef<any>;
-
   deleteRow: any;
   openDeletePopup(item: any) {
     this.currentItem = item;

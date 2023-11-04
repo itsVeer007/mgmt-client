@@ -75,6 +75,17 @@ export class AddNewDcComponent {
 
     // this.getVendor();
     this.user = JSON.parse(localStorage.getItem('user')!);
+    this.listUsersByRole();
+  }
+
+  frList: any;
+  listUsersByRole() {
+    this.inventorySer.listUsersByRole().subscribe((res: any) => {
+      this.frList = res;
+    })
+  }
+
+  onSelect() {
     this.getProducts();
   }
 
@@ -99,6 +110,7 @@ export class AddNewDcComponent {
   productIds: any;
   getProducts() {
     let statusId = null;
+    let userId = null;
     // let frId = null;
     // if(this.show == 'fromInventory') {
     //   statusId = 2
@@ -108,7 +120,8 @@ export class AddNewDcComponent {
     //   frId = 1565
     // }
     this.show == 'fromInventory' ? statusId = 2 : statusId = 5;
-    this.inventorySer.listFRItems(this.user?.UserId, statusId).subscribe((res: any) => {
+    this.show == 'fromInventory' ? userId = this.inventoryBody.name : userId = this.user?.UserId;
+    this.inventorySer.listFRItems(userId, statusId).subscribe((res: any) => {
       // console.log(res)
       this.productIds = res;
     })

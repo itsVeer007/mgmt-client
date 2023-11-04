@@ -274,8 +274,7 @@
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Assign To</mat-label>
                   <mat-select [(ngModel)]="assignedObj.assignedTo">
-                    <!-- <mat-option [value]="user?.UserId">{{user?.UserName}}</mat-option> -->
-                    <mat-option [value]="1619">Installer</mat-option>
+                    <mat-option *ngFor="let item of frList" [value]="item?.userId">{{item?.firstName}}</mat-option>
                   </mat-select>
                 </mat-form-field>
               </mat-dialog-content>

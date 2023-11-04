@@ -395,13 +395,18 @@ export class TicketsComponent implements OnInit {
 
 
   assignedObj = {
-    assignedTo: ""
+    assignedTo: null
   }
 
   @ViewChild('assignedDialog') assignedDialog = {} as TemplateRef<any>;
 
   toAssign: any;
+  frList: any;
   openAssigned(item: any) {
+    this.assignedObj.assignedTo = null;
+    this.inventorySer.listUsersByRole().subscribe((res: any) => {
+      this.frList = res;
+    })
     this.toAssign = item;
     this.dialog.open(this.assignedDialog);
   }
