@@ -668,9 +668,9 @@
     <div class="col-lg-6 col-md-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Ticket Type</mat-label>
-        <mat-select name="ticketTypeId" [(ngModel)]="currentItem.ticketType" (focus)="removeDuplicates()" (selectionChange)="onSelectChange($event)">
+        <mat-select name="ticketTypeId" [(ngModel)]="currentItem.ticketType" (selectionChange)="onSelectChange($event)">
           <!-- <mat-option *ngFor="let item of ticketType" [value]="item.keyId">{{ item.value }}</mat-option> -->
-          <mat-option *ngFor="let item of duplicateTicketType" [value]="item.ticketType">{{ item.ticketType }}</mat-option>
+          <mat-option *ngFor="let item of ticketData | removeDuplicates: 'ticketType'" [value]="item.ticketType">{{ item.ticketType }}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>

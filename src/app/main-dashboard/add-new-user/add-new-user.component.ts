@@ -13,16 +13,16 @@ import { UserService } from 'src/services/user.service';
   animations:[
     trigger("inOutPaneAnimation", [
       transition(":enter", [
-        style({ opacity: 0, transform: "translateX(100%)" }), //apply default styles before animation starts
+        style({ opacity: 0, transform: "translateX(100%)" }),
         animate(
-          "750ms ease-in-out",
+          "500ms ease-in-out",
           style({ opacity: 1, transform: "translateX(0)" })
         )
       ]),
       transition(":leave", [
-        style({ opacity: 1, transform: "translateX(0)" }), //apply default styles before animation starts
+        style({ opacity: 1, transform: "translateX(0)" }),
         animate(
-          "600ms ease-in-out",
+          "500ms ease-in-out",
           style({ opacity: 0, transform: "translateX(100%)" })
         )
       ])

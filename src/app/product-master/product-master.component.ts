@@ -298,95 +298,9 @@ export class ProductMasterComponent implements OnInit {
     });
   }
 
-  //Show Detail
-
   showDetail: boolean = false;
   onShowDetail() {
     this.showDetail = !this.showDetail
-  }
-
-
-  /* checkbox control */
-
-  selectedAll: any;
-  selectAll() {
-    for (var i = 0; i < this.productMaster.length; i++) {
-      this.productMaster[i].selected = this.selectedAll;
-    }
-  }
-
-  checkIfAllSelected() {
-    this.selectedAll = this.productMaster.every(function (item: any) {
-      return item.selected == true;
-    })
-  }
-
-  viewArray: any = [];
-  ViewByCheckbox(itemV: any, i: any, e: any) {
-    var checked = (e.target.checked);
-    if (checked == true && this.viewArray.includes(itemV) == false) {
-      this.viewArray.push(itemV);
-      this.currentItem = this.viewArray[(this.viewArray.length - 1)];
-    }
-    if (checked == false && this.viewArray.includes(itemV) == true) {
-      this.viewArray.splice(this.viewArray.indexOf(itemV), 1)
-    }
-  }
-
-  viewBySelectedOne() {
-    if (this.viewArray.length > 0) {
-      this.dialog.open(this.viewProductDialog)
-    }
-  }
-
-  editArray: any = [];
-  EditByCheckbox(itemE: any, i: any, e: any) {
-    var checked = (e.target.checked);
-    if (checked == true && this.editArray.includes(itemE) == false) {
-      this.editArray.push(itemE);
-      this.currentItem = this.editArray[(this.editArray.length - 1)];
-    }
-    if (checked == false && this.editArray.includes(itemE) == true) {
-      this.editArray.splice(this.editArray.indexOf(itemE), 1)
-    }
-  }
-
-  editBySelectedOne() {
-    if (this.editArray.length > 0) {
-      this.dialog.open(this.editProductDialog)
-    }
-  }
-
-
-  deletearray: any = [];
-  deleteMultiRecords(item: any, i: any, e: any) {
-    var checked = (e.target.checked);
-    // console.log("Delete Multiple Records:: ", item);
-    if (this.deletearray.length == 0) { this.deletearray.push(item) }
-
-    this.deletearray.forEach((el: any) => {
-      if (el.siteId != item.siteId && checked) {
-        this.deletearray.push(item);
-        this.deletearray = [...new Set(this.deletearray.map((item: any) => item))]
-      }
-      if (el.siteId == item.siteId && !checked) {
-        var currentindex = this.deletearray.indexOf(item);
-        this.deletearray.splice(currentindex, 1)
-      }
-    });
-  }
-
-  deleteSelected() {
-    if (this.selectedAll == false) {
-      this.deletearray.forEach((el: any) => {
-        this.productMaster = this.productMaster.filter((item: any) => item.siteId !== el.siteId);
-      });
-      this.deletearray = []
-    } else {
-      this.productMaster.forEach((el: any) => {
-        this.productMaster = this.productMaster.filter((item: any) => item.siteId !== el.siteId);
-      });
-    }
   }
 
 

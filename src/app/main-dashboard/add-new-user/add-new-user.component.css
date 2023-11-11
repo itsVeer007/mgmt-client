@@ -1,77 +1,62 @@
-
-/* Design for checkbox tick - START */
 .main {
-    display: block;
-    position: relative;
-    padding-left: 30px;
-    margin-bottom: 15px;
-    cursor: pointer;
-    font-size: 20px;
+  display: block;
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  font-size: 20px;
 }
 
-/* Hide the default checkbox */
 input[type=checkbox] {
-    visibility: hidden;
+  visibility: hidden;
 }
 
-/* Creating a custom checkbox
-based on demand */
 .geekmark {
-    position: absolute;
-    top: 0;
-    left: 10px;
-    height: 15px;
-    width: 15px;
-    background-color: #fff !important;
-    border: 1px solid #000;
+  position: absolute;
+  top: 0;
+  left: 10px;
+  height: 15px;
+  width: 15px;
+  background-color: #fff !important;
+  border: 1px solid #000;
 }
 
-/* Specify the background color to be
-shown when checkbox is checked */
-.main input:checked ~ .geekmark {
-    background-color: #fff;
-    border: 1px solid #000;
-    color: #000;
+.main input:checked~.geekmark {
+  background-color: #fff;
+  border: 1px solid #000;
+  color: #000;
 }
 
-/* Checkmark to be shown in checkbox */
-/* It is not be shown when not checked */
 .geekmark:after {
-    content: "";
-    position: absolute;
-    display: none;
+  content: "";
+  position: absolute;
+  display: none;
 }
 
-/* Display checkmark when checked */
-.main input:checked ~ .geekmark:after {
-    display: block;
+.main input:checked~.geekmark:after {
+  display: block;
 }
 
-/* Styling the checkmark using webkit */
-/* Rotated the rectangle by 45 degree and
-showing only two border to make it look
-like a tickmark */
 .main .geekmark:after {
-    left: 4px;
-    bottom: 3px;
-    width: 5px;
-    height: 10px;
-    border: solid #000;
-    border-width: 0 1px 1px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
+  left: 4px;
+  bottom: 3px;
+  width: 5px;
+  height: 10px;
+  border: solid #000;
+  border-width: 0 1px 1px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 
 .add-form .main {
-    color: #000;
-    font-size: 13px;
+  color: #000;
+  font-size: 13px;
 }
 
-/* Design for checkbox tick - END */
-.help-block{
-    color: red;
-    margin-left: 10px;
+.help-block {
+  color: red;
+  margin-left: 10px;
 }
 
 /* common ng-deep */

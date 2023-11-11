@@ -113,28 +113,6 @@ export class TicketsComponent implements OnInit {
     })
   }
 
-  duplicateSiteName: any;
-  duplicateTicketType: any
-  removeDuplicates() {
-    this.duplicateSiteName = this.ticketData.reduce((acc: any, current: any) => {
-      const x = acc.find((item: any) => item.ticketType == current.ticketType);
-      if (!x) {
-        return acc.concat([current]);
-      } else {
-        return acc;
-      }
-    }, []);
-
-    this.duplicateTicketType = this.ticketData.reduce((acc: any, current: any) => {
-      const x = acc.find((item: any) => item.ticketType == current.ticketType);
-      if (!x) {
-        return acc.concat([current]);
-      } else {
-        return acc;
-      }
-    }, []);
-  }
-
   filteredSites: any;
   filterSites() {
     // this.siteData?.forEach((item: any) => {

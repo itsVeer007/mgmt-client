@@ -88,13 +88,6 @@ export class IndentsComponent implements OnInit {
     });
   }
 
-  vendorDetail: any;
-  getVendorr() {
-    // this.inventorySer.listVendors().subscribe((res: any) => {
-    //   this.vendorDetail = res;
-    // })
-  }
-
   listOrderItems() {
     this.showLoader = true;
     this.inventorySer.listOrderItems().subscribe((res: any) => {
@@ -102,30 +95,6 @@ export class IndentsComponent implements OnInit {
       this.orderItems = res;
       this.newOrderItems = this.orderItems;
     });
-  }
-
-
-  brandNames: any;
-  categoryTypes: any;
-  statusVal: any;
-  removeDuplicates() {
-    this.brandNames = this.indentTable.reduce((acc: any, current: any) => {
-      const x = acc.find((item: any) => item.productBrand == current.productBrand);
-      if (!x) {
-        return acc.concat([current]);
-      } else {
-        return acc;
-      }
-    }, []);
-
-    this.categoryTypes = this.indentTable.reduce((acc: any, current: any) => {
-      const x = acc.find((item: any) => item.productCategory == current.productCategory);
-      if (!x) {
-        return acc.concat([current]);
-      } else {
-        return acc;
-      }
-    }, []);
   }
 
   ojobOrTicketId: any = null;

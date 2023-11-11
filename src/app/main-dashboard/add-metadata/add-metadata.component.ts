@@ -17,14 +17,14 @@ import swal from 'sweetalert2';
       transition(":enter", [
         style({ opacity: 0, transform: "translateX(100%)" }), //apply default styles before animation starts
         animate(
-          "750ms ease-in-out",
+          "500ms ease-in-out",
           style({ opacity: 1, transform: "translateX(0)" })
         )
       ]),
       transition(":leave", [
         style({ opacity: 1, transform: "translateX(0)" }), //apply default styles before animation starts
         animate(
-          "600ms ease-in-out",
+          "500ms ease-in-out",
           style({ opacity: 0, transform: "translateX(100%)" })
         )
       ])
@@ -57,21 +57,20 @@ export class AddMetadataComponent implements OnInit {
     public alertSer: AlertService
     ) { }
 
-  metaDataBody = {
+  metaDataBody: any = {
     createdBy: null,
     type: '',
     value: '',
-    // remarks: ''
+    remarks: ''
   }
 
   metaType: any;
   user: any;
   ngOnInit(): void {
     this.metadataForm = this.fb.group({
-      'createdBy': new FormControl(''),
       'type': new FormControl(''),
       'value': new FormControl('', Validators.required),
-      // 'remarks': new FormControl('')
+      'remarks': new FormControl('')
     });
 
     this.getDeviceType();
@@ -125,19 +124,17 @@ export class AddMetadataComponent implements OnInit {
   addMetadata() {
     // console.log(this.metaDataBody);
     this.metaDataBody.createdBy = this.user.UserId;
-    if(this.metaType == 'Create_New') {
-      this.metaDataBody.type =  this.metaDataBody.type;
-    } else {
+    if(this.metaType != 'Create_New') {
       this.metaDataBody.type = this.metaType;
     }
 
     if(this.metadataForm.valid) {
       this.newItemEvent.emit();
-      this.alertSer.wait();
+      // this.alertSer.wait();
       this.metaDataSer.add(this.metaDataBody).subscribe((res: any) => {
         // console.log(res);
         if(res) {
-          this.alertSer.success(res?.message);
+          this.alertSer.snackSuccess(res?.message);
         }
       }, (err: any) => {
         if(err) {

@@ -150,7 +150,8 @@
             <p class="pointer text-primary" (click)="openSitesDialog(); fieldVisitEntry(cust)" matTooltip="Enter into site">Enter</p>
           </td>
           <td>
-            <p class="pointer text-primary" (click)="openTasksDialog(cust)">View</p>
+            <p class="pointer text-primary" (click)="openTasksDialog(cust)" *ngIf="cust?.ticketType == 'Maintenance'">View</p>
+            <p class="pointer text-primary" (click)="openTasksDialog(cust)" *ngIf="cust?.ticketType == 'Installation'">View</p>
           </td>
           <td>
             <p>{{ cust.ticketType }}</p>
@@ -210,7 +211,7 @@
 
 <ng-template #currentTasksDialog>
   <div style="background-color: #084982;">
-    <p class="dialog-title">tasks</p>
+    <p class="dialog-title">tasks detail</p>
   </div>
 
   <div class="dialog-content">
@@ -252,12 +253,12 @@
               <span>Status</span>
             </th>
 
-            <th *ngIf="ticketType == 2">
-              <span>Install</span>
-            </th>
-
             <th *ngIf="ticketType == 1">
               <span>Replace</span>
+            </th>
+
+            <th *ngIf="ticketType == 2">
+              <span>Install</span>
             </th>
           </tr>
         </thead>
@@ -300,15 +301,17 @@
               </a>
             </td>
 
-            <td *ngIf="ticketType == 2">
-              <a class="mx-1 pointer" (click)="openCreateOrder(cust)">
-                <img src="assets/icons/add.svg" width="35">
+            <td *ngIf="ticketType == 1">
+              <a class="mx-1 pointer" (click)="openReplaceComponent(cust)">
+                <!-- <img src="assets/icons/add.svg" width="35"> -->
+                Replace
               </a>
             </td>
 
-            <td *ngIf="ticketType == 1">
-              <a class="mx-1 pointer" (click)="openReplaceComponent(cust)">
-                <img src="assets/icons/add.svg" width="35">
+            <td *ngIf="ticketType == 2">
+              <a class="mx-1 pointer" (click)="openCreateOrder(cust)">
+                <!-- <img src="assets/icons/add.svg" width="35"> -->
+                Install
               </a>
             </td>
 

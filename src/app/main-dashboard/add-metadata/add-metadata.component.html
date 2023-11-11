@@ -49,8 +49,16 @@
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Enter Value</mat-label>
-              <input matInput formControlName="value" [(ngModel)]="metaDataBody.value"  #todo>
+              <input matInput formControlName="value" [(ngModel)]="metaDataBody.value" #todo>
               <mat-error class="mt-1">Value is required</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-6 col-md-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Remarks</mat-label>
+              <input matInput formControlName="remarks" [(ngModel)]="metaDataBody.remarks">
+              <mat-error class="mt-1">remarks is required</mat-error>
             </mat-form-field>
           </div>
 

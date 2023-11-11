@@ -204,10 +204,15 @@ export class FrComponent implements OnInit {
     this.ticketType = data?.typeId;
     this.currentSite = data?.siteId;
     this.dialog.open(this.currentTasksDialog);
-    this.inventorySer.listFRTasksOfCurrentVisit(this.user?.UserId).subscribe((res: any) => {
-      // console.log(res);
-      this.tasks = res;
-    })
+    if(data.ticketType == "Maintenance") {
+      this.inventorySer.listFRTasksOfCurrentVisit(this.user?.UserId).subscribe((res: any) => {
+        this.tasks = res.filter((item: any) => item.typeId == 1);
+      })
+    } else if(data.ticketType == "Installation") {
+      this.inventorySer.listFRTasksOfCurrentVisit(this.user?.UserId).subscribe((res: any) => {
+        this.tasks = res.filter((item: any) => item.typeId == 2);
+      })
+    }
   }
 
   assignedObj = {
