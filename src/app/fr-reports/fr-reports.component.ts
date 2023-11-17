@@ -6,6 +6,7 @@ import jsPDF from 'jspdf';
 import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';
 import { MetadataService } from 'src/services/metadata.service';
+import { StorageService } from 'src/services/storage.service';
 
 @Component({
   selector: 'app-fr-reports',
@@ -20,14 +21,15 @@ export class FrReportsComponent implements OnInit {
     private metaDatSer: MetadataService,
     private datePipe: DatePipe,
     public dialog: MatDialog,
-    public alertSer: AlertService
+    public alertSer: AlertService,
+    private storageSer: StorageService
   ) { }
 
   siteData: any;
   user: any;
   ngOnInit(): void {
     this.getMetadata();
-    this.user = JSON.parse(localStorage.getItem('user')!);
+    this.user =   JSON.parse(localStorage.getItem('user')!);
   }
 
   frFilterBody: any = {

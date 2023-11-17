@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DcChallanComponent } from 'src/app/utilities/dc-challan/dc-challan.component';
 import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';
+import { StorageService } from 'src/services/storage.service';
 
 @Component({
   selector: 'app-add-new-dc',
@@ -37,7 +38,8 @@ export class AddNewDcComponent {
     private fb: FormBuilder,
     private alertSer: AlertService,
     private dialog: MatDialog,
-    public datepipe: DatePipe
+    public datepipe: DatePipe,
+    private storageSer: StorageService
   ) { }
 
   @Input() show: any;
@@ -74,7 +76,7 @@ export class AddNewDcComponent {
     });
 
     // this.getVendor();
-    this.user = JSON.parse(localStorage.getItem('user')!);
+    this.user =   JSON.parse(localStorage.getItem('user')!);
     this.listUsersByRole();
   }
 

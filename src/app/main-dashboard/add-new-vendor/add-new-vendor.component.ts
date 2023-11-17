@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';
+import { StorageService } from 'src/services/storage.service';
 
 @Component({
   selector: 'app-add-new-vendor',
@@ -37,6 +38,7 @@ export class AddNewVendorComponent implements OnInit {
     private fb: FormBuilder,
     public alertSer: AlertService,
     private http: HttpClient,
+    private storageSer: StorageService
   ) { }
 
   @Input() show:any;
@@ -124,7 +126,7 @@ export class AddNewVendorComponent implements OnInit {
     });
 
     this.getCountry();
-    this.user = JSON.parse(localStorage.getItem('user')!);
+    this.user =   JSON.parse(localStorage.getItem('user')!);
   }
 
   countryList: any;

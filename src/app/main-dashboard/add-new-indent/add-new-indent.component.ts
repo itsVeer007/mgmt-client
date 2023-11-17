@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';
+import { StorageService } from 'src/services/storage.service';
 
 @Component({
   selector: 'app-add-new-indent',
@@ -35,7 +36,8 @@ export class AddNewIndentComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     public alertSer: AlertService,
-    public datepipe: DatePipe
+    public datepipe: DatePipe,
+    private storageSer: StorageService
   ) { }
 
   @Input() show: any;
@@ -85,7 +87,7 @@ export class AddNewIndentComponent implements OnInit {
     // this.getVendor();
     this.getProducts();
     this.ticketIdFrmFr = JSON.parse(localStorage.getItem('ticketId')!);
-    this.user = JSON.parse(localStorage.getItem('user')!);
+    this.user =   JSON.parse(localStorage.getItem('user')!);
   }
 
   vendorDetail: any;

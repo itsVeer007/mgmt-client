@@ -2,16 +2,13 @@
   <div class="col-lg-6 col-md-6"></div>
 
   <div class="col-lg-6 col-md-6 add-form" id="user" @inOutPaneAnimation>
-    <!-- title -->
-    <div class="d-flex flex-row justify-content-between">
-      <div class="d-flex flex-row justify-content-start">
-        <a class="close-main pointer" (click)="closeAddUser()"><img src="assets/icons/close_form.svg" /></a>
-        <span class="form-heading">add frkit</span>
-      </div>
+    <div>
+      <a class="close-main pointer" (click)="closeAddUser()"><img src="assets/icons/close_form.svg" /></a>
+      <span class="form-heading">add fr-kit</span>
     </div>
 
+    <!-- form -->
     <div>
-      <!-- form -->
       <form autocomplete="off" [formGroup]="UserForm">
         <!-- <div class="row" *ngFor="let item of inventoryBody.items; let i = index">
           <div class="col-lg-6 col-md-6">

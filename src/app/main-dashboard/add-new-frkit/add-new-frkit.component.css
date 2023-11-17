@@ -1,22 +1,7 @@
-.list-header {
-  background-color: #084982;
-  color: #ffffff;
-  padding: 5px;
-}
-
-.list-header p{
-  margin: 0;
-}
-
-.list-item {
-  background-color: #ABABAB;
-  padding: 3px;
-  border-radius: 5px;
-  margin: 5px 0;
-}
-
-.list-item p{
-  margin: 0;
+@media only screen and (max-width: 768px) {
+  .formModal {
+    height: calc(100vh - 247px);
+  }
 }
 
 /* common ng-deep */

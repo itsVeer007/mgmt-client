@@ -54,6 +54,7 @@ export class LoginComponent implements OnInit {
       this.showLoader = false;
       if(res?.Status == "Success") {
         localStorage.setItem('user', JSON.stringify(res));
+        // this.storageSer.saveData("user", res);
         this.userSer.user$.next(res);
         this.route.navigate(['/main-dashboard']);
         this.getlistSites();
@@ -71,6 +72,7 @@ export class LoginComponent implements OnInit {
     this.showPassword = !this.showPassword;
   }
 
+  /* new-login */
   forgotPassVisible: boolean = false;
   loginNew() {
     if(this.loginForm.valid) {

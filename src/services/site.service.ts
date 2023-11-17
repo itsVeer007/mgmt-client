@@ -14,7 +14,7 @@ export class SiteService {
   constructor(private http: HttpClient, private storageSer: StorageService) { }
 
   listSites() {
-    let user = JSON.parse(localStorage.getItem('user')!);
+    let user: any =   JSON.parse(localStorage.getItem('user')!);
     let url = this.baseUrl + '/sitesList_2_0';
     let payload = {
       userName : user?.UserName,

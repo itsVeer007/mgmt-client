@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';
 import { MetadataService } from 'src/services/metadata.service';
+import { StorageService } from 'src/services/storage.service';
 
 @Component({
   selector: 'app-indents',
@@ -15,7 +16,8 @@ export class IndentsComponent implements OnInit {
     private inventorySer: InventoryService,
     private metaDatSer: MetadataService,
     private alertSer: AlertService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private storageSer: StorageService
   ) { }
 
 
@@ -28,7 +30,7 @@ export class IndentsComponent implements OnInit {
     this.getMetadata();
     // this.listOrderItems();
 
-    this.user = JSON.parse(localStorage.getItem('user')!);
+    this.user =   JSON.parse(localStorage.getItem('user')!);
     for(let item of this.user?.role) {
       if(item == 'Administrator' || item == 'Support') {
         this.notFr = true;

@@ -58,8 +58,8 @@ form .btn:hover {
 }
 
 
-::ng-deep .mat-card {
-  width: 400px !important;
+.login ::ng-deep .mat-card {
+  width: 450px !important;
 }
 
 .mat-mdc-snack-bar-container {

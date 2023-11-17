@@ -36,7 +36,7 @@ export class UserService {
   }
 
   getAuthStatus() {
-    let user = JSON.parse(localStorage.getItem('user')!);
+    let user =   JSON.parse(localStorage.getItem('user')!);
     if (user == null) {
       return false;
     }else{
@@ -57,7 +57,7 @@ export class UserService {
 
   refresh() {
     let url = this.baseUrl + '/businessInterface/login/refreshtoken';
-    var user = JSON.parse(localStorage.getItem('user')!);
+    var user: any =   JSON.parse(localStorage.getItem('user')!);
     let payload = {
       userName: user.UserName,
       calling_System_Detail: "portal",
@@ -71,7 +71,7 @@ export class UserService {
 
   addUser(payload: any) {
     let url = this.baseUrl + "/businessInterface/User/addUser_1_0";
-    var user = JSON.parse(localStorage.getItem('user')!);
+    var user: any =   JSON.parse(localStorage.getItem('user')!);
     payload.accesstoken = user.access_token;
     payload.callingUsername = user.UserName;
     return this.http.post(url, payload);
@@ -79,7 +79,7 @@ export class UserService {
 
   getUser(email: string) {
     let url = this.baseUrl+"/businessInterface/User/getUser_1_0";
-    var user = JSON.parse(localStorage.getItem('user')!);
+    var user: any =   JSON.parse(localStorage.getItem('user')!);
 
     var payload = {
       "email": email,
@@ -92,7 +92,7 @@ export class UserService {
 
   updateUser(user:any) {
     let url = this.baseUrl+"/businessInterface/User/getUser_1_0";
-    var a = JSON.parse(localStorage.getItem('user')!);
+    var a: any =   JSON.parse(localStorage.getItem('user')!);
     user.accesstoken = a.access_token;
     user.callingUsername = a.UserName;
     return this.http.post(url, user);

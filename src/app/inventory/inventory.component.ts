@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';
 import { MetadataService } from 'src/services/metadata.service';
+import { StorageService } from 'src/services/storage.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -17,10 +18,10 @@ export class InventoryComponent implements OnInit {
   constructor(
     private inventorySer: InventoryService,
     private metadataSer: MetadataService,
-
     public dialog: MatDialog,
     public datepipe: DatePipe,
-    public alertSer: AlertService
+    public alertSer: AlertService,
+    private storageSer: StorageService
     ) { }
 
     user: any;
@@ -29,7 +30,7 @@ export class InventoryComponent implements OnInit {
       this.listInventory();
       this.getMetadata();
 
-      this.user = JSON.parse(localStorage.getItem('user')!);
+      this.user =   JSON.parse(localStorage.getItem('user')!);
       for(let item of this.user?.role) {
         if(item == 'Administrator' || item == 'Support') {
           this.notFr = true;

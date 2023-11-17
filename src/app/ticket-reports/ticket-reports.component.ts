@@ -7,6 +7,7 @@ import jsPDF from 'jspdf';
 import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';
 import { MetadataService } from 'src/services/metadata.service';
+import { StorageService } from 'src/services/storage.service';
 
 @Component({
   selector: 'app-ticket-reports',
@@ -42,7 +43,7 @@ export class TicketReportsComponent implements OnInit {
   showLoader = false;
   constructor(
     private inventorySer: InventoryService,
-    private metaDatSer: MetadataService,
+    private storageSer: StorageService,
     private datePipe: DatePipe,
 
     public dialog: MatDialog,
@@ -56,7 +57,7 @@ export class TicketReportsComponent implements OnInit {
     this.getMetadata();
 
     this.siteData = JSON.parse(localStorage.getItem('siteIds')!);
-    this.user = JSON.parse(localStorage.getItem('user')!);
+    this.user =   JSON.parse(localStorage.getItem('user')!);
 
     // this.inventorySer.comment$.subscribe((comments: any) => {
     //   this.ticketComments = comments;

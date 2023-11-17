@@ -47,31 +47,26 @@ p {
   padding: 15px 0;
 }
 
-/* width */
 ::-webkit-scrollbar {
   width: 3px;
   height: 3px;
 }
 
-/* Track */
 ::-webkit-scrollbar-track {
   background: #e7dcdc;
 }
 
-/* Handle */
 ::-webkit-scrollbar-thumb {
   background: #084982;
   border-radius: 5px;
 }
 
-/* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #084982ef;
 }
 
 
 /* main- dashboard */
-
 .users-header {
   display: flex;
   align-items: center;
@@ -101,17 +96,6 @@ p {
   font-weight: 600;
 }
 
-.dot {
-  content: "";
-  width: 16px;
-  height: 16px;
-  border-radius: 8px;
-  background-color: red;
-  margin: auto;
-  box-shadow: 0px 0px 5px 2px rgba(207, 39, 39, 0.61);
-  border: 1px solid #fff;
-}
-
 .form-check-input {
   height: 1.2rem;
   width: 1.2rem;
@@ -130,14 +114,17 @@ p {
     flex-direction: column;
   }
 
+  .close-main {
+    position: relative;
+    right: 35px !important;
+  }
+
   .search {
     width: 186px;
   }
 
   form {
-    display: flex;
-    flex-wrap: nowrap;
-    margin-bottom: 10px;
+    padding: 0 23px !important;
   }
 
   .table-resp {
@@ -162,7 +149,7 @@ p {
   top: 70px;
   right: 0;
   z-index: 99;
-  width: 100%;
+  width: 101%;
 }
 
 .add-form {
@@ -201,9 +188,7 @@ p {
 
 .close-main {
   position: relative;
-  margin-top: 16px;
   right: 50px;
-  bottom: 8px;
 }
 
 form {
@@ -641,7 +626,7 @@ thead tr th {
   display: block;
   border-radius: 34px;
   background-color: #fff;
-  border: 1px solid green;
+  border: 1px solid #084982;
   transition: background-color 0.4s;
   cursor: pointer;
 }
@@ -649,7 +634,7 @@ thead tr th {
 .on-off-toggle__slider:before {
   content: '';
   display: block;
-  background-color: red;
+  background-color: #D34124;
   /* box-shadow: 0 0 0 1px #949494; */
   bottom: 5px;
   height: 15px;
@@ -668,7 +653,7 @@ thead tr th {
   font-size: 12px;
   font-weight: bold;
   content: 'NO' ;
-  color: red;
+  color: #D34124;
   padding-left: 26px;
   transition: all 0.4s;
 }
@@ -682,19 +667,20 @@ thead tr th {
 .on-off-toggle__input:checked +
 .on-off-toggle__slider {
   background-color: #fff;
-  border: 1px solid green;
+  border: 1px solid #084982;
 }
 
 .on-off-toggle__input +
 .on-off-toggle__slider {
   background-color: #F8F8F8;
-  border: 1px solid red;
+  border: 1px solid #D34124;
 }
 
 .on-off-toggle__input:checked + :before {
   transform: translateX(32px);
-    background-color: green;
+    background-color: #084982;
 }
+
 .on-off-toggle__input:checked + :after {
   content: 'YES';
   color: #084982;
@@ -703,7 +689,6 @@ thead tr th {
 
 
 /* mobile view */
-
 @media only screen and (max-width: 768px) {
   .add-form h6 {
     font-size: 15px;

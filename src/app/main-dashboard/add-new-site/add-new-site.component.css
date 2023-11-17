@@ -84,16 +84,13 @@
   }
 }
 
-/*** END CSS NEEDED FOR SWITCH **/
 .card p {
   margin: 0;
 }
 .card label {
   margin: 0 5px;
 }
-/* .card input {
-  margin-left: 5px;
-} */
+
 fieldset {
   align-items: center;
 }
@@ -148,11 +145,7 @@ p {
   margin-right: -50px;
 }
 
-/* .mat-form-field-appearance-outline ::ng-deep .mat-form-field-flex{
-  margin-top: -8px;
-} */
-
-/* only */
+/* ng-deep */
 ::ng-deep .mat-form-field {
   margin-top: 5px !important;
 }
@@ -170,10 +163,7 @@ p {
   border: 1px solid #084982 !important;
 }
 
-
-
 /* common ng-deep */
-
 .mat-form-field-appearance-outline ::ng-deep .mat-form-field-outline {
   top: 5px;
   bottom: 5px;

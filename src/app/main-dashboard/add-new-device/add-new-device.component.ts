@@ -7,6 +7,7 @@ import { MatSelect } from '@angular/material/select';
 import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
 import { MetadataService } from 'src/services/metadata.service';
+import { StorageService } from 'src/services/storage.service';
 
 @Component({
   selector: 'app-add-new-device',
@@ -53,7 +54,8 @@ export class AddNewDeviceComponent implements OnInit {
     private assetSer: AssetService,
     private dropDown: MetadataService,
     private alertSer: AlertService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private storageSer: StorageService
   ) { }
 
   siteData: any;
@@ -75,7 +77,7 @@ export class AddNewDeviceComponent implements OnInit {
     weatherInterval: null, //BSR
 
     cameraId: 'Cam01', //ODR
-    modelName: 'YoloV8', //ODR
+    modelName: 'Yolov8', //ODR
     modelWidth: 640, //ODR
     modelHeight: 720, //ODR
     modelMaxResults: 3, //ODR
@@ -150,7 +152,7 @@ export class AddNewDeviceComponent implements OnInit {
     this.getDeviceDetail();
     this.onMetadataChange();
     this.siteData = JSON.parse(localStorage.getItem('siteIds')!);
-    this.user = JSON.parse(localStorage.getItem('user')!);
+    this.user =   JSON.parse(localStorage.getItem('user')!);
   }
 
   deviceData: any = [];

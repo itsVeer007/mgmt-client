@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 import { BehaviorSubject } from 'rxjs';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +12,10 @@ export class InventoryService {
 
   comment$: any = new BehaviorSubject(null);
 
-  constructor(private http: HttpClient, public datepipe: DatePipe) { }
+  constructor(private http: HttpClient, public datepipe: DatePipe, private storageSer: StorageService) { }
 
-  // baseUrl = `${environment.baseUrl}/inventoryAndtickets`;
-  baseUrl = 'http://192.168.0.137:8080';
+  baseUrl = `${environment.baseUrl}/inventoryAndtickets`;
+  // baseUrl = 'http://192.168.0.137:8080';
 
   /* inventory */
   listItemCode(payload: any) {
@@ -333,7 +334,6 @@ export class InventoryService {
   }
 
   listFRTickets(frId: any) {
-    // let x = JSON.parse(localStorage.getItem('user')!);
     let url = this.baseUrl + `/listFRTickets_1_0/${frId}`;
     return this.http.get(url);
   }
@@ -453,7 +453,7 @@ export class InventoryService {
   }
 
   fieldVisitEntry(payload: any) {
-    let user = JSON.parse(localStorage.getItem('user')!);
+    let user: any =   JSON.parse(localStorage.getItem('user')!);
     let url = this.baseUrl + `/fieldVisitEntry_1_0`;
     let myObj = {
       'frId': user?.UserId,

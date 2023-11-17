@@ -50,15 +50,15 @@
         </mat-form-field>
       </div>
 
-      <div class="col-lg-3 col-sm-12">
+      <!-- <div class="col-lg-3 col-sm-12">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Device Type</mat-label>
           <mat-select [(ngModel)]="filterObj.deviceId">
-            <!-- <mat-option value="All" (click)="filterDeviceType('All')">All</mat-option> -->
+            <mat-option value="All" (click)="filterDeviceType('All')">All</mat-option>
             <mat-option *ngFor="let item of deviceType" [value]="item.keyId" (click)="filterDevices()">{{ item.value }}</mat-option>
           </mat-select>
         </mat-form-field>
-      </div>
+      </div> -->
 
       <!-- <div class="col-lg-3 col-sm-12">
         <mat-form-field appearance="outline" class="w-100">
@@ -72,11 +72,7 @@
         </mat-form-field>
       </div> -->
 
-      <!-- <div class="  col-lg-2 col-sm-12">
-        <button>Submit</button>
-      </div> -->
-
-      <!-- <div class="col-lg-3 col-md-3 col-sm-12">
+      <div class="col-lg-3 col-md-3 col-sm-12">
         <mat-form-field class="example-form-field" appearance="outline" class="w-100">
           <mat-label>Search</mat-label>
           <input matInput type="text"  [(ngModel)]="searchText">
@@ -84,7 +80,7 @@
             <mat-icon>search</mat-icon>
           </button>
         </mat-form-field>
-      </div> -->
+      </div>
     </div>
   </div>
   <!-- /form -->

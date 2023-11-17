@@ -5,6 +5,7 @@ import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
 import { InventoryService } from 'src/services/inventory.service';
 import { MetadataService } from 'src/services/metadata.service';
+import { StorageService } from 'src/services/storage.service';
 
 @Component({
   selector: 'app-product-master',
@@ -17,7 +18,8 @@ export class ProductMasterComponent implements OnInit {
     private inventorySer: InventoryService,
     private metaDataSer: MetadataService,
     public dialog: MatDialog,
-    public alertSer: AlertService
+    public alertSer: AlertService,
+    private storageSer: StorageService,
   ) { }
 
 
@@ -27,7 +29,7 @@ export class ProductMasterComponent implements OnInit {
     this.listProduct();
     this.getMetadata();
 
-    this.user = JSON.parse(localStorage.getItem('user')!);
+    this.user =   JSON.parse(localStorage.getItem('user')!);
     for(let item of this.user?.role) {
       if(item == 'Administrator' || item == 'Support') {
         this.notFr = true;

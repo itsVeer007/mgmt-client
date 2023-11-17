@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AlertService } from 'src/services/alert.service';
 import { MetadataService } from 'src/services/metadata.service';
+import { StorageService } from 'src/services/storage.service';
 import Swal from 'sweetalert2';
 import swal from 'sweetalert2';
 // import * as swal from 'sweetalert2';
@@ -54,7 +55,8 @@ export class AddMetadataComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private metaDataSer: MetadataService,
-    public alertSer: AlertService
+    public alertSer: AlertService,
+    private storageSer: StorageService
     ) { }
 
   metaDataBody: any = {
@@ -75,7 +77,7 @@ export class AddMetadataComponent implements OnInit {
 
     this.getDeviceType();
     this.metaType = JSON.parse(JSON.stringify(localStorage.getItem('metaType')!));
-    this.user = JSON.parse(localStorage.getItem('user')!);
+    this.user =   JSON.parse(localStorage.getItem('user')!);
   }
 
   closeAddCamera() {

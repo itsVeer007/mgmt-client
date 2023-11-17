@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';
 import { MetadataService } from 'src/services/metadata.service';
+import { StorageService } from 'src/services/storage.service';
 
 @Component({
   selector: 'app-add-new-ticket',
@@ -41,7 +42,8 @@ export class AddNewTicketComponent implements OnInit {
     private fb: FormBuilder,
     private inventorySer: InventoryService,
     private dropDown: MetadataService,
-    public alertSer: AlertService
+    public alertSer: AlertService,
+    private storageSer: StorageService
   ) { }
 
   ticketBody = {
@@ -104,7 +106,7 @@ export class AddNewTicketComponent implements OnInit {
 
     this.getMetadata();
     this.siteIds = JSON.parse(localStorage.getItem('siteIds')!)?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
-    this.user = JSON.parse(localStorage.getItem('user')!);
+    this.user =   JSON.parse(localStorage.getItem('user')!);
   }
 
   /* metadata */

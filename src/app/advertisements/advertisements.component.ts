@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
 import { MetadataService } from 'src/services/metadata.service';
+import { StorageService } from 'src/services/storage.service';
 
 @Component({
   selector: 'app-advertisements',
@@ -17,7 +18,8 @@ export class AdvertisementsComponent implements OnInit {
     private assetService: AssetService,
     public datepipe: DatePipe,
     public dialog: MatDialog,
-    public alertSer: AlertService
+    public alertSer: AlertService,
+    private storageSer: StorageService
   ) { }
 
   searchText!: string;
@@ -28,7 +30,7 @@ export class AdvertisementsComponent implements OnInit {
   siteData: any;
   user: any;
   ngOnInit() {
-    this.user=JSON.parse(localStorage.getItem('user')!);
+    this.user =   JSON.parse(localStorage.getItem('user')!);
     this.siteData = JSON.parse(localStorage.getItem('siteIds')!);
     if(this.siteData) {
       this.getAssetBySiteId(this.siteData[0]?.siteid);

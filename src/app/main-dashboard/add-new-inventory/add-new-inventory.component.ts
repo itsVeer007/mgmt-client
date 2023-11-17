@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';
 import { MetadataService } from 'src/services/metadata.service';
+import { StorageService } from 'src/services/storage.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -42,6 +43,7 @@ export class AddNewInventoryComponent implements OnInit {
     public alertSer: AlertService,
     public datepipe: DatePipe,
     public dialog: MatDialog,
+    private storageSer: StorageService
   ) { }
 
   @Input() show:any;
@@ -116,7 +118,7 @@ export class AddNewInventoryComponent implements OnInit {
 
     this.listProduct();
     this.onMetadataChange();
-    this.user = JSON.parse(localStorage.getItem('user')!);
+    this.user =   JSON.parse(localStorage.getItem('user')!);
   }
 
   listProduct() {

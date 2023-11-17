@@ -7,6 +7,7 @@ import { AlertService } from 'src/services/alert.service';
 import { SiteService } from 'src/services/site.service';
 import { MetadataService } from 'src/services/metadata.service';
 import { formatDate } from '@angular/common';
+import { StorageService } from 'src/services/storage.service';
 
 @Component({
   selector: 'app-add-new-asset',
@@ -42,6 +43,7 @@ export class AddNewAssetComponent implements OnInit {
     private dropDown: MetadataService,
     private alertSer: AlertService,
     private siteService: SiteService,
+    private storageSer: StorageService
   ) { }
 
     addAssetForm: any = FormGroup;
@@ -135,11 +137,11 @@ export class AddNewAssetComponent implements OnInit {
     });
 
     this.deviceIdFromStorage = JSON.parse(localStorage.getItem('add_body')!);
-    // this.deviceIdFromStorage = JSON.parse(localStorage.getItem('user')!);
+    // this.deviceIdFromStorage =   JSON.parse(localStorage.getItem('user')!);
 
     this.onMetadataChange()
     // this.getRes();
-    this.user = JSON.parse(localStorage.getItem('user')!);
+    this.user =   JSON.parse(localStorage.getItem('user')!);
   };
 
   data: any;

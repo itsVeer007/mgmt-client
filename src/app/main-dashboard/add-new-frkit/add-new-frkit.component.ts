@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';
+import { StorageService } from 'src/services/storage.service';
 
 @Component({
   selector: 'app-add-new-frkit',
@@ -37,6 +38,7 @@ export class AddNewFrkitComponent implements OnInit {
     private fb: FormBuilder,
     public alertSer: AlertService,
     public datepipe: DatePipe,
+    private storageSer: StorageService
   ) { }
 
   @Input() show: any;
@@ -63,7 +65,7 @@ export class AddNewFrkitComponent implements OnInit {
       'name': new FormControl('', Validators.required)
     });
     this.ticketIdFrmFr = JSON.parse(localStorage.getItem('ticketId')!);
-    this.user = JSON.parse(localStorage.getItem('user')!);
+    this.user =   JSON.parse(localStorage.getItem('user')!);
   }
 
   items: any = [];

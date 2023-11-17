@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';
 import { MetadataService } from 'src/services/metadata.service';
+import { StorageService } from 'src/services/storage.service';
 
 @Component({
   selector: 'app-fr',
@@ -15,7 +16,8 @@ export class FrComponent implements OnInit {
     public dialog: MatDialog,
     private inventorySer: InventoryService,
     private metaDatSer: MetadataService,
-    public alertSer: AlertService
+    public alertSer: AlertService,
+    private storageSer: StorageService
   ) { }
 
   showLoader: boolean = false;
@@ -24,7 +26,7 @@ export class FrComponent implements OnInit {
   user: any;
   ngOnInit(): void {
     this.siteIds = JSON.parse(localStorage.getItem('siteIds')!)?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
-    this.user = JSON.parse(localStorage.getItem('user')!);
+    this.user =   JSON.parse(localStorage.getItem('user')!);
     // this.listFRSites();
     this.listFRTickets();
     this.getMetadata();

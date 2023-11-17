@@ -7,6 +7,7 @@ import { MatSelect } from '@angular/material/select';
 import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
 import { MetadataService } from 'src/services/metadata.service';
+import { StorageService } from 'src/services/storage.service';
 
 @Component({
   selector: 'app-add-device',
@@ -44,7 +45,8 @@ export class AddDeviceComponent implements OnInit {
     private assetSer: AssetService,
     private dropDown: MetadataService,
     private alertSer: AlertService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private storageSer: StorageService
   ) { }
 
   siteData: any;
@@ -141,7 +143,7 @@ export class AddDeviceComponent implements OnInit {
     this.onMetadataChange();
     // this.toggleCreateWorkingDays();
     this.siteData = JSON.parse(localStorage.getItem('temp_sites')!);
-    this.user = JSON.parse(localStorage.getItem('user')!);
+    this.user =   JSON.parse(localStorage.getItem('user')!);
   }
 
   deviceData: any = [];

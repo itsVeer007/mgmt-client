@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';
 import { MetadataService } from 'src/services/metadata.service';
+import { StorageService } from 'src/services/storage.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -19,7 +20,8 @@ export class TicketsComponent implements OnInit {
     private metaDatSer: MetadataService,
     private datePipe: DatePipe,
     private dialog: MatDialog,
-    private alertSer: AlertService
+    private alertSer: AlertService,
+    private storageSer: StorageService
   ) { }
 
   siteData: any;
@@ -35,7 +37,7 @@ export class TicketsComponent implements OnInit {
     //   this.ticketComments = comments;
     // });
 
-    this.user = JSON.parse(localStorage.getItem('user')!);
+    this.user =   JSON.parse(localStorage.getItem('user')!);
     for(let item of this.user?.role) {
       if(item == 'Administrator' || item == 'Support') {
         this.notFr = true;
