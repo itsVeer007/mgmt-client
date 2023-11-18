@@ -81,7 +81,6 @@ export class InventoryService {
     let payload1;
     let payload2;
     let payload3;
-    //optional
     let payload4;
 
     if(condition == 'Y') {

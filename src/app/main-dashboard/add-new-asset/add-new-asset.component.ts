@@ -53,19 +53,18 @@ export class AddNewAssetComponent implements OnInit {
 
   /* Asset Object */
 
-  assetData:any = {
+  assetData: any = {
     file: null,
     asset: {
-      deviceId: '',
+      deviceId: null,
       deviceModeId: null,
-      name: '',
+      name: null,
       playOrder: 1,
       createdBy: null,
       splRuleId: 0,
       fromDate: formatDate(this.currentDate, 'yyyy-MM-dd', 'en-us'),
       toDate: '2999-12-31'
     },
-
     nameParams: {
       timeId: 3,
       tempId: 4,
@@ -85,7 +84,7 @@ export class AddNewAssetComponent implements OnInit {
 
   personshow : boolean = false;
   toggleShowOnOff() {
-  this.personshow = !this.personshow;
+    this.personshow = !this.personshow;
   }
 
 
@@ -95,6 +94,9 @@ export class AddNewAssetComponent implements OnInit {
   deviceIdFromStorage: any;
   user: any;
   ngOnInit(): void {
+    this.user = JSON.parse(localStorage.getItem('user')!);
+    this.deviceIdFromStorage = JSON.parse(localStorage.getItem('add_body')!);
+    // console.log(this.user);
     this.addAssetForm = this.fb.group({
       'file': new FormControl('', Validators.required),
 
@@ -136,18 +138,13 @@ export class AddNewAssetComponent implements OnInit {
       this.addAssetForm.get('tempId').updateValueAndValidity();
     });
 
-    this.deviceIdFromStorage = JSON.parse(localStorage.getItem('add_body')!);
-    // this.deviceIdFromStorage =   JSON.parse(localStorage.getItem('user')!);
-
     this.onMetadataChange()
     // this.getRes();
-    this.user =   JSON.parse(localStorage.getItem('user')!);
   };
 
   data: any;
   siteIdList: any;
   deviceIdList: any;
-
   getRes() {
     this.siteService.listSites().subscribe((res: any) => {
       // console.log(res);
@@ -162,8 +159,7 @@ export class AddNewAssetComponent implements OnInit {
   }
 
 
-  /* File Upload Method */
-
+  /* File Upload */
   selectedFile: any;
   // selectedFiles:  Array<any> = [];
   onFileSelected(event: any) {
@@ -189,7 +185,6 @@ export class AddNewAssetComponent implements OnInit {
   }
 
   /* metadata methods */
-
   deviceType: any;
   deviceMode: any;
   workingDay: any;
@@ -242,7 +237,6 @@ export class AddNewAssetComponent implements OnInit {
 
 
   /* Search for Get Site and Device Id's */
-
   sit: string = '';
   dev: string = '';
   siteSer(e: Event) {
@@ -253,108 +247,11 @@ export class AddNewAssetComponent implements OnInit {
     this.dev = (e.target as HTMLInputElement).value;
   }
 
-
-  /* Add Asset */
-
+  /* create Asset */
   submit: boolean = false;
-  // addNewAsset() {
-  //   this.submit = true;
-  //   if(this.addAssetForm.valid) {
-  //     this.assetData.asset.deviceId = this.deviceIdFromStorage;
-
-  //     if(this.assetData.nameParams.timeId == 'All' && this.assetData.nameParams.tempId == 'All') {
-  //       this.newItemEvent.emit();
-  //       this.alertSer.wait();
-
-  //       this.assetData.asset.deviceModeId = 1;
-  //       this.assetData.nameParams.timeId = null;
-  //       this.assetData.nameParams.tempId = null;
-  //       this.assetService.addAsset(this.assetData, this.selectedFile).subscribe((res: any) => {
-  //         console.log(res);
-  //         this.alertSer.success( res?.message);
-  //       });
-  //     }
-
-  //     else if(this.assetData.nameParams.timeId != 'All' && this.assetData.nameParams.tempId == 'All') {
-  //       this.newItemEvent.emit();
-  //       this.alertSer.wait();
-
-  //       this.assetData.asset.name = this.assetData.asset.name
-  //       this.assetData.asset.deviceModeId = 2;
-  //       this.assetData.nameParams.timeId = this.assetData.nameParams.timeId;
-  //       this.assetData.nameParams.tempId = 1;
-  //       this.assetService.addAsset(this.assetData, this.selectedFile).subscribe((res: any) => {
-  //         console.log(res);
-  //         if(res) {
-  //           this.assetData.asset.name = this.assetData.asset.name + '1';
-  //           this.assetData.asset.deviceModeId = 2;
-  //           this.assetData.nameParams.timeId = this.assetData.nameParams.timeId;
-  //           this.assetData.nameParams.tempId = 2;
-
-  //           this.assetService.addAsset(this.assetData, this.selectedFile).subscribe((res: any) => {
-  //             console.log(res);
-  //             if(res) {
-  //               this.assetData.asset.name = this.assetData.asset.name + '2';
-  //               this.assetData.asset.deviceModeId = 2;
-  //               this.assetData.nameParams.timeId = this.assetData.nameParams.timeId;
-  //               this.assetData.nameParams.tempId = 3;
-
-  //               this.assetService.addAsset(this.assetData, this.selectedFile).subscribe((res: any) => {
-  //                 console.log(res);
-  //                 this.alertSer.success( res?.message);
-  //               })
-  //             }
-  //             })
-  //           }
-  //         });
-  //       }
-
-  //       else if(this.assetData.nameParams.tempId != 'All' && this.assetData.nameParams.timeId == 'All') {
-  //         this.newItemEvent.emit();
-  //         this.alertSer.wait();
-
-  //         this.assetData.asset.name = this.assetData.asset.name
-  //         this.assetData.asset.deviceModeId = 2;
-  //         this.assetData.nameParams.timeId = 1;
-  //         this.assetData.nameParams.tempId = this.assetData.nameParams.tempId;
-
-  //         this.assetService.addAsset(this.assetData, this.selectedFile).subscribe((res: any) => {
-  //           console.log(res)
-  //           if(res) {
-  //             this.assetData.asset.name = this.assetData.asset.name + '1';
-  //             this.assetData.asset.deviceModeId = 2;
-  //             this.assetData.nameParams.timeId = 2;
-  //             this.assetData.nameParams.tempId = this.assetData.nameParams.tempId;
-
-  //             this.assetService.addAsset(this.assetData, this.selectedFile).subscribe((res: any) => {
-  //               console.log(res);
-  //               this.alertSer.success(res?.message);
-  //             });
-  //           }
-  //         });
-  //       }
-
-  //       else if(this.assetData.nameParams.timeId != 'All' && this.assetData.nameParams.tempId != 'All') {
-  //         this.newItemEvent.emit();
-  //         this.alertSer.wait();
-
-  //         this.assetData.asset.deviceModeId = 2;
-  //         this.assetData.nameParams.timeId = this.assetData.nameParams.timeId;
-  //         this.assetData.nameParams.tempId = this.assetData.nameParams.tempId;
-
-  //         this.assetService.addAsset(this.assetData, this.selectedFile).subscribe((res: any) => {
-  //           console.log(res);
-  //           this.alertSer.success( res?.message);
-  //         });
-  //       }
-  //     }
-  //     console.log(this.assetData);
-  //   }
-
-    addNewAsset() {
-      this.submit = true;
-      this.assetData.createdBy = this.user?.UserId;
-      this.assetData.asset.deviceId = this.deviceIdFromStorage?.deviceId;
+  addNewAsset() {
+    this.submit = true;
+    if(this.addAssetForm.valid) {
       if(this.assetData.nameParams.timeId == 3 && this.assetData.nameParams.tempId == 4 && this.assetData.nameParams.object == 0) {
         this.assetData.asset.deviceModeId = 1;
       } else if(this.assetData.nameParams.object == 1) {
@@ -362,18 +259,15 @@ export class AddNewAssetComponent implements OnInit {
       } else {
         this.assetData.asset.deviceModeId = 2;
       }
-      if(this.addAssetForm.valid) {
-        this.alertSer.wait();
-        this.assetSer.addAsset(this.assetData, this.selectedFile).subscribe((res: any) => {
-          this.newItemEvent.emit();
-          this.alertSer.success(res?.message);
-          }, (err: any) => {
-            if(err) {
-              this.alertSer.error(err?.error?.message);
-            };
-          });
-      }
-      // console.log(this.assetData);
+      this.alertSer.wait();
+      this.assetSer.addAsset(this.assetData, this.selectedFile).subscribe((res: any) => {
+        this.newItemEvent.emit();
+        this.alertSer.success(res?.message);
+        }, (err: any) => {
+          this.alertSer.error(err?.error?.message);
+        });
     }
+    // console.log(this.assetData);
+  }
 
 }

@@ -1,10 +1,9 @@
 import { DatePipe } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
-import { MetadataService } from 'src/services/metadata.service';
+import { SiteService } from 'src/services/site.service';
 import { StorageService } from 'src/services/storage.service';
 
 @Component({
@@ -16,6 +15,7 @@ export class AdvertisementsComponent implements OnInit {
 
   constructor(
     private assetService: AssetService,
+    private siteSer: SiteService,
     public datepipe: DatePipe,
     public dialog: MatDialog,
     public alertSer: AlertService,
@@ -27,61 +27,70 @@ export class AdvertisementsComponent implements OnInit {
   // currentDateTime: any;
   // endDateTime: any;
 
-  siteData: any;
   user: any;
   ngOnInit() {
     this.user =   JSON.parse(localStorage.getItem('user')!);
-    this.siteData = JSON.parse(localStorage.getItem('siteIds')!);
-    if(this.siteData) {
-      this.getAssetBySiteId(this.siteData[0]?.siteid);
-      // this.listDevices();
-    }
+    this.listSites();
     this.getMetadata();
+  }
+
+  siteData: any = [];
+  listSites() {
+    this.showLoader = true;
+    this.siteSer.listSites().subscribe((res: any) => {
+      // console.log(res);
+      this.showLoader = false;
+      if(res?.Status == 'Success') {
+        this.siteData = res?.siteList?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
+        this.filterObj.siteId = this.siteData[0]?.siteid;
+        this.filterAdvertisements();
+      }
+      }, (err: any) => {
+        this.showLoader = false;
+    });
   }
 
   advertisements: any = [];
   newAdvertisements: any = [];
-
   pending: any = [];
   added: any = [];
   sycedAfterAddition: any = [];
   sycedAfterRemoval: any = [];
   removed: any = [];
 
-  getAssetBySiteId(siteId: any) {
-    this.showLoader = true;
-    /* list assets by siteid */
-    this.assetService.getAssetBySiteId(siteId).subscribe((res: any) => {
-      this.showLoader = false;
-      this.filterObj.siteId = this.siteData[0]?.siteid;
-      this.advertisements = res.flatMap((item: any) => item.assets);
-      this.newAdvertisements = this.advertisements;
+  // getAssetBySiteId(siteId: any) {
+  //   this.showLoader = true;
 
-      /* list devices by siteid */
-      this.assetService.listDeviceBySiteId(this.siteData[0]?.siteid).subscribe((ress: any) => {
-        this.filteredDevices = ress.flatMap((item: any) => item.adsDevices);
-      })
+  //   this.assetService.getAssetBySiteId(siteId).subscribe((res: any) => {
+  //     this.showLoader = false;
+  //     this.filterObj.siteId = this.siteData[0]?.siteid;
+  //     this.advertisements = res.flatMap((item: any) => item.assets);
+  //     this.newAdvertisements = this.advertisements.sort((a: any, b: any) => a.id > b.id ? -1 : a.id < b.id ? 1 : 0);
 
-      this.pending = [];
-      this.added = [];
-      this.sycedAfterAddition = [];
-      this.sycedAfterRemoval = [];
-      this.removed = [];
-      for(let item of this.newAdvertisements) {
-        if(item.status == 1) {
-          this.pending.push(item);
-        } else if(item.status == 2) {
-          this.added.push(item);
-        } else if(item.status == 4) {
-          this.sycedAfterAddition.push(item);
-        } else if(item.status == 5) {
-          this.sycedAfterRemoval.push(item);
-        } else if(item.status == 3) {
-          this.removed.push(item);
-        }
-      }
-    })
-  }
+  //     this.assetService.listDeviceBySiteId(this.filterObj.siteId ? this.filterObj.siteId : this.siteData[0]?.siteid).subscribe((ress: any) => {
+  //       this.filteredDevices = ress.flatMap((item: any) => item.adsDevices);
+  //     })
+
+  //     this.pending = [];
+  //     this.added = [];
+  //     this.sycedAfterAddition = [];
+  //     this.sycedAfterRemoval = [];
+  //     this.removed = [];
+  //     for(let item of this.newAdvertisements) {
+  //       if(item.status == 1) {
+  //         this.pending.push(item);
+  //       } else if(item.status == 2) {
+  //         this.added.push(item);
+  //       } else if(item.status == 4) {
+  //         this.sycedAfterAddition.push(item);
+  //       } else if(item.status == 5) {
+  //         this.sycedAfterRemoval.push(item);
+  //       } else if(item.status == 3) {
+  //         this.removed.push(item);
+  //       }
+  //     }
+  //   })
+  // }
 
   deviceData: any;
   listDevices() {
@@ -107,17 +116,17 @@ export class AdvertisementsComponent implements OnInit {
     deviceId: null,
   }
 
-  filteredDevices: any;
+  filteredDevices: any = [];
   filterAdvertisements() {
     this.showLoader = true;
     this.assetService.listAssets1(this.filterObj).subscribe((res: any) => {
       this.showLoader = false;
-      this.newAdvertisements = res.flatMap((item: any) => item.assets);
-      if(this.filterObj.siteId != null) {
-        this.assetService.listDeviceBySiteId(this.filterObj.siteId).subscribe((res: any) => {
-          this.filteredDevices = res.flatMap((item: any) => item.adsDevices);
-        });
-      }
+      let x = res.flatMap((item: any) => item.assets);
+      this.newAdvertisements = x.sort((a: any, b: any) => a.id > b.id ? -1 : a.id < b.id ? 1 : 0);
+
+      this.assetService.listDeviceBySiteId(this.filterObj.siteId).subscribe((res: any) => {
+        this.filteredDevices = res.flatMap((item: any) => item.adsDevices);
+      });
 
       this.pending = [];
       this.added = [];
@@ -200,7 +209,8 @@ export class AdvertisementsComponent implements OnInit {
     this.statusObj.modifiedBy = this.user?.UserId;
     this.assetService.updateAssetStatus(this.currentStatusId, this.statusObj).subscribe((res: any) => {
       // console.log(res);
-      this.getAssetBySiteId(this.siteData[0]?.siteid);
+      // this.getAssetBySiteId(this.siteData[0]?.siteid);
+      this.filterAdvertisements();
       this.alertSer.snackSuccess(res?.message);
     }, (err: any) => {
       if(err) {

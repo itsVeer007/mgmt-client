@@ -8,6 +8,7 @@ import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
 import { InventoryService } from 'src/services/inventory.service';
 import { MetadataService } from 'src/services/metadata.service';
+import { SiteService } from 'src/services/site.service';
 
 @Component({
   selector: 'app-devices',
@@ -25,55 +26,64 @@ export class DevicesComponent implements OnInit {
   constructor(
     private inventorySer: InventoryService,
     private assetSer: AssetService,
+    private siteSer: SiteService,
     public dialog: MatDialog,
     public datePipe: DatePipe,
     public alertSer: AlertService
   ) { }
 
-  siteData: any
+  // siteData: any;
   ngOnInit(): void {
-    this.siteData = JSON.parse(localStorage.getItem('siteIds')!);
-    if(this.siteData) {
-      this.listDeviceBySiteId(this.siteData[0]?.siteid);
-    }
+    // this.siteData = JSON.parse(localStorage.getItem('siteIds')!);
+    // if(this.siteData) {
+    //   this.listDeviceBySiteId(this.siteData[0]?.siteid);
+    // }
+    this.listSites();
     this.getStatus();
     this.getMetadata();
     // console.log(this.siteData);
   }
 
-  showIconVertical: boolean = false;
-  showIconCustomer: boolean = false;
-  showIconSite: boolean = false;
-  showIconCamera: boolean = false;
-  showIconAnalytic: boolean = false;
-  showIconUser: boolean = false;
+  siteData: any = [];
+  listSites() {
+    this.showLoader = true;
+    this.siteSer.listSites().subscribe((res: any) => {
+      // console.log(res);
+      this.showLoader = false;
+      if(res?.Status == 'Success') {
+        this.siteData = res?.siteList?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
+        this.filterObj.siteId = this.siteData[0]?.siteid;
+        this.filterDevices();
+      }
+      }, (err: any) => {
+        this.showLoader = false;
+    });
+  }
 
   searchText: any;
   deviceData: any = [];
   newDeviceData: any = [];
-  xx: any;
-
   active: any = [];
   inActive: any = [];
-  listDeviceBySiteId(siteId: any) {
-    this.showLoader = true;
-    this.assetSer.listDeviceBySiteId(siteId).subscribe((res: any) => {
-      // console.log(res);
-      this.showLoader = false;
-      this.filterObj.siteId = this.siteData[0]?.siteid;
-      this.deviceData = res.flatMap((item: any) => item.adsDevices);
-      this.newDeviceData = this.deviceData;
-      this.active = [];
-      this.inActive = []
-      for(let item of this.newDeviceData) {
-        if(item.status == 1) {
-          this.active.push(item);
-        } else if(item.status == 2) {
-          this.inActive.push(item);
-        }
-      }
-    })
-  }
+  // listDeviceBySiteId(siteId: any) {
+  //   this.showLoader = true;
+  //   this.assetSer.listDeviceBySiteId(siteId).subscribe((res: any) => {
+  //     // console.log(res);
+  //     this.showLoader = false;
+  //     this.filterObj.siteId = this.siteData[0]?.siteid;
+  //     this.deviceData = res.flatMap((item: any) => item.adsDevices);
+  //     this.newDeviceData = this.deviceData;
+  //     this.active = [];
+  //     this.inActive = []
+  //     for(let item of this.newDeviceData) {
+  //       if(item.status == 1) {
+  //         this.active.push(item);
+  //       } else if(item.status == 2) {
+  //         this.inActive.push(item);
+  //       }
+  //     }
+  //   })
+  // }
 
   upTime: any;
   getStatus() {
@@ -99,16 +109,17 @@ export class DevicesComponent implements OnInit {
     this.assetSer.listDeviceAdsInfo1(this.filterObj).subscribe((res: any) => {
       this.showLoader = false;
       this.newDeviceData = res.flatMap((item: any) => item.adsDevices);
-    })
-    this.active = [];
-    this.inActive = [];
-    for(let item of this.newDeviceData) {
-      if(item.status == 1) {
-        this.active.push(item);
-      } else if(item.status == 2) {
-        this.inActive.push(item);
+
+      this.active = [];
+      this.inActive = [];
+      for(let item of this.newDeviceData) {
+        if(item.status == 1) {
+          this.active.push(item);
+        } else if(item.status == 2) {
+          this.inActive.push(item);
+        }
       }
-    }
+    })
   }
 
   makeNull() {
@@ -491,7 +502,7 @@ export class DevicesComponent implements OnInit {
   editBySelectedOne() {
     if (this.editArray.length > 0) {
     }
-    this.listDeviceBySiteId(this.siteData[0]?.siteid);
+    // this.listDeviceBySiteId(this.siteData[0]?.siteid);
   }
 
   viewArray: any = [];

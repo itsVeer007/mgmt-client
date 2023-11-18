@@ -261,7 +261,6 @@ export class AddNewInventoryComponent implements OnInit {
     // console.log(this.inventoryBody);
   }
 
-
   checkbox: boolean = false;
   onCheck() {
     this.checkbox = !this.checkbox;

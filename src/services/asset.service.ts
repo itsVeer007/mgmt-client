@@ -72,34 +72,41 @@ export class AssetService {
 
 
   addAsset(payload: any, file: any) {
+    let user = JSON.parse(localStorage.getItem('user')!);
+    let deviceData = JSON.parse(localStorage.getItem('add_body')!);
     let formData: any = new FormData();
+
+    /**file */
     formData.append('file', file);
+
+    /**asset data */
     let assetData = {
-      'deviceId': payload?.asset.deviceId,
-      'deviceModeId': payload?.asset.deviceModeId,
-      'playOrder': payload?.asset.playOrder,
-      'createdBy': payload?.asset.createdBy,
-      'name': payload?.asset.name,
-      'splRuleId': payload?.asset.splRuleId,
-      'fromDate': payload?.asset.fromDate ? formatDate(payload?.asset.fromDate, 'yyyy-MM-dd', 'en-us') : formatDate(new Date(), 'yyyy-MM-dd', 'en-us'),
-      'toDate': payload?.asset.toDate ? formatDate(payload?.asset.toDate, 'yyyy-MM-dd', 'en-us') : '2999-12-31'
+      'deviceId': deviceData?.deviceId,
+      'deviceModeId': payload?.asset?.deviceModeId,
+      'playOrder': payload?.asset?.playOrder,
+      'createdBy': user?.UserId,
+      'name': payload?.asset?.name,
+      'splRuleId': payload?.asset?.splRuleId,
+      'fromDate': payload?.asset?.fromDate ? formatDate(payload?.asset?.fromDate, 'yyyy-MM-dd', 'en-us') : formatDate(new Date(), 'yyyy-MM-dd', 'en-us'),
+      'toDate': payload?.asset?.toDate ? formatDate(payload?.asset?.toDate, 'yyyy-MM-dd', 'en-us') : '2999-12-31'
     }
     const ass = new Blob([JSON.stringify(assetData)], {
       type: 'application/json',
     });
     formData.append('asset', ass);
 
+    /**name params */
     let paramData = {
-      'timeId': payload.nameParams.timeId,
-      'tempId': payload.nameParams.tempId,
-      'maleKids': payload.nameParams.maleKids,
-      'femaleKids': payload.nameParams.femaleKids,
-      'maleYouth': payload.nameParams.maleYouth,
-      'femaleYouth': payload.nameParams.femaleYouth,
-      'maleAdults': payload.nameParams.maleAdults,
-      'femaleAdults': payload.nameParams.femaleAdults,
-      'vehicles': payload.nameParams.vehicles,
-      'persons': payload.nameParams.persons
+      'timeId': payload?.nameParams?.timeId,
+      'tempId': payload?.nameParams?.tempId,
+      'maleKids': payload?.nameParams?.maleKids,
+      'femaleKids': payload?.nameParams?.femaleKids,
+      'maleYouth': payload?.nameParams?.maleYouth,
+      'femaleYouth': payload?.nameParams?.femaleYouth,
+      'maleAdults': payload?.nameParams?.maleAdults,
+      'femaleAdults': payload?.nameParams?.femaleAdults,
+      'vehicles': payload?.nameParams?.vehicles,
+      'persons': payload?.nameParams?.persons
     }
     const param = new Blob([JSON.stringify(paramData)], {
       type: 'application/json',
