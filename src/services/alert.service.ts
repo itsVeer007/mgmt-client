@@ -12,30 +12,26 @@ export class AlertService {
   constructor(private snackbar: MatSnackBar, private zone: NgZone) {
     this.config = new MatSnackBarConfig();
     this.config.panelClass = ["snackbar-container"];
+    this.config.verticalPosition = "bottom";
     this.config.horizontalPosition = "right";
     this.config.duration = 3000;
   }
 
   snackSuccess(message: any) {
-    this.config.panelClass = ["success"];
+    this.config.panelClass = ["snackbar-container", "success"];
     this.show(message);
   }
 
   snackError(message: any) {
-    this.config.panelClass = ["error"];
-    this.config.panelClass = ['blue-snackbar']
+    this.config.panelClass = ["snackbar-container", "error"];
     this.show(message);
   }
 
-  snackWait(message: any, config?: MatSnackBarConfig) {
-    this.config.panelClass = ["wait"];
-    config = config || this.config;
-    this.zone.run(() => {
-      this.snackbar.open(message, '', config);
-    });
-
-    this.config.duration = 10000;
+  snackWarning(message: any) {
+    this.config.panelClass = ["snackbar-container", "warning"];
+    this.show(message);
   }
+
 
 
   show(message: any, config?: MatSnackBarConfig) {

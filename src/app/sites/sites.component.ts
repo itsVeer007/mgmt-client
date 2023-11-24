@@ -27,11 +27,11 @@ export class SitesComponent implements OnInit {
 
 
   tempSite: any;
-  siteData: any;
+  // siteData: any;
 
   ngOnInit(): void {
     this.tempSite = JSON.parse(localStorage.getItem('temp_sites')!);
-    this.siteData = JSON.parse(localStorage.getItem('siteIds')!)?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
+    // this.siteData = JSON.parse(localStorage.getItem('siteIds')!)?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
 
     // this.tableData = this.siteData;
     // this.newTableData = this.tableData;

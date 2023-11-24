@@ -558,16 +558,14 @@ thead tr th p {
 thead tr th {
   color: #fff;
   font-size: 13px;
-  /* min-width: 115px; */
-  vertical-align:middle;
+  vertical-align: middle;
 }
 
 .table tbody tr td {
   vertical-align: middle;
-  height: 36px;
-  /* margin: 2px 0; */
+  /* height: 36px; */
   font-size: 12px;
-  padding: 0 10px;
+  padding: 8px 10px;
 }
 
 .table-icons {
@@ -600,14 +598,6 @@ thead tr th {
   color: #ababab;
   font-size: 16px;
   font-weight: 600;
-}
-
-.mat-mdc-snack-bar-container {
-  &.blue-snackbar {
-    --mdc-snackbar-container-color: #084982 !important;
-    --mat-mdc-snack-bar-button-color: #fff !important;
-    --mdc-snackbar-supporting-text-color: #fff !important;
-  }
 }
 
 

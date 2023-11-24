@@ -144,46 +144,52 @@ export class DevicesComponent implements OnInit {
     }
   }
 
-    /* metadata */
-    deviceType: any;
-    deviceMode: any;
-    workingDay: any;
-    tempRange: any;
-    ageRange: any;
-    modelObjectType: any;
-    model: any;
-    modelResolution: any;
-    softwareVersion: any;
-    weatherInterval: any;
-    deviceStatus: any
-    getMetadata() {
-      let data = JSON.parse(localStorage.getItem('metaData')!);
-      for(let item of data) {
-        if(item.type == 'Device_Type') {
-          this.deviceType = item.metadata;
-        } else if(item.type == 'Device_Mode') {
-          this.deviceMode = item.metadata;
-        } else if(item.type == 'Working_Day') {
-          this.workingDay = item.metadata;
-        } else if(item.type == 'Ads_Temp_Range') {
-          this.tempRange = item.metadata;
-        } else if(item.type == 'Ads_Age_Range') {
-          this.ageRange = item.metadata;
-        } else if(item.type == 'model_object_type') {
-          this.modelObjectType = item.metadata;
-        } else if(item.type == 'Model') {
-          this.model = item.metadata;
-        } else if(item.type == 'Model Resolution') {
-          this.modelResolution = item.metadata;
-        } else if(item.type == 'Ads_Software_Version') {
-          this.softwareVersion = item.metadata;
-        } else if(item.type == 'Weather_Interval') {
-          this.weatherInterval = item.metadata;
-        } else if(item.type == 'Device_Status') {
-          this.deviceStatus = item.metadata;
-        }
+  /* metadata */
+  deviceType: any;
+  deviceMode: any;
+  workingDay: any;
+  tempRange: any;
+  ageRange: any;
+  modelObjectType: any;
+  model: any;
+  modelResolution: any;
+  softwareVersion: any;
+  weatherInterval: any;
+  deviceStatus: any
+  getMetadata() {
+    let data = JSON.parse(localStorage.getItem('metaData')!);
+    for(let item of data) {
+      if(item.type == 'Device_Type') {
+        this.deviceType = item.metadata;
+      } else if(item.type == 'Device_Mode') {
+        this.deviceMode = item.metadata;
+      } else if(item.type == 'Working_Day') {
+        this.workingDay = item.metadata;
+      } else if(item.type == 'Ads_Temp_Range') {
+        this.tempRange = item.metadata;
+      } else if(item.type == 'Ads_Age_Range') {
+        this.ageRange = item.metadata;
+      } else if(item.type == 'model_object_type') {
+        this.modelObjectType = item.metadata;
+      } else if(item.type == 'Model') {
+        this.model = item.metadata;
+      } else if(item.type == 'Model Resolution') {
+        this.modelResolution = item.metadata;
+      } else if(item.type == 'Ads_Software_Version') {
+        this.softwareVersion = item.metadata;
+      } else if(item.type == 'Weather_Interval') {
+        this.weatherInterval = item.metadata;
+      } else if(item.type == 'Device_Status') {
+        this.deviceStatus = item.metadata;
       }
     }
+  }
+
+  @ViewChild('rebootDeviceDialog') rebootDeviceDialog = {} as TemplateRef<any>;
+  openRebootDevice(item: any) {
+    this.currentItem = item;
+    this.dialog.open(this.rebootDeviceDialog);
+  }
 
   rebootDevice(id: any) {
     this.alertSer.wait();

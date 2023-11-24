@@ -255,7 +255,7 @@
             </p> -->
           </td>
 
-          <td (click)="rebootDevice(cust.deviceId)">
+          <td (click)="openRebootDevice(cust)">
             <img class="pointer" style="opacity: 0.7;" src="assets/icons/restart.svg" width="25" height="25">
           </td>
 
@@ -292,6 +292,9 @@
   </div>
 </div>
 
+<div *ngIf="showAddDevice">
+  <app-add-new-device (newItemEvent)="closenow('device', $event)"></app-add-new-device>
+</div>
 
 <ng-template #viewSiteDialog>
   <div style="background-color: #084982;">
@@ -687,7 +690,7 @@
   </div>
 
   <div class="d-flex align-items-center justify-content-end">
-<div>
+    <div>
       <button class="dialog-close-btn" mat-dialog-close>Close</button>
     </div>
     <div  >
@@ -696,7 +699,23 @@
   </div>
 </ng-template>
 
+<ng-template #rebootDeviceDialog>
+  <div style="background-color: #084982;">
+    <p class="dialog-title">reboot device</p>
+  </div>
 
-<div *ngIf="showAddDevice">
-  <app-add-new-device (newItemEvent)="closenow('device', $event)"></app-add-new-device>
-</div>
+  <div class="dialog-content">
+    <p>Do you want to reboot this device?</p>
+  </div>
+
+  <div class="d-flex align-items-center justify-content-end">
+    <div>
+      <button class="dialog-close-btn" mat-dialog-close>Close</button>
+    </div>
+    <div  >
+      <button class="dialog-update-btn" mat-dialog-close (click)="rebootDevice(currentItem.deviceId)">Reboot</button>
+    </div>
+  </div>
+</ng-template>
+
+

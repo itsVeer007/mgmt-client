@@ -57,21 +57,17 @@ form .btn:hover {
   background-color: #0b4170;
 }
 
-
+/* ng-deep */
 .login ::ng-deep .mat-card {
   width: 450px !important;
 }
 
-.mat-mdc-snack-bar-container {
-  &.blue-snackbar {
-    --mdc-snackbar-container-color: #084982 !important;
-    --mat-mdc-snack-bar-button-color: #fff !important;
-    --mdc-snackbar-supporting-text-color: #fff !important;
-  }
+::ng-deep .mat-mdc-snack-bar-container .mdc-snackbar__surface {
+  background-color: #084982 !important;
 }
 
 
-/* ng-deep */
+/* ng-deep forms */
 .mat-form-field-appearance-outline ::ng-deep .mat-form-field-outline {
   top: 5px;
   bottom: 5px;
