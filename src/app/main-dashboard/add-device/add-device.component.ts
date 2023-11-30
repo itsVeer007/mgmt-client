@@ -82,6 +82,9 @@ export class AddDeviceComponent implements OnInit {
 
   user: any;
   ngOnInit() {
+    this.siteData = JSON.parse(localStorage.getItem('temp_sites')!);
+    this.user = JSON.parse(localStorage.getItem('user')!);
+
     this.addDevice = this.fb.group({
       'deviceDescription': new FormControl('', Validators.required),
       'deviceTypeId': new FormControl('', Validators.required),
@@ -142,8 +145,6 @@ export class AddDeviceComponent implements OnInit {
     this.getDeviceDetail();
     this.onMetadataChange();
     // this.toggleCreateWorkingDays();
-    this.siteData = JSON.parse(localStorage.getItem('temp_sites')!);
-    this.user =   JSON.parse(localStorage.getItem('user')!);
   }
 
   deviceData: any = [];
@@ -401,7 +402,6 @@ export class AddDeviceComponent implements OnInit {
 
 
   /* create device */
-
   toAddDevice: any;
   isToogleClicked: boolean = false;
   onToAddDevice(e: any) {
@@ -413,15 +413,12 @@ export class AddDeviceComponent implements OnInit {
   addDeviceDtl() {
     if(this.addDevice.valid) {
       this.newItemEvent.emit();
-
       this.adInfo.siteId = this.siteData.siteid;
-
       if(!this.isToogleClicked) {
         let arr: string = this.adInfo.workingDays.join(',');
         let myString = arr.substring(1);
         this.adInfo.workingDays = myString;
       }
-
       if(this.isToogleClicked) {
         let arr = JSON.parse(JSON.stringify(this.adInfo.workingDays)).join(',');
         if(this.toAddDevice == 8) {
@@ -432,6 +429,7 @@ export class AddDeviceComponent implements OnInit {
         }
       }
       this.alertSer.wait();
+      this.adInfo.createdBy = this.user?.UserId;
       this.assetSer.createDeviceandAdsInfo(this.adInfo).subscribe((res: any) => {
         // console.log(res);
         if(res) {

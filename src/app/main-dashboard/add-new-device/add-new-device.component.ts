@@ -277,7 +277,6 @@ export class AddNewDeviceComponent implements OnInit {
     // console.log(this.addDevice);
     if(this.addDevice.valid) {
       this.newItemEvent.emit();
-      this.adInfo.createdBy = this.user?.UserId;
       let arr = JSON.parse(JSON.stringify(this.adInfo.workingDays)).join(',');
       if(this.toAddDevice == 8) {
         var myString = arr.substring(1);
@@ -286,17 +285,13 @@ export class AddNewDeviceComponent implements OnInit {
         this.adInfo.workingDays = arr;
       }
       this.alertSer.wait();
-
+      this.adInfo.createdBy = this.user?.UserId;
       this.assetSer.createDeviceandAdsInfo(this.adInfo).subscribe((res: any) => {
         // console.log(res);
-        if(res) {
-          this.alertSer.success(res?.message ? res?.message : 'Device created successfully');
-        }
+        this.alertSer.success(res?.message ? res?.message : 'Device created successfully');
       },
       (err: any) => {
-        if(err) {
-          this.alertSer.error(err?.error?.message);
-        };
+        this.alertSer.error(err?.error?.message);
       })
     }
   }
