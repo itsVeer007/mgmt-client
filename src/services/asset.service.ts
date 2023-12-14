@@ -15,6 +15,7 @@ export class AssetService {
   constructor(private http: HttpClient, private date: DatePipe) { }
 
   baseUrl = `${environment.baseUrl}/proximityads`;
+  baseUrl1 = 'http://10.42.0.1:8000';
 
   // httpOptions = {
   //   headers: new HttpHeaders({
@@ -263,6 +264,24 @@ export class AssetService {
   filteBody(payload: any) {
     let url = this.reportUrl + `/getListBySearchPM_1_0?`;
     return this.http.get(url, {params: payload});
+  }
+
+
+  
+  // wifi Analytics
+  totaldevices() {
+    let url = this.baseUrl1 + `/totaldevices`;
+    return this.http.get(url);
+  }
+
+  GetActiveDevices() {
+    let url = this.baseUrl1 + `/GetActiveDevices`;
+    return this.http.get(url);
+  }
+
+  GetInactiveDevicesToday() {
+    let url = this.baseUrl1 + `/GetInactiveDevicesToday`;
+    return this.http.get(url);
   }
 
 }

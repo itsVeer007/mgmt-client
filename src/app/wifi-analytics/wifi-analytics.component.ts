@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { AlertService } from 'src/services/alert.service';
+import { AssetService } from 'src/services/asset.service';
 import { InventoryService } from 'src/services/inventory.service';
 import { MetadataService } from 'src/services/metadata.service';
 import { StorageService } from 'src/services/storage.service';
@@ -19,7 +20,8 @@ export class WifiAnalyticsComponent implements OnInit {
 
   showLoader = false;
   constructor(
-    private inventorySer: InventoryService,
+    private inventorySer:InventoryService,
+    private assetSer: AssetService,
     private metaDatSer: MetadataService,
     private datePipe: DatePipe,
     public dialog: MatDialog,
@@ -30,18 +32,37 @@ export class WifiAnalyticsComponent implements OnInit {
   siteData: any;
   user: any;
   ngOnInit(): void {
-    this.GetTotalDevicesToday();
+    this.totaldevices();
     this.getMetadata();
+    this.GetActiveDevices();
+    this.GetInactiveDevicesToday();
     this.user =   JSON.parse(localStorage.getItem('user')!);
   }
 
 
 // Wifi Analytics
 WifiData:any;
-  GetTotalDevicesToday() {
-    this.inventorySer.GetTotalDevicesToday().subscribe((res:any)=> {
+totaldevices() {
+    this.assetSer.totaldevices().subscribe((res:any)=> {
       // console.log(res);
       this.WifiData = res.devices;
+    })
+  }
+
+
+  GetActiveDevicesData:any;
+  GetActiveDevices() {
+    this.assetSer.GetActiveDevices().subscribe((res:any)=> {
+      // console.log(res);
+      this.GetActiveDevicesData = res;
+    })
+  }
+
+  GetInactiveDevicesTodayData:any;
+  GetInactiveDevicesToday() {
+    this.assetSer.GetInactiveDevicesToday().subscribe((res:any)=> {
+      // console.log(res);
+      this.GetInactiveDevicesTodayData = res;
     })
   }
 

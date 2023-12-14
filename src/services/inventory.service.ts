@@ -14,9 +14,8 @@ export class InventoryService {
 
   constructor(private http: HttpClient, public datepipe: DatePipe, private storageSer: StorageService) { }
 
-  // baseUrl = `${environment.baseUrl}/inventoryAndtickets`;
-  baseUrl = 'http://192.168.0.146:8080';
-  baseUrl1 = 'http://192.168.0.148:8000';
+  baseUrl = `${environment.baseUrl}/inventoryAndtickets`;
+  // baseUrl = 'http://192.168.0.146:8080';
 
   /* inventory */
   listItemCode(payload: any) {
@@ -655,11 +654,6 @@ export class InventoryService {
 
 
 
-  // wifi Analytics
-  GetTotalDevicesToday() {
-    let url = this.baseUrl1 + `/GetTotalDevicesToday`;
-    return this.http.get(url);
-  }
 
 }
 
