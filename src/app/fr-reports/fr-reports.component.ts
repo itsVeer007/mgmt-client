@@ -30,6 +30,15 @@ export class FrReportsComponent implements OnInit {
   ngOnInit(): void {
     this.getMetadata();
     this.user =   JSON.parse(localStorage.getItem('user')!);
+    this.listFrs();
+  }
+
+  frList: any;
+  filteredFrList:any;
+  listFrs() {
+    this.inventorySer.listUsersByRole().subscribe((res: any) => {
+      this.frList = res;
+    })
   }
 
   frFilterBody: any = {

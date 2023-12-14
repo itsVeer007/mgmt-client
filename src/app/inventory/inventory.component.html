@@ -847,9 +847,9 @@
               <p>{{item.receiptNo}}</p>
             </td>
             <td>
-              <a class="mx-1 pointer" matTooltip="Edit" (click)="openDcUpdateDialog(item)">
+              <button class="mx-1 pointer" style="border: none;" matTooltip="Update DC" (click)="openDcUpdateDialog(item)" [disabled]="item?.receiptNo != null && item?.amount != null">
                 <img src="assets/icons/edit.svg">
-              </a>
+              </button>
             </td>
           </tr>
         </tbody>

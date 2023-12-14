@@ -1,4 +1,17 @@
+.status-tile {
+  background-color: #084982;
+  color: #ffffff;
+  border-radius: 5px;
+}
 
+.status-tile-count {
+  font-weight: 600;
+}
+
+.tile-sub-count {
+  background-color: #3a6da4;
+  border-radius: 3px;
+}
 
 
 /* ng-deep */

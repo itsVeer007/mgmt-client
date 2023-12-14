@@ -85,125 +85,140 @@
   </div>
   <!-- /form -->
 
-  <!-- <div class="row py-2 mx-1 mb-3 text-white" style="background-color: #084982; border-radius: 3px; font-weight: 600;">
-    <div class="col-lg-2">
-      <p class="m-0">Sites</p>
-      <p class="m-0" style="font-size: 16px;">2</p>
+  <div class="status-tile row py-2 mx-1 mb-3">
+    <div class="col-lg-1">
+      <p>Sites</p>
+      <p class="status-tile-count">2</p>
+    </div>
+
+    <div class="col-lg-1">
+      <p>Devices</p>
+      <p class="status-tile-count">2</p>
     </div>
 
     <div class="col-lg-2">
-      <p class="m-0">Devices</p>
-      <p class="m-0" style="font-size: 16px;">2</p>
-    </div>
-
-    <div class="col-lg-2">
-      <p class="m-0">Audio</p>
-      <p class="m-0" style="font-size: 16px;">2</p>
-      <div class="row py-1 mt-1 me-3" style="background-color: #3a6da4; border-radius: 2px;">
+      <p>Audio</p>
+      <p class="status-tile-count">2</p>
+      <div class="tile-sub-count row py-1 mt-1 me-3">
         <div class="col-lg-6">
-          <img class="mb-1 me-1" src="assets/icons/green-dot.png" alt="" width="15">
+          <img class="mb-1 me-1" src="assets/icons/green-dot.png" alt="" width="15px">
           <span>1</span>
         </div>
 
         <div class="col-lg-6">
-          <img class="mb-1 me-1" src="assets/icons/red-dot.png" alt="" width="15">
+          <img class="mb-1 me-1" src="assets/icons/red-dot.png" alt="" width="15px">
           <span>0</span>
         </div>
       </div>
     </div>
 
     <div class="col-lg-2">
-      <p class="m-0">Video</p>
-      <p class="m-0" style="font-size: 16px;">2</p>
-      <div class="row py-1 mt-1 me-3" style="background-color: #3a6da4; border-radius: 2px;">
+      <p>Video</p>
+      <p class="status-tile-count">2</p>
+      <div class="tile-sub-count row py-1 mt-1 me-3">
         <div class="col-lg-6">
-          <img class="mb-1 me-1" src="assets/icons/green-dot.png" alt="" width="15">
+          <img class="mb-1 me-1" src="assets/icons/green-dot.png" alt="" width="15px">
           <span>1</span>
         </div>
 
         <div class="col-lg-6">
-          <img class="mb-1 me-1" src="assets/icons/red-dot.png" alt="" width="15">
+          <img class="mb-1 me-1" src="assets/icons/red-dot.png" alt="" width="15px">
           <span>0</span>
         </div>
       </div>
     </div>
 
     <div class="col-lg-2">
-      <p class="m-0">Wifi</p>
-      <p class="m-0" style="font-size: 16px;">2</p>
-      <div class="row py-1 mt-1 me-3" style="background-color: #3a6da4; border-radius: 2px;">
+      <p>Wifi</p>
+      <p class="status-tile-count">2</p>
+      <div class="tile-sub-count row py-1 mt-1 me-3">
         <div class="col-lg-6">
-          <img class="mb-1 me-1" src="assets/icons/green-dot.png" alt="" width="15">
+          <img class="mb-1 me-1" src="assets/icons/green-dot.png" alt="" width="15px">
           <span>1</span>
         </div>
 
         <div class="col-lg-6">
-          <img class="mb-1 me-1" src="assets/icons/red-dot.png" alt="" width="15">
+          <img class="mb-1 me-1" src="assets/icons/red-dot.png" alt="" width="15px">
           <span>0</span>
         </div>
       </div>
     </div>
 
     <div class="col-lg-2">
-      <p class="m-0">Security</p>
-      <p class="m-0" style="font-size: 16px;">2</p>
-      <div class="row py-1 mt-1 me-3" style="background-color: #3a6da4; border-radius: 2px;">
+      <p>Gaurd</p>
+      <p class="status-tile-count">2</p>
+      <div class="tile-sub-count row py-1 mt-1 me-3">
         <div class="col-lg-6">
-          <img class="mb-1 me-1" src="assets/icons/green-dot.png" alt="" width="18">
+          <img class="mb-1 me-1" src="assets/icons/green-dot.png" alt="" width="18px">
           <span>1</span>
         </div>
 
         <div class="col-lg-6">
-          <img class="mb-1 me-1" src="assets/icons/red-dot.png" alt="" width="18">
+          <img class="mb-1 me-1" src="assets/icons/red-dot.png" alt="" width="18px">
           <span>0</span>
         </div>
       </div>
     </div>
-  </div> -->
+
+    <div class="col-lg-2">
+      <p>Security</p>
+      <p class="status-tile-count">2</p>
+      <div class="tile-sub-count row py-1 mt-1 me-3">
+        <div class="col-lg-6">
+          <img class="mb-1 me-1" src="assets/icons/green-dot.png" alt="" width="18px">
+          <span>1</span>
+        </div>
+
+        <div class="col-lg-6">
+          <img class="mb-1 me-1" src="assets/icons/red-dot.png" alt="" width="18px">
+          <span>0</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- table -->
   <div class="table-resp">
     <table class="table" id="mytable">
       <thead>
         <tr class="form1">
-          <!-- <th>
-              <input type="checkbox" class="form-check-input" [(ngModel)]="selectedAll" (change)="selectAll()"
-                id="allcheck" style="
-                  background-color: #00000000;
-                  border-color: #fff;
-                  margin-left: 10px;
-                " />
-            </th> -->
-
-            <th>
-              <span>Id</span>
-              <img (click)="sort('deviceId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-            </th>
-
-            <th>
-              <span>Type</span>
-              <img (click)="sort('deviceTypeId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-            </th>
-
-            <th>
-              <span>Site Details</span>
-              <img (click)="sort('siteId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-            </th>
-
-            <th>
-              <span>Status</span>
-              <img (click)="sort('status')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-            </th>
-
-            <th>Reboot</th>
-
-            <th>
-              <span>Uptime</span>
-            </th>
-
-            <th>
-              <span>Actions</span>
-            </th>
+        <!-- <th>
+            <input type="checkbox" class="form-check-input" [(ngModel)]="selectedAll" (change)="selectAll()"
+              id="allcheck" style="
+                background-color: #00000000;
+                border-color: #fff;
+                margin-left: 10px;
+              " />
+          </th> -->
+          <th>
+            <span>Id</span>
+            <img (click)="sort('deviceId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+          </th>
+          <th>
+            <span>Type</span>
+            <img (click)="sort('deviceTypeId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+          </th>
+          <th>
+            <span>Site Details</span>
+            <img (click)="sort('siteId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+          </th>
+          <th>
+            <span>Camera</span>
+          </th>
+          <th>
+            <span>Sensors</span>
+          </th>
+          <th>
+            <span>Status</span>
+            <img (click)="sort('status')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+          </th>
+          <th>Reboot</th>
+          <th>
+            <span>Uptime</span>
+          </th>
+          <th>
+            <span>Actions</span>
+          </th>
         </tr>
       </thead>
 
@@ -226,6 +241,12 @@
           </td>
           <td>
             <p>{{ cust.siteId }}</p>
+          </td>
+          <td>
+            <p class="text-primary pointer" (click)="show('device-info')">1</p>
+          </td>
+          <td>
+            <p class="text-primary pointer" (click)="show('device-info')">0</p>
           </td>
           <td>
             <p [style.color]="cust.status == 1 ? '#00A44C' : cust.status == 2 ? '#fa500f' : ''">
@@ -293,7 +314,11 @@
 </div>
 
 <div *ngIf="showAddDevice">
-  <app-add-new-device (newItemEvent)="closenow('device', $event)"></app-add-new-device>
+  <app-add-new-device (newItemEvent)="closenow('device')"></app-add-new-device>
+</div>
+
+<div *ngIf="showDeviceInfo">
+  <app-device-info (newItemEvent)="closenow('device-info')"></app-device-info>
 </div>
 
 <ng-template #viewSiteDialog>
@@ -382,20 +407,16 @@
           <input matInput [(ngModel)]="currentItem.remarks" disabled>
         </mat-form-field>
       </div>
-      <!-- /BS -->
 
       <!-- BSR -->
-      <!-- <span > -->
-        <div class="col-lg-4 col-md-4" *ngIf="currentItem?.deviceModeId == 2 || currentItem?.deviceModeId == 3">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Weather Interval</mat-label>
-            <mat-select [(ngModel)]="currentItem.weatherInterval" disabled>
-              <mat-option [value]="currentItem.weatherInterval">{{ currentItem.weatherInterval }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      <!-- </span> -->
-      <!-- /BSR -->
+      <div class="col-lg-4 col-md-4" *ngIf="currentItem?.deviceModeId == 2 || currentItem?.deviceModeId == 3">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Weather Interval</mat-label>
+          <mat-select [(ngModel)]="currentItem.weatherInterval" disabled>
+            <mat-option [value]="currentItem.weatherInterval">{{ currentItem.weatherInterval }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
 
       <!-- ODR -->
       <div class="col-lg-4 col-md-4" *ngIf="currentItem?.deviceModeId == 3">
@@ -491,7 +512,6 @@
               <mat-radio-button class="ms-3" name="refresh" [value]='0' checked>False</mat-radio-button>
           </mat-radio-group>
         </div>
-      <!-- /ODR -->
     </div>
 
   <div class="d-flex justify-content-end"  >

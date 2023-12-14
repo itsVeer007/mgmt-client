@@ -166,19 +166,19 @@ p {
 }
 
 .add-form:before {
-  box-shadow: -25px 0 20px -20px #0000000D inset;
+  /* box-shadow: -25px 0 20px -20px #0000000D inset;
   opacity: 0.5;
-  content: " ";
+  content: "";
   position: absolute;
   top: 0;
-  width: 20px;
+  width: 20px; */
 }
 
 .add-form h6 {
-  text-transform: uppercase;
+  /* text-transform: uppercase;
   color: #084982;
   font-weight: bold;
-  margin-left: -12%;
+  margin-left: -12%; */
 }
 
 .add-form .site-icons img {

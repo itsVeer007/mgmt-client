@@ -1,5 +1,4 @@
 import { DatePipe } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, HostListener, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { MatOption } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -7,7 +6,6 @@ import { MatSelect } from '@angular/material/select';
 import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
 import { InventoryService } from 'src/services/inventory.service';
-import { MetadataService } from 'src/services/metadata.service';
 import { SiteService } from 'src/services/site.service';
 
 @Component({
@@ -19,9 +17,6 @@ export class DevicesComponent implements OnInit {
 
   @Output() newItemEvent = new EventEmitter<boolean>();
 
-
-
-
   showLoader = false;
   constructor(
     private inventorySer: InventoryService,
@@ -32,16 +27,10 @@ export class DevicesComponent implements OnInit {
     public alertSer: AlertService
   ) { }
 
-  // siteData: any;
   ngOnInit(): void {
-    // this.siteData = JSON.parse(localStorage.getItem('siteIds')!);
-    // if(this.siteData) {
-    //   this.listDeviceBySiteId(this.siteData[0]?.siteid);
-    // }
     this.listSites();
     this.getStatus();
     this.getMetadata();
-    // console.log(this.siteData);
   }
 
   siteData: any = [];
@@ -52,7 +41,7 @@ export class DevicesComponent implements OnInit {
       this.showLoader = false;
       if(res?.Status == 'Success') {
         this.siteData = res?.siteList?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
-        this.filterObj.siteId = this.siteData[0]?.siteid;
+        this.filterObj.siteId = this.siteData[this.siteData?.length - 1]?.siteid;
         this.filterDevices();
       }
       }, (err: any) => {
@@ -229,13 +218,15 @@ export class DevicesComponent implements OnInit {
   // }
 
   showAddDevice: boolean = false;
-
+  showDeviceInfo: boolean = false;
   show(type: any) {
-    if (type == 'device') { this.showAddDevice = type }
+    if(type == 'device') { this.showAddDevice = true }
+    if(type == 'device-info') { this.showDeviceInfo = true }
   }
 
-  closenow(type: any, e: any) {
-    if(type == 'device') {this.showAddDevice = e}
+  closenow(type: any) {
+    if(type == 'device') {this.showAddDevice = false}
+    if(type == 'device-info') {this.showDeviceInfo = false}
   }
 
   masterSelected: boolean = false;
