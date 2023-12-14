@@ -205,14 +205,18 @@ export class FrComponent implements OnInit {
     // console.log(data);
     this.ticketType = data?.typeId;
     this.currentSite = data?.siteId;
+    this.currentTicketId = data;
     this.dialog.open(this.currentTasksDialog);
+    // this.inventorySer.listFRTasksOfCurrentVisit(this.user?.UserId, this.currentSite).subscribe((res: any) => {
+    //   this.tasks = res;
+    // })
     if(data.ticketType == "Maintenance") {
-      this.inventorySer.listFRTasksOfCurrentVisit(this.user?.UserId).subscribe((res: any) => {
-        this.tasks = res.filter((item: any) => item.typeId == 1);
+      this.inventorySer.listFRTasksOfCurrentVisit(this.user?.UserId, this.currentSite).subscribe((res: any) => {
+        this.tasks = res.filter((item: any) => item.type == "Maintenance");
       })
     } else if(data.ticketType == "Installation") {
-      this.inventorySer.listFRTasksOfCurrentVisit(this.user?.UserId).subscribe((res: any) => {
-        this.tasks = res.filter((item: any) => item.typeId == 2);
+      this.inventorySer.listFRTasksOfCurrentVisit(this.user?.UserId, this.currentSite).subscribe((res: any) => {
+        this.tasks = res.filter((item: any) => item.type == "Installation");
       })
     }
   }
@@ -232,6 +236,7 @@ export class FrComponent implements OnInit {
 
   @ViewChild('viewIndentDialog') viewIndentDialog = {} as TemplateRef<any>;
   indentItems: any = [];
+  currentTicketId: any;
   openDetailsDialog(item: any) {
     // console.log(item);
     this.dialog.open(this.viewIndentDialog);
@@ -298,6 +303,8 @@ export class FrComponent implements OnInit {
   duplicateInventoryId: any;
   inventoryId2: any;
   openReplaceComponent(data: any) {
+    this.body.oldInventoryId = null;
+    this.body.newInventoryId = null;
     this.dialog.open(this.replaceStatusDialog);
     this.inventorySer.getItemsList(data).subscribe((res: any) => {
       console.log(res);
@@ -322,20 +329,18 @@ export class FrComponent implements OnInit {
   body = {
     oldInventoryId: null,
     newInventoryId: null,
-    replacedBy: 1
+    replacedBy: null
   }
 
   body1 = {
     // oldInventoryId: null,
     newInventoryId: null,
-    replacedBy: 1,
+    replacedBy: null,
     siteId: null
   }
 
   replaceComponent() {
-    // this.body.newInventoryId = this.inventoryId2?.inventoryId;
-    // this.alertSer.wait();
-    // this.body1.newInventoryId = indentItems
+    this.body.replacedBy = this.user?.UserId
     this.inventorySer.replaceComponent(this.body).subscribe((res: any) => {
       // console.log(res);
       if(res) {
@@ -348,15 +353,19 @@ export class FrComponent implements OnInit {
     });
   }
 
-  statusMsg: string = '';
   changeToInstall(data: any) {
     this.body1.siteId = this.currentSite;
+    this.body1.replacedBy = this.user?.UserId
     this.body1.newInventoryId = data?.inventoryId;
     this.inventorySer.replaceComponent(this.body1).subscribe((res: any) => {
-      // console.log(res);
+      console.log(res);
       if(res?.statusCode == 200) {
-        this.statusMsg = 'Installed'
+        this.inventorySer.listIndentItems(this.currentTicketId).subscribe((finalRes: any) => {
+          this.indentItems = finalRes;
+        })
       }
+    }, (err: any) => {
+      this.alertSer.error('Out of stock')
     })
   }
 

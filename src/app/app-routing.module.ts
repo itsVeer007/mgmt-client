@@ -31,6 +31,7 @@ import { FrKitComponent } from './fr-kit/fr-kit.component';
 import { FrReportsComponent } from './fr-reports/fr-reports.component';
 import { AuthGuard } from './utilities/auth/auth.guard';
 import { ErrorPageComponent } from './utilities/error-page/error-page.component';
+import { WifiAnalyticsComponent } from './wifi-analytics/wifi-analytics.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -63,6 +64,7 @@ const routes: Routes = [
   { path: 'qr-ads', component: QRAdsComponent, canActivate:[AuthGuard]},
   { path: 'wifi-ads', component: WifiAdsComponent, canActivate:[AuthGuard]},
   { path:'fr-kit', component: FrKitComponent, canActivate:[AuthGuard]},
+  { path:'wifi-analytics', component: WifiAnalyticsComponent, canActivate:[AuthGuard]},
   // { path: '**',  component: ErrorPageComponent},
 ];
 

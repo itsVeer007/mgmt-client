@@ -14,8 +14,9 @@ export class InventoryService {
 
   constructor(private http: HttpClient, public datepipe: DatePipe, private storageSer: StorageService) { }
 
-  baseUrl = `${environment.baseUrl}/inventoryAndtickets`;
-  // baseUrl = 'http://192.168.0.137:8080';
+  // baseUrl = `${environment.baseUrl}/inventoryAndtickets`;
+  baseUrl = 'http://192.168.0.146:8080';
+  baseUrl1 = 'http://192.168.0.148:8000';
 
   /* inventory */
   listItemCode(payload: any) {
@@ -266,7 +267,7 @@ export class InventoryService {
     return this.http.post(url, payload)
   }
 
-  updateIndentStatus(payload1: any, payload2: any){
+  updateIndentStatus(payload1: any, payload2?: any){
     let url = this.baseUrl + `/updateIndentStatus_1_0/${payload1.id}/${payload2.statusId}/${payload2.createdBy}/${payload2.inventoryId}`;
     return this.http.put(url, null);
   }
@@ -463,8 +464,8 @@ export class InventoryService {
     return this.http.post(url, myObj);
   }
 
-  listFRTasksOfCurrentVisit(frId: any) {
-    let url = this.baseUrl + `/listFRTasksOfCurrentVisit_1_0/${frId}`;
+  listFRTasksOfCurrentVisit(frId: any, siteId:any) {
+    let url = this.baseUrl + `/listFRTasksOfCurrentVisit_1_0/${frId}/${siteId}`;
     return this.http.get(url);
   }
 
@@ -650,6 +651,14 @@ export class InventoryService {
     let url = 'http://34.206.37.237:80/userDetails' + '/listUsersByRole_1_0';
     let params = new HttpParams().set('roleId', 30);
     return this.http.get(url, {params: params});
+  }
+
+
+
+  // wifi Analytics
+  GetTotalDevicesToday() {
+    let url = this.baseUrl1 + `/GetTotalDevicesToday`;
+    return this.http.get(url);
   }
 
 }

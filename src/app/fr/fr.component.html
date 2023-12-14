@@ -150,8 +150,8 @@
             <p class="pointer text-primary" (click)="openSitesDialog(); fieldVisitEntry(cust)" matTooltip="Enter into site">Enter</p>
           </td>
           <td>
-            <p class="pointer text-primary" (click)="openTasksDialog(cust)" *ngIf="cust?.ticketType == 'Maintenance'">View</p>
-            <p class="pointer text-primary" (click)="openTasksDialog(cust)" *ngIf="cust?.ticketType == 'Installation'">View</p>
+            <p class="pointer text-primary" (click)="openTasksDialog(cust)" *ngIf="cust?.typeId == 1">View</p>
+            <p class="pointer text-primary" (click)="openTasksDialog(cust)" *ngIf="cust?.typeId == 2">View</p>
           </td>
           <td>
             <p>{{ cust.ticketType }}</p>
@@ -343,7 +343,7 @@
                   <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Edit Status</mat-label>
                     <mat-select [(ngModel)]="statusObj.statusId">
-                      <mat-option *ngFor="let item of indentStatus" [value]="item.keyId">{{ item.value }}</mat-option>
+                      <mat-option *ngFor="let item of indentStatus" [value]="item.keyId" [hidden]="item?.keyId == 1">{{ item.value }}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -551,10 +551,12 @@
 
     <div class="d-flex align-items-center justify-content-end">
       <div>
-        <button class="dialog-close-btn" mat-dialog-close>Close</button>
+        <button class="dialog-close-btn" mat-dialog-close >Close</button>
       </div>
       <div>
-        <button class="dialog-update-btn" mat-dialog-close (click)="logTaskStatus(currentStatusItem, 5)">Submit</button>
+        
+        <!-- <button class="dialog-update-btn" mat-dialog-close (click)="logTaskStatus(currentStatusItem, 5)">Submit</button> -->
+          <button class="dialog-update-btn" mat-dialog-close (click)="openVisitExit()">Submit</button>
       </div>
     </div>
   </div>
@@ -723,7 +725,7 @@
       <button class="dialog-close-btn" mat-dialog-close>Close</button>
     </div>
     <div>
-      <button class="dialog-update-btn" mat-dialog-close (click)="fieldVisitExit()">Submit</button>
+      <button class="dialog-update-btn" mat-dialog-close (click)="logTaskStatus(currentStatusItem, 5); fieldVisitExit(); ">Submit</button>
     </div>
   </div>
 </ng-template>
@@ -827,7 +829,7 @@
                     <mat-form-field appearance="outline" class="w-100">
                       <mat-label>Edit Status</mat-label>
                       <mat-select [(ngModel)]="statusObj.statusId">
-                        <mat-option *ngFor="let item of indentStatus" [value]="item.keyId">{{ item.value }}</mat-option>
+                        <mat-option *ngFor="let item of indentStatus" [value]="item.keyId" [hidden]="item?.keyId == 1">{{ item.value }}</mat-option>
                       </mat-select>
                     </mat-form-field>
                   </div>
@@ -946,9 +948,9 @@
                 </a>
               </span> -->
 
-              <p (click)="changeToInstall(inven)">
-                <span *ngIf="statusMsg == ''">To be installed</span>
-                <span *ngIf="statusMsg != ''">{{statusMsg}}</span>
+              <p>
+                <span class="text-primary pointer" (click)="changeToInstall(inven)" *ngIf="inven.statusId == 1">Install</span>
+                <span *ngIf="inven.statusId != 1">{{ inven.statusId == 1 ? "Requested" : inven.statusId == 2 ? "Dispatched" : inven.statusId == 3 ? "Received" : inven.statusId == 4 ? "Installed" : inven.statusId == 5 ? "Returned" : '' }}</span>
               </p>
 
               <!-- <ng-template #editStatusDialog>

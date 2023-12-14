@@ -191,12 +191,12 @@ export class IndentsComponent implements OnInit {
     this.originalObject = {
       'id': this.currentItem.id,
       'statusId': this.currentItem.statusId,
-      'updatedBy': 1,
+      'updatedBy': this.user?.UserId,
       'inventoryId': this.updateInventoryId,
       'remarks': this.currentItem.remarks
     }
 
-    this.inventorySer.updateIndentStatus(this.originalObject, null).subscribe((res: any) => {
+    this.inventorySer.updateIndentStatus(this.originalObject).subscribe((res: any) => {
       // console.log(res);
         this.alertSer.snackSuccess(res?.message);
         this.listIndent();
@@ -289,6 +289,7 @@ export class IndentsComponent implements OnInit {
 
   @ViewChild('editStatusDialog') editStatusDialog = {} as TemplateRef<any>;
   statusObj = {
+    // this.currentStatusId
     statusId: null,
     inventoryId: null,
     createdBy: null
@@ -309,15 +310,13 @@ export class IndentsComponent implements OnInit {
 
   updateInventoryStatus() {
     this.statusObj.createdBy = this.user?.UserId;
-    // if(this.statusObj.statusId != null && this.statusObj.inventoryId != null && this.statusObj.createdBy != null) {
-      this.inventorySer.updateIndentStatus(this.currentStatusId, this.statusObj).subscribe((res: any) => {
-        // console.log(res);
-        this.alertSer.snackSuccess(res?.message);
-        this.listIndent();
-      }, (err: any) => {
-        this.alertSer.error(err?.error?.message);
-      });
-    // }
+    this.inventorySer.updateIndentStatus(this.currentStatusId, this.statusObj).subscribe((res: any) => {
+      // console.log(res);
+      this.alertSer.snackSuccess(res?.message);
+      this.listIndent();
+    }, (err: any) => {
+      this.alertSer.error(err?.error?.message);
+    });
   }
 
 

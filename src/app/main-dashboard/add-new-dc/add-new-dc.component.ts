@@ -77,13 +77,26 @@ export class AddNewDcComponent {
 
     // this.getVendor();
     this.user =   JSON.parse(localStorage.getItem('user')!);
-    this.listUsersByRole();
+    this.listFrs();
+  }
+
+  filterFr(data:any, value:any) {
+    return data.filter((item:any)=> {
+      item.userId == value;
+    })
   }
 
   frList: any;
-  listUsersByRole() {
+  filteredFrList:any;
+  listFrs() {
     this.inventorySer.listUsersByRole().subscribe((res: any) => {
       this.frList = res;
+    })
+  }
+
+  listUsersByRole(userId:any) {
+    this.filteredFrList = this.frList?.filter((item: any) => {
+      return item?.userId == userId;
     })
   }
 

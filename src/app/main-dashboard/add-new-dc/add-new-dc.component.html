@@ -16,7 +16,7 @@
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>name</mat-label>
                 <mat-select formControlName="name" [(ngModel)]="inventoryBody.name">
-                  <mat-option *ngFor="let item of frList" [value]="item?.userId" (click)="onSelect()">{{item?.firstName}}</mat-option>
+                  <mat-option *ngFor="let item of frList" [value]="item?.userId" (click)="onSelect(); listUsersByRole(item?.userId)">{{item?.firstName}}</mat-option>
                 </mat-select>
                 <mat-error class="mt-1"> name is required</mat-error>
               </mat-form-field>
@@ -26,7 +26,7 @@
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Address</mat-label>
                 <mat-select formControlName="address" [(ngModel)]="inventoryBody.address">
-                  <mat-option *ngFor="let item of frList" [value]="item?.address_line1">{{item?.address_line1}}</mat-option>
+                  <mat-option *ngFor="let item of filteredFrList" [value]="item?.address_line1">{{item?.address_line1}}</mat-option>
                 </mat-select>
                 <mat-error class="mt-1">Address is required</mat-error>
               </mat-form-field>
@@ -36,7 +36,7 @@
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>state</mat-label>
                 <mat-select formControlName="state" [(ngModel)]="inventoryBody.state">
-                  <mat-option *ngFor="let item of frList" [value]="item?.state">{{item?.state}}</mat-option>
+                  <mat-option *ngFor="let item of filteredFrList" [value]="item?.state">{{item?.state}}</mat-option>
                 </mat-select>
                 <mat-error class="mt-1">state is required</mat-error>
               </mat-form-field>
@@ -46,7 +46,7 @@
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>code</mat-label>
                 <mat-select formControlName="code" [(ngModel)]="inventoryBody.code">
-                  <mat-option *ngFor="let item of frList" [value]="item?.pin">{{item?.pin}}</mat-option>
+                  <mat-option *ngFor="let item of filteredFrList" [value]="item?.pin">{{item?.pin}}</mat-option>
                 </mat-select>
                 <mat-error class="mt-1"> code is required</mat-error>
               </mat-form-field>

@@ -91,6 +91,7 @@ import { SortPipe } from './pipes/sort.pipe';
 import { ErrorPageComponent } from './utilities/error-page/error-page.component';
 import { DcChallanComponent } from './utilities/dc-challan/dc-challan.component';
 import { RemoveDuplicatesPipe } from './utilities/pipes/remove-duplicates.pipe';
+import { WifiAnalyticsComponent } from './wifi-analytics/wifi-analytics.component';
 
 
 @NgModule({
@@ -150,6 +151,7 @@ import { RemoveDuplicatesPipe } from './utilities/pipes/remove-duplicates.pipe';
     ErrorPageComponent,
     DcChallanComponent,
     RemoveDuplicatesPipe,
+    WifiAnalyticsComponent
   ],
   imports: [
     BrowserModule,
