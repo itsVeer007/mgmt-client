@@ -92,6 +92,7 @@ import { ErrorPageComponent } from './utilities/error-page/error-page.component'
 import { DcChallanComponent } from './utilities/dc-challan/dc-challan.component';
 import { RemoveDuplicatesPipe } from './utilities/pipes/remove-duplicates.pipe';
 import { WifiAnalyticsComponent } from './wifi-analytics/wifi-analytics.component';
+import { DeviceInfoComponent } from './devices/device-info/device-info.component';
 
 
 @NgModule({
@@ -151,7 +152,8 @@ import { WifiAnalyticsComponent } from './wifi-analytics/wifi-analytics.componen
     ErrorPageComponent,
     DcChallanComponent,
     RemoveDuplicatesPipe,
-    WifiAnalyticsComponent
+    WifiAnalyticsComponent,
+    DeviceInfoComponent
   ],
   imports: [
     BrowserModule,

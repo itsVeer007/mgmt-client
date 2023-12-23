@@ -278,7 +278,6 @@ export class FrComponent implements OnInit {
   @ViewChild('replaceDialog') replaceDialog = {} as TemplateRef<any>;
   openCreateOrder(item: any) {
     // console.log(item)
-    // this.currentItem = item;
     this.dialog.open(this.replaceDialog);
     this.inventorySer.listIndentItems(item).subscribe((res: any) => {
       this.indentItems = res;
@@ -360,6 +359,7 @@ export class FrComponent implements OnInit {
     this.inventorySer.replaceComponent(this.body1).subscribe((res: any) => {
       console.log(res);
       if(res?.statusCode == 200) {
+        this.alertSer.snackSuccess(res?.message);
         this.inventorySer.listIndentItems(this.currentTicketId).subscribe((finalRes: any) => {
           this.indentItems = finalRes;
         })
@@ -508,22 +508,25 @@ export class FrComponent implements OnInit {
   //   })
   // }
 
-  data = {
-    receiptNo:null,
-    amount:null,
-    dcNumber:null,
-    modifiedBy:1
+  updateDcBody = {
+    receiptNo: null,
+    amount: null,
+    dcNumber: null,
+    modifiedBy: null
   }
 
   @ViewChild('dcUpdateDialog') dcUpdateDialog = {} as TemplateRef<any>
   openDcUpdateDialog(item:any){
-    this.dialog.open(this.dcUpdateDialog)
+    // this.updateDcBody.receiptNo = null;
+    // this.updateDcBody.amount = null;
     this.currentItem= item;
+    this.dialog.open(this.dcUpdateDialog);
   }
 
   updateDC(){
-    this.data.dcNumber = this.currentItem.dcNumber
-    this.inventorySer.updateDC(this.data).subscribe((res:any)=>{
+    this.updateDcBody.dcNumber = this.currentItem.dcNumber;
+    this.updateDcBody.modifiedBy = this.user?.UserId;
+    this.inventorySer.updateDC(this.updateDcBody).subscribe((res:any)=>{
       console.log(res);
     })
   }

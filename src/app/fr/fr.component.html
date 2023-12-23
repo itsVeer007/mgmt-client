@@ -208,6 +208,14 @@
   </div>
 </div>
 
+<div *ngIf="showIndent">
+  <app-add-new-indent (newItemEvent)="closenow('showIndent')"></app-add-new-indent>
+</div>
+
+<div *ngIf="showDcFr">
+  <app-add-new-dc [show]="'fromFr'" (newItemEvent)="closenow('showDcFr')"></app-add-new-dc>
+</div>
+
 
 <ng-template #currentTasksDialog>
   <div style="background-color: #084982;">
@@ -554,7 +562,7 @@
         <button class="dialog-close-btn" mat-dialog-close >Close</button>
       </div>
       <div>
-        
+
         <!-- <button class="dialog-update-btn" mat-dialog-close (click)="logTaskStatus(currentStatusItem, 5)">Submit</button> -->
           <button class="dialog-update-btn" mat-dialog-close (click)="openVisitExit()">Submit</button>
       </div>
@@ -949,8 +957,8 @@
               </span> -->
 
               <p>
-                <span class="text-primary pointer" (click)="changeToInstall(inven)" *ngIf="inven.statusId == 1">Install</span>
-                <span *ngIf="inven.statusId != 1">{{ inven.statusId == 1 ? "Requested" : inven.statusId == 2 ? "Dispatched" : inven.statusId == 3 ? "Received" : inven.statusId == 4 ? "Installed" : inven.statusId == 5 ? "Returned" : '' }}</span>
+                <span class="text-primary pointer" (click)="changeToInstall(inven)" *ngIf="inven.statusId == 3">Install</span>
+                <span *ngIf="inven.statusId != 3">{{ inven.statusId == 1 ? "Requested" : inven.statusId == 2 ? "Dispatched" : inven.statusId == 3 ? "Received" : inven.statusId == 4 ? "Installed" : inven.statusId == 5 ? "Returned" : '' }}</span>
               </p>
 
               <!-- <ng-template #editStatusDialog>
@@ -1046,11 +1054,7 @@
               </p>
             </th>
 
-            <th>
-              <p class="d-inline-flex">
-                <span>Update</span>
-              </p>
-            </th>
+            <th></th>
           </tr>
         </thead>
 
@@ -1069,8 +1073,6 @@
 
             <td>
               <p class="pointer text-primary" (click)="listDescriptionOfGoodsByDcNumber(item)">view</p>
-
-              <!-- dc description -->
               <ng-template #dcDescriptionDialog>
                 <div style="background-color: #084982;">
                   <p class="dialog-title">dc description</p>
@@ -1112,21 +1114,20 @@
                 </div>
               </ng-template>
             </td>
-            <td>
-              <p>{{ item.amount}}</p>
-            </td>
-
 
             <td>
-              <p>{{ item.receiptNo}}</p>
+              <p>{{ item.amount }}</p>
             </td>
 
             <td>
-              <p><a class="mx-1 pointer" matTooltip="Edit" (click)="openDcUpdateDialog(item)" >
+              <p>{{ item.receiptNo }}</p>
+            </td>
+
+            <td>
+              <button class="mx-1 pointer" style="border: none;" matTooltip="Update DC" (click)="openDcUpdateDialog(item)" [disabled]="item?.receiptNo != null && item?.amount != null">
                 <img src="assets/icons/edit.svg">
-              </a></p>
+              </button>
             </td>
-
           </tr>
         </tbody>
       </table>
@@ -1142,9 +1143,6 @@
     <div>
       <button class="dialog-close-btn" mat-dialog-close>Close</button>
     </div>
-      <!-- <div>
-        <button class="dialog-update-btn" mat-dialog-close>Submit</button>
-      </div> -->
   </div>
 </ng-template>
 
@@ -1157,13 +1155,13 @@
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Receipt No</mat-label>
-        <input matInput [(ngModel)]="data.receiptNo">
+        <input matInput [(ngModel)]="updateDcBody.receiptNo">
       </mat-form-field>
     </div>
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Amount</mat-label>
-        <input matInput type="number" [(ngModel)]="data.amount">
+        <input matInput type="number" [(ngModel)]="updateDcBody.amount">
       </mat-form-field>
     </div>
   </div>
@@ -1317,12 +1315,3 @@
     </div>
   </div>
 </ng-template>
-
-
-<div *ngIf="showIndent">
-  <app-add-new-indent (newItemEvent)="closenow('showIndent')"></app-add-new-indent>
-</div>
-
-<div *ngIf="showDcFr">
-  <app-add-new-dc [show]="'fromFr'" (newItemEvent)="closenow('showDcFr')"></app-add-new-dc>
-</div>
