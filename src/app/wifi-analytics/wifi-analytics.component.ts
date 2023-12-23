@@ -7,6 +7,7 @@ import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
 import { InventoryService } from 'src/services/inventory.service';
 import { MetadataService } from 'src/services/metadata.service';
+import { SiteService } from 'src/services/site.service';
 import { StorageService } from 'src/services/storage.service';
 
 
@@ -21,6 +22,7 @@ export class WifiAnalyticsComponent implements OnInit {
   showLoader = false;
   constructor(
     private inventorySer:InventoryService,
+    private siteSer:SiteService,
     private assetSer: AssetService,
     private metaDatSer: MetadataService,
     private datePipe: DatePipe,
@@ -29,42 +31,98 @@ export class WifiAnalyticsComponent implements OnInit {
     private storageSer: StorageService
   ) { }
 
+
+first:boolean = true;
+second:boolean = false;
+open(type:string) {
+  this.count();
+  if(type == 'data') {
+    this.second = true;
+    this.first =false;
+  }
+  else 
+  this.first = true;
+}
+
+  tempSites:any;
   siteData: any;
   user: any;
   ngOnInit(): void {
-    this.totaldevices();
+    this.get_data();
     this.getMetadata();
-    this.GetActiveDevices();
-    this.GetInactiveDevicesToday();
+    this.listSites();
     this.user =   JSON.parse(localStorage.getItem('user')!);
+    this.tempSites = JSON.parse(localStorage.getItem('temp_sites')!);
   }
 
 
 // Wifi Analytics
+total:any;
+active:any;
+inActive:any;
+newWifiData:any = [];
 WifiData:any;
-totaldevices() {
-    this.assetSer.totaldevices().subscribe((res:any)=> {
+get_data() {
+    this.assetSer.get_data().subscribe((res:any)=> {
       // console.log(res);
-      this.WifiData = res.devices;
+      this.WifiData = res;
+      this.newWifiData = this.WifiData;
+
+
+      // this.total = this.newWifiData.reduce((sum:any, current:any) => sum + current.total, 0);
+      // this.active = this.newWifiData.reduce((sum:any, current:any) => sum + current.active, 0);
+      // this.inActive = this.newWifiData.reduce((sum:any, current:any) => sum + current.inActive, 0);
+    })
+  
+  }
+
+  @ViewChild('viewDetailsDialog') viewDetailsDialog = {} as TemplateRef<any>;
+  GetDevicesTodayData:any;
+  GetDevicesToday(data:any) {
+
+    this.assetSer.GetDevicesToday(data).subscribe((res:any)=> {
+      this.dialog.open(this.viewDetailsDialog);
+      // console.log(res);
+      this.GetDevicesTodayData = res.data;
+    })
+  }
+
+  // GetDevicesTodayIvis1Data:any;
+  // GetDevicesTodayIvis1(data:any) {
+  //   this.assetSer.GetDevicesTodayIvis1(data).subscribe((res:any)=> {
+  //     console.log(res);
+  //   })
+  // }
+
+
+  countData:any;
+  count() {
+    this.assetSer.count().subscribe((res:any)=> {
+      // console.log(res);
+      this.countData = res;
+    })
+  }
+
+  @ViewChild('viewDetailsDialogTwo') viewDetailsDialogTwo = {} as TemplateRef<any>;
+  countGetDevicesTodayData:any;
+  countGetDevicesToday() {
+    this.assetSer.countGetDevicesToday().subscribe((res:any)=> {
+      this.dialog.open(this.viewDetailsDialogTwo);
+      // console.log(res);
+      this.countGetDevicesTodayData = res.data;
     })
   }
 
 
-  GetActiveDevicesData:any;
-  GetActiveDevices() {
-    this.assetSer.GetActiveDevices().subscribe((res:any)=> {
+  listSitesData:any;
+  listSites() {
+    this.siteSer.listSites().subscribe((res:any)=> {
       // console.log(res);
-      this.GetActiveDevicesData = res;
+      this.listSitesData = res.siteList;
     })
   }
 
-  GetInactiveDevicesTodayData:any;
-  GetInactiveDevicesToday() {
-    this.assetSer.GetInactiveDevicesToday().subscribe((res:any)=> {
-      // console.log(res);
-      this.GetInactiveDevicesTodayData = res;
-    })
-  }
+
 
 
 
