@@ -29,8 +29,8 @@ export class DashboardComponent implements OnInit {
     //   this.user=  JSON.parse(localStorage.getItem('user')!);
     // });
 
-    this.user =   JSON.parse(localStorage.getItem('user')!);
-    for(let item of this.user?.role) {
+    this.user =  JSON.parse(localStorage.getItem('user')!);
+    this.user?.role.forEach((item: any) => {
       if(item == 'Administrator') {
         this.isAdmin = true;
       } else if(item == 'Support') {
@@ -38,7 +38,7 @@ export class DashboardComponent implements OnInit {
       } else if(item == 'FR') {
         this.isFr = true;
       }
-    }
+    })
   }
 
   logout() {

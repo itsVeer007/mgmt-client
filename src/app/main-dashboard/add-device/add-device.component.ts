@@ -50,7 +50,6 @@ export class AddDeviceComponent implements OnInit {
   ) { }
 
   siteData: any;
-
   adInfo: any = {
     siteId: null,
     deviceDescription: '',
@@ -64,9 +63,7 @@ export class AddDeviceComponent implements OnInit {
     socketServer: 'ec2-18-213-63-73.compute-1.amazonaws.com',
     socketPort: 6666,
     remarks: '',
-
     weatherInterval: null, //BSR
-
     cameraId: 'Cam01', //ODR
     modelName: 'Yolov8', //ODR
     modelWidth: 640, //ODR
@@ -96,9 +93,7 @@ export class AddDeviceComponent implements OnInit {
       'softwareVersion': new FormControl(''),
       'socketServer': new FormControl(''),
       'socketPort': new FormControl(''),
-
       'weatherInterval': new FormControl(''),
-
       'cameraId': new FormControl(''),
       'modelName': new FormControl(''),
       'modelWidth': new FormControl(''),
@@ -106,7 +101,6 @@ export class AddDeviceComponent implements OnInit {
       'modelMaxResults': new FormControl(''),
       'modelThreshold': new FormControl(''),
       'modelObjectTypeId': new FormControl(''),
-
       "loggerFreq": new FormControl(''),
       "refreshRules": new FormControl(''),
       "debugOn": new FormControl(''),
@@ -192,7 +186,6 @@ export class AddDeviceComponent implements OnInit {
   }
 
   /* metadata methods */
-
   deviceType: any;
   deviceMode: any;
   workingDay: any;
@@ -246,9 +239,7 @@ export class AddDeviceComponent implements OnInit {
 
 
   /* popup */
-
   @ViewChild('editDeviceDialog') editDevice = {} as TemplateRef<any>;
-
   // newdeviceId: any;
   // devDataToEdit: any
   currentItem: any;
@@ -260,7 +251,6 @@ export class AddDeviceComponent implements OnInit {
 
 
   /* dynamic device view */
-
   // toChild: any
   // onMat(e: any) {
   //   this.toChild = this.deviceData.filter((el: any) => el.deviceId == e.tab.textLabel);
@@ -274,7 +264,6 @@ export class AddDeviceComponent implements OnInit {
     // console.log(event);
     this.originalObject = {
       "deviceId": this.currentItem.deviceId,
-
       "deviceCallFreq": this.currentItem.deviceCallFreq,
       "deviceDescription": this.currentItem.deviceDescription,
       "remarks": this.currentItem.remarks,
@@ -282,7 +271,6 @@ export class AddDeviceComponent implements OnInit {
       "loggerFreq": this.currentItem.loggerFreq,
       "modelWidth": this.currentItem.modelWidth,
       "modelHeight": this.currentItem.modelHeight,
-
       "deviceModeId": this.currentItem.deviceModeId,
       // "deviceTypeId": this.currentItem.deviceTypeId,
       "adsHours": this.currentItem.adsHours,
@@ -290,11 +278,9 @@ export class AddDeviceComponent implements OnInit {
       "status": this.currentItem.status,
       "modelName": this.currentItem.modelName,
       "modelObjectTypeId": this.currentItem.modelObjectTypeId,
-
       "debugOn": this.currentItem.debugOn,
       "debugLogs": this.currentItem.debugLogs,
       "refreshRules": this.currentItem.refreshRules,
-
       "modifiedBy": this.user?.UserId,
     };
 
@@ -308,7 +294,6 @@ export class AddDeviceComponent implements OnInit {
   onSelectChange(event: any) {
     this.originalObject = {
       "deviceId": this.currentItem.deviceId,
-
       "deviceCallFreq": this.currentItem.deviceCallFreq,
       "deviceDescription": this.currentItem.deviceDescription,
       "remarks": this.currentItem.remarks,
@@ -316,7 +301,6 @@ export class AddDeviceComponent implements OnInit {
       "loggerFreq": this.currentItem.loggerFreq,
       "modelWidth": this.currentItem.modelWidth,
       "modelHeight": this.currentItem.modelHeight,
-
       "deviceModeId": this.currentItem.deviceModeId,
       // "deviceTypeId": this.currentItem.deviceTypeId,
       "adsHours": this.currentItem.adsHours,
@@ -324,7 +308,6 @@ export class AddDeviceComponent implements OnInit {
       "status": this.currentItem.status,
       "modelName": this.currentItem.modelName,
       "modelObjectTypeId": this.currentItem.modelObjectTypeId,
-
       "debugOn": this.currentItem.debugOn,
       "debugLogs": this.currentItem.debugLogs,
       "refreshRules": this.currentItem.refreshRules,
@@ -342,7 +325,6 @@ export class AddDeviceComponent implements OnInit {
   onInputChange(event: any) {
     this.originalObject = {
       "deviceId": this.currentItem.deviceId,
-
       "deviceCallFreq": this.currentItem.deviceCallFreq,
       "deviceDescription": this.currentItem.deviceDescription,
       "remarks": this.currentItem.remarks,
@@ -350,7 +332,6 @@ export class AddDeviceComponent implements OnInit {
       "loggerFreq": this.currentItem.loggerFreq,
       "modelWidth": this.currentItem.modelWidth,
       "modelHeight": this.currentItem.modelHeight,
-
       "deviceModeId": this.currentItem.deviceModeId,
       // "deviceTypeId": this.currentItem.deviceTypeId,
       "adsHours": this.currentItem.adsHours,
@@ -358,11 +339,9 @@ export class AddDeviceComponent implements OnInit {
       "status": this.currentItem.status,
       "modelName": this.currentItem.modelName,
       "modelObjectTypeId": this.currentItem.modelObjectTypeId,
-
       "debugOn": this.currentItem.debugOn,
       "debugLogs": this.currentItem.debugLogs,
       "refreshRules": this.currentItem.refreshRules,
-
       "modifiedBy": this.user?.UserId,
     };
 
