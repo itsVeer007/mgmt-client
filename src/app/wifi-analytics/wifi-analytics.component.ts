@@ -7,6 +7,7 @@ import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
 import { InventoryService } from 'src/services/inventory.service';
 import { MetadataService } from 'src/services/metadata.service';
+import { SiteService } from 'src/services/site.service';
 import { StorageService } from 'src/services/storage.service';
 
 
@@ -21,6 +22,7 @@ export class WifiAnalyticsComponent implements OnInit {
   showLoader = false;
   constructor(
     private inventorySer:InventoryService,
+    private siteSer:SiteService,
     private assetSer: AssetService,
     private metaDatSer: MetadataService,
     private datePipe: DatePipe,
@@ -29,19 +31,37 @@ export class WifiAnalyticsComponent implements OnInit {
     private storageSer: StorageService
   ) { }
 
+
+first:boolean = true;
+second:boolean = false;
+open(type:string) {
+  // this.count();
+  if(type == 'data') {
+    this.second = true;
+    this.first =false;
+  }
+  else
+  this.first = true;
+}
+
+  tempSites:any;
   siteData: any;
   user: any;
   ngOnInit(): void {
-    this.totaldevices();
+    this.get_data();
     this.getMetadata();
-
     this.user =   JSON.parse(localStorage.getItem('user')!);
+    this.tempSites = JSON.parse(localStorage.getItem('temp_sites')!);
   }
 
 
 // Wifi Analytics
+total:any;
+active:any;
+inActive:any;
+newWifiData:any = [];
 WifiData:any;
-totaldevices() {
+get_data() {
     this.assetSer.totaldevices().subscribe((res:any)=> {
       // console.log(res);
       this.WifiData = res;
@@ -85,6 +105,7 @@ totaldevices() {
     p_enddate:null
   }
 
+  listSitesData: any
   reportsData:any = [];
   listFRReports() {
     this.frFilterBody.p_frId = this.user?.UserId;
