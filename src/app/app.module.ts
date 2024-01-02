@@ -14,44 +14,21 @@ import { AddNewCameraComponent } from './main-dashboard/add-new-camera/add-new-c
 import { AddNewCustomerComponent } from './main-dashboard/add-new-customer/add-new-customer.component';
 import { AddNewBusinessVerticalComponent } from './main-dashboard/add-new-business-vertical/add-new-business-vertical.component';
 import { AddNewUserComponent } from './main-dashboard/add-new-user/add-new-user.component';
-import { SitesComponent } from './sites/sites.component';
-import { CustomersComponent } from './customers/customers.component';
 import { LoginComponent } from './login/login.component';
-import { UsersComponent } from './users/users.component';
 import { AddAdditionalSiteComponent } from './main-dashboard/add-additional-site/add-additional-site.component';
-import { AssetsComponent } from './assets/assets.component';
-import { TicketsComponent } from './tickets/tickets.component';
-import { InventoryComponent } from './inventory/inventory.component';
 import { AddDeviceComponent } from './main-dashboard/add-device/add-device.component';
 import { AddNewAssetComponent } from './main-dashboard/add-new-asset/add-new-asset.component';
-import { VerticalsComponent } from './verticals/verticals.component';
-import { AnalyticsComponent } from './analytics/analytics.component';
 import { AddNewInventoryComponent } from './main-dashboard/add-new-inventory/add-new-inventory.component';
 import { AddNewAnalyticComponent } from './main-dashboard/add-new-analytic/add-new-analytic.component';
 import { AddNewTicketComponent } from './main-dashboard/add-new-ticket/add-new-ticket.component';
-import { AdInfoComponent } from './assets/ad-info/ad-info.component';
-import { ReportsComponent } from './reports/reports.component';
-import { MetaDataComponent } from './meta-data/meta-data.component';
 import { AddMetadataComponent } from './main-dashboard/add-metadata/add-metadata.component';
 import { DeviceViewComponent } from './main-dashboard/add-device/device-view/device-view.component';
-import { DevicesComponent } from './devices/devices.component';
-import { ProductMasterComponent } from './product-master/product-master.component';
 import { AddProductMasterComponent } from './main-dashboard/add-product-master/add-product-master.component';
-import { QRAdsComponent } from './reports/qr-ads/qr-ads.component';
-import { WifiAdsComponent } from './reports/wifi-ads/wifi-ads.component';
-import { VendorsComponent } from './vendors/vendors.component';
 import { AddNewVendorComponent } from './main-dashboard/add-new-vendor/add-new-vendor.component';
 import { AddNewDeviceComponent } from './main-dashboard/add-new-device/add-new-device.component';
-import { OrdersComponent } from './orders/orders.component';
 import { AddNewOrderComponent } from './main-dashboard/add-new-order/add-new-order.component';
-import { IndentsComponent } from './indents/indents.component';
 import { AddNewIndentComponent } from './main-dashboard/add-new-indent/add-new-indent.component';
-import { FrComponent } from './fr/fr.component';
-import { TicketReportsComponent } from './ticket-reports/ticket-reports.component';
-import { AdvertisementsComponent } from './advertisements/advertisements.component';
-import { FrKitComponent } from './fr-kit/fr-kit.component';
 import { AddNewFrkitComponent } from './main-dashboard/add-new-frkit/add-new-frkit.component';
-import { FrReportsComponent } from './fr-reports/fr-reports.component';
 import { LoginLoaderComponent } from './utilities/loader/login-loader.component';
 import { AddNewDcComponent } from './main-dashboard/add-new-dc/add-new-dc.component';
 
@@ -91,8 +68,30 @@ import { SortPipe } from './pipes/sort.pipe';
 import { ErrorPageComponent } from './utilities/error-page/error-page.component';
 import { DcChallanComponent } from './utilities/dc-challan/dc-challan.component';
 import { RemoveDuplicatesPipe } from './utilities/pipes/remove-duplicates.pipe';
-import { WifiAnalyticsComponent } from './wifi-analytics/wifi-analytics.component';
-import { DeviceInfoComponent } from './devices/device-info/device-info.component';
+import { AnalyticsComponent } from './components/analytics/analytics.component';
+import { AdvertisementsComponent } from './components/advertisements/advertisements.component';
+import { FrKitComponent } from './components/fr-kit/fr-kit.component';
+import { AdInfoComponent } from './components/assets/ad-info/ad-info.component';
+import { CustomersComponent } from './components/customers/customers.component';
+import { DevicesComponent } from './components/devices/devices.component';
+import { FrReportsComponent } from './components/fr-reports/fr-reports.component';
+import { FrComponent } from './components/fr/fr.component';
+import { IndentsComponent } from './components/indents/indents.component';
+import { InventoryComponent } from './components/inventory/inventory.component';
+import { MetaDataComponent } from './components/meta-data/meta-data.component';
+import { OrdersComponent } from './components/orders/orders.component';
+import { ProductMasterComponent } from './components/product-master/product-master.component';
+import { QRAdsComponent } from './components/qr-ads/qr-ads.component';
+import { SitesComponent } from './components/sites/sites.component';
+import { TicketReportsComponent } from './components/ticket-reports/ticket-reports.component';
+import { TicketsComponent } from './components/tickets/tickets.component';
+import { UsersComponent } from './components/users/users.component';
+import { VendorsComponent } from './components/vendors/vendors.component';
+import { VerticalsComponent } from './components/verticals/verticals.component';
+import { WifiAdsComponent } from './components/wifi-ads/wifi-ads.component';
+import { WifiAnalyticsComponent } from './components/wifi-analytics/wifi-analytics.component';
+import { DeviceInfoComponent } from './components/devices/device-info/device-info.component';
+import { AssetsComponent } from './components/assets/assets.component';
 
 
 @NgModule({
@@ -124,7 +123,6 @@ import { DeviceInfoComponent } from './devices/device-info/device-info.component
     AddNewAnalyticComponent,
     AddNewTicketComponent,
     AdInfoComponent,
-    ReportsComponent,
     MetaDataComponent,
     AddMetadataComponent,
     DeviceViewComponent,

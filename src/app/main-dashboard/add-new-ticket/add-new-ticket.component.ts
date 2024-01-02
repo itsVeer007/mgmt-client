@@ -91,6 +91,9 @@ export class AddNewTicketComponent implements OnInit {
   siteIds: any;
   user: any;
   ngOnInit(): void {
+    this.siteIds = JSON.parse(localStorage.getItem('siteIds')!)?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
+    this.user =   JSON.parse(localStorage.getItem('user')!);
+
     this.addAssetForm = this.fb.group({
       'typeId': new FormControl('', Validators.required),
       'reasonDescription': new FormControl('', Validators.required),
@@ -105,8 +108,6 @@ export class AddNewTicketComponent implements OnInit {
     });
 
     this.getMetadata();
-    this.siteIds = JSON.parse(localStorage.getItem('siteIds')!)?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
-    this.user =   JSON.parse(localStorage.getItem('user')!);
   }
 
   /* metadata */

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://usstaging.ivisecurity.com:777'
+  baseUrl: 'http://usstaging.ivisecurity.com:8080'
 };
 
 /*

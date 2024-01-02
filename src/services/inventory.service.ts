@@ -10,12 +10,12 @@ import { StorageService } from './storage.service';
 })
 export class InventoryService {
 
-  comment$: any = new BehaviorSubject(null);
+  baseUrl = `${environment.baseUrl}/inventoryAndtickets`;
+  // baseUrl = 'http://192.168.0.146:8080';
 
   constructor(private http: HttpClient, public datepipe: DatePipe, private storageSer: StorageService) { }
 
-  baseUrl = `${environment.baseUrl}/inventoryAndtickets`;
-  // baseUrl = 'http://192.168.0.146:8080';
+  comment$: any = new BehaviorSubject(null);
 
   /* inventory */
   listItemCode(payload: any) {

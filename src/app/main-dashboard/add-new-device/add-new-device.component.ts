@@ -91,6 +91,9 @@ export class AddNewDeviceComponent implements OnInit {
 
   user: any;
   ngOnInit() {
+    this.siteData = JSON.parse(localStorage.getItem('siteIds')!);
+    this.user =   JSON.parse(localStorage.getItem('user')!);
+
     this.addDevice = this.fb.group({
       'siteId': new FormControl('', Validators.required),
       'deviceDescription': new FormControl('', Validators.required),
@@ -150,15 +153,13 @@ export class AddNewDeviceComponent implements OnInit {
     });
 
     this.getDeviceDetail();
-    this.onMetadataChange();
-    this.siteData = JSON.parse(localStorage.getItem('siteIds')!);
-    this.user =   JSON.parse(localStorage.getItem('user')!);
   }
 
   deviceData: any = [];
   deviceLength: any;
   // deviceMap: any;
   getDeviceDetail() {
+    this.getMetadata();
     // this.devService.listDeviceAdsInfo().subscribe((res: any) => {
     //   for(let item of res) {
     //     if(this.siteData.siteid == item.siteId) {
@@ -196,7 +197,7 @@ export class AddNewDeviceComponent implements OnInit {
   softwareVersion: any;
   weatherInterval: any;
   deviceStatus: any
-  onMetadataChange() {
+  getMetadata() {
     this.dropDown.getMetadata().subscribe((res: any) => {
       for(let item of res) {
         if(item.type == 'Device_Type') {

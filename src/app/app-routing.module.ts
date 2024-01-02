@@ -6,32 +6,30 @@ import { AddNewCameraComponent } from './main-dashboard/add-new-camera/add-new-c
 import { AddNewCustomerComponent } from './main-dashboard/add-new-customer/add-new-customer.component';
 import { AddNewUserComponent } from './main-dashboard/add-new-user/add-new-user.component';
 import { AddNewBusinessVerticalComponent } from './main-dashboard/add-new-business-vertical/add-new-business-vertical.component';
-import { SitesComponent } from './sites/sites.component';
-import { CustomersComponent } from './customers/customers.component';
-import { LoginComponent } from './login/login.component'
-import { UsersComponent } from './users/users.component';
-import { InventoryComponent } from './inventory/inventory.component';
-import { AssetsComponent } from './assets/assets.component';
-import { TicketsComponent } from './tickets/tickets.component';
-import { AnalyticsComponent } from './analytics/analytics.component';
-import { VerticalsComponent } from './verticals/verticals.component';
-import { ReportsComponent } from './reports/reports.component';
-import { MetaDataComponent } from './meta-data/meta-data.component';
-import { DevicesComponent } from './devices/devices.component';
-import { ProductMasterComponent } from './product-master/product-master.component';
-import { WifiAdsComponent } from './reports/wifi-ads/wifi-ads.component';
-import { QRAdsComponent } from './reports/qr-ads/qr-ads.component';
-import { VendorsComponent } from './vendors/vendors.component';
-import { OrdersComponent } from './orders/orders.component';
-import { IndentsComponent } from './indents/indents.component';
-import { FrComponent } from './fr/fr.component';
-import { TicketReportsComponent } from './ticket-reports/ticket-reports.component';
-import { AdvertisementsComponent } from './advertisements/advertisements.component';
-import { FrKitComponent } from './fr-kit/fr-kit.component';
-import { FrReportsComponent } from './fr-reports/fr-reports.component';
 import { AuthGuard } from './utilities/auth/auth.guard';
-import { ErrorPageComponent } from './utilities/error-page/error-page.component';
-import { WifiAnalyticsComponent } from './wifi-analytics/wifi-analytics.component';
+import { AnalyticsComponent } from './components/analytics/analytics.component';
+import { AdvertisementsComponent } from './components/advertisements/advertisements.component';
+import { FrKitComponent } from './components/fr-kit/fr-kit.component';
+import { LoginComponent } from './login/login.component';
+import { VerticalsComponent } from './components/verticals/verticals.component';
+import { SitesComponent } from './components/sites/sites.component';
+import { AssetsComponent } from './components/assets/assets.component';
+import { CustomersComponent } from './components/customers/customers.component';
+import { DevicesComponent } from './components/devices/devices.component';
+import { FrReportsComponent } from './components/fr-reports/fr-reports.component';
+import { FrComponent } from './components/fr/fr.component';
+import { IndentsComponent } from './components/indents/indents.component';
+import { InventoryComponent } from './components/inventory/inventory.component';
+import { MetaDataComponent } from './components/meta-data/meta-data.component';
+import { OrdersComponent } from './components/orders/orders.component';
+import { ProductMasterComponent } from './components/product-master/product-master.component';
+import { QRAdsComponent } from './components/qr-ads/qr-ads.component';
+import { TicketReportsComponent } from './components/ticket-reports/ticket-reports.component';
+import { TicketsComponent } from './components/tickets/tickets.component';
+import { UsersComponent } from './components/users/users.component';
+import { VendorsComponent } from './components/vendors/vendors.component';
+import { WifiAdsComponent } from './components/wifi-ads/wifi-ads.component';
+import { WifiAnalyticsComponent } from './components/wifi-analytics/wifi-analytics.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -57,7 +55,6 @@ const routes: Routes = [
   { path: 'fr', component: FrComponent, canActivate:[AuthGuard]},
   { path: 'assets', component: AssetsComponent, canActivate:[AuthGuard]},
   { path: 'advertisements', component: AdvertisementsComponent, canActivate:[AuthGuard]},
-  { path: 'reports', component: ReportsComponent, canActivate:[AuthGuard]},
   { path: 'meta', component: MetaDataComponent, canActivate:[AuthGuard]},
   { path: 'vendors', component: VendorsComponent, canActivate:[AuthGuard]},
   { path: 'fr-reports', component: FrReportsComponent, canActivate:[AuthGuard]},

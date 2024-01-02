@@ -117,12 +117,12 @@ export class AddNewInventoryComponent implements OnInit {
     });
 
     this.listProduct();
-    this.onMetadataChange();
     this.user =   JSON.parse(localStorage.getItem('user')!);
   }
 
   listProduct() {
     this.inventorySer.listProduct().subscribe((res: any) => {
+      this.getMetadata();
       this.productData = res;
       // console.log(this.productData);
     })
@@ -204,7 +204,7 @@ export class AddNewInventoryComponent implements OnInit {
   partCategory: any;
   partCode: any;
   buildType: any;
-  onMetadataChange() {
+  getMetadata() {
     this.metadataSer.getMetadata().subscribe((res: any) => {
       for(let item of res) {
         if(item.type == 'part_type') {

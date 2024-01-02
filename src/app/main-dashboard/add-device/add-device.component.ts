@@ -137,7 +137,6 @@ export class AddDeviceComponent implements OnInit {
     });
 
     this.getDeviceDetail();
-    this.onMetadataChange();
     // this.toggleCreateWorkingDays();
   }
 
@@ -147,6 +146,7 @@ export class AddDeviceComponent implements OnInit {
   // deviceMap: any;
   getDeviceDetail() {
     this.assetSer.listDeviceAdsInfo().subscribe((res: any) => {
+      this.getMetadata();
       for(let item of res) {
         if(this.siteData.siteid == item.siteId) {
           // let x = item?.adsDevices.forEach((el: any) => el.workingDays);
@@ -197,7 +197,7 @@ export class AddDeviceComponent implements OnInit {
   softwareVersion: any;
   weatherInterval: any;
   deviceStatus: any
-  onMetadataChange() {
+  getMetadata() {
     this.dropDown.getMetadata().subscribe((res: any) => {
       for(let item of res) {
         if(item.type == 'Device_Type') {
