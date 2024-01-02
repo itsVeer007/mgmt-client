@@ -34,8 +34,7 @@ export class WifiAnalyticsComponent implements OnInit {
   ngOnInit(): void {
     this.totaldevices();
     this.getMetadata();
-    this.GetActiveDevices();
-    this.GetInactiveDevicesToday();
+
     this.user =   JSON.parse(localStorage.getItem('user')!);
   }
 
@@ -45,26 +44,26 @@ WifiData:any;
 totaldevices() {
     this.assetSer.totaldevices().subscribe((res:any)=> {
       // console.log(res);
-      this.WifiData = res.devices;
+      this.WifiData = res;
     })
   }
 
 
-  GetActiveDevicesData:any;
-  GetActiveDevices() {
-    this.assetSer.GetActiveDevices().subscribe((res:any)=> {
-      // console.log(res);
-      this.GetActiveDevicesData = res;
-    })
-  }
+  // GetActiveDevicesData:any;
+  // GetActiveDevices() {
+  //   this.assetSer.GetActiveDevices().subscribe((res:any)=> {
+  //     // console.log(res);
+  //     this.GetActiveDevicesData = res;
+  //   })
+  // }
 
-  GetInactiveDevicesTodayData:any;
-  GetInactiveDevicesToday() {
-    this.assetSer.GetInactiveDevicesToday().subscribe((res:any)=> {
-      // console.log(res);
-      this.GetInactiveDevicesTodayData = res;
-    })
-  }
+  // GetInactiveDevicesTodayData:any;
+  // GetInactiveDevicesToday() {
+  //   this.assetSer.GetInactiveDevicesToday().subscribe((res:any)=> {
+  //     // console.log(res);
+  //     this.GetInactiveDevicesTodayData = res;
+  //   })
+  // }
 
 
 
