@@ -35,7 +35,7 @@ export class WifiAnalyticsComponent implements OnInit {
 first:boolean = true;
 second:boolean = false;
 open(type:string) {
-  this.count();
+  // this.count();
   if(type == 'data') {
     this.second = true;
     this.first =false;
@@ -51,7 +51,7 @@ open(type:string) {
     this.user =   JSON.parse(localStorage.getItem('user')!);
     this.tempSites = JSON.parse(localStorage.getItem('temp_sites')!);
     this.get_data();
-    this.listSites();
+    // this.listSites();
   }
 
 
@@ -62,7 +62,7 @@ inActive:any;
 newWifiData:any = [];
 WifiData:any;
 get_data() {
-    this.assetSer.get_data().subscribe((res:any)=> {
+    this.assetSer.totaldevices().subscribe((res:any)=> {
       // console.log(res);
       this.getMetadata();
       this.WifiData = res;
@@ -80,49 +80,28 @@ get_data() {
   GetDevicesTodayData:any;
   GetDevicesToday(data:any) {
 
-    this.assetSer.GetDevicesToday(data).subscribe((res:any)=> {
-      this.dialog.open(this.viewDetailsDialog);
-      // console.log(res);
-      this.GetDevicesTodayData = res.data;
-    })
+    // this.assetSer.GetDevicesToday(data).subscribe((res:any)=> {
+    //   this.dialog.open(this.viewDetailsDialog);
+    //   this.GetDevicesTodayData = res.data;
+    // })
   }
 
-  // GetDevicesTodayIvis1Data:any;
-  // GetDevicesTodayIvis1(data:any) {
-  //   this.assetSer.GetDevicesTodayIvis1(data).subscribe((res:any)=> {
-  //     console.log(res);
+
+  // GetActiveDevicesData:any;
+  // GetActiveDevices() {
+  //   this.assetSer.GetActiveDevices().subscribe((res:any)=> {
+  //     // console.log(res);
+  //     this.GetActiveDevicesData = res;
   //   })
   // }
 
-
-  countData:any;
-  count() {
-    this.assetSer.count().subscribe((res:any)=> {
-      // console.log(res);
-      this.countData = res;
-    })
-  }
-
-  @ViewChild('viewDetailsDialogTwo') viewDetailsDialogTwo = {} as TemplateRef<any>;
-  countGetDevicesTodayData:any;
-  countGetDevicesToday() {
-    this.assetSer.countGetDevicesToday().subscribe((res:any)=> {
-      this.dialog.open(this.viewDetailsDialogTwo);
-      // console.log(res);
-      this.countGetDevicesTodayData = res.data;
-    })
-  }
-
-
-  listSitesData:any;
-  listSites() {
-    this.siteSer.listSites().subscribe((res:any)=> {
-      // console.log(res);
-      this.listSitesData = res.siteList;
-    })
-  }
-
-
+  // GetInactiveDevicesTodayData:any;
+  // GetInactiveDevicesToday() {
+  //   this.assetSer.GetInactiveDevicesToday().subscribe((res:any)=> {
+  //     // console.log(res);
+  //     this.GetInactiveDevicesTodayData = res;
+  //   })
+  // }
 
 
 
@@ -144,6 +123,7 @@ get_data() {
     p_enddate:null
   }
 
+  listSitesData: any
   reportsData:any = [];
   listFRReports() {
     this.frFilterBody.p_frId = this.user?.UserId;

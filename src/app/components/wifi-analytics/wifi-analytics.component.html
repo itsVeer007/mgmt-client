@@ -3,7 +3,7 @@
     <!-- header -->
     <div class="d-flex justify-content-start">
         <div class="users-header mt-2">
-            <p>Total Wifi-Devices - <span>{{total?.length}}</span></p>
+            <p>Total Devices - <span>{{WifiData[0]?.devices_today_count}}</span></p>
         </div>
         <!-- <div>
         <button class="create-btn" (click)="generatePDF()">Download Report</button>
@@ -17,14 +17,14 @@
         <div class="vl-green"></div>
             <div class="mx-2">
         <div class="status">Active</div>
-        <div class="count">{{ active }}</div>
+        <div class="count">{{ WifiData[0]?.active_devices_count }}</div>
         </div>
         </div>
     <div class="col-lg-1 col-md-1 d-flex justify-content-start">
         <div class="vl-yellow"></div>
         <div class="mx-2">
         <div class="status">In Active</div>
-        <div class="count">{{inActive }}</div>
+        <div class="count">{{ WifiData[0]?.inactive_devices_today_count }}</div>
         </div>
     </div>
     <!-- <div class="col-lg-1 col-md-1 d-flex justify-content-start">
@@ -40,22 +40,12 @@
     <div class="row mt-2">
         <div class="col-lg-2 col-md-2">
         <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Site Name</mat-label>
-            <mat-select>
-                <mat-option value="all">All</mat-option>
-                <mat-option [value]="item.siteid" *ngFor="let item of listSitesData">{{item.siteid}} - {{item.sitename }}</mat-option>
+            <mat-label> Name</mat-label>
+            <mat-select [(ngModel)]="frFilterBody.p_frId">
+                <mat-option [value]="user?.UserId" (click)="listFRReports()">{{user?.UserName}}</mat-option>
             </mat-select>
         </mat-form-field>
         </div>
-
-        <div class="col-lg-2 col-md-2">
-            <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Device</mat-label>
-                <mat-select >
-                    <mat-option value="pi">pi</mat-option>
-                </mat-select>
-            </mat-form-field>
-            </div>
 
         <div class="col-lg-3 from-date">
         <mat-form-field appearance="outline" class="w-100">
@@ -69,41 +59,34 @@
             <mat-date-range-picker #rangePicker>
             <mat-date-range-picker-actions>
                 <button mat-button matDateRangePickerCancel>Cancel</button>
-                <button mat-raised-button color="primary" matDateRangePickerApply>Apply</button>
+                <button mat-raised-button color="primary" matDateRangePickerApply (click)="listFRReports()">Apply</button>
             </mat-date-range-picker-actions>
             </mat-date-range-picker>
         </mat-form-field>
         </div>
-        <div class="col-md-2 mt-1">
-        <button class="create-btn">Submit</button>
-        
-        </div>
-
-            <div class="col-md-2 mt-1">
-                <button class="create-btn" (click)="open('data')">Latest</button>
-                
-            </div>
     </div>
 
-    <!-- table1 starts -->
-    <div class="table-resp" *ngIf="first">
+    <div class="table-resp">
         <table class="table table-hover" id="mytable" #table>
         <thead>
             <tr class="form1">
                 <th>
-                    <span>Device Id</span>
+                    <span>Id</span>
                 </th>
+                <th>
+                  <span>Device Name</span>
+              </th>
             <th>
                 <span>Active Devices</span>
                 <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </th>
 
             <th>
-                <span>InActive Devices</span>
+                <span>In Active Devices</span>
                 <img (click)="sort('siteId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </th>
             <th>
-                <span>Total Devices</span>
+                <span>Total count</span>
                 <img (click)="sort('siteId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </th>
 
@@ -112,20 +95,20 @@
                 <img (click)="sort('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </th>
             <th>
-                <span>Peak hour</span>
-                <img (click)="sort('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-            </th>
-            <th>
-                <span>Details</span>
-            </th>
+              <span>PeakHour</span>
+              <img (click)="sort('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+          </th>
             </tr>
         </thead>
 
         <tbody>
             <tr *ngFor="let cust of WifiData | search : searchText; let i = index">
                 <td>
-                    <p>{{cust.device_name}}</p>
+                    <p>{{i+1}}</p>
                 </td>
+                <td>
+                  <p>Device</p>
+              </td>
                 <td>
                     <p>{{ cust.active_devices_count }}</p>
                 </td>
@@ -141,250 +124,16 @@
                     <p>{{ cust.average_time_per_device_str }}</p>
                 </td>
                 <td>
-                    <p>{{ cust.peak_hours_data }}</p>
-                </td>
-
-                <td>
-                    <p class="text-primary pointer" (click)="GetDevicesToday(cust)">View</p>
-                </td>
-        
-
-                <!-- <td>
-                    <p>{{ cust.outTime }}</p>
-                </td>
-
-                <td>
-                    <p>{{ cust.hoursWorked}}</p>
-                </td>
-
-                <td>
-                    <p>{{ cust.totalHoursWorked}}</p>
-                </td>
-                <td>
-                    <p>{{ cust.cost}}</p>
-                </td> -->
+                  <p>{{ cust.peak_hours_data }}</p>
+              </td>
             </tr>
         </tbody>
         </table>
     </div>
-
-    <!-- table2 starts -->
-    <div class="table-resp" *ngIf="second">
-        <table class="table table-hover" id="mytable" #table>
-        <thead>
-            <tr class="form1">
-                <th>
-                    <span>Device Id</span>
-                </th>
-            <th>
-                <span>Active Devices</span>
-                <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-            </th>
-
-            <th>
-                <span>InActive Devices</span>
-                <img (click)="sort('siteId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-            </th>
-            <th>
-                <span>Total Devices</span>
-                <img (click)="sort('siteId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-            </th>
-
-            <th>
-                <span>Average Time</span>
-                <img (click)="sort('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-            </th>
-            <th>
-                <span>Peak hour data</span>
-                <img (click)="sort('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-            </th>
-            <th>
-                <span>Details</span>
-            </th>
-            </tr>
-        </thead>
-
-        <tbody>
-            <tr *ngFor="let cust of countData | search : searchText; let i = index">
-                <td>
-                    <p>{{0}}</p>
-                </td>
-                <td>
-                    <p>{{ cust.active_devices_count }}</p>
-                </td>
-                <td>
-                    <p>{{ cust.inactive_devices_today_count }}</p>
-                </td>
-
-                <td>
-                    <p>{{ cust.devices_today_count }}</p>
-                </td>
-
-                <td>
-                    <p>{{ cust.average_time_per_device_str }}</p>
-                </td>
-                <td>
-                    <p>{{ cust.peak_hours_data }}</p>
-                </td>
-
-                <td>
-                    <p class="text-primary pointer" (click)="countGetDevicesToday()">View</p>
-                </td>
-            </tr>
-        </tbody>
-        </table>
-    </div>
-
-    <ng-template #viewDetailsDialog>
-        <div style="background-color: #084982;">
-        <p class="dialog-title">View Details</p>
-        </div>
-
-        <div class="dialog-content">
-        <div class="table-res">
-            <table class="table" id="mytable">
-            <thead>
-                <tr class="task-table">
-                <th>
-                    <p>
-                    <span>Id</span>
-                    </p>
-                </th>
-                <th>
-                    <p>
-                    <span>Mac Address</span>
-                    </p>
-                </th>
-            <th>
-                    <p>
-                    <span>IP Address</span>
-                    </p>
-                </th>
-
-                <th>
-                    <p>
-                    <span>Connected Time</span>
-                    </p>
-                </th>
-
-                <th>
-                    <p>
-                    <span>Disconnected Time</span>
-                    </p>
-                </th>
-                <th>
-                    <p>Time Spent</p>
-                </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let inven of GetDevicesTodayData; let i = index">
-                <td>
-                    <p>{{ i+1 }}</p>
-                </td>
-                <td>
-                    <p>{{ inven.mac_address }}</p>
-            </td>
-                <td>
-                    <p>{{ inven.ip_address }}</p>
-                </td>
-
-                <td>
-                    <p>{{ inven.connected_time }}</p>
-                </td>
-                <td>
-                    <p>{{ inven.disconnected_time }}</p>
-                </td>
-                <td><p>{{inven.time_spent}}</p></td>
-                </tr>
-            </tbody>
-            </table>
-        </div>
-        </div>
-        <div class="d-flex justify-content-end">
-        <button class="dialog-close-btn" mat-dialog-close>Close</button>
-        </div>
-    </ng-template>
-    <ng-template #viewDetailsDialogTwo>
-        <div style="background-color: #084982;">
-        <p class="dialog-title">View items</p>
-        </div>
-
-        <div class="dialog-content">
-        <div class="table-res">
-            <table class="table" id="mytable">
-            <thead>
-                <tr class="task-table">
-                <th>
-                    <p>
-                    <span>id</span>
-                    </p>
-                </th>
-                <th>
-                    <p>
-                    <span>Mac Address</span>
-                    </p>
-                </th>
-            <th>
-                    <p>
-                    <span>IP Adress</span>
-                    </p>
-                </th>
-
-                <th>
-                    <p>
-                    <span>Connected Time</span>
-                    </p>
-                </th>
-
-                <th>
-                    <p>
-                    <span>disconnected_time</span>
-                    </p>
-                </th>
-                <th><p>
-                    time_spent
-                </p></th>
-                <th><p>count</p></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let inv of countGetDevicesTodayData; let i = index">
-                <td>
-                    <p>{{ i+1 }}</p>
-                </td>
-                <td>
-                    <p>{{ inv.mac_address }}</p>
-            </td>
-                <td>
-                    <p>{{ inv.ip_address }}</p>
-                </td>
-
-                <td>
-                    <p>{{ inv.connected_time }}</p>
-                </td>
-                <td>
-                    <p>{{ inv.disconnected_time }}</p>
-                </td>
-                <td><p>{{inv.time_spent}}</p></td>
-                <td><p>{{inv.count}}</p></td>
-                </tr>
-            </tbody>
-            </table>
-        </div>
-        </div>
-        <div class="d-flex justify-content-end">
-        <button class="dialog-close-btn" mat-dialog-close>Close</button>
-        </div>
-    </ng-template>
-
-    <!-- <div class="d-flex align-items-center justify-content-center" style="height: 50vh;" *ngIf="reportsData.length == 0">
-        <h1 class="text-secondary">No Data</h1>
-    </div> -->
 
     <!-- loader -->
-    <!-- <div>
+    <div>
       <app-loader *ngIf="showLoader" class="d-flex justify-content-center align-items-center"style="height: 50vh;"></app-loader>
-    </div> -->
+    </div>
 </div>
 

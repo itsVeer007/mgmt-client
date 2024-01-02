@@ -267,32 +267,21 @@ export class AssetService {
   }
 
 
-  
+
   // wifi Analytics
-  get_data() {
+  totaldevices() {
     let url = this.baseUrl1 + `/get_data`;
     return this.http.get(url);
   }
 
-  GetDevicesToday(payload:any) {
-    let x = JSON.stringify
-    let url = this.baseUrl1 + `/GetDevicesToday/${1001}`;
-    return this.http.get(url);
-  }
-
-  // GetDevicesTodayIvis1(payload:any) {
-  //   let url = this.baseUrl1 + `/GetDevicesTodayIvis1/${payload?.deviceId}`;
+  // GetActiveDevices() {
+  //   let url = this.baseUrl1 + `/GetActiveDevices`;
   //   return this.http.get(url);
   // }
 
-  count() {
-    let url = this.baseUrl1 + `/count`;
-    return this.http.get(url);
-  }
-
-  countGetDevicesToday() {
-    let url = this.baseUrl1 + `/GetDevicesToday`;
-    return this.http.get(url);
-  }
+  // GetInactiveDevicesToday() {
+  //   let url = this.baseUrl1 + `/GetInactiveDevicesToday`;
+  //   return this.http.get(url);
+  // }
 
 }

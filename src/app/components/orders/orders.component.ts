@@ -143,11 +143,15 @@ export class OrdersComponent implements OnInit {
 
   showInventory: boolean = false;
   closenow(value: any, type: String) {
-    if (type == 'vendor') { this.showInventory = value; }
+    if (type == 'vendor') {
+      this.showInventory = value;
+    }
   }
 
   show(type: string) {
-    if (type == 'vendor') { this.showInventory = true; }
+    if (type == 'vendor') {
+      this.showInventory = true;
+    }
   }
 
 
