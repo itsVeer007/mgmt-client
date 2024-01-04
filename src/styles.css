@@ -70,7 +70,6 @@ p {
 .users-header {
   display: flex;
   align-items: center;
-  /* margin-top: 5px; */
 }
 
 .users-header p {
@@ -504,7 +503,6 @@ form .add-btn:active {
 }
 
 /* table css */
-
 .table-resp {
   /* max-height: calc(100vh - (280px)); */
   max-height: 70vh;
@@ -602,7 +600,6 @@ thead tr th {
 
 
 /** Toggle Switch **/
-
 .on-off-toggle {
   width: 56px;
   height: 24px;
@@ -716,7 +713,6 @@ thead tr th {
 
 
 /* Forms FadeInRight */
-
 @-webkit-keyframes fadeInRight {
   0% {
     opacity: 0;
@@ -758,6 +754,6 @@ thead tr th {
   }
 }
 
-::ng-deep .mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-label {
+/* ::ng-deep .mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-label {
   color: #000000 !important;
-}
+} */

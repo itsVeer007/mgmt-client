@@ -13,7 +13,7 @@ export class AlertService {
     this.config = new MatSnackBarConfig();
     this.config.panelClass = ["snackbar-container"];
     this.config.verticalPosition = "bottom";
-    this.config.horizontalPosition = "right";
+    this.config.horizontalPosition = "center";
     this.config.duration = 3000;
   }
 
@@ -32,8 +32,6 @@ export class AlertService {
     this.show(message);
   }
 
-
-
   show(message: any, config?: MatSnackBarConfig) {
     config = config || this.config;
     this.zone.run(() => {
@@ -43,7 +41,6 @@ export class AlertService {
 
 
   /* sweet alert */
-
   msg1: any;
   msg2: any;
   msg0: any;

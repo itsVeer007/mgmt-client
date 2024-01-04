@@ -19,7 +19,12 @@ export class UserService {
   login(payload: any) {
     // let loginData = this.user$.getValue();
     let url = this.baseUrl + "/businessInterface/login/login_2_0";
-    return this.http.post(url, payload);
+    let loginBody = {
+      userName: payload.userName,
+      password: payload.password,
+      calling_System_Detail: "portal"
+    }
+    return this.http.post(url, loginBody);
   }
 
   loginNew(payload: any) {
@@ -32,7 +37,7 @@ export class UserService {
     localStorage.clear();
     this.isLoggedin.next(false);
     this.user$.next(null);
-    this.router.navigate(['/login']);
+    this.router.navigate(['./login']);
   }
 
   getAuthStatus() {

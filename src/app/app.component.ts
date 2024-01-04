@@ -19,13 +19,13 @@ export class AppComponent {
     // });
   }
 
-  ngDoCheck() {
-    let isAuthenticated = this.userSer.getAuthStatus();
-    if(isAuthenticated) {
-      this.user = 'Success';
-    } else {
-      this.user = null;
-    }
-  }
+  // ngDoCheck() {
+  //   let isAuthenticated = this.userSer.getAuthStatus();
+  //   if(isAuthenticated) {
+  //     this.user = 'Success';
+  //   } else {
+  //     this.user = null;
+  //   }
+  // }
 
 }

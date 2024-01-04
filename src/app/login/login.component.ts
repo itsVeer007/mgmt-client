@@ -41,15 +41,11 @@ export class LoginComponent implements OnInit {
     // });
   }
 
-  loginBody = {
-    userName: null,
-    password: null,
-    calling_System_Detail: "portal"
-  }
+
 
   login() {
     this.showLoader = true;
-    this.userSer.login(this.loginBody).subscribe((res: any) => {
+    this.userSer.login(this.loginForm.value).subscribe((res: any) => {
       // console.log(res);
       this.showLoader = false;
       if(res?.Status == "Success") {
@@ -77,13 +73,13 @@ export class LoginComponent implements OnInit {
   loginNew() {
     if(this.loginForm.valid) {
       this.showLoader = true;
-      this.userSer.loginNew(this.loginBody).subscribe((res: any) => {
+      this.userSer.loginNew(this.loginForm.value).subscribe((res: any) => {
         this.showLoader = false;
         if(res?.Status == 'Success') {
           this.userSer.isLoggedin.next(true);
           localStorage.setItem('user', JSON.stringify(res));
           this.userSer.user$.next(res);
-          this.router.navigate(['/main-dashboard']);
+          this.router.navigate(['main/main-dashboard']);
           this.getlistSites();
           this.getMetadata();
         } else if(res?.Status == 'Failed') {

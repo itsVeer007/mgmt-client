@@ -15,7 +15,7 @@
     <div class="left-content col-lg-2">
       <nav class="sidebar" id="navbarToggleExternalContent">
         <div class="list-group m-3">
-          <a class="list-group-item active " [routerLink]="['/main-dashboard']" routerLinkActive="routeactive">
+          <a class="list-group-item active " [routerLink]="['./main-dashboard']" routerLinkActive="routeactive">
             <img src="assets/icons/dashboard.svg">
             <span>Dashboard</span>
           </a>
@@ -34,7 +34,7 @@
               Category
           </a> -->
 
-          <a *ngIf="isAdmin || isSupport" class="list-group-item " [routerLink]="['/sites']" routerLinkActive="routeactive">
+          <a *ngIf="isAdmin || isSupport" class="list-group-item " [routerLink]="['./sites']" routerLinkActive="routeactive">
               <img src="assets/icons/sites.svg">
               <span>Sites</span>
           </a>
@@ -47,7 +47,7 @@
               <spanAnalytics</span>
           </a> -->
 
-          <a *ngIf="isAdmin" class="list-group-item " [routerLink]="['/users']" routerLinkActive="routeactive">
+          <a *ngIf="isAdmin" class="list-group-item " [routerLink]="['./users']" routerLinkActive="routeactive">
             <img src="assets/icons/user-white.svg">
             <span>Users</span>
           </a>
@@ -58,13 +58,13 @@
                 <a><img src="assets/icons/inventory.svg">Inventory Manager<span><img src="assets/icons/arrow_right.svg" alt=""></span></a>
                 <ul>
                   <li>
-                    <a [routerLink]="['/indents']" routerLinkActive="routeactive1">Indents</a>
+                    <a [routerLink]="['./indents']" routerLinkActive="routeactive1">Indents</a>
                   </li>
                   <li>
-                    <a [routerLink]="['/inventory']" routerLinkActive="routeactive1">Inventory</a>
+                    <a [routerLink]="['./inventory']" routerLinkActive="routeactive1">Inventory</a>
                   </li>
                   <li>
-                    <a [routerLink]="['/product-master']" routerLinkActive="routeactive1">Product Master</a>
+                    <a [routerLink]="['./product-master']" routerLinkActive="routeactive1">Product Master</a>
                   </li>
                   <!-- <li>
                     <a [routerLink]="['/orders']" routerLinkActive="routeactive">Orders</a>
@@ -74,7 +74,7 @@
             </ul>
           </div>
 
-          <a *ngIf="isAdmin || isSupport" class="list-group-item " [routerLink]="['/devices']" routerLinkActive="routeactive">
+          <a *ngIf="isAdmin || isSupport" class="list-group-item " [routerLink]="['./devices']" routerLinkActive="routeactive">
             <img src="assets/icons/devices.svg">
             <span>Devices</span>
           </a>
@@ -85,7 +85,7 @@
             <span>Advertisements</span>
           </a> -->
 
-          <a *ngIf="isAdmin || isSupport" class="list-group-item " [routerLink]="['/advertisements']" routerLinkActive="routeactive">
+          <a *ngIf="isAdmin || isSupport" class="list-group-item " [routerLink]="['./advertisements']" routerLinkActive="routeactive">
             <img src="assets/icons/asset.svg">
             <span>Advertisements</span>
           </a>
@@ -96,13 +96,13 @@
                 <a><img src="assets/icons/ticket.svg">Ticket Manager<span><img src="assets/icons/arrow_right.svg" alt=""></span></a>
                 <ul>
                   <li>
-                    <a [routerLink]="['/tickets']" routerLinkActive="routeactive">Tickets</a>
+                    <a [routerLink]="['./tickets']" routerLinkActive="routeactive">Tickets</a>
                   </li>
                   <li>
-                    <a [routerLink]="['/fr']" routerLinkActive="routeactive">FR</a>
+                    <a [routerLink]="['./fr']" routerLinkActive="routeactive">FR</a>
                   </li>
                   <li>
-                    <a [routerLink]="['/fr-kit']" routerLinkActive="routeactive">FR Kit</a>
+                    <a [routerLink]="['./fr-kit']" routerLinkActive="routeactive">FR Kit</a>
                   </li>
                 </ul>
               </li>
@@ -114,7 +114,7 @@
             <span>Tickets/Jobs</span>
           </a> -->
 
-          <a *ngIf="isAdmin" class="list-group-item " [routerLink]="['/meta']" routerLinkActive="routeactive">
+          <a *ngIf="isAdmin" class="list-group-item " [routerLink]="['./meta']" routerLinkActive="routeactive">
             <img src="assets/icons/storage.svg">
             <span>Metadata</span>
           </a>
@@ -132,18 +132,18 @@
                   <li class="sub">
                     <a>Advertisements</a>
                     <ul>
-                      <li><a [routerLink]="['/qr-ads']" routerLinkActive="routeactive">QR Ads</a></li>
-                      <li><a [routerLink]="['/wifi-ads']" routerLinkActive="routeactive">Wifi Ads</a></li>
-                      <li><a [routerLink]="['/wifi-analytics']" routerLinkActive="routeactive">Wifi Analytics</a></li>
+                      <li><a [routerLink]="['./qr-ads']" routerLinkActive="routeactive">QR Ads</a></li>
+                      <li><a [routerLink]="['./wifi-ads']" routerLinkActive="routeactive">Wifi Ads</a></li>
+                      <li><a [routerLink]="['./wifi-analytics']" routerLinkActive="routeactive">Wifi Analytics</a></li>
                     </ul>
                   </li>
 
                   <li>
-                    <a [routerLink]="['/ticket-reports']" routerLinkActive="routeactive">Ticket Reports</a>
+                    <a [routerLink]="['./ticket-reports']" routerLinkActive="routeactive">Ticket Reports</a>
                   </li>
 
                   <li>
-                    <a [routerLink]="['/fr-reports']" routerLinkActive="routeactive">FR Reports</a>
+                    <a [routerLink]="['./fr-reports']" routerLinkActive="routeactive">FR Reports</a>
                   </li>
                 </ul>
               </li>
@@ -156,7 +156,7 @@
                 <a><img src="assets/icons/miscellaneous.svg">Miscellaneous<span><img src="assets/icons/arrow_right.svg" alt=""></span></a>
                 <ul>
                   <li>
-                    <a [routerLink]="['/vendors']" routerLinkActive="routeactive">Vendors</a>
+                    <a [routerLink]="['./vendors']" routerLinkActive="routeactive">Vendors</a>
                   </li>
                 </ul>
               </li>
@@ -217,7 +217,7 @@
     <div class="col-sm-12 col-xs-12 mobile-sidebar">
       <nav class="d-sm-xs-block">
         <div class="list-group text-white text-center">
-          <a class="list-group-item my-2 active " [routerLink]="['/main-dashboard']" routerLinkActive="routeactive">
+          <a class="list-group-item my-2 active " [routerLink]="['./main-dashboard']" routerLinkActive="routeactive">
               <img src="assets/icons/dashboard.svg" /><span> Dashboard</span>
           </a>
 
@@ -229,7 +229,7 @@
               <img src="assets/icons/customer.svg" /><span> Customers</span>
           </a> -->
 
-          <a routerLink="" class="list-group-item my-2" [routerLink]="['/sites']" routerLinkActive="routeactive">
+          <a routerLink="" class="list-group-item my-2" [routerLink]="['./sites']" routerLinkActive="routeactive">
               <img src="assets/icons/sites.svg" /><span> Sites</span>
           </a>
 
@@ -241,46 +241,46 @@
               <img src="assets/icons/analytic.svg" /><span> Analytics</span>
           </a> -->
 
-          <a class="list-group-item my-2" [routerLink]="['/users']" routerLinkActive="routeactive">
+          <a class="list-group-item my-2" [routerLink]="['./users']" routerLinkActive="routeactive">
               <img src="assets/icons/user-white.svg" /><span>Users</span>
           </a>
 
-          <a class="list-group-item " [routerLink]="['/indents']" routerLinkActive="routeactive">
+          <a class="list-group-item " [routerLink]="['./indents']" routerLinkActive="routeactive">
             <img src="assets/icons/inventory.svg">
             <span>Indents</span>
           </a>
 
-          <a class="list-group-item " [routerLink]="['/inventory']" routerLinkActive="routeactive">
+          <a class="list-group-item " [routerLink]="['./inventory']" routerLinkActive="routeactive">
             <img src="assets/icons/inventory.svg">
             <span>Inventory</span>
           </a>
 
-          <a class="list-group-item " [routerLink]="['/product-master']" routerLinkActive="routeactive">
+          <a class="list-group-item " [routerLink]="['./product-master']" routerLinkActive="routeactive">
             <img src="assets/icons/inventory.svg">
             <span>Product Master</span>
           </a>
 
-          <a class="list-group-item my-2" [routerLink]="['/devices']" routerLinkActive="routeactive">
+          <a class="list-group-item my-2" [routerLink]="['./devices']" routerLinkActive="routeactive">
             <img src="assets/icons/devices.svg" /><span>Devices</span>
           </a>
 
-          <a class="list-group-item my-2" [routerLink]="['/advertisements']" routerLinkActive="routeactive">
+          <a class="list-group-item my-2" [routerLink]="['./advertisements']" routerLinkActive="routeactive">
               <img src="assets/icons/asset.svg" /><span>Advertisements</span>
           </a>
 
-          <a class="list-group-item my-2" [routerLink]="['/tickets']" routerLinkActive="routeactive">
+          <a class="list-group-item my-2" [routerLink]="['./tickets']" routerLinkActive="routeactive">
             <img src="assets/icons/ticket.svg" /><span>Tickets/Jobs</span>
           </a>
 
-          <a class="list-group-item my-2" [routerLink]="['/tickets']" routerLinkActive="routeactive">
+          <a class="list-group-item my-2" [routerLink]="['./tickets']" routerLinkActive="routeactive">
             <img src="assets/icons/ticket.svg" /><span>Tickets</span>
           </a>
 
-          <a class="list-group-item my-2" [routerLink]="['/fr']" routerLinkActive="routeactive">
+          <a class="list-group-item my-2" [routerLink]="['./fr']" routerLinkActive="routeactive">
             <img src="assets/icons/ticket.svg" /><span>FR</span>
           </a>
 
-          <a class="list-group-item my-2" [routerLink]="['/meta']" routerLinkActive="routeactive">
+          <a class="list-group-item my-2" [routerLink]="['./meta']" routerLinkActive="routeactive">
             <img src="assets/icons/storage.svg" /><span>Metadata</span>
           </a>
 
