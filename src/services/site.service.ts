@@ -9,7 +9,8 @@ import { StorageService } from './storage.service';
 })
 export class SiteService {
 
-  baseUrl = `${environment.baseUrl}/businessInterface/sites`;
+  // baseUrl = `${environment.baseUrl}/businessInterface/sites`;
+  baseUrl = 'http://54.92.215.87:943/businessInterface/sites';
 
   constructor(private http: HttpClient, private storageSer: StorageService) { }
 

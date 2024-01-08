@@ -50,8 +50,8 @@ open(type:string) {
   ngOnInit(): void {
     this.user =   JSON.parse(localStorage.getItem('user')!);
     this.tempSites = JSON.parse(localStorage.getItem('temp_sites')!);
-    this.get_data();
-    // this.listSites();
+    this.WifiData();
+    this.listSites();
   }
 
 
@@ -59,49 +59,48 @@ open(type:string) {
 total:any;
 active:any;
 inActive:any;
-newWifiData:any = [];
-WifiData:any;
-get_data() {
-    this.assetSer.totaldevices().subscribe((res:any)=> {
+newWifiData: any = [];
+wifiData: any = [];
+WifiData() {
+    this.assetSer.WifiData().subscribe((res:any)=> {
       // console.log(res);
-      this.getMetadata();
-      this.WifiData = res;
-      this.newWifiData = this.WifiData;
-
-
-      // this.total = this.newWifiData.reduce((sum:any, current:any) => sum + current.total, 0);
-      // this.active = this.newWifiData.reduce((sum:any, current:any) => sum + current.active, 0);
-      // this.inActive = this.newWifiData.reduce((sum:any, current:any) => sum + current.inActive, 0);
+      this.wifiData = res?.devices;
     })
+}
 
+
+filterDataObject = {
+  siteId: null,
+  deviceId: null,
+  startDate: null,
+  endDate: null
+}
+
+
+filterWifiData() {
+  this.assetSer.WifiData(this.filterDataObject).subscribe((res:any)=> {
+    // console.log(res);
+    this.newWifiData = res;
+  })
+}
+
+
+siteListData:any;
+listSites() {
+  this.siteSer.listSites().subscribe((res:any)=> {
+    console.log(res);
+    this.siteListData = res?.siteList;
+  })
+}
+
+  @ViewChild('usedItemsDialog') usedItemsDialog = {} as TemplateRef<any>;
+  openViewPopupData:any = [];
+  openWifiData(index: any) {
+    // console.log(index)
+    this.dialog.open(this.usedItemsDialog);
+    this.openViewPopupData = this.wifiData[index].device_details;
+    // console.log(this.openViewPopupData);
   }
-
-  @ViewChild('viewDetailsDialog') viewDetailsDialog = {} as TemplateRef<any>;
-  GetDevicesTodayData:any;
-  GetDevicesToday(data:any) {
-
-    // this.assetSer.GetDevicesToday(data).subscribe((res:any)=> {
-    //   this.dialog.open(this.viewDetailsDialog);
-    //   this.GetDevicesTodayData = res.data;
-    // })
-  }
-
-
-  // GetActiveDevicesData:any;
-  // GetActiveDevices() {
-  //   this.assetSer.GetActiveDevices().subscribe((res:any)=> {
-  //     // console.log(res);
-  //     this.GetActiveDevicesData = res;
-  //   })
-  // }
-
-  // GetInactiveDevicesTodayData:any;
-  // GetInactiveDevicesToday() {
-  //   this.assetSer.GetInactiveDevicesToday().subscribe((res:any)=> {
-  //     // console.log(res);
-  //     this.GetInactiveDevicesTodayData = res;
-  //   })
-  // }
 
 
 
