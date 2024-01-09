@@ -10,13 +10,13 @@ import { StorageService } from './storage.service';
 export class SiteService {
 
   // baseUrl = `${environment.baseUrl}/businessInterface/sites`;
-  baseUrl = 'http://54.92.215.87:943/businessInterface/sites';
+  baseUrl = 'http://54.92.215.87:943/businessInterface';
 
   constructor(private http: HttpClient, private storageSer: StorageService) { }
 
   listSites() {
     let user: any =   JSON.parse(localStorage.getItem('user')!);
-    let url = this.baseUrl + '/sitesList_2_0';
+    let url = this.baseUrl + '/sites/sitesList_2_0';
     let payload = {
       userName : user?.UserName,
       accessToken : 'abc',

@@ -24,15 +24,11 @@ export class SitesComponent implements OnInit {
   active: any;
   inActive: any = [];
   onHold: any = [];
-
-
   tempSite: any;
   // siteData: any;
-
   ngOnInit(): void {
     this.tempSite = JSON.parse(localStorage.getItem('temp_sites')!);
     // this.siteData = JSON.parse(localStorage.getItem('siteIds')!)?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
-
     // this.tableData = this.siteData;
     // this.newTableData = this.tableData;
     this.listSites()
@@ -90,7 +86,6 @@ export class SitesComponent implements OnInit {
   }
 
   /* searches */
-
   siteSearch: any;
   siteNg: any = 'All'
   searchSites(event: any) {
@@ -107,7 +102,6 @@ export class SitesComponent implements OnInit {
 
   showAddSite: boolean = false;
   showAddDevice: boolean = false;
-
   show(value: string) {
     if(value == 'site') {
       this.showAddSite = true
@@ -153,8 +147,6 @@ export class SitesComponent implements OnInit {
 
   masterSelected: boolean = false;
   SelectAll: boolean = false;
-
-
   selectedAll: any;
   selectAll() {
     for (var i = 0; i < this.tableData.length; i++) {
@@ -172,9 +164,7 @@ export class SitesComponent implements OnInit {
 
 
   currentItem: any;
-
   @ViewChild('viewSiteDialog') viewSiteDialog = {} as TemplateRef<any>;
-
   openViewPopup(item: any) {
     this.currentItem = item;
     this.dialog.open(this.viewSiteDialog);
@@ -186,7 +176,6 @@ export class SitesComponent implements OnInit {
   }
 
   @ViewChild('editSiteDialog') editSiteDialog = {} as TemplateRef<any>;
-
   openEditPopup(item: any) {
     this.currentItem = JSON.parse(JSON.stringify(item));
     this.dialog.open(this.editSiteDialog);
@@ -198,7 +187,6 @@ export class SitesComponent implements OnInit {
 
 
   @ViewChild('deleteSiteDialog') deleteSiteDialog = {} as TemplateRef<any>;
-
   openDeletePopup(item: any) {
     this.currentItem = item;
     this.dialog.open(this.deleteSiteDialog);
@@ -211,7 +199,6 @@ export class SitesComponent implements OnInit {
 
 
   /* checkbox control */
-
   viewArray: any = [];
   viewBySelectedOne() {
     if (this.viewArray.length > 0) {
@@ -233,7 +220,7 @@ export class SitesComponent implements OnInit {
   editArray: any = [];
   editBySelectedOne() {
     if (this.editArray.length > 0) {
-      this.dialog.open(this.editSiteDialog,     this.dialog.open(this.editSiteDialog));
+      this.dialog.open(this.editSiteDialog, this.dialog.open(this.editSiteDialog));
     }
   }
 
@@ -253,7 +240,6 @@ export class SitesComponent implements OnInit {
     var checked = (e.target.checked);
     // console.log("Delete Multiple Records:: ", item);
     if (this.deletearray.length == 0) { this.deletearray.push(item) }
-
     this.deletearray.forEach((el: any) => {
       if (el.siteId != item.siteId && checked) {
         this.deletearray.push(item);
@@ -278,7 +264,6 @@ export class SitesComponent implements OnInit {
       });
     }
   }
-
 
   sorted = false;
   sort(label:any){

@@ -62,10 +62,10 @@ inActive:any;
 newWifiData: any = [];
 wifiData: any = [];
 WifiData() {
-    this.assetSer.WifiData().subscribe((res:any)=> {
-      // console.log(res);
-      this.wifiData = res?.devices;
-    })
+  this.assetSer.WifiData().subscribe((res:any)=> {
+    // console.log(res);
+    this.wifiData = res?.devices;
+  })
 }
 
 

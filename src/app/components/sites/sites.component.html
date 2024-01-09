@@ -133,7 +133,6 @@
             <!-- <td>
               <input type="checkbox" class="form-check-input" [(ngModel)]="data.selected" (change)="checkIfAllSelected(); deleteMultiRecords(data, i, $event); ViewByCheckbox(data, i, $event); EditByCheckbox(data, i, $event)" id="singleCheck">
             </td> -->
-
             <td>
               <p>{{ data.siteid }}</p>
             </td>
@@ -142,22 +141,17 @@
             </td>
             <td>
               <!-- <p>{{data.customer}}</p> -->
-              --
             </td>
-
             <td>
               <p [style.color]="data.status == 'Active' ? '#00A44C': data.status == 'Onhold' ? '#F5B400': data.status == 'Inactive' ? '#fa500f': '#084982'">
-                {{ data.status ? data.status : '--' }}
+                {{ data.status ? data.status : '' }}
               </p>
             </td>
-
             <td>
-              <p>--</p>
+              <p></p>
             </td>
-
             <td>
               <a class="pointer" style="color: #084982;" (click)="addressView($event, i)">View</a>
-
               <!-- <div class="plus-img" id="address{{i}}">
                 <p class="p-2" style="color: #ABABAB; text-align: left;">ADDRESS</p>
                 <div style="color: #000; text-align: left; padding: 10px;">
@@ -167,11 +161,9 @@
                 </div>
               </div> -->
             </td>
-
             <td>
               <!-- <a class="pointer" style="color: #084982;">{{data.escl_Details}}</a> -->
               <a class="pointer" style="color: #084982;" (click)="onGetEngineer(data.siteId); engineerView($event, i)">View</a>
-
               <!-- <div class="plus-img" style="margin-left: -388px;" id="engineer{{i}}">
                 <p class="p-2" style="color: #ABABAB; text-align: left;">Details:</p>
                 <div class="eng-detail" *ngFor="let item of engineerDetail">
@@ -190,27 +182,16 @@
                 </div>
               </div> -->
             </td>
-
             <td>
               <!-- <a class="pointer" style="color: #084982;">{{data.escl_Details}}</a> -->
               <a class="pointer" style="color: #084982;">View</a>
             </td>
-
-            <!-- <td>
-              --
-            </td> -->
-
             <td>
               <a class="pointer" style="color: #000;" (click)="onGetCentralbox(data.siteId)">
                 <img src="assets/icons/add.svg" *ngIf="data.centralUnitId == '' || data.centralUnitId == null" width="40">
                 <span *ngIf="data.cntrl_Unit != '' && data.centralUnitId !=null">{{data?.centralUnitId}}</span>
               </a>
             </td>
-
-            <!-- <td>
-              --
-            </td> -->
-
             <td>
               <!-- <a>
                 <img src="assets/icons/add-svg.svg" *ngIf="data.centralUnitId == '' || data.centralUnitId == null " width="40" height="40">
@@ -218,13 +199,11 @@
               </a> -->
               View
             </td>
-
             <td>
               <a class="pointer" (click)="show('device'); getDevices(data.siteid); saveSiteData(data)">
                   <img src="assets/icons/add.svg" width="40">
               </a>
             </td>
-
             <td class="table-icons">
               <a class="mx-1 pointer" matTooltip="View">
                 <img src="assets/icons/view.svg" (click)="openViewPopup(data)" >
@@ -240,15 +219,15 @@
       </tbody>
     </table>
 
-  <!-- error info -->
-  <div class="err-info" style="height: 50vh;" *ngIf="newTableData?.length == 0 && !showLoader">
-    <h1 class="text-secondary">No Devices</h1>
-  </div>
+    <!-- error info -->
+    <div class="err-info" style="height: 50vh;" *ngIf="newTableData?.length == 0 && !showLoader">
+      <h1 class="text-secondary">No Devices</h1>
+    </div>
 
-  <!-- loader -->
-  <div *ngIf="showLoader" class="d-flex justify-content-center align-items-center" style="height: 50vh;">
-    <app-loader></app-loader>
-  </div>
+    <!-- loader -->
+    <div *ngIf="showLoader" class="d-flex justify-content-center align-items-center" style="height: 50vh;">
+      <app-loader></app-loader>
+    </div>
   </div>
 </div>
 
@@ -294,8 +273,10 @@
     </div>
   </div>
 
-  <div class="d-flex justify-content-end"  >
-    <button mat-stroked-button style="color: #D34124 ;" mat-dialog-close>Close</button>
+  <div class="d-flex align-items-center justify-content-end">
+    <div>
+      <button class="dialog-close-btn" mat-dialog-close>Close</button>
+    </div>
   </div>
 </ng-template>
 
@@ -328,7 +309,7 @@
   </div>
 
   <div class="d-flex align-items-center justify-content-end">
-<div>
+    <div>
       <button class="dialog-close-btn" mat-dialog-close>Close</button>
     </div>
     <div  >
@@ -357,11 +338,10 @@
 </ng-template>
 
 
-
-<div  *ngIf="showAddSite">
+<div *ngIf="showAddSite">
   <app-add-new-site (newItemEvent)="closenow('site')"></app-add-new-site>
 </div>
 
-<div  *ngIf="showAddDevice">
+<div *ngIf="showAddDevice">
   <app-add-device [fromSites]="inputToDevices" (newItemEvent)="closenow('device')"></app-add-device>
 </div>
