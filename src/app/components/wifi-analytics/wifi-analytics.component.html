@@ -3,7 +3,7 @@
     <!-- header -->
     <div class="d-flex justify-content-start">
         <div class="users-header mt-2">
-            <p>Total Devices - <span>{{wifiData?.total_counts?.length ? wifiData?.total_counts?.length : 0}}</span></p>
+            <p>Total Devices - <span>{{total?.total_counts ? total?.total_counts : 0}}</span></p>
         </div>
         <!-- <div>
         <button class="create-btn" (click)="generatePDF()">Download Report</button>
@@ -17,23 +17,23 @@
         <div class="vl-green"></div>
             <div class="mx-2">
         <div class="status">Active - </div>
-        <div class="count">{{ wifiData?.active ? wifiData?.active : 0 }}</div>
+        <div class="count">{{ total?.active ? total?.active : 0 }}</div>
         </div>
         </div>
     <div class="col-lg-1 col-md-1 d-flex justify-content-start">
         <div class="vl-yellow"></div>
         <div class="mx-2">
-        <div class="status">In Active - </div>
-        <div class="count">{{ wifiData?.inactive ? wifiData?.inactive : 0 }}</div>
+        <div class="status">InActive - </div>
+        <div class="count">{{ total?.inactive ? total?.inactive : 0 }}</div>
         </div>
     </div>
-    <!-- <div class="col-lg-1 col-md-1 d-flex justify-content-start">
+    <div class="col-lg-1 col-md-1 d-flex justify-content-start">
     <div class="vl-red"></div>
     <div class="mx-2">
-        <div class="status">Closed</div>
-        <div class="count">{{ ticketClose?.length }}</div>
+        <div class="status">LastMonth Count - </div>
+        <div class="count">{{ total?.previous_month_users_count ? total?.previous_month_users_count : 0}}</div>
     </div>
-    </div> -->
+    </div>
 </div>
 <!-- /count -->
 
@@ -42,8 +42,8 @@
         <mat-form-field appearance="outline" class="w-100">
             <mat-label>Site Name</mat-label>
             <mat-select [(ngModel)]="filterDataObject.siteId">
-              <mat-option value="" (click)="filterWifiData()">All</mat-option>
-                <mat-option [value]="item.siteId" *ngFor="let item of siteListData" (click)="filterWifiData()">{{ item.siteid }} - {{ item.sitename }}</mat-option>
+              <mat-option value="All" (click)="filterWifiData()">All</mat-option>
+                <mat-option *ngFor="let item of newTableData | search: siteSearch" [value]="item.siteid"  (click)="filterWifiData()" >{{ item.siteid }} - {{ item.sitename }}</mat-option>
             </mat-select>
         </mat-form-field>
         </div>
@@ -51,8 +51,10 @@
         <div class="col-lg-2 col-md-2">
           <mat-form-field appearance="outline" class="w-100">
               <mat-label>Device Name</mat-label>
-              <mat-select [(ngModel)]="filterDataObject.deviceId">
-                  <mat-option [value]="user?.UserId" (click)="filterWifiData()">{{user?.UserName}}</mat-option>
+              <mat-select [(ngModel)]="filterDataObject.deviceId" (selectionChange)="filterWifiData()">
+                  <!-- <mat-option value="RSMGLIN9902DW1">RSMGLIN9902DW1</mat-option> -->
+                  <mat-option value="Dv1">Dv1</mat-option>
+                  <mat-option value="Dv2">Dv2</mat-option>
               </mat-select>
           </mat-form-field>
           </div>
@@ -121,7 +123,7 @@
         </thead>
 
         <tbody>
-            <tr *ngFor="let cust of wifiData | search : searchText; let i = index">
+            <tr *ngFor="let cust of newWifiData | search : searchText; let i = index">
                 <td>
                     <p>{{i+1}}</p>
                 </td>
@@ -146,13 +148,23 @@
                   <p>{{ cust.peak_hour }}</p>
               </td>
               <td>
-                <a class="mx-1 pointer" (click)="openWifiData(i)" matTooltip="View">
+                <a class="mx-1 pointer" (click)="openWifiData(cust)" matTooltip="View">
                   <img src="assets/icons/view.svg" >
                 </a>
               </td>
             </tr>
         </tbody>
         </table>
+
+        <!-- error info -->
+        <div class="err-info" style="height: 50vh;" *ngIf="newWifiData?.length == 0 && !showLoader">
+          <h1 class="text-secondary">No Devices</h1>
+        </div>
+
+        <!-- loader -->
+        <div *ngIf="showLoader" class="d-flex justify-content-center align-items-center" style="height: 50vh;">
+          <app-loader></app-loader>
+        </div>
     </div>
 
 
@@ -166,13 +178,6 @@
           <table class="table" id="mytable">
             <thead>
               <tr class="task-table">
-                <th>
-                  <p class="d-inline-flex">
-                    <span>id</span>
-                    <!-- <img (click)="sort1('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
-                  </p>
-                </th>
-
                 <th>
                   <p class="d-inline-flex">
                     <span>IP Address</span>
@@ -214,10 +219,6 @@
             <tbody>
               <tr *ngFor="let task of openViewPopupData; let i = index">
                 <td>
-                  <p>{{ task.id }}</p>
-                </td>
-
-                <td>
                   <p>{{ task.ip_address }}</p>
                 </td>
 
@@ -249,10 +250,5 @@
         <button class="dialog-close-btn" mat-dialog-close>Close</button>
       </div>
     </ng-template>
-
-    <!-- loader -->
-    <div>
-      <app-loader *ngIf="showLoader" class="d-flex justify-content-center align-items-center"style="height: 50vh;"></app-loader>
-    </div>
 </div>
 

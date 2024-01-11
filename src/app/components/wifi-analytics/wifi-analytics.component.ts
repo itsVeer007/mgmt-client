@@ -62,9 +62,13 @@ inActive:any;
 newWifiData: any = [];
 wifiData: any = [];
 WifiData() {
+  this.showLoader = true;
   this.assetSer.WifiData().subscribe((res:any)=> {
     // console.log(res);
+    this.total = res;
+    this.showLoader = false
     this.wifiData = res?.devices;
+    this.newWifiData = this.wifiData
   })
 }
 
@@ -78,29 +82,52 @@ filterDataObject = {
 
 
 filterWifiData() {
+  this.showLoader = true;
   this.assetSer.WifiData(this.filterDataObject).subscribe((res:any)=> {
     // console.log(res);
-    this.newWifiData = res;
+    this.total = res;
+    this.showLoader = false
+    this.newWifiData = res?.devices;
   })
 }
 
+@ViewChild('usedItemsDialog') usedItemsDialog = {} as TemplateRef<any>;
+openViewPopupData:any = [];
+openWifiData(data: any) {
+  // console.log(index);
+  console.log(data);
+  this.openViewPopupData = data?.device_details;
+  this.dialog.open(this.usedItemsDialog);
+}
 
-siteListData:any;
+
+
 listSites() {
-  this.siteSer.listSites().subscribe((res:any)=> {
-    console.log(res);
-    this.siteListData = res?.siteList;
-  })
+  this.showLoader = true;
+  this.siteSer.listSites().subscribe((res: any) => {
+    // console.log(res);
+    this.showLoader = false;
+    if(res?.Status == 'Success') {
+      this.tableData = res?.siteList?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
+      this.newTableData = this.tableData;
+      // console.log(this.newTableData)
+    }
+    }, (err: any) => {
+      this.showLoader = false;
+  });
 }
 
-  @ViewChild('usedItemsDialog') usedItemsDialog = {} as TemplateRef<any>;
-  openViewPopupData:any = [];
-  openWifiData(index: any) {
-    // console.log(index)
-    this.dialog.open(this.usedItemsDialog);
-    this.openViewPopupData = this.wifiData[index].device_details;
-    // console.log(this.openViewPopupData);
+siteSearch: any;
+newTableData:any = [];
+tableData:any = [];
+filterSites(site: any) {
+  if(site != 'All') {
+    this.newTableData =  this.tableData.filter((item: any) => item.siteid == site)
+  } else {
+    this.newTableData = this.tableData;
   }
+}
+
 
 
 
