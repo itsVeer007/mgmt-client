@@ -276,13 +276,13 @@ export class AssetService {
       params = params.set('siteId', payload?.siteId)
     }
     if(payload?.deviceId) {
-      params = params.set('deviceId', payload?.deviceId)
+      params = params.set('device_name', payload?.deviceId)
     }
-    if(payload?.from_date) {
-      params = params.set('from_date', payload?.from_date)
+    if(payload?.startDate) {
+      params = params.set('from_date', formatDate(payload?.startDate, 'yyyy-MM-dd', 'en-us'))
     }
-    if(payload?.to_date) {
-      params = params.set('to_date', payload?.to_date)
+    if(payload?.endDate) {
+      params = params.set('to_date',  formatDate(payload?.endDate, 'yyyy-MM-dd', 'en-us'))
     }
     return this.http.get(url, {params:params});
   }
