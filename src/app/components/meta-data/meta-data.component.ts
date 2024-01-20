@@ -1,9 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertService } from 'src/services/alert.service';
 import { MetadataService } from 'src/services/metadata.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-meta-data',
@@ -12,35 +10,8 @@ import Swal from 'sweetalert2';
 })
 export class MetaDataComponent implements OnInit {
 
-  @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
-    var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);
-    var y = <HTMLElement>document.getElementById(`icons-site`);
-
-    // console.log(`plus-img${this.currentid}`);
-    if (x != null) {
-      if (!x.contains(e.target)) {
-        if (x.style.display == 'flex' || x.style.display == 'block') {
-          x.style.display = 'none';
-        }
-      }
-    }
-
-    // if (y != null) {
-    //   console.log(`icons-site`);
-    //   if (!y.contains(e.target)) {
-    //     this.icons1 = false;
-    //   }
-    // }
-  }
-
-
-
-
-  showLoader = false;
   constructor(
-    private http: HttpClient,
     private metaDataSer: MetadataService,
-
     public dialog: MatDialog,
     public alertSer: AlertService
   ) { }
@@ -49,25 +20,23 @@ export class MetaDataComponent implements OnInit {
     this.CustomerReport();
   }
 
-  showIconVertical: boolean = false;
-  showIconCustomer: boolean = false;
-  showIconSite: boolean = false;
-  showIconCamera: boolean = false;
-  showIconAnalytic: boolean = false;
-  showIconUser: boolean = false;
-
-
-
+  showLoader = false;
   searchText: any;
   metaData: any = []
   newMetaData: any = [];
-  typeToTable: any
+  typeToTable: any = []
   CustomerReport() {
     this.showLoader = true;
     this.metaDataSer.getMetadata().subscribe((res: any) => {
       this.showLoader = false;
       this.metaData = res;
-      this.typeToTable = res.flatMap((item: any) => item.type);
+      let type = res.flatMap((item: any) => item.type);
+      let typeName = res.flatMap((item: any) => item.typeName);
+
+      this.typeToTable = type.map((key: any, index:any) => ({
+        type: type[index],
+        typeName: typeName[index]
+      }));
     })
   }
 
@@ -81,17 +50,6 @@ export class MetaDataComponent implements OnInit {
     this.metaDataSer.getMetadataByType(data).subscribe((res: any) => {
       this.newMetaData = res;
     })
-  }
-
-  currentid = 0;
-  closeDot(e: any, i: any) {
-    this.currentid = i;
-    var x = e.target.parentNode.nextElementSibling;
-    if (x.style.display == 'none') {
-      x.style.display = 'block';
-    } else {
-      x.style.display = 'none';
-    }
   }
 
   showTicket: boolean = false;
@@ -112,20 +70,15 @@ export class MetaDataComponent implements OnInit {
     }
   }
 
-
   currentItem: any;
-
   @ViewChild('viewDataDialog') viewDataDialog = {} as TemplateRef<any>;
-
   openViewPopup(item: any, i: any) {
     this.currentItem = item;
     this.dialog.open(this.viewDataDialog);
     // console.log(this.currentItem);
   }
 
-
   @ViewChild('editDataDialog') editDataDialog = {} as TemplateRef<any>;
-
   typeFromLocal: any;
   openEditPopup(item: any, type: any) {
     localStorage.setItem('metaType', type);
@@ -157,12 +110,10 @@ export class MetaDataComponent implements OnInit {
 
 
   @ViewChild('deleteDataDialog') deleteDataDialog = {} as TemplateRef<any>;
-
   openDeletePopup(item: any, i: any) {
     this.currentItem = item;
     this.dialog.open(this.deleteDataDialog);
   }
-
 
   deleteRow1(item: any, i: any) {
     // console.log(item);
@@ -191,7 +142,6 @@ export class MetaDataComponent implements OnInit {
 
 
   /* checkbox control */
-
   selectedAll: any;
   selectAll() {
     for (var i = 0; i < this.newMetaData.length; i++) {

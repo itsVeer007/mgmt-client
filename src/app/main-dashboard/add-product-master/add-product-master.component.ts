@@ -129,19 +129,19 @@ export class AddProductMasterComponent implements OnInit {
   ongetDeviceMode() {
     this.metadataSer.getMetadata().subscribe((res: any) => {
       for(let item of res) {
-        if(item.type == 'Product_Category') {
+        if(item.type == 41) {
           this.productCategory = item.metadata;
-        } else if(item.type == 'Product_Type') {
+        } else if(item.type == 0) {
           this.productType = item.metadata;
-        } else if(item.type == 'uom') {
+        } else if(item.type == 40) {
           this.uomId = item.metadata;
-        } else if(item.type == 'part_type') {
+        } else if(item.type == 42) {
           this.partType = item.metadata;
-        } else if(item.type == 'part_code') {
+        } else if(item.type == 48) {
           this.partCode = item.metadata;
-        } else if(item.type == 'part_category') {
+        } else if(item.type == 43) {
           this.partCategory = item.metadata;
-        } else if(item.type == 'build_type') {
+        } else if(item.type == 44) {
           this.buildType = item.metadata;
         }
       }

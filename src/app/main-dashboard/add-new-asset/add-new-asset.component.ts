@@ -199,37 +199,37 @@ export class AddNewAssetComponent implements OnInit {
   onMetadataChange() {
     let data = JSON.parse(localStorage.getItem('metaData')!);
       for(let item of data) {
-        if(item.type == 'Device_Type') {
+        if(item.type == 2) {
           this.deviceType = item.metadata;
         }
-        else if(item.type == 'Device_Mode') {
+        else if(item.type == 1) {
           this.deviceMode = item.metadata;
         }
-        else if(item.type == 'Working_Day') {
+        else if(item.type == 6) {
           this.workingDay = item.metadata;
         }
-        else if(item.type == 'Ads_Temp_Range') {
+        else if(item.type == 11) {
           this.tempRange = item.metadata;
         }
-        else if(item.type == 'Ads_Age_Range') {
+        else if(item.type == 13) {
           this.ageRange = item.metadata;
         }
-        else if(item.type == 'model_object_type') {
+        else if(item.type == 7) {
           this.modelObjectType = item.metadata;
         }
-        else if(item.type == 'Model') {
+        else if(item.type == 18) {
           this.model = item.metadata;
         }
-        else if(item.type == 'Model Resolution') {
+        else if(item.type == 19) {
           this.modelResolution = item.metadata;
         }
-        else if(item.type == 'Ads_Software_Version') {
+        else if(item.type == 20) {
           this.softwareVersion = item.metadata;
         }
-        else if(item.type == 'Weather_Interval') {
+        else if(item.type == 21) {
           this.weatherInterval = item.metadata;
         }
-        else if(item.type == 'Ads_Time') {
+        else if(item.type == 9) {
           this.adsTime = item.metadata;
         }
       }
