@@ -159,11 +159,11 @@ export class AdvertisementsComponent implements OnInit {
   getMetadata() {
     let data = JSON.parse(localStorage.getItem('metaData')!);
     for(let item of data) {
-      if(item.type == 'Device_Type') {
+      if(item.type == 2) {
         this.deviceType = item.metadata;
-      } else if(item.type == 'Device_Mode') {
+      } else if(item.type == 1) {
         this.deviceMode = item.metadata;
-      } else if(item.type == 'Asset_Status') {
+      } else if(item.type == 8) {
         this.addStatus = item.metadata;
       }
     }
