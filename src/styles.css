@@ -106,37 +106,6 @@ p {
   /* justify-content: space-between; */
 }
 
-
-@media only screen and (max-width: 768px) {
-  .search-form {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .close-main {
-    position: relative;
-    right: 35px !important;
-  }
-
-  .search {
-    width: 186px;
-  }
-
-  form {
-    padding: 0 23px !important;
-  }
-
-  .table-resp {
-    font-size: 10px;
-  }
-
-  .table tbody tr th,
-  .table tbody tr td {
-    padding: 5px;
-  }
-}
-
-
 .formModal {
   /* display: none;
   z-index: 1; */
@@ -504,7 +473,7 @@ form .add-btn:active {
 
 /* table css */
 .table-resp {
-  /* max-height: calc(100vh - (280px)); */
+  /* height: calc(100vh - 250px); */
   max-height: 70vh;
   overflow-y: auto;
 }
@@ -708,6 +677,33 @@ thead tr th {
     width: 70px;
     padding: 4px 0;
     font-size: 10px;
+  }
+
+  .search-form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .close-main {
+    position: relative;
+    right: 35px !important;
+  }
+
+  .search {
+    width: 186px;
+  }
+
+  form {
+    padding: 0 23px !important;
+  }
+
+  .table-resp {
+    font-size: 10px;
+  }
+
+  .table tbody tr th,
+  .table tbody tr td {
+    padding: 5px;
   }
 }
 

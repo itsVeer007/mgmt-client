@@ -14,10 +14,9 @@ export class UserService {
 
   constructor(private http: HttpClient, private router: Router, private storageSer: StorageService) { }
 
-  baseUrl = "http://usmgmt.iviscloud.net:777";
+  baseUrl = "http://34.206.37.237:80/userDetails";
 
   login(payload: any) {
-    // let loginData = this.user$.getValue();
     let url = this.baseUrl + "/businessInterface/login/login_2_0";
     let loginBody = {
       userName: payload.userName,
@@ -74,6 +73,11 @@ export class UserService {
     return this.http.post(url, payload)
   }
 
+  listUsers() {
+    let url = this.baseUrl + '/listUsers_1_0';
+    return this.http.get(url);
+  }
+
   addUser(payload: any) {
     let url = this.baseUrl + "/businessInterface/User/addUser_1_0";
     var user: any =   JSON.parse(localStorage.getItem('user')!);
@@ -82,17 +86,10 @@ export class UserService {
     return this.http.post(url, payload);
   }
 
-  getUser(email: string) {
-    let url = this.baseUrl+"/businessInterface/User/getUser_1_0";
+  getUserInfoForUserId(userId: string) {
     var user: any =   JSON.parse(localStorage.getItem('user')!);
-
-    var payload = {
-      "email": email,
-      "callingUsername": user.UserName,
-      "accesstoken": user.access_token,
-      "callingSystemDetail":"portal"
-    }
-    return this.http.post(url, payload);
+    let url = this.baseUrl + `/getUserInfoForUserId_1_0/${userId}`;
+    return this.http.get(url);
   }
 
   updateUser(user:any) {

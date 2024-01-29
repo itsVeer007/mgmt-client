@@ -133,7 +133,7 @@ export class AddNewUserComponent implements OnInit {
 
   email: string = "";
   getUserDetails(){
-    this.userSer.getUser(this.email).subscribe((res:any)=>{
+    this.userSer.getUserInfoForUserId(this.email).subscribe((res:any)=>{
       // console.log(res)
       if(res.Status == 'Success'){
         this.user.username= "";

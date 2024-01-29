@@ -15,14 +15,14 @@
     color: #fff;
     background: url('../../assets/icons/bgimg.png') top left no-repeat;
     background-size: cover;
-    min-height: calc(100vh - 70px);
+    min-height: calc(100vh - 65px);
   }
 
   .header {
     background-image: linear-gradient(to right, #084982, #D34124);
     position: sticky;
     top: 0;
-    height: 70px;
+    height: 65px;
     z-index: 999;
     width: 100%;
   }

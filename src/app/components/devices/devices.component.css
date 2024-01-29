@@ -1,3 +1,9 @@
+.table-resp {
+  /* height: calc(100vh - 350px); */
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
 .status-tile {
   background-color: #084982;
   color: #ffffff;

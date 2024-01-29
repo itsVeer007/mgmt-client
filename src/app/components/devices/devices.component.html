@@ -1,4 +1,4 @@
-<div class="container-fluid" id="top">
+<div class="container-fluid">
 
   <!-- header -->
   <div class="d-flex justify-content-between align-items-center">
@@ -43,9 +43,7 @@
           </button>
           <mat-autocomplete #site="matAutocomplete">
             <!-- <mat-option value="All" (click)="filterDevices()">All</mat-option> -->
-            <mat-option *ngFor="let item of siteData | search: siteSearch" [value]="item.siteid" (click)="filterDevices()">
-              {{ item.siteid }} - {{ item.sitename }}
-            </mat-option>
+            <mat-option *ngFor="let item of siteData | search: siteSearch" [value]="item.siteid" (click)="filterDevices()">{{ item.siteid }} - {{ item.sitename }}</mat-option>
           </mat-autocomplete>
         </mat-form-field>
       </div>
@@ -222,7 +220,7 @@
         </tr>
       </thead>
 
-      <tbody>
+      <tbody *ngIf="!showLoader">
         <tr *ngFor="let cust of newDeviceData | search : searchText; let i = index">
           <!-- <td>
             <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="cust.selected" (change)="

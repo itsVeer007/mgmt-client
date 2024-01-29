@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, HostListener, OnInit } from '@angular/core';
+import { UserService } from 'src/services/user.service';
 
 @Component({
   selector: 'app-users',
@@ -8,49 +9,33 @@ import { Component, HostListener, OnInit } from '@angular/core';
 })
 export class UsersComponent implements OnInit {
 
-  @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
-    var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);
-    var y = <HTMLElement>document.getElementById(`icons-site`);
-
-    if (x != null) {
-      if (!x.contains(e.target)) {
-        if (x.style.display == 'flex' || x.style.display == 'block') {
-          x.style.display = 'none';
-        }
-      }
-    }
-
-    // if (y != null) {
-    //   console.log(`icons-site`);
-    //   if (!y.contains(e.target)) {
-    //     this.icons1 = false;
-    //   }
-    // }
-  }
-
+  constructor(private userSer: UserService) { }
+  
   showLoader = false;
-  constructor(private http: HttpClient) { }
-
   ngOnInit(): void {
-    this.CustomerReport();
+    this.listUsers();
   }
-
-  // showIconVertical: boolean = false;
-  // showIconCustomer: boolean = false;
-  // showIconSite: boolean = false;
-  // showIconCamera: boolean = false;
-  // showIconAnalytic: boolean = false;
-  // showIconUser: boolean = false;
-
-
 
   searchText: any;
-  CustomerTable: any;
-  CustomerReport() {
-    this.http.get('assets/JSON/userData.json').subscribe(res => {
-      this.CustomerTable = res;
-      // console.log(res)
-    });
+  userTableData: any = [];
+  listUsers() {
+    this.showLoader = true;
+    this.userSer.listUsers().subscribe((res: any) => {
+      // console.log(res);
+      this.showLoader = false;
+      this.userTableData = res;
+    })
+  }
+
+  currentUser: any = null;
+  getUserInfoForUserId(user: any) {
+    this.currentUser = null;
+    this.userSer.getUserInfoForUserId(user?.user_id).subscribe((res: any) => {
+      // console.log(res);
+      if(res.status_code != '404') {
+        this.currentUser = res;
+      }
+    })
   }
 
   currentid = 0;
@@ -65,64 +50,18 @@ export class UsersComponent implements OnInit {
     }
   }
 
-  // showAddSite = false;
-  // showAddCamera = false;
-  // showAddCustomer = false;
-  // showAddUser = false;
-  // showAddBusinessVertical = false;
-  // showSite = false;
-  // closenow(value:any) {
-  //   this.showAddSite = value;
-  // }
-
   closenow(value: any, type: String) {
     if (type == 'user') { this.showAddUser = value; }
     if(type == 'additionalSite') {this.showAddSite = value;}
-
-    // setTimeout(() => {
-    //   var openform = localStorage.getItem('opennewform');
-    //   if (openform == 'showAddSite') { this.showAddSite = true; }
-    //   if (openform == 'showAddCamera') { this.showAddCamera = true; }
-    //   if (openform == 'showAddCustomer') { this.showAddCustomer = true; }
-    //   if (openform == 'showAddBusinessVertical') { this.showAddBusinessVertical = true; }
-    //   if (openform == 'showAddUser') { this.showAddUser = true; }
-    //   if (openform == 'additionalSite') { this.showSite = true; }
-    //   localStorage.setItem('opennewform', '');
-    // }, 100);
-
   }
 
 
   // addNewUser(newUser: any) {
   //   newUser = JSON.parse(localStorage.getItem('userCreated')!);
   //   if(newUser) {
-  //     this.CustomerTable.push(newUser)
+  //     this.userTableData.push(newUser)
   //     localStorage.removeItem('userCreated');
   //   }
-  // }
-
-  // showAddCamera = false;
-
-  // closenow1(value:any) {
-  //   this.showAddCamera = value;
-  // }
-
-  // showAddCustomer = false;
-
-  // closenow2(value:any) {
-  //   this.showAddCustomer = value;
-  // }
-
-  // showAddUser = false;
-
-  // closenow3(value:any) {
-  //   this.showAddUser = value;
-  // }
-
-  // showAddBusinessVertical = false;
-
-  // closenow4(value:any) {
-  //   this.showAddBusinessVertical = value;
   // }
 
   showAddUser: boolean = false;
@@ -131,20 +70,10 @@ export class UsersComponent implements OnInit {
   show(type: string) {
     if (type == 'user') { this.showAddUser = true; }
     if (type == 'additionalSite') { this.showAddSite = true; }
-
-    // this.icons1 = !this.icons1;
-    // this.showSite = false;
-
-    // this.showIconVertical = false;
-    // this.showIconCustomer = false;
-    // this.showIconSite = false;
-    // this.showIconCamera = false;
-    // this.showIconAnalytic = false;
-    // this.showIconUser = false;
   }
 
-  masterSelected: boolean = false;
 
+  masterSelected: boolean = false;
   // allchecked(e:any){
   //   if(document.querySelector('#allchecked:checked')){
   //     this.masterSelected = true;
@@ -156,13 +85,13 @@ export class UsersComponent implements OnInit {
 
   selectedAll: any;
   selectAll() {
-    for (var i = 0; i < this.CustomerTable.length; i++) {
-      // console.log(this.CustomerTable[i])
-      this.CustomerTable[i].selected = this.selectedAll;
+    for (var i = 0; i < this.userTableData.length; i++) {
+      // console.log(this.userTableData[i])
+      this.userTableData[i].selected = this.selectedAll;
     }
   }
   checkIfAllSelected() {
-    this.selectedAll = this.CustomerTable.every(function (item: any) {
+    this.selectedAll = this.userTableData.every(function (item: any) {
       // console.log(item)
       return item.selected == true;
     })
@@ -175,14 +104,14 @@ export class UsersComponent implements OnInit {
     this.showLoader = true;
     setTimeout(() => {
       this.showLoader = false;
-      this.CustomerTable.splice(i, 1);
+      this.userTableData.splice(i, 1);
     }, 1000);
   }
 
   deletePopup: boolean = true;
   confirmDeleteRow() {
     // console.log(this.currentItem);
-    this.CustomerTable = this.CustomerTable.filter((item: any) => item.siteId !== this.currentItem.siteId);
+    this.userTableData = this.userTableData.filter((item: any) => item.siteId !== this.currentItem.siteId);
     this.deletePopup = true;
   }
 
@@ -196,16 +125,16 @@ export class UsersComponent implements OnInit {
     // console.log("Selected Item:: ", item);
     this.deletePopup = false;
     // console.log("Open Delete Popup:: ",this.deletePopup);
-    // console.log(this.CustomerTable.siteId);
+    // console.log(this.userTableData.siteId);
   }
 
 
   editPopup: boolean = true;
   confirmEditRow() {
     // console.log(/this.currentItem);
-    // this.CustomerTable= this.CustomerTable.filter((item:any) => item.siteId !== this.currentItem.siteId);
+    // this.userTableData= this.userTableData.filter((item:any) => item.siteId !== this.currentItem.siteId);
     this.editPopup = true;
-    this.CustomerReport();
+    this.listUsers();
   }
 
   closeEditPopup() {
@@ -218,7 +147,7 @@ export class UsersComponent implements OnInit {
     // console.log("Selected Item:: ", item);
     this.editPopup = false;
     // console.log("Open Delete Popup:: ",this.editPopup);
-    // console.log(this.CustomerTable.siteId);
+    // console.log(this.userTableData.siteId);
   }
 
   editArray: any = [];
@@ -240,7 +169,7 @@ export class UsersComponent implements OnInit {
     if (this.editArray.length > 0) {
       this.editPopup = false;
     }
-    this.CustomerReport();
+    this.listUsers();
   }
 
 
@@ -307,12 +236,12 @@ export class UsersComponent implements OnInit {
       this.deletearray.forEach((el: any) => {
         // this.currentItem = el;
         // this.confirmDeleteRow();
-        this.CustomerTable = this.CustomerTable.filter((item: any) => item.siteId !== el.siteId);
+        this.userTableData = this.userTableData.filter((item: any) => item.siteId !== el.siteId);
       });
       this.deletearray = []
     } else {
-      this.CustomerTable.forEach((el: any) => {
-        this.CustomerTable = this.CustomerTable.filter((item: any) => item.siteId !== el.siteId);
+      this.userTableData.forEach((el: any) => {
+        this.userTableData = this.userTableData.filter((item: any) => item.siteId !== el.siteId);
       });
     }
   }
@@ -320,7 +249,7 @@ export class UsersComponent implements OnInit {
   sorted = false;
   sort(label: any) {
     this.sorted = !this.sorted;
-    var x = this.CustomerTable;
+    var x = this.userTableData;
     if (this.sorted == false) {
       x.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
     } else {
