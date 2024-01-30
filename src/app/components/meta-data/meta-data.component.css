@@ -1,4 +1,6 @@
-
+.table tbody tr td {
+  padding: 0;
+}
 
 
 /* ng-deep */
@@ -9,13 +11,6 @@
 /* common mat-button */
 ::ng-deep .mat-flat-button.mat-primary {
   background-color: #084982;
-}
-
-/* common mat-dialog */
-::ng-deep .mat-dialog-content {
-  margin: 0 !important;
-  padding: 0 20px !important;
-  max-height: 450px !important;
 }
 
 ::ng-deep .mat-dialog-container {

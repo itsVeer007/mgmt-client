@@ -10,7 +10,7 @@
       <!-- <a class="pointer" (click)="show('ticket')">
         <img src="assets/icons/add.svg" alt="">
       </a> -->
-      <button class="create-btn" (click)="show('ticket', typeInput.value)">Create Metadata</button>
+      <button class="create-btn" (click)="show('ticket', 'Create_New')">Create Metadata</button>
     </div>
   </div>
 
@@ -35,8 +35,8 @@
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Select Type</mat-label>
           <mat-select #typeInput [(ngModel)]="metaType">
-            <mat-option value="Create_New">Create new</mat-option>
-            <mat-option value="All">All</mat-option>
+            <!-- <mat-option value="Create_New">Create new</mat-option> -->
+            <mat-option value="All" (click)="filterDevices('All')">All</mat-option>
             <mat-option *ngFor="let item of typeToTable" [value]="item.type" (click)="filterDevices(item.type)">{{item.typeName}}</mat-option>
           </mat-select>
         </mat-form-field>
@@ -67,94 +67,37 @@
                   margin-left: 10px;
                 " />
             </th> -->
-
             <th>
               <p class="d-inline-flex">
                 <span>KeyId</span>
                 <img (click)="sort('keyId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
               </p>
             </th>
-
             <th>
               <p class="d-inline-flex">
                 <span>Type</span>
                 <img (click)="sort('type')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
               </p>
             </th>
-
             <th>
               <p class="d-inline-flex">
                 <span>Value</span>
                 <img (click)="sort('value')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
               </p>
             </th>
-
             <th>
               <p class="d-inline-flex">
                 <span>Status</span>
                 <img (click)="sort('active')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
               </p>
             </th>
-
             <th>Remarks</th>
-
+            <th>Add</th>
             <th class="text-center">Actions</th>
         </tr>
       </thead>
 
-      <tbody *ngIf="typeInput.value == 'All'">
-        <ng-container *ngFor="let obj of metaData | search: searchText; let i = index">
-          <ng-container *ngFor="let item of obj.metadata">
-            <tr>
-              <!-- <td>
-                <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="item.selected" (change)="
-                    checkIfAllSelected();
-                    deleteMultiRecords(item, i, $event);
-                    ViewByCheckbox(item, i, $event);
-                    EditByCheckbox(item, i, $event)
-                  " id="singleCheck" />
-              </td> -->
-
-              <!-- <td>
-                <p>--</p>
-              </td> -->
-
-              <td>
-                <p>{{item.keyId}}</p>
-              </td>
-
-              <td>
-                <p>{{obj.type}}</p>
-              </td>
-
-              <td>
-                <p>{{item.value}}</p>
-              </td>
-
-              <td>
-                <p [style.color]="item.active == 'Y' ? '#00A44C' : item.active == 'N' ? '#fa500f' : ''">
-                  {{item.active == 'Y' ? 'Active' : item.active == 'N' ? 'Inactive' : '--'}}
-                </p>
-              </td>
-
-              <td>
-                <p>{{item.remarks ? item.remarks : '--'}}</p>
-              </td>
-
-              <td class="text-center table-icons">
-                  <a class="mx-1 pointer" (click)="openEditPopup(item, obj.type)">
-                    <img src="assets/icons/edit.svg" />
-                  </a>
-                  <a class="mx-1 pointer" value="Delete" (click)="openDeletePopup(item, i)">
-                    <img src="assets/icons/delete.svg"  />
-                  </a>
-              </td>
-            </tr>
-          </ng-container>
-        </ng-container>
-      </tbody>
-
-      <tbody *ngIf="typeInput.value != 'All' && typeInput.value != 'Create_New'">
+      <tbody *ngIf="!showLoader">
         <ng-container *ngFor="let obj of newMetaData | search: searchText; let i = index">
           <ng-container *ngFor="let item of obj.metadata">
             <tr>
@@ -166,35 +109,37 @@
                     EditByCheckbox(item, i, $event)
                   " id="singleCheck" />
               </td> -->
-
+              <!-- <td>
+                <p>--</p>
+              </td> -->
               <td>
-                <p>{{item.keyId}}</p>
+                <p>{{item?.keyId}}</p>
               </td>
-
               <td>
-                <p>{{obj.type}}</p>
+                <p>{{obj?.typeName}}</p>
               </td>
-
               <td>
-                <p>{{item.value}}</p>
+                <p>{{item?.value}}</p>
               </td>
-
               <td>
-                <p [style.color]="item.active == 'Y' ? '#00A44C' : item.active == 'N' ? '#fa500f' : ''">
-                  {{item.active == 'Y' ? 'Active' : item.active == 'N' ? 'Inactive' : '--'}}
+                <p [style.color]="item?.active == 'Y' ? '#00A44C' : item?.active == 'N' ? '#fa500f' : ''">
+                  {{item?.active == 'Y' ? 'Active' : item?.active == 'N' ? 'Inactive' : '--'}}
                 </p>
               </td>
-
               <td>
-                <p>{{item.remarks ? item.remarks : '--'}}</p>
+                <p>{{item?.remarks ? item?.remarks : '--'}}</p>
               </td>
-
+              <td>
+                <a class="pointer" (click)="show('ticket', item)">
+                  <img src="assets/icons/add.svg" width="40">
+                </a>
+              </td>
               <td class="text-center table-icons">
-                  <a class="mx-1 pointer" (click)="openEditPopup(item, obj.type)" matTooltip="Edit">
-                    <img src="assets/icons/edit.svg" >
+                  <a class="mx-1 pointer" (click)="openEditPopup(item, obj.type)">
+                    <img src="assets/icons/edit.svg" />
                   </a>
-                  <a class="mx-1 pointer" value="Delete" (click)="openDeletePopup(item, i)" matTooltip="Delete">
-                    <img src="assets/icons/delete.svg">
+                  <a class="mx-1 pointer" value="Delete" (click)="openDeletePopup(item, i)">
+                    <img src="assets/icons/delete.svg"  />
                   </a>
               </td>
             </tr>
@@ -330,7 +275,6 @@
     </div>
   </div>
 </ng-template>
-
 
 
 <div  *ngIf="showTicket">

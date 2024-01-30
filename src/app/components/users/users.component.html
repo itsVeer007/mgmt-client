@@ -55,7 +55,7 @@
       </form>
     </div> -->
 
-    <div class="row col-lg-10 col-md-10">
+    <div class="row col-md-10">
       <div class="col-lg-3 col-md-3 col-sm-12">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>User Name</mat-label>
@@ -131,8 +131,7 @@
             <p>{{ cust.email }}</p>
           </td>
           <td>
-            <p class="text-primary pointer" [matMenuTriggerFor]="userAddress" (click)="getUserInfoForUserId(cust)">View
-            </p>
+            <p class="text-primary pointer" [matMenuTriggerFor]="userAddress" (click)="getUserInfoForUserId(cust)">View</p>
             <mat-menu #userAddress="matMenu">
               <p class="px-2 py-1" *ngIf="currentUser != null">{{ currentUser?.address_line1 }}</p>
               <p class="px-2 py-1" *ngIf="currentUser != null">{{ currentUser?.city }}, {{ currentUser?.district }}, {{ currentUser?.state

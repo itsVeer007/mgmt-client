@@ -74,14 +74,6 @@
 }
 
 
-/* common mat-dialog */
-
-::ng-deep .mat-dialog-content {
-  margin: 0 !important;
-  padding: 0 20px !important;
-  max-height: 450px !important;
-}
-
 ::ng-deep .mat-dialog-container {
   overflow: hidden !important;
   padding: 0 !important;

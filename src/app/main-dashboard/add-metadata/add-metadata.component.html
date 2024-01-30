@@ -1,6 +1,6 @@
 <div class="row formModal">
-  <div class="col-lg-6 col-md-6"></div>
-  <div class="col-lg-6 col-md-6 add-form" id="camera" @inOutPaneAnimation>
+  <div class="col-lg-6 col-4"></div>
+  <div class="col-lg-6 col-8 add-form" id="camera" @inOutPaneAnimation>
 
     <!-- <div class="d-flex flex-row justify-content-between"> -->
       <div class="d-flex">
@@ -35,7 +35,24 @@
               <mat-error class="mt-1">Type is required</mat-error>
             </mat-form-field>
           </div> -->
+
+          <!-- <div class="col-lg-6 col-md-6" *ngIf="metaType == 'Create_New'">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Select Type</mat-label>
+              <mat-select formControlName="metadataTypeId" [(ngModel)]="metaDataBody.metadataTypeId">
+                <mat-option *ngFor="let item of metadataTypes" [value]="item.type">{{item.typeName}}</mat-option>
+              </mat-select>
+              <mat-error class="mt-1">Type is required</mat-error>
+            </mat-form-field>
+          </div> -->
           <div class="col-lg-6 col-md-6" *ngIf="metaType == 'Create_New'">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Enter Type</mat-label>
+              <input matInput formControlName="metadataTypeId" [(ngModel)]="metaDataBody.metadataTypeId">
+              <mat-error class="mt-1">Value is required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6" *ngIf="metaType != 'Create_New'">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Select Type</mat-label>
               <mat-select formControlName="metadataTypeId" [(ngModel)]="metaDataBody.metadataTypeId">

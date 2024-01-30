@@ -29,7 +29,7 @@ export class AdvertisementsComponent implements OnInit {
 
   user: any;
   ngOnInit() {
-    this.user =   JSON.parse(localStorage.getItem('user')!);
+    this.user = JSON.parse(localStorage.getItem('user')!);
     this.listSites();
   }
 
@@ -147,6 +147,7 @@ export class AdvertisementsComponent implements OnInit {
         'deviceId': deviceId
       }
       localStorage.setItem('add_body', JSON.stringify(addBody));
+      // this.storageSer.set('add_body', JSON.stringify(addBody));
     }
   }
 

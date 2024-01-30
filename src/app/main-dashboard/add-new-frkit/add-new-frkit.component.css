@@ -1,8 +1,8 @@
-@media only screen and (max-width: 768px) {
+/* @media only screen and (max-width: 768px) {
   .formModal {
     height: calc(100vh - 247px);
   }
-}
+} */
 
 /* common ng-deep */
 

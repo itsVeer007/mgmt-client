@@ -30,6 +30,7 @@ export class MetaDataComponent implements OnInit {
     this.metaDataSer.getMetadata().subscribe((res: any) => {
       this.showLoader = false;
       this.metaData = res;
+      this.newMetaData = this.metaData;
       let type = res.flatMap((item: any) => item.type);
       let typeName = res.flatMap((item: any) => item.typeName);
 
@@ -47,21 +48,27 @@ export class MetaDataComponent implements OnInit {
 
   metaType: any = 'All';
   filterDevices(data: any) {
-    this.metaDataSer.getMetadataByType(data).subscribe((res: any) => {
-      this.newMetaData = res;
-    })
+    if(data != 'All') {
+      this.showLoader = true;
+      this.metaDataSer.getMetadataByType(data).subscribe((res: any) => {
+        this.showLoader = false;
+        this.newMetaData = res;
+      })
+    } else {
+      this.newMetaData = this.metaData;
+    }
   }
 
   showTicket: boolean = false;
   show(type: string, val: any) {
-    if(val != 'All') {
+    // if(val != 'All') {
       if (type == 'ticket') {
         this.showTicket = true
       }
-      localStorage.setItem('metaType', val)
-    } else {
-      this.alertSer.error('Please select type')
-    }
+      localStorage.setItem('metaType', val);
+    // } else {
+    //   this.alertSer.error('Please select type');
+    // }
   }
 
   closenow(type: String) {

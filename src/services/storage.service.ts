@@ -9,6 +9,14 @@ export class StorageService {
 
   constructor() { }
 
+  public set(name: any, data: any) {
+    localStorage.setItem(name, JSON.stringify(data));
+  }
+
+  public get(data: any) {
+    return JSON.parse(localStorage.getItem(data)!);
+  }
+
   // secretKey: any = '';
 
   // private encrypt(txt: string): string {
