@@ -25,8 +25,8 @@ export class FrComponent implements OnInit {
   searchText: any;
   user: any;
   ngOnInit(): void {
-    this.siteIds = JSON.parse(localStorage.getItem('siteIds')!)?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
-    this.user =   JSON.parse(localStorage.getItem('user')!);
+    this.siteIds = JSON.parse(this.storageSer.get('siteIds'))?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
+    this.user =   JSON.parse(this.storageSer.get('user'));
     // this.listFRSites();
     this.listFRTickets();
   }
@@ -61,7 +61,7 @@ export class FrComponent implements OnInit {
   sourceOfRequest: any;
   indentStatus: any;
   getMetadata() {
-    let data = JSON.parse(localStorage.getItem('metaData')!);
+    let data = this.storageSer.get('metaData');
     for(let item of data) {
       if(item.type == "Assigned_To") {
         this.assignedTo = item.metadata;
@@ -108,7 +108,7 @@ export class FrComponent implements OnInit {
   }
 
   ticketIdToFr(ticketId: any) {
-    localStorage.setItem('ticketId', JSON.stringify(ticketId));
+    this.storageSer.set('ticketId', ticketId);
   }
 
 

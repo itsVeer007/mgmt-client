@@ -79,8 +79,8 @@ export class AddDeviceComponent implements OnInit {
 
   user: any;
   ngOnInit() {
-    this.siteData = JSON.parse(localStorage.getItem('temp_sites')!);
-    this.user = JSON.parse(localStorage.getItem('user')!);
+    this.siteData = this.storageSer.get('temp_sites');
+    this.user = this.storageSer.get('user');
 
     this.addDevice = this.fb.group({
       'deviceDescription': new FormControl('', Validators.required),

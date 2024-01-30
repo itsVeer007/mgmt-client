@@ -117,7 +117,6 @@ export class AddNewSiteComponent implements OnInit {
 
   openAnotherForm(newform: any) {
     this.newItemEvent.emit();
-    localStorage.setItem('opennewform', newform);
   }
 
   latitude: any;

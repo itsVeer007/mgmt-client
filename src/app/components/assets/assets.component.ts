@@ -9,6 +9,7 @@ import { FormControl } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
+import { StorageService } from 'src/services/storage.service';
 
 @Component({
   selector: 'app-assets',
@@ -49,7 +50,8 @@ export class AssetsComponent implements OnInit {
     public dialog: MatDialog,
     private siteService: SiteService,
     private alertSer: AlertService,
-    public cdr:ChangeDetectorRef
+    public cdr:ChangeDetectorRef,
+    private storageSer: StorageService
   ) { }
 
   searchText!: string;
@@ -68,8 +70,8 @@ export class AssetsComponent implements OnInit {
   siteIds: any
 
   ngOnInit(): void {
-    this.devDevId = JSON.parse(localStorage.getItem('add_body')!);
-    this.siteIds = JSON.parse(localStorage.getItem('siteIds')!);
+    this.devDevId = this.storageSer.get('add_body');
+    this.siteIds = this.storageSer.get('siteIds');
     this.currentDateTime = new Date();
     this.endDateTime = new Date('9999-12-31');
 
@@ -308,7 +310,7 @@ export class AssetsComponent implements OnInit {
 
   showAddAsset(devData: any) {
     this.showAsset = true;
-    localStorage.setItem('add_body', JSON.stringify(devData));
+    this.storageSer.set('add_body', devData);
   }
 
   closenow(value: any, type: String) {

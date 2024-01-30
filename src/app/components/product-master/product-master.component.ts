@@ -26,7 +26,7 @@ export class ProductMasterComponent implements OnInit {
   user: any;
   notFr = false;
   ngOnInit(): void {
-    this.user =   JSON.parse(localStorage.getItem('user')!);
+    this.user =  this.storageSer.get('user');
     for(let item of this.user?.role) {
       if(item == 'Administrator' || item == 'Support') {
         this.notFr = true;
@@ -123,7 +123,7 @@ export class ProductMasterComponent implements OnInit {
   productStatus: any;
   uom: any;
   getMetadata() {
-    let data = JSON.parse(localStorage.getItem('metaData')!);
+    let data = this.storageSer.get('metaData');
     for(let item of data) {
       if(item.type == 'Product_Status') {
         this.productStatus= item.metadata;

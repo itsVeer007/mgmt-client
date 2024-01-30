@@ -29,7 +29,7 @@ export class IndentsComponent implements OnInit {
     this.listInventory();
     // this.listOrderItems();
 
-    this.user =   JSON.parse(localStorage.getItem('user')!);
+    this.user = this.storageSer.get('user');
     for(let item of this.user?.role) {
       if(item == 'Administrator' || item == 'Support') {
         this.notFr = true;
@@ -144,7 +144,7 @@ export class IndentsComponent implements OnInit {
 
   indentStatus: any;
   getMetadata() {
-    let data = JSON.parse(localStorage.getItem('metaData')!);
+    let data = this.storageSer.get('metaData');
     for(let item of data) {
       if(item.type == 'Indent_Status') {
         this.indentStatus = item.metadata;

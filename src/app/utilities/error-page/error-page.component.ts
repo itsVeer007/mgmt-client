@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { StorageService } from 'src/services/storage.service';
 import { UserService } from 'src/services/user.service';
 
 @Component({
@@ -8,10 +9,7 @@ import { UserService } from 'src/services/user.service';
     <div class="page">
     <div class="box">
       <img src="assets/icons/Logo.svg" class="logo">
-      <!-- <img src="assets/error.svg"> -->
-      <!-- <div class="oops">Error : {{httpError?.status ? httpError?.status : 'Something went wrong'}}</div> -->
-      <!-- <div class="errormsg" *ngIf="(httpError.status >= 500) ;else e400"> Something went wrong at our end. Dont worry it's not you - it's us. <br>We will be up and running shortly</div> -->
-      <ng-template class="errormsg" #e400> <div class="errormsg">Oops.. Something went wrong, please try again.</div> </ng-template>
+      <div class="errormsg">Oops.. Something went wrong, please try again.</div>
       <button class="generateBtn btn" (click)="loginpage()">Login</button>
     </div>
   </div>
@@ -36,7 +34,8 @@ import { UserService } from 'src/services/user.service';
       margin-top: 16px;
       font-family: MS,sans-serif;
       color:dimgrey;
-      font-size: 20px;
+      font-size: 30px;
+      font-weight: 800;
     }
 
     .btn{
@@ -70,20 +69,20 @@ export class ErrorPageComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private userSer: UserService
+    private userSer: UserService,
+    private storageSer: StorageService
   ) { }
 
   httpError: any;
   ngOnInit(): void {
     this.userSer.error$.subscribe((res: any)=>{
       this.httpError = res;
-      // console.log(this.httpError.status)
     });
   }
 
   public loginpage(){
     this.userSer.logout();
-    localStorage.clear();
+    this.storageSer.clearData();
     this.router.navigateByUrl('/login');
   }
 

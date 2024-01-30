@@ -48,8 +48,7 @@ open(type:string) {
   siteData: any;
   user: any;
   ngOnInit(): void {
-    this.user =   JSON.parse(localStorage.getItem('user')!);
-    this.tempSites = JSON.parse(localStorage.getItem('temp_sites')!);
+    this.user =  this.storageSer.get('user');
     this.WifiData();
     this.listSites();
   }
@@ -174,7 +173,7 @@ filterSites(site: any) {
   ticketType: any;
   sourceOfRequest: any
   getMetadata() {
-    let data = JSON.parse(localStorage.getItem('metaData')!);
+    let data = this.storageSer.get('metaData');
     for(let item of data) {
       if(item.type == 'Ticket_Status') {
         this.statusVal = item.metadata;

@@ -72,7 +72,6 @@ export class AddNewAnalyticComponent implements OnInit {
 
   // openAnotherForm(newform:any) {
   //   // this.newItemEvent.emit();
-  //   localStorage.setItem('opennewform', newform)
   //   this.closeAddCamera(false);
   // }
 

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { StorageService } from 'src/services/storage.service';
 
 @Component({
   selector: 'app-analytics',
@@ -12,7 +13,7 @@ export class AnalyticsComponent implements OnInit {
 
 
   showLoader = false;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private storageSer: StorageService) { }
 
   ngOnInit(): void {
     this.CustomerReport();
@@ -61,14 +62,12 @@ export class AnalyticsComponent implements OnInit {
     // console.log("SITES:: ",type)
 
     // setTimeout(() => {
-    //   var openform = localStorage.getItem('opennewform');
     //   if (openform == 'showAddSite') { this.showAddSite = true; }
     //   if (openform == 'showAddCamera') { this.showAddCamera = true; }
     //   if (openform == 'showAddCustomer') { this.showAddCustomer = true; }
     //   if (openform == 'showAddBusinessVertical') { this.showAddBusinessVertical = true; }
     //   if (openform == 'showAddUser') { this.showAddUser = true; }
     //   if (openform == 'additionalSite') { this.showSite = true; }
-    //   localStorage.setItem('opennewform', '');
     // }, 100);
 
   }
@@ -76,7 +75,7 @@ export class AnalyticsComponent implements OnInit {
   //----------------------------------Add New User
 
   addNewUser(newUser: any) {
-    newUser = JSON.parse(localStorage.getItem('userCreated')!);
+    newUser = this.storageSer.get('userCreated');;
     if(newUser) {
       this.CustomerTable.push(newUser)
       localStorage.removeItem('userCreated');

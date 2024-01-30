@@ -52,7 +52,6 @@ export class AddNewCameraComponent implements OnInit {
 
   openAnotherForm(newform:any) {
     this.newItemEvent.emit();
-    localStorage.setItem('opennewform', newform);
   }
 
 }

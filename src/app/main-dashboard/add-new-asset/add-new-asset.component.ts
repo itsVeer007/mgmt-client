@@ -94,8 +94,8 @@ export class AddNewAssetComponent implements OnInit {
   deviceIdFromStorage: any;
   user: any;
   ngOnInit(): void {
-    this.user = JSON.parse(localStorage.getItem('user')!);
-    this.deviceIdFromStorage = JSON.parse(localStorage.getItem('add_body')!);
+    this.user = this.storageSer.get('user');
+    this.deviceIdFromStorage = this.storageSer.get('add_body');
     // console.log(this.user);
     this.addAssetForm = this.fb.group({
       'file': new FormControl('', Validators.required),
@@ -197,7 +197,7 @@ export class AddNewAssetComponent implements OnInit {
   weatherInterval: any;
   adsTime: any;
   onMetadataChange() {
-    let data = JSON.parse(localStorage.getItem('metaData')!);
+    let data = this.storageSer.get('metaData');
       for(let item of data) {
         if(item.type == 2) {
           this.deviceType = item.metadata;

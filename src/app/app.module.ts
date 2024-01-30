@@ -66,7 +66,7 @@ import { DatePipe } from '@angular/common';
 import { SearchPipe } from './pipes/search.pipe';
 import { SortPipe } from './pipes/sort.pipe';
 import { ErrorPageComponent } from './utilities/error-page/error-page.component';
-import { DcChallanComponent } from './utilities/dc-challan/dc-challan.component';
+import { DcChallanComponent } from './components/dc-challan/dc-challan.component';
 import { RemoveDuplicatesPipe } from './utilities/pipes/remove-duplicates.pipe';
 import { AnalyticsComponent } from './components/analytics/analytics.component';
 import { AdvertisementsComponent } from './components/advertisements/advertisements.component';

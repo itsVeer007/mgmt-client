@@ -64,8 +64,8 @@ export class AddNewFrkitComponent implements OnInit {
       'itemCode': new FormControl('',Validators.required),
       'name': new FormControl('', Validators.required)
     });
-    this.ticketIdFrmFr = JSON.parse(localStorage.getItem('ticketId')!);
-    this.user =   JSON.parse(localStorage.getItem('user')!);
+    this.ticketIdFrmFr = this.storageSer.get('ticketId');
+    this.user = this.storageSer.get('user');
   }
 
   items: any = [];

@@ -2,6 +2,7 @@ import { Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angula
 import { MatDialog } from '@angular/material/dialog';
 import { AlertService } from 'src/services/alert.service';
 import { MetadataService } from 'src/services/metadata.service';
+import { StorageService } from 'src/services/storage.service';
 
 @Component({
   selector: 'app-meta-data',
@@ -13,7 +14,8 @@ export class MetaDataComponent implements OnInit {
   constructor(
     private metaDataSer: MetadataService,
     public dialog: MatDialog,
-    public alertSer: AlertService
+    public alertSer: AlertService,
+    private storageSer: StorageService
   ) { }
 
   ngOnInit(): void {
@@ -65,7 +67,7 @@ export class MetaDataComponent implements OnInit {
       if (type == 'ticket') {
         this.showTicket = true
       }
-      localStorage.setItem('metaType', val);
+      this.storageSer.set('metaType', val);
     // } else {
     //   this.alertSer.error('Please select type');
     // }
@@ -88,8 +90,8 @@ export class MetaDataComponent implements OnInit {
   @ViewChild('editDataDialog') editDataDialog = {} as TemplateRef<any>;
   typeFromLocal: any;
   openEditPopup(item: any, type: any) {
-    localStorage.setItem('metaType', type);
-    this.typeFromLocal = localStorage.getItem('metaType');
+    this.storageSer.set('metaType', type);
+    this.typeFromLocal = this.storageSer.get('metaType');
 
     this.currentItem = JSON.parse(JSON.stringify(item));
     this.dialog.open(this.editDataDialog);

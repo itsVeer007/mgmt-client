@@ -64,7 +64,7 @@ export class AddNewOrderComponent implements OnInit {
     });
 
     this.getVendor();
-    this.user =   JSON.parse(localStorage.getItem('user')!);
+    this.user = this.storageSer.get('user');
   }
 
   vendorDetail: any;
@@ -80,7 +80,7 @@ export class AddNewOrderComponent implements OnInit {
 
   openAnotherForm(newform:any) {
     this.newItemEvent.emit();
-    localStorage.setItem('opennewform', newform)
+    this.storageSer.set('opennewform', newform);
   }
 
   submitted!: boolean;

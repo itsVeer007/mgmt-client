@@ -126,7 +126,7 @@ export class AddNewVendorComponent implements OnInit {
     });
 
     this.getCountry();
-    this.user =   JSON.parse(localStorage.getItem('user')!);
+    this.user = this.storageSer.get('user');
   }
 
   countryList: any;
@@ -156,7 +156,7 @@ export class AddNewVendorComponent implements OnInit {
 
   openAnotherForm(newform:any) {
     this.newItemEvent.emit();
-    localStorage.setItem('opennewform', newform)
+    this.storageSer.set('opennewform', newform);
   }
 
   submitted!: boolean;

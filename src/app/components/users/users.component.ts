@@ -57,7 +57,6 @@ export class UsersComponent implements OnInit {
 
 
   // addNewUser(newUser: any) {
-  //   newUser = JSON.parse(localStorage.getItem('userCreated')!);
   //   if(newUser) {
   //     this.userTableData.push(newUser)
   //     localStorage.removeItem('userCreated');

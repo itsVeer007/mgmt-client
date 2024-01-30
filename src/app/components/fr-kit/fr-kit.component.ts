@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';
 import { MetadataService } from 'src/services/metadata.service';
+import { StorageService } from 'src/services/storage.service';
 
 @Component({
   selector: 'app-fr-kit',
@@ -15,7 +16,8 @@ export class FrKitComponent implements OnInit {
     public dialog: MatDialog,
     private inventorySer: InventoryService,
     private metaDatSer: MetadataService,
-    public alertSer: AlertService
+    public alertSer: AlertService,
+    private storageSer: StorageService
     ) { }
 
   ngOnInit(): void {
@@ -37,7 +39,7 @@ export class FrKitComponent implements OnInit {
   sourceOfRequest: any;
   indentStatus: any;
   getMetadata() {
-    let data = JSON.parse(localStorage.getItem('metaData')!);
+    let data = this.storageSer.get('metaData');
     for(let item of data) {
       if(item.type == "Assigned_To") {
         this.assignedTo = item.metadata;
@@ -65,7 +67,7 @@ export class FrKitComponent implements OnInit {
   }
 
   ticketIdToFr(ticketId: any) {
-    localStorage.setItem('ticketId', JSON.stringify(ticketId));
+    this.storageSer.set('ticketId', ticketId);
   }
 
   @ViewChild('ticketTaskDialog') ticketTaskDialog = {} as TemplateRef<any>;

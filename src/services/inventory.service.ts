@@ -452,7 +452,7 @@ export class InventoryService {
   }
 
   fieldVisitEntry(payload: any) {
-    let user: any =   JSON.parse(localStorage.getItem('user')!);
+    let user: any = this.storageSer.get('user');
     let url = this.baseUrl + `/fieldVisitEntry_1_0`;
     let myObj = {
       'frId': user?.UserId,

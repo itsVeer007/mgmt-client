@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from 'src/services/user.service';
+import { StorageService } from 'src/services/storage.service';
 
 @Component({
   selector: 'app-add-new-user',
@@ -31,7 +32,7 @@ import { UserService } from 'src/services/user.service';
 })
 export class AddNewUserComponent implements OnInit {
 
-  constructor(private router:Router, private userSer: UserService, private fb: FormBuilder, private http: HttpClient) { }
+  constructor(private router:Router, private userSer: UserService, private fb: FormBuilder, private http: HttpClient, private storageSer: StorageService) { }
 
   // @Input() show:any;
 
@@ -169,7 +170,6 @@ export class AddNewUserComponent implements OnInit {
 
   openAnotherForm(newform:any) {
     this.newItemEvent.emit();
-    localStorage.setItem('opennewform', newform)
   }
 
 
@@ -189,7 +189,7 @@ export class AddNewUserComponent implements OnInit {
 
       this.userSer.addUser(this.user).subscribe((res: any) => {
         if(res.Status == "Success") {
-          localStorage.setItem('userCreated', JSON.stringify(res));
+          this.storageSer.set('userCreated', res);
         }
 
         if(res) {

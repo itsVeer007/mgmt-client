@@ -60,8 +60,8 @@ export class AddMetadataComponent implements OnInit {
     });
 
     this.getDeviceType();
-    this.metaType = JSON.parse(JSON.stringify(localStorage.getItem('metaType')!));
-    this.user =   JSON.parse(localStorage.getItem('user')!);
+    this.metaType = this.storageSer.get('metaType');
+    this.user = this.storageSer.get('user');
   }
 
   closeAddCamera() {

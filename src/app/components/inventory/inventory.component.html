@@ -472,8 +472,8 @@
   </div>
 
   <!-- error msg -->
-  <div class="d-flex align-items-center justify-content-center" style="height: 50vh;" *ngIf="inventoryTable.length == 0 && !showLoader">
-    <h1 class="text-secondary">No Data</h1>
+  <div class="d-flex align-items-center justify-content-center" style="height: 50vh;" *ngIf="errInfo && !showLoader">
+    <h1 class="text-secondary">{{errInfo}}</h1>
   </div>
 
   <!-- loader -->

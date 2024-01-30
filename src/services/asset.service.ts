@@ -4,6 +4,7 @@ import { DatePipe, formatDate } from '@angular/common';
 
 import { environment } from '../environments/environment';
 import { BehaviorSubject } from 'rxjs';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class AssetService {
 
   assets$ = new BehaviorSubject(null);
 
-  constructor(private http: HttpClient, private date: DatePipe) { }
+  constructor(private http: HttpClient, private date: DatePipe, private storageSer: StorageService) { }
 
   baseUrl = `${environment.baseUrl}/proximityads`;
   baseUrl1 = 'http://192.168.0.109:8070';
@@ -73,8 +74,8 @@ export class AssetService {
 
 
   addAsset(payload: any, file: any) {
-    let user = JSON.parse(localStorage.getItem('user')!);
-    let deviceData = JSON.parse(localStorage.getItem('add_body')!);
+    let user = this.storageSer.get('user');
+    let deviceData = this.storageSer.get('add_body');
     let formData: any = new FormData();
 
     /**file */

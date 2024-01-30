@@ -30,18 +30,19 @@ export class LoginComponent implements OnInit {
   loginForm: any = FormGroup;
 
   ngOnInit() {
+    this.storageSer.clearData();
     this.loginForm = this.fb.group({
       userName: ['', Validators.required],
       password: ['', Validators.required]
     });
-
-    localStorage.clear();
     // this.userSer.user$.subscribe((res: any) => {
     //   this.user = res
     // });
+
+    // this.storageSer.set('user', 'Helllo');
+    // let c: any = localStorage.getItem('user');
+    // console.log(decodeURIComponent(atob(c)))
   }
-
-
 
   login() {
     this.showLoader = true;
@@ -49,8 +50,7 @@ export class LoginComponent implements OnInit {
       // console.log(res);
       this.showLoader = false;
       if(res?.Status == "Success") {
-        localStorage.setItem('user', JSON.stringify(res));
-        // this.storageSer.saveData("user", res);
+        this.storageSer.set('user', res);
         this.userSer.user$.next(res);
         this.route.navigate(['/main-dashboard']);
         this.getlistSites();
@@ -76,8 +76,8 @@ export class LoginComponent implements OnInit {
       this.userSer.loginNew(this.loginForm.value).subscribe((res: any) => {
         this.showLoader = false;
         if(res?.Status == 'Success') {
-          this.userSer.isLoggedin.next(true);
-          localStorage.setItem('user', JSON.stringify(res));
+          // this.userSer.isLoggedin.next(true);
+          this.storageSer.set('user', res);
           this.userSer.user$.next(res);
           this.router.navigate(['main/main-dashboard']);
           this.getlistSites();
@@ -95,7 +95,7 @@ export class LoginComponent implements OnInit {
   getlistSites() {
     this.siteSer.listSites().subscribe((res: any) => {
       if(res?.Status == 'Success') {
-        localStorage.setItem('siteIds', JSON.stringify(res?.siteList));
+        this.storageSer.set('siteIds', res.siteList);
       }
       if(res?.Status == 'Failed') {
         // this.userSer.logout();
@@ -107,7 +107,7 @@ export class LoginComponent implements OnInit {
 
   getMetadata() {
     this.metaDataSer.getMetadata().subscribe((res: any) => {
-      localStorage.setItem('metaData', JSON.stringify(res));
+      this.storageSer.set('metaData', res);
     })
   }
 

@@ -117,7 +117,7 @@ export class AddNewInventoryComponent implements OnInit {
     });
 
     this.listProduct();
-    this.user =   JSON.parse(localStorage.getItem('user')!);
+    this.user = this.storageSer.get('user');
   }
 
   listProduct() {
@@ -226,7 +226,7 @@ export class AddNewInventoryComponent implements OnInit {
 
   openAnotherForm(newform:any) {
     this.newItemEvent.emit();
-    localStorage.setItem('opennewform', newform)
+    this.storageSer.set('opennewform', newform);
   }
 
   submitted!: boolean;

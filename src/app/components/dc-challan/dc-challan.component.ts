@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import { StorageService } from 'src/services/storage.service';
 
 @Component({
   selector: 'app-dc-challan',
@@ -9,11 +10,13 @@ import jsPDF from 'jspdf';
 })
 export class DcChallanComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private storageSer: StorageService
+  ) { }
 
   dcItems: any;
   ngOnInit(): void {
-    this.dcItems = JSON.parse(localStorage.getItem('dcItems')!);
+    this.dcItems = this.storageSer.get('dcItems');
     console.log(this.dcItems);
   }
 

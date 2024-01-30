@@ -28,7 +28,7 @@ export class FrReportsComponent implements OnInit {
   siteData: any;
   user: any;
   ngOnInit(): void {
-    this.user =   JSON.parse(localStorage.getItem('user')!);
+    this.user = this.storageSer.get('user');
     this.listFrs();
   }
 
@@ -71,7 +71,7 @@ export class FrReportsComponent implements OnInit {
   ticketType: any;
   sourceOfRequest: any
   getMetadata() {
-    let data = JSON.parse(localStorage.getItem('metaData')!);
+    let data = this.storageSer.get('metaData');
     for(let item of data) {
       if(item.type == 'Ticket_Status') {
         this.statusVal = item.metadata;

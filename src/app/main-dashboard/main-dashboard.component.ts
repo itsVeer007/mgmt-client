@@ -88,13 +88,11 @@ export class MainDashboardComponent implements OnInit {
 
 
     // setTimeout(() => {
-    //   var openform = localStorage.getItem('opennewform');
     //   if (openform == 'showAddSite') { this.showAddSite = true; }
     //   if (openform == 'showAddCamera') { this.showAddCamera = true; }
     //   if (openform == 'showAddCustomer') { this.showAddCustomer = true; }
     //   if (openform == 'showAddBusinessVertical') { this.showAddBusinessVertical = true; }
     //   if (openform == 'showAddUser') { this.showAddUser = true; }
-    //   localStorage.setItem('opennewform', '');
     // }, 100)
     /*
         console.log(value,type)

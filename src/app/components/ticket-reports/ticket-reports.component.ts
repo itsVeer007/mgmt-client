@@ -53,8 +53,8 @@ export class TicketReportsComponent implements OnInit {
   siteData: any;
   user: any;
   ngOnInit(): void {
-    this.siteData = JSON.parse(localStorage.getItem('siteIds')!);
-    this.user =   JSON.parse(localStorage.getItem('user')!);
+    this.siteData = this.storageSer.get('siteIds');
+    this.user = this.storageSer.get('user');
     this.CustomerReport();
 
     // this.inventorySer.comment$.subscribe((comments: any) => {
@@ -119,7 +119,7 @@ export class TicketReportsComponent implements OnInit {
   ticketType: any;
   sourceOfRequest: any
   getMetadata() {
-    let data = JSON.parse(localStorage.getItem('metaData')!);
+    let data = this.storageSer.get('metaData');
     for(let item of data) {
       if(item.type == 'Ticket_Status') {
         this.statusVal = item.metadata;

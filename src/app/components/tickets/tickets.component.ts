@@ -28,8 +28,8 @@ export class TicketsComponent implements OnInit {
   user: any;
   notFr = false;
   ngOnInit(): void {
-    this.siteData = JSON.parse(localStorage.getItem('siteIds')!);
-    this.user =   JSON.parse(localStorage.getItem('user')!);
+    this.siteData = this.storageSer.get('siteIds');
+    this.user = this.storageSer.get('user');
     for(let item of this.user?.role) {
       if(item == 'Administrator' || item == 'Support') {
         this.notFr = true;
@@ -140,7 +140,7 @@ export class TicketsComponent implements OnInit {
   ticketSubCategory: any;
   taskReason: any;
   getMetadata() {
-    let data = JSON.parse(localStorage.getItem('metaData')!);
+    let data = this.storageSer.get('metaData');
     for(let item of data) {
       if(item.type == 'Ticket_Status') {
         this.statusVal = item.metadata;

@@ -2,6 +2,7 @@ import { Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angula
 import { SiteService } from 'src/services/site.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AssetService } from 'src/services/asset.service';
+import { StorageService } from 'src/services/storage.service';
 
 @Component({
   selector: 'app-sites',
@@ -13,7 +14,8 @@ export class SitesComponent implements OnInit {
   constructor(
     private siteSer: SiteService,
     private assetSer: AssetService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private storageSer: StorageService
   ) { }
 
   tableData: any = [];
@@ -27,8 +29,8 @@ export class SitesComponent implements OnInit {
   tempSite: any;
   // siteData: any;
   ngOnInit(): void {
-    this.tempSite = JSON.parse(localStorage.getItem('temp_sites')!);
-    // this.siteData = JSON.parse(localStorage.getItem('siteIds')!)?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
+    // this.tempSite = this.storageSer.get('temp_sites');
+    // this.siteData = this.storageSer.get('temp_sites')?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
     // this.tableData = this.siteData;
     // this.newTableData = this.tableData;
     this.listSites()
@@ -82,7 +84,7 @@ export class SitesComponent implements OnInit {
   }
 
   saveSiteData(site: any) {
-    localStorage.setItem('temp_sites', JSON.stringify(site));
+    this.storageSer.set('temp_sites', site);
   }
 
   /* searches */

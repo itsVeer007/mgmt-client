@@ -88,13 +88,11 @@ export class CustomersComponent implements OnInit {
     // console.log("SITES:: ",type)
 
     // setTimeout(() => {
-    //   var openform = localStorage.getItem('opennewform');
     //   if (openform == 'showAddSite') { this.showAddSite = true; }
     //   if (openform == 'showAddCamera') { this.showAddCamera = true; }
     //   if (openform == 'showAddCustomer') { this.showAddCustomer = true; }
     //   if (openform == 'showAddBusinessVertical') { this.showAddBusinessVertical = true; }
     //   if (openform == 'showAddUser') { this.showAddUser = true; }
-    //   localStorage.setItem('opennewform', '');
     // }, 100)
   }
 

@@ -86,8 +86,8 @@ export class AddNewIndentComponent implements OnInit {
 
     // this.getVendor();
     this.getProducts();
-    this.ticketIdFrmFr = JSON.parse(localStorage.getItem('ticketId')!);
-    this.user =   JSON.parse(localStorage.getItem('user')!);
+    this.ticketIdFrmFr = this.storageSer.get('ticketId');
+    this.user = this.storageSer.get('user');
   }
 
   vendorDetail: any;

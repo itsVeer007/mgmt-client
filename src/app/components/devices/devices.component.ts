@@ -7,6 +7,7 @@ import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
 import { InventoryService } from 'src/services/inventory.service';
 import { SiteService } from 'src/services/site.service';
+import { StorageService } from 'src/services/storage.service';
 
 @Component({
   selector: 'app-devices',
@@ -24,7 +25,8 @@ export class DevicesComponent implements OnInit {
     private siteSer: SiteService,
     public dialog: MatDialog,
     public datePipe: DatePipe,
-    public alertSer: AlertService
+    public alertSer: AlertService,
+    private storageSer: StorageService
   ) { }
 
   ngOnInit(): void {
@@ -146,7 +148,7 @@ export class DevicesComponent implements OnInit {
   weatherInterval: any;
   deviceStatus: any;
   getMetadata() {
-    let data = JSON.parse(localStorage.getItem('metaData')!);
+    let data = this.storageSer.get('metaData');;
     for(let item of data) {
       if(item.type == 2) {
         this.deviceType = item.metadata;

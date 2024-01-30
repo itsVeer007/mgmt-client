@@ -3,7 +3,7 @@ import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { DcChallanComponent } from 'src/app/utilities/dc-challan/dc-challan.component';
+import { DcChallanComponent } from 'src/app/components/dc-challan/dc-challan.component';
 import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';
 import { StorageService } from 'src/services/storage.service';
@@ -76,7 +76,7 @@ export class AddNewDcComponent {
     });
 
     // this.getVendor();
-    this.user =   JSON.parse(localStorage.getItem('user')!);
+    this.user = this.storageSer.get('user');
     this.listFrs();
   }
 
@@ -180,7 +180,6 @@ export class AddNewDcComponent {
     if(this.UserForm.valid) {
       if(this.items.length > 0) {
         // this.alertSer.wait();
-        // localStorage.setItem('dcItems', JSON.stringify(this.inventoryBody));
         this.inventoryBody.itemCode = this.items;
         this.inventorySer.createDC(this.inventoryBody).subscribe((res: any) => {
           // console.log(res);
@@ -191,7 +190,7 @@ export class AddNewDcComponent {
           }
           this.inventorySer.getlistByCreatedBy(obj).subscribe((newRes: any) => {
             let cropeData = newRes.slice(-(this.items.length))
-            localStorage.setItem('dcItems', JSON.stringify(cropeData));
+            this.storageSer.set('dcItems', cropeData);
             this.dialog.open(DcChallanComponent);
           })
         }, (err: any) => {

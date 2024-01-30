@@ -91,8 +91,8 @@ export class AddNewDeviceComponent implements OnInit {
 
   user: any;
   ngOnInit() {
-    this.siteData = JSON.parse(localStorage.getItem('siteIds')!);
-    this.user =   JSON.parse(localStorage.getItem('user')!);
+    this.siteData = this.storageSer.get('siteIds');
+    this.user = this.storageSer.get('user');
 
     this.addDevice = this.fb.group({
       'siteId': new FormControl('', Validators.required),
@@ -198,7 +198,7 @@ export class AddNewDeviceComponent implements OnInit {
   weatherInterval: any;
   deviceStatus: any;
   getMetadata() {
-    let data = JSON.parse(localStorage.getItem('metaData')!);
+    let data = this.storageSer.get('metaData');
     for(let item of data) {
       if(item.type == 2) {
         this.deviceType = item.metadata;

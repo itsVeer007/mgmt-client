@@ -29,7 +29,7 @@ export class AdvertisementsComponent implements OnInit {
 
   user: any;
   ngOnInit() {
-    this.user = JSON.parse(localStorage.getItem('user')!);
+    this.user = this.storageSer.get('user');
     this.listSites();
   }
 
@@ -123,7 +123,7 @@ export class AdvertisementsComponent implements OnInit {
   deviceMode: any;
   addStatus: any;
   getMetadata() {
-    let data = JSON.parse(localStorage.getItem('metaData')!);
+    let data = this.storageSer.get('metaData');
     for(let item of data) {
       if(item.type == 2) {
         this.deviceType = item.metadata;
@@ -146,8 +146,7 @@ export class AdvertisementsComponent implements OnInit {
         'siteId': siteId,
         'deviceId': deviceId
       }
-      localStorage.setItem('add_body', JSON.stringify(addBody));
-      // this.storageSer.set('add_body', JSON.stringify(addBody));
+      this.storageSer.set('add_body', addBody);
     }
   }
 

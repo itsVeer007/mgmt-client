@@ -27,14 +27,13 @@ export class InventoryComponent implements OnInit {
     user: any;
     notFr = false;
     ngOnInit(): void {
-      this.user =   JSON.parse(localStorage.getItem('user')!);
+      this.user = this.storageSer.get('user');
       for(let item of this.user?.role) {
         if(item == 'Administrator' || item == 'Support') {
           this.notFr = true;
         }
       }
       this.listInventory();
-
     }
 
 
@@ -49,20 +48,25 @@ export class InventoryComponent implements OnInit {
   installed: any;
   purchases: any;
   others: any;
+  errInfo: any = null;
   listInventory() {
     this.showLoader = true;
     this.inventorySer.listInventory().subscribe((res: any) => {
       // console.log(res);
       this.showLoader = false;
-      this.getMetadata();
-      this.inventoryTable = res;
-      this.newInventoryTable = this.inventoryTable;
-
-      this.inStock = this.newInventoryTable.reduce((sum: any, current: any) => sum + current.inStock, 0);
-      this.dispatched = this.newInventoryTable.reduce((sum: any, current: any) => sum + current.dispatched, 0);
-      this.installed = this.newInventoryTable.reduce((sum: any, current: any) => sum + current.used, 0);
-      this.purchases = this.newInventoryTable.reduce((sum: any, current: any) => sum + current.purchases, 0);
-      this.others = this.newInventoryTable.reduce((sum: any, current: any) => sum + current.others, 0);
+      if(res) {
+        this.getMetadata();
+        this.inventoryTable = res;
+        this.newInventoryTable = this.inventoryTable;
+  
+        this.inStock = this.newInventoryTable.reduce((sum: any, current: any) => sum + current.inStock, 0);
+        this.dispatched = this.newInventoryTable.reduce((sum: any, current: any) => sum + current.dispatched, 0);
+        this.installed = this.newInventoryTable.reduce((sum: any, current: any) => sum + current.used, 0);
+        this.purchases = this.newInventoryTable.reduce((sum: any, current: any) => sum + current.purchases, 0);
+        this.others = this.newInventoryTable.reduce((sum: any, current: any) => sum + current.others, 0);
+      } else {
+        this.errInfo = 'No Data';
+      }
 
       // for(let item of this.inventoryTable) {
       //   if(item.inventoryStatusId == 1) {
@@ -79,6 +83,10 @@ export class InventoryComponent implements OnInit {
       //     this.redyToUse.push(item);
       //   }
       // }
+    }, (err) => {
+      // console.log(err);
+      this.showLoader = false;
+      this.errInfo = err.error.error;
     });
   }
 
@@ -119,7 +127,7 @@ export class InventoryComponent implements OnInit {
   /* metadata methods */
   inventoryStatus: any;
   getMetadata() {
-    let data = JSON.parse(localStorage.getItem('metaData')!);
+    let data = this.storageSer.get('metaData');
     for(let item of data) {
       if(item.type == 'Inventory_Status') {
         this.inventoryStatus = item.metadata;
