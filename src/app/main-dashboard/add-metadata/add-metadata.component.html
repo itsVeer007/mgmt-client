@@ -56,7 +56,7 @@
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Select Type</mat-label>
               <mat-select formControlName="metadataTypeId" [(ngModel)]="metaDataBody.metadataTypeId">
-                <mat-option *ngFor="let item of metadataTypes" [value]="item.type">{{item.typeName}}</mat-option>
+                <mat-option *ngFor="let item of metadataTypes" [value]="item?.type">{{item?.typeName}}</mat-option>
               </mat-select>
               <mat-error class="mt-1">Type is required</mat-error>
             </mat-form-field>
@@ -107,7 +107,7 @@
           </div> -->
 
           <div class="text-center my-3">
-            <button class="btn add-btn">SUBMIT</button>
+            <button class="btn add-btn">ADD</button>
           </div>
         </div>
       </form>

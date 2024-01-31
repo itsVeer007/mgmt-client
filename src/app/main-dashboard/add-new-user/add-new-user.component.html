@@ -7,63 +7,57 @@
     </div>
 
     <div>
-      <form autocomplete="off" [formGroup]="UserForm" #addUserForm="ngForm">
+      <form autocomplete="off" [formGroup]="UserForm">
         <div class="row">
-          <div class="col-lg-6 col-md-6">
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-label>User Name</mat-label>
-                <input matInput formControlName="userName" [(ngModel)]="user.username">
-                <mat-error class="mt-1">Name is required</mat-error>
-              </mat-form-field>
-          </div>
-
-          <div class="col-lg-6 col-md-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Password</mat-label>
-              <input matInput formControlName="password" [(ngModel)]="user.password">
-              <mat-error class="mt-1">Password is required</mat-error>
-            </mat-form-field>
-          </div>
-
-          <div class="col-lg-6 col-md-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>First Name</mat-label>
-              <input matInput formControlName="first" [(ngModel)]="user.firstname">
-              <mat-error class="mt-1">First name is required</mat-error>
-            </mat-form-field>
-          </div>
-
-          <div class="col-lg-6 col-md-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Last Name</mat-label>
-              <input matInput formControlName="last" [(ngModel)]="user.lastname">
-              <mat-error class="mt-1">Last name is required</mat-error>
-            </mat-form-field>
-          </div>
-
-          <div class="col-lg-6 col-md-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Select role</mat-label>
-              <mat-select formControlName="role" [(ngModel)]="user.roleList" multiple>
-                <mat-option value="default">default</mat-option>
-                <mat-option value="adminus">adminus</mat-option>
-              </mat-select>
-              <mat-error class="mt-1">Role is required</mat-error>
-            </mat-form-field>
-          </div>
-
-          <div class="col-lg-6 col-md-6">
+          <!-- <div class="col-lg-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Select gender</mat-label>
-              <mat-select formControlName="gender" [(ngModel)]="user.gender">
+              <mat-select formControlName="gender" [(ngModel)]="user.genderFlag">
                 <mat-option value="M">Male</mat-option>
                 <mat-option value="F">Female</mat-option>
               </mat-select>
               <mat-error class="mt-1">Gender is required</mat-error>
             </mat-form-field>
+          </div> -->
+          <div class="col-lg-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>User Name</mat-label>
+                <input matInput formControlName="userName" [(ngModel)]="user.userName">
+                <mat-error class="mt-1">Name is required</mat-error>
+              </mat-form-field>
           </div>
-
-          <div class="col-lg-6 col-md-6">
+          <!-- <div class="col-lg-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Password</mat-label>
+              <input matInput formControlName="password" [(ngModel)]="user.password">
+              <mat-error class="mt-1">Password is required</mat-error>
+            </mat-form-field>
+          </div> -->
+          <div class="col-lg-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>First Name</mat-label>
+              <input matInput formControlName="firstName" [(ngModel)]="user.firstName">
+              <mat-error class="mt-1">First name is required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Last Name</mat-label>
+              <input matInput formControlName="lastName" [(ngModel)]="user.lastName">
+              <mat-error class="mt-1">Last name is required</mat-error>
+            </mat-form-field>
+          </div>
+          <!-- <div class="col-lg-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Select gender</mat-label>
+              <mat-select formControlName="genderFlag" [(ngModel)]="user.genderFlag">
+                <mat-option value="M">Male</mat-option>
+                <mat-option value="F">Female</mat-option>
+              </mat-select>
+              <mat-error class="mt-1">Gender is required</mat-error>
+            </mat-form-field>
+          </div> -->
+          <div class="col-lg-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Select realm</mat-label>
               <mat-select formControlName="realm" [(ngModel)]="user.realm">
@@ -72,46 +66,64 @@
               <mat-error class="mt-1">Realm is required</mat-error>
             </mat-form-field>
           </div>
-
-          <div class="col-lg-6 col-md-6">
+          <div class="col-lg-6 mb-2">
+            <p class="fw-bold mb-2">Gender</p>
+            <mat-radio-group formControlName="genderFlag" [(ngModel)]="user.genderFlag">
+              <mat-radio-button value="M" class="me-5">Male</mat-radio-button>
+              <mat-radio-button value="F">Female</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div class="col-lg-6 mb-2">
+            <p class="fw-bold mb-2">Employee</p>
+            <mat-radio-group formControlName="employeeFlag" [(ngModel)]="user.employeeFlag">
+              <mat-radio-button value="T" class="me-5">Yes</mat-radio-button>
+              <mat-radio-button value="F">No</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div class="col-lg-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Email Id</mat-label>
-              <input matInput formControlName="email" [(ngModel)]="user.email">
+              <input matInput formControlName="emailId" [(ngModel)]="user.emailId">
               <mat-error class="mt-1">Email is required</mat-error>
             </mat-form-field>
           </div>
-
-          <div class="col-lg-6 col-md-6">
+          <div class="col-lg-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Contact Number</mat-label>
-              <input matInput formControlName="contact_1" [(ngModel)]="user.contactNumber1">
+              <input matInput formControlName="contactNumber" [(ngModel)]="user.contactNumber">
               <mat-error class="mt-1">Contact is required</mat-error>
             </mat-form-field>
           </div>
-
-          <div class="col-lg-6 col-md-6">
+          <div class="col-lg-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Alternate Contact Number</mat-label>
-              <input matInput formControlName="contact_2" [(ngModel)]="user.contactNumber2">
+              <input matInput formControlName="alternateContactNumber" [(ngModel)]="user.alternateContactNumber">
             </mat-form-field>
           </div>
-
-          <div class="col-lg-6 col-md-6">
+          <div class="col-lg-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Enter Address</mat-label>
-              <input matInput formControlName="address_1" [(ngModel)]="user.addressLine1">
+              <input matInput formControlName="addressLine1" [(ngModel)]="user.addressLine1">
               <mat-error class="mt-1">Address is required</mat-error>
             </mat-form-field>
           </div>
-
-          <div class="col-lg-6 col-md-6">
+          <div class="col-lg-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Enter Alternate Address</mat-label>
-              <input matInput formControlName="address_2" [(ngModel)]="user.addressLine2">
+              <input matInput formControlName="addressLine2" [(ngModel)]="user.addressLine2">
             </mat-form-field>
           </div>
-
-          <div class="col-lg-6 col-md-6">
+          <!-- <div class="col-lg-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Select role</mat-label>
+              <mat-select formControlName="realm" [(ngModel)]="user.realm" multiple>
+                <mat-option value="default">default</mat-option>
+                <mat-option value="adminus">adminus</mat-option>
+              </mat-select>
+              <mat-error class="mt-1">Role is required</mat-error>
+            </mat-form-field>
+          </div> -->
+          <div class="col-lg-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Select country</mat-label>
               <mat-select formControlName="country" [(ngModel)]="user.country">
@@ -120,8 +132,7 @@
               <mat-error class="mt-1">Country is required</mat-error>
             </mat-form-field>
           </div>
-
-          <div class="col-lg-6 col-md-6">
+          <div class="col-lg-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Select state</mat-label>
               <mat-select formControlName="state" [(ngModel)]="user.state">
@@ -130,8 +141,7 @@
               <mat-error class="mt-1">State is required</mat-error>
             </mat-form-field>
           </div>
-
-          <div class="col-lg-6 col-md-6">
+          <div class="col-lg-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Select district</mat-label>
               <mat-select formControlName="district" [(ngModel)]="user.district">
@@ -140,28 +150,25 @@
               <mat-error class="mt-1">City is required</mat-error>
             </mat-form-field>
           </div>
-
-          <div class="col-lg-6 col-md-6">
+          <div class="col-lg-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Pincode</mat-label>
-              <input matInput formControlName="pincode" [(ngModel)]="user.pin">
+              <input matInput type="number" formControlName="pincode" [(ngModel)]="user.pincode">
               <mat-error class="mt-1">Pin is required</mat-error>
             </mat-form-field>
           </div>
-
-          <div class="col-lg-12 col-md-12">
+          <div class="col-lg-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>City</mat-label>
               <input matInput formControlName="city" [(ngModel)]="user.city">
               <mat-error class="mt-1">City is required</mat-error>
             </mat-form-field>
           </div>
-
           <div class="row">
-            <label class="main col-lg-4 ms-1 mt-2">Safety Escort
+            <!-- <label class="main col-lg-4 ms-1 mt-2">Safety Escort
               <input type="checkbox"  [ngModel]="user.safetyEscort=='true' ? true : false" (ngModelChange)="user.safetyEscort = $event ? 'T' : 'F'" formControlName="safetyEscort">
               <span class="geekmark"></span>
-            </label>
+            </label> -->
             <!-- <mat-checkbox class="example-margin">Safety Escort</mat-checkbox> -->
 
             <!-- <label class="main col-lg-4">Employee
@@ -180,10 +187,9 @@
                 <mat-error class="mt-1">Please choose an animal</mat-error>
               </mat-form-field>
             </div> -->
-
           </div>
 
-          <div class="text-center mb-5">
+          <div class="text-center my-3">
             <button type="submit" class="btn add-btn" (click)="submit()">ADD</button>
           </div>
         </div>

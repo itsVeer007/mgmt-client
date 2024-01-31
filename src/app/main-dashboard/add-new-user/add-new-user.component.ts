@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from 'src/services/user.service';
 import { StorageService } from 'src/services/storage.service';
+import { AlertService } from 'src/services/alert.service';
 
 @Component({
   selector: 'app-add-new-user',
@@ -32,82 +33,65 @@ import { StorageService } from 'src/services/storage.service';
 })
 export class AddNewUserComponent implements OnInit {
 
-  constructor(private router:Router, private userSer: UserService, private fb: FormBuilder, private http: HttpClient, private storageSer: StorageService) { }
-
-  // @Input() show:any;
-
   @Output() newItemEvent = new EventEmitter<boolean>();
 
-  // @Output() newUser = new EventEmitter<any>();
-
-  // @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
-  //   var x = <HTMLElement>document.getElementById(`user`);
-  //   if (x != null) {
-  //     if (!x.contains(e.target)) {
-  //       this.closeAddUser(false);
-  //     }
-  //   }
-  // }
-  // error=false;
+  constructor(
+    private router:Router,
+    private userSer: UserService,
+    private fb: FormBuilder,
+    private http: HttpClient,
+    private storageSer: StorageService,
+    private alertSer: AlertService
+  ) { }
 
 
   UserForm: any =  FormGroup;
-
   user = {
-    username: "",
-    password: "",
-    firstname: "",
-    lastname: "",
-    roleList: [],
-    email: "",
-    gender: "",
+    firstTimeFlag: "F",
+    userName: "",
+    firstName: "",
+    lastName: "",
+    genderFlag: "M",
     realm: "",
-    contactNumber1: "",
-    contactNumber2: "",
-    country: "",
+    emailId: "",
+    contactNumber: "",
+    alternateContactNumber: "",
     addressLine1: "",
     addressLine2: "",
-    district: "",
+    country: "",
     state: "",
+    district: "",
+    pincode: "",
     city: "",
-    pin: "",
-    employee: "F",
-    employeeId: "",
-    accesstoken: "",
-    callingUsername: "",
-    callingSystemDetail: "admin",
-    safetyEscort: "F"
+    createdBy: 1,
+    employeeFlag: "F",
+    empId: "",
+    safetyEscortFlag: "F"
   }
-
 
   ngOnInit() {
     this.UserForm = this.fb.group({
-      'userName': new FormControl('', Validators.required),
-      'password': new FormControl('', Validators.required),
-      'first': new FormControl('', Validators.required),
-      'last': new FormControl('', Validators.required),
-      // 'gender': this.fb.group({
-      //        cityName: ['']
-      //       }),
-      // 'employeeId': new FormControl(''),
-      'role': new FormControl('', Validators.required),
-      'gender': new FormControl('', Validators.required),
-      'realm': new FormControl('', Validators.required),
-      'email': new FormControl('', Validators.required),
-      'contact_1': new FormControl('', Validators.required),
-      'contact_2': new FormControl(''),
-      'address_1': new FormControl('', Validators.required),
-      'address_2': new FormControl(''),
-      'country': new FormControl('', Validators.required),
-      'state': new FormControl('', Validators.required),
-      'city': new FormControl('', Validators.required),
-      'pincode': new FormControl('', Validators.required),
-      'district': new FormControl('', Validators.required),
-      'safetyEscort': new FormControl(''),
-      // 'employee': new FormControl('')
+      firstTimeFlag: new FormControl(''),
+      userName: new FormControl('', Validators.required),
+      firstName: new FormControl('', Validators.required),
+      lastName: new FormControl('', Validators.required),
+      genderFlag: new FormControl('', Validators.required),
+      realm: new FormControl('', Validators.required),
+      emailId: new FormControl('', Validators.required),
+      contactNumber: new FormControl('', Validators.required),
+      alternateContactNumber: new FormControl(''),
+      addressLine1: new FormControl(''),
+      addressLine2: new FormControl(''),
+      address_2: new FormControl(''),
+      country: new FormControl('', Validators.required),
+      state: new FormControl('', Validators.required),
+      district: new FormControl('', Validators.required),
+      pincode: new FormControl('', Validators.required),
+      city: new FormControl('', Validators.required),
+      employeeFlag: new FormControl(''),
+      empId: new FormControl(''),
+      safetyEscortFlag: new FormControl('')
     });
-
-    // this.getUserDetails();
     this.getCountry();
   }
 
@@ -132,89 +116,24 @@ export class AddNewUserComponent implements OnInit {
     this.cityList = y;
   }
 
-  email: string = "";
-  getUserDetails(){
-    this.userSer.getUserInfoForUserId(this.email).subscribe((res:any)=>{
-      // console.log(res)
-      if(res.Status == 'Success'){
-        this.user.username= "";
-        // this.user.password= res.password;
-        this.user.firstname= res.firstName;
-        this.user.lastname= res.lastName;
-        this.user.roleList = res.roleList;
-        this.user.email= res.email;
-        this.user.gender= res.gender;
-        this.user.realm= res.realm;
-        this.user.contactNumber1= res.contactNo1;
-        this.user.contactNumber2= res.contactNo2;
-        this.user.country= res.country;
-        this.user.addressLine1= res.address_line1;
-        this.user.addressLine2= res.address_line2;
-        this.user.district= res.district;
-        this.user.state= res.state;
-        this.user.city= res.city;
-        this.user.pin= res.pin;
-        this.user.employee= res.employee;
-        this.user.employeeId= res.empId;
-        this.user.accesstoken= res.access_token;
-        this.user.callingUsername= res.callingUsername;
-        this.user.callingSystemDetail = "portal";
-        this.user.safetyEscort = res.safetyescort;
-      }
-    })
-  }
-
   closeAddUser() {
     this.newItemEvent.emit();
   }
 
-  openAnotherForm(newform:any) {
-    this.newItemEvent.emit();
-  }
-
-
-  addUser0: any;
-  addUser1: any;
-  addUser2: any;
   submit() {
     if(this.UserForm.valid) {
       this.newItemEvent.emit();
-
-      this.addUser2 = Swal.fire({
-        text: "Please wait",
-        imageUrl: "assets/gif/ajax-loading-gif.gif",
-        showConfirmButton: false,
-        allowOutsideClick: false
-      });
-
       this.userSer.addUser(this.user).subscribe((res: any) => {
-        if(res.Status == "Success") {
-          this.storageSer.set('userCreated', res);
+        if(res.status_code == 200) {
+          // this.storageSer.set('userCreated', res);
+          this.alertSer.success(res.message);
         }
-
-        if(res) {
-          this.addUser1 = Swal.fire({
-            icon: 'success',
-            title: 'Done!',
-            text: 'Created User Successfully!',
-          });
-        }
-
       }, (err: any) => {
-        if(err) {
-          this.addUser0 = Swal.fire({
-            icon: 'error',
-            title: 'Failed!',
-            text: 'User Creation failed',
-            // timer: 3000,
-          });
-        };
+        this.alertSer.error(err.error.message);
       });
     }
-
     // console.log(this.user);
   }
-
 
   // checkbox: boolean = false;
   // onCheck() {
