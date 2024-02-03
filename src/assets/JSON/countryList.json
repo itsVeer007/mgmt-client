@@ -3,25 +3,25 @@
     "countryName": "Australia",
     "states": [
       {
-        "stateName": "Andhra Pradesh",
-        "cities": ["Amaravati", "Anantapur", "Chandragiri"]
+        "stateName": "Australian Capital Territory",
+        "cities": ["Canberra", "Uriarra Village", "Tharwa"]
       },
 
       {
-        "stateName": "Arunachal Pradesh",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+        "stateName": "Northern Territory",
+        "cities": ["Alice Springs", "Darwin", "Katherine"]
       },
       {
-        "stateName": "Assam",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+        "stateName": "Melbourne",
+        "cities": ["Kensington", "Parkville", "Southbank"]
       },
       {
-        "stateName": "Bihar",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+        "stateName": "Sydney",
+        "cities": ["Circular Quay", "Darling Harbour", "Sydney Harbour"]
       },
       {
-        "stateName": "Chhattisgarh",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+        "stateName": "Tasmania",
+        "cities": ["Burnie", "Devonport", "Hobart"]
       }
     ]
   },

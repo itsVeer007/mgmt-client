@@ -10,7 +10,8 @@
       <!-- <a class="pointer" (click)="show('ticket')">
         <img src="assets/icons/add.svg" alt="">
       </a> -->
-      <button class="create-btn" (click)="show('ticket', 'Create_New')">Create Metadata</button>
+      <button class="create-btn" (click)="openViewPopup()">Create Type</button>
+      <button class="create-btn" (click)="show('ticket')">Create Metadata</button>
     </div>
   </div>
 
@@ -37,7 +38,7 @@
           <mat-select #typeInput [(ngModel)]="metaType">
             <!-- <mat-option value="Create_New">Create new</mat-option> -->
             <mat-option value="All" (click)="filterDevices('All')">All</mat-option>
-            <mat-option *ngFor="let item of typeToTable" [value]="item.type" (click)="filterDevices(item.type)">{{item.typeName}}</mat-option>
+            <mat-option *ngFor="let item of typeToTable" [value]="item.id" (click)="filterDevices(item.id)">{{item.type}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -92,7 +93,6 @@
               </p>
             </th>
             <th>Remarks</th>
-            <th>Add</th>
             <th class="text-center">Actions</th>
         </tr>
       </thead>
@@ -129,11 +129,6 @@
               <td>
                 <p>{{item?.remarks ? item?.remarks : '--'}}</p>
               </td>
-              <td>
-                <a class="pointer" (click)="show('ticket', item)">
-                  <img src="assets/icons/add.svg" width="40">
-                </a>
-              </td>
               <td class="text-center table-icons">
                   <a class="mx-1 pointer" (click)="openEditPopup(item, obj.type)">
                     <img src="assets/icons/edit.svg" />
@@ -160,36 +155,20 @@
 </div>
 
 <ng-template #viewDataDialog>
-  <div>
+  <div style="background-color: #084982;">
+    <p class="dialog-title">add</p>
+  </div>
+  <div class="dialog-content">
     <div>
-      <mat-list>
-        <mat-list-item>
-          <span style="width: 130px; color: #ABABAB;">Key Id: </span>{{ currentItem.keyId }}
-        </mat-list-item>
-        <mat-divider></mat-divider>
-
-        <mat-list-item>
-          <span style="width: 130px; color: #ABABAB;">Type: </span>{{ currentItem.type }}
-        </mat-list-item>
-        <mat-divider></mat-divider>
-
-        <mat-list-item>
-          <span style="width: 130px; color: #ABABAB;">Value: </span>{{ currentItem?.value }}
-        </mat-list-item>
-        <mat-divider></mat-divider>
-
-        <!-- <mat-list-item>
-          <span style="width: 130px; color: #ABABAB;">Status: </span>{{ currentItem?.status }}
-        </mat-list-item>
-        <mat-divider></mat-divider> -->
-
-        <mat-list-item>
-          <span style="width: 130px; color: #ABABAB;">Remarks: </span>{{ currentItem?.remarks }}
-        </mat-list-item>
-      </mat-list>
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Enter Type</mat-label>
+        <input matInput [(ngModel)]="metadataTypeId">
+      </mat-form-field>
     </div>
-    <div  >
+
+    <div class="d-flex justify-content-end">
       <button class="dialog-close-btn" mat-dialog-close>Close</button>
+      <button class="dialog-update-btn" mat-dialog-close (click)="addMetadataTypes()">Create</button>
     </div>
   </div>
 </ng-template>
@@ -256,7 +235,6 @@
   </div>
 </ng-template>
 
-
 <ng-template #deleteDataDialog>
   <div style="background-color: #084982;">
     <p class="dialog-title">Delete Row</p>
@@ -278,5 +256,5 @@
 
 
 <div  *ngIf="showTicket">
-  <app-add-metadata [metadataDetail]="newMetaData" [metadataTypes]="typeToTable" (newItemEvent)="closenow('ticket')"></app-add-metadata>
+  <app-add-metadata [metadataDetail]="newMetaData" (newItemEvent)="closenow('ticket'); CustomerReport()"></app-add-metadata>
 </div>

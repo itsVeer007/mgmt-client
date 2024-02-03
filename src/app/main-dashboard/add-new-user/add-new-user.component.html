@@ -47,16 +47,6 @@
               <mat-error class="mt-1">Last name is required</mat-error>
             </mat-form-field>
           </div>
-          <!-- <div class="col-lg-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Select gender</mat-label>
-              <mat-select formControlName="genderFlag" [(ngModel)]="user.genderFlag">
-                <mat-option value="M">Male</mat-option>
-                <mat-option value="F">Female</mat-option>
-              </mat-select>
-              <mat-error class="mt-1">Gender is required</mat-error>
-            </mat-form-field>
-          </div> -->
           <div class="col-lg-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Select realm</mat-label>
@@ -113,16 +103,6 @@
               <input matInput formControlName="addressLine2" [(ngModel)]="user.addressLine2">
             </mat-form-field>
           </div>
-          <!-- <div class="col-lg-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Select role</mat-label>
-              <mat-select formControlName="realm" [(ngModel)]="user.realm" multiple>
-                <mat-option value="default">default</mat-option>
-                <mat-option value="adminus">adminus</mat-option>
-              </mat-select>
-              <mat-error class="mt-1">Role is required</mat-error>
-            </mat-form-field>
-          </div> -->
           <div class="col-lg-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Select country</mat-label>
@@ -190,7 +170,7 @@
           </div>
 
           <div class="text-center my-3">
-            <button type="submit" class="btn add-btn" (click)="submit()">ADD</button>
+            <button type="submit" class="btn add-btn" (click)="createUser()">ADD</button>
           </div>
         </div>
       </form>

@@ -50,22 +50,13 @@ export class UsersComponent implements OnInit {
     }
   }
 
-  closenow(value: any, type: String) {
-    if (type == 'user') { this.showAddUser = value; }
-    if(type == 'additionalSite') {this.showAddSite = value;}
+  closenow(type: String) {
+    if (type == 'user') { this.showAddUser = false; }
+    if(type == 'additionalSite') {this.showAddSite = false;}
   }
-
-
-  // addNewUser(newUser: any) {
-  //   if(newUser) {
-  //     this.userTableData.push(newUser)
-  //     localStorage.removeItem('userCreated');
-  //   }
-  // }
 
   showAddUser: boolean = false;
   showAddSite: boolean = false;
-
   show(type: string) {
     if (type == 'user') { this.showAddUser = true; }
     if (type == 'additionalSite') { this.showAddSite = true; }
@@ -80,7 +71,6 @@ export class UsersComponent implements OnInit {
   //     this.masterSelected = false;
   //   }
   // }
-
 
   selectedAll: any;
   selectAll() {

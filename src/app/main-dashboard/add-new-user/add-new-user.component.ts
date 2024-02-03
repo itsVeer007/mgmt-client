@@ -33,7 +33,7 @@ import { AlertService } from 'src/services/alert.service';
 })
 export class AddNewUserComponent implements OnInit {
 
-  @Output() newItemEvent = new EventEmitter<boolean>();
+  @Output() newItemEvent = new EventEmitter<any>();
 
   constructor(
     private router:Router,
@@ -48,24 +48,24 @@ export class AddNewUserComponent implements OnInit {
   UserForm: any =  FormGroup;
   user = {
     firstTimeFlag: "F",
-    userName: "",
-    firstName: "",
-    lastName: "",
+    userName: null,
+    firstName: null,
+    lastName: null,
     genderFlag: "M",
-    realm: "",
-    emailId: "",
-    contactNumber: "",
-    alternateContactNumber: "",
-    addressLine1: "",
-    addressLine2: "",
-    country: "",
-    state: "",
-    district: "",
-    pincode: "",
-    city: "",
+    realm: null,
+    emailId: null,
+    contactNumber: null,
+    alternateContactNumber: null,
+    addressLine1: null,
+    addressLine2: null,
+    country: null,
+    state: null,
+    district: null,
+    pincode: null,
+    city: null,
     createdBy: 1,
     employeeFlag: "F",
-    empId: "",
+    empId: null,
     safetyEscortFlag: "F"
   }
 
@@ -105,27 +105,27 @@ export class AddNewUserComponent implements OnInit {
   stateList: any = [];
   filterState(val: any) {
     let x = this.countryList.filter((el: any) => el.countryName == val);
-    let y = x.flatMap((el: any) => el.states);
-    this.stateList = y;
+    this.stateList = x.flatMap((el: any) => el.states);
+    this.user.state = null;
+    this.user.district = null;
   }
 
   cityList: any
   filterCity(val: any) {
     let x = this.stateList.filter((el: any) => el.stateName == val);
-    let y = x.flatMap((el: any) => el.cities);
-    this.cityList = y;
+    this.cityList = x.flatMap((el: any) => el.cities);
+    this.user.district = null;
   }
 
   closeAddUser() {
     this.newItemEvent.emit();
   }
 
-  submit() {
+  createUser() {
     if(this.UserForm.valid) {
-      this.newItemEvent.emit();
-      this.userSer.addUser(this.user).subscribe((res: any) => {
+      this.userSer.createUser(this.user).subscribe((res: any) => {
         if(res.status_code == 200) {
-          // this.storageSer.set('userCreated', res);
+          this.newItemEvent.emit();
           this.alertSer.success(res.message);
         }
       }, (err: any) => {

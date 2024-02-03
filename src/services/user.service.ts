@@ -58,7 +58,7 @@ export class UserService {
     return this.http.get(url);
   }
 
-  addUser(payload: any) {
+  createUser(payload: any) {
     // let url = this.baseUrl + "/createUser_1_0";
     let url = 'http://192.168.0.148:8000/userDetails/createUser_1_0';
     var user: any = this.storageSer.get('user');

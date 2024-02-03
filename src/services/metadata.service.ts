@@ -22,9 +22,18 @@ export class MetadataService {
     return this.http.get(url, {params: params});
   }
 
+  listMetadataTypes() {
+    let url = this.baseUrl + '/listMetadataTypes_1_0';
+    return this.http.get(url);
+  }
+
+  addMetadataTypes(payload: any) {
+    let url = this.baseUrl + '/addMetadataTypes_1_0';
+    return this.http.post(url, payload);
+  }
 
   add(payload: any) {
-    let url = this.baseUrl + '/addMetadataKeyValue_1_0'
+    let url = this.baseUrl + '/addMetadataKeyValue_1_0';
     return this.http.post(url, payload);
   }
 

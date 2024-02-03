@@ -99,7 +99,6 @@ export class AddNewAssetComponent implements OnInit {
     // console.log(this.user);
     this.addAssetForm = this.fb.group({
       'file': new FormControl('', Validators.required),
-
       'deviceModeId': new FormControl(''),
       'name': new FormControl('', Validators.required),
       'playOrder': new FormControl(''),
@@ -107,10 +106,8 @@ export class AddNewAssetComponent implements OnInit {
       'splRuleId': new FormControl(''),
       'fromDate': new FormControl(''),
       'toDate': new FormControl(''),
-
       'adFor': new FormControl(''),
       'enableDemo': new FormControl(''),
-
       'timeId': new FormControl(''),
       'tempId': new FormControl(''),
       'maleKids': new FormControl(''),
@@ -158,8 +155,7 @@ export class AddNewAssetComponent implements OnInit {
     })
   }
 
-
-  /* File Upload */
+  /* file upload */
   selectedFile: any;
   // selectedFiles:  Array<any> = [];
   onFileSelected(event: any) {
@@ -170,21 +166,14 @@ export class AddNewAssetComponent implements OnInit {
   }
 
   deleteFile() {
-    // this.selectedFiles.forEach((value, index) => {
-    //   if(value == el) {
-    //     this.selectedFiles.splice(index, 1);
-    //   }
-    // })
     this.selectedFile = null;
     this.assetData.file = null;
   }
-
 
   closeForm() {
     this.newItemEvent.emit();
   }
 
-  /* metadata methods */
   deviceType: any;
   deviceMode: any;
   workingDay: any;

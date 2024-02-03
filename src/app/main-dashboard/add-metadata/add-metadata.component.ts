@@ -35,7 +35,7 @@ import swal from 'sweetalert2';
 export class AddMetadataComponent implements OnInit {
 
   @Input() metadataDetail: any;
-  @Input() metadataTypes: any;
+  // @Input() metadataTypes: any;
   @Output() newItemEvent: any = new EventEmitter<boolean>();
 
   metadataForm: any = FormGroup;
@@ -49,32 +49,37 @@ export class AddMetadataComponent implements OnInit {
     private storageSer: StorageService
   ) { }
 
-  metaType: any;
   user: any;
   ngOnInit(): void {
+    this.user = this.storageSer.get('user');
     this.metadataForm = this.fb.group({
       metadataTypeId: new FormControl('', Validators.required),
       value: new FormControl('', Validators.required),
       code: new FormControl(''),
       remarks: new FormControl('')
     });
+    // this.getDeviceType();
+    this.listMetadataTypes();
+  }
 
-    this.getDeviceType();
-    this.metaType = this.storageSer.get('metaType');
-    this.user = this.storageSer.get('user');
+  metadataTypes: any = [];
+  listMetadataTypes() {
+    this.metaDataSer.listMetadataTypes().subscribe((types: any) => {
+      this.metadataTypes = types;
+    });
   }
 
   closeAddCamera() {
     this.newItemEvent.emit();
   }
 
-  type: Array<any> = [];
-  getDeviceType() {
-    this.metaDataSer.getMetadata().subscribe((res: any) => {
-      this.type = res;
-      // console.log(res)
-    })
-  }
+  // type: Array<any> = [];
+  // getDeviceType() {
+  //   this.metaDataSer.getMetadata().subscribe((res: any) => {
+  //     // console.log(res)
+  //     this.type = res;
+  //   })
+  // }
 
   sit: string = '';
   siteSer(e: Event) {
@@ -91,7 +96,6 @@ export class AddMetadataComponent implements OnInit {
         } else {
           this.showType = false
         }
-
         if(type == item.type) {
           this.showValueAndRemark = true
         }
@@ -113,18 +117,15 @@ export class AddMetadataComponent implements OnInit {
     createdBy: null,
   }
   addMetadata() {
-    // console.log(this.metaDataBody);
-    this.metaDataBody.createdBy = this.user.UserId;
-    if(this.metaType != 'Create_New') {
-      this.metaDataBody.type = this.metaType;
-    }
+    console.log(this.metaDataBody)
     if(this.metadataForm.valid) {
-      this.newItemEvent.emit();
+      this.metaDataBody.createdBy = 1;
       this.metaDataSer.add(this.metaDataBody).subscribe((res: any) => {
-        // console.log(res);
-        this.alertSer.snackSuccess(res?.message);
+        console.log(res);
+        this.newItemEvent.emit();
+        this.alertSer.success(res.message);
       }, (err: any) => {
-        this.alertSer.error(err?.error?.message);
+        this.alertSer.error(err.error.message);
       });
     }
   }

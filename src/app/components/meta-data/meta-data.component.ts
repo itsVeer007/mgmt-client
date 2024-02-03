@@ -33,13 +33,15 @@ export class MetaDataComponent implements OnInit {
       this.showLoader = false;
       this.metaData = res;
       this.newMetaData = this.metaData;
-      let type = res.flatMap((item: any) => item.type);
-      let typeName = res.flatMap((item: any) => item.typeName);
-
-      this.typeToTable = type.map((key: any, index:any) => ({
-        type: type[index],
-        typeName: typeName[index]
-      }));
+      // let type = res.flatMap((item: any) => item.type);
+      // let typeName = res.flatMap((item: any) => item.typeName);
+      // this.typeToTable = type.map((key: any, index:any) => ({
+      //   type: type[index],
+      //   typeName: typeName[index]
+      // }));
+      this.metaDataSer.listMetadataTypes().subscribe((types: any) => {
+        this.typeToTable = types;
+      });
     })
   }
 
@@ -62,12 +64,11 @@ export class MetaDataComponent implements OnInit {
   }
 
   showTicket: boolean = false;
-  show(type: string, val: any) {
+  show(type: string) {
     // if(val != 'All') {
       if (type == 'ticket') {
         this.showTicket = true
       }
-      this.storageSer.set('metaType', val);
     // } else {
     //   this.alertSer.error('Please select type');
     // }
@@ -79,12 +80,24 @@ export class MetaDataComponent implements OnInit {
     }
   }
 
+
+  metadataTypeId: any;
   currentItem: any;
   @ViewChild('viewDataDialog') viewDataDialog = {} as TemplateRef<any>;
-  openViewPopup(item: any, i: any) {
-    this.currentItem = item;
+  openViewPopup() {
+    this.metadataTypeId = null;
     this.dialog.open(this.viewDataDialog);
-    // console.log(this.currentItem);
+  }
+
+  addMetadataTypes() {
+    this.metaDataSer.addMetadataTypes({type: this.metadataTypeId}).subscribe((res: any) => {
+      console.log(res);
+      if(res.statusCode == 200) {
+        this.alertSer.success(res.message);
+      } else {
+        this.alertSer.error(res.message);
+      }
+    });
   }
 
   @ViewChild('editDataDialog') editDataDialog = {} as TemplateRef<any>;

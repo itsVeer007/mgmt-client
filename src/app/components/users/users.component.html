@@ -183,9 +183,9 @@
 
 
 <div *ngIf="showAddUser">
-  <app-add-new-user (newItemEvent)="closenow($event, 'user')"></app-add-new-user>
+  <app-add-new-user (newItemEvent)="closenow('user'); listUsers()"></app-add-new-user>
 </div>
 
 <div *ngIf="showAddSite">
-  <app-add-additional-site (newItemEvent)="closenow($event, 'additionalSite')"></app-add-additional-site>
+  <app-add-additional-site (newItemEvent)="closenow('additionalSite')"></app-add-additional-site>
 </div>
