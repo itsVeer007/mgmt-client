@@ -110,20 +110,19 @@ export class AddMetadataComponent implements OnInit {
   }
 
   metaDataBody: any = {
-    metadataTypeId: null,
+    metadataTypesId: null,
     code: null,
     value: null,
     remarks: null,
     createdBy: null,
   }
   addMetadata() {
-    console.log(this.metaDataBody)
     if(this.metadataForm.valid) {
       this.metaDataBody.createdBy = 1;
       this.metaDataSer.add(this.metaDataBody).subscribe((res: any) => {
-        console.log(res);
+        // console.log(res);
         this.newItemEvent.emit();
-        this.alertSer.success(res.message);
+        this.alertSer.success('Created successfully');
       }, (err: any) => {
         this.alertSer.error(err.error.message);
       });

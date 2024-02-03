@@ -10,7 +10,7 @@
       <!-- <a class="pointer" (click)="show('ticket')">
         <img src="assets/icons/add.svg" alt="">
       </a> -->
-      <button class="create-btn" (click)="openViewPopup()">Create Type</button>
+      <button class="filter-btn me-2" (click)="openViewPopup()">Add Type</button>
       <button class="create-btn" (click)="show('ticket')">Create Metadata</button>
     </div>
   </div>
@@ -130,7 +130,7 @@
                 <p>{{item?.remarks ? item?.remarks : '--'}}</p>
               </td>
               <td class="text-center table-icons">
-                  <a class="mx-1 pointer" (click)="openEditPopup(item, obj.type)">
+                  <a class="mx-1 pointer" (click)="openEditPopup(item, obj)">
                     <img src="assets/icons/edit.svg" />
                   </a>
                   <a class="mx-1 pointer" value="Delete" (click)="openDeletePopup(item, i)">
@@ -182,14 +182,14 @@
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Type</mat-label>
-        <input matInput [(ngModel)]="typeFromLocal" disabled>
+        <input matInput [(ngModel)]="currentItem.keyId" disabled>
       </mat-form-field>
     </div>
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Id</mat-label>
-        <input matInput [(ngModel)]="currentItem.keyId" disabled>
+        <mat-label>Code</mat-label>
+        <input matInput [(ngModel)]="currentItem.code" disabled>
       </mat-form-field>
     </div>
 

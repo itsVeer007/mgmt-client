@@ -18,7 +18,9 @@ export class MetaDataComponent implements OnInit {
     private storageSer: StorageService
   ) { }
 
+  user: any;
   ngOnInit(): void {
+    this.user = this.storageSer.get('user');
     this.CustomerReport();
   }
 
@@ -101,35 +103,35 @@ export class MetaDataComponent implements OnInit {
   }
 
   @ViewChild('editDataDialog') editDataDialog = {} as TemplateRef<any>;
-  typeFromLocal: any;
-  openEditPopup(item: any, type: any) {
-    this.storageSer.set('metaType', type);
-    this.typeFromLocal = this.storageSer.get('metaType');
-
-    this.currentItem = JSON.parse(JSON.stringify(item));
+  // typeFromLocal: any;
+  currentMetaData: any;
+  openEditPopup(item: any, data: any) {
+    this.currentItem = item;
+    this.currentMetaData = data;
     this.dialog.open(this.editDataDialog);
-    // console.log(item);
   }
 
   confirmEditRow() {
     let myObj = {
-      "keyId": this.currentItem.keyId,
-      "type": this.typeFromLocal,
-      "value": this.currentItem.value,
-      "modifiedBy": 1,
-      "remarks": this.currentItem.remarks
+      metadataTypesId: this.currentMetaData.type,
+      keyId: this.currentItem.keyId,
+      code: this.currentItem.code,
+      value: this.currentItem.value,
+      modifiedBy: this.user.UserId,
+      remarks: this.currentItem.remarks
     }
     this.metaDataSer.updateMetadataKeyValue(myObj).subscribe((res: any) => {
       // console.log(res);
-        this.alertSer.snackSuccess(res?.message);
+      if(res.statusCode == 200) {
+        this.alertSer.success(res.message);
         this.CustomerReport();
+      } else {
+        this.alertSer.success(res.message);
+      }
     }, (err: any) => {
-      if(err) {
-        this.alertSer.error(err?.error?.message);
-      };
+      this.alertSer.error(err?.error?.message);
     })
   }
-
 
   @ViewChild('deleteDataDialog') deleteDataDialog = {} as TemplateRef<any>;
   openDeletePopup(item: any, i: any) {
@@ -147,7 +149,6 @@ export class MetaDataComponent implements OnInit {
   }
 
   confirmDeleteRow() {
-    // console.log(this.currentItem);
     this.newMetaData = this.newMetaData.filter((item: any) => item.siteId !== this.currentItem.siteId);
   }
 
