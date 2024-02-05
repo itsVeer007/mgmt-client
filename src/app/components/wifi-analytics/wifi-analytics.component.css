@@ -1,3 +1,26 @@
+#chart {
+  height: 275px;
+  border: 1px solid #EFEFEF;
+  border-radius: 5px;
+  box-shadow: 5px 5px 10px #0000000D;
+  margin-bottom: 10px;
+}
+
+:host ::ng-deep .highcharts-credits{
+  fill: #00000000 !important;
+  pointer-events: none;
+}
+
+
+:host ::ng-deep .highcharts-credits{
+  fill: #00000000 !important;
+  pointer-events: none !important;
+}
+:host ::ng-deep .highcharts-root{
+  font-family: ms,sans-serif !important;
+}
+
+
 /* ng-deep */
 .from-date ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
     padding: 1px;

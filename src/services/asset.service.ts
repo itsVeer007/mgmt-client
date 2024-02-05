@@ -16,7 +16,7 @@ export class AssetService {
   constructor(private http: HttpClient, private date: DatePipe, private storageSer: StorageService) { }
 
   baseUrl = `${environment.baseUrl}/proximityads`;
-  baseUrl1 = 'http://192.168.0.109:8070';
+  baseUrl1 = 'http://192.168.0.109:8080';
 
   // httpOptions = {
   //   headers: new HttpHeaders({
@@ -270,22 +270,14 @@ export class AssetService {
 
 
   // wifi Analytics
-  WifiData(payload?: any) {
-    let url = this.baseUrl1 + `/WifiData`;
-    let params = new HttpParams();
-    if(payload?.siteId) {
-      params = params.set('siteId', payload?.siteId)
-    }
-    if(payload?.deviceId) {
-      params = params.set('device_name', payload?.deviceId)
-    }
-    if(payload?.startDate) {
-      params = params.set('from_date', formatDate(payload?.startDate, 'yyyy-MM-dd', 'en-us'))
-    }
-    if(payload?.endDate) {
-      params = params.set('to_date',  formatDate(payload?.endDate, 'yyyy-MM-dd', 'en-us'))
-    }
-    return this.http.get(url, {params:params});
+  wifiData() {
+    let url = this. baseUrl1 + '/wifiDetails/GetWifiStats_1_0/RSWIN10460001';
+    return this.http.get(url)
+  }
+
+  wifiDeatils() {
+    let url = this. baseUrl1 + '/wifiDetails/GetWifiStats_1_0/RSWIN10460001/2024-02-04';
+    return this.http.get(url)
   }
 
 }

@@ -5,6 +5,7 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
+import { ChartService } from 'src/services/chart.service';
 import { InventoryService } from 'src/services/inventory.service';
 import { MetadataService } from 'src/services/metadata.service';
 import { SiteService } from 'src/services/site.service';
@@ -28,7 +29,8 @@ export class WifiAnalyticsComponent implements OnInit {
     private datePipe: DatePipe,
     public dialog: MatDialog,
     public alertSer: AlertService,
-    private storageSer: StorageService
+    private storageSer: StorageService,
+    private chartService: ChartService
   ) { }
 
 
@@ -51,6 +53,7 @@ open(type:string) {
     this.user =  this.storageSer.get('user');
     this.WifiData();
     this.listSites();
+
   }
 
 
@@ -58,16 +61,13 @@ open(type:string) {
 total:any;
 active:any;
 inActive:any;
-newWifiData: any = [];
+newWifiData: any;
 wifiData: any = [];
 WifiData() {
   this.showLoader = true;
-  this.assetSer.WifiData().subscribe((res:any)=> {
+  this.assetSer.wifiData().subscribe((res:any)=> {
     // console.log(res);
-    this.total = res;
-    this.showLoader = false
-    this.wifiData = res?.devices;
-    this.newWifiData = this.wifiData
+    this.newWifiData = res.hourlyStats
   })
 }
 
@@ -80,15 +80,15 @@ filterDataObject = {
 }
 
 
-filterWifiData() {
-  this.showLoader = true;
-  this.assetSer.WifiData(this.filterDataObject).subscribe((res:any)=> {
-    // console.log(res);
-    this.total = res;
-    this.showLoader = false
-    this.newWifiData = res?.devices;
-  })
-}
+// filterWifiData() {
+//   this.showLoader = true;
+//   this.assetSer.wifiData(this.filterDataObject).subscribe((res:any)=> {
+//     // console.log(res);
+//     this.total = res;
+//     this.showLoader = false
+//     this.newWifiData = res?.devices;
+//   })
+// }
 
 @ViewChild('usedItemsDialog') usedItemsDialog = {} as TemplateRef<any>;
 openViewPopupData:any = [];
@@ -98,8 +98,6 @@ openWifiData(data: any) {
   this.openViewPopupData = data?.device_details;
   this.dialog.open(this.usedItemsDialog);
 }
-
-
 
 listSites() {
   this.showLoader = true;
@@ -126,21 +124,6 @@ filterSites(site: any) {
     this.newTableData = this.tableData;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   frFilterBody: any = {
     p_frId: null,
@@ -228,14 +211,13 @@ filterSites(site: any) {
   showAddBusinessVertical = false;
   showSite = false;
 
-  closenow(value: any, type: String) {
-    if (type == 'ticket') { this.showTicket = value; }
+  closenow(type: any) {
+    if (type == 'wifi') { this.showWifiDetail = false; }
   }
 
-  showTicket: boolean = false;
-
+  showWifiDetail: boolean = false;
   show(type: string) {
-    if (type == 'ticket') { this.showTicket = true }
+    if (type == 'wifi') { this.showWifiDetail = true }
   }
 
 

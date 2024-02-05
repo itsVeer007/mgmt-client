@@ -92,6 +92,7 @@ import { WifiAdsComponent } from './components/wifi-ads/wifi-ads.component';
 import { WifiAnalyticsComponent } from './components/wifi-analytics/wifi-analytics.component';
 import { DeviceInfoComponent } from './components/devices/device-info/device-info.component';
 import { AssetsComponent } from './components/assets/assets.component';
+import { WifiDetailComponent } from './components/wifi-analytics/wifi-detail/wifi-detail.component';
 
 
 @NgModule({
@@ -151,7 +152,8 @@ import { AssetsComponent } from './components/assets/assets.component';
     DcChallanComponent,
     RemoveDuplicatesPipe,
     WifiAnalyticsComponent,
-    DeviceInfoComponent
+    DeviceInfoComponent,
+    WifiDetailComponent
   ],
   imports: [
     BrowserModule,

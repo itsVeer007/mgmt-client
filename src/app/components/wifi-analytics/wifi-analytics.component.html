@@ -6,10 +6,9 @@
             <p>Total Devices - <span>{{total?.total_counts ? total?.total_counts : 0}}</span></p>
         </div>
         <!-- <div>
-        <button class="create-btn" (click)="generatePDF()">Download Report</button>
+          <button class="create-btn" (click)="show('wifi')">Create User</button>
         </div> -->
     </div>
-    <!-- /header -->
 
         <!-- count -->
     <div class="row mb-2 mt-2">
@@ -20,7 +19,7 @@
         <div class="count">{{ total?.active ? total?.active : 0 }}</div>
         </div>
         </div>
-    <div class="col-lg-1 col-md-1 d-flex justify-content-start">
+    <!-- <div class="col-lg-1 col-md-1 d-flex justify-content-start">
         <div class="vl-yellow"></div>
         <div class="mx-2">
         <div class="status">InActive - </div>
@@ -33,10 +32,10 @@
         <div class="status">LastMonth Count - </div>
         <div class="count">{{ total?.previous_month_users_count ? total?.previous_month_users_count : 0}}</div>
     </div>
-    </div>
+    </div> -->
 </div>
 <!-- /count -->
-
+<!-- 
     <div class="row mt-2">
         <div class="col-lg-2 col-md-2">
         <mat-form-field appearance="outline" class="w-100">
@@ -52,7 +51,7 @@
           <mat-form-field appearance="outline" class="w-100">
               <mat-label>Device Name</mat-label>
               <mat-select [(ngModel)]="filterDataObject.deviceId" (selectionChange)="filterWifiData()">
-                  <!-- <mat-option value="RSMGLIN9902DW1">RSMGLIN9902DW1</mat-option> -->
+                  <mat-option value="RSMGLIN9902DW1">RSMGLIN9902DW1</mat-option>
                   <mat-option value="Dv1">Dv1</mat-option>
                   <mat-option value="Dv2">Dv2</mat-option>
               </mat-select>
@@ -77,10 +76,10 @@
         </mat-form-field>
         </div>
 
-        <!-- <div class="col-md-2 mt-1">
+        <div class="col-md-2 mt-1">
           <button class="create-btn" (click)="show('ticket')">Submit</button>
-        </div> -->
-    </div>
+        </div>
+    </div> -->
 
     <div class="table-resp">
         <table class="table table-hover" id="mytable" #table>
@@ -109,13 +108,18 @@
             </th>
 
             <th>
-                <span>Average Time</span>
+                <span>Time Spent</span>
                 <img (click)="sort('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </th>
+            
             <th>
-              <span>PeakHour</span>
+              <span>hour</span>
               <img (click)="sort('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
+            <!-- <th>
+              <span>PeakHour</span>
+              <img (click)="sort('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+          </th> -->
           <th>
           <span>Details</span>
           </th>
@@ -128,28 +132,32 @@
                     <p>{{i+1}}</p>
                 </td>
                 <td>
-                  <p>{{cust.device_id}}</p>
+                  <p>{{'RSWIN10460001'}}</p>
               </td>
                 <td>
-                    <p>{{ cust.active_devices }}</p>
+                    <p>{{ cust.active }}</p>
                 </td>
                 <td>
-                    <p>{{ cust.inactive_devices }}</p>
-                </td>
-
-                <td>
-                    <p>{{ cust.total_counts }}</p>
+                    <p>{{ cust.inactive }}</p>
                 </td>
 
                 <td>
-                    <p>{{ cust.avg_time_spent }}</p>
+                    <p>{{ cust.total }}</p>
                 </td>
+
                 <td>
+                    <p>{{ cust.timeSpent }}</p>
+                </td>
+                
+                <td>
+                  <p>{{ cust.hour }}</p>
+              </td>
+                <!-- <td>
                   <p>{{ cust.peak_hour }}</p>
-              </td>
+              </td> -->
               <td>
-                <a class="mx-1 pointer" (click)="openWifiData(cust)" matTooltip="View">
-                  <img src="assets/icons/view.svg" >
+                <a class="mx-1 pointer" (click)="show('wifi')" matTooltip="View">
+                  view
                 </a>
               </td>
             </tr>
@@ -166,89 +174,92 @@
           <app-loader></app-loader>
         </div>
     </div>
+  </div>
 
+  <ng-template #usedItemsDialog>
+    <div style="background-color: #084982;">
+      <p class="dialog-title">used items</p>
+    </div>
 
-    <ng-template #usedItemsDialog>
-      <div style="background-color: #084982;">
-        <p class="dialog-title">used items</p>
+    <div class="dialog-content">
+      <div class="table-res">
+        <table class="table" id="mytable">
+          <thead>
+            <tr class="task-table">
+              <th>
+                <p class="d-inline-flex">
+                  <span>IP Address</span>
+                  <!-- <img (click)="sort1('inventoryId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
+                </p>
+              </th>
+
+              <th>
+                <p class="d-inline-flex">
+                  <span>MacAddress</span>
+                  <!-- <img (click)="sort1('itemCode')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
+                </p>
+              </th>
+
+              <th>
+                <p class="d-inline-flex">
+                  <span>ConnectTime</span>
+                  <!-- <img (click)="sort1('statusId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
+                </p>
+              </th>
+
+              <th>
+                <p class="d-inline-flex">
+                  <span>DisconnectTime</span>
+                  <!-- <img (click)="sort1('modifiedTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
+                </p>
+              </th>
+              <th>
+                <p class="d-inline-flex">
+                  <span>TimeSpent</span>
+                  <!-- <img (click)="sort1('modifiedTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
+                </p>
+              </th>
+
+              <!-- <th>status</th> -->
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let task of openViewPopupData; let i = index">
+              <td>
+                <p>{{ task.ip_address }}</p>
+              </td>
+
+              <td>
+                <p>{{ task.mac_address }}</p>
+              </td>
+
+              <td>
+                <p>{{ task.connect_time}}</p>
+              </td>
+
+              <td>
+                <p>{{ task.disconnected_time }}</p>
+              </td>
+              <td>
+                <p>{{ task.time_spent }}</p>
+              </td>
+
+              <!-- <td>
+                <p>{{ task.statusId == 1 ? 'Open' : task.statusId == 2 ? 'In-Progress' : task.statusId == 3 ? 'Closed' : task.statusId == 4 ? 'Rejected' : '' }}</p>
+              </td> -->
+            </tr>
+          </tbody>
+        </table>
       </div>
+    </div>
 
-      <div class="dialog-content">
-        <div class="table-res">
-          <table class="table" id="mytable">
-            <thead>
-              <tr class="task-table">
-                <th>
-                  <p class="d-inline-flex">
-                    <span>IP Address</span>
-                    <!-- <img (click)="sort1('inventoryId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
-                  </p>
-                </th>
+    <div class="d-flex justify-content-end"  >
+      <button class="dialog-close-btn" mat-dialog-close>Close</button>
+    </div>
+  </ng-template>
 
-                <th>
-                  <p class="d-inline-flex">
-                    <span>MacAddress</span>
-                    <!-- <img (click)="sort1('itemCode')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
-                  </p>
-                </th>
-
-                <th>
-                  <p class="d-inline-flex">
-                    <span>ConnectTime</span>
-                    <!-- <img (click)="sort1('statusId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
-                  </p>
-                </th>
-
-                <th>
-                  <p class="d-inline-flex">
-                    <span>DisconnectTime</span>
-                    <!-- <img (click)="sort1('modifiedTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
-                  </p>
-                </th>
-                <th>
-                  <p class="d-inline-flex">
-                    <span>TimeSpent</span>
-                    <!-- <img (click)="sort1('modifiedTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
-                  </p>
-                </th>
-
-                <!-- <th>status</th> -->
-              </tr>
-            </thead>
-
-            <tbody>
-              <tr *ngFor="let task of openViewPopupData; let i = index">
-                <td>
-                  <p>{{ task.ip_address }}</p>
-                </td>
-
-                <td>
-                  <p>{{ task.mac_address }}</p>
-                </td>
-
-                <td>
-                  <p>{{ task.connect_time}}</p>
-                </td>
-
-                <td>
-                  <p>{{ task.disconnected_time }}</p>
-                </td>
-                <td>
-                  <p>{{ task.time_spent }}</p>
-                </td>
-
-                <!-- <td>
-                  <p>{{ task.statusId == 1 ? 'Open' : task.statusId == 2 ? 'In-Progress' : task.statusId == 3 ? 'Closed' : task.statusId == 4 ? 'Rejected' : '' }}</p>
-                </td> -->
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <div class="d-flex justify-content-end"  >
-        <button class="dialog-close-btn" mat-dialog-close>Close</button>
-      </div>
-    </ng-template>
-</div>
+  <div *ngIf="showWifiDetail">
+    <app-wifi-detail (newItemEvent)="closenow('wifi')"></app-wifi-detail>
+  </div>
 
