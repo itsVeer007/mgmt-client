@@ -63,24 +63,23 @@ wifiDeatils() {
 }
 
 
-  mychart(payload: any, chartType: any) {
+  mychart(payload: any, type: any) {
     let counts = payload.counts.split(',');
     let labels = payload.labels.split(',');
     let timestrings = payload.timestrings.split(',');
 
-    var charttype = 'line';
-    var threeD = false;
+    var chartType = 'line';
     var title = payload.type + ' wise';
-    // var subtitle = 'The following charts represent the average amount of time your employees spend at their bays each day.';
+    // var subtitle = '';
     var categories = labels;
-    var elementid = chartType;
+    var elementid = type;
     var subTitle = payload.type;
     let arr: any = [];
     labels.forEach((item: any, index: any) => {
       arr.push([labels[index] + ', ' + counts[index] + ', ' + timestrings[index], Number(counts[index])]);
     })
     var data = arr;
-    this.chartService.createchart1(charttype, threeD, title, data, elementid, subTitle, categories)
+    this.chartService.wifiChart(chartType, title, data, elementid, subTitle, categories)
   }
 
   close() {

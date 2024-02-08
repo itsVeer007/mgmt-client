@@ -18,7 +18,6 @@ ExportData(Highcharts);
 
 const Accessibility = require('highcharts/modules/accessibility');
 Accessibility(Highcharts);
-// import * as newdata from './data';
 
 @Injectable({
   providedIn: 'root'
@@ -28,8 +27,7 @@ export class ChartService {
   options:any;
   constructor() { }
 
-
-  createchart(charttype:any,threeD:any, title:any, data:any, elementid:any, antype:any){
+  createchart(charttype: any,threeD: any, title: any, data: any, elementid: any, antype: any) {
     if(antype==null) {
       antype = ""
     }
@@ -100,7 +98,8 @@ export class ChartService {
     return Highcharts.chart(elementid, this.options);
   }
 
-  createchart1(charttype: any, threeD: any, title: any, data: any, elementid: any, antype: any, categories: any){
+
+  devicesChart(charttype: any, title: any, data: any, elementid: any, antype: any, categories: any){
     if(antype==null) {
       antype = ""
     }
@@ -108,7 +107,6 @@ export class ChartService {
       colors:['#ef6000','#ef6000'],
       chart: {
           type: charttype,
-          options3d: {enabled: threeD,alpha: 45},
           events:{ },
       },
       title: {text: title},
@@ -137,6 +135,51 @@ export class ChartService {
           name: antype,
           data: data,
           marker: { fillColor: '#BF0B23', radius: 3 , lineWidth: 2, lineColor:null},
+          state:{
+            hover:{
+              halo: null,
+              brightness: 0,
+            }
+          },
+          point:{events:{ }}
+      }]
+    };
+    return Highcharts.chart(elementid, this.options);
+  }
+
+  wifiChart(charttype: any, title: any, data: any, elementid: any, subTitle: any, categories: any){
+    this.options = {
+      colors:['#ef6000','green'],
+      chart: {
+          type: charttype,
+          events:{ },
+      },
+      title: {text: title},
+      // subtitle: {text: subTitle },
+      xAxis:{categories:  categories},
+      tooltip: {pointFormat: ''},
+      plotOptions: {
+        pie: {
+          innerSize: 150,
+          depth: 45,
+          allowPointSelect: true,
+          cursor: 'pointer',
+          states: {
+            inactive: {opacity: 1},
+          },
+          showInLegend: true,
+          legend: {
+            enabled: true
+          },
+          point:{
+            events:{ }
+          }
+        }
+      },
+      series: [{
+          name: subTitle,
+          data: data,
+          marker: { fillColor: '#BF0B23', radius: 3 , lineWidth: 2, lineColor: null },
           state:{
             hover:{
               halo: null,

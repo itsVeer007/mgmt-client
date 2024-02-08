@@ -1,17 +1,11 @@
-.grid-container1 {
-  display: flex;
-  justify-content: space-between;
-}
-
-#graphholder {
-  display: grid;
-  height: 25%;
-}
-
 .info {
   cursor: pointer;
   display: flex;
   color: #000;
+}
+
+.form-text {
+
 }
 
 .text-dark {
@@ -44,6 +38,21 @@
   border-radius: 5px;
   font-weight: 600;
   border: 1px solid #fff;
+}
+
+.charts-container {
+  height: 77vh;
+  overflow-y: auto;
+}
+
+#chart, #chart1, #chart2, #chart3 {
+  /* width: 48%; */
+  height: 275px;
+  border: 1px solid #EFEFEF;
+  border-radius: 5px;
+  box-shadow: 5px 5px 10px #0000000D;
+  margin-bottom: 10px;
+  font-weight: 800;
 }
 
 /* common ng-deep */

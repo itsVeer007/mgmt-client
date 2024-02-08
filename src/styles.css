@@ -110,7 +110,7 @@ p {
   /* display: none;
   z-index: 1; */
   height: calc(100vh - 65px);
-  overflow-y: scroll;
+  overflow-y: auto;
   background-color: rgba(0, 0, 0, 0.4);
   position: fixed;
   top: 65px;
@@ -131,15 +131,6 @@ p {
   height: max-content;
   position: relative;
   overflow: visible; */
-}
-
-.add-form:before {
-  /* box-shadow: -25px 0 20px -20px #0000000D inset;
-  opacity: 0.5;
-  content: "";
-  position: absolute;
-  top: 0;
-  width: 20px; */
 }
 
 .add-form .site-icons img {
@@ -389,34 +380,6 @@ form .add-btn:active {
   border-top: 1px solid #EFEFEF;
 }
 
-.plus-img1 {
-  border: 1px solid #EFEFEF;
-  width: fit-content;
-  height: fit-content;
-  padding: 5px;
-  position: absolute;
-  margin: -25px 0 0 -98px;
-  background-color: #fff;
-  box-shadow: -5px 6px 13px 0px #F3F3F3;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.plus-img1:after {
-  content: "";
-  position: absolute;
-  top: 17px;
-  transform: rotate(45deg);
-  right: -4px;
-  margin-top: -9px;
-  border-width: 5px;
-  border-style: solid;
-  box-shadow: -1px -1px 1px 0 #fff;
-  color: #fff;
-  border-right: 1px solid #EFEFEF;
-  border-top: 1px solid #EFEFEF;
-}
 
 .info {
   position: absolute;
@@ -533,19 +496,6 @@ thead tr th {
   min-width: 100px;
 }
 
-/* .table thead {
-  background-image: linear-gradient(to right, #084982 , #D34124);
-  color: #fff;
-  padding: 0px;
-} */
-
-/* th:nth-child(1) {
-  min-width: 50px !important;
-} */
-
-/* .table tbody tr td input {
-  margin: 2px 10px;
-} */
 
 .err-info {
   display: flex;
@@ -677,11 +627,6 @@ thead tr th {
     flex-direction: column;
   }
 
-  /* .close-main {
-    position: relative;
-    right: 35px !important;
-  } */
-
   .search {
     width: 186px;
   }
@@ -742,7 +687,3 @@ thead tr th {
     transform: translateX(0);
   }
 }
-
-/* ::ng-deep .mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-label {
-  color: #000000 !important;
-} */

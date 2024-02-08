@@ -39,7 +39,6 @@ export class DeviceInfoComponent implements OnInit {
 
   mychart() {
     var charttype = 'line';
-    var threeD = false;
     var title = 'TEMPERATURE';
     // var subtitle = 'The following charts represent the average amount of time your employees spend at their bays each day.';
     var categories = ['2AM', '4AM', '6Am', '8Am', '12Am', '2AM', '4AM', '6AM', '8AM']
@@ -56,7 +55,7 @@ export class DeviceInfoComponent implements OnInit {
       ['80', 80],
       ['100', 100]
     ];
-    this.chartservice.createchart1(charttype, threeD, title, data, elementid, antype, categories)
+    this.chartservice.devicesChart(charttype, title, data, elementid, antype, categories)
   }
 
   closeAddDevice() {

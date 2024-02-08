@@ -1,52 +1,16 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ChartService } from 'src/services/chart.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-main-dashboard',
   templateUrl: './main-dashboard.component.html',
-  styleUrls: ['./main-dashboard.component.css'],
-  // animations: [
-  //   trigger("inOutPaneAnimation", [
-  //     transition(":enter", [
-  //       style({ opacity: 0, transform: "translateX(100%)" }), //apply default styles before animation starts
-  //       animate(
-  //         "500ms ease-in-out",
-  //         style({ opacity: 1, transform: "translateX(0)" })
-  //       )
-  //     ]),
-  //     transition(":leave", [
-  //       style({ opacity: 1, transform: "translateX(0)" }), //apply default styles before animation starts
-  //       animate(
-  //         "500ms ease-in-out",
-  //         style({ opacity: 0, transform: "translateX(100%)" })
-  //       )
-  //     ])
-  //   ])
-  // ]
+  styleUrls: ['./main-dashboard.component.css']
 })
 
 
 export class MainDashboardComponent implements OnInit {
-
-  @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
-    // var x = <HTMLElement>document.getElementById(`icons-site`);
-    // if (x != null) {
-    //   if (!x.contains(e.target)) {
-    //     this.icons111 = false;
-    //   }
-    // }
-
-    var y = <HTMLElement>document.getElementById(`icons1${this.currentid}`);
-    if (y != null) {
-      if (!y.contains(e.target.parentNode.previousElementSibling)) {
-        if (y.style.display == 'flex' || y.style.display == 'block') {
-          y.style.display = 'none';
-        }
-      }
-    }
-  }
 
   constructor(
     private chartservice: ChartService,
@@ -59,7 +23,6 @@ export class MainDashboardComponent implements OnInit {
   showAddCustomer = false;
   showAddUser = false;
   showAddBusinessVertical = false;
-
   ngOnInit(): void {
     this.getMainDashboardCardReport();
     this.getMainDashboardReport();
@@ -78,30 +41,12 @@ export class MainDashboardComponent implements OnInit {
   }
 
   showAddSite = false;
-
   closenow(value: any, type: String) {
     if (type == 'site') { this.showAddSite = value; }
     if (type == 'camr') { this.showAddCamera = value; }
     if (type == 'cust') { this.showAddCustomer = value; }
     if (type == 'vert') { this.showAddBusinessVertical = value; }
     if (type == 'user') { this.showAddUser = value; }
-
-
-    // setTimeout(() => {
-    //   if (openform == 'showAddSite') { this.showAddSite = true; }
-    //   if (openform == 'showAddCamera') { this.showAddCamera = true; }
-    //   if (openform == 'showAddCustomer') { this.showAddCustomer = true; }
-    //   if (openform == 'showAddBusinessVertical') { this.showAddBusinessVertical = true; }
-    //   if (openform == 'showAddUser') { this.showAddUser = true; }
-    // }, 100)
-    /*
-        console.log(value,type)
-    if(type=='site'){this.showAddSite = value;}else{this.showAddSite = false;};
-    if(type=='camera'){this.showAddCamera = value;}else{this.showAddCamera = false;};
-    if(type=='cust'){this.showAddCustomer = value;}else{this.showAddCustomer = false;};
-    if(type=='user'){this.showAddUser = value;}else{this.showAddUser = value;};
-    if(type=='none'){this.showAddUser = value;}else{this.showAddUser = value;};
-    */
   }
 
 
@@ -127,7 +72,6 @@ export class MainDashboardComponent implements OnInit {
   noOfCards = 4;
   getNoOfElements() {
     var x = document.body.clientWidth;
-    // console.log(x);
     if (x < 400) { this.noOfCards = 1; }
     if (x > 400) { this.noOfCards = 1; }
     if (x > 500) { this.noOfCards = 2; }
@@ -161,13 +105,6 @@ export class MainDashboardComponent implements OnInit {
 
   showmenu(event: any) {
     var x = event.target.parentNode.previousElementSibling;
-    // console.log(x.style)
-    // var x = <HTMLElement>document.getElementById("icons");
-    // x.style.display = "flex";
-    // x.style.opacity = "1";
-    // x.style.zIndex = "999";
-    // console.log(x.style.display);
-    // console.log(x.style.opacity);
   }
 
   mychart() {
@@ -219,6 +156,7 @@ export class MainDashboardComponent implements OnInit {
     ];
     this.chartservice.createchart(charttype, threeD, title, data, elementid, antype)
   }
+
   mychart2() {
     var charttype = 'line';
     var threeD = false;
@@ -297,22 +235,8 @@ export class MainDashboardComponent implements OnInit {
     if(type == 'site') {this.showAddSite = true};
     if(type == 'user') {this.showAddUser = true};
 
-    // this.icons111 = !this.icons111;
-    // this.showIconVertical = false;
-    // this.showIconCustomer = false;
     this.showIconSite = false;
-    // this.showIconCamera = false;
-    // this.showIconAnalytic = false;
     this.showIconUser = false;
-
-    // var x:any ;
-    // if (type == 'site') { x = <HTMLElement>document.getElementById('site')!; console.log(type, x)  }
-    // if (type == 'camr') { x = <HTMLElement>document.getElementById('camr')!; console.log(type, x)  }
-    // if (type == 'cust') { x = <HTMLElement>document.getElementById('cust')!; console.log(type, x)  }
-    // if (type == 'vert') { x = <HTMLElement>document.getElementById('vert')!; console.log(type, x)  }
-    // if (type == 'user') { x = <HTMLElement>document.getElementById('user')!; console.log(type, x)  }
-    // x.style.display = "block";
-    // x.style.animation= "slideIn 1.2s";
   }
 
   icons11: boolean = false;
@@ -320,7 +244,6 @@ export class MainDashboardComponent implements OnInit {
   iconss1(e: any, i: any) {
     this.currentid = i;
     var x = e.target.parentNode.previousElementSibling;
-    // console.log(x.id)
     if (x.id.includes("icons1")) {
       if (x.style.display == 'none') {
         x.style.display = 'block';
