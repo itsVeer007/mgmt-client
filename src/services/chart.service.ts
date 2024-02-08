@@ -100,7 +100,7 @@ export class ChartService {
     return Highcharts.chart(elementid, this.options);
   }
 
-  createchart1(charttype:any,threeD:any, title:any, data:any, elementid:any, antype:any, categories: any){
+  createchart1(charttype: any, threeD: any, title: any, data: any, elementid: any, antype: any, categories: any){
     if(antype==null) {
       antype = ""
     }

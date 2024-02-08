@@ -42,34 +42,45 @@ export class WifiDetailComponent implements OnInit {
     this.wifiDeatils();
   }
 
-graphData:any;
+graphData:any = [];
 keys: any = [];
 values: any = [];
 wifiDeatils() {
   this.assetSer.wifiDeatils().subscribe((res:any)=> {
     // console.log(res);
-    this.graphData = res;
-    let x = res.dayWise[0];
-    this.keys = Object.keys(x);
-    this.values = Object.keys(x);
-    this.mychart();
-    console.log(Object.keys(x));
-    console.log(Object.values(x));
+    // this.graphData.push(res.times);
+    this.graphData.push(res.dayWise);
+    this.graphData.push(res.weekWise);
+    this.graphData.push(res.monthWise);
+    this.graphData.push(res.quarterWise);
+
+    // this.mychart(res.times, 'chart0');
+    this.mychart(res.dayWise, 'chart');
+    this.mychart(res.weekWise, 'chart1');
+    this.mychart(res.monthWise, 'chart2');
+    this.mychart(res.quarterWise, 'chart3');
   })
 }
 
 
-  mychart() {
+  mychart(payload: any, chartType: any) {
+    let counts = payload.counts.split(',');
+    let labels = payload.labels.split(',');
+    let timestrings = payload.timestrings.split(',');
+
     var charttype = 'line';
     var threeD = false;
-    var title = 'TEMPERATURE';
+    var title = payload.type + ' wise';
     // var subtitle = 'The following charts represent the average amount of time your employees spend at their bays each day.';
-    var categories = ['2AM', '4AM', '6Am', '8Am', '12Am', '2AM', '4AM', '6AM', '8AM']
-    var elementid = 'chart';
-    var antype = 'time';
-
-    var data = [this.keys.forEach((item: any) => item), this.values.forEach((item: any) => item)];
-    this.chartService.createchart1(charttype, threeD, title, data, elementid, antype, categories)
+    var categories = labels;
+    var elementid = chartType;
+    var subTitle = payload.type;
+    let arr: any = [];
+    labels.forEach((item: any, index: any) => {
+      arr.push([labels[index] + ', ' + counts[index] + ', ' + timestrings[index], Number(counts[index])]);
+    })
+    var data = arr;
+    this.chartService.createchart1(charttype, threeD, title, data, elementid, subTitle, categories)
   }
 
   close() {

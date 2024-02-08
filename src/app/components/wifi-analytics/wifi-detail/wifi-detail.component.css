@@ -1,24 +1,71 @@
-/* common ng-deep */
+.grid-container1 {
+  display: flex;
+  justify-content: space-between;
+}
 
+#graphholder {
+  display: grid;
+  height: 25%;
+}
+
+.info {
+  cursor: pointer;
+  display: flex;
+  color: #000;
+}
+
+.text-dark {
+  font-size: 26px;
+  /* margin-left: 16px; */
+  text-decoration: none;
+}
+
+.box {
+  border: 1px solid #fff;
+  width: 98%;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-family: TP, sans-serif;
+}
+
+.setbox {
+  text-align: center;
+  width: 60%;
+}
+
+.inbox {
+  /* background-color: #fff; */
+  padding: 8px 10px;
+  color: #fff;
+  margin-right: 0;
+  margin-left: auto;
+  border-radius: 5px;
+  font-weight: 600;
+  border: 1px solid #fff;
+}
+
+/* common ng-deep */
 .mat-form-field-appearance-outline ::ng-deep .mat-form-field-outline {
-    top: 5px;
-    bottom: 5px;
+  top: 5px;
+  bottom: 5px;
 }
 
 .mat-form-field-appearance-outline ::ng-deep .mat-form-field-wrapper {
-    padding-bottom: 0.5em;
+  padding-bottom: 0.5em;
 }
 
 ::ng-deep .mat-select-value {
-    position: relative;
-    bottom: 4px;
+  position: relative;
+  bottom: 4px;
 }
 
 ::ng-deep input.mat-input-element {
-    position: relative;
-    bottom: 4px;
+  position: relative;
+  bottom: 4px;
 }
 
 ::ng-deep .mat-tab-body-content {
-    overflow-x: hidden !important;
+  overflow-x: hidden !important;
 }

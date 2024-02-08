@@ -58,15 +58,17 @@ open(type:string) {
 
 
 // Wifi Analytics
-total:any;
+device:any;
 active:any;
 inActive:any;
 newWifiData: any;
-wifiData: any = [];
+peakHours: any;
 WifiData() {
   this.showLoader = true;
   this.assetSer.wifiData().subscribe((res:any)=> {
     // console.log(res);
+    this.device = res.deviceName
+    this.peakHours = res.peakHours
     this.newWifiData = res.hourlyStats
   })
 }
@@ -211,13 +213,16 @@ filterSites(site: any) {
   showAddBusinessVertical = false;
   showSite = false;
 
-  closenow(type: any) {
-    if (type == 'wifi') { this.showWifiDetail = false; }
-  }
-
   showWifiDetail: boolean = false;
+  closenow(type: any) {
+    if (type == 'wifi') {
+      this.showWifiDetail = false;
+    }
+  }
   show(type: string) {
-    if (type == 'wifi') { this.showWifiDetail = true }
+    if (type == 'wifi') {
+      this.showWifiDetail = true
+    }
   }
 
 

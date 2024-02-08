@@ -1,23 +1,39 @@
 <div class="row formModal">
-    <div class="col-lg-6 col-4"></div>
-  
-    <div class="col-lg-6 col-8 add-form" id="user" @inOutPaneAnimation>
-      <div>
-        <a class="close-main pointer" (click)="close()"><img src="assets/icons/close_form.svg" /></a>
-        <span class="form-heading">add dc</span>
-      </div>
-  
-      <!-- Form -->
-      <div>
+  <div class="col-lg-6 col-4"></div>
 
-            <div>
-                <div id="chart"></div>
-            </div>
-  
-          <div class="text-center my-3">
-            <button type="submit" class="btn add-btn">ADD</button>
-          </div>
+  <div class="col-lg-6 col-8 add-form" id="user" @inOutPaneAnimation>
+    <div>
+      <a class="close-main pointer" (click)="close()"><img src="assets/icons/close_form.svg" /></a>
+      <a class="text-dark mb-5 text-center">Day / Week / Month / Quarter - status</a>
+    </div>
+
+    <div>
+      <div class="grid-container1 mb-3">
+        <div class="box" *ngFor="let item of graphData">
+          <div class="setbox">{{item.type}}</div>
+          <div class="inbox"
+            [style.background-color]="(item.status == 'Raise')? '#2E8B57' : (item.status == 'Fall' && (item.percentage >= 5))? '#e52d48' :(item.status == 'Fall' && (item.percentage < 5))? '#FFA500' : '#767676' ">
+            {{item.percentage ? item.percentage : '00'}}% </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div>
+        <div id="chart0"></div>
+      </div>
+      <div>
+        <div id="chart"></div>
+      </div>
+      <div>
+        <div id="chart1"></div>
+      </div>
+      <div>
+        <div id="chart2"></div>
+      </div>
+      <div>
+        <div id="chart3"></div>
       </div>
     </div>
   </div>
-  
+</div>

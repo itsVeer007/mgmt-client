@@ -276,7 +276,7 @@ export class AssetService {
   }
 
   wifiDeatils() {
-    let url = this. baseUrl1 + '/wifiDetails/GetWifiStats_1_0/RSWIN10460001/2024-02-04';
+    let url = this. baseUrl1 + '/wifiDetails/GetWifiStats_1_0/RSWIN10460001/2024-02-06';
     return this.http.get(url)
   }
 
