@@ -1,19 +1,16 @@
 <!-- <app-loader *ngIf="showLoader"></app-loader> -->
 <div class="container-fluid" id="top">
-    <!-- header -->
-    <div class="d-flex justify-content-between">
-        <div class="users-header mt-2">
-            <!-- <p>Total Devices - <span>{{device.length}}</span></p> -->
-            <p>PeakHours - <span>{{peakHours}}</span></p>
-        </div>
-        <div>
-          <button class="create-btn" (click)="show('wifi')">View</button>
-        </div>
+  <!-- header -->
+  <div class="d-flex justify-content-between">
+    <div class="users-header mt-2">
+      <!-- <p>Total Devices - <span>{{device.length}}</span></p> -->
+      <p>PeakHours - <span>{{peakHours}}</span></p>
     </div>
+  </div>
 
-        <!-- count -->
-    <div class="row mb-2 mt-2">
-        <!-- <div class="col-lg-1 col-md-1 d-flex justify-content-start">
+  <!-- count -->
+  <div class="row mb-2 mt-2">
+    <!-- <div class="col-lg-1 col-md-1 d-flex justify-content-start">
             <div class="mx-2">
               <div class="status">PeakHours - <span>{{peakHours ? peakHours : 0}}</span></div>
             </div>
@@ -32,9 +29,9 @@
         <div class="count">{{ total?.previous_month_users_count ? total?.previous_month_users_count : 0}}</div>
     </div>
     </div> -->
-</div>
-<!-- /count -->
-<!--
+  </div>
+  <!-- /count -->
+  <!--
     <div class="row mt-2">
         <div class="col-lg-2 col-md-2">
         <mat-form-field appearance="outline" class="w-100">
@@ -79,186 +76,139 @@
           <button class="create-btn" (click)="show('ticket')">Submit</button>
         </div>
     </div> -->
+  <div class="col-lg-2 col-md-2">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Device Name</mat-label>
+      <mat-select>
+        <mat-option value="" (click)="filterWifiData('All')">All</mat-option>
+        <mat-option *ngFor="let item of wifiData | removeDuplicates:'device_name' " [value]="item.device_name" (click)="filterWifiData(item)">{{item.device_name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
 
-    <div class="table-resp">
-        <table class="table table-hover" id="mytable" #table>
-        <thead>
-            <tr class="form1">
-                <th>
-                    <span>Id</span>
-                    <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-                </th>
-                <th>
-                  <span>Device Name</span>
-                  <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-              </th>
-              <th>
-                <span>Hour</span>
-                <img (click)="sort('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-            </th>
-            <th>
-                <span>Active Devices</span>
-                <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-            </th>
-
-            <th>
-                <span>InActive Devices</span>
-                <img (click)="sort('siteId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-            </th>
-            <th>
-                <span>Total Count</span>
-                <img (click)="sort('siteId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-            </th>
-
-            <th>
-                <span>Time Spent</span>
-                <img (click)="sort('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-            </th>
-
-            <!-- <th>
-              <span>PeakHour</span>
-              <img (click)="sort('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-          </th> -->
-          <!-- <th>
-          <span>Details</span>
-          </th> -->
+  <div class="table-resp">
+    <table class="table table-hover" id="mytable" #table>
+      <thead>
+        <tr class="form1">
+          <th>
+            <span>Id</span>
+            <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+          </th>
+          <th>
+            <span>Device Name</span>
+            <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+          </th>
+          <th>
+            <span>Details</span>
+          </th>
         </tr>
+      </thead>
+
+      <tbody *ngIf="!showLoader">
+        <tr *ngFor="let cust of newWifiData | removeDuplicates : 'device_name'; let i = index">
+          <td>
+            <p>{{i+1}}</p>
+          </td>
+          <td>
+            <p>{{cust.device_name}}</p>
+          </td>
+
+          <td>
+            <p class="text-primary pointer" (click)="viewWifi(cust)">View</p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- error info -->
+    <div class="err-info" style="height: 50vh;" *ngIf="newWifiData?.length == 0 && !showLoader">
+      <h1 class="text-secondary">No Devices</h1>
+    </div>
+
+    <!-- loader -->
+    <div *ngIf="showLoader" class="d-flex justify-content-center align-items-center" style="height: 50vh;">
+      <app-loader></app-loader>
+    </div>
+  </div>
+</div>
+
+<ng-template #usedItemsDialog>
+  <div style="background-color: #084982;">
+    <p class="dialog-title">used items</p>
+  </div>
+
+  <div class="dialog-content">
+    <div class="d-flex justify-content-end">
+      <button class="create-btn mb-2" (click)="show('wifi')" mat-dialog-close>View</button>
+    </div>
+    <div class="table-res">
+      <table class="table" id="mytable">
+        <thead>
+          <tr class="form1">
+            <th>
+              <span>Id</span>
+              <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </th>
+            <th>
+              <span>Hour</span>
+              <img (click)="sort('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </th>
+            <th>
+              <span>Active Devices</span>
+              <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </th>
+            <th>
+              <span>Inactive</span>
+              <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </th>
+            <th>
+              <span>Total</span>
+              <img (click)="sort('siteId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </th>
+            <th>
+              <span>Time Spent</span>
+              <img (click)="sort('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </th>
+            <th>
+              <span>Details</span>
+            </th>
+          </tr>
         </thead>
 
         <tbody>
-            <tr *ngFor="let cust of newWifiData | search : searchText; let i = index">
-                <td>
-                    <p>{{i+1}}</p>
-                </td>
-                <td>
-                  <p>{{'RSWIN10460001'}}</p>
-                </td>
-                <td>
-                  <p>{{ cust.hour }}</p>
-              </td>
-                <td>
-                    <p>{{ cust.active }}</p>
-                </td>
-                <td>
-                    <p>{{ cust.inactive }}</p>
-                </td>
-
-                <td>
-                    <p>{{ cust.total }}</p>
-                </td>
-
-                <td>
-                    <p>{{ cust.timeSpent }}</p>
-                </td>
-
-                <!-- <td>
-                  <p>{{ cust.peak_hour }}</p>
-              </td> -->
-              <!-- <td>
-                <a class="mx-1 pointer" (click)="show('wifi')" matTooltip="View">
-                  view
-                </a>
-              </td> -->
-            </tr>
+          <tr *ngFor="let task of viewData?.hourlyStats; let i = index">
+            <td>
+              <p>{{i+1 }}</p>
+            </td>
+            <td>
+              <p>{{ task.hour }}</p>
+            </td>
+            <td>
+              <p>{{ task.active}}</p>
+            </td>
+            <td>
+              <p>{{ task.inactive }}</p>
+            </td>
+            <td>
+              <p>{{ task.total }}</p>
+            </td>
+            <td>
+              <p>{{ task.timeSpent }}</p>
+            </td>
+            <td class="pointer">
+              <p  style="color: #084982;">view</p>
+            </td>
+          </tr>
         </tbody>
-        </table>
-
-        <!-- error info -->
-        <div class="err-info" style="height: 50vh;" *ngIf="newWifiData?.length == 0 && !showLoader">
-          <h1 class="text-secondary">No Devices</h1>
-        </div>
-
-        <!-- loader -->
-        <div *ngIf="showLoader" class="d-flex justify-content-center align-items-center" style="height: 50vh;">
-          <app-loader></app-loader>
-        </div>
+      </table>
     </div>
   </div>
 
-  <ng-template #usedItemsDialog>
-    <div style="background-color: #084982;">
-      <p class="dialog-title">used items</p>
-    </div>
-
-    <div class="dialog-content">
-      <div class="table-res">
-        <table class="table" id="mytable">
-          <thead>
-            <tr class="task-table">
-              <th>
-                <p class="d-inline-flex">
-                  <span>IP Address</span>
-                  <!-- <img (click)="sort1('inventoryId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
-                </p>
-              </th>
-
-              <th>
-                <p class="d-inline-flex">
-                  <span>MacAddress</span>
-                  <!-- <img (click)="sort1('itemCode')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
-                </p>
-              </th>
-
-              <th>
-                <p class="d-inline-flex">
-                  <span>ConnectTime</span>
-                  <!-- <img (click)="sort1('statusId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
-                </p>
-              </th>
-
-              <th>
-                <p class="d-inline-flex">
-                  <span>DisconnectTime</span>
-                  <!-- <img (click)="sort1('modifiedTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
-                </p>
-              </th>
-              <th>
-                <p class="d-inline-flex">
-                  <span>TimeSpent</span>
-                  <!-- <img (click)="sort1('modifiedTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
-                </p>
-              </th>
-
-              <!-- <th>status</th> -->
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr *ngFor="let task of openViewPopupData; let i = index">
-              <td>
-                <p>{{ task.ip_address }}</p>
-              </td>
-
-              <td>
-                <p>{{ task.mac_address }}</p>
-              </td>
-
-              <td>
-                <p>{{ task.connect_time}}</p>
-              </td>
-
-              <td>
-                <p>{{ task.disconnected_time }}</p>
-              </td>
-              <td>
-                <p>{{ task.time_spent }}</p>
-              </td>
-
-              <!-- <td>
-                <p>{{ task.statusId == 1 ? 'Open' : task.statusId == 2 ? 'In-Progress' : task.statusId == 3 ? 'Closed' : task.statusId == 4 ? 'Rejected' : '' }}</p>
-              </td> -->
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="d-flex justify-content-end"  >
-      <button class="dialog-close-btn" mat-dialog-close>Close</button>
-    </div>
-  </ng-template>
-
-  <div *ngIf="showWifiDetail">
-    <app-wifi-detail (newItemEvent)="closenow('wifi')"></app-wifi-detail>
+  <div class="d-flex justify-content-end">
+    <button class="dialog-close-btn" mat-dialog-close>Close</button>
   </div>
+</ng-template>
 
+<div *ngIf="showWifiDetail">
+  <app-wifi-detail [show]="inputToChild" (newItemEvent)="closenow('wifi')"></app-wifi-detail>
+</div>

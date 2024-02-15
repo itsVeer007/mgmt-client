@@ -270,14 +270,36 @@ export class AssetService {
 
 
   // wifi Analytics
-  wifiData() {
-    let url = this. baseUrl1 + '/wifiDetails/GetWifiStats_1_0/RSWIN10460001';
+  GetWifiStats(payload:any) {
+    let url = this. baseUrl1 + `/wifiDetails/GetWifiStats_1_0`;
+    let params = new HttpParams();
+    if(payload?.time_connected) {
+      params = params.set('time_connected', payload?.time_connected);
+    }
+    if(payload?.date) {
+      params = params.set('date', payload?.date);
+    }
+    if(payload?.device_name) {
+      params = params.set('device_name', payload?.device_name);
+    }
+    return this.http.get(url, {params: params});
+  }
+
+  GetWifiStats1(payload: any) {
+    let url = this. baseUrl1 + `/wifiDetails/GetWifiStats_1_0/${payload?.device_name}`;
     return this.http.get(url)
   }
 
-  wifiDeatils() {
-    let url = this. baseUrl1 + '/wifiDetails/GetWifiStats_1_0/RSWIN10460001/2024-02-06';
+  GetWifiStats2(payload: any) {
+    let date = formatDate(new Date(), 'yyyy-MM-dd', 'en-us');
+    let url = this. baseUrl1 + `/wifiDetails/GetWifiStats_1_0/${payload?.device_name}/${date}`;
     return this.http.get(url)
   }
+
+  // secondView(payload:any) {
+  //   let url = this. baseUrl1 + '/wifiDetails/GetWifiStats_1_0';
+  //   let params = new HttpParams().set('time_connected',payload?.data).set('device_name',payload.device)
+  //   return this.http.get(url, {params:params})
+  // }
 
 }

@@ -51,9 +51,7 @@ open(type:string) {
   user: any;
   ngOnInit(): void {
     this.user =  this.storageSer.get('user');
-    this.WifiData();
-    this.listSites();
-
+    this.GetWifiStats();
   }
 
 
@@ -61,17 +59,56 @@ open(type:string) {
 device:any;
 active:any;
 inActive:any;
+
+wifiData: any = [];
 newWifiData: any;
 peakHours: any;
-WifiData() {
+GetWifiStats() {
   this.showLoader = true;
-  this.assetSer.wifiData().subscribe((res:any)=> {
+  this.assetSer.GetWifiStats(null).subscribe((res:any)=> {
     // console.log(res);
-    this.device = res.deviceName
-    this.peakHours = res.peakHours
-    this.newWifiData = res.hourlyStats
+    this.showLoader = false;
+    // this.device = res.deviceName
+    // this.peakHours = res.peakHours
+    this.wifiData = res;
+    this.newWifiData = this.wifiData;
   })
 }
+
+viewData:any;
+inputToChild: any;
+@ViewChild('usedItemsDialog') usedItemsDialog = {} as TemplateRef<any>;
+viewWifi(data: any) {
+  // console.log(data);
+  this.inputToChild = data;
+  // let time = data?.hour?.split('-');
+  // let finalTime = time[0];
+
+  this.assetSer.GetWifiStats1({device_name: data?.device_name}).subscribe((res:any)=> {
+    // console.log(res);
+    this.viewData = res;
+  });
+  this.dialog.open(this.usedItemsDialog);
+}
+
+// newFilterData:any = []
+filterData:any;
+filterWifiData(data:any) {
+  // console.log(data);
+  this.assetSer.GetWifiStats({device_name: data?.device_name}).subscribe((res:any)=> {
+    // console.log(res);
+    this.newWifiData = res;
+  })
+}
+
+// secondView(data:any) {
+//   console.log(data)
+//   let time = data?.hour?.split('-');
+//   let finalTime = time[0];
+//   this.assetSer.secondView(finalTime).subscribe((res)=> {
+//     console.log(res);
+//   })
+// }
 
 
 filterDataObject = {
@@ -92,13 +129,10 @@ filterDataObject = {
 //   })
 // }
 
-@ViewChild('usedItemsDialog') usedItemsDialog = {} as TemplateRef<any>;
+
 openViewPopupData:any = [];
 openWifiData(data: any) {
-  // console.log(index);
-  console.log(data);
-  this.openViewPopupData = data?.device_details;
-  this.dialog.open(this.usedItemsDialog);
+
 }
 
 listSites() {

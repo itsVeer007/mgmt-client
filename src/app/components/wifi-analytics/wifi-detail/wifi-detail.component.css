@@ -5,7 +5,10 @@
 }
 
 .form-text {
-
+  position: relative;
+  left: -40px;
+  font-size: 25px;
+  font-weight: 600;
 }
 
 .text-dark {
@@ -41,11 +44,11 @@
 }
 
 .charts-container {
-  height: 77vh;
+  height: 70vh;
   overflow-y: auto;
 }
 
-#chart, #chart1, #chart2, #chart3 {
+#chart4, #chart1, #chart2, #chart3, #chart04, #chart01, #chart02, #chart03 {
   /* width: 48%; */
   height: 275px;
   border: 1px solid #EFEFEF;

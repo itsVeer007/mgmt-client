@@ -38,7 +38,10 @@ export class WifiDetailComponent implements OnInit {
   ) { }
 
   UserForm!: FormGroup
+  deviceData: any;
   ngOnInit(): void {
+    this.deviceData = this.show;
+    console.log(this.deviceData)
     this.wifiDeatils();
   }
 
@@ -46,39 +49,57 @@ graphData:any = [];
 keys: any = [];
 values: any = [];
 wifiDeatils() {
-  this.assetSer.wifiDeatils().subscribe((res:any)=> {
+  this.assetSer.GetWifiStats2(this.deviceData).subscribe((res:any)=> {
     // console.log(res);
-    // this.graphData.push(res.times);
     this.graphData.push(res.dayWise);
     this.graphData.push(res.weekWise);
     this.graphData.push(res.monthWise);
     this.graphData.push(res.quarterWise);
 
-    // this.mychart(res.times, 'chart0');
-    this.mychart(res.dayWise, 'chart');
-    this.mychart(res.weekWise, 'chart1');
-    this.mychart(res.monthWise, 'chart2');
-    this.mychart(res.quarterWise, 'chart3');
+    // this.mychart(res.dayWise, 'chart01', 1);
+    // this.mychart(res.weekWise, 'chart02', 1);
+    // this.mychart(res.monthWise, 'chart03', 1);
+    // this.mychart(res.quarterWise, 'chart04', 1);
+    this.mychart(res.dayWise, 'chart1', 0);
+    this.mychart(res.weekWise, 'chart2', 0);
+    this.mychart(res.monthWise, 'chart3', 0);
+    this.mychart(res.quarterWise, 'chart4', 0);
   })
 }
 
 
-  mychart(payload: any, type: any) {
-    let counts = payload.counts.split(',');
+  mychart(payload: any, type: any, flag: any) {
+    let counts: any;
+    let newTitle: any;
+    if(flag == 0) {
+      counts = payload.counts.split(',');
+      console.log(counts);
+      newTitle = payload.type + ', ' + 'Device Count';
+      console.log(newTitle)
+    } else {
+      counts = payload.times.split(',');
+      newTitle = payload.type + ', ' + 'Time'
+      console.log(newTitle)
+    }
     let labels = payload.labels.split(',');
     let timestrings = payload.timestrings.split(',');
 
     var chartType = 'line';
-    var title = payload.type + ' wise';
+    var title = newTitle;
     // var subtitle = '';
     var categories = labels;
     var elementid = type;
     var subTitle = payload.type;
     let arr: any = [];
     labels.forEach((item: any, index: any) => {
+    if(flag == 0 ) {
       arr.push([labels[index] + ', ' + counts[index] + ', ' + timestrings[index], Number(counts[index])]);
+    } else {
+      arr.push(+ counts[index] + ', ' + [timestrings[index], Number(counts[index])]);
+    }
     })
     var data = arr;
+    console.log(data)
     this.chartService.wifiChart(chartType, title, data, elementid, subTitle, categories)
   }
 
