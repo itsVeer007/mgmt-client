@@ -296,10 +296,19 @@ export class AssetService {
     return this.http.get(url)
   }
 
-  // secondView(payload:any) {
-  //   let url = this. baseUrl1 + '/wifiDetails/GetWifiStats_1_0';
-  //   let params = new HttpParams().set('time_connected',payload?.data).set('device_name',payload.device)
-  //   return this.http.get(url, {params:params})
-  // }
+  secondView(payload:any) {
+    let url = this. baseUrl1 + '/wifiDetails/GetWifiStats_1_0';
+    let params = new HttpParams().set('time_connected',payload?.finalTime).set('device_name',payload.device)
+    return this.http.get(url, {params:params})
+  }
+
+  devicefilter(payload:any) {
+    let url = this. baseUrl1 + '/devicefilter';
+    let params = new HttpParams();
+    if(payload?.device_name) {
+      params = params.set('device_name', payload?.device_name);
+    }
+    return this.http.get(url, {params:params})
+  }
 
 }

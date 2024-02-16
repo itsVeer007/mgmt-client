@@ -4,7 +4,7 @@
   <div class="d-flex justify-content-between">
     <div class="users-header mt-2">
       <!-- <p>Total Devices - <span>{{device.length}}</span></p> -->
-      <p>PeakHours - <span>{{peakHours}}</span></p>
+      <!-- <p>PeakHours - <span>{{peakHours}}</span></p> -->
     </div>
   </div>
 
@@ -80,8 +80,8 @@
     <mat-form-field appearance="outline" class="w-100">
       <mat-label>Device Name</mat-label>
       <mat-select>
-        <mat-option value="" (click)="filterWifiData('All')">All</mat-option>
-        <mat-option *ngFor="let item of wifiData | removeDuplicates:'device_name' " [value]="item.device_name" (click)="filterWifiData(item)">{{item.device_name}}</mat-option>
+        <mat-option [value]="null" (click)="devicefilter(null)">All</mat-option>
+        <mat-option *ngFor="let item of wifiData" [value]="item.device_name" (click)="devicefilter(item)">{{item.device_name}}</mat-option>
       </mat-select>
     </mat-form-field>
   </div>
@@ -105,7 +105,7 @@
       </thead>
 
       <tbody *ngIf="!showLoader">
-        <tr *ngFor="let cust of newWifiData | removeDuplicates : 'device_name'; let i = index">
+        <tr *ngFor="let cust of newWifiData ; let i = index">
           <td>
             <p>{{i+1}}</p>
           </td>
@@ -195,8 +195,53 @@
             <td>
               <p>{{ task.timeSpent }}</p>
             </td>
-            <td class="pointer">
+            <td class="pointer" (click)="secondView(task)">
               <p  style="color: #084982;">view</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-end">
+    <button class="dialog-close-btn" mat-dialog-close>Close</button>
+  </div>
+</ng-template>
+<ng-template #usedItemsDialogTwo>
+  <div style="background-color: #084982;">
+    <p class="dialog-title">used items</p>
+  </div>
+
+  <div class="dialog-content">
+    <div class="table-res">
+      <table class="table" id="mytable">
+        <thead>
+          <tr class="form1">
+            <th>
+              <span>Id</span>
+              <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </th>
+            <th>
+              <span>MacAddress</span>
+              <img (click)="sort('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </th>
+            <th>
+              <span>Time Spent</span>
+              <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </th>
+        </thead>
+
+        <tbody>
+          <tr *ngFor=" let item of secondTable; let i = index">
+            <td>
+              <p>{{i+1 }}</p>
+            </td>
+            <td>
+              <p>{{ item.mac_address }}</p>
+            </td>
+            <td>
+              <p>{{ item.time_spent}}</p>
             </td>
           </tr>
         </tbody>

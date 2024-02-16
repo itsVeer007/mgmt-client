@@ -65,13 +65,19 @@ newWifiData: any;
 peakHours: any;
 GetWifiStats() {
   this.showLoader = true;
-  this.assetSer.GetWifiStats(null).subscribe((res:any)=> {
-    // console.log(res);
+  this.assetSer.devicefilter(null).subscribe((res:any)=> {
+    console.log(res);
     this.showLoader = false;
-    // this.device = res.deviceName
-    // this.peakHours = res.peakHours
     this.wifiData = res;
     this.newWifiData = this.wifiData;
+  })
+}
+
+devicefilter(data:any) {
+  console.log(data)
+  this.assetSer.devicefilter(data).subscribe((res:any)=> {
+    console.log(res);
+  this.newWifiData = res
   })
 }
 
@@ -80,16 +86,17 @@ inputToChild: any;
 @ViewChild('usedItemsDialog') usedItemsDialog = {} as TemplateRef<any>;
 viewWifi(data: any) {
   // console.log(data);
+  this.currentItem = data
   this.inputToChild = data;
-  // let time = data?.hour?.split('-');
-  // let finalTime = time[0];
-
+  this.peakHours = data?.peakHours
   this.assetSer.GetWifiStats1({device_name: data?.device_name}).subscribe((res:any)=> {
     // console.log(res);
     this.viewData = res;
   });
   this.dialog.open(this.usedItemsDialog);
 }
+
+
 
 // newFilterData:any = []
 filterData:any;
@@ -101,14 +108,21 @@ filterWifiData(data:any) {
   })
 }
 
-// secondView(data:any) {
-//   console.log(data)
-//   let time = data?.hour?.split('-');
-//   let finalTime = time[0];
-//   this.assetSer.secondView(finalTime).subscribe((res)=> {
-//     console.log(res);
-//   })
-// }
+
+secondTable:any
+@ViewChild('usedItemsDialogTwo') usedItemsDialogTwo = {} as TemplateRef<any>;
+secondView(data:any) {
+  console.log(data)
+  console.log(this.currentItem)
+  let time = data?.hour?.split('-');
+  let finalTime = time[0];
+  this.assetSer.secondView({finalTime:finalTime, device: this.currentItem?.device_name}).subscribe((res)=> {
+    console.log(res);
+    this.secondTable = res;
+  })
+  this.dialog.open(this.usedItemsDialogTwo);
+}
+
 
 
 filterDataObject = {
