@@ -11,6 +11,28 @@
     <div>
       <form autocomplete="off" [formGroup]="addAssetForm" (ngSubmit)="addNewAsset()">
         <div class="row">
+          <!-- file Upload -->
+          <div class="col-lg-12 col-md-6 mb-2">
+            <mat-label>Select File</mat-label>
+            <div [class.valid]="addAssetForm.controls['file'].valid || !submit" [class.invalid]="(addAssetForm.controls['file'].hasError('required')) && submit || (addAssetForm.controls['file'].invalid)">
+              <div>Drag and drop or <a (click)="fileInput.click()" class="pointer">Browse</a> your file</div>
+            </div>
+            <div>
+              <input hidden (change)="onFileSelected($event)" #fileInput type="file" formControlName="file"  [(ngModel)]="assetData.file">
+              <div class="file-name" *ngIf="selectedFile">
+                <mat-card class="d-flex align-items-center justify-content-between mt-2">
+                  <span>
+                    {{ selectedFile?.name }}
+                  </span>
+                  <a *ngIf="selectedFile" class="pointer text-end" (click)="deleteFile()">
+                    <img style="color: #bdb8b8;" src="assets/icons/delete_black.svg" width="18" height="18">
+                  </a>
+                </mat-card>
+              </div>
+              <!-- <mat-error class="mt-1" *ngIf="selectedFile?.size > 10485760">Please select video less than 10MB</mat-error> -->
+            </div>
+          </div>
+
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Enter Add Name</mat-label>
@@ -89,8 +111,8 @@
                 </div> -->
                 <div class="col-lg-12 mt-1">
                   <!-- <mat-radio-button class="ms-3" name="time" [value]="3">All</mat-radio-button> -->
-                  <mat-radio-button class="ms-3" name="time" [value]="0">person</mat-radio-button>
-                  <mat-radio-button class="ms-3" name="time" [value]="1">object</mat-radio-button>
+                  <mat-radio-button class="ms-3" name="time1" [value]="0">person</mat-radio-button>
+                  <mat-radio-button class="ms-3" name="time2" [value]="1">Vehicle</mat-radio-button>
                 </div>
               </div>
             </mat-radio-group>
@@ -127,27 +149,6 @@
               <mat-datepicker #picker2></mat-datepicker>
               <mat-error class="mt-1">To Date is required</mat-error>
             </mat-form-field>
-          </div>
-
-          <!-- file Upload -->
-          <div class="col-lg-12 col-md-6 mb-2">
-            <div [class.valid]="addAssetForm.controls['file'].valid || !submit" [class.invalid]="(addAssetForm.controls['file'].hasError('required')) && submit || (addAssetForm.controls['file'].invalid)">
-              <div>Drag and drop or <a (click)="fileInput.click()" class="pointer">Browse</a> your file</div>
-            </div>
-            <div>
-              <input hidden (change)="onFileSelected($event)" #fileInput type="file" formControlName="file"  [(ngModel)]="assetData.file">
-              <div class="file-name" *ngIf="selectedFile">
-                <mat-card class="d-flex align-items-center justify-content-between mt-2">
-                  <span>
-                    {{ selectedFile?.name }}
-                  </span>
-                  <a *ngIf="selectedFile" class="pointer text-end" (click)="deleteFile()">
-                    <img style="color: #bdb8b8;" src="assets/icons/delete_black.svg" width="18" height="18">
-                  </a>
-                </mat-card>
-              </div>
-              <!-- <mat-error class="mt-1" *ngIf="selectedFile?.size > 10485760">Please select video less than 10MB</mat-error> -->
-            </div>
           </div>
 
           <div class="col-lg-12">

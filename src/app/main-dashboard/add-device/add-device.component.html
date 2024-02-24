@@ -52,12 +52,12 @@
               <div class="col-lg-6">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Select LocalID</mat-label>
-                  <mat-select formControlName="deviceModeId" [(ngModel)]="adInfo.deviceModeId">
-                    <mat-option *ngFor="let item of deviceMode" [value]="item.keyId">
-                      {{ item.remarks }}
+                  <mat-select formControlName="deviceLocId" [(ngModel)]="adInfo.deviceLocId">
+                    <mat-option *ngFor="let item of deviceCountry" [value]="item.keyId">
+                      {{ item.value }}
                     </mat-option>
                   </mat-select>
-                  <mat-error class="mt-1">Device mode is required</mat-error>
+                  <mat-error class="mt-1">Local ID is required</mat-error>
                 </mat-form-field>
               </div>
 
@@ -75,14 +75,6 @@
                     <mat-option value="6-18">6-18</mat-option>
                     <mat-option value="8-18">8-18</mat-option>
                     <mat-option value="8-21">8-21</mat-option>
-
-                    <!-- <a class="w-100 text-start" mat-button (click)="showAd()">{{ showAdsHoursTxt }}</a> -->
-
-                    <!-- <div *ngIf="showAdsHours">
-                      <mat-option value="6-18">9-18</mat-option>
-                      <mat-option value="8-18">10-18</mat-option>
-                      <mat-option value="8-21">10-22</mat-option>
-                    </div> -->
                   </mat-select>
                   <mat-error class="mt-1">Ad-Hours is required</mat-error>
                 </mat-form-field>
@@ -132,16 +124,22 @@
               </div>
 
               <div class="col-lg-6" *ngIf="adInfo.deviceModeId == 2 || adInfo.deviceModeId == 3">
-                <!-- <mat-form-field appearance="outline" class="w-100">
-                  <mat-label>Weather Interval (in min)</mat-label>
-                  <input matInput type="number" formControlName="weatherInterval" [(ngModel)]="adInfo.weatherInterval">
-                  <mat-error class="mt-1">Weather Interval is required</mat-error>
-                </mat-form-field> -->
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Weather Interval (in min)</mat-label>
                   <mat-select formControlName="weatherInterval" [(ngModel)]="adInfo.weatherInterval">
                     <mat-option *ngFor="let item of weatherInterval" [value]="item.value">{{ item.value }}</mat-option>
                   </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="col-lg-6" *ngIf="adInfo.deviceModeId == 3"> 
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Select Camera Id</mat-label>
+                  <mat-select formControlName="cameraId" [(ngModel)]="adInfo.cameraId">
+                    <mat-option *ngIf="cameras.length == 0">No Cameras</mat-option>
+                    <mat-option *ngFor="let item of cameras" [value]="item">{{ item }}</mat-option>
+                  </mat-select>
+                  <mat-error class="mt-1">Camera Id is required</mat-error>
                 </mat-form-field>
               </div>
 
@@ -611,6 +609,15 @@
                   <mat-label>Status</mat-label>
                   <mat-select name="status" [(ngModel)]="currentItem.status" (selectionChange)="onSelectChange($event)">
                     <mat-option *ngFor="let item of deviceStatus" [value]="item.keyId">{{ item.value }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="col-lg-6">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Software Version</mat-label>
+                  <mat-select name="softwareVersion" [(ngModel)]="currentItem.softwareVersion" (selectionChange)="onSelectChange($event)">
+                    <mat-option *ngFor="let item of softwareVersion" [value]="item.keyId">{{ item.value }}</mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>

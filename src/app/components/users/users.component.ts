@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { AlertService } from 'src/services/alert.service';
 import { UserService } from 'src/services/user.service';
 
 @Component({
@@ -9,7 +11,11 @@ import { UserService } from 'src/services/user.service';
 })
 export class UsersComponent implements OnInit {
 
-  constructor(private userSer: UserService) { }
+  constructor(
+    private userSer: UserService,
+    private alertSer: AlertService,
+    private dialog: MatDialog,
+  ) { }
   
   showLoader = false;
   ngOnInit(): void {
@@ -27,14 +33,41 @@ export class UsersComponent implements OnInit {
     })
   }
 
-  currentUser: any = null;
+  userInfo: any = null;
   getUserInfoForUserId(user: any) {
-    this.currentUser = null;
+    this.userInfo = null;
     this.userSer.getUserInfoForUserId(user?.user_id).subscribe((res: any) => {
       // console.log(res);
       if(res.status_code != '404') {
-        this.currentUser = res;
+        this.userInfo = res;
       }
+    })
+  }
+  
+  currentUser: any;
+  @ViewChild('viewprofileDialog') viewprofileDialog = {} as TemplateRef<any>;
+  openViewProfileDialog(data: any) {
+    this.currentUser = data;
+    this.dialog.open(this.viewprofileDialog);
+  }
+
+  @ViewChild('editprofileDialog') editprofileDialog = {} as TemplateRef<any>;
+  openEditProfileDialog(data: any) {
+    this.currentUser = data;
+    this.dialog.open(this.editprofileDialog);
+  }
+
+  updateUser() {
+    this.userSer.updateUser(this.userInfo).subscribe((res: any) => {
+      // console.log(res);
+      if(res.statusCode == 200) {
+        this.listUsers();
+        this.alertSer.success(res.message);
+      } else {
+        this.alertSer.error(res.message);
+      }
+    }, (err) => {
+      this.alertSer.error(err.error.statusText)
     })
   }
 

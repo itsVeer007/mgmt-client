@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { environment } from '../environments/environment';
@@ -24,6 +24,11 @@ export class SiteService {
     }
 
     return this.http.post(url, payload);
+  }
+
+  getCamerasForSiteId(payload: any) {
+    let url = `http://54.92.215.87:943/getCamerasForSiteId_1_0/${payload}`;
+    return this.http.get(url);
   }
 
   getEngineer(id: any) {

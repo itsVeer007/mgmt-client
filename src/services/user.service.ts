@@ -72,5 +72,15 @@ export class UserService {
     let url = this.baseUrl + `/getUserInfoForUserId_1_0/${userId}`;
     return this.http.get(url);
   }
+
+  // getUserInfoForId(payload: any) {
+  //   let url = `http://34.206.37.237/userDetails/getUserInfoForUserId_1_0/${payload}`;
+  //   return this.http.get(url);
+  // }
+
+  updateUser(payload: any) {
+    let url = `http://34.206.37.237/userDetails/updateUser_1_0/${payload?.userId}`;
+    return this.http.put(url, payload);
+  }
   
 }

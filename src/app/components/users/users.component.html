@@ -155,10 +155,10 @@
           </td>
 
           <td class="text-center">
-            <a class="pointer mx-1" matTooltip="View">
+            <a class="pointer mx-1" matTooltip="View" (click)="openViewProfileDialog(cust)">
               <img src="assets/icons/view.svg">
             </a>
-            <a class="pointer mx-1" matTooltip="Edit">
+            <a class="pointer mx-1" matTooltip="Edit" (click)="openEditProfileDialog(cust)">
               <img src="assets/icons/edit.svg">
             </a>
             <a class="pointer mx-1" value="Delete" matTooltip="Delete">
@@ -180,6 +180,168 @@
     <app-loader></app-loader>
   </div>
 </div>
+
+<ng-template #viewprofileDialog>
+  <div style="background-color: #084982;">
+    <p class="text-white p-1">VIEW PROFILE</p>
+  </div>
+  <div class="dialog-content">
+    <div class="row m-0">
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>First Name</mat-label>
+          <input matInput [(ngModel)]="currentUser.firstTime" disabled>
+        </mat-form-field>
+      </div>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Last Name</mat-label>
+          <input matInput [(ngModel)]="currentUser.LastName" disabled>
+        </mat-form-field>
+      </div>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Email</mat-label>
+          <input matInput [(ngModel)]="currentUser.email" disabled>
+        </mat-form-field>
+      </div>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>ContactNo 1</mat-label>
+          <input matInput [(ngModel)]="currentUser.contactNo1" disabled>
+        </mat-form-field>
+      </div>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>ContactNo 2</mat-label>
+          <input matInput [(ngModel)]="currentUser.contactNo2" disabled>
+        </mat-form-field>
+      </div>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Address_line 1</mat-label>
+          <input matInput [(ngModel)]="currentUser.address_line1" disabled>
+        </mat-form-field>
+      </div>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Address_line 2</mat-label>
+          <input matInput [(ngModel)]="currentUser.address_line2" disabled>
+        </mat-form-field>
+      </div>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>City</mat-label>
+          <input matInput [(ngModel)]="currentUser.city" disabled>
+        </mat-form-field>
+      </div>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Pin</mat-label>
+          <input matInput [(ngModel)]="currentUser.pin" disabled>
+        </mat-form-field>
+      </div>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>State</mat-label>
+          <input matInput [(ngModel)]="currentUser.state" disabled>
+        </mat-form-field>
+      </div>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Country</mat-label>
+          <input matInput [(ngModel)]="currentUser.country" disabled>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex align-items-center justify-content-end mt-2">
+    <button class="dialog-close-btn" mat-dialog-close>Close</button>
+    <button class="dialog-update-btn" mat-dialog-close (click)="updateUser()">Update</button>
+  </div>
+</ng-template>
+
+<ng-template #editprofileDialog>
+  <div style="background-color: #084982;">
+    <p class="text-white p-1">EDIT PROFILE</p>
+  </div>
+  <div class="dialog-content">
+    <div class="row m-0">
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>First Name</mat-label>
+          <input matInput [(ngModel)]="currentUser.firstTime">
+        </mat-form-field>
+      </div>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Last Name</mat-label>
+          <input matInput [(ngModel)]="currentUser.LastName">
+        </mat-form-field>
+      </div>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Email</mat-label>
+          <input matInput [(ngModel)]="currentUser.email">
+        </mat-form-field>
+      </div>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>ContactNo 1</mat-label>
+          <input matInput [(ngModel)]="currentUser.contactNo1">
+        </mat-form-field>
+      </div>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>ContactNo 2</mat-label>
+          <input matInput [(ngModel)]="currentUser.contactNo2">
+        </mat-form-field>
+      </div>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Address_line 1</mat-label>
+          <input matInput [(ngModel)]="currentUser.address_line1">
+        </mat-form-field>
+      </div>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Address_line 2</mat-label>
+          <input matInput [(ngModel)]="currentUser.address_line2">
+        </mat-form-field>
+      </div>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>City</mat-label>
+          <input matInput [(ngModel)]="currentUser.city">
+        </mat-form-field>
+      </div>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Pin</mat-label>
+          <input matInput [(ngModel)]="currentUser.pin">
+        </mat-form-field>
+      </div>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>State</mat-label>
+          <input matInput [(ngModel)]="currentUser.state">
+        </mat-form-field>
+      </div>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Country</mat-label>
+          <input matInput [(ngModel)]="currentUser.country">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex align-items-center justify-content-end mt-2">
+    <button class="dialog-close-btn" mat-dialog-close>Close</button>
+    <button class="dialog-update-btn" mat-dialog-close (click)="updateUser()">Update</button>
+  </div>
+</ng-template>
 
 
 <div *ngIf="showAddUser">

@@ -87,7 +87,7 @@ export class AdvertisementsComponent implements OnInit {
     this.assetService.listAssets1(this.filterObj).subscribe((res: any) => {
       this.showLoader = false;
       let x = res.flatMap((item: any) => item.assets);
-      this.newAdvertisements = x.sort((a: any, b: any) => a.id > b.id ? -1 : a.id < b.id ? 1 : 0);
+      this.newAdvertisements = x.sort((a: any, b: any) => a.deviceModeId > b.deviceModeId ? -1 : a.deviceModeId < b.deviceModeId ? 1 : 0);
       if(this.siteData.length > 0) {
         this.assetService.listDeviceBySiteId(this.filterObj.siteId).subscribe((res: any) => {
           this.filteredDevices = res.flatMap((item: any) => item.adsDevices);
