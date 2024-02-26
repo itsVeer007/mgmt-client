@@ -43,7 +43,8 @@ export class AddNewAssetComponent implements OnInit {
     private dropDown: MetadataService,
     private alertSer: AlertService,
     private siteService: SiteService,
-    private storageSer: StorageService
+    private storageSer: StorageService,
+    private siteSer: SiteService
   ) { }
 
     addAssetForm: any = FormGroup;
@@ -53,6 +54,7 @@ export class AddNewAssetComponent implements OnInit {
 
   /* Asset Object */
 
+  siteId: any;
   assetData: any = {
     file: null,
     asset: {
@@ -99,6 +101,7 @@ export class AddNewAssetComponent implements OnInit {
     // console.log(this.user);
     this.addAssetForm = this.fb.group({
       'file': new FormControl('', Validators.required),
+      'deviceId': new FormControl(''),
       'deviceModeId': new FormControl(''),
       'name': new FormControl('', Validators.required),
       'playOrder': new FormControl(''),
@@ -138,6 +141,29 @@ export class AddNewAssetComponent implements OnInit {
     this.onMetadataChange()
     // this.getRes();
   };
+
+  siteData: any = [];
+  listSites() {
+    this.siteSer.listSites().subscribe((res: any) => {
+      // console.log(res);
+      if(res?.Status == 'Success') {
+        this.siteData = res?.siteList?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
+      }
+    });
+  }
+
+  filteredDevices: any = [];
+  filterAdvertisements() {
+    this.assetSer.listDeviceBySiteId(this.siteId).subscribe((res: any) => {
+      this.filteredDevices = res.flatMap((item: any) => item.adsDevices);
+    });
+    // this.assetSer.listAssets1(this.filterObj).subscribe((res: any) => {
+    //   let x = res.flatMap((item: any) => item.assets);
+    //   this.newAdvertisements = x.sort((a: any, b: any) => a.deviceModeId > b.deviceModeId ? -1 : a.deviceModeId < b.deviceModeId ? 1 : 0);
+    //   if(this.siteData.length > 0) {
+    //   }
+    // })
+  }
 
   data: any;
   siteIdList: any;
@@ -228,7 +254,7 @@ export class AddNewAssetComponent implements OnInit {
   /* Search for Get Site and Device Id's */
   sit: string = '';
   dev: string = '';
-  siteSer(e: Event) {
+  siteSearch(e: Event) {
     this.sit = (e.target as HTMLInputElement).value;
   }
 

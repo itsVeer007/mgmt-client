@@ -137,17 +137,17 @@ export class AdvertisementsComponent implements OnInit {
 
   showAsset: boolean = false;
   addErr: any = null;
-  showAddAsset(siteId: any, deviceId: any) {
-    if(siteId == '' || deviceId == '') {
-      this.alertSer.error('Please select site and device to create advertisement');
-    } else {
-      this.showAsset = true;
-      let addBody = {
-        'siteId': siteId,
-        'deviceId': deviceId
-      }
-      this.storageSer.set('add_body', addBody);
-    }
+  showAddAsset() {
+    // if(siteId == '' || deviceId == '') {
+    //   this.alertSer.error('Please select site and device to create advertisement');
+    // } else {
+    //   let addBody = {
+    //     'siteId': siteId,
+    //     'deviceId': deviceId
+    //   }
+    //   this.storageSer.set('add_body', addBody);
+    // }
+    this.showAsset = true;
   }
 
   closenow(type: String) {

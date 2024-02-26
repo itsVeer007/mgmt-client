@@ -7,7 +7,7 @@
 
     <div>
       <!-- <button mat-flat-button color="primary" (click)="showAddAsset(siteIdInput.value, deviceIdInput.value)">Create Add</button> -->
-      <button class="create-btn" (click)="showAddAsset(siteIdInput.value, deviceIdInput.value)">Create Add</button>
+      <button class="create-btn" (click)="showAddAsset()">Create Add</button>
     </div>
   </div>
   <!-- /header -->
@@ -279,15 +279,15 @@
         </tr>
       </tbody>
     </table>
-  </div>
-  <!-- error info -->
-  <div class="d-flex align-items-center justify-content-center" style="height: 50vh;" *ngIf="newAdvertisements.length == 0 && !showLoader">
-    <h1 class="text-secondary">No Advertisements</h1>
-  </div>
-
-  <!-- loader -->
-  <div *ngIf="showLoader">
-    <app-loader class="d-flex justify-content-center align-items-center" style="height: 50vh;"></app-loader>
+    <!-- error info -->
+    <div class="d-flex align-items-center justify-content-center" style="height: 45vh;" *ngIf="newAdvertisements.length == 0 && !showLoader">
+      <h1 class="text-secondary">No Advertisements</h1>
+    </div>
+  
+    <!-- loader -->
+    <div *ngIf="showLoader">
+      <app-loader class="d-flex justify-content-center align-items-center" style="height: 45vh;"></app-loader>
+    </div>
   </div>
 </div>
 

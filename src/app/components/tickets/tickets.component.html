@@ -364,16 +364,15 @@
         </tr>
       </tbody>
     </table>
-  </div>
-
-  <!-- error message -->
-  <div class="d-flex align-items-center justify-content-center" style="height: 50vh;" *ngIf="errMsg && !showLoader">
-    <h1 class="text-secondary">{{ errMsg }}</h1>
-  </div>
-
-  <!-- loader -->
-  <div *ngIf="showLoader">
-    <app-loader class="d-flex justify-content-center align-items-center" style="height: 50vh;"></app-loader>
+    <!-- error message -->
+    <div class="d-flex align-items-center justify-content-center" style="height: 45vh;" *ngIf="errMsg && !showLoader">
+      <h1 class="text-secondary">{{ errMsg }}</h1>
+    </div>
+  
+    <!-- loader -->
+    <div *ngIf="showLoader">
+      <app-loader class="d-flex justify-content-center align-items-center" style="height: 45vh;"></app-loader>
+    </div>
   </div>
 </div>
 

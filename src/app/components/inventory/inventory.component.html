@@ -472,13 +472,13 @@
   </div>
 
   <!-- error msg -->
-  <div class="d-flex align-items-center justify-content-center" style="height: 50vh;" *ngIf="errInfo && !showLoader">
+  <div class="d-flex align-items-center justify-content-center" style="height: 45vh;" *ngIf="errInfo && !showLoader">
     <h1 class="text-secondary">{{errInfo}}</h1>
   </div>
 
   <!-- loader -->
   <div *ngIf="showLoader">
-    <app-loader class="d-flex justify-content-center align-items-center" style="height: 50vh;"></app-loader>
+    <app-loader class="d-flex justify-content-center align-items-center" style="height: 45vh;"></app-loader>
   </div>
 </div>
 
@@ -608,7 +608,7 @@
         </tbody>
       </table>
     </div>
-    <div class="d-flex align-items-center justify-content-center" style="height: 50vh;" *ngIf="inventoryItems?.length == 0">
+    <div class="d-flex align-items-center justify-content-center" style="height: 45vh;" *ngIf="inventoryItems?.length == 0">
       <h1 class="text-secondary">No Data</h1>
     </div>
   </div>

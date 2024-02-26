@@ -1,6 +1,5 @@
 .table-resp {
-  /* height: calc(100vh - 350px); */
-  max-height: 60vh;
+  height: calc(100vh - 350px);
   overflow-y: auto;
 }
 

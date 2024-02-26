@@ -11,9 +11,34 @@
     <div>
       <form autocomplete="off" [formGroup]="addAssetForm" (ngSubmit)="addNewAsset()">
         <div class="row">
+          <div class="col-lg-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Select Site</mat-label>
+              <input matInput #siteIdInput [matAutocomplete]="site" [(ngModel)]="siteId" formControlName="deviceId">
+              <button matSuffix mat-icon-button>
+                <mat-icon>arrow_drop_down</mat-icon>
+              </button>
+              <mat-autocomplete #site="matAutocomplete">
+                <!-- <mat-option value="" (click)="filterAdvertisements()">All</mat-option> -->
+                <mat-option *ngFor="let item of siteData | search: 'sitename'" [value]="item.siteid" (click)="filterAdvertisements()">
+                  {{ item.siteid }} - {{ item.sitename }}
+                </mat-option>
+                <mat-option *ngIf="siteData.length == 0" disabled>No Sites</mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Select Device</mat-label>
+              <mat-select formControlName="deviceId" [(ngModel)]="user.deviceId">
+                <mat-option *ngFor="let device of filteredDevices | search: 'deviceId'" [value]="device.deviceId">{{ device.deviceId }}</mat-option>
+              </mat-select>
+              <mat-error class="mt-1">Device is required</mat-error>
+            </mat-form-field>
+          </div>
           <!-- file Upload -->
           <div class="col-lg-12 col-md-6 mb-2">
-            <mat-label>Select File</mat-label>
+            <!-- <mat-label>Select File</mat-label> -->
             <div [class.valid]="addAssetForm.controls['file'].valid || !submit" [class.invalid]="(addAssetForm.controls['file'].hasError('required')) && submit || (addAssetForm.controls['file'].invalid)">
               <div>Drag and drop or <a (click)="fileInput.click()" class="pointer">Browse</a> your file</div>
             </div>
