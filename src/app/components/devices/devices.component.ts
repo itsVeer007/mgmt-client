@@ -415,7 +415,7 @@ export class DevicesComponent implements OnInit {
     this.newItemEvent.emit();
     this.assetSer.updateDeviceAdsInfo({adsDevice: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
       // console.log(res);
-      this.alertSer.snackSuccess(res?.message ? res?.message : 'Device updated successfully');
+      this.alertSer.success(res?.message ? res?.message : 'Device updated successfully');
     }, (err: any) => {
       this.alertSer.error(err?.error?.message);
     })

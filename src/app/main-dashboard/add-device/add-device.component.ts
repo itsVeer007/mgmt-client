@@ -389,7 +389,7 @@ export class AddDeviceComponent implements OnInit {
     this.assetSer.updateDeviceAdsInfo({adsDevice: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
       // console.log(res);
       if(res) {
-        this.alertSer.snackSuccess(res?.message ? res?.message : 'Device updated successfully');
+        this.alertSer.success(res?.message ? res?.message : 'Device updated successfully');
       }
     }, (err: any) => {
       if(err) {

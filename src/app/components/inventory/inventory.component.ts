@@ -249,7 +249,7 @@ export class InventoryComponent implements OnInit {
     this.inventorySer.updateInventoryStatus(this.statusObj).subscribe((res: any) => {
       // console.log(res);
       if(res) {
-        this.alertSer.snackSuccess(res?.message);
+        this.alertSer.success(res?.message);
         this.listInventory();
       }
     }, (err: any) => {
@@ -343,7 +343,7 @@ export class InventoryComponent implements OnInit {
 
     this.inventorySer.updateInventory({inventory: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
       // console.log(res);
-        this.alertSer.snackSuccess(res?.message);
+        this.alertSer.success(res?.message);
         this.listInventory();
     }, (err: any) => {
       if(err) {
@@ -433,7 +433,7 @@ export class InventoryComponent implements OnInit {
     }
 
     this.inventorySer.updateWarranty({warranty: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
-      this.alertSer.snackSuccess(res?.message);
+      this.alertSer.success(res?.message);
       this.getWarranty(this.currentItem.id)
     }, (err: any) => {
       if(err) {

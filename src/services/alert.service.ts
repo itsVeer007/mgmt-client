@@ -41,28 +41,28 @@ export class AlertService {
 
 
   /* sweet alert */
-  msg1: any;
-  msg2: any;
-  msg0: any;
-
+  
   error(message: any) {
-    this.msg0 = Swal.fire({
+    Swal.fire({
       icon: 'error',
       title: 'Failed!',
       text: message,
+      showCloseButton: true
     })
   }
 
   success(message: any) {
-    this.msg1 = Swal.fire({
+    Swal.fire({
       icon: 'success',
       title: `Done!`,
-      text: `${message}`
+      text: `${message}`,
+      showCloseButton: true,
+      timer: 3000
     })
   }
 
   wait() {
-    this.msg2 = Swal.fire({
+    Swal.fire({
       text: "Please wait",
       imageUrl: "assets/gif/ajax-loading-gif.gif",
       showConfirmButton: false,

@@ -67,9 +67,9 @@ export class UserService {
     return this.http.post(url, payload);
   }
 
-  getUserInfoForUserId(userId: string) {
+  getUserInfoForUserId(payload: any) {
     var user: any = this.storageSer.get('user');
-    let url = this.baseUrl + `/getUserInfoForUserId_1_0/${userId}`;
+    let url = `${this.baseUrl}/getUserInfoForUserId_1_0/${payload?.userId}`;
     return this.http.get(url);
   }
 

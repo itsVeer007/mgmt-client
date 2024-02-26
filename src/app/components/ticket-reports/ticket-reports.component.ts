@@ -240,7 +240,7 @@ export class TicketReportsComponent implements OnInit {
 
     this.inventorySer.assignTicket(myObj).subscribe((res: any) => {
       // console.log(res);
-        this.alertSer.snackSuccess(res?.message);
+        this.alertSer.success(res?.message);
         this.CustomerReport();
     }, (err: any) => {
         if(err) {

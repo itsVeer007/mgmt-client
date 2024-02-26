@@ -159,7 +159,7 @@ export class FrComponent implements OnInit {
   fieldVisitEntry(item: any) {
     this.inventorySer.fieldVisitEntry(item).subscribe((res: any) => {
       // console.log(res);
-      this.alertSer.snackSuccess('Entry Successful');
+      this.alertSer.success('Entry Successful');
     }, (err: any) => {
       this.alertSer.error(err?.error?.message);
     })
@@ -266,7 +266,7 @@ export class FrComponent implements OnInit {
     this.inventorySer.updateIndentStatus1(this.currentId, this.statusObj).subscribe((res: any) => {
       // console.log(res);
       if(res) {
-        this.alertSer.snackSuccess(res?.message);
+        this.alertSer.success(res?.message);
       }
     }, (err: any) => {
       if(err) {
@@ -343,7 +343,7 @@ export class FrComponent implements OnInit {
     this.inventorySer.replaceComponent(this.body).subscribe((res: any) => {
       // console.log(res);
       if(res) {
-        this.alertSer.snackSuccess(res?.message);
+        this.alertSer.success(res?.message);
       }
     }, (err: any) => {
       if(err) {
@@ -359,7 +359,7 @@ export class FrComponent implements OnInit {
     this.inventorySer.replaceComponent(this.body1).subscribe((res: any) => {
       console.log(res);
       if(res?.statusCode == 200) {
-        this.alertSer.snackSuccess(res?.message);
+        this.alertSer.success(res?.message);
         this.inventorySer.listIndentItems(this.currentTicketId).subscribe((finalRes: any) => {
           this.indentItems = finalRes;
         })
@@ -388,7 +388,7 @@ export class FrComponent implements OnInit {
     }
 
     this.inventorySer.logTaskStatus(myObj).subscribe((res: any) => {
-      this.alertSer.snackSuccess(res?.message);
+      this.alertSer.success(res?.message);
       // this.inventorySer.listFRTasksOfCurrentVisit(user?.UserId).subscribe((res: any) => {
       //   this.tasks = res;
       // })
@@ -414,7 +414,7 @@ export class FrComponent implements OnInit {
     this.fieldExitBody.frId = this.user.UserId;
     this.inventorySer.fieldVisitExit(this.fieldExitBody).subscribe((res: any) => {
       // console.log(res);
-      this.alertSer.snackSuccess(res?.message);
+      this.alertSer.success(res?.message);
     })
   }
 
@@ -445,7 +445,7 @@ export class FrComponent implements OnInit {
 
     this.inventorySer.updateDispatchToInventory(obj).subscribe((res:any)=>{
       // console.log(res);
-        this.alertSer.snackSuccess(res?.message);
+        this.alertSer.success(res?.message);
     }),(err: any) => {
         this.alertSer.error(err?.error?.message);
     }

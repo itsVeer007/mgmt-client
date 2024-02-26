@@ -47,13 +47,11 @@ export class AddNewAssetComponent implements OnInit {
     private siteSer: SiteService
   ) { }
 
-    addAssetForm: any = FormGroup;
-    searchText: any;
-    currentDate = new Date();
-
+  addAssetForm: any = FormGroup;
+  searchText: any;
+  currentDate = new Date();
 
   /* Asset Object */
-
   siteId: any;
   assetData: any = {
     file: null,
@@ -64,8 +62,8 @@ export class AddNewAssetComponent implements OnInit {
       playOrder: 1,
       createdBy: null,
       splRuleId: 0,
-      fromDate: formatDate(this.currentDate, 'yyyy-MM-dd', 'en-us'),
-      toDate: '2999-12-31'
+      fromDate: null,
+      toDate: null
     },
     nameParams: {
       timeId: 3,
@@ -93,15 +91,15 @@ export class AddNewAssetComponent implements OnInit {
   adFor: any = null;
   enableDemo: boolean = false;
 
-  deviceIdFromStorage: any;
+  // deviceIdFromStorage: any;
   user: any;
   ngOnInit(): void {
     this.user = this.storageSer.get('user');
-    this.deviceIdFromStorage = this.storageSer.get('add_body');
-    // console.log(this.user);
+    // this.deviceIdFromStorage = this.storageSer.get('add_body');
     this.addAssetForm = this.fb.group({
+      'siteId': new FormControl('', Validators.required),
       'file': new FormControl('', Validators.required),
-      'deviceId': new FormControl(''),
+      'deviceId': new FormControl('', Validators.required),
       'deviceModeId': new FormControl(''),
       'name': new FormControl('', Validators.required),
       'playOrder': new FormControl(''),
@@ -138,31 +136,30 @@ export class AddNewAssetComponent implements OnInit {
       this.addAssetForm.get('tempId').updateValueAndValidity();
     });
 
+    this.listSites();
     this.onMetadataChange()
-    // this.getRes();
   };
 
   siteData: any = [];
   listSites() {
     this.siteSer.listSites().subscribe((res: any) => {
-      // console.log(res);
       if(res?.Status == 'Success') {
-        this.siteData = res?.siteList?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
+        this.siteData = res.siteList?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
       }
     });
   }
 
   filteredDevices: any = [];
   filterAdvertisements() {
-    this.assetSer.listDeviceBySiteId(this.siteId).subscribe((res: any) => {
+    this.assetSer.listDeviceBySiteId({siteId: this.siteId}).subscribe((res: any) => {
       this.filteredDevices = res.flatMap((item: any) => item.adsDevices);
     });
-    // this.assetSer.listAssets1(this.filterObj).subscribe((res: any) => {
-    //   let x = res.flatMap((item: any) => item.assets);
-    //   this.newAdvertisements = x.sort((a: any, b: any) => a.deviceModeId > b.deviceModeId ? -1 : a.deviceModeId < b.deviceModeId ? 1 : 0);
-    //   if(this.siteData.length > 0) {
-    //   }
-    // })
+  }
+
+  /* searches */
+  siteSearch: any;
+  searchSites(event: any) {
+    this.siteSearch = (event.target as HTMLInputElement).value
   }
 
   data: any;
@@ -183,11 +180,10 @@ export class AddNewAssetComponent implements OnInit {
 
   /* file upload */
   selectedFile: any;
-  // selectedFiles:  Array<any> = [];
+  // selectedFiles: any = [];
   onFileSelected(event: any) {
     if(typeof(event) == 'object') {
       this.selectedFile = event.target.files[0] ?? null;
-      // console.log(this.selectedFile);
     }
   }
 
@@ -254,7 +250,7 @@ export class AddNewAssetComponent implements OnInit {
   /* Search for Get Site and Device Id's */
   sit: string = '';
   dev: string = '';
-  siteSearch(e: Event) {
+  siteSearchh(e: Event) {
     this.sit = (e.target as HTMLInputElement).value;
   }
 

@@ -329,7 +329,7 @@ filterSites(site: any) {
 
     this.inventorySer.assignTicket(myObj).subscribe((res: any) => {
       // console.log(res);
-        this.alertSer.snackSuccess(res?.message);
+        this.alertSer.success(res?.message);
     }, (err: any) => {
         if(err) {
           this.alertSer.error(err?.error?.message);

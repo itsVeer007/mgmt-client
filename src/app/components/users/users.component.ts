@@ -33,27 +33,29 @@ export class UsersComponent implements OnInit {
     })
   }
 
-  userInfo: any = null;
-  getUserInfoForUserId(user: any) {
-    this.userInfo = null;
-    this.userSer.getUserInfoForUserId(user?.user_id).subscribe((res: any) => {
-      // console.log(res);
-      if(res.status_code != '404') {
-        this.userInfo = res;
-      }
+  userInfo: any;
+  getUserInfoForUserId(data: any) {
+    this.userSer.getUserInfoForUserId({userId: data?.user_id}).subscribe((res: any) => {
+      this.userInfo = res;
+      // if(res.status_code != '404') {
+      // }
     })
   }
   
   currentUser: any;
   @ViewChild('viewprofileDialog') viewprofileDialog = {} as TemplateRef<any>;
   openViewProfileDialog(data: any) {
-    this.currentUser = data;
+    this.userSer.getUserInfoForUserId({userId: data?.user_id}).subscribe((res: any) => {
+      this.currentUser = res;
+    });
     this.dialog.open(this.viewprofileDialog);
   }
 
   @ViewChild('editprofileDialog') editprofileDialog = {} as TemplateRef<any>;
   openEditProfileDialog(data: any) {
-    this.currentUser = data;
+    this.userSer.getUserInfoForUserId({userId: data?.user_id}).subscribe((res: any) => {
+      this.currentUser = res;
+    });
     this.dialog.open(this.editprofileDialog);
   }
 

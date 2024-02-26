@@ -150,6 +150,11 @@
     border: 1px solid #EFEFEF;
 } */
 
+.table-resp {
+    height: calc(100vh - 600px);
+    overflow-y: auto;
+}
+
 tbody tr th {
     /* color:#084982; */
     color: #fff;

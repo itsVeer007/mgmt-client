@@ -313,7 +313,7 @@ export class VendorsComponent implements OnInit {
     }
     this.inventorySer.updatevendor({vendor: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
       // console.log(res);
-        this.alertSer.snackSuccess(res?.message);
+        this.alertSer.success(res?.message);
         this.getVendors();
     }, (err: any) => {
       if(err) {

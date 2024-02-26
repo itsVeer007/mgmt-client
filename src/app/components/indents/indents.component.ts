@@ -198,7 +198,7 @@ export class IndentsComponent implements OnInit {
 
     this.inventorySer.updateIndentStatus(this.originalObject).subscribe((res: any) => {
       // console.log(res);
-        this.alertSer.snackSuccess(res?.message);
+        this.alertSer.success(res?.message);
         this.listIndent();
     }, (err: any) => {
       if(err) {
@@ -266,7 +266,7 @@ export class IndentsComponent implements OnInit {
     this.inventorySer.replaceComponent(this.body).subscribe((res: any) => {
       // console.log(res);
       if(res) {
-        this.alertSer.snackSuccess(res?.message);
+        this.alertSer.success(res?.message);
       }
     }, (err: any) => {
       if(err) {
@@ -312,7 +312,7 @@ export class IndentsComponent implements OnInit {
     this.statusObj.createdBy = this.user?.UserId;
     this.inventorySer.updateIndentStatus(this.currentStatusId, this.statusObj).subscribe((res: any) => {
       // console.log(res);
-      this.alertSer.snackSuccess(res?.message);
+      this.alertSer.success(res?.message);
       this.listIndent();
     }, (err: any) => {
       this.alertSer.error(err?.error?.message);
