@@ -66,15 +66,17 @@ peakHours: any;
 GetWifiStats() {
   this.showLoader = true;
   this.assetSer.devicefilter(null).subscribe((res:any)=> {
-    console.log(res);
+    // console.log(res);
     this.showLoader = false;
     this.wifiData = res;
+    // console.log(this.wifiData)
     this.newWifiData = this.wifiData;
+    console.log(this.newWifiData)
   })
 }
 
 devicefilter(data:any) {
-  console.log(data)
+  // console.log(data)
   this.assetSer.devicefilter(data).subscribe((res:any)=> {
     console.log(res);
   this.newWifiData = res
@@ -112,7 +114,7 @@ filterWifiData(data:any) {
 secondTable:any
 @ViewChild('usedItemsDialogTwo') usedItemsDialogTwo = {} as TemplateRef<any>;
 secondView(data:any) {
-  console.log(data)
+  // console.log(data)
   console.log(this.currentItem)
   let time = data?.hour?.split('-');
   let finalTime = time[0];

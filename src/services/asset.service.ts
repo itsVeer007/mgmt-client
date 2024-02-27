@@ -280,7 +280,7 @@ export class AssetService {
   }
 
   GetWifiStats1(payload: any) {
-    let url = this. baseUrl1 + `/wifiDetails/GetWifiStats_1_0/${payload?.device_name}`;
+    let url = this. baseUrl1 + `/wifiDetails/GetCurrentDayStats_1_0/${payload?.device_name}`;
     return this.http.get(url)
   }
 
@@ -291,7 +291,7 @@ export class AssetService {
   }
 
   secondView(payload:any) {
-    let url = this. baseUrl1 + '/wifiDetails/GetWifiStats_1_0';
+    let url = this. baseUrl1 + '/wifiDetails/GetHourStats_1_0';
     let params = new HttpParams().set('time_connected',payload?.finalTime).set('device_name',payload.device)
     return this.http.get(url, {params:params})
   }
