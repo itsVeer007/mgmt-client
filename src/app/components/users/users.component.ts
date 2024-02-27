@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertService } from 'src/services/alert.service';
+import { StorageService } from 'src/services/storage.service';
 import { UserService } from 'src/services/user.service';
 
 @Component({
@@ -15,10 +16,13 @@ export class UsersComponent implements OnInit {
     private userSer: UserService,
     private alertSer: AlertService,
     private dialog: MatDialog,
+    private storageSer: StorageService
   ) { }
   
   showLoader = false;
+  userData: any;
   ngOnInit(): void {
+    this.userData = this.storageSer.get('user');
     this.listUsers();
   }
 
@@ -37,8 +41,6 @@ export class UsersComponent implements OnInit {
   getUserInfoForUserId(data: any) {
     this.userSer.getUserInfoForUserId({userId: data?.user_id}).subscribe((res: any) => {
       this.userInfo = res;
-      // if(res.status_code != '404') {
-      // }
     })
   }
   
@@ -60,7 +62,8 @@ export class UsersComponent implements OnInit {
   }
 
   updateUser() {
-    this.userSer.updateUser(this.userInfo).subscribe((res: any) => {
+    this.currentUser.modifiedBy = this.userData?.UserId;
+    this.userSer.updateUser(this.currentUser).subscribe((res: any) => {
       // console.log(res);
       if(res.statusCode == 200) {
         this.listUsers();

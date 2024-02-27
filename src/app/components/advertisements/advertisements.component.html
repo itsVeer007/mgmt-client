@@ -7,10 +7,9 @@
 
     <div>
       <!-- <button mat-flat-button color="primary" (click)="showAddAsset(siteIdInput.value, deviceIdInput.value)">Create Add</button> -->
-      <button class="create-btn" (click)="showAddAsset()">Create Add</button>
+      <button class="create-btn" (click)="showAddAsset('asset')">Create Add</button>
     </div>
   </div>
-  <!-- /header -->
 
   <!-- status -->
   <div class="row mb-2">
@@ -64,7 +63,7 @@
           <mat-icon>arrow_drop_down</mat-icon>
         </button>
         <mat-autocomplete #site="matAutocomplete">
-          <mat-option value="All" (click)="filterAdvertisements()">All</mat-option>
+          <mat-option value="All" (click)="filterAdvertisements()" *ngIf="siteData.length != 0">All</mat-option>
           <mat-option *ngFor="let item of siteData | search: siteSearch" [value]="item.siteid" (click)="filterAdvertisements()">
             {{ item.siteid }} - {{ item.sitename }}
           </mat-option>
