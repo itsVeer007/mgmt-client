@@ -21,7 +21,6 @@ export class InventoryService {
   listItemCode(payload: any) {
     let url = this.baseUrl + '/listItemCode_1_0';
     let params = new HttpParams();
-
     if(payload.partType) {
       params = params.set('p_part_type', payload.partType)
     }
