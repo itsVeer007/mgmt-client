@@ -38,10 +38,6 @@ export class LoginComponent implements OnInit {
     // this.userSer.user$.subscribe((res: any) => {
     //   this.user = res
     // });
-
-    // this.storageSer.set('user', 'Helllo');
-    // let c: any = localStorage.getItem('user');
-    // console.log(decodeURIComponent(atob(c)))
   }
 
   login() {

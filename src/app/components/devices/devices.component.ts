@@ -98,14 +98,17 @@ export class DevicesComponent implements OnInit {
   filterDevices() {
     this.showLoader = true;
     this.assetSer.listDeviceAdsInfo1(this.filterObj).subscribe((res: any) => {
+      console.log(res)
       this.showLoader = false;
       this.newDeviceData = res.flatMap((item: any) => item.adsDevices);
+      console.log(this.newDeviceData)
 
       this.active = [];
       this.inActive = [];
       for(let item of this.newDeviceData) {
         if(item.status == 1) {
           this.active.push(item);
+          // console.log(this.active)
         } else if(item.status == 2) {
           this.inActive.push(item);
         }

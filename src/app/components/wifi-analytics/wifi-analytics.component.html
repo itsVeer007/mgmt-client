@@ -76,15 +76,31 @@
           <button class="create-btn" (click)="show('ticket')">Submit</button>
         </div>
     </div> -->
-  <div class="col-lg-2 col-md-2">
-    <mat-form-field appearance="outline" class="w-100">
-      <mat-label>Device Name</mat-label>
-      <mat-select>
-        <mat-option [value]="null" (click)="devicefilter(null)">All</mat-option>
-        <mat-option *ngFor="let item of wifiData" [value]="item.device_name" (click)="devicefilter(item)">{{item.device_name}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
+    <div class="row">
+      <div class="col-lg-3">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Select site</mat-label>
+          <input matInput [matAutocomplete]="site" [(ngModel)]="filterObj.siteId">
+          <button matSuffix mat-icon-button>
+            <mat-icon>arrow_drop_down</mat-icon>
+          </button>
+          <mat-autocomplete #site="matAutocomplete" >
+            <!-- <mat-option value="All" (click)="filterDevices()">All</mat-option> -->
+            <mat-option *ngFor="let item of siteData | search: siteSearch" [value]="item.siteid" (click)="filterDevices()" [hidden]="item.type == 'RSVIN10460001'">{{ item.siteid }} - {{ item.sitename }}</mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+    <div class="col-lg-3">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Device Name</mat-label>
+        <mat-select>
+          <mat-option [value]="null" (click)="devicefilter(null)">All</mat-option>
+          <mat-option *ngFor="let item of wifiData" [value]="item.device_name" (click)="devicefilter(item)">{{item.device_name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    </div>
+ 
 
   <div class="table-resp">
     <table class="table table-hover" id="mytable" #table>
@@ -105,12 +121,12 @@
       </thead>
 
       <tbody *ngIf="!showLoader">
-        <tr *ngFor="let cust of newWifiData ; let i = index">
+        <tr *ngFor="let cust of newDeviceData ; let i = index">
           <td>
             <p>{{i+1}}</p>
           </td>
           <td>
-            <p>{{cust.device_name}}</p>
+            <p>{{cust.deviceId}}</p>
           </td>
 
           <td>

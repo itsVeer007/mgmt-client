@@ -47,11 +47,12 @@ open(type:string) {
 }
 
   tempSites:any;
-  siteData: any;
+  // siteData: any;
   user: any;
   ngOnInit(): void {
     this.user =  this.storageSer.get('user');
     this.GetWifiStats();
+    this.listSites();
   }
 
 
@@ -71,7 +72,7 @@ GetWifiStats() {
     this.wifiData = res;
     // console.log(this.wifiData)
     this.newWifiData = this.wifiData;
-    console.log(this.newWifiData)
+    // console.log(this.newWifiData)
   })
 }
 
@@ -79,7 +80,53 @@ devicefilter(data:any) {
   // console.log(data)
   this.assetSer.devicefilter(data).subscribe((res:any)=> {
     console.log(res);
-  this.newWifiData = res
+  // this.newWifiData = res
+  })
+}
+
+filterObj = {
+  siteId: null,
+  deviceId: null,
+}
+
+siteData: any = [];
+listSites() {
+  this.showLoader = true;
+  this.siteSer.listSites().subscribe((res: any) => {
+    console.log(res);
+    this.siteData = res?.siteList
+
+    // this.showLoader = false;
+    // this.getMetadata();
+    // if(res?.Status == 'Success') {
+    //   this.siteData = res?.siteList?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
+    //   this.filterObj.siteId = this.siteData[this.siteData?.length - 1]?.siteid;
+    //   this.filterDevices();
+    // }
+    // }, (err: any) => {
+    //   this.showLoader = false;
+  });
+}
+
+newDeviceData: any = [];
+filterDevices() {
+  this.showLoader = true;
+  this.assetSer.listDeviceAdsInfo1(this.filterObj).subscribe((res: any) => {
+    // console.log(res)
+    this.showLoader = false;
+    this.newDeviceData = res.flatMap((item: any) => item.adsDevices);
+    console.log(this.newDeviceData)
+
+    // this.active = [];
+    // this.inActive = [];
+    // for(let item of this.newDeviceData) {
+    //   if(item.status == 1) {
+    //     this.active.push(item);
+    //     // console.log(this.active)
+    //   } else if(item.status == 2) {
+    //     this.inActive.push(item);
+    //   }
+    // }
   })
 }
 
@@ -149,21 +196,6 @@ filterDataObject = {
 openViewPopupData:any = [];
 openWifiData(data: any) {
 
-}
-
-listSites() {
-  this.showLoader = true;
-  this.siteSer.listSites().subscribe((res: any) => {
-    // console.log(res);
-    this.showLoader = false;
-    if(res?.Status == 'Success') {
-      this.tableData = res?.siteList?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
-      this.newTableData = this.tableData;
-      // console.log(this.newTableData)
-    }
-    }, (err: any) => {
-      this.showLoader = false;
-  });
 }
 
 siteSearch: any;
