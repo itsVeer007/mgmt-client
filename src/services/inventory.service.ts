@@ -283,17 +283,17 @@ export class InventoryService {
   replaceComponent(payload: any) {
     let url = this.baseUrl + `/replaceComponent_1_0`;
     let params = new HttpParams();
-    if(payload.oldInventoryId) {
-      params = params.set('oldInventoryId', payload.oldInventoryId);
+    if(payload?.oldInventoryId) {
+      params = params.set('oldInventoryId', payload?.oldInventoryId);
     }
-    if(payload.newInventoryId) {
-      params = params.set('newInventoryId', payload.newInventoryId);
+    if(payload?.newInventoryId) {
+      params = params.set('newInventoryId', payload?.newInventoryId);
     }
-    if(payload.replacedBy) {
-      params = params.set('replacedBy', payload.replacedBy);
+    if(payload?.replacedBy) {
+      params = params.set('replacedBy', payload?.replacedBy);
     }
-    if(payload.siteId) {
-      params = params.set('siteId', payload.siteId);
+    if(payload?.siteId) {
+      params = params.set('siteId', payload?.siteId);
     }
 
     return this.http.put(url, null, {params: params});
@@ -487,14 +487,14 @@ export class InventoryService {
   listFRReports(payload:any) {
     let url = this.baseUrl + "/listFRReports_1_0";
     let params = new HttpParams();
-    if(payload.p_frId) {
-      params = params.set('p_frId', payload.p_frId)
+    if(payload?.p_frId) {
+      params = params.set('p_frId', payload?.p_frId)
     }
-    if(payload.p_startdate) {
-      params = params.set('p_startdate', formatDate(payload.p_startdate, 'yyyy-MM-dd', 'en-us'))
+    if(payload?.p_startdate) {
+      params = params.set('p_startdate', formatDate(payload?.p_startdate, 'yyyy-MM-dd', 'en-us'))
     }
-    if(payload.p_enddate) {
-      params = params.set('p_enddate', formatDate(payload.p_enddate, 'yyyy-MM-dd', 'en-us'))
+    if(payload?.p_enddate) {
+      params = params.set('p_enddate', formatDate(payload?.p_enddate, 'yyyy-MM-dd', 'en-us'))
     }
     return this.http.get(url, {params:params});
   }
@@ -531,7 +531,7 @@ export class InventoryService {
 
   updateDC(payload:any) {
     let url = this.baseUrl + `/updateDC_2_0`;
-    let params = new HttpParams().set('dcNumber', payload.dcNumber).set('amount',payload.amount).set('receiptNo', payload.receiptNo).set('modifiedBy', payload.modifiedBy)
+    let params = new HttpParams().set('dcNumber', payload?.dcNumber).set('amount',payload?.amount).set('receiptNo', payload?.receiptNo).set('modifiedBy', payload?.modifiedBy)
     return this.http.put(url, null, {params:params})
   }
 
@@ -544,14 +544,14 @@ export class InventoryService {
   getAllDC(payload:any) {
     let url = this.baseUrl + '/getAllDC_2_0';
     let params = new HttpParams()
-    if(payload.createdBy) {
-      params = params.set('createdBy',payload.createdBy)
+    if(payload?.createdBy) {
+      params = params.set('createdBy',payload?.createdBy)
     }
-    if(payload.dateOfChallan) {
-      params = params.set('dateOfChallan', formatDate(payload.dateOfChallan, 'yyyy-MM-dd', 'en-us'))
+    if(payload?.dateOfChallan) {
+      params = params.set('dateOfChallan', formatDate(payload?.dateOfChallan, 'yyyy-MM-dd', 'en-us'))
     }
-    if(payload.state) {
-      params = params.set('state', payload.state)
+    if(payload?.state) {
+      params = params.set('state', payload?.state)
     }
     return this.http.get(url, {params:params})
   }
@@ -608,12 +608,12 @@ export class InventoryService {
 
   updateOrderItem(payload: any) {
     let url = this.baseUrl + '/updateOrderItem_1_0';
-    let params = new HttpParams().set('id', payload.id).set('productQuantity', payload.productQuantity).set('by', payload.by);
+    let params = new HttpParams().set('id', payload?.id).set('productQuantity', payload?.productQuantity).set('by', payload?.by);
     return this.http.put(url, null, {params: params})
   }
 
   deleteOrderItem(payload: any) {
-    let url = this.baseUrl + `/deleteOrderItem_1_0/${payload.id}`;
+    let url = this.baseUrl + `/deleteOrderItem_1_0/${payload?.id}`;
     return this.http.delete(url);
   }
 
@@ -650,9 +650,6 @@ export class InventoryService {
     let params = new HttpParams().set('roleId', 30);
     return this.http.get(url, {params: params});
   }
-
-
-
 
 }
 

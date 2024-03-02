@@ -38,9 +38,7 @@ export class VjsPlayerComponent implements OnInit {
   player!: videojs.Player;
 
   ngOnInit() {
-    // instantiate Video.js
     this.player = videojs(this.target.nativeElement, this.options, function onPlayerReady() {
-      // console.log('onPlayerReady', this);
       this.on('error', (error: any) => {
         this.hasStarted(false)
         // this.bigPlayButton.show()
@@ -52,7 +50,6 @@ export class VjsPlayerComponent implements OnInit {
       });
 
       // player.tech().Hls.xhr.beforeRequest
-
       //   player.on('error', () => {
       //     player.createModal('Retrying connection');
       //     if (player.error().code === 4) {
@@ -68,12 +65,10 @@ export class VjsPlayerComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    // destroy player
     if (this.player) {
       this.player.dispose();
     }
   }
-
 
   // refresh1(e: any, timeout: any) {
   //   var img = e.target;

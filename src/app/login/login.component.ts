@@ -51,11 +51,11 @@ export class LoginComponent implements OnInit {
         this.route.navigate(['/main-dashboard']);
         this.getlistSites();
       } else if(res?.Status == "Failed") {
-        this.alertSer.snackError(res?.message);
+        this.alertSer.error(res?.message);
       }
     }, (err: any) => {
       this.showLoader = false;
-      this.alertSer.snackError(err?.error?.message);
+      this.alertSer.error(err?.error?.message);
     });
   }
 
@@ -79,11 +79,11 @@ export class LoginComponent implements OnInit {
           this.getlistSites();
           this.getMetadata();
         } else if(res?.Status == 'Failed') {
-          this.alertSer.snackError(res?.message);
+          this.alertSer.error(res?.message);
         }
       }, (err: any) => {
         this.showLoader = false;
-        this.alertSer.snackError(err?.error?.message);
+        this.alertSer.error(err?.error?.message);
       })
     }
   }

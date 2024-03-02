@@ -7,7 +7,7 @@ import { UserService } from 'src/services/user.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'mgmtClient';
+  title = 'mgmt-client';
 
   constructor(private userSer: UserService) {}
 
