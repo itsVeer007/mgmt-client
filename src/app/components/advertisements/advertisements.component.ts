@@ -42,8 +42,9 @@ export class AdvertisementsComponent implements OnInit {
       this.getMetadata();
       if(res?.Status == 'Success') {
         this.siteData = res?.siteList?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
-        this.filterObj.siteId = this.siteData[0]?.siteid;
-        this.filterAdvertisements();
+        // this.siteId = this.siteData[0]?.siteid;
+        // this.filterAdvertisements();\
+        this.listAssets();
       }
       }, (err: any) => {
         this.showLoader = false;
@@ -57,6 +58,14 @@ export class AdvertisementsComponent implements OnInit {
   sycedAfterAddition: any = [];
   sycedAfterRemoval: any = [];
   removed: any = [];
+
+  listAssets() {
+    this.assetService.listAssets().subscribe((res: any) => {
+      let x = res.flatMap((item: any) => item.assets);
+      this.advertisements = x.sort((a: any, b: any) => a.deviceModeId > b.deviceModeId ? -1 : a.deviceModeId < b.deviceModeId ? 1 : 0);;
+      this.newAdvertisements = this.advertisements;
+    })
+  }
 
   deviceData: any;
   listDevices() {
@@ -77,22 +86,23 @@ export class AdvertisementsComponent implements OnInit {
     this.deviceSearch = (event.target as HTMLInputElement).value
   }
 
-  filterObj = {
-    siteId: null,
-    deviceId: null,
-  }
+  siteId: any =  'All';
+  deviceId: any = 'All';
   filteredDevices: any = [];
   filterAdvertisements() {
+    let siteId: any;
+    let deviceId: any;
+    this.siteId == 'All' ? siteId = null : siteId = this.siteId;
+    this.deviceId == 'All' ? deviceId = null : deviceId = this.deviceId
+
     this.showLoader = true;
-    this.assetService.listAssets1(this.filterObj).subscribe((res: any) => {
+    this.assetService.listAssets1({siteId: siteId, deviceId: deviceId}).subscribe((res: any) => {
       this.showLoader = false;
       let x = res.flatMap((item: any) => item.assets);
-      this.newAdvertisements = x.sort((a: any, b: any) => a.id > b.id ? -1 : a.id < b.id ? 1 : 0);
-      if(this.siteData.length > 0) {
-        this.assetService.listDeviceBySiteId(this.filterObj.siteId).subscribe((res: any) => {
-          this.filteredDevices = res.flatMap((item: any) => item.adsDevices);
-        });
-      }
+      this.newAdvertisements = x.sort((a: any, b: any) => a.deviceModeId > b.deviceModeId ? -1 : a.deviceModeId < b.deviceModeId ? 1 : 0);
+      this.assetService.listDeviceBySiteId({siteId: siteId}).subscribe((res: any) => {
+        this.filteredDevices = res.flatMap((item: any) => item.adsDevices);
+      });
 
       this.pending = [];
       this.added = [];
@@ -115,9 +125,9 @@ export class AdvertisementsComponent implements OnInit {
     })
   }
 
-  makeNull() {
-    this.filterObj.deviceId = null;
-  }
+  // makeNull() {
+  //   this.filterObj.deviceId = null;
+  // }
 
   deviceType: any;
   deviceMode: any;
@@ -136,17 +146,9 @@ export class AdvertisementsComponent implements OnInit {
   }
 
   showAsset: boolean = false;
-  addErr: any = null;
-  showAddAsset(siteId: any, deviceId: any) {
-    if(siteId == '' || deviceId == '') {
-      this.alertSer.error('Please select site and device to create advertisement');
-    } else {
+  showAddAsset(type: any) {
+    if (type == 'asset') {
       this.showAsset = true;
-      let addBody = {
-        'siteId': siteId,
-        'deviceId': deviceId
-      }
-      this.storageSer.set('add_body', addBody);
     }
   }
 
@@ -155,7 +157,6 @@ export class AdvertisementsComponent implements OnInit {
       this.showAsset = false;
     }
   }
-
 
   /* Edit Asset Status */
   @ViewChild('editStatusDialog') editStatus = {} as TemplateRef<any>;
@@ -177,7 +178,7 @@ export class AdvertisementsComponent implements OnInit {
       // console.log(res);
       // this.getAssetBySiteId(this.siteData[0]?.siteid);
       this.filterAdvertisements();
-      this.alertSer.snackSuccess(res?.message);
+      this.alertSer.success(res?.message);
     }, (err: any) => {
       if(err) {
         this.alertSer.error(err?.error?.message);
@@ -261,7 +262,7 @@ export class AdvertisementsComponent implements OnInit {
 
     this.assetService.modifyAssetForDevice({asset: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
       // console.log(res);
-      this.alertSer.snackSuccess(res?.message);
+      this.alertSer.success(res?.message);
     }, (err: any) => {
         this.alertSer.wait();
     })

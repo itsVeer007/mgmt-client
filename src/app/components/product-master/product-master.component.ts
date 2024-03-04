@@ -267,7 +267,7 @@ export class ProductMasterComponent implements OnInit {
     this.inventorySer.updateProductMaster({productMaster: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
       // console.log(res);
       if(res) {
-        this.alertSer.snackSuccess(res?.message);
+        this.alertSer.success(res?.message);
         this.listProduct();
       }
     }, (err: any) => {

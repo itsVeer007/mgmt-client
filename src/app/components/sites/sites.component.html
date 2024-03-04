@@ -220,12 +220,12 @@
     </table>
 
     <!-- error info -->
-    <div class="err-info" style="height: 50vh;" *ngIf="newTableData?.length == 0 && !showLoader">
+    <div class="err-info" style="height: 45vh;" *ngIf="newTableData?.length == 0 && !showLoader">
       <h1 class="text-secondary">No Sites</h1>
     </div>
 
     <!-- loader -->
-    <div *ngIf="showLoader" class="d-flex justify-content-center align-items-center" style="height: 50vh;">
+    <div *ngIf="showLoader" class="d-flex justify-content-center align-items-center" style="height: 45vh;">
       <app-loader></app-loader>
     </div>
   </div>

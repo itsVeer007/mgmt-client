@@ -119,7 +119,7 @@
                 <p>{{obj?.typeName}}</p>
               </td>
               <td>
-                <p>{{item?.value}}</p>
+                <p class="table-data">{{item?.value}}</p>
               </td>
               <td>
                 <p [style.color]="item?.active == 'Y' ? '#00A44C' : item?.active == 'N' ? '#fa500f' : ''">
@@ -143,16 +143,16 @@
       </tbody>
     </table>
 
-    <div class="d-flex align-items-center justify-content-center" style="height: 50vh;" *ngIf="typeInput.value == 'Create_New'">
+    <!-- <div class="d-flex align-items-center justify-content-center" style="height: 45vh;" *ngIf="typeInput.value == 'Create_New'">
       <h1 class="text-secondary">Create New Data</h1>
+    </div> -->
+    <!-- loader -->
+    <div *ngIf="showLoader" class="d-flex justify-content-center align-items-center" style="height: 45vh;">
+      <app-loader></app-loader>
     </div>
   </div>
 </div>
 
-<!-- loader -->
-<div *ngIf="showLoader" class="d-flex justify-content-center align-items-center" style="height: 50vh;">
-  <app-loader></app-loader>
-</div>
 
 <ng-template #viewDataDialog>
   <div style="background-color: #084982;">

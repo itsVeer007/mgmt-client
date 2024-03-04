@@ -75,15 +75,12 @@ export class AssetService {
 
   addAsset(payload: any, file: any) {
     let user = this.storageSer.get('user');
-    let deviceData = this.storageSer.get('add_body');
+    // let deviceData = this.storageSer.get('add_body');
     let formData: any = new FormData();
-
-    /**file */
     formData.append('file', file);
 
-    /**asset data */
     let assetData = {
-      'deviceId': deviceData?.deviceId,
+      'deviceId': payload?.asset?.deviceId,
       'deviceModeId': payload?.asset?.deviceModeId,
       'playOrder': payload?.asset?.playOrder,
       'createdBy': user?.UserId,
@@ -92,12 +89,11 @@ export class AssetService {
       'fromDate': payload?.asset?.fromDate ? formatDate(payload?.asset?.fromDate, 'yyyy-MM-dd', 'en-us') : formatDate(new Date(), 'yyyy-MM-dd', 'en-us'),
       'toDate': payload?.asset?.toDate ? formatDate(payload?.asset?.toDate, 'yyyy-MM-dd', 'en-us') : '2999-12-31'
     }
-    const ass = new Blob([JSON.stringify(assetData)], {
+    const assetBlob = new Blob([JSON.stringify(assetData)], {
       type: 'application/json',
     });
-    formData.append('asset', ass);
+    formData.append('asset', assetBlob);
 
-    /**name params */
     let paramData = {
       'timeId': payload?.nameParams?.timeId,
       'tempId': payload?.nameParams?.tempId,
@@ -110,10 +106,10 @@ export class AssetService {
       'vehicles': payload?.nameParams?.vehicles,
       'persons': payload?.nameParams?.persons
     }
-    const param = new Blob([JSON.stringify(paramData)], {
+    const paramBlob = new Blob([JSON.stringify(paramData)], {
       type: 'application/json',
     });
-    formData.append('nameParams', param);
+    formData.append('nameParams', paramBlob);
 
     let url = this.baseUrl + "/createAssetforDevice_1_0";
     return this.http.post(url, formData);
@@ -131,19 +127,16 @@ export class AssetService {
 
   updateAssetStatus(id: any, payload: any) {
     let url = this.baseUrl + "/updateAssetStatus_1_0";
-
     let myObj = {
       'id': id,
       'status': payload.status,
       'modifiedBy': payload.modifiedBy
     }
-
     return this.http.put(url, myObj);
   }
 
 
   /* devices */
-
   listDeviceAdsInfo() {
     let url = this.baseUrl + '/listDeviceAdsInfo_1_0';
     return this.http.get(url);
@@ -162,10 +155,12 @@ export class AssetService {
     return this.http.get(url, {params: params});
   }
 
-  listDeviceBySiteId(siteId: any) {
+  listDeviceBySiteId(payload: any) {
     let url = this.baseUrl + '/listDeviceAdsInfo_1_0';
-    let params = new HttpParams().set('siteId', siteId)
-
+    let params = new HttpParams();
+    if(payload?.siteId) {
+      params = params.set('siteId', payload?.siteId);
+    }
     return this.http.get(url, {params: params});
   }
 
@@ -214,7 +209,6 @@ export class AssetService {
 
 
   /* advertisement reports */
-
   reportUrl = 'http://192.168.0.137:8080';
 
   list() {
@@ -286,7 +280,7 @@ export class AssetService {
   }
 
   GetWifiStats1(payload: any) {
-    let url = this. baseUrl1 + `/wifiDetails/GetWifiStats_1_0/${payload?.device_name}`;
+    let url = this. baseUrl1 + `/wifiDetails/GetCurrentDayStats_1_0/${payload?.device_name}`;
     return this.http.get(url)
   }
 
@@ -297,7 +291,7 @@ export class AssetService {
   }
 
   secondView(payload:any) {
-    let url = this. baseUrl1 + '/wifiDetails/GetWifiStats_1_0';
+    let url = this. baseUrl1 + '/wifiDetails/GetHourStats_1_0';
     let params = new HttpParams().set('time_connected',payload?.finalTime).set('device_name',payload.device)
     return this.http.get(url, {params:params})
   }

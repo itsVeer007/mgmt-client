@@ -60,17 +60,27 @@ export class UserService {
 
   createUser(payload: any) {
     // let url = this.baseUrl + "/createUser_1_0";
-    let url = 'http://192.168.0.148:8000/userDetails/createUser_1_0';
+    let url = `${this.baseUrl}/createUser_1_0`;
     var user: any = this.storageSer.get('user');
     payload.accesstoken = user.access_token;
     payload.callingUsername = user.UserName;
     return this.http.post(url, payload);
   }
 
-  getUserInfoForUserId(userId: string) {
+  getUserInfoForUserId(payload: any) {
     var user: any = this.storageSer.get('user');
-    let url = this.baseUrl + `/getUserInfoForUserId_1_0/${userId}`;
+    let url = `${this.baseUrl}/getUserInfoForUserId_1_0/${payload?.userId}`;
     return this.http.get(url);
+  }
+
+  // getUserInfoForId(payload: any) {
+  //   let url = `http://34.206.37.237/userDetails/getUserInfoForUserId_1_0/${payload}`;
+  //   return this.http.get(url);
+  // }
+
+  updateUser(payload: any) {
+    let url = `http://34.206.37.237/userDetails/updateUser_1_0/${payload?.userId}`;
+    return this.http.put(url, payload);
   }
   
 }

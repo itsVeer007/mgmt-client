@@ -228,7 +228,7 @@ export class QRAdsComponent implements OnInit {
     this.assetSer.updateProductMaster(this.originalObject).subscribe((res: any) => {
       // console.log(res);
       this.getInventory();
-      this.alertSer.snackSuccess(res?.message);
+      this.alertSer.success(res?.message);
     }, (err: any) => {
       if(err) {
         this.alertSer.error(err?.error?.message)

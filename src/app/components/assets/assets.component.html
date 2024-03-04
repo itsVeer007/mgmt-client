@@ -466,11 +466,11 @@
       <!-- table -->
     </div>
 
-    <!-- <div class="d-flex align-items-center justify-content-center" style="height: 50vh;" *ngIf="siteIdInput.value == ''">
+    <!-- <div class="d-flex align-items-center justify-content-center" style="height: 45vh;" *ngIf="siteIdInput.value == ''">
       <h1 class="text-secondary" >Select Site to View Advertisements</h1>
     </div> -->
 
-    <div class="d-flex align-items-center justify-content-center" style="height: 50vh;"
+    <div class="d-flex align-items-center justify-content-center" style="height: 45vh;"
       *ngIf="newAssetTable.length == 0 && siteIdInput.value != 'All' && !showLoader">
       <h1 class="text-secondary">No Advertisements</h1>
     </div>
@@ -478,7 +478,7 @@
     <!-- Loader -->
     <div>
       <app-loader *ngIf="showLoader" class="d-flex justify-content-center align-items-center"
-        style="height: 50vh;"></app-loader>
+        style="height: 45vh;"></app-loader>
     </div>
     <!-- /Loader -->
   </div>

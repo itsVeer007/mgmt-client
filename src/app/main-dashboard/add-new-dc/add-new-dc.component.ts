@@ -184,7 +184,7 @@ export class AddNewDcComponent {
         this.inventorySer.createDC(this.inventoryBody).subscribe((res: any) => {
           // console.log(res);
           this.newItemEvent.emit();
-          this.alertSer.snackSuccess(res?.message);
+          this.alertSer.success(res?.message);
           let obj = {
             createdBy: this.user?.UserId
           }

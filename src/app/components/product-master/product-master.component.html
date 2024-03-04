@@ -268,13 +268,13 @@
     <!-- table ends -->
   </div>
 
-  <div class="d-flex align-items-center justify-content-center" style="height: 50vh;" *ngIf="newProductMaster.length == 0 && !showLoader">
+  <div class="d-flex align-items-center justify-content-center" style="height: 45vh;" *ngIf="newProductMaster.length == 0 && !showLoader">
     <h1 class="text-secondary">No Data</h1>
   </div>
 
   <!-- Loader -->
   <div *ngIf="showLoader">
-    <app-loader class="d-flex justify-content-center align-items-center" style="height: 50vh;"></app-loader>
+    <app-loader class="d-flex justify-content-center align-items-center" style="height: 45vh;"></app-loader>
   </div>
   <!-- /Loader -->
 </div>

@@ -233,7 +233,7 @@ export class TicketsComponent implements OnInit {
     this.taskBody.createdBy = this.user?.UserId;
     this.inventorySer.createTask(this.taskBody).subscribe((res: any) => {
       // console.log(res);
-      this.alertSer.snackSuccess(res?.message);
+      this.alertSer.success(res?.message);
     }, (err: any) => {
       this.alertSer.error(err?.error?.message);
     })
@@ -362,7 +362,7 @@ export class TicketsComponent implements OnInit {
       // console.log(res);
 
       if(res) {
-        this.alertSer.snackSuccess(res?.message);
+        this.alertSer.success(res?.message);
         this.listTickets();
       }
     }, (err: any) => {
@@ -398,7 +398,7 @@ export class TicketsComponent implements OnInit {
     }
     this.inventorySer.assignTicket(myObj).subscribe((res: any) => {
       // console.log(res)
-      this.alertSer.snackSuccess(res?.message);
+      this.alertSer.success(res?.message);
       this.listTickets();
     }, (err: any) => {
         this.alertSer.error(err?.error?.message);
@@ -426,7 +426,7 @@ export class TicketsComponent implements OnInit {
     this.inventorySer.updateTask(statusObj).subscribe((res: any) => {
       // console.log(res);
       if(res) {
-        this.alertSer.snackSuccess(res?.message);
+        this.alertSer.success(res?.message);
         this.listTickets();
       }
     }, (err: any) => {

@@ -97,7 +97,7 @@ export class FrKitComponent implements OnInit {
   fieldVisitEntry(item: any) {
     this.inventorySer.fieldVisitEntry(item).subscribe((res: any) => {
       // console.log(res);
-      this.alertSer.snackSuccess('Entry Successful');
+      this.alertSer.success('Entry Successful');
     }, (err: any) => {
       this.alertSer.error(err?.error?.message);
     })
