@@ -25,8 +25,8 @@ export class FrComponent implements OnInit {
   searchText: any;
   user: any;
   ngOnInit(): void {
-    this.siteIds = JSON.parse(this.storageSer.get('siteIds'))?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
-    this.user =   JSON.parse(this.storageSer.get('user'));
+    this.siteIds = this.storageSer.get('siteIds')?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
+    this.user =   this.storageSer.get('user');
     // this.listFRSites();
     this.listFRTickets();
   }
@@ -37,7 +37,7 @@ export class FrComponent implements OnInit {
   listFRTickets() {
     this.showLoader = true;
     this.inventorySer.listFRTickets(this.user?.UserId).subscribe((res: any) => {
-      // console.log(res);
+      console.log(res);
       this.showLoader = false;
       this.getMetadata();
       this.frTickets = res;

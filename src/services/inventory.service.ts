@@ -10,8 +10,8 @@ import { StorageService } from './storage.service';
 })
 export class InventoryService {
 
-  baseUrl = `${environment.baseUrl}/inventoryAndtickets`;
-  // baseUrl = 'http://192.168.0.196:8080';
+  // baseUrl = `${environment.baseUrl}/inventoryAndtickets`;
+  baseUrl = 'http://192.168.0.146:8080';
 
   constructor(private http: HttpClient, public datepipe: DatePipe, private storageSer: StorageService) { }
 
