@@ -7,7 +7,7 @@ import { ErrorPageComponent } from './utilities/error-page/error-page.component'
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'main', canActivate: [AuthGuard], loadChildren: () => import('./main/main.module').then((m) => m.MainModule) },
+  { path: 'home', canActivate: [AuthGuard], loadChildren: () => import('./main-routing/main.module').then((m) => m.MainModule) },
   { path: '**',  component: ErrorPageComponent},
 ];
 

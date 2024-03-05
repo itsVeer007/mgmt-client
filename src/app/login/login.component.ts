@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit {
           // this.userSer.isLoggedin.next(true);
           this.storageSer.set('user', res);
           this.userSer.user$.next(res);
-          this.router.navigate(['main/main-dashboard']);
+          this.router.navigate(['/home/main-dashboard']);
           this.getlistSites();
           this.getMetadata();
         } else if(res?.Status == 'Failed') {

@@ -35,7 +35,7 @@ const routes: Routes = [
   {
     path: '', component: DashboardComponent,
     children: [
-      { path: '', component: MainDashboardComponent, redirectTo: '/main/main-dashboard', pathMatch: 'full' },
+      { path: '', component: MainDashboardComponent, redirectTo: '/home/main-dashboard', pathMatch: 'full' },
       { path: 'main-dashboard', component: MainDashboardComponent },
       { path: 'verticals', component: VerticalsComponent },
       { path: 'add-new-site', component: AddNewSiteComponent },
