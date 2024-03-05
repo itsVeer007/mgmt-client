@@ -7,7 +7,8 @@ import { environment } from '../environments/environment';
 })
 export class MetadataService {
 
-  baseUrl = `${environment.baseUrl}/common`;
+  // baseUrl = `${environment.baseUrl}/common`;
+  baseUrl = 'http://192.168.0.196:8081';
 
   constructor(private http: HttpClient) { }
 

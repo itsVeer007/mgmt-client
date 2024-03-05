@@ -108,8 +108,8 @@
             checkIfAllSelected();
             deleteMultiRecords(cust, i, $event);
             ViewByCheckbox(cust, i, $event);
-                EditByCheckbox(cust, i, $event)
-              " id="singleCheck" />
+            EditByCheckbox(cust, i, $event)
+            " id="singleCheck" />
           </td> -->
           <td>
             <p>{{ cust.user_id }}</p>
@@ -182,7 +182,7 @@
   <div style="background-color: #084982;">
     <p class="text-white p-1">VIEW PROFILE</p>
   </div>
-  <div class="dialog-content">
+  <div class="dialog-content" *ngIf="currentUser">
     <div class="row m-0">
       <div class="col-lg-6">
         <mat-form-field appearance="outline" class="w-100">
@@ -263,7 +263,7 @@
   <div style="background-color: #084982;">
     <p class="text-white p-1">EDIT PROFILE</p>
   </div>
-  <div class="dialog-content">
+  <div class="dialog-content" *ngIf="currentUser">
     <div class="row m-0">
       <div class="col-lg-6">
         <mat-form-field appearance="outline" class="w-100">

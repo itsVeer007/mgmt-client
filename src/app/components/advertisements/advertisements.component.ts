@@ -146,18 +146,10 @@ export class AdvertisementsComponent implements OnInit {
   }
 
   showAsset: boolean = false;
-  addErr: any = null;
-  showAddAsset() {
-    // if(siteId == '' || deviceId == '') {
-    //   this.alertSer.error('Please select site and device to create advertisement');
-    // } else {
-    //   let addBody = {
-    //     'siteId': siteId,
-    //     'deviceId': deviceId
-    //   }
-    //   this.storageSer.set('add_body', addBody);
-    // }
-    this.showAsset = true;
+  showAddAsset(type: any) {
+    if (type == 'asset') {
+      this.showAsset = true;
+    }
   }
 
   closenow(type: String) {
@@ -165,7 +157,6 @@ export class AdvertisementsComponent implements OnInit {
       this.showAsset = false;
     }
   }
-
 
   /* Edit Asset Status */
   @ViewChild('editStatusDialog') editStatus = {} as TemplateRef<any>;

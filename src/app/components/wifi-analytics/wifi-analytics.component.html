@@ -116,12 +116,12 @@
       </thead>
 
       <tbody *ngIf="!showLoader">
-        <tr *ngFor="let cust of newWifiData ; let i = index">
+        <tr *ngFor="let cust of newDeviceData ; let i = index">
           <td>
             <p>{{i+1}}</p>
           </td>
           <td>
-            <p>{{cust.device_name}}</p>
+            <p>{{cust.deviceId}}</p>
           </td>
 
           <td>

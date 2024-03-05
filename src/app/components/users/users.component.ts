@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertService } from 'src/services/alert.service';
+import { StorageService } from 'src/services/storage.service';
 import { UserService } from 'src/services/user.service';
 
 @Component({
@@ -15,10 +16,13 @@ export class UsersComponent implements OnInit {
     private userSer: UserService,
     private alertSer: AlertService,
     private dialog: MatDialog,
+    private storageSer: StorageService
   ) { }
   
   showLoader = false;
+  userData: any;
   ngOnInit(): void {
+    this.userData = this.storageSer.get('user');
     this.listUsers();
   }
 
@@ -37,8 +41,6 @@ export class UsersComponent implements OnInit {
   getUserInfoForUserId(data: any) {
     this.userSer.getUserInfoForUserId({userId: data?.user_id}).subscribe((res: any) => {
       this.userInfo = res;
-      // if(res.status_code != '404') {
-      // }
     })
   }
   
@@ -60,7 +62,8 @@ export class UsersComponent implements OnInit {
   }
 
   updateUser() {
-    this.userSer.updateUser(this.userInfo).subscribe((res: any) => {
+    this.currentUser.modifiedBy = this.userData?.UserId;
+    this.userSer.updateUser(this.currentUser).subscribe((res: any) => {
       // console.log(res);
       if(res.statusCode == 200) {
         this.listUsers();
@@ -109,14 +112,15 @@ export class UsersComponent implements OnInit {
 
   selectedAll: any;
   selectAll() {
-    for (var i = 0; i < this.userTableData.length; i++) {
-      // console.log(this.userTableData[i])
-      this.userTableData[i].selected = this.selectedAll;
+    for(var i = 0; i < this.userTableData.length; i++) {
+      // console.log(this.userTableData[i].selected);
+      this.userTableData[i].selected = !this.userTableData[i].selected;
     }
   }
+
   checkIfAllSelected() {
-    this.selectedAll = this.userTableData.every(function (item: any) {
-      // console.log(item)
+    this.selectedAll = this.userTableData.every((item: any) => {
+      // console.log(item);
       return item.selected == true;
     })
   }
@@ -148,8 +152,6 @@ export class UsersComponent implements OnInit {
     this.currentItem = item;
     // console.log("Selected Item:: ", item);
     this.deletePopup = false;
-    // console.log("Open Delete Popup:: ",this.deletePopup);
-    // console.log(this.userTableData.siteId);
   }
 
 
@@ -167,19 +169,12 @@ export class UsersComponent implements OnInit {
 
   openEditPopup(item: any, i: any) {
     this.currentItem = JSON.parse(JSON.stringify(item));
-    // this.currentItem = item;
-    // console.log("Selected Item:: ", item);
     this.editPopup = false;
-    // console.log("Open Delete Popup:: ",this.editPopup);
-    // console.log(this.userTableData.siteId);
   }
 
   editArray: any = [];
   EditByCheckbox(itemE: any, i: any, e: any) {
     var checked = (e.target.checked);
-    // console.log("Edit By Checkbox:: ",itemE);
-    // console.log("Edit Array::" ,this.editArray);
-    // console.log("present in array : "+this.editArray.includes(itemE),  " checked : "+ checked)
     if (checked == true && this.editArray.includes(itemE) == false) {
       this.editArray.push(itemE);
       this.currentItem = this.editArray[(this.editArray.length - 1)];
@@ -199,7 +194,6 @@ export class UsersComponent implements OnInit {
 
   viewPopup: boolean = true;
   confirmViewRow() {
-    // console.log(this.currentItem);
     this.viewPopup = true;
   }
 
@@ -209,22 +203,19 @@ export class UsersComponent implements OnInit {
 
   openViewPopup(item: any, i: any) {
     this.currentItem = item;
-    // console.log(this.currentItem);
     this.viewPopup = false;
   }
 
   viewArray: any = [];
   ViewByCheckbox(itemV: any, i: any, e: any) {
     var checked = (e.target.checked);
-    // console.log("View By Checkbox:: ",itemV);
-    // console.log("View Array::" ,this.viewArray);
-    // console.log("present in array : "+this.viewArray.includes(itemV),  " checked : "+ checked)
-    if (checked == true && this.viewArray.includes(itemV) == false) {
+    if (checked && !this.viewArray.includes(itemV)) {
       this.viewArray.push(itemV);
+      console.log(this.viewArray);
       this.currentItem = this.viewArray[(this.viewArray.length - 1)];
     }
-    if (checked == false && this.viewArray.includes(itemV) == true) {
-      this.viewArray.splice(this.viewArray.indexOf(itemV), 1)
+    if (!checked && this.viewArray.includes(itemV)) {
+      this.viewArray.splice(this.viewArray.indexOf(itemV), 1);
     }
   }
 
@@ -233,8 +224,6 @@ export class UsersComponent implements OnInit {
       this.viewPopup = false;
     }
   }
-
-
 
   deletearray: any = [];
   deleteMultiRecords(item: any, i: any, e: any) {

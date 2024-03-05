@@ -59,21 +59,6 @@ export class AddProductMasterComponent implements OnInit {
   UserForm: any =  FormGroup;
 
   prductMasterObj = {
-    // categoryId: null,
-    // typeId: null,
-    // name: null,
-    // uomId: null,
-    // cost: null,
-    // vendorId: null,
-    // createdBy: 1,
-
-    // model: null,
-    // description: null,
-    // returnable: "N",
-    // maintenanceRequired: "N",
-    // purchaseLink: null,
-    // remarks: null
-
     materialDescription: null,
     uomId: null,
     partType: null,
@@ -85,20 +70,6 @@ export class AddProductMasterComponent implements OnInit {
 
   ngOnInit() {
     this.UserForm = this.fb.group({
-      // 'categoryId': new FormControl('', Validators.required),
-      // 'typeId': new FormControl('', Validators.required),
-      // 'name': new FormControl('', Validators.required),
-      // 'uomId': new FormControl('', Validators.required),
-      // 'cost': new FormControl('', Validators.required),
-      // 'vendorId': new FormControl('', Validators.required),
-
-      // 'model': new FormControl(''),
-      // 'description': new FormControl(''),
-      // 'returnable': new FormControl(''),
-      // 'maintenanceRequired': new FormControl(''),
-      // 'purchaseLink': new FormControl(''),
-      // 'remarks': new FormControl('')
-
       'materialDescription': new FormControl('', Validators.required),
       'uomId': new FormControl('' , Validators.required),
       'partType': new FormControl('' , Validators.required),

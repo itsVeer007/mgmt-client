@@ -47,7 +47,7 @@ open(type:string) {
 }
 
   tempSites:any;
-  siteData: any;
+  // siteData: any;
   user: any;
   ngOnInit(): void {
     this.user =  this.storageSer.get('user');
@@ -61,6 +61,7 @@ device:any;
 active:any;
 inActive:any;
 
+newDeviceData: any = []
 wifiData: any = [];
 newWifiData: any;
 peakHours: any;

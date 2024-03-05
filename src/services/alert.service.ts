@@ -41,7 +41,6 @@ export class AlertService {
 
 
   /* sweet alert */
-  
   error(message: any) {
     Swal.fire({
       icon: 'error',
@@ -68,6 +67,28 @@ export class AlertService {
       showConfirmButton: false,
       allowOutsideClick: false
     })
+  }
+
+  confirmDelete() {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if(result.isConfirmed) {
+        Swal.fire({
+          title: "Deleted!",
+          text: "Deleted Successfully",
+          icon: "success",
+          showCloseButton: true,
+          timer: 1000
+        });
+      }
+    });
   }
 
 }

@@ -31,6 +31,7 @@ export class DevicesComponent implements OnInit {
 
   ngOnInit(): void {
     this.listSites();
+    this.listDevices();
     this.getStatus();
   }
 
@@ -56,25 +57,24 @@ export class DevicesComponent implements OnInit {
   newDeviceData: any = [];
   active: any = [];
   inActive: any = [];
-  // listDeviceBySiteId(siteId: any) {
-  //   this.showLoader = true;
-  //   this.assetSer.listDeviceBySiteId(siteId).subscribe((res: any) => {
-  //     // console.log(res);
-  //     this.showLoader = false;
-  //     this.filterObj.siteId = this.siteData[0]?.siteid;
-  //     this.deviceData = res.flatMap((item: any) => item.adsDevices);
-  //     this.newDeviceData = this.deviceData;
-  //     this.active = [];
-  //     this.inActive = []
-  //     for(let item of this.newDeviceData) {
-  //       if(item.status == 1) {
-  //         this.active.push(item);
-  //       } else if(item.status == 2) {
-  //         this.inActive.push(item);
-  //       }
-  //     }
-  //   })
-  // }
+  listDevices() {
+    this.showLoader = true;
+    this.assetSer.listDeviceAdsInfo().subscribe((res: any) => {
+      // console.log(res);
+      this.showLoader = false;
+      this.deviceData = res.flatMap((item: any) => item.adsDevices);
+      this.newDeviceData = this.deviceData;
+      this.active = [];
+      this.inActive = []
+      for(let item of this.newDeviceData) {
+        if(item.status == 1) {
+          this.active.push(item);
+        } else if(item.status == 2) {
+          this.inActive.push(item);
+        }
+      }
+    })
+  }
 
   upTime: any;
   getStatus() {
@@ -98,6 +98,7 @@ export class DevicesComponent implements OnInit {
   filterDevices() {
     this.showLoader = true;
     this.assetSer.listDeviceAdsInfo1(this.filterObj).subscribe((res: any) => {
+      // console.log(res);
       this.showLoader = false;
       this.newDeviceData = res.flatMap((item: any) => item.adsDevices);
 
@@ -106,6 +107,7 @@ export class DevicesComponent implements OnInit {
       for(let item of this.newDeviceData) {
         if(item.status == 1) {
           this.active.push(item);
+          // console.log(this.active)
         } else if(item.status == 2) {
           this.inActive.push(item);
         }
