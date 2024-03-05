@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/services/alert.service';
 import { MetadataService } from 'src/services/metadata.service';
@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
     private userSer: UserService,
     private siteSer: SiteService,
     private route: Router,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private router: Router,
     private alertSer: AlertService,
     private metaDataSer: MetadataService,
@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
 
   user = null;
   showLoader: boolean = false;
-  loginForm: any = FormGroup;
+  loginForm: any = UntypedFormGroup;
 
   ngOnInit() {
     this.storageSer.clearData();

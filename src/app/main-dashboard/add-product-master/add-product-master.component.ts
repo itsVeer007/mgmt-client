@@ -1,6 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';
@@ -34,7 +34,7 @@ export class AddProductMasterComponent implements OnInit {
   constructor(
     private inventorySer: InventoryService,
     private router: Router,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private metadataSer: MetadataService,
     public alertSer: AlertService
   ) { }
@@ -56,7 +56,7 @@ export class AddProductMasterComponent implements OnInit {
   // error=false;
 
 
-  UserForm: any =  FormGroup;
+  UserForm: any =  UntypedFormGroup;
 
   prductMasterObj = {
     materialDescription: null,
@@ -70,12 +70,12 @@ export class AddProductMasterComponent implements OnInit {
 
   ngOnInit() {
     this.UserForm = this.fb.group({
-      'materialDescription': new FormControl('', Validators.required),
-      'uomId': new FormControl('' , Validators.required),
-      'partType': new FormControl('' , Validators.required),
-      'partCategory': new FormControl('', Validators.required),
-      'partCode': new FormControl('' , Validators.required),
-      'buildType': new FormControl('', Validators.required)
+      'materialDescription': new UntypedFormControl('', Validators.required),
+      'uomId': new UntypedFormControl('' , Validators.required),
+      'partType': new UntypedFormControl('' , Validators.required),
+      'partCategory': new UntypedFormControl('', Validators.required),
+      'partCode': new UntypedFormControl('' , Validators.required),
+      'buildType': new UntypedFormControl('', Validators.required)
     });
 
     this.ongetDeviceMode();

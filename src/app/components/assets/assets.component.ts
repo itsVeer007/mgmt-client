@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MetadataService } from 'src/services/metadata.service';
 import { SiteService } from 'src/services/site.service';
 import { AdInfoComponent } from './ad-info/ad-info.component';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
@@ -139,7 +139,7 @@ export class AssetsComponent implements OnInit {
   }
 
   filteredOptions!: any[];
-  siteIdSearch = new FormControl();
+  siteIdSearch = new UntypedFormControl();
   siteIdNg: string = 'All';
 
   filterOptions(value: string): any[] {

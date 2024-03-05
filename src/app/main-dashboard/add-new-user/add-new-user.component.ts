@@ -1,6 +1,6 @@
 import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { HttpClient } from '@angular/common/http';
@@ -38,14 +38,14 @@ export class AddNewUserComponent implements OnInit {
   constructor(
     private router:Router,
     private userSer: UserService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private http: HttpClient,
     private storageSer: StorageService,
     private alertSer: AlertService
   ) { }
 
 
-  UserForm: any =  FormGroup;
+  UserForm: any =  UntypedFormGroup;
   user = {
     firstTimeFlag: "F",
     userName: null,
@@ -71,26 +71,26 @@ export class AddNewUserComponent implements OnInit {
 
   ngOnInit() {
     this.UserForm = this.fb.group({
-      firstTimeFlag: new FormControl(''),
-      userName: new FormControl('', Validators.required),
-      firstName: new FormControl('', Validators.required),
-      lastName: new FormControl('', Validators.required),
-      genderFlag: new FormControl('', Validators.required),
-      realm: new FormControl('', Validators.required),
-      emailId: new FormControl('', Validators.required),
-      contactNumber: new FormControl('', Validators.required),
-      alternateContactNumber: new FormControl(''),
-      addressLine1: new FormControl(''),
-      addressLine2: new FormControl(''),
-      address_2: new FormControl(''),
-      country: new FormControl('', Validators.required),
-      state: new FormControl('', Validators.required),
-      district: new FormControl('', Validators.required),
-      pincode: new FormControl('', Validators.required),
-      city: new FormControl('', Validators.required),
-      employeeFlag: new FormControl(''),
-      empId: new FormControl(''),
-      safetyEscortFlag: new FormControl('')
+      firstTimeFlag: new UntypedFormControl(''),
+      userName: new UntypedFormControl('', Validators.required),
+      firstName: new UntypedFormControl('', Validators.required),
+      lastName: new UntypedFormControl('', Validators.required),
+      genderFlag: new UntypedFormControl('', Validators.required),
+      realm: new UntypedFormControl('', Validators.required),
+      emailId: new UntypedFormControl('', Validators.required),
+      contactNumber: new UntypedFormControl('', Validators.required),
+      alternateContactNumber: new UntypedFormControl(''),
+      addressLine1: new UntypedFormControl(''),
+      addressLine2: new UntypedFormControl(''),
+      address_2: new UntypedFormControl(''),
+      country: new UntypedFormControl('', Validators.required),
+      state: new UntypedFormControl('', Validators.required),
+      district: new UntypedFormControl('', Validators.required),
+      pincode: new UntypedFormControl('', Validators.required),
+      city: new UntypedFormControl('', Validators.required),
+      employeeFlag: new UntypedFormControl(''),
+      empId: new UntypedFormControl(''),
+      safetyEscortFlag: new UntypedFormControl('')
     });
     this.getCountry();
   }

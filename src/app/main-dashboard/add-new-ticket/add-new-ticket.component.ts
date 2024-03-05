@@ -1,6 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';
 import { MetadataService } from 'src/services/metadata.service';
@@ -33,13 +33,13 @@ export class AddNewTicketComponent implements OnInit {
 
   @Output() newItemEvent = new EventEmitter<boolean>();
 
-  addAssetForm: any = FormGroup;
+  addAssetForm: any = UntypedFormGroup;
 
   shortLink: string = "";
   file: File | null = null;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private inventorySer: InventoryService,
     private dropDown: MetadataService,
     public alertSer: AlertService,
@@ -95,15 +95,15 @@ export class AddNewTicketComponent implements OnInit {
     this.user = this.storageSer.get('user');
 
     this.addAssetForm = this.fb.group({
-      'typeId': new FormControl('', Validators.required),
-      'reasonDescription': new FormControl('', Validators.required),
-      'requestedBy': new FormControl(''),
-      'siteId': new FormControl('', Validators.required),
-      'informedThrough': new FormControl('', Validators.required),
+      'typeId': new UntypedFormControl('', Validators.required),
+      'reasonDescription': new UntypedFormControl('', Validators.required),
+      'requestedBy': new UntypedFormControl(''),
+      'siteId': new UntypedFormControl('', Validators.required),
+      'informedThrough': new UntypedFormControl('', Validators.required),
 
-      'categoryId': new FormControl(''),
-      'subCategoryId': new FormControl(''),
-      'priorityId': new FormControl(''),
+      'categoryId': new UntypedFormControl(''),
+      'subCategoryId': new UntypedFormControl(''),
+      'priorityId': new UntypedFormControl(''),
       // 'reasonId': new FormControl('')
     });
 

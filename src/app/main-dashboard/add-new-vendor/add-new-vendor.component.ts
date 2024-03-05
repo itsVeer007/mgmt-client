@@ -1,7 +1,7 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';
@@ -35,7 +35,7 @@ export class AddNewVendorComponent implements OnInit {
   constructor(
     private router: Router,
     private inventorySer: InventoryService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public alertSer: AlertService,
     private http: HttpClient,
     private storageSer: StorageService
@@ -57,7 +57,7 @@ export class AddNewVendorComponent implements OnInit {
   // }
 
 
-  vendorForm: any =  FormGroup;
+  vendorForm: any =  UntypedFormGroup;
 
   vendorBody = {
     name: null,
@@ -99,30 +99,30 @@ export class AddNewVendorComponent implements OnInit {
   user: any;
   ngOnInit() {
     this.vendorForm = this.fb.group({
-      'name': new FormControl('', Validators.required),
-      'proprietorName1': new FormControl('', Validators.required),
-      'proprietorName2': new FormControl(''),
-      'proprietorName3': new FormControl(''),
-      'emailId1': new FormControl('', Validators.required),
-      'emailId2': new FormControl(''),
-      'emailId3': new FormControl(''),
-      'mobileNumber1': new FormControl('', Validators.required),
-      'mobileNumber2': new FormControl(''),
-      'mobileNumber3': new FormControl(''),
-      'status': new FormControl(''),
-      'serviceStartDate': new FormControl(''),
-      'serviceEndDate': new FormControl(''),
-      'createdBy': new FormControl(''),
-      'modifiedBy': new FormControl(''),
-      'createdTime': new FormControl(''),
-      'modifiedTime': new FormControl(''),
-      'addressLine1': new FormControl('', Validators.required),
-      'addressLine2': new FormControl(''),
-      'postCode': new FormControl('', Validators.required),
-      'country': new FormControl('', Validators.required),
-      'state': new FormControl('', Validators.required),
-      'city': new FormControl('', Validators.required),
-      'remarks': new FormControl('')
+      'name': new UntypedFormControl('', Validators.required),
+      'proprietorName1': new UntypedFormControl('', Validators.required),
+      'proprietorName2': new UntypedFormControl(''),
+      'proprietorName3': new UntypedFormControl(''),
+      'emailId1': new UntypedFormControl('', Validators.required),
+      'emailId2': new UntypedFormControl(''),
+      'emailId3': new UntypedFormControl(''),
+      'mobileNumber1': new UntypedFormControl('', Validators.required),
+      'mobileNumber2': new UntypedFormControl(''),
+      'mobileNumber3': new UntypedFormControl(''),
+      'status': new UntypedFormControl(''),
+      'serviceStartDate': new UntypedFormControl(''),
+      'serviceEndDate': new UntypedFormControl(''),
+      'createdBy': new UntypedFormControl(''),
+      'modifiedBy': new UntypedFormControl(''),
+      'createdTime': new UntypedFormControl(''),
+      'modifiedTime': new UntypedFormControl(''),
+      'addressLine1': new UntypedFormControl('', Validators.required),
+      'addressLine2': new UntypedFormControl(''),
+      'postCode': new UntypedFormControl('', Validators.required),
+      'country': new UntypedFormControl('', Validators.required),
+      'state': new UntypedFormControl('', Validators.required),
+      'city': new UntypedFormControl('', Validators.required),
+      'remarks': new UntypedFormControl('')
     });
 
     this.getCountry();

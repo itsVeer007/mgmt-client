@@ -1,6 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AssetService } from 'src/services/asset.service';
 import { AlertService } from 'src/services/alert.service';
@@ -38,7 +38,7 @@ export class AddNewAssetComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private assetSer: AssetService,
     private dropDown: MetadataService,
     private alertSer: AlertService,
@@ -47,7 +47,7 @@ export class AddNewAssetComponent implements OnInit {
     private siteSer: SiteService
   ) { }
 
-  addAssetForm: any = FormGroup;
+  addAssetForm: any = UntypedFormGroup;
   searchText: any;
   currentDate = new Date();
 
@@ -97,31 +97,31 @@ export class AddNewAssetComponent implements OnInit {
     this.user = this.storageSer.get('user');
     // this.deviceIdFromStorage = this.storageSer.get('add_body');
     this.addAssetForm = this.fb.group({
-      'siteId': new FormControl('', Validators.required),
-      'file': new FormControl('', Validators.required),
-      'deviceId': new FormControl('', Validators.required),
-      'deviceModeId': new FormControl(''),
-      'name': new FormControl('', Validators.required),
-      'playOrder': new FormControl(''),
-      'createdBy': new FormControl(''),
-      'splRuleId': new FormControl(''),
-      'fromDate': new FormControl(''),
-      'toDate': new FormControl(''),
-      'adFor': new FormControl(''),
-      'enableDemo': new FormControl(''),
-      'timeId': new FormControl(''),
-      'tempId': new FormControl(''),
-      'maleKids': new FormControl(''),
-      'femaleKids': new FormControl(''),
-      'maleYouth': new FormControl(''),
-      'femaleYouth': new FormControl(''),
-      'maleAdults': new FormControl(''),
-      'femaleAdults': new FormControl(''),
-      'vehicles': new FormControl(''),
-      'persons': new FormControl(''),
+      'siteId': new UntypedFormControl('', Validators.required),
+      'file': new UntypedFormControl('', Validators.required),
+      'deviceId': new UntypedFormControl('', Validators.required),
+      'deviceModeId': new UntypedFormControl(''),
+      'name': new UntypedFormControl('', Validators.required),
+      'playOrder': new UntypedFormControl(''),
+      'createdBy': new UntypedFormControl(''),
+      'splRuleId': new UntypedFormControl(''),
+      'fromDate': new UntypedFormControl(''),
+      'toDate': new UntypedFormControl(''),
+      'adFor': new UntypedFormControl(''),
+      'enableDemo': new UntypedFormControl(''),
+      'timeId': new UntypedFormControl(''),
+      'tempId': new UntypedFormControl(''),
+      'maleKids': new UntypedFormControl(''),
+      'femaleKids': new UntypedFormControl(''),
+      'maleYouth': new UntypedFormControl(''),
+      'femaleYouth': new UntypedFormControl(''),
+      'maleAdults': new UntypedFormControl(''),
+      'femaleAdults': new UntypedFormControl(''),
+      'vehicles': new UntypedFormControl(''),
+      'persons': new UntypedFormControl(''),
 
-      'object': new FormControl(''),
-      'person_vehicle': new FormControl('')
+      'object': new UntypedFormControl(''),
+      'person_vehicle': new UntypedFormControl('')
     });
 
     this.addAssetForm.get('deviceModeId').valueChanges.subscribe((val: any) => {

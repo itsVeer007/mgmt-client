@@ -1,6 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatOption } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSelect } from '@angular/material/select';
@@ -38,11 +38,11 @@ export class AddDeviceComponent implements OnInit {
   @Input() fromSites: any;
   @Output() newItemEvent = new EventEmitter<boolean>();
 
-  addDevice: any =  FormGroup;
+  addDevice: any =  UntypedFormGroup;
   searchText: any;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private assetSer: AssetService,
     private dropDown: MetadataService,
     private alertSer: AlertService,
@@ -86,30 +86,30 @@ export class AddDeviceComponent implements OnInit {
     this.user = this.storageSer.get('user');
 
     this.addDevice = this.fb.group({
-      'deviceDescription': new FormControl('', Validators.required),
-      'deviceTypeId': new FormControl('', Validators.required),
-      'deviceCallFreq': new FormControl('', Validators.required),
-      'deviceModeId': new FormControl('', Validators.required),
-      'deviceLocId': new FormControl('', Validators.required),
-      'adsHours': new FormControl('', Validators.required),
-      'workingDays': new FormControl('', Validators.required),
-      'createdBy': new FormControl(''),
-      'softwareVersion': new FormControl(''),
-      'socketServer': new FormControl(''),
-      'socketPort': new FormControl(''),
-      'weatherInterval': new FormControl(''),
-      'cameraId': new FormControl(''),
-      'modelName': new FormControl(''),
-      'modelWidth': new FormControl(''),
-      'modelHeight': new FormControl(''),
-      'modelMaxResults': new FormControl(''),
-      'modelThreshold': new FormControl(''),
-      'modelObjectTypeId': new FormControl(''),
-      "loggerFreq": new FormControl(''),
-      "refreshRules": new FormControl(''),
-      "debugOn": new FormControl(''),
-      "debugLogs": new FormControl(''),
-      'remarks': new FormControl(''),
+      'deviceDescription': new UntypedFormControl('', Validators.required),
+      'deviceTypeId': new UntypedFormControl('', Validators.required),
+      'deviceCallFreq': new UntypedFormControl('', Validators.required),
+      'deviceModeId': new UntypedFormControl('', Validators.required),
+      'deviceLocId': new UntypedFormControl('', Validators.required),
+      'adsHours': new UntypedFormControl('', Validators.required),
+      'workingDays': new UntypedFormControl('', Validators.required),
+      'createdBy': new UntypedFormControl(''),
+      'softwareVersion': new UntypedFormControl(''),
+      'socketServer': new UntypedFormControl(''),
+      'socketPort': new UntypedFormControl(''),
+      'weatherInterval': new UntypedFormControl(''),
+      'cameraId': new UntypedFormControl(''),
+      'modelName': new UntypedFormControl(''),
+      'modelWidth': new UntypedFormControl(''),
+      'modelHeight': new UntypedFormControl(''),
+      'modelMaxResults': new UntypedFormControl(''),
+      'modelThreshold': new UntypedFormControl(''),
+      'modelObjectTypeId': new UntypedFormControl(''),
+      "loggerFreq": new UntypedFormControl(''),
+      "refreshRules": new UntypedFormControl(''),
+      "debugOn": new UntypedFormControl(''),
+      "debugLogs": new UntypedFormControl(''),
+      'remarks': new UntypedFormControl(''),
     });
 
     this.addDevice.get('deviceModeId').valueChanges.subscribe((val: any) => {
