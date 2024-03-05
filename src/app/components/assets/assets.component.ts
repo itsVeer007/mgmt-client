@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { MetadataService } from 'src/services/metadata.service';
 import { SiteService } from 'src/services/site.service';
 import { AdInfoComponent } from './ad-info/ad-info.component';

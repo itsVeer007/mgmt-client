@@ -1,8 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, HostListener, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { MatOption } from '@angular/material/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSelect } from '@angular/material/select';
+import { MatLegacyOption as MatOption } from '@angular/material/legacy-core';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatLegacySelect as MatSelect } from '@angular/material/legacy-select';
 import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
 import { InventoryService } from 'src/services/inventory.service';

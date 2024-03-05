@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
 import { SiteService } from 'src/services/site.service';

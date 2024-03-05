@@ -2,7 +2,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { DcChallanComponent } from 'src/app/components/dc-challan/dc-challan.component';
 import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';

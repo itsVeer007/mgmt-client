@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { SiteService } from 'src/services/site.service';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { AssetService } from 'src/services/asset.service';
 import { StorageService } from 'src/services/storage.service';
 

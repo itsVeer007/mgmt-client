@@ -1,9 +1,9 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { MatOption } from '@angular/material/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSelect } from '@angular/material/select';
+import { MatLegacyOption as MatOption } from '@angular/material/legacy-core';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatLegacySelect as MatSelect } from '@angular/material/legacy-select';
 import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
 import { MetadataService } from 'src/services/metadata.service';

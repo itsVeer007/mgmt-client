@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { AlertService } from 'src/services/alert.service';

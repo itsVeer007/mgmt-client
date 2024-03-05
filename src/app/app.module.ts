@@ -33,29 +33,29 @@ import { LoginLoaderComponent } from './utilities/loader/login-loader.component'
 import { AddNewDcComponent } from './main-dashboard/add-new-dc/add-new-dc.component';
 
 // material module
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
+import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
+import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
 import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
+import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatListModule } from '@angular/material/list';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatLegacyListModule as MatListModule } from '@angular/material/legacy-list';
+import { MatLegacyAutocompleteModule as MatAutocompleteModule } from '@angular/material/legacy-autocomplete';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatCardModule } from '@angular/material/card';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
+import { MatLegacyTabsModule as MatTabsModule } from '@angular/material/legacy-tabs';
+import { MatLegacyCheckboxModule as MatCheckboxModule } from '@angular/material/legacy-checkbox';
+import { MatLegacyRadioModule as MatRadioModule } from '@angular/material/legacy-radio';
+import { MatLegacyProgressBarModule as MatProgressBarModule } from '@angular/material/legacy-progress-bar';
+import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
+import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-menu';
+import { MatLegacySnackBarModule as MatSnackBarModule } from '@angular/material/legacy-snack-bar';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatBadgeModule } from '@angular/material/badge';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatLegacySlideToggleModule as MatSlideToggleModule } from '@angular/material/legacy-slide-toggle';
+import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/legacy-tooltip';
 
 //utilities
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
