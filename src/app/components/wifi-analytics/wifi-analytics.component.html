@@ -3,7 +3,7 @@
   <!-- header -->
   <div class="d-flex justify-content-between">
     <div class="users-header mt-2">
-      <!-- <p>Total Devices - <span>{{device.length}}</span></p> -->
+      <p>Total Devices - <span>{{newWifiData?.length}}</span></p>
       <!-- <p>PeakHours - <span>{{peakHours}}</span></p> -->
     </div>
   </div>
@@ -31,13 +31,13 @@
     </div> -->
   </div>
   <!-- /count -->
-  <!--
-    <div class="row mt-2">
+
+    <!-- <div class="row mt-2">
         <div class="col-lg-2 col-md-2">
         <mat-form-field appearance="outline" class="w-100">
             <mat-label>Site Name</mat-label>
             <mat-select [(ngModel)]="filterDataObject.siteId">
-              <mat-option value="All" (click)="filterWifiData()">All</mat-option>
+              <mat-option value="All" (click)="filterWifiData('All')">All</mat-option>
                 <mat-option *ngFor="let item of newTableData | search: siteSearch" [value]="item.siteid"  (click)="filterWifiData()" >{{ item.siteid }} - {{ item.sitename }}</mat-option>
             </mat-select>
         </mat-form-field>
@@ -76,7 +76,17 @@
           <button class="create-btn" (click)="show('ticket')">Submit</button>
         </div>
     </div> -->
-  <div class="col-lg-2 col-md-2">
+  <div class="row">
+    <div class="col-lg-2">
+      <mat-form-field class="example-form-field" appearance="outline" class="w-100">
+        <mat-label>Search</mat-label>
+        <input matInput type="text"  [(ngModel)]="searchText">
+        <button matSuffix mat-icon-button>
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+  <!-- <div class="col-lg-2">
     <mat-form-field appearance="outline" class="w-100">
       <mat-label>Device Name</mat-label>
       <mat-select>
@@ -84,6 +94,7 @@
         <mat-option *ngFor="let item of wifiData" [value]="item.device_name" (click)="devicefilter(item)">{{item.device_name}}</mat-option>
       </mat-select>
     </mat-form-field>
+  </div> -->
   </div>
 
   <div class="table-resp">

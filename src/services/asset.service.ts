@@ -16,7 +16,7 @@ export class AssetService {
   constructor(private http: HttpClient, private date: DatePipe, private storageSer: StorageService) { }
 
   baseUrl = `${environment.baseUrl}/proximityads`;
-  baseUrl1 = 'http://192.168.0.109:8080';
+
 
   // httpOptions = {
   //   headers: new HttpHeaders({
@@ -264,6 +264,9 @@ export class AssetService {
 
 
   // wifi Analytics
+
+  baseUrl1 = 'http://192.168.0.101:8080';
+
   GetWifiStats(payload:any) {
     let url = this. baseUrl1 + `/wifiDetails/GetWifiStats_1_0`;
     let params = new HttpParams();
@@ -296,13 +299,18 @@ export class AssetService {
     return this.http.get(url, {params:params})
   }
 
-  devicefilter(payload:any) {
-    let url = this. baseUrl1 + '/devicefilter';
-    let params = new HttpParams();
-    if(payload?.device_name) {
-      params = params.set('device_name', payload?.device_name);
-    }
-    return this.http.get(url, {params:params})
+  // devicefilter(payload:any) {
+  //   let url = this. baseUrl1 + '/devicefilter';
+  //   let params = new HttpParams();
+  //   if(payload?.device_name) {
+  //     params = params.set('device_name', payload?.device_name);
+  //   }
+  //   return this.http.get(url, {params:params})
+  // }
+
+  getCurrentDayStats() {
+    let url = this.baseUrl1 + '/getCurrentDayStats_1_0';
+    return this.http.get(url);
   }
 
 }

@@ -51,7 +51,8 @@ open(type:string) {
   user: any;
   ngOnInit(): void {
     this.user =  this.storageSer.get('user');
-    this.GetWifiStats();
+    // this.GetWifiStats();
+    this.getCurrentDayStats();
   }
 
 
@@ -63,23 +64,29 @@ inActive:any;
 wifiData: any = [];
 newWifiData: any;
 peakHours: any;
-GetWifiStats() {
-  this.showLoader = true;
-  this.assetSer.devicefilter(null).subscribe((res:any)=> {
-    // console.log(res);
-    this.showLoader = false;
-    this.wifiData = res;
-    // console.log(this.wifiData)
-    this.newWifiData = this.wifiData;
-    console.log(this.newWifiData)
-  })
-}
+// GetWifiStats() {
+//   this.showLoader = true;
+//   this.assetSer.devicefilter(null).subscribe((res:any)=> {
+//     console.log(res);
+//     this.showLoader = false;
+//     this.wifiData = res;
+//     console.log(this.wifiData)
+//     this.newWifiData = this.wifiData;
+//     console.log(this.newWifiData)
+//   })
+// }
 
-devicefilter(data:any) {
-  // console.log(data)
-  this.assetSer.devicefilter(data).subscribe((res:any)=> {
+// devicefilter(data:any) {
+//   console.log(data)
+//   this.assetSer.devicefilter(data).subscribe((res:any)=> {
+//     console.log(res);
+//   this.newWifiData = res
+//   })
+// }
+
+getCurrentDayStats() {
+  this.assetSer.getCurrentDayStats().subscribe((res:any)=> {
     console.log(res);
-  this.newWifiData = res
   })
 }
 
@@ -100,12 +107,12 @@ viewWifi(data: any) {
 
 
 
-// newFilterData:any = []
+newFilterData:any = []
 filterData:any;
 filterWifiData(data:any) {
-  // console.log(data);
+  console.log(data);
   this.assetSer.GetWifiStats({device_name: data?.device_name}).subscribe((res:any)=> {
-    // console.log(res);
+    console.log(res);
     this.newWifiData = res;
   })
 }
@@ -115,11 +122,11 @@ secondTable:any
 @ViewChild('usedItemsDialogTwo') usedItemsDialogTwo = {} as TemplateRef<any>;
 secondView(data:any) {
   // console.log(data)
-  console.log(this.currentItem)
+  // console.log(this.currentItem)
   let time = data?.hour?.split('-');
   let finalTime = time[0];
   this.assetSer.secondView({finalTime:finalTime, device: this.currentItem?.device_name}).subscribe((res)=> {
-    console.log(res);
+    // console.log(res);
     this.secondTable = res;
   })
   this.dialog.open(this.usedItemsDialogTwo);
@@ -151,31 +158,31 @@ openWifiData(data: any) {
 
 }
 
-listSites() {
-  this.showLoader = true;
-  this.siteSer.listSites().subscribe((res: any) => {
-    // console.log(res);
-    this.showLoader = false;
-    if(res?.Status == 'Success') {
-      this.tableData = res?.siteList?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
-      this.newTableData = this.tableData;
-      // console.log(this.newTableData)
-    }
-    }, (err: any) => {
-      this.showLoader = false;
-  });
-}
+// listSites() {
+//   this.showLoader = true;
+//   this.siteSer.listSites().subscribe((res: any) => {
+//     // console.log(res);
+//     this.showLoader = false;
+//     if(res?.Status == 'Success') {
+//       this.tableData = res?.siteList?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
+//       this.newTableData = this.tableData;
+//       console.log(this.newTableData)
+//     }
+//     }, (err: any) => {
+//       this.showLoader = false;
+//   });
+// }
 
-siteSearch: any;
-newTableData:any = [];
-tableData:any = [];
-filterSites(site: any) {
-  if(site != 'All') {
-    this.newTableData =  this.tableData.filter((item: any) => item.siteid == site)
-  } else {
-    this.newTableData = this.tableData;
-  }
-}
+// siteSearch: any;
+// newTableData:any = [];
+// tableData:any = [];
+// filterSites(site: any) {
+//   if(site == 'All') {
+//     this.newTableData = this.tableData;
+//   } else {
+//     this.newTableData =  this.tableData.filter((item: any) => item.siteid == site)
+//   }
+// }
 
   frFilterBody: any = {
     p_frId: null,
