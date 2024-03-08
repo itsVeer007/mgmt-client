@@ -1,5 +1,5 @@
 import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
-import { UntypedFormGroup, FormControl, UntypedFormArray, UntypedFormBuilder } from '@angular/forms'
+import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms'
 import { Router } from '@angular/router';
 import { animate, style, transition, trigger } from '@angular/animations';
 
@@ -45,9 +45,9 @@ export class AddNewCustomerComponent implements OnInit {
     this.newItemEvent.emit();
   }
 
-  productForm: UntypedFormGroup;
+  productForm: FormGroup;
 
-  constructor(private fb:UntypedFormBuilder, private router:Router) {
+  constructor(private fb:FormBuilder, private router:Router) {
 
     this.productForm = this.fb.group({
       name: '',
@@ -59,11 +59,11 @@ export class AddNewCustomerComponent implements OnInit {
     this.addQuantity()
   }
 
-  quantities() : UntypedFormArray {
-    return this.productForm.get("quantities") as UntypedFormArray
+  quantities() : FormArray {
+    return this.productForm.get("quantities") as FormArray
   }
 
-  newQuantity(): UntypedFormGroup {
+  newQuantity(): FormGroup {
     return this.fb.group({
       addressType: '',
       country: '',

@@ -1,6 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { AssetService } from 'src/services/asset.service';
 import { ChartService } from 'src/services/chart.service';
 
@@ -37,7 +37,7 @@ export class WifiDetailComponent implements OnInit {
     private assetSer: AssetService
   ) { }
 
-  UserForm!: UntypedFormGroup
+  UserForm!: FormGroup
   deviceData: any;
   ngOnInit(): void {
     this.deviceData = this.show;

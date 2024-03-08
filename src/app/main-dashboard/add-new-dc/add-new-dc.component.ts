@@ -1,7 +1,7 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { DcChallanComponent } from 'src/app/components/dc-challan/dc-challan.component';
 import { AlertService } from 'src/services/alert.service';
@@ -35,7 +35,7 @@ export class AddNewDcComponent {
 
   constructor(
     private inventorySer: InventoryService,
-    private fb: UntypedFormBuilder,
+    private fb: FormBuilder,
     private alertSer: AlertService,
     private dialog: MatDialog,
     public datepipe: DatePipe,
@@ -46,7 +46,7 @@ export class AddNewDcComponent {
   @Output() newItemEvent = new EventEmitter<boolean>();
 
 
-  UserForm: any =  UntypedFormGroup;
+  UserForm: any =  FormGroup;
 
   inventoryBody: any = {
     name: null,
@@ -66,13 +66,13 @@ export class AddNewDcComponent {
   user: any;
   ngOnInit() {
     this.UserForm = this.fb.group({
-      'name': new UntypedFormControl(''),
-      'itemCode': new UntypedFormControl(''),
-      'address': new UntypedFormControl(''),
-      'state': new UntypedFormControl(''),
-      'code': new UntypedFormControl(''),
-      'descriptionOfGoods':new UntypedFormControl(''),
-      'quantity':new UntypedFormControl('')
+      'name': new FormControl(''),
+      'itemCode': new FormControl(''),
+      'address': new FormControl(''),
+      'state': new FormControl(''),
+      'code': new FormControl(''),
+      'descriptionOfGoods':new FormControl(''),
+      'quantity':new FormControl('')
     });
 
     // this.getVendor();

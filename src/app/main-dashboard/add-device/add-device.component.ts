@@ -1,9 +1,9 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { MatLegacyOption as MatOption } from '@angular/material/legacy-core';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-import { MatLegacySelect as MatSelect } from '@angular/material/legacy-select';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatOption } from '@angular/material/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSelect } from '@angular/material/select';
 import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
 import { MetadataService } from 'src/services/metadata.service';
@@ -38,11 +38,11 @@ export class AddDeviceComponent implements OnInit {
   @Input() fromSites: any;
   @Output() newItemEvent = new EventEmitter<boolean>();
 
-  addDevice: any =  UntypedFormGroup;
+  addDevice: any =  FormGroup;
   searchText: any;
 
   constructor(
-    private fb: UntypedFormBuilder,
+    private fb: FormBuilder,
     private assetSer: AssetService,
     private dropDown: MetadataService,
     private alertSer: AlertService,
@@ -59,7 +59,7 @@ export class AddDeviceComponent implements OnInit {
     deviceCallFreq: 1,
     deviceModeId: null,
     deviceLocId: null,
-    adsHours: '0-23',
+    adsHours: '00-23',
     workingDays: ['',0,1,2,3,4,5,6],
     createdBy: null,
     softwareVersion: 'v1.0.1',
@@ -86,30 +86,30 @@ export class AddDeviceComponent implements OnInit {
     this.user = this.storageSer.get('user');
 
     this.addDevice = this.fb.group({
-      'deviceDescription': new UntypedFormControl('', Validators.required),
-      'deviceTypeId': new UntypedFormControl('', Validators.required),
-      'deviceCallFreq': new UntypedFormControl('', Validators.required),
-      'deviceModeId': new UntypedFormControl('', Validators.required),
-      'deviceLocId': new UntypedFormControl('', Validators.required),
-      'adsHours': new UntypedFormControl('', Validators.required),
-      'workingDays': new UntypedFormControl('', Validators.required),
-      'createdBy': new UntypedFormControl(''),
-      'softwareVersion': new UntypedFormControl(''),
-      'socketServer': new UntypedFormControl(''),
-      'socketPort': new UntypedFormControl(''),
-      'weatherInterval': new UntypedFormControl(''),
-      'cameraId': new UntypedFormControl(''),
-      'modelName': new UntypedFormControl(''),
-      'modelWidth': new UntypedFormControl(''),
-      'modelHeight': new UntypedFormControl(''),
-      'modelMaxResults': new UntypedFormControl(''),
-      'modelThreshold': new UntypedFormControl(''),
-      'modelObjectTypeId': new UntypedFormControl(''),
-      "loggerFreq": new UntypedFormControl(''),
-      "refreshRules": new UntypedFormControl(''),
-      "debugOn": new UntypedFormControl(''),
-      "debugLogs": new UntypedFormControl(''),
-      'remarks': new UntypedFormControl(''),
+      'deviceDescription': new FormControl('', Validators.required),
+      'deviceTypeId': new FormControl('', Validators.required),
+      'deviceCallFreq': new FormControl('', Validators.required),
+      'deviceModeId': new FormControl('', Validators.required),
+      'deviceLocId': new FormControl('', Validators.required),
+      'adsHours': new FormControl('', Validators.required),
+      'workingDays': new FormControl('', Validators.required),
+      'createdBy': new FormControl(''),
+      'softwareVersion': new FormControl(''),
+      'socketServer': new FormControl(''),
+      'socketPort': new FormControl(''),
+      'weatherInterval': new FormControl(''),
+      'cameraId': new FormControl(''),
+      'modelName': new FormControl(''),
+      'modelWidth': new FormControl(''),
+      'modelHeight': new FormControl(''),
+      'modelMaxResults': new FormControl(''),
+      'modelThreshold': new FormControl(''),
+      'modelObjectTypeId': new FormControl(''),
+      "loggerFreq": new FormControl(''),
+      "refreshRules": new FormControl(''),
+      "debugOn": new FormControl(''),
+      "debugLogs": new FormControl(''),
+      'remarks': new FormControl(''),
     });
 
     this.addDevice.get('deviceModeId').valueChanges.subscribe((val: any) => {
@@ -256,13 +256,15 @@ export class AddDeviceComponent implements OnInit {
 
   /* popup */
   @ViewChild('editDeviceDialog') editDevice = {} as TemplateRef<any>;
+  currentWorkingDays: any;
   // newdeviceId: any;
   // devDataToEdit: any
   currentItem: any;
   openEditDevice(item: any) {
     this.currentItem = item;
+    // this.currentItem.workingDays = this.currentItem.workingDays.toString().split(',');
+    this.currentWorkingDays = JSON.parse(JSON.stringify(this.currentItem.workingDays.split(',').map((item: any) => +item)));
     this.dialog.open(this.editDevice);
-    this.currentItem.workingDays = this.currentItem.workingDays.toString().split(',');
   }
 
 
@@ -275,7 +277,6 @@ export class AddDeviceComponent implements OnInit {
 
   originalObject: any;
   changedKeys: any[] = [];
-
   onRadioChange(event: any) {
     // console.log(event);
     this.originalObject = {

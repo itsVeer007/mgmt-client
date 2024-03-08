@@ -139,56 +139,9 @@ p {
 .existSecuity input, .existSecuity select {
   margin-left: 4px;
 }
+
 .closebtn {
   margin-top: 100px;
   margin-left: auto;
   margin-right: -50px;
 }
-
-/* ng-deep */
-::ng-deep .mat-form-field {
-  margin-top: 5px !important;
-}
-
-::ng-deep .mat-card {
-  padding: 10px !important;
-  background: #F8F8F8 !important;
-}
-
-::ng-deep .mat-stroked-button.mat-primary {
-  color: #084982;
-}
-
-::ng-deep .mat-stroked-button {
-  border: 1px solid #084982 !important;
-}
-
-/* common ng-deep */
-.mat-form-field-appearance-outline ::ng-deep .mat-form-field-outline {
-  top: 5px;
-  bottom: 5px;
-  background: #F8F8F8;
-}
-
-.mat-form-field-appearance-outline ::ng-deep .mat-form-field-wrapper {
-  padding-bottom: 0.5em;
-}
-
-::ng-deep .mat-select-value {
-  position: relative;
-  bottom: 4px;
-}
-
-::ng-deep input.mat-input-element {
-  position: relative;
-  bottom: 4px;
-}
-
-.mat-form-field-appearance-outline ::ng-deep .mat-form-field-subscript-wrapper {
-  padding: 0 5px;
-}
-
-::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
-  color: #084982!important;
-}
-

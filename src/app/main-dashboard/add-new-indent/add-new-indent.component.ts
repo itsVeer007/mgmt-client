@@ -1,7 +1,7 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';
@@ -34,7 +34,7 @@ export class AddNewIndentComponent implements OnInit {
   constructor(
     private inventorySer: InventoryService,
     private router: Router,
-    private fb: UntypedFormBuilder,
+    private fb: FormBuilder,
     public alertSer: AlertService,
     public datepipe: DatePipe,
     private storageSer: StorageService
@@ -43,7 +43,7 @@ export class AddNewIndentComponent implements OnInit {
   @Input() show: any;
   @Output() newItemEvent = new EventEmitter<boolean>();
 
-  UserForm: any =  UntypedFormGroup;
+  UserForm: any =  FormGroup;
 
   inventoryBody = {
     ticketId: null,
@@ -78,10 +78,10 @@ export class AddNewIndentComponent implements OnInit {
   user: any;
   ngOnInit() {
     this.UserForm = this.fb.group({
-      'jobOrTicketId': new UntypedFormControl(''),
-      'itemCode': new UntypedFormControl(''),
-      'quantity': new UntypedFormControl(''),
-      'remarks': new UntypedFormControl('')
+      'jobOrTicketId': new FormControl(''),
+      'itemCode': new FormControl(''),
+      'quantity': new FormControl(''),
+      'remarks': new FormControl('')
     });
 
     // this.getVendor();

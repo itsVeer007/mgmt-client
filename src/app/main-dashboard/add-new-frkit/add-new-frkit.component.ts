@@ -1,7 +1,7 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';
@@ -35,7 +35,7 @@ export class AddNewFrkitComponent implements OnInit {
   constructor(
     private inventorySer: InventoryService,
     private router: Router,
-    private fb: UntypedFormBuilder,
+    private fb: FormBuilder,
     public alertSer: AlertService,
     public datepipe: DatePipe,
     private storageSer: StorageService
@@ -45,7 +45,7 @@ export class AddNewFrkitComponent implements OnInit {
   // @Input() ticketIdFrmFr: any;
   @Output() newItemEvent = new EventEmitter<boolean>();
 
-  UserForm: any =  UntypedFormGroup;
+  UserForm: any =  FormGroup;
 
   inventoryBody = {
     frId: null,
@@ -59,10 +59,10 @@ export class AddNewFrkitComponent implements OnInit {
   user: any;
   ngOnInit() {
     this.UserForm = this.fb.group({
-      'frId': new UntypedFormControl('',Validators.required),
-      'inventorySlNo': new UntypedFormControl('', Validators.required),
-      'itemCode': new UntypedFormControl('',Validators.required),
-      'name': new UntypedFormControl('', Validators.required)
+      'frId': new FormControl('',Validators.required),
+      'inventorySlNo': new FormControl('', Validators.required),
+      'itemCode': new FormControl('',Validators.required),
+      'name': new FormControl('', Validators.required)
     });
     this.ticketIdFrmFr = this.storageSer.get('ticketId');
     this.user = this.storageSer.get('user');

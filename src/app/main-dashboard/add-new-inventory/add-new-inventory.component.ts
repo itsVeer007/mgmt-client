@@ -1,7 +1,7 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/services/alert.service';
@@ -38,7 +38,7 @@ export class AddNewInventoryComponent implements OnInit {
   constructor(
     private router: Router,
     private inventorySer: InventoryService,
-    private fb: UntypedFormBuilder,
+    private fb: FormBuilder,
     private metadataSer: MetadataService,
     public alertSer: AlertService,
     public datepipe: DatePipe,
@@ -63,7 +63,7 @@ export class AddNewInventoryComponent implements OnInit {
   // error=false;
 
 
-  UserForm: any =  UntypedFormGroup;
+  UserForm: any =  FormGroup;
 
   inventoryBody = {
     inventory: {
@@ -94,21 +94,21 @@ export class AddNewInventoryComponent implements OnInit {
   user: any;
   ngOnInit() {
     this.UserForm = this.fb.group({
-      'name': new UntypedFormControl('', Validators.required),
-      'itemCode': new UntypedFormControl('', Validators.required),
-      'brand': new UntypedFormControl('', Validators.required),
-      'model': new UntypedFormControl('', Validators.required),
-      'department': new UntypedFormControl('', Validators.required),
-      'remarks': new UntypedFormControl(''),
+      'name': new FormControl('', Validators.required),
+      'itemCode': new FormControl('', Validators.required),
+      'brand': new FormControl('', Validators.required),
+      'model': new FormControl('', Validators.required),
+      'department': new FormControl('', Validators.required),
+      'remarks': new FormControl(''),
 
-      'quantity': new UntypedFormControl('', Validators.required),
-      'serialnos': new UntypedFormControl(''),
+      'quantity': new FormControl('', Validators.required),
+      'serialnos': new FormControl(''),
 
-      'wremarks': new UntypedFormControl(''),
-      'startDate': new UntypedFormControl(''),
-      'endDate': new UntypedFormControl(''),
+      'wremarks': new FormControl(''),
+      'startDate': new FormControl(''),
+      'endDate': new FormControl(''),
 
-      'warrantyDetail': new UntypedFormControl(''),
+      'warrantyDetail': new FormControl(''),
 
       // 'partType': new FormControl(''),
       // 'partCategory': new FormControl(''),

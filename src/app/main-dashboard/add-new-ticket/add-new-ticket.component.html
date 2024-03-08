@@ -17,7 +17,7 @@
               <mat-select formControlName="typeId" [(ngModel)]="ticketBody.ticket.typeId">
                 <mat-option *ngFor="let val of ticketType" [value]="val.keyId">{{ val.value }}</mat-option>
               </mat-select>
-              <mat-error class="mt-1">typeId is required</mat-error>
+              <mat-error >typeId is required</mat-error>
             </mat-form-field>
           </div>
 
@@ -25,7 +25,7 @@
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>reasonDescription</mat-label>
               <input matInput formControlName="reasonDescription" [(ngModel)]="ticketBody.ticket.reasonDescription">
-              <mat-error class="mt-1">reasonDescription is required</mat-error>
+              <mat-error >reasonDescription is required</mat-error>
             </mat-form-field>
           </div>
 
@@ -35,7 +35,7 @@
               <mat-select formControlName="requestedBy" [(ngModel)]="ticketBody.ticket.requestedBy">
                 <mat-option *ngFor="let id of siteIds" [value]="id.siteid">{{ id.siteid }} - {{ id.siteShortName }}</mat-option>
               </mat-select>
-              <mat-error class="mt-1">requestedBy is required</mat-error>
+              <mat-error >requestedBy is required</mat-error>
             </mat-form-field>
           </div> -->
 
@@ -45,7 +45,7 @@
               <mat-select formControlName="siteId" [(ngModel)]="ticketBody.ticket.siteId">
                 <mat-option *ngFor="let id of siteIds" [value]="id.siteid">{{ id.siteid }} - {{ id.siteShortName }}</mat-option>
               </mat-select>
-              <mat-error class="mt-1">siteId is required</mat-error>
+              <mat-error >siteId is required</mat-error>
             </mat-form-field>
           </div>
 
@@ -55,7 +55,7 @@
               <mat-select formControlName="informedThrough" [(ngModel)]="ticketBody.ticket.informedThrough">
                 <mat-option *ngFor="let val of sourceOfRequest" [value]="val.keyId">{{ val.value }}</mat-option>
               </mat-select>
-              <mat-error class="mt-1">informedThrough is required</mat-error>
+              <mat-error >informedThrough is required</mat-error>
             </mat-form-field>
           </div>
 
@@ -73,7 +73,7 @@
                   <mat-select formControlName="categoryId" [(ngModel)]="ticketBody.tasks[i].categoryId">
                     <mat-option *ngFor="let val of ticketCategory" [value]="val.keyId">{{ val.value }}</mat-option>
                   </mat-select>
-                  <mat-error class="mt-1">categoryId is required</mat-error>
+                  <mat-error >categoryId is required</mat-error>
                 </mat-form-field>
               </div>
 
@@ -83,7 +83,7 @@
                   <mat-select formControlName="subCategoryId" [(ngModel)]="ticketBody.tasks[i].subCategoryId">
                     <mat-option *ngFor="let val of ticketSubCategory" [value]="val.keyId">{{ val.value }}</mat-option>
                   </mat-select>
-                  <mat-error class="mt-1">subCategoryId is required</mat-error>
+                  <mat-error >subCategoryId is required</mat-error>
                 </mat-form-field>
               </div>
 
@@ -93,7 +93,7 @@
                   <mat-select formControlName="reasonId" [(ngModel)]="ticketBody.tasks[i].reasonId">
                     <mat-option *ngFor="let val of taskReason" [value]="val.keyId">{{ val.value }}</mat-option>
                   </mat-select>
-                  <mat-error class="mt-1">reasonId is required</mat-error>
+                  <mat-error >reasonId is required</mat-error>
                 </mat-form-field>
               </div> -->
 
@@ -103,7 +103,7 @@
                   <mat-select formControlName="priorityId" [(ngModel)]="ticketBody.tasks[i].priorityId">
                     <mat-option *ngFor="let val of ticketPriority" [value]="val.keyId">{{ val.value }}</mat-option>
                   </mat-select>
-                  <mat-error class="mt-1">priorityId is required</mat-error>
+                  <mat-error >priorityId is required</mat-error>
                 </mat-form-field>
               </div>
 
@@ -111,7 +111,7 @@
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Remarks</mat-label>
                   <input matInput formControlName="remarks" [(ngModel)]="ticketBody.tasks[i].remarks">
-                  <mat-error class="mt-1">Remarks is required</mat-error>
+                  <mat-error >Remarks is required</mat-error>
                 </mat-form-field>
               </div> -->
 

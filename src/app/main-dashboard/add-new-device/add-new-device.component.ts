@@ -1,9 +1,9 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
-import { MatLegacyOption as MatOption } from '@angular/material/legacy-core';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-import { MatLegacySelect as MatSelect } from '@angular/material/legacy-select';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { MatOption } from '@angular/material/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSelect } from '@angular/material/select';
 import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
 import { MetadataService } from 'src/services/metadata.service';
@@ -46,11 +46,11 @@ export class AddNewDeviceComponent implements OnInit {
   //   }
   // }
 
-  addDevice: any =  UntypedFormGroup;
+  addDevice: any =  FormGroup;
   searchText: any;
 
   constructor(
-    private fb: UntypedFormBuilder,
+    private fb: FormBuilder,
     private assetSer: AssetService,
     private dropDown: MetadataService,
     private alertSer: AlertService,
@@ -66,7 +66,7 @@ export class AddNewDeviceComponent implements OnInit {
     deviceTypeId: null,
     deviceCallFreq: 1,
     deviceModeId: null,
-    adsHours: '0-23',
+    adsHours: '00-23',
     workingDays: '',
     createdBy: null,
     softwareVersion: '',
@@ -95,33 +95,33 @@ export class AddNewDeviceComponent implements OnInit {
     this.user = this.storageSer.get('user');
 
     this.addDevice = this.fb.group({
-      'siteId': new UntypedFormControl('', Validators.required),
-      'deviceDescription': new UntypedFormControl('', Validators.required),
-      'deviceTypeId': new UntypedFormControl('', Validators.required),
-      'deviceCallFreq': new UntypedFormControl('', Validators.required),
-      'deviceModeId': new UntypedFormControl('', Validators.required),
-      'adsHours': new UntypedFormControl('', Validators.required),
-      'workingDays': new UntypedFormControl('', Validators.required),
-      'createdBy': new UntypedFormControl(''),
-      'softwareVersion': new UntypedFormControl(''),
-      'socketServer': new UntypedFormControl(''),
-      'socketPort': new UntypedFormControl(''),
+      'siteId': new FormControl('', Validators.required),
+      'deviceDescription': new FormControl('', Validators.required),
+      'deviceTypeId': new FormControl('', Validators.required),
+      'deviceCallFreq': new FormControl('', Validators.required),
+      'deviceModeId': new FormControl('', Validators.required),
+      'adsHours': new FormControl('', Validators.required),
+      'workingDays': new FormControl('', Validators.required),
+      'createdBy': new FormControl(''),
+      'softwareVersion': new FormControl(''),
+      'socketServer': new FormControl(''),
+      'socketPort': new FormControl(''),
 
-      'weatherInterval': new UntypedFormControl(''),
+      'weatherInterval': new FormControl(''),
 
-      'cameraId': new UntypedFormControl(''),
-      'modelName': new UntypedFormControl(''),
-      'modelWidth': new UntypedFormControl(''),
-      'modelHeight': new UntypedFormControl(''),
-      'modelMaxResults': new UntypedFormControl(''),
-      'modelThreshold': new UntypedFormControl(''),
-      'modelObjectTypeId': new UntypedFormControl(''),
+      'cameraId': new FormControl(''),
+      'modelName': new FormControl(''),
+      'modelWidth': new FormControl(''),
+      'modelHeight': new FormControl(''),
+      'modelMaxResults': new FormControl(''),
+      'modelThreshold': new FormControl(''),
+      'modelObjectTypeId': new FormControl(''),
 
-      "loggerFreq": new UntypedFormControl(''),
-      "refreshRules": new UntypedFormControl(''),
-      "debugOn": new UntypedFormControl(''),
-      "debugLogs": new UntypedFormControl(''),
-      'remarks': new UntypedFormControl(''),
+      "loggerFreq": new FormControl(''),
+      "refreshRules": new FormControl(''),
+      "debugOn": new FormControl(''),
+      "debugLogs": new FormControl(''),
+      'remarks': new FormControl(''),
     });
 
     this.addDevice.get('deviceModeId').valueChanges.subscribe((val: any) => {
@@ -151,28 +151,11 @@ export class AddNewDeviceComponent implements OnInit {
       // this.addDevice.get('modelThreshold').updateValueAndValidity();
       this.addDevice.get('modelObjectTypeId').updateValueAndValidity();
     });
-
-    this.getDeviceDetail();
+    this.getMetadata();
   }
 
   deviceData: any = [];
   deviceLength: any;
-  // deviceMap: any;
-  getDeviceDetail() {
-    this.getMetadata();
-    // this.devService.listDeviceAdsInfo().subscribe((res: any) => {
-    //   for(let item of res) {
-    //     if(this.siteData.siteid == item.siteId) {
-    //       this.deviceData = item.adsDevices;
-    //       this.deviceLength = this.deviceData.length;
-    //     }
-    //   }
-    // })
-
-    // this.deviceData = this.fromSites;
-    // this.deviceLength = this.deviceData.length;
-    // console.log(this.deviceData);
-  }
 
 
   isShown: boolean = false;
@@ -185,10 +168,9 @@ export class AddNewDeviceComponent implements OnInit {
   }
 
   /* metadata methods */
-
   deviceType: any;
   deviceMode: any;
-  workingDay: any;
+  workingDay: any = [];
   tempRange: any;
   ageRange: any;
   modelObjectType: any;
@@ -199,7 +181,7 @@ export class AddNewDeviceComponent implements OnInit {
   deviceStatus: any;
   getMetadata() {
     let data = this.storageSer.get('metaData');
-    for(let item of data) {
+    data?.forEach((item: any) => {
       if(item.type == 2) {
         this.deviceType = item.metadata;
       } else if(item.type == 1) {
@@ -223,44 +205,20 @@ export class AddNewDeviceComponent implements OnInit {
       } else if(item.type == 4) {
         this.deviceStatus = item.metadata;
       }
-    }
+    })
   }
-
-
-  /* popup */
-
-  @ViewChild('editDeviceDialog') editDevice = {} as TemplateRef<any>;
-
-  // newdeviceId: any;
-  // devDataToEdit: any
-  currentItem: any;
-  openEditDevice(item: any) {
-    this.dialog.open(this.editDevice);
-    this.currentItem = item;
-
-    let x = this.currentItem.workingDays.toString().split(',')
-    this.currentItem.workingDays = x;
-
-    // this.newdeviceId = item.deviceId;
-    // console.log(this.currentItem);
-  }
-
 
   /* dynamic device view */
-
   // toChild: any
   // onMat(e: any) {
   //   this.toChild = this.deviceData.filter((el: any) => el.deviceId == e.tab.textLabel);
   //   console.log(this.toChild)
   // }
 
-
   /* create device */
-
   toAddDevice: any;
   onToAddDevice(e: any) {
     this.toAddDevice = e.value.length;
-    // console.log(e.value.length)
   }
 
   addDeviceDtl() {
@@ -286,38 +244,33 @@ export class AddNewDeviceComponent implements OnInit {
     }
   }
 
+  selectedAll: any;
+  selectAll() {
+    for (var i = 0; i < this.workingDay.length; i++) {
+      console.log(this.workingDay[i])
+      this.workingDay[i].selected = !this.workingDay[i].selected;
+    }
+  }
 
-  // showAdsHours: boolean = false;
-  // showAdsHoursTxt: any = '...more'
-  // showAd() {
-  //   this.showAdsHours = !this.showAdsHours;
-
-  //   if(this.showAdsHours == false) {
-  //     this.showAdsHoursTxt = '...more';
-  //   } else {
-  //     this.showAdsHoursTxt = '...less'
-  //   }
-  // }
+  checkIfAllSelected() {
+    this.selectedAll = this.workingDay.every(function (item: any) {
+      return item.selected == true;
+    })
+  }
 
 
-  @ViewChild('mySel') mySel!: MatSelect;
-
-  @ViewChild('mySell') mySell!: MatSelect;
-
+  @ViewChild('createSelect') createSelect!: MatSelect;
   allSelected = false;
   toggleAllSelection() {
     this.allSelected = !this.allSelected;
-
     if(this.allSelected) {
-      this.mySel?.options?.forEach( (item : MatOption) => item.select());
+      this.createSelect?.options?.forEach( (item : MatOption) => item.select());
     } else {
-      this.mySel?.options?.forEach( (item : MatOption) => {item.deselect()});
+      this.createSelect?.options?.forEach( (item : MatOption) => {item.deselect()});
     }
+  }
 
-    if(this.allSelected) {
-      this.mySell?.options?.forEach( (item : MatOption) => item.select());
-    } else {
-      this.mySell?.options?.forEach( (item : MatOption) => {item.deselect()});
-    }
+  checkSelect() {
+
   }
 }

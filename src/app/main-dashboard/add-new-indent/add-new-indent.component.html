@@ -18,7 +18,7 @@
               <mat-select formControlName="jobOrTicketId" [(ngModel)]="inventoryBody.ticketId">
                 <mat-option *ngFor="let item of vendorDetail" [value]="item.id">{{ item.name }}</mat-option>
               </mat-select>
-              <mat-error class="mt-1">Ticket Id is required</mat-error>
+              <mat-error >Ticket Id is required</mat-error>
             </mat-form-field>
           </div> -->
 
@@ -28,7 +28,7 @@
               <mat-select formControlName="itemCode" [(ngModel)]="inventoryBody.items[i].itemCode">
                 <mat-option *ngFor="let val of productIds" [value]="val.suggestedItemCode">{{ val.materialDescription }}</mat-option>
               </mat-select>
-              <mat-error class="mt-1"> Itemcode is required</mat-error>
+              <mat-error > Itemcode is required</mat-error>
             </mat-form-field>
           </div>
 
@@ -36,7 +36,7 @@
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Quantity</mat-label>
               <input matInput formControlName="quantity" [(ngModel)]="inventoryBody.items[i].quantity">
-              <mat-error class="mt-1">Quantity is required</mat-error>
+              <mat-error >Quantity is required</mat-error>
             </mat-form-field>
           </div>
 
@@ -44,7 +44,7 @@
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Remarks</mat-label>
               <input matInput formControlName="remarks" [(ngModel)]="inventoryBody.remarks">
-              <mat-error class="mt-1">Quantity is required</mat-error>
+              <mat-error >Quantity is required</mat-error>
             </mat-form-field>
           </div>
 

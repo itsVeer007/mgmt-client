@@ -25,6 +25,7 @@
                 </mat-option>
                 <mat-option *ngIf="siteData.length == 0" disabled>No Sites</mat-option>
               </mat-autocomplete>
+              <mat-error>Site is required</mat-error>
             </mat-form-field>
           </div>
           <div class="col-lg-6">
@@ -34,12 +35,11 @@
                 <mat-option *ngFor="let device of filteredDevices" [value]="device.deviceId">{{ device.deviceId }}</mat-option>
                 <mat-option *ngIf="filteredDevices.length == 0" disabled>No Devices</mat-option>
               </mat-select>
-              <mat-error class="mt-1">Device is required</mat-error>
+              <mat-error>Device is required</mat-error>
             </mat-form-field>
           </div>
           <!-- file Upload -->
-          <div class="col-lg-12 col-md-6 mb-2">
-            <!-- <mat-label>Select File</mat-label> -->
+          <!-- <div class="col-lg-12 col-md-6 mb-2">
             <div [class.valid]="addAssetForm.controls['file'].valid || !submit" [class.invalid]="(addAssetForm.controls['file'].hasError('required')) && submit || (addAssetForm.controls['file'].invalid)">
               <div>Drag and drop or <a (click)="fileInput.click()" class="pointer">Browse</a> your file</div>
             </div>
@@ -55,15 +55,19 @@
                   </a>
                 </mat-card>
               </div>
-              <!-- <mat-error class="mt-1" *ngIf="selectedFile?.size > 10485760">Please select video less than 10MB</mat-error> -->
             </div>
+          </div> -->
+
+          <div class="mb-3">
+            <!-- <span class="form-label">Select File</span> -->
+            <input class="form-control"  (change)="onFileSelected($event)" type="file" formControlName="file"  [(ngModel)]="assetData.file">
           </div>
 
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Enter Add Name</mat-label>
               <input matInput formControlName="name" [(ngModel)]="assetData.asset.name">
-              <mat-error class="mt-1">Add Name is required</mat-error>
+              <mat-error>Add Name is required</mat-error>
             </mat-form-field>
           </div>
 
@@ -80,7 +84,7 @@
                 <div class="col-lg-12">
                   <mat-label>Time</mat-label>
                 </div>
-                <div class="col-lg-12 mt-1">
+                <div class="col-lg-12">
                   <mat-radio-button class="ms-3" name="time" [value]="3">All</mat-radio-button>
                   <mat-radio-button class="ms-3" name="time" [value]="1">AM</mat-radio-button>
                   <mat-radio-button class="ms-3" name="time" [value]="2">PM</mat-radio-button>
@@ -95,7 +99,7 @@
                 <div class="col-lg-12">
                   <mat-label>Temperature</mat-label>
                 </div>
-                <div class="col-lg-12 mt-1">
+                <div class="col-lg-12">
                   <mat-radio-button class="ms-3" name="tenp" [value]="4">All</mat-radio-button>
                   <mat-radio-button class="ms-3" name="tenp" [value]="1">-10 to 20</mat-radio-button>
                   <mat-radio-button class="ms-3" name="tenp" [value]="2">21 to 40</mat-radio-button>
@@ -111,7 +115,7 @@
                 <div class="col-lg-12">
                   <mat-label>Object based</mat-label>
                 </div>
-                <div class="col-lg-12 mt-1">
+                <div class="col-lg-12">
                   <mat-radio-button class="ms-3" name="time" [value]="1">Yes</mat-radio-button>
                   <mat-radio-button class="ms-3" name="time" [value]="2">No</mat-radio-button>
                 </div>
@@ -135,7 +139,7 @@
                 <!-- <div class="col-lg-12">
                   <mat-label>Time</mat-label>
                 </div> -->
-                <div class="col-lg-12 mt-1">
+                <div class="col-lg-12">
                   <!-- <mat-radio-button class="ms-3" name="time" [value]="3">All</mat-radio-button> -->
                   <mat-radio-button class="ms-3" name="time1" [value]="0">person</mat-radio-button>
                   <mat-radio-button class="ms-3" name="time2" [value]="1">Vehicle</mat-radio-button>
@@ -164,7 +168,7 @@
               <input matInput [matDatepicker]="picker1" placeholder="From Date" formControlName="fromDate" [(ngModel)]="assetData.asset.fromDate">
               <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
               <mat-datepicker #picker1></mat-datepicker>
-              <mat-error class="mt-1">From Date is required</mat-error>
+              <mat-error>From Date is required</mat-error>
             </mat-form-field>
           </div>
 
@@ -173,7 +177,7 @@
               <input matInput [matDatepicker]="picker2" placeholder="To Date" formControlName="toDate" [(ngModel)]="assetData.asset.toDate">
               <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
               <mat-datepicker #picker2></mat-datepicker>
-              <mat-error class="mt-1">To Date is required</mat-error>
+              <mat-error>To Date is required</mat-error>
             </mat-form-field>
           </div>
 
@@ -189,7 +193,7 @@
               <mat-select formControlName="deviceModeId" [(ngModel)]="assetData.asset.deviceModeId">
                 <mat-option *ngFor="let item of deviceMode" [value]="item.keyId">{{ item.remarks }}</mat-option>
               </mat-select>
-              <mat-error class="mt-1">Device Mode is required</mat-error>
+              <mat-error>Device Mode is required</mat-error>
             </mat-form-field>
           </div> -->
 
@@ -207,7 +211,7 @@
               <mat-select formControlName="timeId" [(ngModel)]="assetData.nameParams.timeId">
                 <mat-option *ngFor="let item of adsTime" [value]="item.keyId">{{ item.value }}</mat-option>
               </mat-select>
-              <mat-error class="mt-1">Time is required</mat-error>
+              <mat-error>Time is required</mat-error>
             </mat-form-field>
           </div>
 
@@ -217,7 +221,7 @@
               <mat-select formControlName="tempId" [(ngModel)]="assetData.nameParams.tempId">
                 <mat-option *ngFor="let item of tempRange" [value]="item.keyId">{{ item.value }}&nbsp;&nbsp;({{item.remarks}})</mat-option>
               </mat-select>
-              <mat-error class="mt-1">Temp is required</mat-error>
+              <mat-error>Temp is required</mat-error>
             </mat-form-field>
           </div>
 
@@ -248,7 +252,7 @@
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Person</mat-label>
                 <input matInput name="inputValue" type="number" formControlName="persons" [(ngModel)]="assetData.nameParams.persons">
-                <mat-error class="mt-1">Count is required</mat-error>
+                <mat-error>Count is required</mat-error>
               </mat-form-field>
             </div>
 
@@ -256,7 +260,7 @@
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Male Kids</mat-label>
                 <input matInput name="inputValue" type="number" formControlName="maleKids" [(ngModel)]="assetData.nameParams.maleKids">
-                <mat-error class="mt-1">Count is required</mat-error>
+                <mat-error>Count is required</mat-error>
               </mat-form-field>
             </div>
 
@@ -264,7 +268,7 @@
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Female Kids</mat-label>
                 <input matInput name="inputValue" type="number" formControlName="femaleKids" [(ngModel)]="assetData.nameParams.femaleKids">
-                <mat-error class="mt-1">Count is required</mat-error>
+                <mat-error>Count is required</mat-error>
               </mat-form-field>
             </div>
 
@@ -272,7 +276,7 @@
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Male Youth</mat-label>
                 <input matInput type="number" formControlName="maleYouth" [(ngModel)]="assetData.nameParams.maleYouth">
-                <mat-error class="mt-1">Count is required</mat-error>
+                <mat-error>Count is required</mat-error>
               </mat-form-field>
             </div>
 
@@ -280,7 +284,7 @@
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Female Youth</mat-label>
                 <input matInput type="number" formControlName="femaleYouth" [(ngModel)]="assetData.nameParams.femaleYouth">
-                <mat-error class="mt-1">Count is required</mat-error>
+                <mat-error>Count is required</mat-error>
               </mat-form-field>
             </div>
 
@@ -288,7 +292,7 @@
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Male Adult</mat-label>
                 <input matInput type="number" formControlName="maleAdults" [(ngModel)]="assetData.nameParams.maleAdults">
-                <mat-error class="mt-1">Count is required</mat-error>
+                <mat-error>Count is required</mat-error>
               </mat-form-field>
             </div>
 
@@ -296,7 +300,7 @@
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Female Adult</mat-label>
                 <input matInput type="number" formControlName="femaleAdults" [(ngModel)]="assetData.nameParams.femaleAdults">
-                <mat-error class="mt-1">Count is required</mat-error>
+                <mat-error>Count is required</mat-error>
               </mat-form-field>
             </div>
 
@@ -307,7 +311,7 @@
                   <mat-option [value]="1">1</mat-option>
                   <mat-option [value]="2">2</mat-option>
                 </mat-select>
-                <mat-error class="mt-1">Count is required</mat-error>
+                <mat-error>Count is required</mat-error>
               </mat-form-field>
             </div>
           </span>

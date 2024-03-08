@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';
 import { MetadataService } from 'src/services/metadata.service';
@@ -10,31 +10,6 @@ import { MetadataService } from 'src/services/metadata.service';
   styleUrls: ['./vendors.component.css']
 })
 export class VendorsComponent implements OnInit {
-
-  @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
-    var x = <HTMLElement>document.getElementById(`plus-img${this.currentid}`);
-    // var y = <HTMLElement>document.getElementById(`address${this.addressid}`);
-
-    // console.log(`plus-img${this.currentid}`);
-    if (x != null) {
-      if (!x.contains(e.target)) {
-        if (x.style.display == 'flex' || x.style.display == 'block') {
-          x.style.display = 'none';
-        }
-      }
-    }
-
-    // if (y != null) {
-    //   if(!y.contains(e.target)) {
-    //     if (y.style.display == 'flex' || y.style.display == 'block') {
-    //       y.style.display = 'none';
-    //     }
-    //   }
-    // }
-  }
-
-
-
 
   showLoader = false;
   constructor(

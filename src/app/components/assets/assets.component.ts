@@ -1,15 +1,15 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { MetadataService } from 'src/services/metadata.service';
 import { SiteService } from 'src/services/site.service';
 import { AdInfoComponent } from './ad-info/ad-info.component';
-import { UntypedFormControl } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
 import { StorageService } from 'src/services/storage.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-assets',
@@ -139,7 +139,7 @@ export class AssetsComponent implements OnInit {
   }
 
   filteredOptions!: any[];
-  siteIdSearch = new UntypedFormControl();
+  siteIdSearch = new FormControl();
   siteIdNg: string = 'All';
 
   filterOptions(value: string): any[] {

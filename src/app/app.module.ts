@@ -32,31 +32,6 @@ import { AddNewFrkitComponent } from './main-dashboard/add-new-frkit/add-new-frk
 import { LoginLoaderComponent } from './utilities/loader/login-loader.component';
 import { AddNewDcComponent } from './main-dashboard/add-new-dc/add-new-dc.component';
 
-// material module
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
-import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
-import { MatIconModule } from '@angular/material/icon';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatLegacyListModule as MatListModule } from '@angular/material/legacy-list';
-import { MatLegacyAutocompleteModule as MatAutocompleteModule } from '@angular/material/legacy-autocomplete';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
-import { MatLegacyTabsModule as MatTabsModule } from '@angular/material/legacy-tabs';
-import { MatLegacyCheckboxModule as MatCheckboxModule } from '@angular/material/legacy-checkbox';
-import { MatLegacyRadioModule as MatRadioModule } from '@angular/material/legacy-radio';
-import { MatLegacyProgressBarModule as MatProgressBarModule } from '@angular/material/legacy-progress-bar';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
-import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-menu';
-import { MatLegacySnackBarModule as MatSnackBarModule } from '@angular/material/legacy-snack-bar';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatBadgeModule } from '@angular/material/badge';
-import { MatLegacySlideToggleModule as MatSlideToggleModule } from '@angular/material/legacy-slide-toggle';
-import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/legacy-tooltip';
-
 //utilities
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { VjsPlayerComponent } from './utilities/vjs-player/vjs-player.component';
@@ -93,6 +68,7 @@ import { WifiAnalyticsComponent } from './components/wifi-analytics/wifi-analyti
 import { DeviceInfoComponent } from './components/devices/device-info/device-info.component';
 import { AssetsComponent } from './components/assets/assets.component';
 import { WifiDetailComponent } from './components/wifi-analytics/wifi-detail/wifi-detail.component';
+import { MaterialModule } from './material.module';
 
 
 @NgModule({
@@ -162,29 +138,7 @@ import { WifiDetailComponent } from './components/wifi-analytics/wifi-detail/wif
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatIconModule,
-    MatInputModule,
-    MatDividerModule,
-    MatListModule,
-    MatAutocompleteModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatButtonModule,
-    MatTabsModule,
-    MatCheckboxModule,
-    MatRadioModule,
-    MatProgressBarModule,
-    MatCardModule,
-    MatDialogModule,
-    MatSidenavModule,
-    MatMenuModule,
-    MatSnackBarModule,
-    MatExpansionModule,
-    MatBadgeModule,
-    MatSlideToggleModule,
-    MatTooltipModule
+    MaterialModule
   ],
   providers: [
     // ChartService,

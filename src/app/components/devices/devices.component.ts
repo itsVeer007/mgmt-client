@@ -1,8 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, HostListener, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { MatLegacyOption as MatOption } from '@angular/material/legacy-core';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-import { MatLegacySelect as MatSelect } from '@angular/material/legacy-select';
+import { MatOption } from '@angular/material/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSelect } from '@angular/material/select';
 import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
 import { InventoryService } from 'src/services/inventory.service';
@@ -151,7 +151,7 @@ export class DevicesComponent implements OnInit {
   deviceStatus: any;
   getMetadata() {
     let data = this.storageSer.get('metaData');;
-    for(let item of data) {
+    data?.forEach((item: any) => {
       if(item.type == 2) {
         this.deviceType = item.metadata;
       } else if(item.type == 1) {
@@ -175,7 +175,7 @@ export class DevicesComponent implements OnInit {
       } else if(item.type == 4) {
         this.deviceStatus = item.metadata;
       }
-    }
+    })
   }
 
   @ViewChild('rebootDeviceDialog') rebootDeviceDialog = {} as TemplateRef<any>;
@@ -233,17 +233,6 @@ export class DevicesComponent implements OnInit {
     if(type == 'device-info') {this.showDeviceInfo = false}
   }
 
-  masterSelected: boolean = false;
-
-  // allchecked(e:any){
-  //   if(document.querySelector('#allchecked:checked')){
-  //     this.masterSelected = true;
-  //   }else {
-  //     this.masterSelected = false;
-  //   }
-  // }
-
-
   @ViewChild('editStatusDialog') editStatusDialog = {} as TemplateRef<any>;
   y: any
   openEditStatus(id: any) {
@@ -252,149 +241,52 @@ export class DevicesComponent implements OnInit {
     this.dialog.open(this.editStatusDialog);
   }
 
-  staObj = {
-    status: ""
-  }
-
-
-  changeAssetStatus() {
-    let statusObj = {
-      ticketId: this.y.ticketId,
-      status: this.staObj.status
-    }
-
-    this.inventorySer.updateTask(statusObj).subscribe((res: any) => {
-      // console.log(res);
-    })
-  }
-
-
-
-  currentItem: any;
   @ViewChild('viewSiteDialog') viewSiteDialog = {} as TemplateRef<any>;
+  currentItem: any;
+  currentWorkingDays: any;
   openViewPopup(item: any) {
     this.currentItem = item;
+    // if(typeof(this.currentItem?.workingDays) === 'string') {
+    //   let workingDays = this.currentItem?.workingDays?.split(',').map((item: any) => Number(item));
+    //   this.currentItem.workingDays = workingDays;
+    // } else {
+    //   this.currentItem.workingDays = this.currentItem.workingDays
+    // }
+
     this.currentWorkingDays = JSON.parse(JSON.stringify(this.currentItem.workingDays.split(',').map((item: any) => +item)));
     this.dialog.open(this.viewSiteDialog);
-    // console.log(item);
-    // console.log(this.currentWorkingDays);
   }
 
   @ViewChild('editSiteDialog') editSiteDialog = {} as TemplateRef<any>;
-
   originalObject: any;
   changedKeys: any[] = [];
 
   onRadioChange(event: any) {
-    // console.log(event);
-    this.originalObject = {
-      "deviceId": this.currentItem.deviceId,
-
-      "deviceCallFreq": this.currentItem.deviceCallFreq,
-      "deviceDescription": this.currentItem.deviceDescription,
-      "remarks": this.currentItem.remarks,
-      "weatherInterval": this.currentItem.weatherInterval,
-      "loggerFreq": this.currentItem.loggerFreq,
-      "modelWidth": this.currentItem.modelWidth,
-      "modelHeight": this.currentItem.modelHeight,
-
-      "deviceModeId": this.currentItem.deviceModeId,
-      // "deviceTypeId": this.currentItem.deviceTypeId,
-      "adsHours": this.currentItem.adsHours,
-      "workingDays": this.currentItem.workingDays,
-      "status": this.currentItem.status,
-      "modelName": this.currentItem.modelName,
-      "modelObjectTypeId": this.currentItem.modelObjectTypeId,
-
-      "debugOn": this.currentItem.debugOn,
-      "debugLogs": this.currentItem.debugLogs,
-      "refreshRules": this.currentItem.refreshRules,
-
-      "modifiedBy": 1,
-    };
-
     let x = event.source.name;
-
     if(!(this.changedKeys.includes(x))) {
       this.changedKeys.push(x);
     }
   }
 
   onSelectChange(event: any) {
-    this.originalObject = {
-      "deviceId": this.currentItem.deviceId,
-
-      "deviceCallFreq": this.currentItem.deviceCallFreq,
-      "deviceDescription": this.currentItem.deviceDescription,
-      "remarks": this.currentItem.remarks,
-      "weatherInterval": this.currentItem.weatherInterval,
-      "loggerFreq": this.currentItem.loggerFreq,
-      "modelWidth": this.currentItem.modelWidth,
-      "modelHeight": this.currentItem.modelHeight,
-
-      "deviceModeId": this.currentItem.deviceModeId,
-      // "deviceTypeId": this.currentItem.deviceTypeId,
-      "adsHours": this.currentItem.adsHours,
-      "workingDays": this.currentItem.workingDays,
-      "status": this.currentItem.status,
-      "modelName": this.currentItem.modelName,
-      "modelObjectTypeId": this.currentItem.modelObjectTypeId,
-
-      "debugOn": this.currentItem.debugOn,
-      "debugLogs": this.currentItem.debugLogs,
-      "refreshRules": this.currentItem.refreshRules,
-
-      "modifiedBy": 1,
-    };
-
     let x = event.source.ngControl.name;
-
     if(!(this.changedKeys.includes(x))) {
       this.changedKeys.push(x);
     }
   }
 
   onInputChange(event: any) {
-    this.originalObject = {
-      "deviceId": this.currentItem.deviceId,
-
-      "deviceCallFreq": this.currentItem.deviceCallFreq,
-      "deviceDescription": this.currentItem.deviceDescription,
-      "remarks": this.currentItem.remarks,
-      "weatherInterval": this.currentItem.weatherInterval,
-      "loggerFreq": this.currentItem.loggerFreq,
-      "modelWidth": this.currentItem.modelWidth,
-      "modelHeight": this.currentItem.modelHeight,
-
-      "deviceModeId": this.currentItem.deviceModeId,
-      // "deviceTypeId": this.currentItem.deviceTypeId,
-      "adsHours": this.currentItem.adsHours,
-      "workingDays": this.currentItem.workingDays,
-      "status": this.currentItem.status,
-      "modelName": this.currentItem.modelName,
-      "modelObjectTypeId": this.currentItem.modelObjectTypeId,
-
-      "debugOn": this.currentItem.debugOn,
-      "debugLogs": this.currentItem.debugLogs,
-      "refreshRules": this.currentItem.refreshRules,
-
-      "modifiedBy": 1,
-    };
-
     let x = event.target['name'];
-
     if(!(this.changedKeys.includes(x))) {
       this.changedKeys.push(x);
     }
     // console.log(this.changedKeys.length)
   }
 
-  currentWorkingDays: any;
   openEditPopup(item: any) {
-    this.currentItem = JSON.parse(JSON.stringify(item));
+    this.currentItem = item;
     this.currentWorkingDays = JSON.parse(JSON.stringify(this.currentItem.workingDays.split(',').map((item: any) => +item)));
     this.dialog.open(this.editSiteDialog);
-    // console.log(item);
   }
 
   toAddDevice: any;
@@ -404,8 +296,30 @@ export class DevicesComponent implements OnInit {
   }
 
   updateDeviceDtl() {
+    this.originalObject = {
+      "deviceId": this.currentItem.deviceId,
+      "deviceCallFreq": this.currentItem.deviceCallFreq,
+      "deviceDescription": this.currentItem.deviceDescription,
+      "remarks": this.currentItem.remarks,
+      "weatherInterval": this.currentItem.weatherInterval,
+      "loggerFreq": this.currentItem.loggerFreq,
+      "modelWidth": this.currentItem.modelWidth,
+      "modelHeight": this.currentItem.modelHeight,
+      "deviceModeId": this.currentItem.deviceModeId,
+      // "deviceTypeId": this.currentItem.deviceTypeId,
+      "adsHours": this.currentItem.adsHours,
+      "workingDays": this.currentItem.workingDays,
+      "status": this.currentItem.status,
+      "modelName": this.currentItem.modelName,
+      "modelObjectTypeId": this.currentItem.modelObjectTypeId,
+      "debugOn": this.currentItem.debugOn,
+      "debugLogs": this.currentItem.debugLogs,
+      "refreshRules": this.currentItem.refreshRules,
+      "modifiedBy": 1,
+    };
+
     if(this.changedKeys.length > 0) {
-      // this.alertSer.wait();
+      this.alertSer.wait();
       let arr = this.currentWorkingDays.join(',');
       if(this.toAddDevice == 8) {
         var myString = arr.substring(1);
@@ -414,21 +328,19 @@ export class DevicesComponent implements OnInit {
         this.originalObject.workingDays = arr;
       }
     }
-    this.newItemEvent.emit();
     this.assetSer.updateDeviceAdsInfo({adsDevice: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
       // console.log(res);
-      this.alertSer.success(res?.message ? res?.message : 'Device updated successfully');
+      this.listDevices();
+      this.alertSer.success(res.message ? res.message : 'Device updated successfully');
     }, (err: any) => {
       this.alertSer.error(err?.error?.message);
     })
   }
 
   @ViewChild('createWorkingDays') createWorkingDays!: MatSelect;
-
   selectCreate: boolean = false;
   toggleCreateWorkingDays() {
     this.selectCreate = !this.selectCreate;
-
     if(this.selectCreate) {
       this.createWorkingDays?.options.forEach((item : MatOption) => item.select());
     } else {
@@ -436,121 +348,14 @@ export class DevicesComponent implements OnInit {
     }
   }
 
-
   @ViewChild('modifyWorkingDays') modifyWorkingDays!: MatSelect;
-
   selectModify: boolean = false;
   toggleModifyWorkingDays() {
     this.selectModify = !this.selectModify;
-
     if(this.selectModify) {
       this.modifyWorkingDays?.options.forEach((item : MatOption) => item.select());
     } else {
       this.modifyWorkingDays?.options.forEach((item : MatOption) => item.deselect());
-    }
-  }
-
-
-
-
-
-
-
-
-
-
-  selectedAll: any;
-  selectAll() {
-    for (var i = 0; i < this.deviceData.length; i++) {
-      // console.log(this.deviceData[i])
-      this.deviceData[i].selected = this.selectedAll;
-    }
-  }
-  checkIfAllSelected() {
-    this.selectedAll = this.deviceData.every(function (item: any) {
-      // console.log(item)
-      return item.selected == true;
-    })
-  }
-
-
-  deleteRow: any;
-  deleteRow1(item: any, i: any) {
-    // console.log(item);
-    this.showLoader = true;
-    setTimeout(() => {
-      this.showLoader = false;
-      this.deviceData.splice(i, 1);
-    }, 1000);
-  }
-
-  editArray: any = [];
-  EditByCheckbox(itemE: any, i: any, e: any) {
-    var checked = (e.target.checked);
-    if (checked == true && this.editArray.includes(itemE) == false) {
-      this.editArray.push(itemE);
-      this.currentItem = this.editArray[(this.editArray.length - 1)];
-    }
-    if (checked == false && this.editArray.includes(itemE) == true) {
-      this.editArray.splice(this.editArray.indexOf(itemE), 1)
-    }
-  }
-
-  editBySelectedOne() {
-    if (this.editArray.length > 0) {
-    }
-    // this.listDeviceBySiteId(this.siteData[0]?.siteid);
-  }
-
-  viewArray: any = [];
-  ViewByCheckbox(itemV: any, i: any, e: any) {
-    var checked = (e.target.checked);
-    if (checked == true && this.viewArray.includes(itemV) == false) {
-      this.viewArray.push(itemV);
-      this.currentItem = this.viewArray[(this.viewArray.length - 1)];
-    }
-    if (checked == false && this.viewArray.includes(itemV) == true) {
-      this.viewArray.splice(this.viewArray.indexOf(itemV), 1)
-    }
-  }
-
-  viewBySelectedOne() {
-    if (this.viewArray.length > 0) {
-    }
-  }
-
-
-  deletearray: any = [];
-  deleteMultiRecords(item: any, i: any, e: any) {
-    var checked = (e.target.checked);
-    // console.log("Delete Multiple Records:: ", item);
-    if (this.deletearray.length == 0) { this.deletearray.push(item) }
-
-    this.deletearray.forEach((el: any) => {
-      if (el.siteId != item.siteId && checked) {
-        this.deletearray.push(item);
-        this.deletearray = [...new Set(this.deletearray.map((item: any) => item))]
-      }
-      if (el.siteId == item.siteId && !checked) {
-        var currentindex = this.deletearray.indexOf(item);
-        this.deletearray.splice(currentindex, 1)
-      }
-    });
-    // console.log(this.deletearray)
-  }
-
-  deleteSelected() {
-    if (this.selectedAll == false) {
-      this.deletearray.forEach((el: any) => {
-        // this.currentItem = el;
-        // this.confirmDeleteRow();
-        this.deviceData = this.deviceData.filter((item: any) => item.siteId !== el.siteId);
-      });
-      this.deletearray = []
-    } else {
-      this.deviceData.forEach((el: any) => {
-        this.deviceData = this.deviceData.filter((item: any) => item.siteId !== el.siteId);
-      });
     }
   }
 

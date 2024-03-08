@@ -89,7 +89,7 @@
         <input matInput [matDatepicker]="picker1" placeholder="Created from" [(ngModel)]="ticketStatusObj.startDate">
         <mat-datepicker-toggle matSuffix [for]="picker1" (focus)="applyFilter()"></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
-        <mat-error class="mt-1">Start Date is required</mat-error>
+        <mat-error >Start Date is required</mat-error>
       </mat-form-field>
     </div>
 
@@ -98,7 +98,7 @@
         <input matInput [matDatepicker]="picker2" placeholder="Created to" [(ngModel)]="ticketStatusObj.endDate" (click)="applyFilter()">
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
-        <mat-error class="mt-1">End Date is required</mat-error>
+        <mat-error >End Date is required</mat-error>
       </mat-form-field>
     </div> -->
 
@@ -593,7 +593,7 @@
         <mat-select [(ngModel)]="taskBody.categoryId">
           <mat-option *ngFor="let val of ticketCategory" [value]="val.keyId">{{ val.value }}</mat-option>
         </mat-select>
-        <mat-error class="mt-1">categoryId is required</mat-error>
+        <mat-error >categoryId is required</mat-error>
       </mat-form-field>
     </div>
 
@@ -603,7 +603,7 @@
         <mat-select [(ngModel)]="taskBody.subCategoryId">
           <mat-option *ngFor="let val of ticketSubCategory" [value]="val.keyId">{{ val.value }}</mat-option>
         </mat-select>
-        <mat-error class="mt-1">subCategoryId is required</mat-error>
+        <mat-error >subCategoryId is required</mat-error>
       </mat-form-field>
     </div>
 
@@ -613,7 +613,7 @@
         <mat-select [(ngModel)]="taskBody.reasonId">
           <mat-option *ngFor="let val of taskReason" [value]="val.keyId">{{ val.value }}</mat-option>
         </mat-select>
-        <mat-error class="mt-1">reasonId is required</mat-error>
+        <mat-error >reasonId is required</mat-error>
       </mat-form-field>
     </div> -->
 
@@ -623,7 +623,7 @@
         <mat-select [(ngModel)]="taskBody.priorityId">
           <mat-option *ngFor="let val of priorityVal" [value]="val.keyId">{{ val.value }}</mat-option>
         </mat-select>
-        <mat-error class="mt-1">priorityId is required</mat-error>
+        <mat-error >priorityId is required</mat-error>
       </mat-form-field>
     </div>
 
@@ -631,7 +631,7 @@
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Remarks</mat-label>
         <input matInput formControlName="remarks" [(ngModel)]="ticketBody.tasks[i].remarks">
-        <mat-error class="mt-1">Remarks is required</mat-error>
+        <mat-error >Remarks is required</mat-error>
       </mat-form-field>
     </div> -->
 

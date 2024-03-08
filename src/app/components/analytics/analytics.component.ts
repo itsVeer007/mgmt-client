@@ -135,19 +135,20 @@ export class AnalyticsComponent implements OnInit {
 
   // -----------------Start Checkbox-----------------
   selectedAll: any;
-
   selectAll() {
     for (var i = 0; i < this.CustomerTable.length; i++) {
       // console.log(this.CustomerTable[i])
       this.CustomerTable[i].selected = this.selectedAll;
     }
   }
+
   checkIfAllSelected() {
     this.selectedAll = this.CustomerTable.every(function (item: any) {
       // console.log(item)
       return item.selected == true;
     })
   }
+
   // -------------------End Checkbox----------------------
 
   // ---------------- Start delete ---------------------

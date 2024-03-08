@@ -250,28 +250,6 @@
             <p [style.color]="cust.status == 1 ? '#00A44C' : cust.status == 2 ? '#fa500f' : ''">
               {{ cust.status == 1 ? 'Online' : cust.status == 2 ? 'Offline' : '' }}
             </p>
-
-            <!-- <p [style.color]="cust.status == 'active' ? '#00A44C' : cust.status == 'Inprogress' ? '#F5B400' : cust.status == 'closed' ? '#fa500f' : '#00A44C'">
-              <span class="d-flex">
-                <span style="width: 50px;">
-                  {{ cust.status }}
-                </span>
-
-                <a (click)="openEditStatus(cust)" class="ms-2 pointer">
-                  <img src="assets/icons/edit.svg"  width="13">
-                </a>
-              </span>
-
-              <ng-template #editStatusDialog>
-                <mat-form-field appearance="outline" class="w-100">
-                  <mat-label>Edit Status</mat-label>
-                  <mat-select [(ngModel)]="staObj.status">
-                    <mat-option value="closed">closed</mat-option>
-                  </mat-select>
-                </mat-form-field>
-                <button mat-stroked-button style="color: #084982" (click)="changeAssetStatus()">Submit</button>
-              </ng-template>
-            </p> -->
           </td>
 
           <td (click)="openRebootDevice(cust)">
@@ -324,192 +302,191 @@
     <p class="dialog-title">view device</p>
   </div>
 
-    <div class="row dialog-content">
-      <!-- BS -->
-      <div class="col-lg-4 col-md-4">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Site Id</mat-label>
-          <input matInput [(ngModel)]="currentItem.siteId" disabled>
-        </mat-form-field>
-      </div>
-
-      <div class="col-lg-4 col-md-4">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Device Id</mat-label>
-          <input matInput [(ngModel)]="currentItem.deviceId" disabled>
-        </mat-form-field>
-      </div>
-
-      <div class="col-lg-4 col-md-4">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Device Type</mat-label>
-          <mat-select [(ngModel)]="currentItem.deviceTypeId" disabled>
-            <mat-option *ngFor="let item of deviceType" [value]="item.keyId">{{ item.value }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-      <div class="col-lg-4 col-md-4">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Device Mode</mat-label>
-          <mat-select [(ngModel)]="currentItem.deviceModeId" disabled>
-            <mat-option *ngFor="let item of deviceMode" [value]="item.keyId">{{ item.remarks }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-      <div class="col-lg-4 col-md-4">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Ad hours</mat-label>
-          <mat-select [(ngModel)]="currentItem.adsHours" disabled>
-            <mat-option [value]="currentItem.adsHours">{{ currentItem.adsHours }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-      <div class="col-lg-4 col-md-4">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Working Days</mat-label>
-          <mat-select multiple [(ngModel)]="currentWorkingDays" disabled>
-            <mat-option *ngFor="let day of workingDay" [value]="day.keyId">{{ day.value }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-      <div class="col-lg-4 col-md-4">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Description</mat-label>
-          <input matInput [(ngModel)]="currentItem.deviceDescription" disabled>
-        </mat-form-field>
-      </div>
-
-      <div class="col-lg-4 col-md-4">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Device Call Frequency</mat-label>
-          <input matInput [(ngModel)]="currentItem.deviceCallFreq" disabled>
-        </mat-form-field>
-      </div>
-
-      <div class="col-lg-4 col-md-4">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Status</mat-label>
-          <mat-select [(ngModel)]="currentItem.status" disabled>
-            <mat-option *ngFor="let item of deviceStatus" [value]="item.keyId">{{ item.value }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-      <div class="col-lg-4 col-md-4">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Remarks</mat-label>
-          <input matInput [(ngModel)]="currentItem.remarks" disabled>
-        </mat-form-field>
-      </div>
-
-      <!-- BSR -->
-      <div class="col-lg-4 col-md-4" *ngIf="currentItem?.deviceModeId == 2 || currentItem?.deviceModeId == 3">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Weather Interval</mat-label>
-          <mat-select [(ngModel)]="currentItem.weatherInterval" disabled>
-            <mat-option [value]="currentItem.weatherInterval">{{ currentItem.weatherInterval }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-      <!-- ODR -->
-      <div class="col-lg-4 col-md-4" *ngIf="currentItem?.deviceModeId == 3">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Camera Id</mat-label>
-          <mat-select [(ngModel)]="currentItem.cameraId" disabled>
-            <mat-option [value]="currentItem.cameraId">{{ currentItem.cameraId }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-      <span class="row" *ngIf="currentItem?.deviceModeId == 3">
+    <div class="dialog-content">
+      <div class="row m-0" *ngIf="currentItem">
         <div class="col-lg-4 col-md-4">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Logger Frequency</mat-label>
-            <input matInput [(ngModel)]="currentItem.loggerFreq" disabled>
+            <mat-label>Site Id</mat-label>
+            <input matInput [(ngModel)]="currentItem.siteId" disabled>
           </mat-form-field>
         </div>
-
+  
         <div class="col-lg-4 col-md-4">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Model Name</mat-label>
-            <mat-select [(ngModel)]="currentItem.modelName" disabled>
-              <mat-option [value]="currentItem.modelName">{{ currentItem.modelName }}</mat-option>
+            <mat-label>Device Id</mat-label>
+            <input matInput [(ngModel)]="currentItem.deviceId" disabled>
+          </mat-form-field>
+        </div>
+  
+        <div class="col-lg-4 col-md-4">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Device Type</mat-label>
+            <mat-select [(ngModel)]="currentItem.deviceTypeId" disabled>
+              <mat-option *ngFor="let item of deviceType" [value]="item.keyId">{{ item.value }}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
-
+  
         <div class="col-lg-4 col-md-4">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Model Object Type</mat-label>
-            <mat-select [(ngModel)]="currentItem.modelObjectTypeId" disabled>
-              <mat-option [value]="currentItem.modelObjectTypeId">{{ currentItem.modelObjectTypeId }}</mat-option>
+            <mat-label>Device Mode</mat-label>
+            <mat-select [(ngModel)]="currentItem.deviceModeId" disabled>
+              <mat-option *ngFor="let item of deviceMode" [value]="item.keyId">{{ item.remarks }}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
-
+  
         <div class="col-lg-4 col-md-4">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Model Height</mat-label>
-            <input matInput [(ngModel)]="currentItem.modelHeight" disabled>
-          </mat-form-field>
-        </div>
-
-        <div class="col-lg-4 col-md-4">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Model Width</mat-label>
-            <input matInput [(ngModel)]="currentItem.modelWidth" disabled>
-          </mat-form-field>
-        </div>
-
-        <div class="col-lg-4 col-md-4">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Threshold</mat-label>
-            <mat-select [(ngModel)]="currentItem.modelThreshold" disabled>
-              <mat-option [value]="currentItem.modelThreshold">{{ currentItem.modelThreshold }}</mat-option>
+            <mat-label>Ad hours</mat-label>
+            <mat-select [(ngModel)]="currentItem.adsHours" disabled>
+              <mat-option [value]="currentItem.adsHours">{{ currentItem.adsHours }}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
-
+  
         <div class="col-lg-4 col-md-4">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Max Results</mat-label>
-            <mat-select [(ngModel)]="currentItem.modelMaxResults" disabled>
-              <mat-option [value]="currentItem.modelMaxResults">{{ currentItem.modelMaxResults }}</mat-option>
+            <mat-label>Working Days</mat-label>
+            <mat-select multiple [(ngModel)]="currentWorkingDays" disabled>
+              <mat-option *ngFor="let day of workingDay" [value]="day.keyId">{{ day.value }}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
-
-        <div class="col-lg-6"></div>
-      </span>
-
-        <div class="col-lg-4 mt-2" *ngIf="currentItem.deviceModeId == 3" style="font-size: 10px; font-weight: 700;">
-          <mat-radio-group class="w-50" [(ngModel)]="currentItem.debugOn" disabled>
-            <mat-label>Debug On</mat-label>
-            <mat-radio-button class="ms-3" name="logs" [value]="1">True</mat-radio-button>
-            <mat-radio-button class="ms-3" name="logs" [value]="0" checked>False</mat-radio-button>
-          </mat-radio-group>
+  
+        <div class="col-lg-4 col-md-4">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Description</mat-label>
+            <input matInput [(ngModel)]="currentItem.deviceDescription" disabled>
+          </mat-form-field>
         </div>
-
-        <div class="col-lg-4 mt-2" *ngIf="currentItem.deviceModeId == 3" style="font-size: 10px; font-weight: 700;">
-          <mat-radio-group class="w-50" [(ngModel)]="currentItem.debugLogs" disabled>
-            <mat-label>Debug Logs</mat-label>
-            <mat-radio-button class="ms-3" name="display" [value]='1'>True</mat-radio-button>
-            <mat-radio-button class="ms-3" name="display" [value]='0' checked>False</mat-radio-button>
-          </mat-radio-group>
+  
+        <div class="col-lg-4 col-md-4">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Device Call Frequency</mat-label>
+            <input matInput [(ngModel)]="currentItem.deviceCallFreq" disabled>
+          </mat-form-field>
         </div>
-
-        <div class="col-lg-4 mt-2" *ngIf="currentItem.deviceModeId == 3" style="font-size: 10px; font-weight: 700;">
-          <mat-radio-group class="w-50" [(ngModel)]="currentItem.refreshRules" disabled>
-            <mat-label>Refresh Rules</mat-label>
-              <mat-radio-button class="ms-3" name="refresh" [value]='1'>True</mat-radio-button>
-              <mat-radio-button class="ms-3" name="refresh" [value]='0' checked>False</mat-radio-button>
-          </mat-radio-group>
+  
+        <div class="col-lg-4 col-md-4">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Status</mat-label>
+            <mat-select [(ngModel)]="currentItem.status" disabled>
+              <mat-option *ngFor="let item of deviceStatus" [value]="item.keyId">{{ item.value }}</mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
+  
+        <div class="col-lg-4 col-md-4">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Remarks</mat-label>
+            <input matInput [(ngModel)]="currentItem.remarks" disabled>
+          </mat-form-field>
+        </div>
+  
+        <div class="col-lg-4 col-md-4" *ngIf="currentItem?.deviceModeId == 2 || currentItem?.deviceModeId == 3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Weather Interval</mat-label>
+            <mat-select [(ngModel)]="currentItem.weatherInterval" disabled>
+              <mat-option [value]="currentItem.weatherInterval">{{ currentItem.weatherInterval }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+  
+        <div class="col-lg-4 col-md-4" *ngIf="currentItem?.deviceModeId == 3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Camera Id</mat-label>
+            <mat-select [(ngModel)]="currentItem.cameraId" disabled>
+              <mat-option [value]="currentItem.cameraId">{{ currentItem.cameraId }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+  
+        <span class="row" *ngIf="currentItem?.deviceModeId == 3">
+          <div class="col-lg-4 col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Logger Frequency</mat-label>
+              <input matInput [(ngModel)]="currentItem.loggerFreq" disabled>
+            </mat-form-field>
+          </div>
+  
+          <div class="col-lg-4 col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Model Name</mat-label>
+              <mat-select [(ngModel)]="currentItem.modelName" disabled>
+                <mat-option [value]="currentItem.modelName">{{ currentItem.modelName }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+  
+          <div class="col-lg-4 col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Model Object Type</mat-label>
+              <mat-select [(ngModel)]="currentItem.modelObjectTypeId" disabled>
+                <mat-option [value]="currentItem.modelObjectTypeId">{{ currentItem.modelObjectTypeId }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+  
+          <div class="col-lg-4 col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Model Height</mat-label>
+              <input matInput [(ngModel)]="currentItem.modelHeight" disabled>
+            </mat-form-field>
+          </div>
+  
+          <div class="col-lg-4 col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Model Width</mat-label>
+              <input matInput [(ngModel)]="currentItem.modelWidth" disabled>
+            </mat-form-field>
+          </div>
+  
+          <div class="col-lg-4 col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Threshold</mat-label>
+              <mat-select [(ngModel)]="currentItem.modelThreshold" disabled>
+                <mat-option [value]="currentItem.modelThreshold">{{ currentItem.modelThreshold }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+  
+          <div class="col-lg-4 col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Max Results</mat-label>
+              <mat-select [(ngModel)]="currentItem.modelMaxResults" disabled>
+                <mat-option [value]="currentItem.modelMaxResults">{{ currentItem.modelMaxResults }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+  
+          <div class="col-lg-6"></div>
+        </span>
+  
+          <div class="col-lg-4 mt-2" *ngIf="currentItem.deviceModeId == 3" style="font-size: 10px; font-weight: 700;">
+            <mat-radio-group class="w-50" [(ngModel)]="currentItem.debugOn" disabled>
+              <mat-label>Debug On</mat-label>
+              <mat-radio-button class="ms-3" name="logs" [value]="1">True</mat-radio-button>
+              <mat-radio-button class="ms-3" name="logs" [value]="0" checked>False</mat-radio-button>
+            </mat-radio-group>
+          </div>
+  
+          <div class="col-lg-4 mt-2" *ngIf="currentItem.deviceModeId == 3" style="font-size: 10px; font-weight: 700;">
+            <mat-radio-group class="w-50" [(ngModel)]="currentItem.debugLogs" disabled>
+              <mat-label>Debug Logs</mat-label>
+              <mat-radio-button class="ms-3" name="display" [value]='1'>True</mat-radio-button>
+              <mat-radio-button class="ms-3" name="display" [value]='0' checked>False</mat-radio-button>
+            </mat-radio-group>
+          </div>
+  
+          <div class="col-lg-4 mt-2" *ngIf="currentItem.deviceModeId == 3" style="font-size: 10px; font-weight: 700;">
+            <mat-radio-group class="w-50" [(ngModel)]="currentItem.refreshRules" disabled>
+              <mat-label>Refresh Rules</mat-label>
+                <mat-radio-button class="ms-3" name="refresh" [value]='1'>True</mat-radio-button>
+                <mat-radio-button class="ms-3" name="refresh" [value]='0' checked>False</mat-radio-button>
+            </mat-radio-group>
+          </div>
+      </div>
     </div>
 
   <div class="d-flex justify-content-end"  >
@@ -522,174 +499,173 @@
     <p class="dialog-title">modify device</p>
   </div>
 
-  <div class="row dialog-content">
+  <div class="dialog-content">
     <!-- BS -->
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Device Id</mat-label>
-        <input matInput [(ngModel)]="currentItem.deviceId" disabled>
-      </mat-form-field>
+    <div class="row m-0">
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Device Id</mat-label>
+          <input matInput [(ngModel)]="currentItem.deviceId" disabled>
+        </mat-form-field>
+      </div>
+  
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Device Type</mat-label>
+          <mat-select name="deviceTypeId" [(ngModel)]="currentItem.deviceTypeId" (selectionChange)="onSelectChange($event)" disabled>
+            <mat-option *ngFor="let item of deviceType" [value]="item.keyId">{{ item.value }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+  
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Device Mode</mat-label>
+          <mat-select name="deviceModeId" [(ngModel)]="currentItem.deviceModeId" (selectionChange)="onSelectChange($event)">
+            <mat-option *ngFor="let item of deviceMode" [value]="item.keyId">{{ item.remarks }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+  
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Device Call Frequency</mat-label>
+          <input name="deviceCallFreq" matInput [(ngModel)]="currentItem.deviceCallFreq" (change)="onInputChange($event)">
+        </mat-form-field>
+      </div>
+  
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Ad hours</mat-label>
+          <mat-select name="adsHours" [(ngModel)]="currentItem.adsHours" (selectionChange)="onSelectChange($event)">
+            <mat-option value="00-23">00 to 23</mat-option>
+            <mat-option value="06-18">06 to 18</mat-option>
+            <mat-option value="08-18">08 to 18</mat-option>
+            <mat-option value="08-21">08 to 21</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+  
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Working Days</mat-label>
+          <mat-select #modifyWorkingDays multiple name="workingDays" [(ngModel)]="currentWorkingDays" (selectionChange)="onSelectChange($event); onToAddDevice($event)">
+            <!-- <mat-option (click)="toggleModifyWorkingDays()">All</mat-option> -->
+            <mat-option *ngFor="let item of workingDay" [value]="item.keyId">{{ item.value }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+  
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Description</mat-label>
+          <input name="deviceDescription" matInput [(ngModel)]="currentItem.deviceDescription" (change)="onInputChange($event)">
+        </mat-form-field>
+      </div>
+  
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Remarks</mat-label>
+          <input name="remarks" matInput [(ngModel)]="currentItem.remarks" (change)="onInputChange($event)">
+        </mat-form-field>
+      </div>
+  
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Status</mat-label>
+          <mat-select name="status" [(ngModel)]="currentItem.status" (selectionChange)="onSelectChange($event)">
+            <mat-option *ngFor="let item of deviceStatus" [value]="item.keyId">{{ item.value }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+  
+      <!-- BSR -->
+      <div class="col-lg-6" *ngIf="currentItem.deviceModeId == 2">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Weather Interval</mat-label>
+          <input name="weatherInterval" matInput [(ngModel)]="currentItem.weatherInterval" (change)="onInputChange($event)">
+        </mat-form-field>
+      </div>
+  
+      <!-- ODR -->
+      <div class="col-lg-6" *ngIf="currentItem.deviceModeId == 3">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Camera Id</mat-label>
+          <mat-select name="cameraId" [(ngModel)]="currentItem.cameraId" (selectionChange)="onSelectChange($event)">
+            <mat-option [value]="1">1</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+  
+      <div class="col-lg-6" *ngIf="currentItem.deviceModeId == 3">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Logger Freqency</mat-label>
+          <input name="loggerFreq" matInput [(ngModel)]="currentItem.loggerFreq" (change)="onInputChange($event)">
+        </mat-form-field>
+      </div>
+  
+      <div class="col-lg-6" *ngIf="currentItem.deviceModeId == 3">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Model height</mat-label>
+          <input name="modelHeight" matInput [(ngModel)]="currentItem.modelHeight" (change)="onInputChange($event)">
+        </mat-form-field>
+      </div>
+  
+      <div class="col-lg-6" *ngIf="currentItem.deviceModeId == 3">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Model width</mat-label>
+          <input name="modelWidth" matInput [(ngModel)]="currentItem.modelWidth" (change)="onInputChange($event)">
+        </mat-form-field>
+      </div>
+  
+      <div class="col-lg-6" *ngIf="currentItem.deviceModeId == 3">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Model Name</mat-label>
+          <mat-select name="modelName" [(ngModel)]="currentItem.modelName" (selectionChange)="onSelectChange($event)">
+            <mat-option *ngFor="let item of model" [value]="item.value">{{ item.value }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+  
+      <div class="col-lg-6" *ngIf="currentItem.deviceModeId == 3">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Model Object Type</mat-label>
+          <mat-select name="modelObjectTypeId" [(ngModel)]="currentItem.modelObjectTypeId" (selectionChange)="onSelectChange($event)">
+            <mat-option *ngFor="let item of modelObjectType" [value]="item.keyId">{{ item.value }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+  
+      <div class="col-lg-6" *ngIf="currentItem.deviceModeId == 3"></div>
+  
+      <div class="col-lg-4 mt-2" *ngIf="currentItem.deviceModeId == 3" style="font-size: 10px; font-weight: 700;">
+        <mat-radio-group name="debugOn" class="w-50" [(ngModel)]="currentItem.debugOn" (change)="onRadioChange($event)">
+          <mat-label>Debug On</mat-label>
+          <mat-radio-button class="ms-3" name="logs" [value]="1">True</mat-radio-button>
+          <mat-radio-button class="ms-3" name="logs" [value]="0" checked>False</mat-radio-button>
+        </mat-radio-group>
+      </div>
+  
+      <div class="col-lg-4 mt-2" *ngIf="currentItem.deviceModeId == 3" style="font-size: 10px; font-weight: 700;">
+        <mat-radio-group name="debugLogs" class="w-50" [(ngModel)]="currentItem.debugLogs" (change)="onRadioChange($event)">
+          <mat-label>Debug Logs</mat-label>
+          <mat-radio-button class="ms-3" name="display" [value]='1'>True</mat-radio-button>
+          <mat-radio-button class="ms-3" name="display" [value]='0' checked>False</mat-radio-button>
+        </mat-radio-group>
+      </div>
+  
+      <div class="col-lg-4 mt-2" *ngIf="currentItem.deviceModeId == 3" style="font-size: 10px; font-weight: 700;">
+        <mat-radio-group name="refreshRules" class="w-50" [(ngModel)]="currentItem.refreshRules" (change)="onRadioChange($event)">
+          <mat-label>Refresh Rules</mat-label>
+            <mat-radio-button class="ms-3" name="refresh" [value]='1'>True</mat-radio-button>
+            <mat-radio-button class="ms-3" name="refresh" [value]='0' checked>False</mat-radio-button>
+        </mat-radio-group>
+      </div>
     </div>
-
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Device Type</mat-label>
-        <mat-select name="deviceTypeId" [(ngModel)]="currentItem.deviceTypeId" (selectionChange)="onSelectChange($event)" disabled>
-          <mat-option *ngFor="let item of deviceType" [value]="item.keyId">{{ item.value }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Device Mode</mat-label>
-        <mat-select name="deviceModeId" [(ngModel)]="currentItem.deviceModeId" (selectionChange)="onSelectChange($event)">
-          <mat-option *ngFor="let item of deviceMode" [value]="item.keyId">{{ item.remarks }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Device Call Frequency</mat-label>
-        <input name="deviceCallFreq" matInput [(ngModel)]="currentItem.deviceCallFreq" (change)="onInputChange($event)">
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Ad hours</mat-label>
-        <mat-select name="adsHours" [(ngModel)]="currentItem.adsHours" (selectionChange)="onSelectChange($event)">
-          <mat-option value="0-23">All</mat-option>
-          <mat-option value="6-18">6-18</mat-option>
-          <mat-option value="8-18">8-18</mat-option>
-          <mat-option value="8-21">8-21</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Working Days</mat-label>
-        <mat-select #modifyWorkingDays multiple name="workingDays" [(ngModel)]="currentWorkingDays" (selectionChange)="onSelectChange($event); onToAddDevice($event)">
-          <mat-option (click)="toggleModifyWorkingDays()">All</mat-option>
-          <mat-option *ngFor="let item of workingDay" [value]="item.keyId">{{ item.value }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Description</mat-label>
-        <input name="deviceDescription" matInput [(ngModel)]="currentItem.deviceDescription" (change)="onInputChange($event)">
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Remarks</mat-label>
-        <input name="remarks" matInput [(ngModel)]="currentItem.remarks" (change)="onInputChange($event)">
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Status</mat-label>
-        <mat-select name="status" [(ngModel)]="currentItem.status" (selectionChange)="onSelectChange($event)">
-          <mat-option *ngFor="let item of deviceStatus" [value]="item.keyId">{{ item.value }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <!-- /BS -->
-
-    <!-- BSR -->
-    <div class="col-lg-6" *ngIf="currentItem.deviceModeId == 2">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Weather Interval</mat-label>
-        <input name="weatherInterval" matInput [(ngModel)]="currentItem.weatherInterval" (change)="onInputChange($event)">
-      </mat-form-field>
-    </div>
-    <!-- /BSR -->
-
-    <!-- ODR -->
-    <div class="col-lg-6" *ngIf="currentItem.deviceModeId == 3">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Camera Id</mat-label>
-        <mat-select name="cameraId" [(ngModel)]="currentItem.cameraId" (selectionChange)="onSelectChange($event)">
-          <mat-option [value]="1">1</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6" *ngIf="currentItem.deviceModeId == 3">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Logger Freqency</mat-label>
-        <input name="loggerFreq" matInput [(ngModel)]="currentItem.loggerFreq" (change)="onInputChange($event)">
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6" *ngIf="currentItem.deviceModeId == 3">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Model height</mat-label>
-        <input name="modelHeight" matInput [(ngModel)]="currentItem.modelHeight" (change)="onInputChange($event)">
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6" *ngIf="currentItem.deviceModeId == 3">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Model width</mat-label>
-        <input name="modelWidth" matInput [(ngModel)]="currentItem.modelWidth" (change)="onInputChange($event)">
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6" *ngIf="currentItem.deviceModeId == 3">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Model Name</mat-label>
-        <mat-select name="modelName" [(ngModel)]="currentItem.modelName" (selectionChange)="onSelectChange($event)">
-          <mat-option *ngFor="let item of model" [value]="item.value">{{ item.value }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6" *ngIf="currentItem.deviceModeId == 3">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Model Object Type</mat-label>
-        <mat-select name="modelObjectTypeId" [(ngModel)]="currentItem.modelObjectTypeId" (selectionChange)="onSelectChange($event)">
-          <mat-option *ngFor="let item of modelObjectType" [value]="item.keyId">{{ item.value }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6" *ngIf="currentItem.deviceModeId == 3"></div>
-
-    <div class="col-lg-4 mt-2" *ngIf="currentItem.deviceModeId == 3" style="font-size: 10px; font-weight: 700;">
-      <mat-radio-group name="debugOn" class="w-50" [(ngModel)]="currentItem.debugOn" (change)="onRadioChange($event)">
-        <mat-label>Debug On</mat-label>
-        <mat-radio-button class="ms-3" name="logs" [value]="1">True</mat-radio-button>
-        <mat-radio-button class="ms-3" name="logs" [value]="0" checked>False</mat-radio-button>
-      </mat-radio-group>
-    </div>
-
-    <div class="col-lg-4 mt-2" *ngIf="currentItem.deviceModeId == 3" style="font-size: 10px; font-weight: 700;">
-      <mat-radio-group name="debugLogs" class="w-50" [(ngModel)]="currentItem.debugLogs" (change)="onRadioChange($event)">
-        <mat-label>Debug Logs</mat-label>
-        <mat-radio-button class="ms-3" name="display" [value]='1'>True</mat-radio-button>
-        <mat-radio-button class="ms-3" name="display" [value]='0' checked>False</mat-radio-button>
-      </mat-radio-group>
-    </div>
-
-    <div class="col-lg-4 mt-2" *ngIf="currentItem.deviceModeId == 3" style="font-size: 10px; font-weight: 700;">
-      <mat-radio-group name="refreshRules" class="w-50" [(ngModel)]="currentItem.refreshRules" (change)="onRadioChange($event)">
-        <mat-label>Refresh Rules</mat-label>
-          <mat-radio-button class="ms-3" name="refresh" [value]='1'>True</mat-radio-button>
-          <mat-radio-button class="ms-3" name="refresh" [value]='0' checked>False</mat-radio-button>
-      </mat-radio-group>
-    </div>
-    <!-- /ODR -->
   </div>
 
   <div class="d-flex justify-content-end align-items-center">
-<div>
+    <div>
       <button class="dialog-close-btn" mat-dialog-close>Close</button>
     </div>
     <div  >

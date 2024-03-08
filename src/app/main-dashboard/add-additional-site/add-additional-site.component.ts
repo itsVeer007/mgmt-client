@@ -1,6 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl, UntypedFormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { UserService } from 'src/services/user.service';
@@ -44,7 +44,7 @@ export class AddAdditionalSiteComponent implements OnInit {
 
 
 
-  addSiteForm: any =  UntypedFormGroup;
+  addSiteForm: any =  FormGroup;
 
 
   checked = false;
@@ -61,17 +61,17 @@ export class AddAdditionalSiteComponent implements OnInit {
   items = ['john', 'mark', 'cooper', 'henry', 'roben'];
   siteIdList = [ '3001', '3002', '3003', '3004'];
 
-  constructor(private fb: UntypedFormBuilder, private userSer: UserService) { }
+  constructor(private fb: FormBuilder, private userSer: UserService) { }
 
   filteredOptions!: Observable<any>;
   ngOnInit(): void {
     this.addSiteForm = this.fb.group({
-      'userId': new UntypedFormControl(''),
-      'userName': new UntypedFormControl(''),
-      'verticals': new UntypedFormControl(''),
-      'customers': new UntypedFormControl(''),
-      'selectSite': new UntypedFormControl(''),
-      'checked': new UntypedFormControl()
+      'userId': new FormControl(''),
+      'userName': new FormControl(''),
+      'verticals': new FormControl(''),
+      'customers': new FormControl(''),
+      'selectSite': new FormControl(''),
+      'checked': new FormControl()
     });
 
     this.filteredOptions = this.searchTextboxControl.valueChanges
@@ -83,8 +83,8 @@ export class AddAdditionalSiteComponent implements OnInit {
 
   @ViewChild('search') searchTextBox!: ElementRef;
 
-  selectFormControl = new UntypedFormControl();
-  searchTextboxControl = new UntypedFormControl();
+  selectFormControl = new FormControl();
+  searchTextboxControl = new FormControl();
   selectedValues = [];
   data: string[] = [
     'US00010',

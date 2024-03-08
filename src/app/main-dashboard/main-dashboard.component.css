@@ -1,5 +1,4 @@
 .main-dashboard {
-    /* margin-top: 85px; */
     max-height: calc(110vh - (185px));
     overflow-y: auto;
 }
@@ -9,14 +8,6 @@
 }
 
 .icons {
-    /* background-image: linear-gradient(to right, #274874 , #AA4337);
-    height: 36px;
-    position: absolute;
-    margin-top: 3px;
-    right: 76px;
-    padding: 6px;
-    z-index: 2; */
-
     background-image: linear-gradient(to right, #084982 , #D34124);
     position: absolute;
     margin-top: 2px;
@@ -26,16 +17,8 @@
 }
 
 .showtray:hover +.icons {
-    /* background-image: linear-gradient(to right, #274874 , #AA4337); */
-    /* height: 35px; */
-    /* display: block !important; */
-    /* opacity: 1 !important; */
     visibility: visible !important;
 }
-
-/* .showtray .btn:hover, .showtray .btn:active{
-    border: none;
-} */
 
 .head{
     position: relative;

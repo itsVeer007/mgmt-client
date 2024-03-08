@@ -1,6 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MetadataService } from 'src/services/metadata.service';
 
@@ -44,19 +44,19 @@ export class AddNewAnalyticComponent implements OnInit {
   //   }
   // }
 
-  addAssetForm: any = UntypedFormGroup;
+  addAssetForm: any = FormGroup;
 
   shortLink: string = "";
   file: File | null = null;
   // loading: boolean = false;
 
-  constructor(private router: Router, private fb: UntypedFormBuilder, private dropDown: MetadataService) { }
+  constructor(private router: Router, private fb: FormBuilder, private dropDown: MetadataService) { }
 
   ngOnInit(): void {
     this.addAssetForm = this.fb.group({
-      'description': new UntypedFormControl(''),
-      'siteId': new UntypedFormControl(''),
-      'deviceId': new UntypedFormControl(''),
+      'description': new FormControl(''),
+      'siteId': new FormControl(''),
+      'deviceId': new FormControl(''),
     });
 
     // this.ongetDeviceType();

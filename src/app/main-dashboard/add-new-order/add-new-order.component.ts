@@ -1,7 +1,7 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';
@@ -35,7 +35,7 @@ export class AddNewOrderComponent implements OnInit {
   constructor(
     private router: Router,
     private inventorySer: InventoryService,
-    private fb: UntypedFormBuilder,
+    private fb: FormBuilder,
 
     public alertSer: AlertService,
     public datepipe: DatePipe,
@@ -46,7 +46,7 @@ export class AddNewOrderComponent implements OnInit {
 
   @Output() newItemEvent = new EventEmitter<any>();
 
-  UserForm: any =  UntypedFormGroup;
+  UserForm: any =  FormGroup;
 
   inventoryBody = {
     vendorId: null,
@@ -59,8 +59,8 @@ export class AddNewOrderComponent implements OnInit {
   user: any;
   ngOnInit() {
     this.UserForm = this.fb.group({
-      'vendorId': new UntypedFormControl('', Validators.required),
-      'remarks': new UntypedFormControl(''),
+      'vendorId': new FormControl('', Validators.required),
+      'remarks': new FormControl(''),
     });
 
     this.getVendor();

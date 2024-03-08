@@ -274,8 +274,3 @@
     background: #AA4337;
     color: #ffffff;
   }
-
- /* ng-deep */
-  ::ng-deep .mat-menu-content:not(:empty) {
-    padding: 0 !important;
-  }

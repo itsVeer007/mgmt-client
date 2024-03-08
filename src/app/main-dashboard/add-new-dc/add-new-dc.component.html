@@ -18,7 +18,7 @@
                 <mat-select formControlName="name" [(ngModel)]="inventoryBody.name">
                   <mat-option *ngFor="let item of frList" [value]="item?.userId" (click)="onSelect(); listUsersByRole(item?.userId)">{{item?.firstName}}</mat-option>
                 </mat-select>
-                <mat-error class="mt-1"> name is required</mat-error>
+                <mat-error > name is required</mat-error>
               </mat-form-field>
             </div>
 
@@ -28,7 +28,7 @@
                 <mat-select formControlName="address" [(ngModel)]="inventoryBody.address">
                   <mat-option *ngFor="let item of filteredFrList" [value]="item?.address_line1">{{item?.address_line1}}</mat-option>
                 </mat-select>
-                <mat-error class="mt-1">Address is required</mat-error>
+                <mat-error >Address is required</mat-error>
               </mat-form-field>
             </div>
 
@@ -38,7 +38,7 @@
                 <mat-select formControlName="state" [(ngModel)]="inventoryBody.state">
                   <mat-option *ngFor="let item of filteredFrList" [value]="item?.state">{{item?.state}}</mat-option>
                 </mat-select>
-                <mat-error class="mt-1">state is required</mat-error>
+                <mat-error >state is required</mat-error>
               </mat-form-field>
             </div>
 
@@ -48,7 +48,7 @@
                 <mat-select formControlName="code" [(ngModel)]="inventoryBody.code">
                   <mat-option *ngFor="let item of filteredFrList" [value]="item?.pin">{{item?.pin}}</mat-option>
                 </mat-select>
-                <mat-error class="mt-1"> code is required</mat-error>
+                <mat-error > code is required</mat-error>
               </mat-form-field>
             </div>
 
@@ -61,7 +61,7 @@
                       <mat-select formControlName="descriptionOfGoods" [(ngModel)]="inventoryBody.itemCode[i].descriptionOfGoods">
                         <mat-option *ngFor="let val of productIds" [value]="val.name" (click)="getItemCode(val.name)">{{val.name}}</mat-option>
                       </mat-select>
-                      <mat-error class="mt-1"> descriptionOfGoods is required</mat-error>
+                      <mat-error > descriptionOfGoods is required</mat-error>
                     </mat-form-field>
                   </div>
 
@@ -71,7 +71,7 @@
                       <mat-select formControlName="itemCode" [(ngModel)]="inventoryBody.itemCode[i].itemCode">
                         <mat-option [value]="currentItemCode?.code">{{ currentItemCode?.code }}</mat-option>
                       </mat-select>
-                      <mat-error class="mt-1">itemCode is required</mat-error>
+                      <mat-error >itemCode is required</mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-lg-6">
@@ -100,7 +100,7 @@
                 <mat-select formControlName="name" [(ngModel)]="inventoryBody.name">
                   <mat-option value="RiverSide Solutions" (click)="onSelect()">RiverSide Solutions</mat-option>
                 </mat-select>
-                <mat-error class="mt-1"> name is required</mat-error>
+                <mat-error > name is required</mat-error>
               </mat-form-field>
             </div>
 
@@ -110,7 +110,7 @@
                 <mat-select formControlName="address" [(ngModel)]="inventoryBody.address">
                   <mat-option value="Atmakur Rural">Atmakur Rural</mat-option>
                 </mat-select>
-                <mat-error class="mt-1">Address is required</mat-error>
+                <mat-error >Address is required</mat-error>
               </mat-form-field>
             </div>
 
@@ -120,7 +120,7 @@
                 <mat-select formControlName="state" [(ngModel)]="inventoryBody.state">
                   <mat-option value="Andhra Pradesh">Andhra Pradesh</mat-option>
                 </mat-select>
-                <mat-error class="mt-1">State is required</mat-error>
+                <mat-error >State is required</mat-error>
               </mat-form-field>
             </div>
 
@@ -130,7 +130,7 @@
                 <mat-select formControlName="code" [(ngModel)]="inventoryBody.code">
                   <mat-option [value]="522503">522503</mat-option>
                 </mat-select>
-                <mat-error class="mt-1"> code is required</mat-error>
+                <mat-error > code is required</mat-error>
               </mat-form-field>
             </div>
 
@@ -143,7 +143,7 @@
                       <mat-select formControlName="descriptionOfGoods" [(ngModel)]="inventoryBody.itemCode[i].descriptionOfGoods">
                         <mat-option *ngFor="let val of productIds" [value]="val.name" (click)="getItemCode(val.name)">{{val.name}}</mat-option>
                       </mat-select>
-                      <mat-error class="mt-1"> descriptionOfGoods is required</mat-error>
+                      <mat-error > descriptionOfGoods is required</mat-error>
                     </mat-form-field>
                   </div>
 
@@ -153,7 +153,7 @@
                       <mat-select formControlName="itemCode" [(ngModel)]="inventoryBody.itemCode[i].itemCode">
                         <mat-option [value]="currentItemCode?.code">{{ currentItemCode?.code }}</mat-option>
                       </mat-select>
-                      <mat-error class="mt-1">itemCode is required</mat-error>
+                      <mat-error >itemCode is required</mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-lg-6">

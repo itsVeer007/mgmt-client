@@ -19,7 +19,7 @@
               <mat-select>
                 <mat-option *ngFor="let item of type" [value]="item.type">{{item.type}}</mat-option>
               </mat-select>
-              <mat-error class="mt-1">Service Name is required</mat-error>
+              <mat-error >Service Name is required</mat-error>
             </mat-form-field>
           </div> -->
           <!-- <div class="col-lg-6 col-md-6">
@@ -31,7 +31,7 @@
                   {{ item.type }}
                 </mat-option>
               </mat-autocomplete>
-              <mat-error class="mt-1">Type is required</mat-error>
+              <mat-error >Type is required</mat-error>
             </mat-form-field>
           </div> -->
           <!-- <div class="col-lg-6 col-md-6" *ngIf="metaType == 'Create_New'">
@@ -40,7 +40,7 @@
               <mat-select formControlName="metadataTypeId" [(ngModel)]="metaDataBody.metadataTypeId">
                 <mat-option *ngFor="let item of metadataTypes" [value]="item.type">{{item.typeName}}</mat-option>
               </mat-select>
-              <mat-error class="mt-1">Type is required</mat-error>
+              <mat-error >Type is required</mat-error>
             </mat-form-field>
           </div> -->
 
@@ -50,28 +50,28 @@
               <mat-select formControlName="metadataTypeId" [(ngModel)]="metaDataBody.metadataTypesId">
                 <mat-option *ngFor="let item of metadataTypes" [value]="item?.id">{{item?.type}}</mat-option>
               </mat-select>
-              <mat-error class="mt-1">metadataTypeId is required</mat-error>
+              <mat-error >metadataTypeId is required</mat-error>
             </mat-form-field>
           </div>
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Enter Value</mat-label>
               <input matInput formControlName="value" [(ngModel)]="metaDataBody.value" #todo>
-              <mat-error class="mt-1">Value is required</mat-error>
+              <mat-error >Value is required</mat-error>
             </mat-form-field>
           </div>
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Enter Code</mat-label>
               <input matInput formControlName="code" [(ngModel)]="metaDataBody.code">
-              <mat-error class="mt-1">code is required</mat-error>
+              <mat-error >code is required</mat-error>
             </mat-form-field>
           </div>
           <div class="col-lg-6 col-md-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Remarks</mat-label>
               <input matInput formControlName="remarks" [(ngModel)]="metaDataBody.remarks">
-              <mat-error class="mt-1">remarks is required</mat-error>
+              <mat-error >remarks is required</mat-error>
             </mat-form-field>
           </div>
           <!-- <div class="col-lg-1 col-md-1">

@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
 import { SiteService } from 'src/services/site.service';
@@ -39,8 +39,8 @@ export class AdvertisementsComponent implements OnInit {
     this.siteSer.listSites().subscribe((res: any) => {
       // console.log(res);
       this.showLoader = false;
-      this.getMetadata();
       if(res?.Status == 'Success') {
+        this.getMetadata();
         this.siteData = res?.siteList?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
         // this.siteId = this.siteData[0]?.siteid;
         // this.filterAdvertisements();\
@@ -134,7 +134,7 @@ export class AdvertisementsComponent implements OnInit {
   addStatus: any;
   getMetadata() {
     let data = this.storageSer.get('metaData');
-    for(let item of data) {
+    data?.forEach((item: any) => {
       if(item.type == 2) {
         this.deviceType = item.metadata;
       } else if(item.type == 1) {
@@ -142,7 +142,7 @@ export class AdvertisementsComponent implements OnInit {
       } else if(item.type == 8) {
         this.addStatus = item.metadata;
       }
-    }
+    });
   }
 
   showAsset: boolean = false;

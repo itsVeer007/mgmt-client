@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/services/alert.service';
 import { MetadataService } from 'src/services/metadata.service';
@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
     private userSer: UserService,
     private siteSer: SiteService,
     private route: Router,
-    private fb: UntypedFormBuilder,
+    private fb: FormBuilder,
     private router: Router,
     private alertSer: AlertService,
     private metaDataSer: MetadataService,
@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
 
   user = null;
   showLoader: boolean = false;
-  loginForm: any = UntypedFormGroup;
+  loginForm: any = FormGroup;
 
   ngOnInit() {
     this.storageSer.clearData();
@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
       if(res?.Status == "Success") {
         this.storageSer.set('user', res);
         this.userSer.user$.next(res);
-        this.route.navigate(['/main-dashboard']);
+        this.route.navigate(['home/main-dashboard']);
         this.getlistSites();
       } else if(res?.Status == "Failed") {
         this.alertSer.error(res?.message);
@@ -77,7 +77,6 @@ export class LoginComponent implements OnInit {
           this.userSer.user$.next(res);
           this.router.navigate(['/home/main-dashboard']);
           this.getlistSites();
-          this.getMetadata();
         } else if(res?.Status == 'Failed') {
           this.alertSer.error(res?.message);
         }
@@ -87,11 +86,12 @@ export class LoginComponent implements OnInit {
       })
     }
   }
-
+  
   getlistSites() {
     this.siteSer.listSites().subscribe((res: any) => {
       if(res?.Status == 'Success') {
         this.storageSer.set('siteIds', res.siteList);
+        this.getMetadata();
       }
       if(res?.Status == 'Failed') {
         // this.userSer.logout();

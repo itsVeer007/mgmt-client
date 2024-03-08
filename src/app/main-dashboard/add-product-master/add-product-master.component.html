@@ -14,7 +14,7 @@
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>materialDescription</mat-label>
               <input matInput formControlName="materialDescription" [(ngModel)]="prductMasterObj.materialDescription">
-              <mat-error class="mt-1">materialDescription is required</mat-error>
+              <mat-error >materialDescription is required</mat-error>
             </mat-form-field>
           </div>
 
@@ -24,7 +24,7 @@
               <mat-select formControlName="uomId" [(ngModel)]="prductMasterObj.uomId">
                 <mat-option *ngFor="let item of uomId" [value]="item.keyId">{{ item.value }}</mat-option>
               </mat-select>
-              <mat-error class="mt-1">uomId is required</mat-error>
+              <mat-error >uomId is required</mat-error>
             </mat-form-field>
           </div>
 
@@ -34,7 +34,7 @@
               <mat-select formControlName="partType" [(ngModel)]="prductMasterObj.partType">
                 <mat-option *ngFor="let item of partType" [value]="item.keyId">{{ item.value }}</mat-option>
               </mat-select>
-              <mat-error class="mt-1">partType is required</mat-error>
+              <mat-error >partType is required</mat-error>
             </mat-form-field>
           </div>
 
@@ -44,7 +44,7 @@
               <mat-select formControlName="partCategory" [(ngModel)]="prductMasterObj.partCategory">
                 <mat-option *ngFor="let item of partCategory" [value]="item.keyId">{{ item.value }}</mat-option>
               </mat-select>
-              <mat-error class="mt-1">partCategory is required</mat-error>
+              <mat-error >partCategory is required</mat-error>
             </mat-form-field>
           </div>
 
@@ -54,7 +54,7 @@
               <mat-select formControlName="partCode" [(ngModel)]="prductMasterObj.partCode">
                 <mat-option *ngFor="let item of partCode" [value]="item.keyId">{{ item.value }}</mat-option>
               </mat-select>
-              <mat-error class="mt-1">partCode is required</mat-error>
+              <mat-error >partCode is required</mat-error>
             </mat-form-field>
           </div>
 
@@ -64,7 +64,7 @@
               <mat-select formControlName="buildType" [(ngModel)]="prductMasterObj.buildType">
                 <mat-option *ngFor="let item of buildType" [value]="item.keyId">{{ item.value }}</mat-option>
               </mat-select>
-              <mat-error class="mt-1">buildType is required</mat-error>
+              <mat-error >buildType is required</mat-error>
             </mat-form-field>
           </div>
 

@@ -468,18 +468,18 @@
         </tr>
       </tfoot> -->
     </table>
-    <!-- table ends -->
+
+    <!-- error msg -->
+    <div class="d-flex align-items-center justify-content-center" style="height: 45vh;" *ngIf="errInfo && !showLoader">
+      <h1 class="text-secondary">{{errInfo}}</h1>
+    </div>
+  
+    <!-- loader -->
+    <div *ngIf="showLoader">
+      <app-loader class="d-flex justify-content-center align-items-center" style="height: 45vh;"></app-loader>
+    </div>
   </div>
 
-  <!-- error msg -->
-  <div class="d-flex align-items-center justify-content-center" style="height: 45vh;" *ngIf="errInfo && !showLoader">
-    <h1 class="text-secondary">{{errInfo}}</h1>
-  </div>
-
-  <!-- loader -->
-  <div *ngIf="showLoader">
-    <app-loader class="d-flex justify-content-center align-items-center" style="height: 45vh;"></app-loader>
-  </div>
 </div>
 
 

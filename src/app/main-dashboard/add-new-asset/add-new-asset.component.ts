@@ -1,6 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AssetService } from 'src/services/asset.service';
 import { AlertService } from 'src/services/alert.service';
@@ -38,7 +38,7 @@ export class AddNewAssetComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private fb: UntypedFormBuilder,
+    private fb: FormBuilder,
     private assetSer: AssetService,
     private dropDown: MetadataService,
     private alertSer: AlertService,
@@ -47,7 +47,7 @@ export class AddNewAssetComponent implements OnInit {
     private siteSer: SiteService
   ) { }
 
-  addAssetForm: any = UntypedFormGroup;
+  addAssetForm: any = FormGroup;
   searchText: any;
   currentDate = new Date();
 
@@ -97,31 +97,31 @@ export class AddNewAssetComponent implements OnInit {
     this.user = this.storageSer.get('user');
     // this.deviceIdFromStorage = this.storageSer.get('add_body');
     this.addAssetForm = this.fb.group({
-      'siteId': new UntypedFormControl('', Validators.required),
-      'file': new UntypedFormControl('', Validators.required),
-      'deviceId': new UntypedFormControl('', Validators.required),
-      'deviceModeId': new UntypedFormControl(''),
-      'name': new UntypedFormControl('', Validators.required),
-      'playOrder': new UntypedFormControl(''),
-      'createdBy': new UntypedFormControl(''),
-      'splRuleId': new UntypedFormControl(''),
-      'fromDate': new UntypedFormControl(''),
-      'toDate': new UntypedFormControl(''),
-      'adFor': new UntypedFormControl(''),
-      'enableDemo': new UntypedFormControl(''),
-      'timeId': new UntypedFormControl(''),
-      'tempId': new UntypedFormControl(''),
-      'maleKids': new UntypedFormControl(''),
-      'femaleKids': new UntypedFormControl(''),
-      'maleYouth': new UntypedFormControl(''),
-      'femaleYouth': new UntypedFormControl(''),
-      'maleAdults': new UntypedFormControl(''),
-      'femaleAdults': new UntypedFormControl(''),
-      'vehicles': new UntypedFormControl(''),
-      'persons': new UntypedFormControl(''),
+      'siteId': new FormControl('', Validators.required),
+      'file': new FormControl('', Validators.required),
+      'deviceId': new FormControl('', Validators.required),
+      'deviceModeId': new FormControl(''),
+      'name': new FormControl('', Validators.required),
+      'playOrder': new FormControl(''),
+      'createdBy': new FormControl(''),
+      'splRuleId': new FormControl(''),
+      'fromDate': new FormControl(''),
+      'toDate': new FormControl(''),
+      'adFor': new FormControl(''),
+      'enableDemo': new FormControl(''),
+      'timeId': new FormControl(''),
+      'tempId': new FormControl(''),
+      'maleKids': new FormControl(''),
+      'femaleKids': new FormControl(''),
+      'maleYouth': new FormControl(''),
+      'femaleYouth': new FormControl(''),
+      'maleAdults': new FormControl(''),
+      'femaleAdults': new FormControl(''),
+      'vehicles': new FormControl(''),
+      'persons': new FormControl(''),
 
-      'object': new UntypedFormControl(''),
-      'person_vehicle': new UntypedFormControl('')
+      'object': new FormControl(''),
+      'person_vehicle': new FormControl('')
     });
 
     this.addAssetForm.get('deviceModeId').valueChanges.subscribe((val: any) => {
@@ -209,41 +209,31 @@ export class AddNewAssetComponent implements OnInit {
   adsTime: any;
   onMetadataChange() {
     let data = this.storageSer.get('metaData');
-      for(let item of data) {
-        if(item.type == 2) {
-          this.deviceType = item.metadata;
-        }
-        else if(item.type == 1) {
-          this.deviceMode = item.metadata;
-        }
-        else if(item.type == 6) {
-          this.workingDay = item.metadata;
-        }
-        else if(item.type == 11) {
-          this.tempRange = item.metadata;
-        }
-        else if(item.type == 13) {
-          this.ageRange = item.metadata;
-        }
-        else if(item.type == 7) {
-          this.modelObjectType = item.metadata;
-        }
-        else if(item.type == 18) {
-          this.model = item.metadata;
-        }
-        else if(item.type == 19) {
-          this.modelResolution = item.metadata;
-        }
-        else if(item.type == 20) {
-          this.softwareVersion = item.metadata;
-        }
-        else if(item.type == 21) {
-          this.weatherInterval = item.metadata;
-        }
-        else if(item.type == 9) {
-          this.adsTime = item.metadata;
-        }
+    data?.forEach((item: any) => {
+      if(item.type == 2) {
+        this.deviceType = item.metadata;
+      } else if(item.type == 1) {
+        this.deviceMode = item.metadata;
+      } else if(item.type == 6) {
+        this.workingDay = item.metadata;
+      } else if(item.type == 11) {
+        this.tempRange = item.metadata;
+      } else if(item.type == 13) {
+        this.ageRange = item.metadata;
+      } else if(item.type == 7) {
+        this.modelObjectType = item.metadata;
+      } else if(item.type == 18) {
+        this.model = item.metadata;
+      } else if(item.type == 19) {
+        this.modelResolution = item.metadata;
+      } else if(item.type == 20) {
+        this.softwareVersion = item.metadata;
+      } else if(item.type == 21) {
+        this.weatherInterval = item.metadata;
+      } else if(item.type == 9) {
+        this.adsTime = item.metadata;
       }
+    })
   }
 
 

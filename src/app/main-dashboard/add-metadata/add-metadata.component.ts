@@ -1,6 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/services/alert.service';
 import { MetadataService } from 'src/services/metadata.service';
@@ -38,12 +38,12 @@ export class AddMetadataComponent implements OnInit {
   // @Input() metadataTypes: any;
   @Output() newItemEvent: any = new EventEmitter<boolean>();
 
-  metadataForm: any = UntypedFormGroup;
+  metadataForm: any = FormGroup;
   ng: any;
 
   constructor(
     private router: Router,
-    private fb: UntypedFormBuilder,
+    private fb: FormBuilder,
     private metaDataSer: MetadataService,
     public alertSer: AlertService,
     private storageSer: StorageService
@@ -53,10 +53,10 @@ export class AddMetadataComponent implements OnInit {
   ngOnInit(): void {
     this.user = this.storageSer.get('user');
     this.metadataForm = this.fb.group({
-      metadataTypeId: new UntypedFormControl('', Validators.required),
-      value: new UntypedFormControl('', Validators.required),
-      code: new UntypedFormControl(''),
-      remarks: new UntypedFormControl('')
+      metadataTypeId: new FormControl('', Validators.required),
+      value: new FormControl('', Validators.required),
+      code: new FormControl(''),
+      remarks: new FormControl('')
     });
     // this.getDeviceType();
     this.listMetadataTypes();
