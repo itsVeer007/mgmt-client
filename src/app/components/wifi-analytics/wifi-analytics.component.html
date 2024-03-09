@@ -31,61 +31,58 @@
     </div> -->
   </div>
   <!-- /count -->
-
-    <!-- <div class="row mt-2">
-        <div class="col-lg-2 col-md-2">
-        <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Site Name</mat-label>
-            <mat-select [(ngModel)]="filterDataObject.siteId">
-              <mat-option value="All" (click)="filterWifiData('All')">All</mat-option>
-                <mat-option *ngFor="let item of newTableData | search: siteSearch" [value]="item.siteid"  (click)="filterWifiData()" >{{ item.siteid }} - {{ item.sitename }}</mat-option>
-            </mat-select>
-        </mat-form-field>
-        </div>
-
-        <div class="col-lg-2 col-md-2">
-          <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Device Name</mat-label>
-              <mat-select [(ngModel)]="filterDataObject.deviceId" (selectionChange)="filterWifiData()">
-                  <mat-option value="RSMGLIN9902DW1">RSMGLIN9902DW1</mat-option>
-                  <mat-option value="Dv1">Dv1</mat-option>
-                  <mat-option value="Dv2">Dv2</mat-option>
-              </mat-select>
-          </mat-form-field>
-          </div>
-
-        <div class="col-lg-3 from-date">
-        <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Enter a date range</mat-label>
-            <mat-date-range-input [rangePicker]="rangePicker">
-            <input matStartDate placeholder="Created from" [(ngModel)]="filterDataObject.startDate">
-            <input matEndDate placeholder="Created to" [(ngModel)]="filterDataObject.endDate">
-            </mat-date-range-input>
-            <mat-datepicker-toggle matIconSuffix [for]="rangePicker"></mat-datepicker-toggle>
-
-            <mat-date-range-picker #rangePicker>
-            <mat-date-range-picker-actions>
-                <button mat-button matDateRangePickerCancel>Cancel</button>
-                <button mat-raised-button color="primary" matDateRangePickerApply (click)="filterWifiData()">Apply</button>
-            </mat-date-range-picker-actions>
-            </mat-date-range-picker>
-        </mat-form-field>
-        </div>
-
-        <div class="col-md-2 mt-1">
-          <button class="create-btn" (click)="show('ticket')">Submit</button>
-        </div>
-    </div> -->
   <div class="row">
-    <div class="col-lg-2">
-      <mat-form-field class="example-form-field" appearance="outline" class="w-100">
-        <mat-label>Search</mat-label>
-        <input matInput type="text"  [(ngModel)]="searchText">
-        <button matSuffix mat-icon-button>
-          <mat-icon>search</mat-icon>
-        </button>
-      </mat-form-field>
+    <div>
+      <div class="col-lg-2">
+        <mat-form-field class="example-form-field" appearance="outline" class="w-100">
+          <mat-label>Search</mat-label>
+          <input matInput type="text" [(ngModel)]="searchText">
+          <button matSuffix mat-icon-button>
+            <mat-icon>search</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
     </div>
+  </div>
+    <div class="row mt-2">
+      <div class="col-lg-2 col-md-2">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Site Name</mat-label>
+          <mat-select>
+            <!-- <mat-option value="All" (click)="filterWifiData('All')">All</mat-option> -->
+            <mat-option></mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-lg-2 col-md-2">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Device Name</mat-label>
+          <mat-select [(ngModel)]="filterDataObject.device_name">
+            <mat-option *ngFor="let item of dayWiseStatsData" [value]="item.device_name" (click)="devicefilter()">{{item.device_name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-lg-3 from-date">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Enter a date range</mat-label>
+          <mat-date-range-input [rangePicker]="rangePicker">
+            <input matStartDate placeholder="Created from" [(ngModel)]="filterDataObject.doif">
+            <input matEndDate placeholder="Created to" [(ngModel)]="filterDataObject.doit">
+          </mat-date-range-input>
+          <mat-datepicker-toggle matIconSuffix [for]="rangePicker"></mat-datepicker-toggle>
+          <mat-date-range-picker #rangePicker>
+            <mat-date-range-picker-actions>
+              <button mat-button matDateRangePickerCancel>Cancel</button>
+              <button mat-raised-button color="primary" matDateRangePickerApply (click)="devicefilter()">Apply</button>
+            </mat-date-range-picker-actions>
+          </mat-date-range-picker>
+        </mat-form-field>
+      </div>
+      <!-- <div class="col-md-2 mt-1">
+        <button class="create-btn" (click)="show('ticket')">Submit</button>
+      </div> -->
+    </div>
+  <div class="row">
   <!-- <div class="col-lg-2">
     <mat-form-field appearance="outline" class="w-100">
       <mat-label>Device Name</mat-label>
@@ -109,6 +106,9 @@
             <span>Device Name</span>
             <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
+          <th>Active Count</th>
+          <th>InActiveCount</th>
+          <th>DateConnected</th>
           <th>
             <span>Details</span>
           </th>
@@ -121,11 +121,13 @@
             <p>{{i+1}}</p>
           </td>
           <td>
-            <p>{{cust.deviceId}}</p>
+            <p>{{cust.device_name}}</p>
           </td>
-
+          <td>{{cust.active_count}}</td>
+          <td>{{cust.inactive_count}}</td>
+          <td>{{cust.date_connected}}</td>
           <td>
-            <p class="text-primary pointer" (click)="viewWifi(cust)">View</p>
+            <p class="text-primary pointer" (click)="hourWiseStats(cust)">View</p>
           </td>
         </tr>
       </tbody>
@@ -149,9 +151,9 @@
   </div>
 
   <div class="dialog-content">
-    <div class="d-flex justify-content-end">
+    <!-- <div class="d-flex justify-content-end">
       <button class="create-btn mb-2" (click)="show('wifi')" mat-dialog-close>statistics</button>
-    </div>
+    </div> -->
     <div class="table-res">
       <table class="table" id="mytable">
         <thead>
@@ -161,7 +163,7 @@
               <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </th>
             <th>
-              <span>Hour</span>
+              <span>device_name</span>
               <img (click)="sort('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </th>
             <th>
@@ -173,12 +175,12 @@
               <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </th>
             <th>
-              <span>Total</span>
-              <img (click)="sort('siteId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              <span>Time Connected</span>
+              <img (click)="sort('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </th>
             <th>
-              <span>Time Spent</span>
-              <img (click)="sort('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              <span>Total</span>
+              <img (click)="sort('siteId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </th>
             <th>
               <span>Details</span>
@@ -187,26 +189,26 @@
         </thead>
 
         <tbody>
-          <tr *ngFor="let task of viewData?.hourlyStats; let i = index">
+          <tr *ngFor="let task of hourWiseStatsData; let i = index">
             <td>
               <p>{{i+1 }}</p>
             </td>
             <td>
-              <p>{{ task.hour }}</p>
+              <p>{{ task.device_name }}</p>
             </td>
             <td>
-              <p>{{ task.active}}</p>
+              <p>{{ task.active_count}}</p>
             </td>
             <td>
-              <p>{{ task.inactive }}</p>
+              <p>{{ task.inactive_count }}</p>
+            </td>
+            <td>
+              <p>{{ task.time_connected }}</p>
             </td>
             <td>
               <p>{{ task.total }}</p>
             </td>
-            <td>
-              <p>{{ task.timeSpent }}</p>
-            </td>
-            <td class="pointer" (click)="secondView(task)">
+            <td class="pointer" (click)="deviceWiseStats(task)">
               <p  style="color: #084982;">view</p>
             </td>
           </tr>
@@ -244,7 +246,7 @@
         </thead>
 
         <tbody>
-          <tr *ngFor=" let item of secondTable; let i = index">
+          <tr *ngFor=" let item of deviceWiseStatsData; let i = index">
             <td>
               <p>{{i+1 }}</p>
             </td>

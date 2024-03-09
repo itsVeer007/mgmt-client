@@ -52,16 +52,65 @@ open(type:string) {
   ngOnInit(): void {
     this.user =  this.storageSer.get('user');
     // this.GetWifiStats();
-    this.getCurrentDayStats();
+    // this.getCurrentDayStats();
+    this.dayWiseStats();
   }
+
+  newDeviceData:any = [];
+  dayWiseStatsData:any;
+  response:any;
+  dayWiseStats() {
+    this.assetSer.dayWiseStats().subscribe((res:any)=> {
+    // console.log(res);
+    this.response = res;
+    this.dayWiseStatsData = res.content;
+    this.newDeviceData = this.dayWiseStatsData
+    })
+  }
+
+  hourWiseStatsData:any;
+  hourWiseStats(item:any) {
+    console.log(item);
+    this.assetSer.hourWiseStats(item).subscribe((res:any)=> {
+      // console.log(res);
+      this.hourWiseStatsData = res.content;
+    })
+    this.dialog.open(this.usedItemsDialog);
+  }
+
+  deviceWiseStatsData:any;
+  deviceWiseStats(task:any) {
+    console.log(task);
+    this.assetSer.deviceWiseStats(task).subscribe((res:any)=> {
+      // console.log(res);
+      this.deviceWiseStatsData = res?.content
+  })
+  this.dialog.open(this.usedItemsDialogTwo);
+  }
+
+  filterDataObject = {
+    device_name: null,
+    doif: null,
+    doit: null
+  }
+
+newFilterData:any = []
+filterData:any;
+  devicefilter() {
+  this.assetSer.dayWiseStats(this.filterDataObject).subscribe((res:any)=> {
+    console.log(res);
+    this.filterData= res.content;
+    this.newDeviceData = this.filterData;
+  })
+}
 
 
 // Wifi Analytics
-device:any;
-active:any;
-inActive:any;
+// device:any;
+// active:any;
+// inActive:any;
 
-newDeviceData: any = []
+
 wifiData: any = [];
 newWifiData: any;
 peakHours: any;
@@ -77,13 +126,7 @@ peakHours: any;
 //   })
 // }
 
-// devicefilter(data:any) {
-//   console.log(data)
-//   this.assetSer.devicefilter(data).subscribe((res:any)=> {
-//     console.log(res);
-//   this.newWifiData = res
-//   })
-// }
+
 
 getCurrentDayStats() {
   this.assetSer.getCurrentDayStats().subscribe((res:any)=> {
@@ -103,20 +146,16 @@ viewWifi(data: any) {
     // console.log(res);
     this.viewData = res;
   });
-  this.dialog.open(this.usedItemsDialog);
 }
 
-
-
-newFilterData:any = []
-filterData:any;
-filterWifiData(data:any) {
-  console.log(data);
-  this.assetSer.GetWifiStats({device_name: data?.device_name}).subscribe((res:any)=> {
-    console.log(res);
-    this.newWifiData = res;
-  })
-}
+// filterWifiData(data:any) {
+//   console.log(data);
+//   this.assetSer.GetWifiStats({device_name: data?.device_name}).subscribe((res:any)=> {
+//     console.log(res);
+//     this.filterData= res
+//     this.newWifiData = this.filterData;
+//   })
+// }
 
 
 secondTable:any
@@ -130,17 +169,12 @@ secondView(data:any) {
     // console.log(res);
     this.secondTable = res;
   })
-  this.dialog.open(this.usedItemsDialogTwo);
+
 }
 
 
 
-filterDataObject = {
-  siteId: null,
-  deviceId: null,
-  startDate: null,
-  endDate: null
-}
+
 
 
 // filterWifiData() {
@@ -386,6 +420,5 @@ openWifiData(data: any) {
       x.sort((a: string, b: string) => b[label] > a[label] ? 1 : b[label] < a[label] ? -1 : 0);
     }
   }
-
 
 }

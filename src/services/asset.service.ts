@@ -151,7 +151,6 @@ export class AssetService {
     if(payload?.deviceId) {
       params = params.set('deviceId', payload?.deviceId);
     }
-
     return this.http.get(url, {params: params});
   }
 
@@ -313,4 +312,58 @@ export class AssetService {
     return this.http.get(url);
   }
 
+
+
+
+
+  // WifiMainAPIS
+
+  baseUrl2 = 'http://192.168.0.248:8080';
+
+  dayWiseStats(payload?:any) {
+    let url = this.baseUrl2 + '/dayWiseStats_1_0';
+    let params = new HttpParams();
+    if(payload?.device_name) {
+      params = params.set('deviceName', payload?.device_name)
+    }
+    if(payload?.doif) {
+      params = params.set('doif', formatDate(payload?.doif, 'yyyy-MM-dd','en-us' ))
+    }
+    if(payload?.doit) {
+      params = params.set('doit', formatDate(payload?.doit, 'yyyy-MM-dd','en-us' ))
+    }
+    if(payload?.page) {
+      params= params.set('page',payload?.page)
+    }
+    if(payload?.pagesize) {
+      params = params.set('pagesize',payload?.pagesize)
+    }
+    return this.http.get(url, {params:params})
+  }
+
+  hourWiseStats(payload?:any) {
+    let url = this.baseUrl2 + '/hourWiseStats_1_0';
+    let params = new HttpParams();
+
+    if(payload?.device_name) {
+      params = params.set('deviceName',payload?.device_name)
+    }
+
+    return this.http.get(url,{params:params})
+  }
+
+  deviceWiseStats(payload?:any) {
+    let url = this.baseUrl2 + '/deviceWiseStats_1_0';
+    let params = new HttpParams();
+    if(payload?.device_name) {
+      params = params.set('deviceName',payload?.device_name)
+    }
+    if(payload?.time_connected) {
+      params = params.set('doi',payload?.time_connected)
+    }
+    if(payload?.toi) {
+      params = params.set('toi',formatDate(new Date(), 'yyyy-MM-dd','en-us' ))
+    }
+    return this.http.get(url,{params:params});
+  }
 }
