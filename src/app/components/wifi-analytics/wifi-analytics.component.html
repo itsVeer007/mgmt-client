@@ -3,9 +3,12 @@
   <!-- header -->
   <div class="d-flex justify-content-between">
     <div class="users-header mt-2">
-      <p>Total Devices - <span>{{newWifiData?.length}}</span></p>
+      <p>Total Devices - <span>{{newDeviceData?.length}}</span></p>
       <!-- <p>PeakHours - <span>{{peakHours}}</span></p> -->
     </div>
+    <!-- <div class="d-flex justify-content-end">
+      <button class="create-btn mb-2" (click)="show('wifi')">statistics</button>
+    </div> -->
   </div>
 
   <!-- count -->
@@ -108,6 +111,7 @@
           </th>
           <th>Active Count</th>
           <th>InActiveCount</th>
+          <th>Total</th>
           <th>DateConnected</th>
           <th>
             <span>Details</span>
@@ -121,10 +125,13 @@
             <p>{{i+1}}</p>
           </td>
           <td>
-            <p>{{cust.device_name}}</p>
+            <p class="pointer text-primary" (click)="show('wifi', cust)">{{cust.device_name}}</p>
           </td>
           <td>{{cust.active_count}}</td>
           <td>{{cust.inactive_count}}</td>
+          <td>
+            <p>{{ cust.active_count + cust.inactive_count }}</p>
+          </td>
           <td>{{cust.date_connected}}</td>
           <td>
             <p class="text-primary pointer" (click)="hourWiseStats(cust)">View</p>
@@ -151,9 +158,6 @@
   </div>
 
   <div class="dialog-content">
-    <!-- <div class="d-flex justify-content-end">
-      <button class="create-btn mb-2" (click)="show('wifi')" mat-dialog-close>statistics</button>
-    </div> -->
     <div class="table-res">
       <table class="table" id="mytable">
         <thead>
@@ -174,13 +178,15 @@
               <span>Inactive</span>
               <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </th>
-            <th>
-              <span>Time Connected</span>
-              <img (click)="sort('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-            </th>
+
             <th>
               <span>Total</span>
               <img (click)="sort('siteId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </th>
+            <!-- <th>PeakHour</th> -->
+            <th>
+              <span>Time Connected</span>
+              <img (click)="sort('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </th>
             <th>
               <span>Details</span>
@@ -203,14 +209,17 @@
               <p>{{ task.inactive_count }}</p>
             </td>
             <td>
-              <p>{{ task.time_connected }}</p>
+              <p>{{ task.active_count + task.inactive_count }}</p>
             </td>
-            <td>
-              <p>{{ task.total }}</p>
-            </td>
+            <!-- <td >{{task.peak}}</td> -->
+              <td [style.background-color]="task.peak == 1 ? '#ca6464' : task.peak == 0 ? '' : 0">
+                <p >{{ task.time_connected }}</p>
+              </td>
+
             <td class="pointer" (click)="deviceWiseStats(task)">
               <p  style="color: #084982;">view</p>
             </td>
+
           </tr>
         </tbody>
       </table>
@@ -221,6 +230,7 @@
     <button class="dialog-close-btn" mat-dialog-close>Close</button>
   </div>
 </ng-template>
+
 <ng-template #usedItemsDialogTwo>
   <div style="background-color: #084982;">
     <p class="dialog-title">used items</p>

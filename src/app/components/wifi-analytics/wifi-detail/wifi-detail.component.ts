@@ -11,14 +11,14 @@ import { ChartService } from 'src/services/chart.service';
   animations:[
     trigger("inOutPaneAnimation", [
       transition(":enter", [
-        style({ opacity: 0, transform: "translateX(100%)" }), //apply default styles before animation starts
+        style({ opacity: 0, transform: "translateX(100%)" }),
         animate(
           "500ms ease-in-out",
           style({ opacity: 1, transform: "translateX(0)" })
         )
       ]),
       transition(":leave", [
-        style({ opacity: 1, transform: "translateX(0)" }), //apply default styles before animation starts
+        style({ opacity: 1, transform: "translateX(0)" }),
         animate(
           "500ms ease-in-out",
           style({ opacity: 0, transform: "translateX(100%)" })
@@ -40,8 +40,8 @@ export class WifiDetailComponent implements OnInit {
   UserForm!: FormGroup
   deviceData: any;
   ngOnInit(): void {
-    this.deviceData = this.show;
-    console.log(this.deviceData)
+    // this.deviceData = this.show;
+    // console.log(this.deviceData)
     this.wifiDeatils();
   }
 
@@ -49,21 +49,21 @@ graphData:any = [];
 keys: any = [];
 values: any = [];
 wifiDeatils() {
-  this.assetSer.GetWifiStats2(this.deviceData).subscribe((res:any)=> {
-    // console.log(res);
-    this.graphData.push(res.dayWise);
-    this.graphData.push(res.weekWise);
-    this.graphData.push(res.monthWise);
-    this.graphData.push(res.quarterWise);
+  this.assetSer.getAnalytics(this.show).subscribe((res:any) => {
+    console.log(res);
+    this.graphData.push(res.day);
+    this.graphData.push(res.week);
+    this.graphData.push(res.month);
+    this.graphData.push(res.quarter);
 
     // this.mychart(res.dayWise, 'chart01', 1);
     // this.mychart(res.weekWise, 'chart02', 1);
     // this.mychart(res.monthWise, 'chart03', 1);
     // this.mychart(res.quarterWise, 'chart04', 1);
-    this.mychart(res.dayWise, 'chart1', 0);
-    this.mychart(res.weekWise, 'chart2', 0);
-    this.mychart(res.monthWise, 'chart3', 0);
-    this.mychart(res.quarterWise, 'chart4', 0);
+    this.mychart(res.day, 'chart1', 0);
+    this.mychart(res.week, 'chart2', 0);
+    this.mychart(res.month, 'chart3', 0);
+    this.mychart(res.quarter, 'chart4', 0);
   })
 }
 
@@ -71,7 +71,7 @@ wifiDeatils() {
   mychart(payload: any, type: any, flag: any) {
     let counts: any;
     let newTitle: any;
-    if(flag == 0) {
+    if(flag === 0) {
       counts = payload.counts.split(',');
       console.log(counts);
       newTitle = payload.type + ', ' + 'Device Count';

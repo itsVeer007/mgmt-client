@@ -285,32 +285,13 @@ export class AssetService {
     let url = this. baseUrl1 + `/wifiDetails/GetCurrentDayStats_1_0/${payload?.device_name}`;
     return this.http.get(url)
   }
-
-  GetWifiStats2(payload: any) {
-    let date = formatDate(new Date(), 'yyyy-MM-dd', 'en-us');
-    let url = this. baseUrl1 + `/wifiDetails/GetWifiStats_1_0/${payload?.device_name}/${date}`;
-    return this.http.get(url)
-  }
-
   secondView(payload:any) {
     let url = this. baseUrl1 + '/wifiDetails/GetHourStats_1_0';
     let params = new HttpParams().set('time_connected',payload?.finalTime).set('device_name',payload.device)
     return this.http.get(url, {params:params})
   }
 
-  // devicefilter(payload:any) {
-  //   let url = this. baseUrl1 + '/devicefilter';
-  //   let params = new HttpParams();
-  //   if(payload?.device_name) {
-  //     params = params.set('device_name', payload?.device_name);
-  //   }
-  //   return this.http.get(url, {params:params})
-  // }
 
-  getCurrentDayStats() {
-    let url = this.baseUrl1 + '/getCurrentDayStats_1_0';
-    return this.http.get(url);
-  }
 
 
 
@@ -318,7 +299,7 @@ export class AssetService {
 
   // WifiMainAPIS
 
-  baseUrl2 = 'http://192.168.0.248:8080';
+  baseUrl2 = 'http://192.168.0.111:8080';
 
   dayWiseStats(payload?:any) {
     let url = this.baseUrl2 + '/dayWiseStats_1_0';
@@ -355,15 +336,21 @@ export class AssetService {
   deviceWiseStats(payload?:any) {
     let url = this.baseUrl2 + '/deviceWiseStats_1_0';
     let params = new HttpParams();
-    if(payload?.device_name) {
-      params = params.set('deviceName',payload?.device_name)
+    if(payload?.deviceName) {
+      params = params.set('deviceName',payload?.deviceName)
+    }
+    if(payload?.doi) {
+      params = params.set('doi', formatDate(new Date(), 'yyyy-MM-dd','en-us'))
     }
     if(payload?.time_connected) {
-      params = params.set('doi',payload?.time_connected)
-    }
-    if(payload?.toi) {
-      params = params.set('toi',formatDate(new Date(), 'yyyy-MM-dd','en-us' ))
+      params = params.set('toi' ,payload?.time_connected)
     }
     return this.http.get(url,{params:params});
+  }
+
+  getAnalytics(payload: any) {
+    let date = formatDate(new Date(), 'yyyy-MM-dd', 'en-us');
+    let url = this. baseUrl2 + `/getAnalytics_1_0/${payload?.device_name}/${date}`;
+    return this.http.get(url)
   }
 }

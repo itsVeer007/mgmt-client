@@ -51,8 +51,6 @@ open(type:string) {
   user: any;
   ngOnInit(): void {
     this.user =  this.storageSer.get('user');
-    // this.GetWifiStats();
-    // this.getCurrentDayStats();
     this.dayWiseStats();
   }
 
@@ -68,9 +66,13 @@ open(type:string) {
     })
   }
 
+  newWifiData: any;
   hourWiseStatsData:any;
+  @ViewChild('usedItemsDialog') usedItemsDialog = {} as TemplateRef<any>;
   hourWiseStats(item:any) {
-    console.log(item);
+    // console.log(item);
+    // this.currentItem = item
+    // this.inputToChild = item;
     this.assetSer.hourWiseStats(item).subscribe((res:any)=> {
       // console.log(res);
       this.hourWiseStatsData = res.content;
@@ -79,10 +81,15 @@ open(type:string) {
   }
 
   deviceWiseStatsData:any;
+  @ViewChild('usedItemsDialogTwo') usedItemsDialogTwo = {} as TemplateRef<any>;
   deviceWiseStats(task:any) {
     console.log(task);
-    this.assetSer.deviceWiseStats(task).subscribe((res:any)=> {
-      // console.log(res);
+    let time = task?.time_connected.split('-');
+    let time_connected = time[0]
+    let date = new Date()
+    console.log(time)
+    this.assetSer.deviceWiseStats({deviceName:task?.device_name ,time_connected:time_connected, doi:date}).subscribe((res:any)=> {
+      console.log(res);
       this.deviceWiseStatsData = res?.content
   })
   this.dialog.open(this.usedItemsDialogTwo);
@@ -103,95 +110,24 @@ filterData:any;
     this.newDeviceData = this.filterData;
   })
 }
-
-
-// Wifi Analytics
-// device:any;
-// active:any;
-// inActive:any;
-
-
-wifiData: any = [];
-newWifiData: any;
-peakHours: any;
-// GetWifiStats() {
-//   this.showLoader = true;
-//   this.assetSer.devicefilter(null).subscribe((res:any)=> {
-//     console.log(res);
-//     this.showLoader = false;
-//     this.wifiData = res;
-//     console.log(this.wifiData)
-//     this.newWifiData = this.wifiData;
-//     console.log(this.newWifiData)
-//   })
-// }
-
-
-
-getCurrentDayStats() {
-  this.assetSer.getCurrentDayStats().subscribe((res:any)=> {
-    console.log(res);
-  })
+showWifiDetail: boolean = false;
+closenow(type: any) {
+  if (type == 'wifi') {
+    this.showWifiDetail = false;
+  }
 }
 
-viewData:any;
 inputToChild: any;
-@ViewChild('usedItemsDialog') usedItemsDialog = {} as TemplateRef<any>;
-viewWifi(data: any) {
-  // console.log(data);
-  this.currentItem = data
-  this.inputToChild = data;
-  this.peakHours = data?.peakHours
-  this.assetSer.GetWifiStats1({device_name: data?.device_name}).subscribe((res:any)=> {
-    // console.log(res);
-    this.viewData = res;
-  });
-}
-
-// filterWifiData(data:any) {
-//   console.log(data);
-//   this.assetSer.GetWifiStats({device_name: data?.device_name}).subscribe((res:any)=> {
-//     console.log(res);
-//     this.filterData= res
-//     this.newWifiData = this.filterData;
-//   })
-// }
-
-
-secondTable:any
-@ViewChild('usedItemsDialogTwo') usedItemsDialogTwo = {} as TemplateRef<any>;
-secondView(data:any) {
-  // console.log(data)
-  // console.log(this.currentItem)
-  let time = data?.hour?.split('-');
-  let finalTime = time[0];
-  this.assetSer.secondView({finalTime:finalTime, device: this.currentItem?.device_name}).subscribe((res)=> {
-    // console.log(res);
-    this.secondTable = res;
-  })
-
+show(type: string, data: any) {
+  if (type == 'wifi') {
+    this.showWifiDetail = true;
+    this.inputToChild = data;
+  }
 }
 
 
 
 
-
-
-// filterWifiData() {
-//   this.showLoader = true;
-//   this.assetSer.wifiData(this.filterDataObject).subscribe((res:any)=> {
-//     // console.log(res);
-//     this.total = res;
-//     this.showLoader = false
-//     this.newWifiData = res?.devices;
-//   })
-// }
-
-
-openViewPopupData:any = [];
-openWifiData(data: any) {
-
-}
 
 // listSites() {
 //   this.showLoader = true;
@@ -305,17 +241,7 @@ openWifiData(data: any) {
   showAddBusinessVertical = false;
   showSite = false;
 
-  showWifiDetail: boolean = false;
-  closenow(type: any) {
-    if (type == 'wifi') {
-      this.showWifiDetail = false;
-    }
-  }
-  show(type: string) {
-    if (type == 'wifi') {
-      this.showWifiDetail = true
-    }
-  }
+
 
 
   currentItem: any;
