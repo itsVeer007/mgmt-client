@@ -60,28 +60,29 @@ wifiDeatils() {
     // this.mychart(res.weekWise, 'chart02', 1);
     // this.mychart(res.monthWise, 'chart03', 1);
     // this.mychart(res.quarterWise, 'chart04', 1);
-    this.mychart(res.day, 'chart1', 0);
-    this.mychart(res.week, 'chart2', 0);
-    this.mychart(res.month, 'chart3', 0);
-    this.mychart(res.quarter, 'chart4', 0);
+    this.mychart(res.day, 'chart1', 'Day', 0);
+    this.mychart(res.week, 'chart2', 'Week', 0);
+    this.mychart(res.month, 'chart3', 'Month', 0);
+    this.mychart(res.quarter, 'chart4', 'Quarter', 0);
   })
 }
 
 
-  mychart(payload: any, type: any, flag: any) {
+  mychart(payload: any, type: any, tit: any, flag: any) {
+    console.log(payload);
     let counts: any;
     let newTitle: any;
     if(flag === 0) {
       counts = payload.counts.split(',');
-      console.log(counts);
       newTitle = payload.type + ', ' + 'Device Count';
-      console.log(newTitle)
     } else {
       counts = payload.times.split(',');
       newTitle = payload.type + ', ' + 'Time'
-      console.log(newTitle)
     }
     let labels = payload.labels.split(',');
+    labels.reverse()
+    console.log(labels)
+
     let timestrings = payload.timestrings.split(',');
 
     var chartType = 'line';
@@ -89,7 +90,7 @@ wifiDeatils() {
     // var subtitle = '';
     var categories = labels;
     var elementid = type;
-    var subTitle = payload.type;
+    var subTitle = tit;
     let arr: any = [];
     labels.forEach((item: any, index: any) => {
     if(flag == 0 ) {
@@ -99,7 +100,7 @@ wifiDeatils() {
     }
     })
     var data = arr;
-    console.log(data)
+    data.reverse()
     this.chartService.wifiChart(chartType, title, data, elementid, subTitle, categories)
   }
 

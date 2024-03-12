@@ -33,34 +33,28 @@
     </div>
     </div> -->
   </div>
-  <!-- /count -->
-  <div class="row">
-    <div>
-      <div class="col-lg-2">
-        <mat-form-field class="example-form-field" appearance="outline" class="w-100">
-          <mat-label>Search</mat-label>
-          <input matInput type="text" [(ngModel)]="searchText">
-          <button matSuffix mat-icon-button>
-            <mat-icon>search</mat-icon>
-          </button>
-        </mat-form-field>
-      </div>
-    </div>
-  </div>
+
     <div class="row mt-2">
-      <div class="col-lg-2 col-md-2">
+      <div class="col-lg-3 col-md-3 col-sm-12">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Site Name</mat-label>
-          <mat-select>
-            <!-- <mat-option value="All" (click)="filterWifiData('All')">All</mat-option> -->
-            <mat-option></mat-option>
-          </mat-select>
+          <mat-label>Select site</mat-label>
+          <input matInput #siteIdInput [matAutocomplete]="site" [(ngModel)]="siteNg" (keyup)="searchSites($event)">
+          <button matSuffix mat-icon-button>
+            <mat-icon>arrow_drop_down</mat-icon>
+          </button>
+          <mat-autocomplete #site="matAutocomplete">
+            <mat-option value="All" (click)="filterSites('All')" *ngIf="tableData.length !== 0">All</mat-option>
+            <mat-option *ngFor="let item of tableData | search: siteSearch" [value]="item.siteid" (click)="filterSites(item.siteid)">
+              {{ item.siteid }} - {{ item.sitename }}
+            </mat-option>
+          </mat-autocomplete>
         </mat-form-field>
       </div>
-      <div class="col-lg-2 col-md-2">
+      <div class="col-lg-3">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Device Name</mat-label>
           <mat-select [(ngModel)]="filterDataObject.device_name">
+            <mat-option value="">All</mat-option>
             <mat-option *ngFor="let item of dayWiseStatsData" [value]="item.device_name" (click)="devicefilter()">{{item.device_name}}</mat-option>
           </mat-select>
         </mat-form-field>
@@ -81,64 +75,75 @@
           </mat-date-range-picker>
         </mat-form-field>
       </div>
-      <!-- <div class="col-md-2 mt-1">
-        <button class="create-btn" (click)="show('ticket')">Submit</button>
-      </div> -->
+      <div class="col-lg-2">
+        <mat-form-field class="example-form-field" appearance="outline" class="w-100">
+          <mat-label>Search</mat-label>
+          <input matInput type="text" [(ngModel)]="searchText">
+          <button matSuffix mat-icon-button>
+            <mat-icon>search</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
     </div>
-  <div class="row">
-  <!-- <div class="col-lg-2">
-    <mat-form-field appearance="outline" class="w-100">
-      <mat-label>Device Name</mat-label>
-      <mat-select>
-        <mat-option [value]="null" (click)="devicefilter(null)">All</mat-option>
-        <mat-option *ngFor="let item of wifiData" [value]="item.device_name" (click)="devicefilter(item)">{{item.device_name}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div> -->
-  </div>
+
 
   <div class="table-resp">
     <table class="table table-hover" id="mytable" #table>
       <thead>
         <tr class="form1">
-          <th>
+          <!-- <th>
             <span>Id</span>
             <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+          </th> -->
+          <th>
+            <span>Wifi DeviceName</span>
+            <img (click)="sort('device_name')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
           <th>
-            <span>Device Name</span>
+            <p>Date</p>
+            <img (click)="sort('date_connected')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+          </th>
+          <th>
+            <p>Active</p>
+            <img (click)="sort('active_count')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+          </th>
+          <th >
+            <p>InActive</p>
+            <img (click)="sort('inactive_count')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+          </th>
+          <th>
+            <p>Total</p>
             <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
-          <th>Active Count</th>
-          <th>InActiveCount</th>
-          <th>Total</th>
-          <th>DateConnected</th>
           <th>
             <span>Details</span>
+            <!-- <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
           </th>
         </tr>
       </thead>
 
       <tbody *ngIf="!showLoader">
-        <tr *ngFor="let cust of newDeviceData ; let i = index">
-          <td>
+        <tr *ngFor="let cust of newDeviceData | search: searchText; let i = index">
+          <!-- <td>
             <p>{{i+1}}</p>
-          </td>
+          </td> -->
           <td>
             <p class="pointer text-primary" (click)="show('wifi', cust)">{{cust.device_name}}</p>
           </td>
+          <td>{{cust.date_connected}}</td>
           <td>{{cust.active_count}}</td>
-          <td>{{cust.inactive_count}}</td>
+          <td >{{cust.inactive_count}}</td>
           <td>
             <p>{{ cust.active_count + cust.inactive_count }}</p>
           </td>
-          <td>{{cust.date_connected}}</td>
           <td>
             <p class="text-primary pointer" (click)="hourWiseStats(cust)">View</p>
           </td>
         </tr>
       </tbody>
     </table>
+    <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator> -->
+
 
     <!-- error info -->
     <div class="err-info" style="height: 45vh;" *ngIf="newWifiData?.length == 0 && !showLoader">
@@ -153,8 +158,8 @@
 </div>
 
 <ng-template #usedItemsDialog>
-  <div style="background-color: #084982;">
-    <p class="dialog-title">used items</p>
+  <div style="background-color: #084982;" >
+    <p class="dialog-title">{{ currentItem.device_name}}</p>
   </div>
 
   <div class="dialog-content">
@@ -162,32 +167,32 @@
       <table class="table" id="mytable">
         <thead>
           <tr class="form1">
-            <th>
+            <!-- <th>
               <span>Id</span>
               <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-            </th>
-            <th>
-              <span>device_name</span>
+            </th> -->
+            <!-- <th>
+              <span>Wifi device_name</span>
               <img (click)="sort('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </th> -->
+            <th>
+              <span>Time</span>
+              <img (click)="sort('time_connected')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </th>
             <th>
-              <span>Active Devices</span>
-              <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              <span>Active Count</span>
+              <img (click)="sort('active_count')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </th>
             <th>
-              <span>Inactive</span>
-              <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              <span>Inactive Count</span>
+              <img (click)="sort('inactive_count')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </th>
 
             <th>
-              <span>Total</span>
+              <span>Total Count</span>
               <img (click)="sort('siteId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </th>
             <!-- <th>PeakHour</th> -->
-            <th>
-              <span>Time Connected</span>
-              <img (click)="sort('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-            </th>
             <th>
               <span>Details</span>
             </th>
@@ -195,12 +200,15 @@
         </thead>
 
         <tbody>
-          <tr *ngFor="let task of hourWiseStatsData; let i = index">
-            <td>
+          <tr [style.background-color]="task.peak == 1 ? '#A8D38D' : task.peak == 0 ? '' : 0" *ngFor="let task of hourWiseStatsData; let i = index">
+            <!-- <td>
               <p>{{i+1 }}</p>
-            </td>
-            <td>
+            </td> -->
+            <!-- <td>
               <p>{{ task.device_name }}</p>
+            </td> -->
+            <td >
+              <p >{{ task.time_connected }}</p>
             </td>
             <td>
               <p>{{ task.active_count}}</p>
@@ -212,9 +220,6 @@
               <p>{{ task.active_count + task.inactive_count }}</p>
             </td>
             <!-- <td >{{task.peak}}</td> -->
-              <td [style.background-color]="task.peak == 1 ? '#ca6464' : task.peak == 0 ? '' : 0">
-                <p >{{ task.time_connected }}</p>
-              </td>
 
             <td class="pointer" (click)="deviceWiseStats(task)">
               <p  style="color: #084982;">view</p>
@@ -232,34 +237,38 @@
 </ng-template>
 
 <ng-template #usedItemsDialogTwo>
-  <div style="background-color: #084982;">
-    <p class="dialog-title">used items</p>
-  </div>
+   <div style="background-color: #084982;">
+    <div class="d-flex justify-content-between align-items-center">
+      <p class="dialog-title ">{{currentItem.device_name}}</p>
+      <p class="dialog-title ">Hour[{{currentItem.time_connected}}]</p>
+    </div>
+   </div>
+
 
   <div class="dialog-content">
     <div class="table-res">
       <table class="table" id="mytable">
         <thead>
           <tr class="form1">
-            <th>
+            <!-- <th>
               <span>Id</span>
               <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-            </th>
+            </th> -->
             <th>
               <span>MacAddress</span>
-              <img (click)="sort('createdTime')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              <img (click)="sort('mac_address')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </th>
             <th>
               <span>Time Spent</span>
-              <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              <img (click)="sort('time_spent')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </th>
         </thead>
 
         <tbody>
           <tr *ngFor=" let item of deviceWiseStatsData; let i = index">
-            <td>
+            <!-- <td>
               <p>{{i+1 }}</p>
-            </td>
+            </td> -->
             <td>
               <p>{{ item.mac_address }}</p>
             </td>

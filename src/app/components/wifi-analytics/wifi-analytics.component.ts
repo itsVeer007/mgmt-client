@@ -52,6 +52,7 @@ open(type:string) {
   ngOnInit(): void {
     this.user =  this.storageSer.get('user');
     this.dayWiseStats();
+    this.listSites();
   }
 
   newDeviceData:any = [];
@@ -71,7 +72,7 @@ open(type:string) {
   @ViewChild('usedItemsDialog') usedItemsDialog = {} as TemplateRef<any>;
   hourWiseStats(item:any) {
     // console.log(item);
-    // this.currentItem = item
+    this.currentItem = item
     // this.inputToChild = item;
     this.assetSer.hourWiseStats(item).subscribe((res:any)=> {
       // console.log(res);
@@ -83,20 +84,21 @@ open(type:string) {
   deviceWiseStatsData:any;
   @ViewChild('usedItemsDialogTwo') usedItemsDialogTwo = {} as TemplateRef<any>;
   deviceWiseStats(task:any) {
-    console.log(task);
+    // console.log(task);
+    this.currentItem = task
     let time = task?.time_connected.split('-');
     let time_connected = time[0]
     let date = new Date()
-    console.log(time)
+    // console.log(time)
     this.assetSer.deviceWiseStats({deviceName:task?.device_name ,time_connected:time_connected, doi:date}).subscribe((res:any)=> {
-      console.log(res);
+      // console.log(res);
       this.deviceWiseStatsData = res?.content
   })
   this.dialog.open(this.usedItemsDialogTwo);
   }
 
   filterDataObject = {
-    device_name: null,
+    device_name: '',
     doif: null,
     doit: null
   }
@@ -105,9 +107,8 @@ newFilterData:any = []
 filterData:any;
   devicefilter() {
   this.assetSer.dayWiseStats(this.filterDataObject).subscribe((res:any)=> {
-    console.log(res);
-    this.filterData= res.content;
-    this.newDeviceData = this.filterData;
+    // console.log(res);
+    this.newDeviceData = res.content;
   })
 }
 showWifiDetail: boolean = false;
@@ -125,35 +126,35 @@ show(type: string, data: any) {
   }
 }
 
+siteNg:any = 'All';
+siteSearch: any;
+newTableData:any = [];
+tableData:any = [];
+listSites() {
+  this.showLoader = true;
+  this.siteSer.listSites().subscribe((res: any) => {
+    console.log(res);
+    this.showLoader = false;
+    if(res?.Status == 'Success') {
+      this.tableData = res?.siteList?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
+      this.newTableData = this.tableData;
+      console.log(this.newTableData)
+    }
+    }, (err: any) => {
+      this.showLoader = false;
+  });
+}
+
+filterSites(site: any) {
+  if(site == 'All') {
+    this.newTableData = this.tableData;
+  } else {
+    this.newTableData =  this.tableData.filter((item: any) => item.siteid == site)
+  }
+}
 
 
 
-
-// listSites() {
-//   this.showLoader = true;
-//   this.siteSer.listSites().subscribe((res: any) => {
-//     // console.log(res);
-//     this.showLoader = false;
-//     if(res?.Status == 'Success') {
-//       this.tableData = res?.siteList?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
-//       this.newTableData = this.tableData;
-//       console.log(this.newTableData)
-//     }
-//     }, (err: any) => {
-//       this.showLoader = false;
-//   });
-// }
-
-// siteSearch: any;
-// newTableData:any = [];
-// tableData:any = [];
-// filterSites(site: any) {
-//   if(site == 'All') {
-//     this.newTableData = this.tableData;
-//   } else {
-//     this.newTableData =  this.tableData.filter((item: any) => item.siteid == site)
-//   }
-// }
 
   frFilterBody: any = {
     p_frId: null,
@@ -208,20 +209,28 @@ show(type: string, data: any) {
   stDt: any;
   enDt: any;
 
-  applyFilter() {
-    let myObj = {
-      'siteId': this.sId ? this.sId : -1,
-      'typeId': this.tId ? this.tId : -1,
-      'ticketStatus': this.tStatus ? this.tStatus : '',
-      'startDate': this.stDt ? this.datePipe.transform(this.stDt,'yyyy-MM-dd HH:mm:ss') : '',
-      'endDate': this.enDt ? this.datePipe.transform(this.enDt,'yyyy-MM-dd HH:mm:ss') : ''
+  // applyFilter() {
+  //   let myObj = {
+  //     'siteId': this.sId ? this.sId : -1,
+  //     'typeId': this.tId ? this.tId : -1,
+  //     'ticketStatus': this.tStatus ? this.tStatus : '',
+  //     'startDate': this.stDt ? this.datePipe.transform(this.stDt,'yyyy-MM-dd HH:mm:ss') : '',
+  //     'endDate': this.enDt ? this.datePipe.transform(this.enDt,'yyyy-MM-dd HH:mm:ss') : ''
+  //   }
+
+  //   this.inventorySer.filterTicket(myObj).subscribe((res: any) => {
+  //     console.log(res);
+  //     this.newTicketData = res;
+  //   })
+  // }
+
+    /* searches */
+    // siteSearch: any;
+    // siteNg: any = 'All'
+    searchSites(event: any) {
+      this.siteSearch = (event.target as HTMLInputElement).value
     }
 
-    this.inventorySer.filterTicket(myObj).subscribe((res: any) => {
-      // console.log(res);
-      // this.newTicketData = res;
-    })
-  }
 
   currentid = 0;
   closeDot(e: any, i: any) {
@@ -339,7 +348,7 @@ show(type: string, data: any) {
   sorted = false;
   sort(label: any) {
     this.sorted = !this.sorted;
-    var x = this.reportsData;
+    var x = this.newDeviceData;
     if (this.sorted == false) {
       x.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
     } else {
