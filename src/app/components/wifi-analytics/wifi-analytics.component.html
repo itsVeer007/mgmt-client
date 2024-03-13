@@ -116,6 +116,10 @@
             <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
           <th>
+            <p>Average Time</p>
+            <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+          </th>
+          <th>
             <span>Details</span>
             <!-- <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
           </th>
@@ -136,6 +140,7 @@
           <td>
             <p>{{ cust.active_count + cust.inactive_count }}</p>
           </td>
+          <td><p>{{cust.average_time_spent}}</p></td>
           <td>
             <p class="text-primary pointer" (click)="hourWiseStats(cust)">View</p>
           </td>

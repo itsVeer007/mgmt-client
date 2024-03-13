@@ -299,7 +299,7 @@ export class AssetService {
 
   // WifiMainAPIS
 
-  baseUrl2 = 'http://192.168.0.111:8080';
+  baseUrl2 = 'http://192.168.0.114:8080';
 
   dayWiseStats(payload?:any) {
     let url = this.baseUrl2 + '/dayWiseStats_1_0';

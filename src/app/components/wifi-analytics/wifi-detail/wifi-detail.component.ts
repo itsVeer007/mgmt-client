@@ -51,10 +51,11 @@ values: any = [];
 wifiDeatils() {
   this.assetSer.getAnalytics(this.show).subscribe((res:any) => {
     console.log(res);
-    this.graphData.push(res.day);
-    this.graphData.push(res.week);
-    this.graphData.push(res.month);
-    this.graphData.push(res.quarter);
+    this.graphData.push({data: res.day, type: 'Day'});
+    this.graphData.push({data: res.week, type: 'Week'});
+    this.graphData.push({data: res.month, type: 'Month'});
+    this.graphData.push({data: res.quarter, type: 'Quarter'});
+    console.log(this.graphData  )
 
     // this.mychart(res.dayWise, 'chart01', 1);
     // this.mychart(res.weekWise, 'chart02', 1);
@@ -74,20 +75,16 @@ wifiDeatils() {
     let newTitle: any;
     if(flag === 0) {
       counts = payload.counts.split(',');
-      newTitle = payload.type + ', ' + 'Device Count';
+      newTitle = tit + ', ' + 'Device Count';
     } else {
       counts = payload.times.split(',');
-      newTitle = payload.type + ', ' + 'Time'
+      newTitle = tit + ', ' + 'Time'
     }
     let labels = payload.labels.split(',');
     labels.reverse()
-    console.log(labels)
-
     let timestrings = payload.timestrings.split(',');
-
     var chartType = 'line';
     var title = newTitle;
-    // var subtitle = '';
     var categories = labels;
     var elementid = type;
     var subTitle = tit;
@@ -96,11 +93,11 @@ wifiDeatils() {
     if(flag == 0 ) {
       arr.push([labels[index] + ', ' + counts[index] + ', ' + timestrings[index], Number(counts[index])]);
     } else {
-      arr.push(+ counts[index] + ', ' + [timestrings[index], Number(counts[index])]);
+      arr.push(counts[index] + ', ' + [timestrings[index], Number(counts[index])]);
     }
     })
     var data = arr;
-    data.reverse()
+    data.reverse();
     this.chartService.wifiChart(chartType, title, data, elementid, subTitle, categories)
   }
 
