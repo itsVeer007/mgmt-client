@@ -22,8 +22,8 @@ export class WifiAnalyticsComponent implements OnInit {
 
   showLoader = false;
   constructor(
-    private inventorySer:InventoryService,
-    private siteSer:SiteService,
+    private inventorySer: InventoryService,
+    private siteSer: SiteService,
     private assetSer: AssetService,
     private metaDatSer: MetadataService,
     private datePipe: DatePipe,
@@ -34,67 +34,67 @@ export class WifiAnalyticsComponent implements OnInit {
   ) { }
 
 
-first:boolean = true;
-second:boolean = false;
-open(type:string) {
-  // this.count();
-  if(type == 'data') {
-    this.second = true;
-    this.first =false;
+  first: boolean = true;
+  second: boolean = false;
+  open(type: string) {
+    // this.count();
+    if (type == 'data') {
+      this.second = true;
+      this.first = false;
+    }
+    else
+      this.first = true;
   }
-  else
-  this.first = true;
-}
 
-  tempSites:any;
+  tempSites: any;
   // siteData: any;
   user: any;
   ngOnInit(): void {
-    this.user =  this.storageSer.get('user');
+    this.user = this.storageSer.get('user');
     this.dayWiseStats();
     this.listSites();
   }
 
-  newDeviceData:any = [];
-  dayWiseStatsData:any;
-  response:any;
+  newDayWiseData: any = [];
+  dayWiseStatsData: any;
+  response: any;
   dayWiseStats() {
-    this.assetSer.dayWiseStats().subscribe((res:any)=> {
-    // console.log(res);
-    this.response = res;
-    this.dayWiseStatsData = res.content;
-    this.newDeviceData = this.dayWiseStatsData
+    this.assetSer.dayWiseStats().subscribe((res: any) => {
+      // console.log(res);
+      this.response = res;
+      this.dayWiseStatsData = res.content;
+      this.newDayWiseData = this.dayWiseStatsData;
     })
   }
 
   newWifiData: any;
-  hourWiseStatsData:any;
+  hourWiseStatsData: any;
   @ViewChild('usedItemsDialog') usedItemsDialog = {} as TemplateRef<any>;
-  hourWiseStats(item:any) {
+  hourWiseStats(item: any) {
     // console.log(item);
     this.currentItem = item
     // this.inputToChild = item;
-    this.assetSer.hourWiseStats(item).subscribe((res:any)=> {
+    this.assetSer.hourWiseStats(item).subscribe((res: any) => {
       // console.log(res);
       this.hourWiseStatsData = res.content;
     })
     this.dialog.open(this.usedItemsDialog);
   }
 
-  deviceWiseStatsData:any;
+  deviceWiseStatsData: any;
   @ViewChild('usedItemsDialogTwo') usedItemsDialogTwo = {} as TemplateRef<any>;
-  deviceWiseStats(task:any) {
+  deviceWiseStats(task: any) {
     // console.log(task);
     this.currentItem = task
     let time = task?.time_connected.split('-');
     let time_connected = time[0]
     let date = new Date()
     // console.log(time)
-    this.assetSer.deviceWiseStats({deviceName:task?.device_name ,time_connected:time_connected, doi:date}).subscribe((res:any)=> {
+    this.assetSer.deviceWiseStats({ deviceName: task?.device_name, time_connected: time_connected, doi: date }).subscribe((res: any) => {
       // console.log(res);
       this.deviceWiseStatsData = res?.content
-  })
-  this.dialog.open(this.usedItemsDialogTwo);
+    })
+    this.dialog.open(this.usedItemsDialogTwo);
   }
 
   filterDataObject = {
@@ -103,70 +103,82 @@ open(type:string) {
     doit: null
   }
 
-newFilterData:any = []
-filterData:any;
+  newFilterData: any = []
+  filterData: any;
   devicefilter() {
-  this.assetSer.dayWiseStats(this.filterDataObject).subscribe((res:any)=> {
-    // console.log(res);
-    this.newDeviceData = res.content;
-  })
-}
-showWifiDetail: boolean = false;
-closenow(type: any) {
-  if (type == 'wifi') {
-    this.showWifiDetail = false;
-  }
-}
-
-inputToChild: any;
-show(type: string, data: any) {
-  if (type == 'wifi') {
-    this.showWifiDetail = true;
-    this.inputToChild = data;
-  }
-}
-
-siteNg:any = 'All';
-siteSearch: any;
-newTableData:any = [];
-tableData:any = [];
-listSites() {
-  this.showLoader = true;
-  this.siteSer.listSites().subscribe((res: any) => {
-    console.log(res);
-    this.showLoader = false;
-    if(res?.Status == 'Success') {
-      this.tableData = res?.siteList?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
-      this.newTableData = this.tableData;
-      console.log(this.newTableData)
+    if(this.filterDataObject.device_name == '') {
+      this.newDayWiseData = this.dayWiseStatsData;
+    } else {
+      this.assetSer.dayWiseStats(this.filterDataObject).subscribe((res: any) => {
+        // console.log(res);
+        this.newDayWiseData = res.content;
+      });
     }
+  }
+  showWifiDetail: boolean = false;
+  closenow(type: any) {
+    if (type == 'wifi') {
+      this.showWifiDetail = false;
+    }
+  }
+
+  inputToChild: any;
+  show(type: string, data: any) {
+    if (type == 'wifi') {
+      this.showWifiDetail = true;
+      this.inputToChild = data;
+    }
+  }
+
+  siteNg: any = 'All';
+  siteSearch: any;
+  newTableData: any = [];
+  tableData: any = [];
+  listSites() {
+    this.showLoader = true;
+    this.siteSer.listSites().subscribe((res: any) => {
+      // console.log(res);
+      this.showLoader = false;
+      if (res?.Status == 'Success') {
+        this.getDevices(null);
+        this.tableData = res?.siteList?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
+        this.newTableData = this.tableData;
+      }
     }, (err: any) => {
       this.showLoader = false;
-  });
-}
-
-filterSites(site: any) {
-  if(site == 'All') {
-    this.newTableData = this.tableData;
-  } else {
-    this.newTableData =  this.tableData.filter((item: any) => item.siteid == site)
+    });
   }
-}
 
+  deviceData: any;
+  getDevices(siteId: any) {
+    this.assetSer.listDeviceBySiteId({siteId: siteId}).subscribe((res: any) => {
+      this.deviceData = res.flatMap((item: any) => item.adsDevices);
+      // this.inputToDevices = this.deviceData;
+      // console.log('site',this.inputToDevices);
+    })
+  }
 
-
+  filterSites(site: any) {
+    // console.log(site)
+    if (site == 'All') {
+      this.newTableData = this.tableData;
+    } else {
+      this.newTableData = this.tableData.filter((item: any) => item.siteid == site)
+      this.getDevices(site);
+    }
+  }
 
   frFilterBody: any = {
     p_frId: null,
-    p_startdate:null,
-    p_enddate:null
+    p_startdate: null,
+    p_enddate: null
   }
 
   listSitesData: any
-  reportsData:any = [];
+  reportsData: any = [];
   listFRReports() {
     this.frFilterBody.p_frId = this.user?.UserId;
-    this.inventorySer.listFRReports(this.frFilterBody).subscribe((res: any)=> {
+    this.inventorySer.listFRReports(this.frFilterBody).subscribe((res: any) => {
       // console.log(res);
       this.reportsData = res;
 
@@ -188,16 +200,16 @@ filterSites(site: any) {
   sourceOfRequest: any
   getMetadata() {
     let data = this.storageSer.get('metaData');
-    for(let item of data) {
-      if(item.type == 'Ticket_Status') {
+    for (let item of data) {
+      if (item.type == 'Ticket_Status') {
         this.statusVal = item.metadata;
-      } else if(item.type == "Ticket_Priority") {
+      } else if (item.type == "Ticket_Priority") {
         this.priorityVal = item.metadata;
-      } else if(item.type == "Assigned_To") {
+      } else if (item.type == "Assigned_To") {
         this.assignedTo = item.metadata;
-      } else if(item.type == "Ticket_Type") {
+      } else if (item.type == "Ticket_Type") {
         this.ticketType = item.metadata;
-      } else if(item.type == "Source_of_Request") {
+      } else if (item.type == "Source_of_Request") {
         this.sourceOfRequest = item.metadata;
       }
     }
@@ -224,12 +236,12 @@ filterSites(site: any) {
   //   })
   // }
 
-    /* searches */
-    // siteSearch: any;
-    // siteNg: any = 'All'
-    searchSites(event: any) {
-      this.siteSearch = (event.target as HTMLInputElement).value
-    }
+  /* searches */
+  // siteSearch: any;
+  // siteNg: any = 'All'
+  searchSites(event: any) {
+    this.siteSearch = (event.target as HTMLInputElement).value
+  }
 
 
   currentid = 0;
@@ -308,11 +320,11 @@ filterSites(site: any) {
 
     this.inventorySer.assignTicket(myObj).subscribe((res: any) => {
       // console.log(res);
-        this.alertSer.success(res?.message);
+      this.alertSer.success(res?.message);
     }, (err: any) => {
-        if(err) {
-          this.alertSer.error(err?.error?.message);
-        }
+      if (err) {
+        this.alertSer.error(err?.error?.message);
+      }
     })
   }
 
@@ -329,7 +341,7 @@ filterSites(site: any) {
     }
 
     this.inventorySer.createComment(myObj).subscribe((res: any) => {
-    this.inventorySer.comment$.next(res);
+      this.inventorySer.comment$.next(res);
     });
     this.cmtValue = ''
   }
@@ -348,7 +360,18 @@ filterSites(site: any) {
   sorted = false;
   sort(label: any) {
     this.sorted = !this.sorted;
-    var x = this.newDeviceData;
+    var x = this.dayWiseStatsData;
+    if (this.sorted == false) {
+      x.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
+    } else {
+      x.sort((a: string, b: string) => b[label] > a[label] ? 1 : b[label] < a[label] ? -1 : 0);
+    }
+  }
+
+  sorted1 = false;
+  sort1(label: any) {
+    this.sorted = !this.sorted;
+    var x = this.hourWiseStatsData;
     if (this.sorted == false) {
       x.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
     } else {

@@ -10,26 +10,13 @@
     <div class="d-flex justify-content-between mb-3">
       <div class="box" *ngFor="let item of graphData">
         <div class="setbox">{{item.type}}</div>
-        <div class="inbox"
-          [style.background-color]="(item.data.status == 'Raise')? '#2E8B57' : (item.data.status == 'Fall' && (item.data.percentage >= 5))? '#e52d48' :(item.data.status == 'Fall' && (item.data.percentage < 5))? '#FFA500' : '#767676' ">
-          {{item.data.percentage ? item.data.percentage : '00'}}% </div>
+        <div class="inbox" [style.background-color]="(item.data.status == 'Raise')? '#2E8B57' : (item.data.status == 'Fall' && (item.data.percentage >= 5))? '#e52d48' :(item.data.status == 'Fall' && (item.data.percentage < 5))? '#FFA500' : '#767676' ">
+          {{item.data.percentage ? item.data.percentage : '00'}}%
+        </div>
       </div>
     </div>
 
     <div class="charts-container">
-      <!-- <div>
-        <div id="chart01"></div>
-      </div>
-      <div>
-        <div id="chart02"></div>
-      </div>
-      <div>
-        <div id="chart03"></div>
-      </div>
-      <div>
-        <div id="chart04"></div>
-      </div> -->
-
       <div>
         <div id="chart1"></div>
       </div>
