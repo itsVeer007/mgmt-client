@@ -319,6 +319,9 @@ export class AssetService {
     if(payload?.pagesize) {
       params = params.set('pagesize',payload?.pagesize)
     }
+    if(payload?.siteId) {
+      params = params.set('siteId',payload?.siteId)
+    }
     return this.http.get(url, {params:params})
   }
 

@@ -29,6 +29,7 @@ export class FilterComponent {
   sitesList: any = [];
   listSites() {
     this.siteSer.listSites().subscribe((res: any) => {
+      console.log(res);
       if(res?.Status == 'Success') {
         this.listDevices();
         this.sitesList = res?.siteList?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
@@ -75,6 +76,21 @@ export class FilterComponent {
         let x = res.flatMap((item: any) => item.adsDevices);
         this.tableDataFromChild.emit(x);
       })
+    }
+
+    if(type === 'wifi') {
+      this.loaderFromChild.emit(true);
+      this.assetSer.dayWiseStats({siteId: siteId, device_name: deviceId}).subscribe((res: any) => {
+        // console.log(res);
+        this.loaderFromChild.emit(false);
+        if(res.message === 'no data') {
+          // let x = res.content;
+          this.tableDataFromChild.emit(res.content);
+        } else {
+          // let x = res.content;
+          this.tableDataFromChild.emit(res.content);
+        }
+      });
     }
   }
 

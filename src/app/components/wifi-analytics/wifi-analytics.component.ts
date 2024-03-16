@@ -52,7 +52,7 @@ export class WifiAnalyticsComponent implements OnInit {
   ngOnInit(): void {
     this.user = this.storageSer.get('user');
     this.dayWiseStats();
-    this.listSites();
+    // this.listSites();
   }
 
   newDayWiseData: any = [];
@@ -103,7 +103,7 @@ export class WifiAnalyticsComponent implements OnInit {
     doit: null
   }
 
-  newFilterData: any = []
+  newFilterData: any = [];
   filterData: any;
   devicefilter() {
     if(this.filterDataObject.device_name == '') {
@@ -130,42 +130,19 @@ export class WifiAnalyticsComponent implements OnInit {
     }
   }
 
-  siteNg: any = 'All';
-  siteSearch: any;
-  newTableData: any = [];
-  tableData: any = [];
-  listSites() {
-    this.showLoader = true;
-    this.siteSer.listSites().subscribe((res: any) => {
-      // console.log(res);
-      this.showLoader = false;
-      if (res?.Status == 'Success') {
-        this.getDevices(null);
-        this.tableData = res?.siteList?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
-        this.newTableData = this.tableData;
-      }
-    }, (err: any) => {
-      this.showLoader = false;
-    });
+
+
+
+  getAdsFromChild(data: any) {
+    this.newDayWiseData = data;
   }
 
-  deviceData: any;
-  getDevices(siteId: any) {
-    this.assetSer.listDeviceBySiteId({siteId: siteId}).subscribe((res: any) => {
-      this.deviceData = res.flatMap((item: any) => item.adsDevices);
-      // this.inputToDevices = this.deviceData;
-      // console.log('site',this.inputToDevices);
-    })
+  getSearchFromChild(data: any) {
+    this.searchText = data;
   }
 
-  filterSites(site: any) {
-    // console.log(site)
-    if (site == 'All') {
-      this.newTableData = this.tableData;
-    } else {
-      this.newTableData = this.tableData.filter((item: any) => item.siteid == site)
-      this.getDevices(site);
-    }
+  getLoaderFromChild(data: boolean) {
+    this.showLoader = data;
   }
 
   frFilterBody: any = {
@@ -213,34 +190,6 @@ export class WifiAnalyticsComponent implements OnInit {
         this.sourceOfRequest = item.metadata;
       }
     }
-  }
-
-  sId: any = '';
-  tId: any = '';
-  tStatus: any = '';
-  stDt: any;
-  enDt: any;
-
-  // applyFilter() {
-  //   let myObj = {
-  //     'siteId': this.sId ? this.sId : -1,
-  //     'typeId': this.tId ? this.tId : -1,
-  //     'ticketStatus': this.tStatus ? this.tStatus : '',
-  //     'startDate': this.stDt ? this.datePipe.transform(this.stDt,'yyyy-MM-dd HH:mm:ss') : '',
-  //     'endDate': this.enDt ? this.datePipe.transform(this.enDt,'yyyy-MM-dd HH:mm:ss') : ''
-  //   }
-
-  //   this.inventorySer.filterTicket(myObj).subscribe((res: any) => {
-  //     console.log(res);
-  //     this.newTicketData = res;
-  //   })
-  // }
-
-  /* searches */
-  // siteSearch: any;
-  // siteNg: any = 'All'
-  searchSites(event: any) {
-    this.siteSearch = (event.target as HTMLInputElement).value
   }
 
 
