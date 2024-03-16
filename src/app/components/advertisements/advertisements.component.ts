@@ -24,31 +24,10 @@ export class AdvertisementsComponent implements OnInit {
 
   searchText!: string;
   showLoader: boolean = false;
-  // currentDateTime: any;
-  // endDateTime: any;
-
   user: any;
   ngOnInit() {
     this.user = this.storageSer.get('user');
-    this.listSites();
-  }
-
-  siteData: any = [];
-  listSites() {
-    this.showLoader = true;
-    this.siteSer.listSites().subscribe((res: any) => {
-      // console.log(res);
-      this.showLoader = false;
-      if(res?.Status == 'Success') {
-        this.getMetadata();
-        this.siteData = res?.siteList?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
-        // this.siteId = this.siteData[0]?.siteid;
-        // this.filterAdvertisements();\
-        this.listAssets();
-      }
-      }, (err: any) => {
-        this.showLoader = false;
-    });
+    this.listAssets();
   }
 
   advertisements: any = [];
@@ -58,51 +37,13 @@ export class AdvertisementsComponent implements OnInit {
   sycedAfterAddition: any = [];
   sycedAfterRemoval: any = [];
   removed: any = [];
-
   listAssets() {
+    this.showLoader = true;
     this.assetService.listAssets().subscribe((res: any) => {
+      this.showLoader = false;
       let x = res.flatMap((item: any) => item.assets);
       this.advertisements = x.sort((a: any, b: any) => a.deviceModeId > b.deviceModeId ? -1 : a.deviceModeId < b.deviceModeId ? 1 : 0);;
       this.newAdvertisements = this.advertisements;
-    })
-  }
-
-  deviceData: any;
-  listDevices() {
-    this.assetService.listDeviceAdsInfo().subscribe((res: any) => {
-      this.deviceData = res.flatMap((item: any) => item.adsDevices);
-      this.filteredDevices = this.deviceData;
-    })
-  }
-
-  /* searches */
-  siteSearch: any;
-  searchSites(event: any) {
-    this.siteSearch = (event.target as HTMLInputElement).value
-  }
-
-  deviceSearch: any;
-  searchDevices(event: any) {
-    this.deviceSearch = (event.target as HTMLInputElement).value
-  }
-
-  siteId: any =  'All';
-  deviceId: any = 'All';
-  filteredDevices: any = [];
-  filterAdvertisements() {
-    let siteId: any;
-    let deviceId: any;
-    this.siteId == 'All' ? siteId = null : siteId = this.siteId;
-    this.deviceId == 'All' ? deviceId = null : deviceId = this.deviceId
-
-    this.showLoader = true;
-    this.assetService.listAssets1({siteId: siteId, deviceId: deviceId}).subscribe((res: any) => {
-      this.showLoader = false;
-      let x = res.flatMap((item: any) => item.assets);
-      this.newAdvertisements = x.sort((a: any, b: any) => a.deviceModeId > b.deviceModeId ? -1 : a.deviceModeId < b.deviceModeId ? 1 : 0);
-      this.assetService.listDeviceBySiteId({siteId: siteId}).subscribe((res: any) => {
-        this.filteredDevices = res.flatMap((item: any) => item.adsDevices);
-      });
 
       this.pending = [];
       this.added = [];
@@ -125,9 +66,36 @@ export class AdvertisementsComponent implements OnInit {
     })
   }
 
-  // makeNull() {
-  //   this.filterObj.deviceId = null;
-  // }
+  getLoaderFromChild(data: boolean) {
+    this.showLoader = data;
+  }
+
+  getAdsFromChild(data: any) {
+    this.newAdvertisements = data;
+    
+    this.pending = [];
+    this.added = [];
+    this.sycedAfterAddition = [];
+    this.sycedAfterRemoval = [];
+    this.removed = [];
+    for(let item of data) {
+      if(item.status == 1) {
+        this.pending.push(item);
+      } else if(item.status == 2) {
+        this.added.push(item);
+      } else if(item.status == 4) {
+        this.sycedAfterAddition.push(item);
+      } else if(item.status == 5) {
+        this.sycedAfterRemoval.push(item);
+      } else if(item.status == 3) {
+        this.removed.push(item);
+      }
+    }
+  }
+
+  getSearchFromChild(data: any) {
+    this.searchText = data;
+  }
 
   deviceType: any;
   deviceMode: any;
@@ -177,7 +145,8 @@ export class AdvertisementsComponent implements OnInit {
     this.assetService.updateAssetStatus(this.currentStatusId, this.statusObj).subscribe((res: any) => {
       // console.log(res);
       // this.getAssetBySiteId(this.siteData[0]?.siteid);
-      this.filterAdvertisements();
+      // this.filterAdvertisements();
+      this.listAssets();
       this.alertSer.success(res?.message);
     }, (err: any) => {
       if(err) {
@@ -197,46 +166,28 @@ export class AdvertisementsComponent implements OnInit {
   originalObject: any;
   changedKeys: any[] = [];
   currentItem: any;
-
   onDateChange(e: any) {
-    this.originalObject = {
-      "id": this.currentItem.id,
-      "deviceModeId": this.currentItem.deviceModeId,
-      "playOrder": this.currentItem.playOrder,
-      "modifiedBy": 1,
-      "fromDate": this.currentItem.fromDate,
-      "toDate": this.currentItem.toDate,
-      "active": this.currentItem.active,
-      "status": this.currentItem.status
-    };
-
     let x = e.targetElement.name;
-
     if(!(this.changedKeys.includes(x))) {
       this.changedKeys.push(x);
     }
   }
 
   onSelectChange(event: any) {
-    this.originalObject = {
-      "id": this.currentItem.id,
-      "deviceModeId": this.currentItem.deviceModeId,
-      "playOrder": this.currentItem.playOrder,
-      "modifiedBy": 1,
-      "fromDate": this.currentItem.fromDate,
-      "toDate": this.currentItem.toDate,
-      "active": this.currentItem.active,
-      "status": this.currentItem.status
-    };
-
     let x = event.source.ngControl.name;
-
     if(!(this.changedKeys.includes(x))) {
       this.changedKeys.push(x);
     }
   }
 
   onInputChange(event: any) {
+    let x = event.target['name'];
+    if(!(this.changedKeys.includes(x))) {
+      this.changedKeys.push(x);
+    }
+  }
+
+  confirmEditRow() {
     this.originalObject = {
       "id": this.currentItem.id,
       "deviceModeId": this.currentItem.deviceModeId,
@@ -248,18 +199,8 @@ export class AdvertisementsComponent implements OnInit {
       "status": this.currentItem.status
     };
 
-    let x = event.target['name'];
-
-    if(!(this.changedKeys.includes(x))) {
-      this.changedKeys.push(x);
-      // this.originalObject[x] = event.target.value;
-    }
-  }
-
-  confirmEditRow() {
     this.originalObject.fromDate = this.datepipe.transform(this.currentItem.fromDate, 'yyyy-MM-dd');
     this.originalObject.toDate = this.datepipe.transform(this.currentItem.toDate, 'yyyy-MM-dd');
-
     this.assetService.modifyAssetForDevice({asset: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
       // console.log(res);
       this.alertSer.success(res?.message);

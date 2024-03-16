@@ -30,26 +30,8 @@ export class DevicesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.listSites();
     this.listDevices();
     this.getStatus();
-  }
-
-  siteData: any = [];
-  listSites() {
-    this.showLoader = true;
-    this.siteSer.listSites().subscribe((res: any) => {
-      // console.log(res);
-      this.showLoader = false;
-      this.getMetadata();
-      if(res?.Status == 'Success') {
-        this.siteData = res?.siteList?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
-        this.filterObj.siteId = this.siteData[this.siteData?.length - 1]?.siteid;
-        this.filterDevices();
-      }
-      }, (err: any) => {
-        this.showLoader = false;
-    });
   }
 
   searchText: any;
@@ -84,57 +66,26 @@ export class DevicesComponent implements OnInit {
     })
   }
 
-  /* searches */
-  siteSearch: any;
-  searchSites(event: any) {
-    this.siteSearch = (event.target as HTMLInputElement).value
+  getLoaderFromChild(data: boolean) {
+    this.showLoader = data;
   }
 
-  filterObj = {
-    siteId: null,
-    deviceId: null,
-  }
-
-  filterDevices() {
-    this.showLoader = true;
-    this.assetSer.listDeviceAdsInfo1(this.filterObj).subscribe((res: any) => {
-      // console.log(res);
-      this.showLoader = false;
-      this.newDeviceData = res.flatMap((item: any) => item.adsDevices);
-
-      this.active = [];
-      this.inActive = [];
-      for(let item of this.newDeviceData) {
-        if(item.status == 1) {
-          this.active.push(item);
-          // console.log(this.active)
-        } else if(item.status == 2) {
-          this.inActive.push(item);
-        }
-      }
-    })
-  }
-
-  makeNull() {
-    this.filterObj.deviceId = null;
-  }
-
-  statusNg: any = 'All';
-  filterStatus(value: any) {
-    if(value != 'All') {
-      this.newDeviceData = this.deviceData.filter((el: any) => el.status == value);
-    } else {
-      this.newDeviceData = this.deviceData;
-    }
+  getDevicesFromChild(data: any) {
+    this.newDeviceData = data;
+    
     this.active = [];
-    this.inActive = []
-    for(let item of this.newDeviceData) {
+    this.inActive = [];
+    for(let item of data) {
       if(item.status == 1) {
         this.active.push(item);
       } else if(item.status == 2) {
         this.inActive.push(item);
       }
     }
+  }
+
+  getSearchFromChild(data: any) {
+    this.searchText = data;
   }
 
   /* metadata */
@@ -198,28 +149,6 @@ export class DevicesComponent implements OnInit {
     });
   }
 
-
-  currentid = 0;
-  closeDot(e: any, i: any) {
-    this.currentid = i;
-    var x = e.target.parentNode.nextElementSibling;
-    // console.log("THREE DOTS:: ",e.target.parentNode.nextElementSibling);
-    if (x.style.display == 'none') {
-      x.style.display = 'block';
-    } else {
-      x.style.display = 'none';
-    }
-  }
-
-  showAddSite = false;
-  showAddCamera = false;
-  showAddCustomer = false;
-  showAddUser = false;
-  showAddBusinessVertical = false;
-  showSite = false;
-  // closenow(value:any) {
-  //   this.showAddSite = value;
-  // }
 
   showAddDevice: boolean = false;
   showDeviceInfo: boolean = false;

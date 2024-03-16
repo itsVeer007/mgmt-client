@@ -69,6 +69,7 @@ import { DeviceInfoComponent } from './components/devices/device-info/device-inf
 import { AssetsComponent } from './components/assets/assets.component';
 import { WifiDetailComponent } from './components/wifi-analytics/wifi-detail/wifi-detail.component';
 import { MaterialModule } from './material.module';
+import { FilterComponent } from './utilities/filter/filter.component';
 
 
 @NgModule({
@@ -129,7 +130,8 @@ import { MaterialModule } from './material.module';
     RemoveDuplicatesPipe,
     WifiAnalyticsComponent,
     DeviceInfoComponent,
-    WifiDetailComponent
+    WifiDetailComponent,
+    FilterComponent
   ],
   imports: [
     BrowserModule,
