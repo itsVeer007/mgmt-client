@@ -1,6 +1,7 @@
 import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -26,32 +27,23 @@ import { animate, style, transition, trigger } from '@angular/animations';
     ])
   ]
 })
-export class AddNewCameraComponent implements OnInit {
+export class AddNewCameraComponent {
 
-  @Input() show:any;
+  constructor(
+    private http: HttpClient
+  ) {}
 
-  @Output() newItemEvent = new EventEmitter<boolean>();
-
-  // @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
-  //   var x = <HTMLElement>document.getElementById(`camera`);
-  //   if (x != null) {
-  //     if (!x.contains(e.target)) {
-  //       this.closeAddCamera(false);
-  //     }
-  //   }
-  // }
-
-  closeAddCamera() {
-    this.newItemEvent.emit();
+  ngOnInit() {
+    this.activeQuestions();
   }
 
-  constructor(private router:Router) { }
-
-  ngOnInit(): void {
-  }
-
-  openAnotherForm(newform:any) {
-    this.newItemEvent.emit();
+  questions: any = [];
+  activeQuestions() {
+    let url = 'http://192.168.0.209:8000/active_questions';
+    this.http.get(url).subscribe((res: any) => {
+      console.log(res);
+      this.questions = res;
+    })
   }
 
 }

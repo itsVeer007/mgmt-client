@@ -75,8 +75,8 @@ export class LoginComponent implements OnInit {
           // this.userSer.isLoggedin.next(true);
           this.storageSer.set('user', res);
           this.userSer.user$.next(res);
-          this.router.navigate(['/home/main-dashboard']);
           this.getlistSites();
+          this.router.navigate(['/home/main-dashboard']);
         } else if(res?.Status == 'Failed') {
           this.alertSer.error(res?.message);
         }

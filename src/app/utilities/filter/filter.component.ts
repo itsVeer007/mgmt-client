@@ -29,7 +29,6 @@ export class FilterComponent {
   sitesList: any = [];
   listSites() {
     this.siteSer.listSites().subscribe((res: any) => {
-      console.log(res);
       if(res?.Status == 'Success') {
         this.listDevices();
         this.sitesList = res?.siteList?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);

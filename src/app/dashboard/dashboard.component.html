@@ -11,6 +11,7 @@
   </div>
 
   <div class="row m-0">
+
     <!-- desktop menu -->
     <div class="left-content col-lg-2">
       <nav class="sidebar" id="navbarToggleExternalContent">
@@ -19,31 +20,10 @@
             <img src="assets/icons/dashboard.svg">
             <span>Dashboard</span>
           </a>
-          <!-- <a class="list-group-item " [routerLink]="['/verticals']" routerLinkActive="routeactive">
-              <img src="assets/icons/vertical.svg">
-              <span>Verticals</span>
-          </a> -->
-          <!-- <a class="list-group-item " [routerLink]="['/customers']" routerLinkActive="routeactive">
-              <img src="assets/icons/customer.svg">
-              <span>Customers</span>
-          </a> -->
-
-          <!-- <a routerLink="/service-category" class="nav-link active" aria-current="page">
-              <span data-feather="home"></span>
-              Category
-          </a> -->
           <a *ngIf="isAdmin || isSupport" class="list-group-item " [routerLink]="['./sites']" routerLinkActive="routeactive">
               <img src="assets/icons/sites.svg">
               <span>Sites</span>
           </a>
-          <!-- <a class="list-group-item ">
-              <img src="assets/icons/cam.svg">
-              <span>Cameras</span>
-          </a> -->
-          <!-- <a class="list-group-item " [routerLink]="['/analytics']" routerLinkActive="routeactive">
-              <img src="assets/icons/analytic.svg">
-              <spanAnalytics</span>
-          </a> -->
           <a *ngIf="isAdmin" class="list-group-item " [routerLink]="['./users']" routerLinkActive="routeactive">
             <img src="assets/icons/user-white.svg">
             <span>Users</span>
@@ -79,11 +59,6 @@
             <img src="assets/icons/devices.svg">
             <span>Devices</span>
           </a>
-          <!--old-->
-          <!-- <a class="list-group-item " [routerLink]="['/assets']" routerLinkActive="routeactive">
-            <img src="assets/icons/asset.svg">
-            <span>Advertisements</span>
-          </a> -->
           <a *ngIf="isAdmin || isSupport" class="list-group-item " [routerLink]="['./advertisements']" routerLinkActive="routeactive">
             <img src="assets/icons/asset.svg">
             <span>Advertisements</span>
@@ -111,7 +86,6 @@
               </li>
             </ul>
           </div>
-
           <!-- <a class="list-group-item " [routerLink]="['/tickets']" routerLinkActive="routeactive">
             <img src="assets/icons/ticket.svg">
             <span>Tickets/Jobs</span>
@@ -124,7 +98,6 @@
             <img src="assets/icons/report.svg">
             <span>Reports</span>
           </a> -->
-
           <div class="navigation" *ngIf="isAdmin || isSupport">
             <ul>
               <li class="has-sub m-2">
