@@ -157,10 +157,19 @@ form {
 .form-control {
   /* height: 45px; */
   /* padding: 0; */
-  line-height: 2.5 !important;
+  line-height: 2.5;
   color: #ABABAB;
   box-shadow: none;
   outline: none;
+}
+
+.custom-form-control {
+  border: none !important;
+  padding: 0 !important;
+  font-size: 12px !important;
+  box-shadow: none !important;
+  pointer-events: none !important;
+  background-color: transparent !important;
 }
 
 form .add-btn {

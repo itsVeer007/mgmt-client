@@ -67,13 +67,9 @@ export class MetaDataComponent implements OnInit {
 
   showTicket: boolean = false;
   show(type: string) {
-    // if(val != 'All') {
-      if (type == 'ticket') {
-        this.showTicket = true
-      }
-    // } else {
-    //   this.alertSer.error('Please select type');
-    // }
+    if (type == 'ticket') {
+      this.showTicket = true
+    }
   }
 
   closenow(type: String) {
@@ -93,7 +89,7 @@ export class MetaDataComponent implements OnInit {
 
   addMetadataTypes() {
     this.metaDataSer.addMetadataTypes({type: this.metadataTypeId}).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       if(res.statusCode == 200) {
         this.alertSer.success(res.message);
       } else {

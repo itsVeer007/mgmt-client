@@ -159,9 +159,13 @@
 
           <td>
             <p>
-              <span style="width: 60px;" [style.color]="item.status == 1 ? 'blue' : (item.status == 2 || item.status == 3) ? 'violet' : item.status == 4 ? 'green' : 'orange'">
+              <!-- <span style="width: 60px;" [style.color]="item.status == 1 ? 'blue' : (item.status == 2 || item.status == 3) ? 'violet' : item.status == 4 ? 'green' : 'orange'">
                 {{ item.status == 1 ? "Pending": item.status == 2 ? "In progress" : item.status == 3 ? 'In progress' : item.status == 4 ? "Activated" : item.status == 5 ? "Deactivated" : ''}}
-              </span>
+              </span> -->
+              <select class="form-control custom-form-control" [(ngModel)]="item.status">
+                <option *ngFor="let status of addStatus" [value]="status.keyId">{{status.value}}</option>
+              </select>
+
               <!-- <span class="d-flex">
                 <span style="width: 60px;" [style.color]="item.status == 1 ? 'blue' : (item.status == 2 || item.status == 3) ? 'violet' : item.status == 4 ? 'green' : 'orange'">
                   {{ item.status == 1 ? "Pending": item.status == 2 ? "In progress" : item.status == 3 ? 'In progress' : item.status == 4 ? "Activated" : item.status == 5 ? "Deactivated" : ''}}

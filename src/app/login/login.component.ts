@@ -89,9 +89,9 @@ export class LoginComponent implements OnInit {
   
   getlistSites() {
     this.siteSer.listSites().subscribe((res: any) => {
+      this.getMetadata();
       if(res?.Status == 'Success') {
         this.storageSer.set('siteIds', res.siteList);
-        this.getMetadata();
       }
       if(res?.Status == 'Failed') {
         // this.userSer.logout();

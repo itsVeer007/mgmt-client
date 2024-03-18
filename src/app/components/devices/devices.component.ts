@@ -44,6 +44,7 @@ export class DevicesComponent implements OnInit {
     this.assetSer.listDeviceAdsInfo().subscribe((res: any) => {
       // console.log(res);
       this.showLoader = false;
+      this.getMetadata();
       this.deviceData = res.flatMap((item: any) => item.adsDevices);
       this.newDeviceData = this.deviceData;
       this.active = [];

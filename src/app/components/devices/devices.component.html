@@ -138,7 +138,7 @@
 
   <!-- table -->
   <div class="table-resp">
-    <table class="table" id="mytable">
+    <table class="table table-hover" id="mytable">
       <thead>
         <tr class="form1">
         <!-- <th>
@@ -208,9 +208,12 @@
             <p class="text-primary pointer" (click)="show('device-info')">0</p>
           </td>
           <td>
-            <p [style.color]="cust.status == 1 ? '#00A44C' : cust.status == 2 ? '#fa500f' : ''">
+            <!-- <p [style.color]="cust.status == 1 ? '#00A44C' : cust.status == 2 ? '#fa500f' : ''">
               {{ cust.status == 1 ? 'Online' : cust.status == 2 ? 'Offline' : '' }}
-            </p>
+            </p> -->
+            <select class="form-control custom-form-control" [(ngModel)]="cust.status">
+              <option *ngFor="let status of deviceStatus" [value]="status.keyId">{{status.value}}</option>
+            </select>
           </td>
 
           <td (click)="openRebootDevice(cust)">

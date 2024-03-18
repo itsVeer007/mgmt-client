@@ -41,6 +41,7 @@ export class AdvertisementsComponent implements OnInit {
     this.showLoader = true;
     this.assetService.listAssets().subscribe((res: any) => {
       this.showLoader = false;
+      this.getMetadata();
       let x = res.flatMap((item: any) => item.assets);
       this.advertisements = x.sort((a: any, b: any) => a.deviceModeId > b.deviceModeId ? -1 : a.deviceModeId < b.deviceModeId ? 1 : 0);;
       this.newAdvertisements = this.advertisements;
