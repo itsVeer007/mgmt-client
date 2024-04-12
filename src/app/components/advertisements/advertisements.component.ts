@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
@@ -227,6 +227,12 @@ export class AdvertisementsComponent implements OnInit {
   confirmDeleteRow() {
     // console.log(this.currentItem);
     // this.assetTable = this.assetTable.filter((item: any) => item.siteId !== this.currentItem.siteId);
+  }
+
+  @ViewChild('addPlayerDialog') addPlayerDialog: any = ElementRef;
+  openPlayerDialog(data: any) {
+    this.currentItem = data;
+    this.dialog.open(this.addPlayerDialog);
   }
 
   sorted = false;

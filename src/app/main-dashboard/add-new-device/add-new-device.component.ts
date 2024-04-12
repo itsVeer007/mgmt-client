@@ -7,6 +7,7 @@ import { MatSelect } from '@angular/material/select';
 import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
 import { MetadataService } from 'src/services/metadata.service';
+import { SiteService } from 'src/services/site.service';
 import { StorageService } from 'src/services/storage.service';
 
 @Component({
@@ -36,28 +37,19 @@ export class AddNewDeviceComponent implements OnInit {
 
   @Input() fromSites: any;
   @Output() newItemEvent = new EventEmitter<boolean>();
-
-  // @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
-  //   var x = <HTMLElement>document.getElementById(`additionalSite`);
-  //   if (x != null) {
-  //     if (!x.contains(e.target)) {
-  //       this.closeAddAdditionalSite(false);
-  //     }
-  //   }
-  // }
-
-  addDevice: any =  FormGroup;
-  searchText: any;
-
+  
   constructor(
     private fb: FormBuilder,
     private assetSer: AssetService,
     private dropDown: MetadataService,
     private alertSer: AlertService,
     public dialog: MatDialog,
-    private storageSer: StorageService
+    private storageSer: StorageService,
+    private siteSer: SiteService
   ) { }
-
+  
+  addDevice: any =  FormGroup;
+  searchText: any;
   siteData: any;
 
   adInfo = {
@@ -73,9 +65,7 @@ export class AddNewDeviceComponent implements OnInit {
     socketServer: 'ec2-18-213-63-73.compute-1.amazonaws.com',
     socketPort: 6666,
     remarks: '',
-
     weatherInterval: null, //BSR
-
     cameraId: 'Cam01', //ODR
     modelName: 'Yolov8', //ODR
     modelWidth: 640, //ODR
@@ -106,9 +96,7 @@ export class AddNewDeviceComponent implements OnInit {
       'softwareVersion': new FormControl(''),
       'socketServer': new FormControl(''),
       'socketPort': new FormControl(''),
-
       'weatherInterval': new FormControl(''),
-
       'cameraId': new FormControl(''),
       'modelName': new FormControl(''),
       'modelWidth': new FormControl(''),
@@ -126,32 +114,24 @@ export class AddNewDeviceComponent implements OnInit {
 
     this.addDevice.get('deviceModeId').valueChanges.subscribe((val: any) => {
       if(val == 3) {
-        // this.addDevice.get('cameraId').setValidators(Validators.required);
-        // this.addDevice.get('modelName').setValidators(Validators.required);
-        // this.addDevice.get('modelWidth').setValidators(Validators.required);
-        // this.addDevice.get('modelHeight').setValidators(Validators.required);
-        // this.addDevice.get('modelMaxResults').setValidators(Validators.required);
-        // this.addDevice.get('modelThreshold').setValidators(Validators.required);
+        this.addDevice.get('cameraId').setValidators(Validators.required);
         this.addDevice.get('modelObjectTypeId').setValidators(Validators.required);
       } else {
-        // this.addDevice.get('cameraId').clearValidators();
-        // this.addDevice.get('modelName').clearValidators();
-        // this.addDevice.get('modelWidth').clearValidators();
-        // this.addDevice.get('modelHeight').clearValidators();
-        // this.addDevice.get('modelMaxResults').clearValidators();
-        // this.addDevice.get('modelThreshold').clearValidators();
+        this.addDevice.get('cameraId').clearValidators();
         this.addDevice.get('modelObjectTypeId').clearValidators();
       }
-
-      // this.addDevice.get('cameraId').updateValueAndValidity();
-      // this.addDevice.get('modelName').updateValueAndValidity();
-      // this.addDevice.get('modelWidth').updateValueAndValidity();
-      // this.addDevice.get('modelHeight').updateValueAndValidity();
-      // this.addDevice.get('modelMaxResults').updateValueAndValidity();
-      // this.addDevice.get('modelThreshold').updateValueAndValidity();
+      this.addDevice.get('cameraId').updateValueAndValidity();
       this.addDevice.get('modelObjectTypeId').updateValueAndValidity();
     });
     this.getMetadata();
+    this.getCamerasForSiteId();
+  }
+
+  cameras: any = [];
+  getCamerasForSiteId() {
+    this.siteSer.getCamerasForSiteId(this.siteData?.siteid).subscribe((res: any) => {
+      this.cameras = res;
+    })
   }
 
   deviceData: any = [];
@@ -167,7 +147,6 @@ export class AddNewDeviceComponent implements OnInit {
     this.newItemEvent.emit();
   }
 
-  /* metadata methods */
   deviceType: any;
   deviceMode: any;
   workingDay: any = [];
