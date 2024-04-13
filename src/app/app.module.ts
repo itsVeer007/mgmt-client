@@ -71,6 +71,7 @@ import { MaterialModule } from './material.module';
 import { FilterComponent } from './utilities/filter/filter.component';
 import { TextAndNumberOnlyDirective } from './utilities/directives/text-and-number-only.directive';
 import { AddNewInstallationComponent } from './main-dashboard/add-new-installation/add-new-installation.component';
+import { AddDeviceFormComponent } from './main-dashboard/add-device-form/add-device-form.component';
 
 
 @NgModule({
@@ -125,6 +126,7 @@ import { AddNewInstallationComponent } from './main-dashboard/add-new-installati
     FrReportsComponent,
     AddNewDcComponent,
     AddNewInstallationComponent,
+    AddDeviceFormComponent,
     SearchPipe,
     SortPipe,
     ErrorPageComponent,

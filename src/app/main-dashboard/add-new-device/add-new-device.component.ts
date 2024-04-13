@@ -58,7 +58,8 @@ export class AddNewDeviceComponent implements OnInit {
     deviceTypeId: null,
     deviceCallFreq: 1,
     deviceModeId: null,
-    adsHours: '00-23',
+    deviceLocId: null,
+    adsHours: '',
     workingDays: '',
     createdBy: null,
     softwareVersion: '',
@@ -90,7 +91,8 @@ export class AddNewDeviceComponent implements OnInit {
       'deviceTypeId': new FormControl('', Validators.required),
       'deviceCallFreq': new FormControl('', Validators.required),
       'deviceModeId': new FormControl('', Validators.required),
-      'adsHours': new FormControl('', Validators.required),
+      'deviceLocId': new FormControl('', Validators.required),
+      'adsHours': new FormControl(''),
       'workingDays': new FormControl('', Validators.required),
       'createdBy': new FormControl(''),
       'softwareVersion': new FormControl(''),
@@ -124,7 +126,7 @@ export class AddNewDeviceComponent implements OnInit {
       this.addDevice.get('modelObjectTypeId').updateValueAndValidity();
     });
     this.getMetadata();
-    this.getCamerasForSiteId();
+    // this.getCamerasForSiteId();
   }
 
   cameras: any = [];
@@ -158,6 +160,7 @@ export class AddNewDeviceComponent implements OnInit {
   softwareVersion: any;
   weatherInterval: any;
   deviceStatus: any;
+  deviceCountry: any
   getMetadata() {
     let data = this.storageSer.get('metaData');
     data?.forEach((item: any) => {
@@ -183,6 +186,8 @@ export class AddNewDeviceComponent implements OnInit {
         this.weatherInterval = item.metadata;
       } else if(item.type == 4) {
         this.deviceStatus = item.metadata;
+      } else if(item.type == 28) {
+        this.deviceCountry = item.metadata;
       }
     })
   }
@@ -200,10 +205,47 @@ export class AddNewDeviceComponent implements OnInit {
     this.toAddDevice = e.value.length;
   }
 
+  toppings = this.fb.group({
+    '00': false,
+    '01': false,
+    '02': false,
+    '03': false,
+    '04': false,
+    '05': false,
+    '06': false,
+    '07': false,
+    '08': false,
+    '09': false,
+    '10': false,
+    '11': false,
+    '12': false,
+    '13': false,
+    '14': false,
+    '15': false,
+    '16': false,
+    '17': false,
+    '18': false,
+    '19': false,
+    '20': false,
+    '21': false,
+    '22': false,
+    '23': false,
+  });
+
+  finalToopings: any;
+  myToops: any = [];
   addDeviceDtl() {
     // console.log(this.addDevice);
     if(this.addDevice.valid) {
       this.newItemEvent.emit();
+
+      this.finalToopings =this.toppings.value;
+      for(const val in this.finalToopings) {
+        if(this.finalToopings[val] === true) {
+          this.myToops.push(val)
+        }
+      }
+      this.adInfo.adsHours = this.myToops.join(',');
       let arr = JSON.parse(JSON.stringify(this.adInfo.workingDays)).join(',');
       if(this.toAddDevice == 8) {
         var myString = arr.substring(1);

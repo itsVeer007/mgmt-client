@@ -48,3 +48,6 @@
   background-color: #084982 !important;
 }
 
+::ng-deep .mat-mdc-tab-group.mat-tabs-with-background.mat-primary>.mat-mdc-tab-header .mdc-tab-indicator__content--underline {
+  border-color: #D34124 !important;
+}
