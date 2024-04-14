@@ -40,7 +40,7 @@ export class AddDeviceFormComponent {
 
     this.addDevice = this.fb.group({
       'siteId': new FormControl(''),
-      
+
       'deviceDescription': new FormControl('', Validators.required),
       'deviceTypeId': new FormControl('', Validators.required),
       'deviceCallFreq': new FormControl('', Validators.required),
@@ -68,6 +68,19 @@ export class AddDeviceFormComponent {
 
       'cameraType': new FormControl(''),
       'hh': new FormControl(''),
+    });
+
+    this.addDevice.get('deviceModeId').valueChanges.subscribe((val: any) => {
+      if(val == 3) {
+        this.addDevice.get('cameraId').setValidators(Validators.required);
+        this.addDevice.get('modelObjectTypeId').setValidators(Validators.required);
+      } else {
+        this.addDevice.get('cameraId').clearValidators();
+        this.addDevice.get('modelObjectTypeId').clearValidators();
+      }
+
+      this.addDevice.get('cameraId').updateValueAndValidity();
+      this.addDevice.get('modelObjectTypeId').updateValueAndValidity();
     });
 
     this.getMetadata();
@@ -234,7 +247,7 @@ export class AddDeviceFormComponent {
   addDeviceDtl() {
     if(this.addDevice.valid) {
       this.newItemEvent.emit();
-      
+
       if(this.cameraType === 0) {
         this.adInfo.cameraId = 0;
       }

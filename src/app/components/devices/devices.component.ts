@@ -73,7 +73,7 @@ export class DevicesComponent implements OnInit {
 
   getDevicesFromChild(data: any) {
     this.newDeviceData = data;
-    
+
     this.active = [];
     this.inActive = [];
     for(let item of data) {
@@ -188,30 +188,6 @@ export class DevicesComponent implements OnInit {
   }
 
   @ViewChild('editSiteDialog') editSiteDialog = {} as TemplateRef<any>;
-  originalObject: any;
-  changedKeys: any[] = [];
-
-  onRadioChange(event: any) {
-    let x = event.source.name;
-    if(!(this.changedKeys.includes(x))) {
-      this.changedKeys.push(x);
-    }
-  }
-
-  onSelectChange(event: any) {
-    let x = event.source.ngControl.name;
-    if(!(this.changedKeys.includes(x))) {
-      this.changedKeys.push(x);
-    }
-  }
-
-  onInputChange(event: any) {
-    let x = event.target['name'];
-    if(!(this.changedKeys.includes(x))) {
-      this.changedKeys.push(x);
-    }
-    // console.log(this.changedKeys.length)
-  }
 
   openEditPopup(item: any) {
     this.currentItem = item;
@@ -223,70 +199,6 @@ export class DevicesComponent implements OnInit {
   onToAddDevice(e: any) {
     this.toAddDevice = e.value.length;
     // console.log(e.value.length)
-  }
-
-  updateDeviceDtl() {
-    this.originalObject = {
-      "deviceId": this.currentItem.deviceId,
-      "deviceCallFreq": this.currentItem.deviceCallFreq,
-      "deviceDescription": this.currentItem.deviceDescription,
-      "remarks": this.currentItem.remarks,
-      "weatherInterval": this.currentItem.weatherInterval,
-      "loggerFreq": this.currentItem.loggerFreq,
-      "modelWidth": this.currentItem.modelWidth,
-      "modelHeight": this.currentItem.modelHeight,
-      "deviceModeId": this.currentItem.deviceModeId,
-      // "deviceTypeId": this.currentItem.deviceTypeId,
-      "adsHours": this.currentItem.adsHours,
-      "workingDays": this.currentItem.workingDays,
-      "status": this.currentItem.status,
-      "modelName": this.currentItem.modelName,
-      "modelObjectTypeId": this.currentItem.modelObjectTypeId,
-      "debugOn": this.currentItem.debugOn,
-      "debugLogs": this.currentItem.debugLogs,
-      "refreshRules": this.currentItem.refreshRules,
-      "modifiedBy": 1,
-    };
-
-    if(this.changedKeys.length > 0) {
-      // this.alertSer.wait();
-      let arr = this.currentWorkingDays.join(',');
-      if(this.toAddDevice == 8) {
-        var myString = arr.substring(1);
-        this.originalObject.workingDays = myString;
-      } else {
-        this.originalObject.workingDays = arr;
-      }
-    }
-    this.assetSer.updateDeviceAdsInfo({adsDevice: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
-      // console.log(res);
-      this.listDevices();
-      this.alertSer.success(res.message ? res.message : 'Device updated successfully');
-    }, (err: any) => {
-      this.alertSer.error(err?.error?.message);
-    })
-  }
-
-  @ViewChild('createWorkingDays') createWorkingDays!: MatSelect;
-  selectCreate: boolean = false;
-  toggleCreateWorkingDays() {
-    this.selectCreate = !this.selectCreate;
-    if(this.selectCreate) {
-      this.createWorkingDays?.options.forEach((item : MatOption) => item.select());
-    } else {
-      this.createWorkingDays?.options.forEach((item : MatOption) => item.deselect());
-    }
-  }
-
-  @ViewChild('modifyWorkingDays') modifyWorkingDays!: MatSelect;
-  selectModify: boolean = false;
-  toggleModifyWorkingDays() {
-    this.selectModify = !this.selectModify;
-    if(this.selectModify) {
-      this.modifyWorkingDays?.options.forEach((item : MatOption) => item.select());
-    } else {
-      this.modifyWorkingDays?.options.forEach((item : MatOption) => item.deselect());
-    }
   }
 
 
