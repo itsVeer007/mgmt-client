@@ -70,12 +70,12 @@ wifiDeatils() {
 
 
   mychart(payload: any, type: any, tit: any, flag: any) {
-    console.log(payload);
+    // console.log(payload);
     let counts: any;
     let newTitle: any;
     if(flag === 0) {
       counts = payload.counts.split(',');
-      newTitle = tit + ', ' + 'Device Count';
+      newTitle = tit;
     } else {
       counts = payload.times.split(',');
       newTitle = tit + ', ' + 'Time'

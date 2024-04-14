@@ -11,7 +11,11 @@
       <div class="box" *ngFor="let item of graphData">
         <div class="setbox">{{item.type}}</div>
         <div class="inbox" [style.background-color]="(item.data.status == 'Raise')? '#2E8B57' : (item.data.status == 'Fall' && (item.data.percentage >= 5))? '#e52d48' :(item.data.status == 'Fall' && (item.data.percentage < 5))? '#FFA500' : '#767676' ">
-          {{item.data.percentage ? item.data.percentage : '00'}}%
+          <p class="d-flex align-items-center justify-content-between">
+            <span>{{item.data.percentage ? item.data.percentage : '00'}}%</span>
+            <span *ngIf="item?.data?.status === 'Fall'"><img src="assets/icons/Union 18@2x.png" class="ms-1 mb-1" style="rotate: 270deg;" width="15"></span>
+            <span *ngIf="item?.data?.status === 'Raise'"><img src="assets/icons/Union 18@2x.png" class="ms-1 mb-1" style="rotate: 90deg;" width="15"></span>
+          </p>
         </div>
       </div>
     </div>
