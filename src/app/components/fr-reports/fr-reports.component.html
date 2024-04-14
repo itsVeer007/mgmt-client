@@ -86,7 +86,7 @@
           </tr>
         </thead>
 
-        <tbody>
+        <tbody *ngIf="!showLoader">
             <tr *ngFor="let cust of reportsData | search : searchText; let i = index">
               <td>
                   <p>{{ cust.frId }}</p>
@@ -120,14 +120,14 @@
             </tr>
         </tbody>
       </table>
+      <div class="d-flex align-items-center justify-content-center" style="height: 45vh;" *ngIf="reportsData.length == 0">
+          <h1 class="text-secondary">No Data</h1>
+      </div>
+  
+      <!-- loader -->
+      <div>
+        <app-loader *ngIf="showLoader" class="d-flex justify-content-center align-items-center"style="height: 45vh;"></app-loader>
+      </div>
     </div>
 
-    <div class="d-flex align-items-center justify-content-center" style="height: 45vh;" *ngIf="reportsData.length == 0">
-        <h1 class="text-secondary">No Data</h1>
-    </div>
-
-    <!-- loader -->
-    <div>
-      <app-loader *ngIf="showLoader" class="d-flex justify-content-center align-items-center"style="height: 45vh;"></app-loader>
-    </div>
 </div>

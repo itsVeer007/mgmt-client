@@ -28,4 +28,9 @@
   text-decoration: none;
 }
 
+.form-control {
+  box-shadow: none !important;
+  outline: none !important;
+}
+
 

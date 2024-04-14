@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
 import { InventoryService } from 'src/services/inventory.service';

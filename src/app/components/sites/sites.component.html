@@ -92,42 +92,39 @@
             <img (click)="sort('sitename')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
-          <th>
-            <span>Customer</span>
-            <!-- <img (click)="sort('deviceModeId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
-          </th>
-
-          <th>
-            <span>Status</span>
-            <!-- <img (click)="sort('status')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
-          </th>
-
-
+          
+          
           <th>
             <span>QR</span>
             <!-- <img (click)="sort('status')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
           </th>
-
+          
           <th (click)="sort('address')">Address</th>
-
+          
           <th (click)="sort('escl_Details')">Escl Details</th>
-
+          
           <th (click)="sort('engr_Details')">Engr Details</th>
-
+          
           <!-- <th>Services</th> -->
 
           <th (click)="sort('cntrl_Unit')">Cntrl Unit</th>
-
+          
           <th>Inventory</th>
-
+          
           <!-- <th>Analytics</th> -->
-
+          
           <th>Devices</th>
-
+          
+          <th class="text-center">Installation</th>
+          
+          <th>
+            <span>Status</span>
+            <!-- <img (click)="sort('status')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
+          </th>
           <th class="text-center">Actions</th>
         </tr>
       </thead>
-
+      
       <tbody *ngIf="!showLoader">
         <tr *ngFor="let data of newTableData | search : searchText; let i=index" (dblclick)="openViewPopup(data)">
             <!-- <td>
@@ -138,14 +135,6 @@
             </td>
             <td style="width: 200px;">
               <p>{{ data.sitename }}</p>
-            </td>
-            <td>
-              <!-- <p>{{data.customer}}</p> -->
-            </td>
-            <td>
-              <p [style.color]="data.status == 'Active' ? '#00A44C': data.status == 'Onhold' ? '#F5B400': data.status == 'Inactive' ? '#fa500f': '#084982'">
-                {{ data.status ? data.status : '' }}
-              </p>
             </td>
             <td>
               <p></p>
@@ -203,6 +192,16 @@
               <a class="pointer" (click)="show('device'); getDevices(data.siteid); saveSiteData(data)">
                   <img src="assets/icons/add.svg" width="40">
               </a>
+            </td>
+            <td class="text-center">
+              <a class="pointer" (click)="show('installation')">
+                  <img src="assets/icons/feed_black.svg" style="opacity: 0.8;" width="18">
+              </a>
+            </td>
+            <td>
+              <p [style.color]="data.status == 'Active' ? '#00A44C': data.status == 'Onhold' ? '#F5B400': data.status == 'Inactive' ? '#fa500f': '#084982'">
+                {{ data.status ? data.status : '' }}
+              </p>
             </td>
             <td class="table-icons">
               <a class="mx-1 pointer" matTooltip="View">
@@ -345,3 +344,8 @@
 <div *ngIf="showAddDevice">
   <app-add-device [fromSites]="inputToDevices" (newItemEvent)="closenow('device')"></app-add-device>
 </div>
+
+<div *ngIf="showInstallation">
+  <app-add-new-installation (newItemEvent)="closenow('installation')"></app-add-new-installation>
+</div>
+

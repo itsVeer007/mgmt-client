@@ -249,7 +249,7 @@ export class DevicesComponent implements OnInit {
     };
 
     if(this.changedKeys.length > 0) {
-      this.alertSer.wait();
+      // this.alertSer.wait();
       let arr = this.currentWorkingDays.join(',');
       if(this.toAddDevice == 8) {
         var myString = arr.substring(1);

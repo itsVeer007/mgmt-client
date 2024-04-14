@@ -36,10 +36,9 @@ import { AddNewDcComponent } from './main-dashboard/add-new-dc/add-new-dc.compon
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { VjsPlayerComponent } from './utilities/vjs-player/vjs-player.component';
 import { LoaderComponent } from './utilities/loader/loader.component';
-import { ChartService } from 'src/services/chart.service';
 import { DatePipe } from '@angular/common';
-import { SearchPipe } from './pipes/search.pipe';
-import { SortPipe } from './pipes/sort.pipe';
+import { SearchPipe } from './utilities/pipes/search.pipe';
+import { SortPipe } from './utilities/pipes/sort.pipe';
 import { ErrorPageComponent } from './utilities/error-page/error-page.component';
 import { DcChallanComponent } from './components/dc-challan/dc-challan.component';
 import { RemoveDuplicatesPipe } from './utilities/pipes/remove-duplicates.pipe';
@@ -70,6 +69,9 @@ import { AssetsComponent } from './components/assets/assets.component';
 import { WifiDetailComponent } from './components/wifi-analytics/wifi-detail/wifi-detail.component';
 import { MaterialModule } from './material.module';
 import { FilterComponent } from './utilities/filter/filter.component';
+import { TextAndNumberOnlyDirective } from './utilities/directives/text-and-number-only.directive';
+import { AddNewInstallationComponent } from './main-dashboard/add-new-installation/add-new-installation.component';
+import { AddDeviceFormComponent } from './main-dashboard/add-device-form/add-device-form.component';
 
 
 @NgModule({
@@ -123,6 +125,8 @@ import { FilterComponent } from './utilities/filter/filter.component';
     AddNewFrkitComponent,
     FrReportsComponent,
     AddNewDcComponent,
+    AddNewInstallationComponent,
+    AddDeviceFormComponent,
     SearchPipe,
     SortPipe,
     ErrorPageComponent,
@@ -131,7 +135,8 @@ import { FilterComponent } from './utilities/filter/filter.component';
     WifiAnalyticsComponent,
     DeviceInfoComponent,
     WifiDetailComponent,
-    FilterComponent
+    FilterComponent,
+    TextAndNumberOnlyDirective
   ],
   imports: [
     BrowserModule,
@@ -143,9 +148,8 @@ import { FilterComponent } from './utilities/filter/filter.component';
     MaterialModule
   ],
   providers: [
-    // ChartService,
     DatePipe,
-    {provide: LocationStrategy, useClass: HashLocationStrategy}
+    { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],
   bootstrap: [AppComponent]
 })

@@ -7,6 +7,7 @@ import { MatSelect } from '@angular/material/select';
 import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
 import { MetadataService } from 'src/services/metadata.service';
+import { SiteService } from 'src/services/site.service';
 import { StorageService } from 'src/services/storage.service';
 
 @Component({
@@ -36,28 +37,19 @@ export class AddNewDeviceComponent implements OnInit {
 
   @Input() fromSites: any;
   @Output() newItemEvent = new EventEmitter<boolean>();
-
-  // @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
-  //   var x = <HTMLElement>document.getElementById(`additionalSite`);
-  //   if (x != null) {
-  //     if (!x.contains(e.target)) {
-  //       this.closeAddAdditionalSite(false);
-  //     }
-  //   }
-  // }
-
-  addDevice: any =  FormGroup;
-  searchText: any;
-
+  
   constructor(
     private fb: FormBuilder,
     private assetSer: AssetService,
     private dropDown: MetadataService,
     private alertSer: AlertService,
     public dialog: MatDialog,
-    private storageSer: StorageService
+    private storageSer: StorageService,
+    private siteSer: SiteService
   ) { }
-
+  
+  addDevice: any =  FormGroup;
+  searchText: any;
   siteData: any;
 
   adInfo = {
@@ -66,16 +58,15 @@ export class AddNewDeviceComponent implements OnInit {
     deviceTypeId: null,
     deviceCallFreq: 1,
     deviceModeId: null,
-    adsHours: '00-23',
+    deviceLocId: null,
+    adsHours: '',
     workingDays: '',
     createdBy: null,
     softwareVersion: '',
     socketServer: 'ec2-18-213-63-73.compute-1.amazonaws.com',
     socketPort: 6666,
     remarks: '',
-
     weatherInterval: null, //BSR
-
     cameraId: 'Cam01', //ODR
     modelName: 'Yolov8', //ODR
     modelWidth: 640, //ODR
@@ -100,15 +91,14 @@ export class AddNewDeviceComponent implements OnInit {
       'deviceTypeId': new FormControl('', Validators.required),
       'deviceCallFreq': new FormControl('', Validators.required),
       'deviceModeId': new FormControl('', Validators.required),
-      'adsHours': new FormControl('', Validators.required),
+      'deviceLocId': new FormControl('', Validators.required),
+      'adsHours': new FormControl(''),
       'workingDays': new FormControl('', Validators.required),
       'createdBy': new FormControl(''),
       'softwareVersion': new FormControl(''),
       'socketServer': new FormControl(''),
       'socketPort': new FormControl(''),
-
       'weatherInterval': new FormControl(''),
-
       'cameraId': new FormControl(''),
       'modelName': new FormControl(''),
       'modelWidth': new FormControl(''),
@@ -126,32 +116,24 @@ export class AddNewDeviceComponent implements OnInit {
 
     this.addDevice.get('deviceModeId').valueChanges.subscribe((val: any) => {
       if(val == 3) {
-        // this.addDevice.get('cameraId').setValidators(Validators.required);
-        // this.addDevice.get('modelName').setValidators(Validators.required);
-        // this.addDevice.get('modelWidth').setValidators(Validators.required);
-        // this.addDevice.get('modelHeight').setValidators(Validators.required);
-        // this.addDevice.get('modelMaxResults').setValidators(Validators.required);
-        // this.addDevice.get('modelThreshold').setValidators(Validators.required);
+        this.addDevice.get('cameraId').setValidators(Validators.required);
         this.addDevice.get('modelObjectTypeId').setValidators(Validators.required);
       } else {
-        // this.addDevice.get('cameraId').clearValidators();
-        // this.addDevice.get('modelName').clearValidators();
-        // this.addDevice.get('modelWidth').clearValidators();
-        // this.addDevice.get('modelHeight').clearValidators();
-        // this.addDevice.get('modelMaxResults').clearValidators();
-        // this.addDevice.get('modelThreshold').clearValidators();
+        this.addDevice.get('cameraId').clearValidators();
         this.addDevice.get('modelObjectTypeId').clearValidators();
       }
-
-      // this.addDevice.get('cameraId').updateValueAndValidity();
-      // this.addDevice.get('modelName').updateValueAndValidity();
-      // this.addDevice.get('modelWidth').updateValueAndValidity();
-      // this.addDevice.get('modelHeight').updateValueAndValidity();
-      // this.addDevice.get('modelMaxResults').updateValueAndValidity();
-      // this.addDevice.get('modelThreshold').updateValueAndValidity();
+      this.addDevice.get('cameraId').updateValueAndValidity();
       this.addDevice.get('modelObjectTypeId').updateValueAndValidity();
     });
     this.getMetadata();
+    // this.getCamerasForSiteId();
+  }
+
+  cameras: any = [];
+  getCamerasForSiteId() {
+    this.siteSer.getCamerasForSiteId(this.siteData?.siteid).subscribe((res: any) => {
+      this.cameras = res;
+    })
   }
 
   deviceData: any = [];
@@ -167,7 +149,6 @@ export class AddNewDeviceComponent implements OnInit {
     this.newItemEvent.emit();
   }
 
-  /* metadata methods */
   deviceType: any;
   deviceMode: any;
   workingDay: any = [];
@@ -179,6 +160,7 @@ export class AddNewDeviceComponent implements OnInit {
   softwareVersion: any;
   weatherInterval: any;
   deviceStatus: any;
+  deviceCountry: any
   getMetadata() {
     let data = this.storageSer.get('metaData');
     data?.forEach((item: any) => {
@@ -204,6 +186,8 @@ export class AddNewDeviceComponent implements OnInit {
         this.weatherInterval = item.metadata;
       } else if(item.type == 4) {
         this.deviceStatus = item.metadata;
+      } else if(item.type == 28) {
+        this.deviceCountry = item.metadata;
       }
     })
   }
@@ -221,10 +205,47 @@ export class AddNewDeviceComponent implements OnInit {
     this.toAddDevice = e.value.length;
   }
 
+  toppings = this.fb.group({
+    '00': false,
+    '01': false,
+    '02': false,
+    '03': false,
+    '04': false,
+    '05': false,
+    '06': false,
+    '07': false,
+    '08': false,
+    '09': false,
+    '10': false,
+    '11': false,
+    '12': false,
+    '13': false,
+    '14': false,
+    '15': false,
+    '16': false,
+    '17': false,
+    '18': false,
+    '19': false,
+    '20': false,
+    '21': false,
+    '22': false,
+    '23': false,
+  });
+
+  finalToopings: any;
+  myToops: any = [];
   addDeviceDtl() {
     // console.log(this.addDevice);
     if(this.addDevice.valid) {
       this.newItemEvent.emit();
+
+      this.finalToopings =this.toppings.value;
+      for(const val in this.finalToopings) {
+        if(this.finalToopings[val] === true) {
+          this.myToops.push(val)
+        }
+      }
+      this.adInfo.adsHours = this.myToops.join(',');
       let arr = JSON.parse(JSON.stringify(this.adInfo.workingDays)).join(',');
       if(this.toAddDevice == 8) {
         var myString = arr.substring(1);
