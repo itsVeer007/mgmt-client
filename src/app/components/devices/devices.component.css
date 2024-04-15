@@ -17,3 +17,20 @@
   background-color: #3a6da4;
   border-radius: 3px;
 }
+
+.device-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.device-item {
+  height: 250px;
+  width: 200px;
+  background-color: #e8dddd;
+  margin: 5px;
+  border-radius: 10px;
+  padding: 8px ;
+}
+.heading {
+  text-decoration: underline;
+}

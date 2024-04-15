@@ -651,5 +651,12 @@ export class InventoryService {
     return this.http.get(url, {params: params});
   }
 
+  baseUrl1 = 'http://192.168.0.169:2255';
+
+  getData() {
+    let url = this.baseUrl1 + '/getData';
+    return this.http.get(url);
+  }
+
 }
 

@@ -32,6 +32,53 @@ export class DevicesComponent implements OnInit {
   ngOnInit(): void {
     this.listDevices();
     this.getStatus();
+    this.listSites()
+    this.getData();
+  }
+
+  getDataForDevice:any;
+  getData() {
+    this.inventorySer.getData().subscribe((res:any)=> {
+      console.log(res);
+      this.getDataForDevice = res;
+    })
+  }
+
+  @ViewChild('sensorDialog') sensorDialog = {} as TemplateRef<any>
+  openSensor() {
+    this.dialog.open(this.sensorDialog);
+  }
+
+   /* searches */
+   siteSearch: any;
+   siteNg: any = 'All'
+   searchSites(event: any) {
+     this.siteSearch = (event.target as HTMLInputElement).value
+   }
+
+   filterSites(site: any) {
+    if(site != 'All') {
+      this.newTableData =  this.tableData.filter((item: any) => item.siteid == site)
+    } else {
+      this.newTableData = this.tableData;
+    }
+  }
+
+  tableData: any = [];
+  newTableData: any = [];
+
+  listSites() {
+    this.showLoader = true;
+    this.siteSer.listSites().subscribe((res: any) => {
+      // console.log(res);
+      this.showLoader = false;
+      if(res?.Status == 'Success') {
+        this.tableData = res?.siteList?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
+        this.newTableData = this.tableData;
+      }
+      }, (err: any) => {
+        this.showLoader = false;
+    });
   }
 
   searchText: any;
