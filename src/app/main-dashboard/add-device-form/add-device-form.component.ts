@@ -303,18 +303,18 @@ export class AddDeviceFormComponent {
   myToops: any = [];
   addDeviceDtl() {
     if(this.addDevice.valid) {
-
       if(this.cameraType === 0) {
         this.adInfo.cameraId = 0;
       }
-
-      this.finalToopings =this.toppings.value;
+      
+      this.finalToopings = this.toppings.value;
       for(const val in this.finalToopings) {
-        if(this.finalToopings[val] === true) {
-          this.myToops.push(val)
+        if(this.finalToopings[val] === true && (!this.myToops.includes(val))) {
+          this.myToops.push(val);
         }
       }
-      this.adInfo.adsHours = this.myToops.join(',');
+      this.adInfo.adsHours = this.myToops.sort((a: any, b: any) => a > b ? 1 : a < b ? -1 : 0).join(',');
+
 
       if(this.type === 'add-device') {
         this.adInfo.siteId = this.siteData.siteid ? this.siteData.siteid : this.siteData.siteId;

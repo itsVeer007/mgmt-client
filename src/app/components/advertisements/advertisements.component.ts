@@ -23,7 +23,7 @@ export class AdvertisementsComponent implements OnInit {
   ) { }
 
   searchText!: string;
-  showLoader: boolean = false;
+  tableLoader: boolean = false;
   user: any;
   ngOnInit() {
     this.user = this.storageSer.get('user');
@@ -38,9 +38,9 @@ export class AdvertisementsComponent implements OnInit {
   sycedAfterRemoval: any = [];
   removed: any = [];
   listAssets() {
-    this.showLoader = true;
+    this.tableLoader = true;
     this.assetService.listAssets().subscribe((res: any) => {
-      this.showLoader = false;
+      this.tableLoader = false;
       this.getMetadata();
       let x = res.flatMap((item: any) => item.assets);
       this.advertisements = x.sort((a: any, b: any) => a.deviceModeId > b.deviceModeId ? -1 : a.deviceModeId < b.deviceModeId ? 1 : 0);;
@@ -68,7 +68,7 @@ export class AdvertisementsComponent implements OnInit {
   }
 
   getLoaderFromChild(data: boolean) {
-    this.showLoader = data;
+    this.tableLoader = data;
   }
 
   getAdsFromChild(data: any) {

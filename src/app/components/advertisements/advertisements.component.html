@@ -110,7 +110,7 @@
         </tr>
       </thead>
 
-      <tbody *ngIf="!showLoader">
+      <tbody *ngIf="!tableLoader">
         <tr *ngFor="let item of newAdvertisements | search: searchText; let i=index;">
           <!-- <td>
             <input type="checkbox"
@@ -156,12 +156,12 @@
 
           <td>
             <p>
-              <!-- <span style="width: 60px;" [style.color]="item.status == 1 ? 'blue' : (item.status == 2 || item.status == 3) ? 'violet' : item.status == 4 ? 'green' : 'orange'">
-                {{ item.status == 1 ? "Pending": item.status == 2 ? "In progress" : item.status == 3 ? 'In progress' : item.status == 4 ? "Activated" : item.status == 5 ? "Deactivated" : ''}}
-              </span> -->
-              <select class="form-control custom-form-control" [(ngModel)]="item.status">
+              <span style="width: 60px;" [style.color]="(item.status == 2 || item.status == 4) ? 'green' : (item.status == 3 || item.status == 5) ? 'red' : ''">
+                {{ (item.status == 2 || item.status == 4 )? "Active" : (item.status == 3 || item.status == 5) ? "Inactive" : '' }}
+              </span>
+              <!-- <select class="form-control custom-form-control" [(ngModel)]="item.status">
                 <option *ngFor="let status of addStatus" [value]="status.keyId">{{status.value}}</option>
-              </select>
+              </select> -->
 
               <!-- <span class="d-flex">
                 <span style="width: 60px;" [style.color]="item.status == 1 ? 'blue' : (item.status == 2 || item.status == 3) ? 'violet' : item.status == 4 ? 'green' : 'orange'">
@@ -238,14 +238,15 @@
         </tr>
       </tbody>
     </table>
+    
     <!-- error info -->
     <div class="d-flex align-items-center justify-content-center" style="height: 45vh;"
-      *ngIf="newAdvertisements.length == 0 && !showLoader">
+      *ngIf="newAdvertisements.length == 0 && !tableLoader">
       <h1 class="text-secondary">No Advertisements</h1>
     </div>
 
     <!-- loader -->
-    <div *ngIf="showLoader">
+    <div *ngIf="tableLoader">
       <app-loader class="d-flex justify-content-center align-items-center" style="height: 45vh;"></app-loader>
     </div>
   </div>
