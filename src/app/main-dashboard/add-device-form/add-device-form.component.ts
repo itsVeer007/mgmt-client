@@ -37,10 +37,14 @@ export class AddDeviceFormComponent {
     this.siteData = this.storageSer.get('temp_sites');
     this.siteDataForForm = this.storageSer.get('siteIds');
     this.user = this.storageSer.get('user');
+    this.formCheck();
+    this.getMetadata();
+    // this.getCamerasForSiteId();
+  }
 
+  formCheck() {
     this.addDevice = this.fb.group({
       'siteId': new FormControl(''),
-
       'deviceDescription': new FormControl('', Validators.required),
       'deviceTypeId': new FormControl('', Validators.required),
       'deviceCallFreq': new FormControl('', Validators.required),
@@ -67,24 +71,23 @@ export class AddDeviceFormComponent {
       'remarks': new FormControl(''),
 
       'cameraType': new FormControl(''),
-      'hh': new FormControl(''),
+
+      'morning': new FormControl(''),
+      'afternoon': new FormControl(''),
     });
 
     this.addDevice.get('deviceModeId').valueChanges.subscribe((val: any) => {
       if(val == 3) {
-        this.addDevice.get('cameraId').setValidators(Validators.required);
+        // this.addDevice.get('cameraId').setValidators(Validators.required);
         this.addDevice.get('modelObjectTypeId').setValidators(Validators.required);
       } else {
-        this.addDevice.get('cameraId').clearValidators();
+        // this.addDevice.get('cameraId').clearValidators();
         this.addDevice.get('modelObjectTypeId').clearValidators();
       }
 
-      this.addDevice.get('cameraId').updateValueAndValidity();
+      // this.addDevice.get('cameraId').updateValueAndValidity();
       this.addDevice.get('modelObjectTypeId').updateValueAndValidity();
     });
-
-    this.getMetadata();
-    // this.getCamerasForSiteId();
   }
 
   cameras: any = [];
@@ -142,38 +145,27 @@ export class AddDeviceFormComponent {
       for(let item of res) {
         if(item.type == 2) {
           this.deviceType = item.metadata;
-        }
-        else if(item.type == 1) {
+        } else if(item.type == 1) {
           this.deviceMode = item.metadata;
-        }
-        else if(item.type == 6) {
+        } else if(item.type == 6) {
           this.workingDay = item.metadata;
-        }
-        else if(item.type == 10) {
+        } else if(item.type == 10) {
           this.tempRange = item.metadata;
-        }
-        else if(item.type == 13) {
+        } else if(item.type == 13) {
           this.ageRange = item.metadata;
-        }
-        else if(item.type == 7) {
+        } else if(item.type == 7) {
           this.modelObjectType = item.metadata;
-        }
-        else if(item.type == 18) {
+        } else if(item.type == 18) {
           this.model = item.metadata;
-        }
-        else if(item.type == 19) {
+        } else if(item.type == 19) {
           this.modelResolution = item.metadata;
-        }
-        else if(item.type == 20) {
+        } else if(item.type == 20) {
           this.softwareVersion = item.metadata;
-        }
-        else if(item.type == 21) {
+        } else if(item.type == 21) {
           this.weatherInterval = item.metadata;
-        }
-        else if(item.type == 4) {
+        } else if(item.type == 4) {
           this.deviceStatus = item.metadata;
-        }
-        else if(item.type == 28) {
+        } else if(item.type == 28) {
           this.deviceCountry = item.metadata;
         }
       }
@@ -207,8 +199,74 @@ export class AddDeviceFormComponent {
     '23': false,
   });
 
-  @ViewChild('createWorkingDays') createWorkingDays!: MatSelect;
 
+
+
+  morning: any = {
+    name: 'Morning',
+    completed: false,
+    subtasks: [
+      {name: 'Primary', completed: false},
+      {name: 'Accent', completed: false},
+      {name: 'Warn', completed: false},
+    ],
+  };
+
+  afternoon: any = {
+    name: 'Afternoon',
+    completed: false,
+    subtasks: [
+      {name: 'Primary', completed: false},
+      {name: 'Accent', completed: false},
+      {name: 'Warn', completed: false},
+    ],
+  };
+
+  morningAll: boolean = false;
+  afternoonAll: boolean = false;
+  updateAllComplete(type: string) {
+    if(type === 'morning') {
+      this.morningAll = this.morning.subtasks != null && this.morning.subtasks.every((t: any) => t.completed);
+    }
+    if(type === 'afternoon') {
+      this.afternoonAll = this.afternoon.subtasks != null && this.afternoon.subtasks.every((t: any) => t.completed);
+    }
+  }
+
+  someComplete(type: string): boolean {
+    if(type === 'morning') {
+      if (this.morning.subtasks == null) {
+        return false;
+      }
+      return this.morning.subtasks.filter((t: any)=> t.completed).length > 0 && !this.morningAll;
+    }
+    if(type === 'afternoon') {
+      if (this.afternoon.subtasks == null) {
+        return false;
+      }
+      return this.afternoon.subtasks.filter((t: any)=> t.completed).length > 0 && !this.afternoonAll;
+    }
+    return false;
+  }
+
+  setAll(completed: boolean, type: string) {
+    if(type === 'morning') {
+      this.morningAll = completed;
+    if (this.morning.subtasks == null) {
+      return;
+    }
+    this.morning.subtasks.forEach((t: any) => (t.completed = completed));
+    }
+    if(type === 'afternoon') {
+      this.afternoonAll = completed;
+    if (this.afternoon.subtasks == null) {
+      return;
+    }
+    this.afternoon.subtasks.forEach((t: any) => (t.completed = completed));
+    }
+  }
+
+  @ViewChild('createWorkingDays') createWorkingDays!: MatSelect;
   selectCreate: boolean = false;
   toggleCreateWorkingDays() {
     this.selectCreate = !this.selectCreate;
@@ -222,7 +280,6 @@ export class AddDeviceFormComponent {
 
 
   @ViewChild('modifyWorkingDays') modifyWorkingDays!: MatSelect;
-
   selectModify: boolean = false;
   toggleModifyWorkingDays() {
     this.selectModify = !this.selectModify;
@@ -246,11 +303,11 @@ export class AddDeviceFormComponent {
   myToops: any = [];
   addDeviceDtl() {
     if(this.addDevice.valid) {
-      this.newItemEvent.emit();
 
       if(this.cameraType === 0) {
         this.adInfo.cameraId = 0;
       }
+
       this.finalToopings =this.toppings.value;
       for(const val in this.finalToopings) {
         if(this.finalToopings[val] === true) {
@@ -258,7 +315,11 @@ export class AddDeviceFormComponent {
         }
       }
       this.adInfo.adsHours = this.myToops.join(',');
-      this.adInfo.siteId = this.siteData.siteid;
+
+      if(this.type === 'add-device') {
+        this.adInfo.siteId = this.siteData.siteid ? this.siteData.siteid : this.siteData.siteId;
+      }
+
       if(!this.isToogleClicked) {
         let arr: string = this.adInfo.workingDays.join(',');
         let myString = arr.substring(1);
@@ -266,27 +327,22 @@ export class AddDeviceFormComponent {
       }
       if(this.isToogleClicked) {
         let arr = JSON.parse(JSON.stringify(this.adInfo.workingDays)).join(',');
-        if(this.toAddDevice == 8) {
+        if(this.toAddDevice === 8) {
           var myString = arr.substring(1);
           this.adInfo.workingDays = myString;
         } else {
           this.adInfo.workingDays = arr;
         }
       }
-      this.alertSer.wait();
+      // this.alertSer.wait();
       this.adInfo.createdBy = this.user?.UserId;
       this.assetSer.createDeviceandAdsInfo(this.adInfo).subscribe((res: any) => {
-        // console.log(res);
-        if(res) {
-          this.alertSer.success(res?.message ? res?.message : 'Device created successfully');
-        }
+        this.newItemEvent.emit();
+        this.alertSer.success(res?.message ? res?.message : 'Device created successfully');
       }, (err: any) => {
-        if(err) {
-          this.alertSer.error(err?.error?.message);
-        };
+        this.alertSer.error(err?.error?.message);
       })
     }
-    // console.log(this.addDevice);
   }
 
 }

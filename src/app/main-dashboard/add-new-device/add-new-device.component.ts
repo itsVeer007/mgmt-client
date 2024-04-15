@@ -126,19 +126,10 @@ export class AddNewDeviceComponent implements OnInit {
       this.addDevice.get('modelObjectTypeId').updateValueAndValidity();
     });
     this.getMetadata();
-    // this.getCamerasForSiteId();
-  }
-
-  cameras: any = [];
-  getCamerasForSiteId() {
-    this.siteSer.getCamerasForSiteId(this.siteData?.siteid).subscribe((res: any) => {
-      this.cameras = res;
-    })
   }
 
   deviceData: any = [];
   deviceLength: any;
-
 
   isShown: boolean = false;
   toggleShowOnOff() {

@@ -188,7 +188,6 @@ export class DevicesComponent implements OnInit {
   }
 
   @ViewChild('editSiteDialog') editSiteDialog = {} as TemplateRef<any>;
-
   openEditPopup(item: any) {
     this.currentItem = item;
     this.currentWorkingDays = JSON.parse(JSON.stringify(this.currentItem.workingDays.split(',').map((item: any) => +item)));
@@ -198,7 +197,6 @@ export class DevicesComponent implements OnInit {
   toAddDevice: any;
   onToAddDevice(e: any) {
     this.toAddDevice = e.value.length;
-    // console.log(e.value.length)
   }
 
 
