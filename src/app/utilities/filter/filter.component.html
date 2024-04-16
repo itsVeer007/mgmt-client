@@ -1,6 +1,6 @@
 <div class="filter">
     <div class="row">
-        <div class="col-lg-3">
+        <div class="col-lg-6 col-md-6">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Site</mat-label>
             <input matInput #siteIdInput [matAutocomplete]="site" [(ngModel)]="siteId" (keyup)="searchSites($event)">
@@ -16,8 +16,8 @@
             </mat-autocomplete>
           </mat-form-field>
         </div>
-    
-        <div class="col-lg-3" *ngIf="filterType !== 'devices'">
+
+        <div class="col-lg-6 col-md-6" *ngIf="filterType !== 'devices' && filterType !== 'sensors'">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Device</mat-label>
             <input matInput #deviceIdInput type="text" [matAutocomplete]="device" [(ngModel)]="deviceId" (keyup)="searchDevices($event)">
@@ -42,8 +42,8 @@
               </mat-select>
             </mat-form-field>
         </div> -->
-    
-        <div class="col-lg-2">
+
+        <div class="col-lg-6" *ngIf="filterType !== 'sensors'">
           <mat-form-field class="example-form-field" appearance="outline" class="w-100">
             <mat-label>Search</mat-label>
             <input matInput type="text" [(ngModel)]="searchText" (ngModelChange)="searchTableData()">

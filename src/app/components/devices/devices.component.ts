@@ -33,19 +33,23 @@ export class DevicesComponent implements OnInit {
     this.listDevices();
     this.getStatus();
     this.listSites()
-    this.getData();
   }
 
   getDataForDevice:any;
+  newGetDataForDevice:any;
   getData() {
     this.inventorySer.getData().subscribe((res:any)=> {
-      console.log(res);
+      // console.log(res);
       this.getDataForDevice = res;
+      this.newGetDataForDevice = this.getDataForDevice;
+      // this.getDataForDevice = res.flatMap((item:any)=> item.devices_data);
+      // console.log(this.getDataForDevice)
     })
   }
 
   @ViewChild('sensorDialog') sensorDialog = {} as TemplateRef<any>
   openSensor() {
+    this.getData();
     this.dialog.open(this.sensorDialog);
   }
 
@@ -130,6 +134,11 @@ export class DevicesComponent implements OnInit {
         this.inActive.push(item);
       }
     }
+  }
+
+  getDevicesFromChild1(data: any) {
+    this.newGetDataForDevice = data;
+    console.log(data)
   }
 
   getSearchFromChild(data: any) {
