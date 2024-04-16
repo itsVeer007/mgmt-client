@@ -506,14 +506,15 @@
   <p class="dialog-title">Sensor Details</p>
   </div>
 
-  <div class="dialog-content">
-    <!-- <mat-grid-list cols="2" rowHeight="2:1">
-      <mat-grid-tile *ngFor="let item of getDataForDevice">
-        <div>{{item.device_name}}</div>
-      </mat-grid-tile>
-    </mat-grid-list> -->
+
+  <div class="dialog-content" style="min-width: 700px; min-height: 300px;">
+    <app-filter
+      [filterType]="'sensors'"
+      (tableDataFromChild)="getDevicesFromChild1($event)">
+    </app-filter>
+
     <div class="device-list">
-      <div class="device-item" *ngFor="let item of getDataForDevice">
+      <!-- <div class="device-item" *ngFor="let item of getDataForDevice">
         <p class="mb-2 heading"><span style="color: brown;">Device Name:&nbsp;</span>{{item.device_name}}</p>
         <span *ngFor="let val of item.devices_data">
           <div>
@@ -524,7 +525,21 @@
             <p><span style="color: darkcyan;">status:&nbsp;</span>{{val.status}}</p>
           </div>
         </span>
+      </div> -->
+      <div class="device-item" *ngFor="let item of newGetDataForDevice">
+        <p class="mb-3"><span style="color:#084982;">Device Name:&nbsp;</span>{{item.device_name}}</p>
+      <div class="d-flex justify-content-between align-items-center">
+        <p class="mb-2 heading" style="color: chocolate;">Time</p>
+        <p class="mb-2 heading" style="color: chocolate;">Sensor</p>
+        <p class="mb-2 heading" style="color: chocolate;">Status</p>
       </div>
+       <div class="d-flex justify-content-between align-items-center" *ngFor="let val of item.devices_data">
+        <p>{{val.dateTime | date:'shortTime'}}</p>
+        <p class="m-1">{{val.sensor_id}}</p>
+        <p>{{val.status}}</p>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end align-items-center" style="height: 50vh;font-weight: 600; font-size: larger;"  *ngIf="newGetDataForDevice.length == 0"> No Data</div>
     </div>
   </div>
 </ng-template>

@@ -653,9 +653,16 @@ export class InventoryService {
 
   baseUrl1 = 'http://192.168.0.169:2255';
 
-  getData() {
+  getData(payload?:any) {
     let url = this.baseUrl1 + '/getData';
-    return this.http.get(url);
+    let params = new HttpParams();
+    if(payload?.siteId) {
+      params = params.set('siteId' ,payload?.siteId)
+    }
+    if(payload?.deviceId) {
+      params = params.set('device_name' ,payload?.deviceId)
+    }
+    return this.http.get(url,{params:params});
   }
 
 }

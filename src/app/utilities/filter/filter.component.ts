@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AssetService } from 'src/services/asset.service';
+import { InventoryService } from 'src/services/inventory.service';
 import { SiteService } from 'src/services/site.service';
 
 @Component({
@@ -18,7 +19,8 @@ export class FilterComponent {
   constructor(
     private siteSer: SiteService,
     private storageSer: SiteService,
-    private assetSer: AssetService
+    private assetSer: AssetService,
+    private inventorySer: InventoryService,
   ) { }
 
   ngOnInit() {
@@ -77,16 +79,22 @@ export class FilterComponent {
       })
     }
 
+    if(type === 'sensors') {
+      this.loaderFromChild.emit(true);
+      this.inventorySer.getData({siteId:siteId, device_name: deviceId}).subscribe((res:any)=> {
+        let x = res.flatMap((item:any)=> item);
+        this.tableDataFromChild.emit(x);
+      })
+    }
+
     if(type === 'wifi') {
       this.loaderFromChild.emit(true);
       this.assetSer.dayWiseStats({siteId: siteId, device_name: deviceId}).subscribe((res: any) => {
         // console.log(res);
         this.loaderFromChild.emit(false);
         if(res.message === 'no data') {
-          // let x = res.content;
           this.tableDataFromChild.emit(res.content);
         } else {
-          // let x = res.content;
           this.tableDataFromChild.emit(res.content);
         }
       });
