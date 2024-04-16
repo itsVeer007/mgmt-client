@@ -166,18 +166,6 @@ export class AddNewInstallationComponent {
     })
   }
 
-
-  /* Search for Get Site and Device Id's */
-  sit: string = '';
-  dev: string = '';
-  siteSearchh(e: Event) {
-    this.sit = (e.target as HTMLInputElement).value;
-  }
-
-  deviceSer(e: Event) {
-    this.dev = (e.target as HTMLInputElement).value;
-  }
-
   /* create Asset */
   addNewAsset() {
   }

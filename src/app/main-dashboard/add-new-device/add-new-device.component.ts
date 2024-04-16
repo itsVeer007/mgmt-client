@@ -244,7 +244,7 @@ export class AddNewDeviceComponent implements OnInit {
       } else {
         this.adInfo.workingDays = arr;
       }
-      this.alertSer.wait();
+      // this.alertSer.wait();
       this.adInfo.createdBy = this.user?.UserId;
       this.assetSer.createDeviceandAdsInfo(this.adInfo).subscribe((res: any) => {
         // console.log(res);

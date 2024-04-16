@@ -17,7 +17,7 @@ import { StorageService } from 'src/services/storage.service';
 export class EditDeviceFormComponent {
 
   @Input() currentItem: any;
-  @Output() newItemEvent = new EventEmitter<boolean>();
+  @Output() getDevices: any = new EventEmitter<any>();
 
   constructor(
     private fb: FormBuilder,
@@ -110,10 +110,26 @@ export class EditDeviceFormComponent {
   originalObject: any;
   changedKeys: any[] = [];
   checkedItems: any = []
-  onCheckbox(data: any, event: any) {
-    if (event.checked) {
+  onCheckbox(data: any, event: any, index: number) {
+    // this.currentAdHours.forEach((val: any) => {
+    //   if (!this.checkedItems.includes(val)) {
+    //     this.checkedItems.push(data);
+    //   }
+    // })
+
+    if(event.checked && (!this.checkedItems.includes(data))) {
       this.checkedItems.push(data);
+    } else {
+      this.checkedItems.splice(index, 1);
     }
+
+    // let final = this.currentAdHours;
+    // if((!this.checkedItems.includes(...final))) {
+    //   this.checkedItems.push(...final)
+    // }
+    console.log(this.currentAdHours.sort((a: any, b: any) => a > b ? 1 : a < b ? -1 : 0));
+    console.log(this.checkedItems);
+
     let x = event.source.name;
     if (!(this.changedKeys.includes(x))) {
       this.changedKeys.push(x);
@@ -141,8 +157,8 @@ export class EditDeviceFormComponent {
     }
   }
 
-  cameraType: any = 0
-
+  cameraType: any = 0;
+  finalAdHours: any = [];
   updateDeviceDtl() {
     this.originalObject = {
       "deviceId": this.currentItem.deviceId,
@@ -150,7 +166,7 @@ export class EditDeviceFormComponent {
       "deviceDescription": this.currentItem.deviceDescription,
       "remarks": this.currentItem.remarks,
       "weatherInterval": this.currentItem.weatherInterval,
-      "loggerFreq": this.currentItem.loggerFreq,
+      // "loggerFreq": this.currentItem.loggerFreq,
       "modelWidth": this.currentItem.modelWidth,
       "modelHeight": this.currentItem.modelHeight,
       "deviceModeId": this.currentItem.deviceModeId,
@@ -171,7 +187,11 @@ export class EditDeviceFormComponent {
     if(this.cameraType === 0) {
       this.currentItem.cameraId = 0;
     }
-    this.originalObject.adsHours = this.checkedItems.join(',');
+
+    let final = this.currentAdHours.concat(this.checkedItems);
+    this.originalObject.adsHours = final.sort((a: any, b: any) => a > b ? 1 : a < b ? -1 : 0).join(',');
+    // this.originalObject.adsHours = this.currentAdHours.join(',') + ',' + this.checkedItems.join(',');
+
     this.currentItem.createdBy = this.user?.UserId;
     if (this.changedKeys.length > 0) {
       // this.alertSer.wait();
@@ -184,9 +204,9 @@ export class EditDeviceFormComponent {
         this.originalObject.workingDays = arr;
       }
     }
-    this.newItemEvent.emit();
     this.assetSer.updateDeviceAdsInfo({adsDevice: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
-      this.alertSer.success(res?.message ? res?.message : 'Device updated successfully');
+      this.getDevices.emit();
+      this.alertSer.success(res.message ? res.message : 'Device updated successfully');
     }, (err: any) => {
       this.alertSer.error(err?.error?.message);
     })

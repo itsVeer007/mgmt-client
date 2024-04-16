@@ -71,7 +71,6 @@ export class AddDeviceFormComponent {
       'remarks': new FormControl(''),
 
       'cameraType': new FormControl(''),
-
       'morning': new FormControl(''),
       'afternoon': new FormControl(''),
     });

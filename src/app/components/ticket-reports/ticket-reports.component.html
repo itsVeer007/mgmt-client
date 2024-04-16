@@ -143,19 +143,17 @@
         </tr>
       </tbody>
     </table>
+    <div class="d-flex align-items-center justify-content-center" style="height: 45vh;" *ngIf="newTicketData.length == 0 && !showLoader">
+      <h1 class="text-secondary">No Data</h1>
+    </div>
+  
+    <!-- Loader -->
+    <div >
+      <app-loader *ngIf="showLoader" class="d-flex justify-content-center align-items-center" style="height: 45vh;"></app-loader>
+    </div>
   </div>
 
-  <div class="d-flex align-items-center justify-content-center" style="height: 45vh;" *ngIf="newTicketData.length == 0 && !showLoader">
-    <h1 class="text-secondary">No Data</h1>
-  </div>
-
-  <!-- Loader -->
-  <div >
-    <app-loader *ngIf="showLoader" class="d-flex justify-content-center align-items-center" style="height: 45vh;"></app-loader>
-  </div>
-  <!-- /Loader -->
 </div>
-<!-- /table -->
 
 
 <!-- view popup -->

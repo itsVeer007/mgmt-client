@@ -38,9 +38,9 @@
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>How do you call the device?</mat-label>
+        <mat-label>Device Name (eg: Parking Device)</mat-label>
         <input matInput formControlName="deviceDescription" [(ngModel)]="adInfo.deviceDescription">
-        <mat-hint>eg: Parking Device</mat-hint>
+        <!-- <mat-hint>eg: Parking Device</mat-hint> -->
         <mat-error>required</mat-error>
       </mat-form-field>
     </div>
@@ -69,47 +69,50 @@
           <mat-error >Ad-Hours is required</mat-error>
         </mat-form-field> -->
 
-      <section class="mb-3" [formGroup]="toppings">
-        <p>Morning</p>
-        <div class="d-flex flex-wrap">
-          <p><mat-checkbox formControlName="00">00</mat-checkbox></p>
-          <p><mat-checkbox formControlName="01">01</mat-checkbox></p>
-          <p><mat-checkbox formControlName="02">02</mat-checkbox></p>
-          <p><mat-checkbox formControlName="03">03</mat-checkbox></p>
-          <p><mat-checkbox formControlName="04">04</mat-checkbox></p>
-          <p><mat-checkbox formControlName="05">05</mat-checkbox></p>
-          <p><mat-checkbox formControlName="06">06</mat-checkbox></p>
-          <p><mat-checkbox formControlName="07">07</mat-checkbox></p>
-          <p><mat-checkbox formControlName="08">08</mat-checkbox></p>
-          <p><mat-checkbox formControlName="09">09</mat-checkbox></p>
-          <p><mat-checkbox formControlName="10">10</mat-checkbox></p>
-          <p><mat-checkbox formControlName="11">11</mat-checkbox></p>
-        </div>
-
-        <p>Afternoon</p>
-        <div class="d-flex">
-          <p><mat-checkbox formControlName="12">12</mat-checkbox></p>
-          <p><mat-checkbox formControlName="13">13</mat-checkbox></p>
-          <p><mat-checkbox formControlName="14">14</mat-checkbox></p>
-        </div>
-
-        <p>Evening</p>
-        <div class="d-flex">
-          <p><mat-checkbox formControlName="15">15</mat-checkbox></p>
-          <p><mat-checkbox formControlName="16">16</mat-checkbox></p>
-          <p><mat-checkbox formControlName="17">17</mat-checkbox></p>
-          <p><mat-checkbox formControlName="18">18</mat-checkbox></p>
-        </div>
-
-        <p>Night</p>
-        <div class="d-flex">
-          <p><mat-checkbox formControlName="19">19</mat-checkbox></p>
-          <p><mat-checkbox formControlName="20">20</mat-checkbox></p>
-          <p><mat-checkbox formControlName="21">21</mat-checkbox></p>
-          <p><mat-checkbox formControlName="22">22</mat-checkbox></p>
-          <p><mat-checkbox formControlName="23">23</mat-checkbox></p>
-        </div>
-      </section>
+      <mat-label>Ad Hours</mat-label>
+      <mat-card class="mb-4 p-2">
+        <section class="mb-3" [formGroup]="toppings">
+          <p>Morning</p>
+          <div class="d-flex flex-wrap">
+            <p><mat-checkbox formControlName="00">00</mat-checkbox></p>
+            <p><mat-checkbox formControlName="01">01</mat-checkbox></p>
+            <p><mat-checkbox formControlName="02">02</mat-checkbox></p>
+            <p><mat-checkbox formControlName="03">03</mat-checkbox></p>
+            <p><mat-checkbox formControlName="04">04</mat-checkbox></p>
+            <p><mat-checkbox formControlName="05">05</mat-checkbox></p>
+            <p><mat-checkbox formControlName="06">06</mat-checkbox></p>
+            <p><mat-checkbox formControlName="07">07</mat-checkbox></p>
+            <p><mat-checkbox formControlName="08">08</mat-checkbox></p>
+            <p><mat-checkbox formControlName="09">09</mat-checkbox></p>
+            <p><mat-checkbox formControlName="10">10</mat-checkbox></p>
+            <p><mat-checkbox formControlName="11">11</mat-checkbox></p>
+          </div>
+  
+          <p>Afternoon</p>
+          <div class="d-flex">
+            <p><mat-checkbox formControlName="12">12</mat-checkbox></p>
+            <p><mat-checkbox formControlName="13">13</mat-checkbox></p>
+            <p><mat-checkbox formControlName="14">14</mat-checkbox></p>
+          </div>
+  
+          <p>Evening</p>
+          <div class="d-flex">
+            <p><mat-checkbox formControlName="15">15</mat-checkbox></p>
+            <p><mat-checkbox formControlName="16">16</mat-checkbox></p>
+            <p><mat-checkbox formControlName="17">17</mat-checkbox></p>
+            <p><mat-checkbox formControlName="18">18</mat-checkbox></p>
+          </div>
+  
+          <p>Night</p>
+          <div class="d-flex">
+            <p><mat-checkbox formControlName="19">19</mat-checkbox></p>
+            <p><mat-checkbox formControlName="20">20</mat-checkbox></p>
+            <p><mat-checkbox formControlName="21">21</mat-checkbox></p>
+            <p><mat-checkbox formControlName="22">22</mat-checkbox></p>
+            <p><mat-checkbox formControlName="23">23</mat-checkbox></p>
+          </div>
+        </section>
+      </mat-card>
 
 
       <!-- <section class="example-section">
@@ -222,9 +225,9 @@
 
       <div class="col-lg-12 mt-2" style="font-size: 10px; font-weight: 700;">
         <mat-radio-group class="w-50" formControlName="cameraType" [(ngModel)]="cameraType">
-          <mat-label>Camera Type</mat-label>
-          <mat-radio-button class="ms-3" name="camera" [value]="0">Local</mat-radio-button>
-          <mat-radio-button class="ms-3" name="camera" [value]="1">Select from list</mat-radio-button>
+          <mat-label>Camera Type</mat-label><br>
+          <mat-radio-button class="ms-3" name="camera" [value]="0">Device Camera</mat-radio-button>
+          <mat-radio-button class="ms-3" name="camera" [value]="1">Existing list</mat-radio-button>
         </mat-radio-group>
       </div>
 

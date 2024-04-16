@@ -39,6 +39,7 @@
         </mat-form-field>
       </div>
 
+      <mat-label>Ad Hours</mat-label>
       <div class="col-lg-12">
         <!-- <mat-form-field appearance="outline" class="w-100">
           <mat-label>Ad hours</mat-label>
@@ -49,15 +50,16 @@
             <mat-option value="08-21">08 to 21</mat-option>
           </mat-select>
         </mat-form-field> -->
-        <section class="mb-3">
-          <p>Ad Hours</p>
-          <div class="d-flex flex-wrap">
-            <mat-checkbox name="adsHours" *ngFor="let box of checkBoxItems" [ngModel]="currentAdHours.includes(box)"
-              [value]="currentAdHours.includes(box)" (change)="onCheckbox(box, $event)">
-              {{box}}
-            </mat-checkbox>
-          </div>
-        </section>
+        <mat-card class="mb-3">
+          <section >
+            <div class="d-flex flex-wrap">
+              <mat-checkbox name="adsHours" *ngFor="let box of checkBoxItems; let i = index" [ngModel]="currentAdHours.includes(box)"
+                [value]="currentAdHours.includes(box)" (change)="onCheckbox(box, $event, i)">
+                {{box}}
+              </mat-checkbox>
+            </div>
+          </section>
+        </mat-card>
       </div>
 
       <div class="col-lg-6">
@@ -136,12 +138,12 @@
         </mat-form-field>
       </div>
 
-      <div class="col-lg-6">
+      <!-- <div class="col-lg-6">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Logger Freqency</mat-label>
           <input name="loggerFreq" matInput [(ngModel)]="currentItem.loggerFreq" (change)="onInputChange($event)">
         </mat-form-field>
-      </div>
+      </div> -->
 
       <div class="col-lg-6">
         <mat-form-field appearance="outline" class="w-100">

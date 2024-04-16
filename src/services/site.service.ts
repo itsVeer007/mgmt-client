@@ -9,7 +9,6 @@ import { StorageService } from './storage.service';
 })
 export class SiteService {
 
-  // baseUrl = `${environment.baseUrl}/businessInterface/sites`;
   baseUrl = 'http://54.92.215.87:943/businessInterface';
 
   constructor(private http: HttpClient, private storageSer: StorageService) { }
@@ -22,12 +21,11 @@ export class SiteService {
       accessToken : 'abc',
       calling_System_Detail: "portal",
     }
-
     return this.http.post(url, payload);
   }
 
   getCamerasForSiteId(payload: any) {
-    let url = `http://54.92.215.87:943/getCamerasForSiteId_1_0/${payload}`;
+    let url = `${this.baseUrl}/getCamerasForSiteId_1_0/${payload}`;
     return this.http.get(url);
   }
 
