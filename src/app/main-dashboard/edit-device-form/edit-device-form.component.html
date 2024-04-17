@@ -54,7 +54,7 @@
           <section >
             <div class="d-flex flex-wrap">
               <mat-checkbox name="adsHours" *ngFor="let box of checkBoxItems; let i = index" [ngModel]="currentAdHours.includes(box)"
-                [value]="currentAdHours.includes(box)" (change)="onCheckbox(box, $event, i)">
+                [value]="box" (change)="onCheckbox(box, $event)">
                 {{box}}
               </mat-checkbox>
             </div>

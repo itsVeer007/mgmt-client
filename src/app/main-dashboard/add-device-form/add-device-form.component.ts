@@ -305,7 +305,7 @@ export class AddDeviceFormComponent {
       if(this.cameraType === 0) {
         this.adInfo.cameraId = 0;
       }
-      
+
       this.finalToopings = this.toppings.value;
       for(const val in this.finalToopings) {
         if(this.finalToopings[val] === true && (!this.myToops.includes(val))) {

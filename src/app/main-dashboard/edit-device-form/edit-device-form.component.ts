@@ -109,26 +109,15 @@ export class EditDeviceFormComponent {
 
   originalObject: any;
   changedKeys: any[] = [];
-  checkedItems: any = []
-  onCheckbox(data: any, event: any, index: number) {
-    // this.currentAdHours.forEach((val: any) => {
-    //   if (!this.checkedItems.includes(val)) {
-    //     this.checkedItems.push(data);
-    //   }
-    // })
-
-    if(event.checked && (!this.checkedItems.includes(data))) {
-      this.checkedItems.push(data);
+  isChekboxTouched: boolean = false;
+  onCheckbox(data: any, event: any) {
+    this.isChekboxTouched = true;
+    if(event.checked && (!this.currentAdHours.includes(data))) {
+      this.currentAdHours.push(data);
     } else {
-      this.checkedItems.splice(index, 1);
+      const filteredItems = this.currentAdHours.filter((item: any) => item !== data);
+      this.currentAdHours = filteredItems;
     }
-
-    // let final = this.currentAdHours;
-    // if((!this.checkedItems.includes(...final))) {
-    //   this.checkedItems.push(...final)
-    // }
-    console.log(this.currentAdHours.sort((a: any, b: any) => a > b ? 1 : a < b ? -1 : 0));
-    console.log(this.checkedItems);
 
     let x = event.source.name;
     if (!(this.changedKeys.includes(x))) {
@@ -188,16 +177,16 @@ export class EditDeviceFormComponent {
       this.currentItem.cameraId = 0;
     }
 
-    let final = this.currentAdHours.concat(this.checkedItems);
-    this.originalObject.adsHours = final.sort((a: any, b: any) => a > b ? 1 : a < b ? -1 : 0).join(',');
-    // this.originalObject.adsHours = this.currentAdHours.join(',') + ',' + this.checkedItems.join(',');
+    if(this.isChekboxTouched) {
+      this.originalObject.adsHours = this.currentAdHours.sort((a: any, b: any) => a > b ? 1 : a < b ? -1 : 0).join(',');
+    }
 
     this.currentItem.createdBy = this.user?.UserId;
     if (this.changedKeys.length > 0) {
       // this.alertSer.wait();
       // let arr = this.currentItem.workingDays.join(',');
       let arr = this.currentWorkingDays.join(',');
-      if (this.toAddDevice == 8) {
+      if (this.toAddDevice === 8) {
         var myString = arr.substring(1);
         this.originalObject.workingDays = myString;
       } else {
@@ -212,7 +201,7 @@ export class EditDeviceFormComponent {
     })
   }
 
-  /* create device */
+
   toAddDevice: any;
   isToogleClicked: boolean = false;
   onToAddDevice(e: any) {

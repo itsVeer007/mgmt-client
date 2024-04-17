@@ -33,8 +33,8 @@
   </div>
 
   <!-- form -->
-    <div class="row">
-      <div class="col-md-6 col-lg-6">
+    <div>
+      <!-- <div class="col-md-6 col-lg-6"> -->
         <app-filter
           [filterType]="'devices'"
           (tableDataFromChild)="getDevicesFromChild($event)"
@@ -42,7 +42,7 @@
           (loaderFromChild)="getLoaderFromChild($event)"
         >
         </app-filter>
-      </div>
+      <!-- </div> -->
     </div>
 
   <div class="status-tile row py-2 mx-1 mb-3 d-lg-flex d-none">
