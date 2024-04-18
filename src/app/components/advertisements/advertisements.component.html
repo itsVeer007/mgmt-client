@@ -156,8 +156,13 @@
 
           <td>
             <p>
-              <span style="width: 60px;" [style.color]="(item.status == 2 || item.status == 4) ? 'green' : (item.status == 3 || item.status == 5) ? 'red' : ''">
-                {{ (item.status == 2 || item.status == 4 )? "Active" : (item.status == 3 || item.status == 5) ? "Inactive" : '' }}
+              <span class="d-flex">
+                <span style="width: 40px;" [style.color]="(item.status == 2 || item.status == 4) ? 'green' : (item.status == 3 || item.status == 5) ? 'red' : ''">
+                  {{ (item.status == 2 || item.status == 4 )? "Active" : (item.status == 3 || item.status == 5) ? "Inactive" : 'Pending' }}
+                </span>
+                <a (click)="openEditStatus(item)" class="ms-2 pointer" *ngIf="item?.status !== 1">
+                  <img src="assets/icons/edit.svg"  width="13">
+                </a>
               </span>
               <!-- <select class="form-control custom-form-control" [(ngModel)]="item.status">
                 <option *ngFor="let status of addStatus" [value]="status.keyId">{{status.value}}</option>
@@ -173,18 +178,21 @@
                 </a>
               </span> -->
 
-              <!-- <ng-template #editStatusDialog>
+              <ng-template #editStatusDialog>
                 <div style="background-color: #084982;">
                   <p class="dialog-title">modify status</p>
                 </div>
                 <div class="dialog-content">
-                  <mat-form-field appearance="outline" class="w-100">
+                  <!-- <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Edit Status</mat-label>
                     <mat-select [(ngModel)]="statusObj.status">
                       <mat-option [value]="2">Activate</mat-option>
                       <mat-option [value]="3">De-Activate</mat-option>
                     </mat-select>
-                  </mat-form-field>
+                  </mat-form-field> -->
+                  <div *ngIf="currentItem?.status === 2 || currentItem?.status === 4">Do you want to inactive this Add?</div>
+                  <div *ngIf="currentItem?.status === 3 || currentItem?.status === 5">Do you want to re-activate this Add?</div>
+
                 </div>
 
                 <div class="d-flex align-items-center justify-content-end">
@@ -194,12 +202,12 @@
                     </button>
                   </div>
                   <div>
-                    <button class="dialog-update-btn" mat-dialog-close (click)="changeAssetStatus()" [disabled]="statusObj.status == null">
+                    <button class="dialog-update-btn" mat-dialog-close (click)="changeAssetStatus()">
                       Submit
                     </button>
                   </div>
                 </div>
-              </ng-template> -->
+              </ng-template>
             </p>
           </td>
 
@@ -308,9 +316,8 @@
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Status</mat-label>
           <mat-select name="status" [(ngModel)]="currentItem.status" (selectionChange)="onSelectChange($event)">
-            <mat-option *ngFor="let item of addStatus" [value]="item.keyId">
+            <mat-option *ngFor="let item of addStatus" [value]="item.keyId" [hidden]="item.keyId !== 2 && item.keyId !== 3">
               {{ item.value }}
-              <!-- {{ currentItem.status == 1 ? 'Pending' : currentItem.status == 2 ? 'Added' : currentItem.status == 3 ? 'SentToController' : currentItem.status == 4 ? 'Synced' : currentItem.status == 5 ? 'Removed' : '' }} -->
             </mat-option>
           </mat-select>
         </mat-form-field>

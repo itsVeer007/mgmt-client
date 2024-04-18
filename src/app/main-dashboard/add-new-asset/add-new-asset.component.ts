@@ -136,15 +136,15 @@ export class AddNewAssetComponent implements OnInit {
       this.addAssetForm.get('tempId').updateValueAndValidity();
     });
 
-    this.listSites();
+    this.getSitesListForUserName();
     this.onMetadataChange()
   };
 
   siteData: any = [];
-  listSites() {
-    this.siteSer.listSites().subscribe((res: any) => {
+  getSitesListForUserName() {
+    this.siteSer.getSitesListForUserName().subscribe((res: any) => {
       if(res?.Status == 'Success') {
-        this.siteData = res.siteList?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
+        this.siteData = res.sites?.sort((a: any, b: any) => a.siteId < b.siteId ? -1 : a.siteId > b.siteId ? 1 : 0);
       }
     });
   }
@@ -166,9 +166,9 @@ export class AddNewAssetComponent implements OnInit {
   siteIdList: any;
   deviceIdList: any;
   getRes() {
-    this.siteService.listSites().subscribe((res: any) => {
+    this.siteService.getSitesListForUserName().subscribe((res: any) => {
       // console.log(res);
-      this.siteIdList = res.sitesList;
+      this.siteIdList = res.sites;
     })
 
     this.assetSer.listDeviceAdsInfo().subscribe((res: any) => {

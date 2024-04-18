@@ -30,19 +30,19 @@ export class SitesComponent implements OnInit {
   // siteData: any;
   ngOnInit(): void {
     // this.tempSite = this.storageSer.get('temp_sites');
-    // this.siteData = this.storageSer.get('temp_sites')?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
+    // this.siteData = this.storageSer.get('temp_sites')?.sort((a: any, b: any) => a.siteId < b.siteId ? -1 : a.siteId > b.siteId ? 1 : 0);
     // this.tableData = this.siteData;
     // this.newTableData = this.tableData;
-    this.listSites()
+    this.getSitesListForUserName()
   }
 
-  listSites() {
+  getSitesListForUserName() {
     this.showLoader = true;
-    this.siteSer.listSites().subscribe((res: any) => {
+    this.siteSer.getSitesListForUserName().subscribe((res: any) => {
       // console.log(res);
       this.showLoader = false;
       if(res?.Status == 'Success') {
-        this.tableData = res?.siteList?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
+        this.tableData = res.sites.sort((a: any, b: any) => a.siteName < b.siteName ? -1 : a.siteName > b.siteName ? 1 : 0);
         this.newTableData = this.tableData;
       }
       }, (err: any) => {
@@ -96,7 +96,7 @@ export class SitesComponent implements OnInit {
 
   filterSites(site: any) {
     if(site != 'All') {
-      this.newTableData =  this.tableData.filter((item: any) => item.siteid == site)
+      this.newTableData =  this.tableData.filter((item: any) => item.siteId == site)
     } else {
       this.newTableData = this.tableData;
     }

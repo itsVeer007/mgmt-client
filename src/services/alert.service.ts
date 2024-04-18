@@ -56,7 +56,7 @@ export class AlertService {
       title: `Done!`,
       text: `${message}`,
       showCloseButton: true,
-      timer: 3000
+      timer: 2000
     })
   }
 

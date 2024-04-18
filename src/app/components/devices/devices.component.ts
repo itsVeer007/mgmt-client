@@ -30,9 +30,9 @@ export class DevicesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.listDevices();
+    this.listDeviceAdsInfo();
     this.getStatus();
-    this.listSites()
+    this.getSitesListForUserName()
   }
 
   getDataForDevice:any;
@@ -62,7 +62,7 @@ export class DevicesComponent implements OnInit {
 
    filterSites(site: any) {
     if(site != 'All') {
-      this.newTableData =  this.tableData.filter((item: any) => item.siteid == site)
+      this.newTableData =  this.tableData.filter((item: any) => item.siteId == site)
     } else {
       this.newTableData = this.tableData;
     }
@@ -71,13 +71,13 @@ export class DevicesComponent implements OnInit {
   tableData: any = [];
   newTableData: any = [];
 
-  listSites() {
+  getSitesListForUserName() {
     this.showLoader = true;
-    this.siteSer.listSites().subscribe((res: any) => {
+    this.siteSer.getSitesListForUserName().subscribe((res: any) => {
       // console.log(res);
       this.showLoader = false;
       if(res?.Status == 'Success') {
-        this.tableData = res?.siteList?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
+        this.tableData = res?.sites?.sort((a: any, b: any) => a.siteId < b.siteId ? -1 : a.siteId > b.siteId ? 1 : 0);
         this.newTableData = this.tableData;
       }
       }, (err: any) => {
@@ -90,7 +90,7 @@ export class DevicesComponent implements OnInit {
   newDeviceData: any = [];
   active: any = [];
   inActive: any = [];
-  listDevices() {
+  listDeviceAdsInfo() {
     this.showLoader = true;
     this.assetSer.listDeviceAdsInfo().subscribe((res: any) => {
       // console.log(res);
@@ -222,7 +222,6 @@ export class DevicesComponent implements OnInit {
   @ViewChild('editStatusDialog') editStatusDialog = {} as TemplateRef<any>;
   y: any
   openEditStatus(id: any) {
-    // console.log(id);
     this.y = id;
     this.dialog.open(this.editStatusDialog);
   }
@@ -232,13 +231,6 @@ export class DevicesComponent implements OnInit {
   currentWorkingDays: any;
   openViewPopup(item: any) {
     this.currentItem = item;
-    // if(typeof(this.currentItem?.workingDays) === 'string') {
-    //   let workingDays = this.currentItem?.workingDays?.split(',').map((item: any) => Number(item));
-    //   this.currentItem.workingDays = workingDays;
-    // } else {
-    //   this.currentItem.workingDays = this.currentItem.workingDays
-    // }
-
     this.currentWorkingDays = JSON.parse(JSON.stringify(this.currentItem.workingDays.split(',').map((item: any) => +item)));
     this.dialog.open(this.viewSiteDialog);
   }
@@ -248,11 +240,6 @@ export class DevicesComponent implements OnInit {
     this.currentItem = item;
     this.currentWorkingDays = JSON.parse(JSON.stringify(this.currentItem.workingDays.split(',').map((item: any) => +item)));
     this.dialog.open(this.editSiteDialog);
-  }
-
-  toAddDevice: any;
-  onToAddDevice(e: any) {
-    this.toAddDevice = e.value.length;
   }
 
 

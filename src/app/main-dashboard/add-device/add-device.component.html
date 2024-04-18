@@ -11,7 +11,7 @@
 
       <div class="d-flex justify-content-between align-items-center w-100">
         <div class="device-detail">
-          <h5 class="m-0" style="font-size: 18px; font-weight: 600;">{{ siteData?.siteid ? siteData?.siteid : '' }} - {{ siteData?.sitename }}</h5>
+          <h5 class="m-0" style="font-size: 18px; font-weight: 600;">{{ siteData?.siteId ? siteData?.siteId : '' }} - {{ siteData?.siteName }}</h5>
           <h5 class="m-0 text-secondary" style="font-size: 18px;">{{ siteData?.centralUnitId }}</h5>
         </div>
         <div>
@@ -25,7 +25,7 @@
       <mat-tab-group backgroundColor="primary" (selectedIndex)="0">
         <mat-tab label="CREATE DEVICE">
           <!-- add-device -->
-          <app-add-device-form [type]="'add-device'" (newItemEvent)="closeAddDevice()"></app-add-device-form>
+          <app-add-device-form [type]="'add-device'" (newItemEvent)="listDeviceAdsInfo(); closeAddDevice()"></app-add-device-form>
         </mat-tab>
 
         <mat-tab class="mat-tab" *ngFor="let item of deviceData" [label]="item?.deviceId" (click)="getCurrentDevice(item)">

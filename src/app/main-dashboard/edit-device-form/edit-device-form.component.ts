@@ -3,11 +3,13 @@ import { FormBuilder } from '@angular/forms';
 import { MatOption } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSelect } from '@angular/material/select';
+import { DevicesComponent } from 'src/app/components/devices/devices.component';
 import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
 import { MetadataService } from 'src/services/metadata.service';
 import { SiteService } from 'src/services/site.service';
 import { StorageService } from 'src/services/storage.service';
+import { AddDeviceComponent } from '../add-device/add-device.component';
 
 @Component({
   selector: 'app-edit-device-form',
@@ -17,7 +19,6 @@ import { StorageService } from 'src/services/storage.service';
 export class EditDeviceFormComponent {
 
   @Input() currentItem: any;
-  @Output() getDevices: any = new EventEmitter<any>();
 
   constructor(
     private fb: FormBuilder,
@@ -26,7 +27,9 @@ export class EditDeviceFormComponent {
     private alertSer: AlertService,
     public dialog: MatDialog,
     private storageSer: StorageService,
-    private siteSer: SiteService
+    private siteSer: SiteService,
+    private devices: DevicesComponent,
+    private addDeviceComp: AddDeviceComponent
   ) { }
 
 
@@ -45,7 +48,7 @@ export class EditDeviceFormComponent {
 
   cameras: any = [];
   getCamerasForSiteId() {
-    this.siteSer.getCamerasForSiteId(this.currentItem?.siteid ? this.currentItem?.siteid : this.currentItem?.siteId).subscribe((res: any) => {
+    this.siteSer.getCamerasForSiteId(this.currentItem?.siteId ? this.currentItem?.siteId : this.currentItem?.siteId).subscribe((res: any) => {
       this.cameras = res;
     })
   }
@@ -132,7 +135,12 @@ export class EditDeviceFormComponent {
     }
   }
 
+  toAddDevice: any;
+  isToogleClicked: boolean = false;
   onSelectChange(event: any) {
+    this.isToogleClicked = true;
+    this.toAddDevice = event.value.length;
+
     let x = event.source.ngControl.name;
     if (!(this.changedKeys.includes(x))) {
       this.changedKeys.push(x);
@@ -176,15 +184,11 @@ export class EditDeviceFormComponent {
     if(this.cameraType === 0) {
       this.currentItem.cameraId = 0;
     }
-
     if(this.isChekboxTouched) {
       this.originalObject.adsHours = this.currentAdHours.sort((a: any, b: any) => a > b ? 1 : a < b ? -1 : 0).join(',');
     }
-
-    this.currentItem.createdBy = this.user?.UserId;
+    // this.currentItem.createdBy = this.user?.UserId;
     if (this.changedKeys.length > 0) {
-      // this.alertSer.wait();
-      // let arr = this.currentItem.workingDays.join(',');
       let arr = this.currentWorkingDays.join(',');
       if (this.toAddDevice === 8) {
         var myString = arr.substring(1);
@@ -193,20 +197,14 @@ export class EditDeviceFormComponent {
         this.originalObject.workingDays = arr;
       }
     }
+    this.alertSer.wait();
     this.assetSer.updateDeviceAdsInfo({adsDevice: this.originalObject, updProps: this.changedKeys}).subscribe((res: any) => {
-      this.getDevices.emit();
+      this.devices.listDeviceAdsInfo();
+      this.addDeviceComp.listDeviceAdsInfo();
       this.alertSer.success(res.message ? res.message : 'Device updated successfully');
     }, (err: any) => {
-      this.alertSer.error(err?.error?.message);
+      this.alertSer.error(err.error.message);
     })
-  }
-
-
-  toAddDevice: any;
-  isToogleClicked: boolean = false;
-  onToAddDevice(e: any) {
-    this.isToogleClicked = true;
-    this.toAddDevice = e.value.length;
   }
 
 }

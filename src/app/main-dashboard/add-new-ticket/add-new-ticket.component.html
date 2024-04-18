@@ -33,7 +33,7 @@
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>requestedBy</mat-label>
               <mat-select formControlName="requestedBy" [(ngModel)]="ticketBody.ticket.requestedBy">
-                <mat-option *ngFor="let id of siteIds" [value]="id.siteid">{{ id.siteid }} - {{ id.siteShortName }}</mat-option>
+                <mat-option *ngFor="let id of siteIds" [value]="id.siteId">{{ id.siteId }} - {{ id.siteShortName }}</mat-option>
               </mat-select>
               <mat-error >requestedBy is required</mat-error>
             </mat-form-field>
@@ -43,7 +43,7 @@
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>siteId</mat-label>
               <mat-select formControlName="siteId" [(ngModel)]="ticketBody.ticket.siteId">
-                <mat-option *ngFor="let id of siteIds" [value]="id.siteid">{{ id.siteid }} - {{ id.siteShortName }}</mat-option>
+                <mat-option *ngFor="let id of siteIds" [value]="id.siteId">{{ id.siteId }} - {{ id.siteShortName }}</mat-option>
               </mat-select>
               <mat-error >siteId is required</mat-error>
             </mat-form-field>

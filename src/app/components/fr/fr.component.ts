@@ -25,7 +25,7 @@ export class FrComponent implements OnInit {
   searchText: any;
   user: any;
   ngOnInit(): void {
-    this.siteIds = this.storageSer.get('siteIds')?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
+    this.siteIds = this.storageSer.get('siteIds')?.sort((a: any, b: any) => a.siteId < b.siteId ? -1 : a.siteId > b.siteId ? 1 : 0);
     this.user =   this.storageSer.get('user');
     // this.listFRSites();
     this.listFRTickets();
@@ -80,7 +80,7 @@ export class FrComponent implements OnInit {
     if(site == 'All') {
       this.newFrTickets = this.frTickets;
     } else {
-      this.newFrTickets =  this.frTickets.filter((item: any) => item.sitename == site);
+      this.newFrTickets =  this.frTickets.filter((item: any) => item.siteName == site);
     }
   }
 

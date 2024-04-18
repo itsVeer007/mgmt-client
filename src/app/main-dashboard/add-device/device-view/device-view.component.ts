@@ -64,7 +64,7 @@ export class DeviceViewComponent implements OnInit {
 
   cameras: any = [];
   getCamerasForSiteId() {
-    this.siteSer.getCamerasForSiteId(this.siteData?.siteid).subscribe((res: any) => {
+    this.siteSer.getCamerasForSiteId(this.siteData?.siteId).subscribe((res: any) => {
       this.cameras = res;
     })
   }

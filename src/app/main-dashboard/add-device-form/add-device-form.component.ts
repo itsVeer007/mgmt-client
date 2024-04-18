@@ -16,8 +16,8 @@ import { StorageService } from 'src/services/storage.service';
 })
 export class AddDeviceFormComponent {
 
-  @Input() type: any
-  @Output() newItemEvent = new EventEmitter<boolean>();
+  @Input() type: any;
+  @Output() newItemEvent = new EventEmitter<any>();
 
   constructor(
     private fb: FormBuilder,
@@ -49,7 +49,7 @@ export class AddDeviceFormComponent {
       'deviceTypeId': new FormControl('', Validators.required),
       'deviceCallFreq': new FormControl('', Validators.required),
       'deviceModeId': new FormControl('', Validators.required),
-      'deviceLocId': new FormControl('', Validators.required),
+      'deviceLocId': new FormControl(0),
       'adsHours': new FormControl(''),
       'workingDays': new FormControl('', Validators.required),
       'createdBy': new FormControl(''),
@@ -57,7 +57,7 @@ export class AddDeviceFormComponent {
       'socketServer': new FormControl(''),
       'socketPort': new FormControl(''),
       'weatherInterval': new FormControl(''),
-      'cameraId': new FormControl(''),
+      'cameraId': new FormControl(null),
       'modelName': new FormControl(''),
       'modelWidth': new FormControl(''),
       'modelHeight': new FormControl(''),
@@ -70,23 +70,30 @@ export class AddDeviceFormComponent {
       "debugLogs": new FormControl(''),
       'remarks': new FormControl(''),
 
-      'cameraType': new FormControl(''),
+      'cameraType': new FormControl(0),
       'morning': new FormControl(''),
       'afternoon': new FormControl(''),
+      'evening': new FormControl(''),
+      'night': new FormControl(''),
     });
 
     this.addDevice.get('deviceModeId').valueChanges.subscribe((val: any) => {
       if(val == 3) {
-        // this.addDevice.get('cameraId').setValidators(Validators.required);
         this.addDevice.get('modelObjectTypeId').setValidators(Validators.required);
       } else {
-        // this.addDevice.get('cameraId').clearValidators();
         this.addDevice.get('modelObjectTypeId').clearValidators();
       }
-
-      // this.addDevice.get('cameraId').updateValueAndValidity();
       this.addDevice.get('modelObjectTypeId').updateValueAndValidity();
     });
+
+    // this.addDevice.get('cameraType').valueChanges.subscribe((val: any) => {
+    //   if(val == 1) {
+    //     this.addDevice.get('cameraId').setValidators(Validators.required);
+    //   } else {
+    //     this.addDevice.get('cameraId').clearValidators();
+    //   }
+    //   this.addDevice.get('cameraId').updateValueAndValidity();
+    // });
   }
 
   cameras: any = [];
@@ -104,7 +111,7 @@ export class AddDeviceFormComponent {
     deviceTypeId: null,
     deviceCallFreq: 1,
     deviceModeId: null,
-    deviceLocId: null,
+    deviceLocId: 0,
     adsHours: '',
     workingDays: ['',0,1,2,3,4,5,6],
     createdBy: null,
@@ -171,64 +178,79 @@ export class AddDeviceFormComponent {
     })
   }
 
-  toppings = this.fb.group({
-    '00': false,
-    '01': false,
-    '02': false,
-    '03': false,
-    '04': false,
-    '05': false,
-    '06': false,
-    '07': false,
-    '08': false,
-    '09': false,
-    '10': false,
-    '11': false,
-    '12': false,
-    '13': false,
-    '14': false,
-    '15': false,
-    '16': false,
-    '17': false,
-    '18': false,
-    '19': false,
-    '20': false,
-    '21': false,
-    '22': false,
-    '23': false,
-  });
+
 
 
 
 
   morning: any = {
-    name: 'Morning',
+    name: 'All',
     completed: false,
     subtasks: [
-      {name: 'Primary', completed: false},
-      {name: 'Accent', completed: false},
-      {name: 'Warn', completed: false},
+      {name: '00', completed: false},
+      {name: '01', completed: false},
+      {name: '02', completed: false},
+      {name: '03', completed: false},
+      {name: '04', completed: false},
+      {name: '05', completed: false},
+      {name: '06', completed: false},
+      {name: '07', completed: false},
+      {name: '08', completed: false},
+      {name: '09', completed: false},
+      {name: '10', completed: false},
+      {name: '11', completed: false},
     ],
   };
 
   afternoon: any = {
-    name: 'Afternoon',
+    name: 'All',
     completed: false,
     subtasks: [
-      {name: 'Primary', completed: false},
-      {name: 'Accent', completed: false},
-      {name: 'Warn', completed: false},
+      {name: '12', completed: false},
+      {name: '13', completed: false},
+      {name: '14', completed: false},
+      {name: '15', completed: false},
+    ],
+  };
+
+  evening: any = {
+    name: 'All',
+    completed: false,
+    subtasks: [
+      {name: '16', completed: false},
+      {name: '17', completed: false},
+      {name: '18', completed: false},
+    ],
+  };
+
+  night: any = {
+    name: 'All',
+    completed: false,
+    subtasks: [
+      {name: '19', completed: false},
+      {name: '20', completed: false},
+      {name: '21', completed: false},
+      {name: '22', completed: false},
+      {name: '23', completed: false}
     ],
   };
 
   morningAll: boolean = false;
   afternoonAll: boolean = false;
+  eveningAll: boolean = false;
+  nightAll: boolean = false;
   updateAllComplete(type: string) {
     if(type === 'morning') {
       this.morningAll = this.morning.subtasks != null && this.morning.subtasks.every((t: any) => t.completed);
     }
     if(type === 'afternoon') {
       this.afternoonAll = this.afternoon.subtasks != null && this.afternoon.subtasks.every((t: any) => t.completed);
+    }
+    if(type === 'evening') {
+      this.eveningAll = this.evening.subtasks != null && this.evening.subtasks.every((t: any) => t.completed);
+    }
+    if(type === 'night') {
+      this.nightAll = this.night.subtasks != null && this.night.subtasks.every((t: any) => t.completed);
     }
   }
 
@@ -244,6 +266,18 @@ export class AddDeviceFormComponent {
         return false;
       }
       return this.afternoon.subtasks.filter((t: any)=> t.completed).length > 0 && !this.afternoonAll;
+    }
+    if(type === 'evening') {
+      if (this.evening.subtasks == null) {
+        return false;
+      }
+      return this.evening.subtasks.filter((t: any)=> t.completed).length > 0 && !this.eveningAll;
+    }
+    if(type === 'night') {
+      if (this.night.subtasks == null) {
+        return false;
+      }
+      return this.night.subtasks.filter((t: any)=> t.completed).length > 0 && !this.nightAll;
     }
     return false;
   }
@@ -262,6 +296,20 @@ export class AddDeviceFormComponent {
       return;
     }
     this.afternoon.subtasks.forEach((t: any) => (t.completed = completed));
+    }
+    if(type === 'evening') {
+      this.eveningAll = completed;
+    if (this.evening.subtasks == null) {
+      return;
+    }
+    this.evening.subtasks.forEach((t: any) => (t.completed = completed));
+    }
+    if(type === 'night') {
+      this.nightAll = completed;
+    if (this.night.subtasks == null) {
+      return;
+    }
+    this.night.subtasks.forEach((t: any) => (t.completed = completed));
     }
   }
 
@@ -295,30 +343,25 @@ export class AddDeviceFormComponent {
   onToAddDevice(e: any) {
     this.isToogleClicked = true;
     this.toAddDevice = e.value.length;
-    // console.log(e.value.length)
   }
 
-  finalToopings: any;
-  myToops: any = [];
-  addDeviceDtl() {
+  addDeviceDtl() {    
     if(this.addDevice.valid) {
+      let morning = this.morning.subtasks;
+      let afternoon = this.afternoon.subtasks;
+      let evening = this.evening.subtasks;
+      let night = this.night.subtasks;
+      let results = [ ...morning, ...afternoon, ...evening, ...night];
+      let finalResults = results?.filter(item=> item.completed);
+      let taskNames = finalResults.map(task => task.name);
+      this.adInfo.adsHours = taskNames?.sort((a: any, b: any) => a > b ? 1 : a < b ? -1 : 0).join(',');
+      
       if(this.cameraType === 0) {
         this.adInfo.cameraId = 0;
       }
-
-      this.finalToopings = this.toppings.value;
-      for(const val in this.finalToopings) {
-        if(this.finalToopings[val] === true && (!this.myToops.includes(val))) {
-          this.myToops.push(val);
-        }
-      }
-      this.adInfo.adsHours = this.myToops.sort((a: any, b: any) => a > b ? 1 : a < b ? -1 : 0).join(',');
-
-
       if(this.type === 'add-device') {
-        this.adInfo.siteId = this.siteData.siteid ? this.siteData.siteid : this.siteData.siteId;
+        this.adInfo.siteId = this.siteData.siteId;
       }
-
       if(!this.isToogleClicked) {
         let arr: string = this.adInfo.workingDays.join(',');
         let myString = arr.substring(1);
@@ -333,8 +376,8 @@ export class AddDeviceFormComponent {
           this.adInfo.workingDays = arr;
         }
       }
-      // this.alertSer.wait();
       this.adInfo.createdBy = this.user?.UserId;
+      this.alertSer.wait();
       this.assetSer.createDeviceandAdsInfo(this.adInfo).subscribe((res: any) => {
         this.newItemEvent.emit();
         this.alertSer.success(res?.message ? res?.message : 'Device created successfully');

@@ -9,6 +9,7 @@ import { AssetService } from 'src/services/asset.service';
 import { MetadataService } from 'src/services/metadata.service';
 import { SiteService } from 'src/services/site.service';
 import { StorageService } from 'src/services/storage.service';
+import { EditDeviceFormComponent } from '../edit-device-form/edit-device-form.component';
 
 @Component({
   selector: 'app-add-device',
@@ -57,15 +58,12 @@ export class AddDeviceComponent implements OnInit {
   ngOnInit() {
     this.siteData = this.storageSer.get('temp_sites');
     this.user = this.storageSer.get('user');
-
-    this.getDeviceDetail();
-    // this.getCamerasForSiteId();
-    // this.toggleCreateWorkingDays();
+    this.listDeviceAdsInfo();
   }
 
   cameras: any = [];
   getCamerasForSiteId() {
-    this.siteSer.getCamerasForSiteId(this.siteData?.siteid).subscribe((res: any) => {
+    this.siteSer.getCamerasForSiteId(this.siteData?.siteId).subscribe((res: any) => {
       this.cameras = res;
     })
   }
@@ -74,11 +72,11 @@ export class AddDeviceComponent implements OnInit {
   deviceLength: any;
   convertedArray: any;
   // deviceMap: any;
-  getDeviceDetail() {
+  listDeviceAdsInfo() {
     this.assetSer.listDeviceAdsInfo().subscribe((res: any) => {
       this.getMetadata();
       for(let item of res) {
-        if(this.siteData.siteid == item.siteId) {
+        if(this.siteData.siteId == item.siteId) {
           // let x = item?.adsDevices.forEach((el: any) => el.workingDays);
           // console.log(x);
           // this.convertedArray = JSON.parse(JSON.stringify(x?.split(',').map((item: any) => +item)));
@@ -115,10 +113,10 @@ export class AddDeviceComponent implements OnInit {
   }
 
   closeAddDevice() {
-    this.newItemEvent.emit();
+    this.newItemEvent.emit(false);
   }
 
-  /* metadata methods */
+
   deviceType: any;
   deviceMode: any;
   workingDay: any;
@@ -175,7 +173,6 @@ export class AddDeviceComponent implements OnInit {
   }
 
 
-  /* popup */
   @ViewChild('editDeviceDialog') editDevice = {} as TemplateRef<any>;
   currentWorkingDays: any;
   currentItem: any;
@@ -186,13 +183,6 @@ export class AddDeviceComponent implements OnInit {
     this.dialog.open(this.editDevice);
   }
 
-  /* dynamic device view */
-  // toChild: any
-  // onMat(e: any) {
-  //   this.toChild = this.deviceData.filter((el: any) => el.deviceId == e.tab.textLabel);
-  //   console.log(this.toChild)
-  // }
-
   /* create device */
   toAddDevice: any;
   isToogleClicked: boolean = false;
@@ -200,35 +190,6 @@ export class AddDeviceComponent implements OnInit {
     this.isToogleClicked = true;
     this.toAddDevice = e.value.length;
     // console.log(e.value.length)
-  }
-
-
-
-  @ViewChild('createWorkingDays') createWorkingDays!: MatSelect;
-
-  selectCreate: boolean = false;
-  toggleCreateWorkingDays() {
-    this.selectCreate = !this.selectCreate;
-
-    if(this.selectCreate) {
-      this.createWorkingDays?.options.forEach((item : MatOption) => item.select());
-    } else {
-      this.createWorkingDays?.options.forEach((item : MatOption) => item.deselect());
-    }
-  }
-
-
-  @ViewChild('modifyWorkingDays') modifyWorkingDays!: MatSelect;
-
-  selectModify: boolean = false;
-  toggleModifyWorkingDays() {
-    this.selectModify = !this.selectModify;
-
-    if(this.selectModify) {
-      this.modifyWorkingDays?.options.forEach((item : MatOption) => item.select());
-    } else {
-      this.modifyWorkingDays?.options.forEach((item : MatOption) => item.deselect());
-    }
   }
 
 }

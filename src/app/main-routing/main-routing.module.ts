@@ -4,7 +4,6 @@ import { MainDashboardComponent } from '../main-dashboard/main-dashboard.compone
 import { AuthGuard } from '../utilities/auth/auth.guard';
 import { AdvertisementsComponent } from '../components/advertisements/advertisements.component';
 import { AnalyticsComponent } from '../components/analytics/analytics.component';
-import { AssetsComponent } from '../components/assets/assets.component';
 import { CustomersComponent } from '../components/customers/customers.component';
 import { DevicesComponent } from '../components/devices/devices.component';
 import { FrKitComponent } from '../components/fr-kit/fr-kit.component';
@@ -55,7 +54,7 @@ const routes: Routes = [
       { path: 'tickets', component: TicketsComponent },
       { path: 'ticket-reports', component: TicketReportsComponent },
       { path: 'fr', component: FrComponent },
-      { path: 'assets', component: AssetsComponent },
+      { path: 'assets', component: UsersComponent },
       { path: 'advertisements', component: AdvertisementsComponent },
       { path: 'meta', component: MetaDataComponent },
       { path: 'vendors', component: VendorsComponent },

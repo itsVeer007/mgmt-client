@@ -45,7 +45,7 @@ import { RemoveDuplicatesPipe } from './utilities/pipes/remove-duplicates.pipe';
 import { AnalyticsComponent } from './components/analytics/analytics.component';
 import { AdvertisementsComponent } from './components/advertisements/advertisements.component';
 import { FrKitComponent } from './components/fr-kit/fr-kit.component';
-import { AdInfoComponent } from './components/assets/ad-info/ad-info.component';
+import { AdInfoComponent } from './components/advertisements/ad-info/ad-info.component';
 import { CustomersComponent } from './components/customers/customers.component';
 import { DevicesComponent } from './components/devices/devices.component';
 import { FrReportsComponent } from './components/fr-reports/fr-reports.component';
@@ -65,7 +65,6 @@ import { VerticalsComponent } from './components/verticals/verticals.component';
 import { WifiAdsComponent } from './components/wifi-ads/wifi-ads.component';
 import { WifiAnalyticsComponent } from './components/wifi-analytics/wifi-analytics.component';
 import { DeviceInfoComponent } from './components/devices/device-info/device-info.component';
-import { AssetsComponent } from './components/assets/assets.component';
 import { WifiDetailComponent } from './components/wifi-analytics/wifi-detail/wifi-detail.component';
 import { MaterialModule } from './material.module';
 import { FilterComponent } from './utilities/filter/filter.component';
@@ -92,7 +91,6 @@ import { EditDeviceFormComponent } from './main-dashboard/edit-device-form/edit-
     LoginComponent,
     UsersComponent,
     AddAdditionalSiteComponent,
-    AssetsComponent,
     TicketsComponent,
     InventoryComponent,
     AddDeviceComponent,
@@ -151,6 +149,8 @@ import { EditDeviceFormComponent } from './main-dashboard/edit-device-form/edit-
   ],
   providers: [
     DatePipe,
+    DevicesComponent,
+    AddDeviceComponent,
     { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],
   bootstrap: [AppComponent]

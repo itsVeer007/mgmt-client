@@ -59,7 +59,7 @@
         <mat-label>Site</mat-label>
         <mat-select [(ngModel)]="ticketStatusObj.siteId" (focus)="filterSites()">
           <mat-option value="" (click)="applyFilter()">All</mat-option>
-          <mat-option *ngFor="let item of filteredSites" [value]="item.siteid" (click)="applyFilter()">{{ item.siteid }} - {{ item.sitename }}</mat-option>
+          <mat-option *ngFor="let item of filteredSites" [value]="item.siteId" (click)="applyFilter()">{{ item.siteId }} - {{ item.siteName }}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>

@@ -52,7 +52,6 @@ export class WifiAnalyticsComponent implements OnInit {
   ngOnInit(): void {
     this.user = this.storageSer.get('user');
     this.dayWiseStats();
-    // this.listSites();
   }
 
   newDayWiseData: any = [];

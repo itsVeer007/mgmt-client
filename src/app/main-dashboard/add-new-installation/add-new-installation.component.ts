@@ -101,9 +101,9 @@ export class AddNewInstallationComponent {
   siteIdList: any;
   deviceIdList: any;
   getRes() {
-    this.siteService.listSites().subscribe((res: any) => {
+    this.siteService.getSitesListForUserName().subscribe((res: any) => {
       // console.log(res);
-      this.siteIdList = res.sitesList;
+      this.siteIdList = res.sites;
     })
 
     this.assetSer.listDeviceAdsInfo().subscribe((res: any) => {

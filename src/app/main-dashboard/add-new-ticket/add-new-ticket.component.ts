@@ -91,7 +91,7 @@ export class AddNewTicketComponent implements OnInit {
   siteIds: any;
   user: any;
   ngOnInit(): void {
-    this.siteIds = this.storageSer.get('siteIds')?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
+    this.siteIds = this.storageSer.get('siteIds')?.sort((a: any, b: any) => a.siteId < b.siteId ? -1 : a.siteId > b.siteId ? 1 : 0);
     this.user = this.storageSer.get('user');
 
     this.addAssetForm = this.fb.group({

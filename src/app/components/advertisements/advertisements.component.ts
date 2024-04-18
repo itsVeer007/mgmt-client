@@ -129,29 +129,18 @@ export class AdvertisementsComponent implements OnInit {
 
   /* Edit Asset Status */
   @ViewChild('editStatusDialog') editStatus = {} as TemplateRef<any>;
-  statusObj = {
-    status: null,
-    modifiedBy: null
-  }
-
-  currentStatusId: any
-  openEditStatus(id: any) {
-    this.statusObj.status = null;
-    this.currentStatusId = id;
+  openEditStatus(data: any) {
+    this.currentItem = data;
     this.dialog.open(this.editStatus);
   }
 
   changeAssetStatus() {
-    this.statusObj.modifiedBy = this.user?.UserId;
-    this.assetService.updateAssetStatus(this.currentStatusId, this.statusObj).subscribe((res: any) => {
-      // console.log(res);
-      // this.getAssetBySiteId(this.siteData[0]?.siteid);
-      // this.filterAdvertisements();
+    this.assetService.updateAssetStatus(this.currentItem).subscribe((res: any) => {
       this.listAssets();
-      this.alertSer.success(res?.message);
+      this.alertSer.success(res.message);
     }, (err: any) => {
       if(err) {
-        this.alertSer.error(err?.error?.message);
+        this.alertSer.error(err.error.message);
       };
     });
   }

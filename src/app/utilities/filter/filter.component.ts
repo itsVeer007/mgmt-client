@@ -24,16 +24,16 @@ export class FilterComponent {
   ) { }
 
   ngOnInit() {
-    this.listSites();
+    this.getSitesListForUserName();
   }
 
   searchText: any;
   sitesList: any = [];
-  listSites() {
-    this.siteSer.listSites().subscribe((res: any) => {
+  getSitesListForUserName() {
+    this.siteSer.getSitesListForUserName().subscribe((res: any) => {
       if(res?.Status == 'Success') {
         this.listDevices();
-        this.sitesList = res?.siteList?.sort((a: any, b: any) => a.siteid < b.siteid ? -1 : a.siteid > b.siteid ? 1 : 0);
+        this.sitesList = res.sites.sort((a: any, b: any) => a.siteId < b.siteId ? -1 : a.siteId > b.siteId ? 1 : 0);
       }
       }, (err: any) => {
     });

@@ -255,7 +255,7 @@
 </div>
 
 <div *ngIf="showAddDevice">
-  <app-add-new-device (newItemEvent)="closenow('device')"></app-add-new-device>
+  <app-add-new-device (newItemEvent)="closenow('device'); listDeviceAdsInfo()"></app-add-new-device>
 </div>
 
 <div *ngIf="showDeviceInfo">

@@ -9,7 +9,7 @@ import { StorageService } from './storage.service';
 })
 export class SiteService {
 
-  baseUrl = 'http://54.92.215.87:943/businessInterface';
+  baseUrl = 'http://54.92.215.87:943';
 
   constructor(private http: HttpClient, private storageSer: StorageService) { }
 
@@ -22,6 +22,13 @@ export class SiteService {
       calling_System_Detail: "portal",
     }
     return this.http.post(url, payload);
+  }
+
+  getSitesListForUserName() {
+    let url = `${this.baseUrl}/getSitesListForUserName_1_0`;
+    let user = this.storageSer.get('user');
+    let params = new HttpParams().set('userName', user?.UserName);
+    return this.http.get(url, ({params: params}));
   }
 
   getCamerasForSiteId(payload: any) {

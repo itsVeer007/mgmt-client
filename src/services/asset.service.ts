@@ -125,12 +125,13 @@ export class AssetService {
     return this.http.put(url, payload);
   }
 
-  updateAssetStatus(id: any, payload: any) {
+  updateAssetStatus(payload: any) {
     let url = this.baseUrl + "/updateAssetStatus_1_0";
+    let user = this.storageSer.get('user');
     let myObj = {
-      'id': id,
-      'status': payload.status,
-      'modifiedBy': payload.modifiedBy
+      'id': payload?.id,
+      'status': (payload.status === 2 || payload.status === 4) ? 3 : (payload.status === 3 || payload.status === 5 ? 2 : null),
+      'modifiedBy': user?.UserId
     }
     return this.http.put(url, myObj);
   }

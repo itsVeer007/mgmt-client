@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
         this.storageSer.set('user', res);
         this.userSer.user$.next(res);
         this.route.navigate(['home/main-dashboard']);
-        this.getlistSites();
+        this.getSitesListForUserName();
       } else if(res?.Status == "Failed") {
         this.alertSer.error(res?.message);
       }
@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit {
           // this.userSer.isLoggedin.next(true);
           this.storageSer.set('user', res);
           this.userSer.user$.next(res);
-          this.getlistSites();
+          this.getSitesListForUserName();
           this.router.navigate(['/home/main-dashboard']);
         } else if(res?.Status == 'Failed') {
           this.alertSer.error(res?.message);
@@ -87,11 +87,11 @@ export class LoginComponent implements OnInit {
     }
   }
   
-  getlistSites() {
-    this.siteSer.listSites().subscribe((res: any) => {
+  getSitesListForUserName() {
+    this.siteSer.getSitesListForUserName().subscribe((res: any) => {
       this.getMetadata();
       if(res?.Status == 'Success') {
-        this.storageSer.set('siteIds', res.siteList);
+        this.storageSer.set('siteIds', res.sites);
       }
       if(res?.Status == 'Failed') {
         // this.userSer.logout();

@@ -117,15 +117,15 @@ export class TicketsComponent implements OnInit {
   filteredSites: any;
   filterSites() {
     // this.siteData?.forEach((item: any) => {
-    //   if(!this.filteredSites.includes(item?.siteid, item.sitename)) {
-    //     this.filteredSites.push(item?.siteid, item.sitename);
+    //   if(!this.filteredSites.includes(item?.siteId, item.siteName)) {
+    //     this.filteredSites.push(item?.siteId, item.siteName);
     //       console.log(this.filteredSites)
     //   }
     // })
 
     this.filteredSites = this.siteData.filter((obj: any, index: any, self: any) =>
       index === self.findIndex((o: any) => {
-        return o.siteid === obj.siteid;
+        return o.siteId === obj.siteId;
       })
     );
   }

@@ -53,8 +53,8 @@
           </button>
           <mat-autocomplete #site="matAutocomplete">
             <mat-option value="All" (click)="filterSites('All')" *ngIf="tableData.length !== 0">All</mat-option>
-            <mat-option *ngFor="let item of tableData | search: siteSearch" [value]="item.siteid" (click)="filterSites(item.siteid)">
-              {{ item.siteid }} - {{ item.sitename }}
+            <mat-option *ngFor="let item of tableData | search: siteSearch" [value]="item.siteId" (click)="filterSites(item.siteId)">
+              {{ item.siteId }} - {{ item.siteName }}
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>
@@ -84,12 +84,12 @@
 
           <th>
             <span>Id</span>
-            <img (click)="sort('siteid')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <img (click)="sort('siteId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           <th>
             <span>Name</span>
-            <img (click)="sort('sitename')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <img (click)="sort('siteName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
           
@@ -115,7 +115,7 @@
           
           <th>Devices</th>
           
-          <th class="text-center">Installation</th>
+          <!-- <th class="text-center">Installation</th> -->
           
           <th>
             <span>Status</span>
@@ -126,15 +126,15 @@
       </thead>
       
       <tbody *ngIf="!showLoader">
-        <tr *ngFor="let data of newTableData | search : searchText; let i=index" (dblclick)="openViewPopup(data)">
+        <tr *ngFor="let data of newTableData | search : searchText; let i=index">
             <!-- <td>
               <input type="checkbox" class="form-check-input" [(ngModel)]="data.selected" (change)="checkIfAllSelected(); deleteMultiRecords(data, i, $event); ViewByCheckbox(data, i, $event); EditByCheckbox(data, i, $event)" id="singleCheck">
             </td> -->
             <td>
-              <p>{{ data.siteid }}</p>
+              <p>{{ data.siteId }}</p>
             </td>
             <td style="width: 200px;">
-              <p>{{ data.sitename }}</p>
+              <p>{{ data.siteName }}</p>
             </td>
             <td>
               <p></p>
@@ -189,18 +189,18 @@
               View
             </td>
             <td>
-              <a class="pointer" (click)="show('device'); getDevices(data.siteid); saveSiteData(data)">
+              <a class="pointer" (click)="show('device'); getDevices(data.siteId); saveSiteData(data)">
                   <img src="assets/icons/add.svg" width="40">
               </a>
             </td>
-            <td class="text-center">
+            <!-- <td class="text-center">
               <a class="pointer" (click)="show('installation')">
                   <img src="assets/icons/feed_black.svg" style="opacity: 0.8;" width="18">
               </a>
-            </td>
+            </td> -->
             <td>
               <p [style.color]="data.status == 'Active' ? '#00A44C': data.status == 'Onhold' ? '#F5B400': data.status == 'Inactive' ? '#fa500f': '#084982'">
-                {{ data.status ? data.status : '' }}
+                {{ data.status ? data.status : 'Active' }}
               </p>
             </td>
             <td class="table-icons">
@@ -235,18 +235,18 @@
     <p class="dialog-title">site - {{currentItem.siteShortName}}</p>
   </div>
 
-  <div class="row dialog-content">
+  <div class="row m-0 dialog-content">
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Site Id</mat-label>
-        <input matInput [(ngModel)]="currentItem.siteid" disabled>
+        <input matInput [(ngModel)]="currentItem.siteId" disabled>
       </mat-form-field>
     </div>
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Site Name</mat-label>
-        <input matInput [(ngModel)]="currentItem.sitename" disabled>
+        <input matInput [(ngModel)]="currentItem.siteName" disabled>
       </mat-form-field>
     </div>
 
@@ -284,18 +284,18 @@
     <p class="dialog-title">MODIFY SITE</p>
   </div>
 
-  <div class="row dialog-content">
+  <div class="row m-0 dialog-content">
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Site Id</mat-label>
-        <input matInput [(ngModel)]="currentItem.siteid" disabled>
+        <input matInput [(ngModel)]="currentItem.siteId" disabled>
       </mat-form-field>
     </div>
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Site Name</mat-label>
-        <input name="deviceDescription" matInput [(ngModel)]="currentItem.sitename">
+        <input name="deviceDescription" matInput [(ngModel)]="currentItem.siteName">
       </mat-form-field>
     </div>
 
