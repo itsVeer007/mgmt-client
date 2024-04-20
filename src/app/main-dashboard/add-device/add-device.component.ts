@@ -71,22 +71,18 @@ export class AddDeviceComponent implements OnInit {
   deviceData: any = [];
   deviceLength: any;
   convertedArray: any;
+  days: any
   // deviceMap: any;
   listDeviceAdsInfo() {
     this.assetSer.listDeviceAdsInfo().subscribe((res: any) => {
       this.getMetadata();
       for(let item of res) {
         if(this.siteData.siteId == item.siteId) {
-          // let x = item?.adsDevices.forEach((el: any) => el.workingDays);
-          // console.log(x);
-          // this.convertedArray = JSON.parse(JSON.stringify(x?.split(',').map((item: any) => +item)));
-
-          // const numberStrings = x?.split(',')?.map((str: any) => str.trim());
-          // this.convertedArray = numberStrings?.map((str: any) => Number(str));
-          // console.log(this.convertedArray)
           this.deviceData = item.adsDevices;
           this.deviceData.forEach((item: any) => {
-            item.adsHours.split(',')
+            // item.adsHours.split(',');
+            // item.workingDays.split(',');
+            this.days = JSON.parse(JSON.stringify(item.workingDays.split(',').map((val: any) => +val)));
           })
           this.deviceLength = this.deviceData.length;
           // console.log(this.deviceData);
@@ -96,7 +92,6 @@ export class AddDeviceComponent implements OnInit {
 
     // this.deviceData = this.fromSites;
     // this.deviceLength = this.deviceData.length;
-    // console.log(this.deviceData);
   }
 
   getCurrentDevice(data: any) {

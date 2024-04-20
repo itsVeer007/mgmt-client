@@ -125,9 +125,8 @@
               <div class="col-lg-4 col-md-4">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Working Days</mat-label>
-                  <mat-select [(ngModel)]="item.workingDays" disabled>
-                    <mat-option [value]="item.workingDays">{{ item.workingDays }}</mat-option>
-                    <!-- <mat-option *ngFor="let day of workingDay" [value]="day.keyId">{{ day.value }}</mat-option> -->
+                  <mat-select multiple [(ngModel)]="days" disabled>
+                    <mat-option *ngFor="let day of workingDay" [value]="day.keyId">{{ day.value }}</mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>
