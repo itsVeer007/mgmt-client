@@ -1,6 +1,6 @@
 <div class="filter">
     <div class="row">
-        <div class="col-lg-3">
+        <div class="col-lg-5"  *ngIf="filterType !== 'devices' || filterType !== 'sensors'">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Site</mat-label>
             <input matInput #siteIdInput [matAutocomplete]="site" [(ngModel)]="siteId" (keyup)="searchSites($event)">
@@ -8,16 +8,15 @@
               <mat-icon>arrow_drop_down</mat-icon>
             </button>
             <mat-autocomplete #site="matAutocomplete">
-              <mat-option value="All" (click)="filterWithSites(filterType)">All</mat-option>
-              <mat-option *ngFor="let item of sitesList | search: siteSearch" [value]="item.siteId" (click)="filterWithSites(filterType)">
+              <!-- <mat-option value="All" (click)="filterWithSites(filterType)">All</mat-option> -->
+              <!-- <mat-option *ngFor="let item of sitesList | search: siteSearch" [value]="item.siteId" (click)="filterWithSites(filterType)">
                 {{ item.siteId }} - {{ item.siteName }}
-              </mat-option>
+              </mat-option> -->
               <mat-option *ngIf="sitesList.length == 0" disabled>No Sites</mat-option>
             </mat-autocomplete>
           </mat-form-field>
         </div>
-
-        <div class="col-lg-3" *ngIf="filterType !== 'devices' && filterType !== 'sensors'">
+        <div class="col-lg-5" *ngIf="filterType !== 'devices' || filterType !== 'sensors'">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Device</mat-label>
             <input matInput #deviceIdInput type="text" [matAutocomplete]="device" [(ngModel)]="deviceId" (keyup)="searchDevices($event)">
@@ -43,7 +42,7 @@
             </mat-form-field>
         </div> -->
 
-        <div class="col-lg-3" *ngIf="filterType !== 'sensors'">
+        <div class="col-lg-2" *ngIf="filterType !== 'sensors'">
           <mat-form-field class="example-form-field" appearance="outline" class="w-100">
             <mat-label>Search</mat-label>
             <input matInput type="text" [(ngModel)]="searchText" (ngModelChange)="searchTableData()">

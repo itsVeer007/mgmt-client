@@ -1,9 +1,6 @@
 import { DatePipe } from '@angular/common';
-import { Component, EventEmitter, HostListener, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { MatOption } from '@angular/material/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSelect } from '@angular/material/select';
-import { SensorDataComponent } from 'src/app/sensor-data/sensor-data.component';
 import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
 import { InventoryService } from 'src/services/inventory.service';
@@ -11,11 +8,12 @@ import { SiteService } from 'src/services/site.service';
 import { StorageService } from 'src/services/storage.service';
 
 @Component({
-  selector: 'app-devices',
-  templateUrl: './devices.component.html',
-  styleUrls: ['./devices.component.css']
+  selector: 'app-sensor-data',
+  templateUrl: './sensor-data.component.html',
+  styleUrls: ['./sensor-data.component.css']
 })
-export class DevicesComponent implements OnInit {
+export class SensorDataComponent {
+
 
   @Output() newItemEvent = new EventEmitter<boolean>();
 
@@ -34,45 +32,26 @@ export class DevicesComponent implements OnInit {
     this.listDeviceAdsInfo();
     this.getStatus();
     this.getSitesListForUserName()
-    // this.getData();
-  }
-  siteId: any =  'All';
+    this.getData();
 
-  // current:any
-  // currentItem1:any;
+  }
+
   getDataForDevice:any;
   newGetDataForDevice:any;
   getData() {
     this.inventorySer.getData().subscribe((res:any)=> {
       console.log(res);
       this.getDataForDevice = res;
-      // this.currentItem1 = res[0]?.device_type
-      // this.current = res[0]?.zoneId[0]
       this.newGetDataForDevice = this.getDataForDevice;
       // this.getDataForDevice = res.flatMap((item:any)=> item.devices_data);
       // console.log(this.getDataForDevice)
     })
   }
 
-  // openDialog(): void {
-  //   this.getData();
-  //   const dialogRef = this.dialog.open(SensorDataComponent,{
+  // @ViewChild('sensorDialog') sensorDialog = {} as TemplateRef<any>
+  openSensor() {
 
-  //     width: '100%',
-  //     height:'90vh'
-
-  //   });
-
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log('The dialog was closed');
-  //   });
-
-  // }
-
-   @ViewChild('sensorDialog') sensorDialog = {} as TemplateRef<any>
-   openSensor() {
-     this.getData()
-    this.dialog.open(this.sensorDialog);
+    // this.dialog.open(this.sensorDialog);
   }
 
    /* searches */
@@ -208,10 +187,10 @@ export class DevicesComponent implements OnInit {
     })
   }
 
-  @ViewChild('rebootDeviceDialog') rebootDeviceDialog = {} as TemplateRef<any>;
+  // @ViewChild('rebootDeviceDialog') rebootDeviceDialog = {} as TemplateRef<any>;
   openRebootDevice(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.rebootDeviceDialog);
+    // this.dialog.open(this.rebootDeviceDialog);
   }
 
   rebootDevice(id: any) {
@@ -241,27 +220,27 @@ export class DevicesComponent implements OnInit {
     if(type == 'device-info') {this.showDeviceInfo = false}
   }
 
-  @ViewChild('editStatusDialog') editStatusDialog = {} as TemplateRef<any>;
+  // @ViewChild('editStatusDialog') editStatusDialog = {} as TemplateRef<any>;
   y: any
   openEditStatus(id: any) {
     this.y = id;
-    this.dialog.open(this.editStatusDialog);
+    // this.dialog.open(this.editStatusDialog);
   }
 
-  @ViewChild('viewSiteDialog') viewSiteDialog = {} as TemplateRef<any>;
+  // @ViewChild('viewSiteDialog') viewSiteDialog = {} as TemplateRef<any>;
   currentItem: any;
   currentWorkingDays: any;
   openViewPopup(item: any) {
     this.currentItem = item;
     this.currentWorkingDays = JSON.parse(JSON.stringify(this.currentItem.workingDays.split(',').map((item: any) => +item)));
-    this.dialog.open(this.viewSiteDialog);
+    // this.dialog.open(this.viewSiteDialog);
   }
 
-  @ViewChild('editSiteDialog') editSiteDialog = {} as TemplateRef<any>;
+  // @ViewChild('editSiteDialog') editSiteDialog = {} as TemplateRef<any>;
   openEditPopup(item: any) {
     this.currentItem = item;
     this.currentWorkingDays = JSON.parse(JSON.stringify(this.currentItem.workingDays.split(',').map((item: any) => +item)));
-    this.dialog.open(this.editSiteDialog);
+    // this.dialog.open(this.editSiteDialog);
   }
 
 
@@ -275,5 +254,4 @@ export class DevicesComponent implements OnInit {
       x.sort((a: string, b: string) => b[label] > a[label] ? 1 : b[label] < a[label] ? -1 : 0);
     }
   }
-
 }

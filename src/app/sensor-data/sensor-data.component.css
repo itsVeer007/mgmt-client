@@ -1,0 +1,30 @@
+.device-list {
+  display: grid;
+  grid-template-columns: repeat(1, 2fr);
+}
+
+.device-item {
+  /* height: 300px; */
+  /* width: 100%; */
+  background-color: #e8dddd;
+  margin: 5px;
+  border-radius: 10px;
+  /* padding: 3px ; */
+}
+.heading {
+  text-decoration: underline;
+}
+
+.table-resp {
+  height: calc(100vh - 400px);
+  /* overflow-y: auto; */
+}
+
+.vl {
+  border-left: 1px solid green;
+  height: 500px;
+}
+
+div{
+  padding:30px;
+}

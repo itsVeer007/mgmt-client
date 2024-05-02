@@ -651,14 +651,15 @@ export class InventoryService {
     return this.http.get(url, {params: params});
   }
 
-  baseUrl1 = 'http://192.168.0.169:2255';
+  baseUrl1 = 'http://192.168.0.169:1234';
+  // baseUrl1   = 'http://usstaging.ivisecurity.com:947';
 
   getData(payload?:any) {
-    let url = this.baseUrl1 + '/getData';
+    let url = this.baseUrl1 + '/sensors/listSensorData_1_0';
     let params = new HttpParams();
-    if(payload?.siteId) {
-      params = params.set('siteId' ,payload?.siteId)
-    }
+    // if(payload?.siteId) {
+      params = params.set('siteId', 36319)
+    // }
     if(payload?.deviceId) {
       params = params.set('device_name' ,payload?.deviceId)
     }

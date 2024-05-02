@@ -1,0 +1,66 @@
+
+<div class="container-fluid" id="top">
+
+  <div class="d-flex justify-content-between align-items-center">
+    <div class="users-header">
+      <p class="m-0">Total Devices - <span>{{newGetDataForDevice?.length }}</span></p>
+    </div>
+    <div style="position: relative;">
+      <!-- <a class="pointer" (click)="show('device')"><img src="assets/icons/add.svg" alt="" /></a> -->
+      <!-- <button mat-flat-button color="primary" class="py-0" (click)="show('device')">Create Device</button> -->
+      <!-- <button class="create-btn" (click)="show('device')">Create Device</button> -->
+      <!-- <button class="create-btn mx-1" (click)="openDialog()">Sensor Stats</button> -->
+    </div>
+  </div>
+  <div>
+    <!-- <app-filter [filterType]="'sensors'" (tableDataFromChild)="getDevicesFromChild1($event)">
+    </app-filter> -->
+
+  </div>
+
+  <div class="mx-0">
+      <div class="device-list">
+        <div class="device-item" *ngFor="let item of newGetDataForDevice">
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="">
+            <h1 style="color:#084982;" class=" heading">Site Id</h1>
+            <p class="mx-3">{{item.site_id}}</p>
+          </span>
+          <span class="">
+            <h1 style="color:#084982;" class=" heading">Zone Id</h1>
+            <p class="mx-4">{{item.zoneId}}</p>
+          </span>
+          <span class="">
+            <h1 style="color:#084982;" class=" heading">Device Type</h1>
+            <p class="mx-3">{{item.device_type}}</p>
+          </span>
+        </div>
+        <div class="d-flex justify-content-between align-items-center">
+          <p class="  mx-2 heading" style="color: chocolate;">sensorDeviceId</p>
+          <p class=" mx-2 heading" style="color: chocolate;">sensorId</p>
+          <p class=" mx-2 heading" style="color: chocolate;">sensorType</p>
+          <p class=" mx-2 heading" style="color: chocolate;">SensorStatus</p>
+          <p class=" mx-2  heading" style="color: chocolate;">latestTimeStamp</p>
+        </div>
+
+         <div class="d-flex justify-content-between align-items-center" *ngFor="let val of item.devices_data">
+          <p class=" mx-1">{{val.sensorDeviceId}} </p>
+          <p class=" mx-1">{{val.sensorId}}</p>
+          <p class=" mx-1">{{val.sensorType}}</p>
+          <p class=" mx-1">{{val.status}}</p>
+          <p class=" mx-1">{{val.latestTimeStamp | date:'shortTime'}}</p>
+          </div>
+        </div>
+        <!-- <div class="d-flex justify-content-end align-items-center" style="height: 50vh;font-weight: 600; font-size: larger;"  > No Data</div> -->
+      </div>
+
+
+    </div>
+    <!-- *ngIf="newGetDataForDevice.length == 0" -->
+    <div class="d-flex justify-content-end"  >
+      <button class="dialog-close-btn" mat-dialog-close>Close</button>
+    </div>
+</div>
+
+
+

@@ -10,7 +10,7 @@
       <!-- <a class="pointer" (click)="show('device')"><img src="assets/icons/add.svg" alt="" /></a> -->
       <!-- <button mat-flat-button color="primary" class="py-0" (click)="show('device')">Create Device</button> -->
       <button class="create-btn" (click)="show('device')">Create Device</button>
-      <button class="create-btn mx-1" (click)="openSensor()">Sensor Stats</button>
+      <button class="create-btn mx-1" (click)="openSensor()">Sensors Data</button>
     </div>
   </div>
 
@@ -502,16 +502,73 @@
 </ng-template>
 
 <ng-template #sensorDialog>
-  <div style="background-color: #084982;">
-  <p class="dialog-title">Sensor Details</p>
+  <div class="main">
+  <div class="text-center">
+    <!-- <p class="dialog-title">Sensor Details</p> -->
+  <p class="dialog-title">Sensors</p>
+  </div>
   </div>
 
+<div class="d-flex justify-content-start">
+  <div class="users-header mt-2 mx-3">
+    <p class="m-0 mb-2">Sensors - <span>{{ newGetDataForDevice?.length }}</span></p>
+  </div>
+  <!-- <div class="vl-green"></div> -->
+  <div class="users-header mt-2 mx-3">
+    <p class="m-0 mb-2">Zones - <span>{{ newGetDataForDevice?.length }}</span></p>
+  </div>
+</div>
 
-  <div class="dialog-content" style="min-width: 700px; min-height: 300px;">
-    <app-filter
+  <div class="dialog-content" style="min-width: 900px; min-height: 300px;">
+
+    <!-- <div class="row"> -->
+      <app-filter
       [filterType]="'sensors'"
-      (tableDataFromChild)="getDevicesFromChild1($event)">
+      (tableDataFromChild)="getDevicesFromChild1($event)"
+      >
     </app-filter>
+    <div class="row">
+      <div class="col-lg-5">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Zone Id</mat-label>
+          <input matInput #siteIdInput [matAutocomplete]="site" [(ngModel)]="siteId" (keyup)="searchSites($event)">
+          <button matSuffix mat-icon-button>
+            <mat-icon>arrow_drop_down</mat-icon>
+          </button>
+          <mat-autocomplete #site="matAutocomplete">
+            <mat-option value="All">All</mat-option>
+            <!-- <mat-option *ngFor="let item of sitesList | search: siteSearch" [value]="item.siteId">
+              {{ item.siteId }} - {{ item.siteName }}
+            </mat-option> -->
+            <!-- <mat-option *ngIf="sitesList.length == 0" disabled>No Sites</mat-option> -->
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+      <div class="col-lg-5">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Sensor</mat-label>
+          <input matInput #siteIdInput [matAutocomplete]="site" [(ngModel)]="siteId" (keyup)="searchSites($event)">
+          <button matSuffix mat-icon-button>
+            <mat-icon>arrow_drop_down</mat-icon>
+          </button>
+          <mat-autocomplete #site="matAutocomplete">
+            <mat-option value="All">All</mat-option>
+            <mat-option value="temp">Temperature</mat-option>
+            <mat-option value="light">Light</mat-option>
+            <!-- <mat-option *ngFor="let item of sitesList | search: siteSearch" [value]="item.siteId">
+              {{ item.siteId }} - {{ item.siteName }}
+            </mat-option> -->
+            <!-- <mat-option *ngIf="sitesList.length == 0" disabled>No Sites</mat-option> -->
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- </div> -->
+
+
+
+
 
     <div class="device-list">
       <!-- <div class="device-item" *ngFor="let item of getDataForDevice">
@@ -527,21 +584,40 @@
         </span>
       </div> -->
       <div class="device-item" *ngFor="let item of newGetDataForDevice">
-        <p class="mb-3"><span style="color:#084982;">Device Name:&nbsp;</span>{{item.device_name}}</p>
-      <div class="d-flex justify-content-between align-items-center">
-        <p class="mb-2 heading" style="color: chocolate;">Time</p>
-        <p class="mb-2 heading" style="color: chocolate;">Sensor</p>
-        <p class="mb-2 heading" style="color: chocolate;">Status</p>
-      </div>
-       <div class="d-flex justify-content-between align-items-center" *ngFor="let val of item.devices_data">
-        <p>{{val.dateTime | date:'shortTime'}}</p>
-        <p class="m-1">{{val.sensor_id}}</p>
-        <p>{{val.status}}</p>
+      <mat-card >
+        <div class="d-flex justify-content-around align-items-center mx-3">
+          <h2 class="text-center mt-3">ZONE:&nbsp;{{item?.zoneId}}</h2>
+          <!-- <h2>SiteId:&nbsp;{{item?.site_id}}</h2> -->
         </div>
+      </mat-card>
+
+        <!-- <p class="mb-3"><span style="color:#084982;">Device Name:&nbsp;</span>{{item.device_name}}</p> -->
+      <div class="d-flex justify-content-between align-items-center">
+        <h2 class="dialog-title  mb-1" style=" width: 100px;"><span class="">Device</span></h2>
+        <h2 class=" dialog-title mb-1" style=" width: 100px;"><span class="">Name</span></h2>
+        <h2 class=" dialog-title mb-1" style=" width: 100px;"><span class="">Type</span></h2>
+        <h2 class=" dialog-title mb-1" style=" width: 100px;"><span class="">Status</span></h2>
+        <h2 class=" dialog-title mb-1" style=" width: 100px;"><span class="">Time</span></h2>
+      </div>
+      <div *ngFor="let val of item.devices_data">
+        <div class="d-flex justify-content-between align-items-center">
+          <p class="dialog-title" style="width: 100px;">{{val.sensorDeviceId}} </p>
+          <p class="dialog-title" style="width: 100px;">{{val.sensorId}}</p>
+          <p class="dialog-title" style="width: 100px;">{{val.sensorType}}</p>
+          <p class="dialog-title" style="width: 100px;">{{val.status}}</p>
+          <p class="dialog-title" style="width: 100px;">{{val.latestTimeStamp | date:'shortTime'}}</p>
+          </div>
+      </div>
+
       </div>
       <div class="d-flex justify-content-end align-items-center" style="height: 50vh;font-weight: 600; font-size: larger;"  *ngIf="newGetDataForDevice.length == 0"> No Data</div>
+
+    </div>
+    <div class="d-flex justify-content-end mt-2" >
+      <button class="dialog-close-btn" mat-dialog-close>Close</button>
     </div>
   </div>
+
 </ng-template>
 
 

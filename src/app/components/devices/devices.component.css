@@ -17,20 +17,35 @@
   background-color: #3a6da4;
   border-radius: 3px;
 }
+.main {
+  background-image: linear-gradient(to right, #084982, #D34124);
+}
+
+.header {
+border-style: solid;
+  border-radius: 6px;
+  color: #105c7d;
+border-width: 1px;
+}
 
 .device-list {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(1, 1fr);
 }
 
 .device-item {
-  height: 200px;
-  width: 300px;
-  background-color: #e8dddd;
+  /* height: 150px; */
+  width: 100%;
+  /* background-color: #50718f; */
+  background-color: #577ea0;
   margin: 5px;
   border-radius: 10px;
-  padding: 8px ;
+  padding: 14px ;
 }
 .heading {
   text-decoration: underline;
+}
+
+.finalData{
+  text-align: center;
 }
