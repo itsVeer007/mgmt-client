@@ -59,7 +59,7 @@ export class WifiAnalyticsComponent implements OnInit {
   response: any;
   dayWiseStats() {
     this.assetSer.dayWiseStats().subscribe((res: any) => {
-      // console.log(res);
+      console.log(res);
       this.response = res;
       this.dayWiseStatsData = res.content;
       this.newDayWiseData = this.dayWiseStatsData;
@@ -70,7 +70,7 @@ export class WifiAnalyticsComponent implements OnInit {
   hourWiseStatsData: any;
   @ViewChild('usedItemsDialog') usedItemsDialog = {} as TemplateRef<any>;
   hourWiseStats(item: any) {
-    // console.log(item);
+    console.log(item);
     this.currentItem = item
     // this.inputToChild = item;
     this.assetSer.hourWiseStats(item).subscribe((res: any) => {

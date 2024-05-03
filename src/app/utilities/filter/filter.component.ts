@@ -31,6 +31,7 @@ export class FilterComponent {
   sitesList: any = [];
   getSitesListForUserName() {
     this.siteSer.getSitesListForUserName().subscribe((res: any) => {
+      console.log(res)
       if(res?.Status == 'Success') {
         this.listDevices();
         this.sitesList = res.sites.sort((a: any, b: any) => a.siteId < b.siteId ? -1 : a.siteId > b.siteId ? 1 : 0);

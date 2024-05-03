@@ -31,21 +31,22 @@ export class DevicesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getSitesListForUserName()
     this.listDeviceAdsInfo();
     this.getStatus();
-    this.getSitesListForUserName()
     // this.getData();
   }
-  siteId: any =  'All';
+  siteId: any;
+  deviceId: any
 
   // current:any
   // currentItem1:any;
   getDataForDevice:any = [];
   newGetDataForDevice:any = [];
   showLoader1: boolean = false
-  getData() {
+  getData(item:any) {
     this.showLoader1 = true;
-    this.inventorySer.getData().subscribe((res:any)=> {
+    this.inventorySer.getData(item).subscribe((res:any)=> {
       // console.log(res);
       this.showLoader1 = false
       this.getDataForDevice = res;
@@ -70,20 +71,21 @@ export class DevicesComponent implements OnInit {
 
   // }
 
-   @ViewChild('sensorDialog') sensorDialog = {} as TemplateRef<any>
-   openSensor() {
-    this.getData()
+    @ViewChild('sensorDialog') sensorDialog = {} as TemplateRef<any>
+    openSensor() {
+    this.siteId = this.tableData[0].siteId
+    this.getData(this.newTableData[0])
     this.dialog.open(this.sensorDialog);
   }
 
    /* searches */
-   siteSearch: any;
-   siteNg: any = 'All'
-   searchSites(event: any) {
-     this.siteSearch = (event.target as HTMLInputElement).value
-   }
+    siteSearch: any;
+    siteNg: any = 'All'
+    searchSites(event: any) {
+    this.siteSearch = (event.target as HTMLInputElement).value
+    }
 
-   filterSites(site: any) {
+    filterSites(site: any) {
     if(site != 'All') {
       this.newTableData =  this.tableData.filter((item: any) => item.siteId == site)
     } else {

@@ -45,7 +45,7 @@ border-width: 1px;
   padding: 14px ;
 }
 .heading {
-  text-decoration: underline;
+ text-decoration: solid;
 }
 
 .finalData{
