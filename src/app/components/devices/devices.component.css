@@ -31,6 +31,8 @@ border-width: 1px;
 .device-list {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
+  height: 50vh;
+  overflow-y: auto;
 }
 
 .device-item {

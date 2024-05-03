@@ -40,14 +40,15 @@ export class DevicesComponent implements OnInit {
 
   // current:any
   // currentItem1:any;
-  getDataForDevice:any;
-  newGetDataForDevice:any;
+  getDataForDevice:any = [];
+  newGetDataForDevice:any = [];
+  showLoader1: boolean = false
   getData() {
+    this.showLoader1 = true;
     this.inventorySer.getData().subscribe((res:any)=> {
-      console.log(res);
+      // console.log(res);
+      this.showLoader1 = false
       this.getDataForDevice = res;
-      // this.currentItem1 = res[0]?.device_type
-      // this.current = res[0]?.zoneId[0]
       this.newGetDataForDevice = this.getDataForDevice;
       // this.getDataForDevice = res.flatMap((item:any)=> item.devices_data);
       // console.log(this.getDataForDevice)
@@ -71,7 +72,7 @@ export class DevicesComponent implements OnInit {
 
    @ViewChild('sensorDialog') sensorDialog = {} as TemplateRef<any>
    openSensor() {
-     this.getData()
+    this.getData()
     this.dialog.open(this.sensorDialog);
   }
 

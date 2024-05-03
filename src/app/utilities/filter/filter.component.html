@@ -8,10 +8,10 @@
               <mat-icon>arrow_drop_down</mat-icon>
             </button>
             <mat-autocomplete #site="matAutocomplete">
-              <!-- <mat-option value="All" (click)="filterWithSites(filterType)">All</mat-option> -->
-              <!-- <mat-option *ngFor="let item of sitesList | search: siteSearch" [value]="item.siteId" (click)="filterWithSites(filterType)">
+              <mat-option value="All" (click)="filterWithSites(filterType)">All</mat-option>
+              <mat-option *ngFor="let item of sitesList | search: siteSearch" [value]="item.siteId" (click)="filterWithSites(filterType)">
                 {{ item.siteId }} - {{ item.siteName }}
-              </mat-option> -->
+              </mat-option>
               <mat-option *ngIf="sitesList.length == 0" disabled>No Sites</mat-option>
             </mat-autocomplete>
           </mat-form-field>
