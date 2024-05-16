@@ -54,6 +54,18 @@ export class WifiAnalyticsComponent implements OnInit {
     this.dayWiseStats();
   }
 
+  ticketStatusObj = {
+    doif:null,
+    doit:null
+  }
+
+  applyFilter() {
+    this.assetSer.dayWiseStats(this.ticketStatusObj).subscribe((res:any)=> {
+      console.log(res);
+      this.newDayWiseData = res.content;
+    })
+  }
+
   newDayWiseData: any = [];
   dayWiseStatsData: any;
   response: any;
@@ -74,7 +86,7 @@ export class WifiAnalyticsComponent implements OnInit {
     this.currentItem = item
     // this.inputToChild = item;
     this.assetSer.hourWiseStats(item).subscribe((res: any) => {
-      // console.log(res);
+      console.log(res);
       this.hourWiseStatsData = res.content;
     })
     this.dialog.open(this.usedItemsDialog);

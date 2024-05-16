@@ -301,6 +301,7 @@ export class AssetService {
   // WifiMainAPIS
 
   // baseUrl2 = 'http://192.168.0.114:8080';
+
   baseUrl2 = 'http://106.51.114.114:6363';
 
   dayWiseStats(payload?:any) {
@@ -327,12 +328,17 @@ export class AssetService {
     return this.http.get(url, {params:params})
   }
 
+  
+
   hourWiseStats(payload?:any) {
     let url = this.baseUrl2 + '/hourWiseStats_1_0';
     let params = new HttpParams();
 
     if(payload?.device_name) {
       params = params.set('deviceName',payload?.device_name)
+    }
+    if(payload?.date_connected) {
+      params = params.set('doi', payload?.date_connected)
     }
 
     return this.http.get(url,{params:params})

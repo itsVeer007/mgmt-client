@@ -35,7 +35,7 @@
   </div>
 
   <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-10">
       <app-filter
         [filterType]="'wifi'"
         (tableDataFromChild)="getAdsFromChild($event)"
@@ -43,8 +43,29 @@
         (loaderFromChild)="getLoaderFromChild($event)"
       >
       </app-filter>
+      
+     
     </div>
+    <div class="col-lg-3 from-date">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Enter a date range</mat-label>
+        <mat-date-range-input [rangePicker]="rangePicker">
+          <input matStartDate placeholder="Created from" [(ngModel)]="ticketStatusObj.doif">
+          <input matEndDate placeholder="Created to" [(ngModel)]="ticketStatusObj.doit">
+        </mat-date-range-input>
+        <mat-datepicker-toggle matIconSuffix [for]="rangePicker"></mat-datepicker-toggle>
+  
+        <mat-date-range-picker #rangePicker>
+          <mat-date-range-picker-actions>
+            <button mat-button matDateRangePickerCancel>Cancel</button>
+            <button mat-raised-button color="primary" matDateRangePickerApply (click)="applyFilter()">Apply</button>
+          </mat-date-range-picker-actions>
+        </mat-date-range-picker>
+      </mat-form-field>
+    </div>
+
   </div>
+  
 
 
   <div class="table-resp">
