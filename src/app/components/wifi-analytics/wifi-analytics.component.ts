@@ -54,30 +54,22 @@ export class WifiAnalyticsComponent implements OnInit {
     this.dayWiseStats();
   }
 
-  ticketStatusObj = {
-    doif:null,
-    doit:null
-  }
-
-  applyFilter() {
-    this.assetSer.dayWiseStats(this.ticketStatusObj).subscribe((res:any)=> {
-      console.log(res);
-      this.newDayWiseData = res.content;
-    })
-  }
+ 
 
   newDayWiseData: any = [];
   dayWiseStatsData: any;
   response: any;
   dayWiseStats() {
     this.assetSer.dayWiseStats().subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       this.response = res;
       this.dayWiseStatsData = res.content;
       this.newDayWiseData = this.dayWiseStatsData;
     })
   }
 
+  
+  currentItem: any;
   newWifiData: any;
   hourWiseStatsData: any;
   @ViewChild('usedItemsDialog') usedItemsDialog = {} as TemplateRef<any>;
@@ -86,22 +78,32 @@ export class WifiAnalyticsComponent implements OnInit {
     this.currentItem = item
     // this.inputToChild = item;
     this.assetSer.hourWiseStats(item).subscribe((res: any) => {
-      console.log(res);
-      this.hourWiseStatsData = res.content;
+      // console.log(res);
+      this.hourWiseStatsData = res.content.sort((a:any, b:any)=> {
+        const [startA, endA] = a.time_connected.split('-').map(Number);
+        const [startB, endB] = b.time_connected.split('-').map(Number);
+        return startA - startB || endA - endB;
+      });
+      console.log(this.hourWiseStatsData);
     })
     this.dialog.open(this.usedItemsDialog);
   }
 
+ 
+
+
+  newitem:any
   deviceWiseStatsData: any;
   @ViewChild('usedItemsDialogTwo') usedItemsDialogTwo = {} as TemplateRef<any>;
   deviceWiseStats(task: any) {
-    // console.log(task);
-    this.currentItem = task
+    // console.log(task); 
+    this.newitem = task
+    // console.log(this.newitem)
     let time = task?.time_connected.split('-');
     let time_connected = time[0]
     let date = new Date()
     // console.log(time)
-    this.assetSer.deviceWiseStats({ deviceName: task?.device_name, time_connected: time_connected, doi: date }).subscribe((res: any) => {
+    this.assetSer.deviceWiseStats({ deviceName: task?.device_name, time_connected: time_connected, doi: this.currentItem.date_connected }).subscribe((res: any) => {
       // console.log(res);
       this.deviceWiseStatsData = res?.content
     })
@@ -145,6 +147,7 @@ export class WifiAnalyticsComponent implements OnInit {
 
 
   getAdsFromChild(data: any) {
+    // console.log(data)
     this.newDayWiseData = data;
   }
 
@@ -154,6 +157,11 @@ export class WifiAnalyticsComponent implements OnInit {
 
   getLoaderFromChild(data: boolean) {
     this.showLoader = data;
+  }
+
+  getDateFromChild(data:any) {
+    console.log(data)
+    this.newDayWiseData = data;
   }
 
   frFilterBody: any = {
@@ -225,7 +233,6 @@ export class WifiAnalyticsComponent implements OnInit {
 
 
 
-  currentItem: any;
   originalObject: any;
   changedKeys: any = [];
 
@@ -234,27 +241,22 @@ export class WifiAnalyticsComponent implements OnInit {
   ticketVisits: any;
   ticketComments: any = [];
   openViewPopup(item: any) {
-    this.currentItem = item;
+
     this.dialog.open(this.viewTicketDialog);
-    // console.log(this.currentItem);
+
     this.inventorySer.getTasks(item.ticketId).subscribe((tasks: any) => {
-      // console.log(res);
+
       this.ticketTasks = tasks;
     });
 
     this.inventorySer.getTicketVisits(item.ticketId).subscribe((visits: any) => {
-      // console.log(res);
+
       this.ticketVisits = visits;
     });
 
     this.inventorySer.getcomments(item.ticketId).subscribe((comments: any) => {
       this.ticketComments = comments;
     });
-
-    // this.inventorySer.comment$.subscribe((cmt: any) => {
-    //   console.log(cmt);
-    //   this.ticketComments = cmt;
-    // })
   }
 
 

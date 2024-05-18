@@ -15,6 +15,7 @@ export class FilterComponent {
   @Output() loaderFromChild: any = new EventEmitter<boolean>(false);
   @Output() tableDataFromChild: any = new EventEmitter();
   @Output() searchFromChild: any = new EventEmitter();
+  @Output() dateFromChild:any =new EventEmitter
 
   constructor(
     private siteSer: SiteService,
@@ -31,7 +32,7 @@ export class FilterComponent {
   sitesList: any = [];
   getSitesListForUserName() {
     this.siteSer.getSitesListForUserName().subscribe((res: any) => {
-      console.log(res)
+      // console.log(res)
       if(res?.Status == 'Success') {
         this.listDevices();
         this.sitesList = res.sites.sort((a: any, b: any) => a.siteId < b.siteId ? -1 : a.siteId > b.siteId ? 1 : 0);
@@ -40,12 +41,33 @@ export class FilterComponent {
     });
   }
 
+   siteIdToFind = 36319;
+
   devicesList: any = [];
   listDevices() {
     this.assetSer.listDeviceAdsInfo().subscribe((res: any) => {
+      // console.log(res);
       this.devicesList = res.flatMap((item: any) => item.adsDevices);
     })
   }
+
+
+
+
+
+  ticketStatusObj = {
+    doif:null,
+    doit:null,
+
+  }
+
+  // showFilter:boolean = true
+
+  // applyFilter() {
+  //   this.assetSer.dayWiseStats(this.ticketStatusObj).subscribe((res:any)=> {
+  //     console.log(res);
+  //   })
+  // }
 
   siteId: any =  'All';
   deviceId: any = 'All';
@@ -53,18 +75,23 @@ export class FilterComponent {
   // advertisements: any = [];
   // devices: any = [];
   filterWithSites(type: any) {
+    let doif: any = this.ticketStatusObj.doif;
+    let doit: any = this.ticketStatusObj.doit; 
     let siteId: any;
     let deviceId: any;
     this.siteId == 'All' ? siteId = null : siteId = this.siteId;
     this.deviceId == 'All' ? deviceId = null : deviceId = this.deviceId;
 
-    if(type === 'advertisements') {
+    if(type === 'advertisements' || type === 'wifi') {
       this.loaderFromChild.emit(true);
       this.assetSer.listAssets1({siteId: siteId, deviceId: deviceId}).subscribe((res: any) => {
+        // console.log(res)
         this.loaderFromChild.emit(false);
         let x = res.flatMap((item: any) => item.assets);
         let y  = x.sort((a: any, b: any) => a.deviceModeId > b.deviceModeId ? -1 : a.deviceModeId < b.deviceModeId ? 1 : 0);
-        this.tableDataFromChild.emit(y);
+        if(type === 'advertisements') {
+          this.tableDataFromChild.emit(y);
+        }
         this.assetSer.listDeviceBySiteId({siteId: siteId}).subscribe((res: any) => {
           this.devicesList = res.flatMap((item: any) => item.adsDevices);
         });
@@ -90,14 +117,12 @@ export class FilterComponent {
 
     if(type === 'wifi') {
       this.loaderFromChild.emit(true);
-      this.assetSer.dayWiseStats({siteId: siteId, device_name: deviceId}).subscribe((res: any) => {
-        // console.log(res);
+      this.assetSer.dayWiseStats({siteId: siteId, device_name: deviceId, doif:doif, doit:doit}).subscribe((res: any) => {
+        // let x = res.flatMap((item:any)=> item);
+        this.ticketStatusObj.doif = null;
+        this.ticketStatusObj.doit = null;
         this.loaderFromChild.emit(false);
-        if(res.message === 'no data') {
-          this.tableDataFromChild.emit(res.content);
-        } else {
-          this.tableDataFromChild.emit(res.content);
-        }
+        this.tableDataFromChild.emit(res.content);
       });
     }
   }

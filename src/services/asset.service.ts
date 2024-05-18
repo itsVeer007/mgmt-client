@@ -316,17 +316,18 @@ export class AssetService {
     if(payload?.doit) {
       params = params.set('doit', formatDate(payload?.doit, 'yyyy-MM-dd','en-us' ))
     }
-    if(payload?.page) {
-      params= params.set('page',payload?.page)
-    }
-    if(payload?.pagesize) {
-      params = params.set('pagesize',payload?.pagesize)
-    }
+    // if(payload?.page) {
+    //   params= params.set('page',payload?.page)
+    // }
+    // if(payload?.pagesize) {
+    //   params = params.set('pagesize',payload?.pagesize)
+    // }
     if(payload?.siteId) {
       params = params.set('siteId',payload?.siteId)
     }
     return this.http.get(url, {params:params})
   }
+ 
 
   
 
@@ -351,7 +352,8 @@ export class AssetService {
       params = params.set('deviceName',payload?.deviceName)
     }
     if(payload?.doi) {
-      params = params.set('doi', formatDate(new Date(), 'yyyy-MM-dd','en-us'))
+      console.log(payload)
+      params = params.set('doi', payload?.doi)
     }
     if(payload?.time_connected) {
       params = params.set('toi' ,payload?.time_connected)

@@ -46,23 +46,7 @@
       
      
     </div>
-    <div class="col-lg-3 from-date">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Enter a date range</mat-label>
-        <mat-date-range-input [rangePicker]="rangePicker">
-          <input matStartDate placeholder="Created from" [(ngModel)]="ticketStatusObj.doif">
-          <input matEndDate placeholder="Created to" [(ngModel)]="ticketStatusObj.doit">
-        </mat-date-range-input>
-        <mat-datepicker-toggle matIconSuffix [for]="rangePicker"></mat-datepicker-toggle>
-  
-        <mat-date-range-picker #rangePicker>
-          <mat-date-range-picker-actions>
-            <button mat-button matDateRangePickerCancel>Cancel</button>
-            <button mat-raised-button color="primary" matDateRangePickerApply (click)="applyFilter()">Apply</button>
-          </mat-date-range-picker-actions>
-        </mat-date-range-picker>
-      </mat-form-field>
-    </div>
+   
 
   </div>
   
@@ -220,7 +204,7 @@
    <div style="background-color: #084982;">
     <div class="d-flex justify-content-between align-items-center">
       <p class="dialog-title ">{{currentItem.device_name}}</p>
-      <p class="dialog-title ">Hour[{{currentItem.time_connected}}]</p>
+      <p class="dialog-title ">Hour[{{newitem.time_connected}}]</p>
     </div>
    </div>
 
