@@ -54,6 +54,7 @@ export class WifiAnalyticsComponent implements OnInit {
     this.dayWiseStats();
   }
 
+  
  
 
   newDayWiseData: any = [];
@@ -65,28 +66,45 @@ export class WifiAnalyticsComponent implements OnInit {
       this.response = res;
       this.dayWiseStatsData = res.content;
       this.newDayWiseData = this.dayWiseStatsData;
+      
     })
   }
 
   
   currentItem: any;
   newWifiData: any;
-  hourWiseStatsData: any;
+  hourWiseStatsData: any = [];
+  currentPage2: any;
+  totalPages2: any;
   @ViewChild('usedItemsDialog') usedItemsDialog = {} as TemplateRef<any>;
   hourWiseStats(item: any) {
-    console.log(item);
+    // console.log(item);
     this.currentItem = item
     // this.inputToChild = item;
-    this.assetSer.hourWiseStats(item).subscribe((res: any) => {
+    this.assetSer.hourWiseStats({device_name: item.device_name, date_connected: item.date_connected, page: this.currentPage2}).subscribe((res: any) => {
       // console.log(res);
       this.hourWiseStatsData = res.content.sort((a:any, b:any)=> {
         const [startA, endA] = a.time_connected.split('-').map(Number);
         const [startB, endB] = b.time_connected.split('-').map(Number);
         return startA - startB || endA - endB;
       });
-      console.log(this.hourWiseStatsData);
+      this.currentPage2 = res.page;
+      this.totalPages2 = res.pages;
     })
     this.dialog.open(this.usedItemsDialog);
+  }
+
+  setPagination2(item: any, current: any) {
+    this.assetSer.hourWiseStats({device_name: item.device_name, date_connected: item.date_connected, page: current}).subscribe((res: any) => {
+      // console.log(res);
+      this.hourWiseStatsData = res.content.sort((a:any, b:any)=> {
+        const [startA, endA] = a.time_connected.split('-').map(Number);
+        const [startB, endB] = b.time_connected.split('-').map(Number);
+        return startA - startB || endA - endB;
+      });
+      this.currentPage2 = res.page;
+      this.totalPages2 = res.pages;
+    })
   }
 
  
@@ -94,20 +112,29 @@ export class WifiAnalyticsComponent implements OnInit {
 
   newitem:any
   deviceWiseStatsData: any;
+  currentPage3: any;
+  totalPages3: any;
   @ViewChild('usedItemsDialogTwo') usedItemsDialogTwo = {} as TemplateRef<any>;
-  deviceWiseStats(task: any) {
-    // console.log(task); 
-    this.newitem = task
-    // console.log(this.newitem)
+  deviceWiseStats(task: any, ) {
+    this.newitem = task;
     let time = task?.time_connected.split('-');
-    let time_connected = time[0]
-    let date = new Date()
-    // console.log(time)
-    this.assetSer.deviceWiseStats({ deviceName: task?.device_name, time_connected: time_connected, doi: this.currentItem.date_connected }).subscribe((res: any) => {
-      // console.log(res);
-      this.deviceWiseStatsData = res?.content
+    let time_connected = time[0];
+    this.assetSer.deviceWiseStats({ deviceName: task?.device_name, time_connected: time_connected, doi: this.currentItem.date_connected, page: this.currentPage3 }).subscribe((res: any) => {
+      this.deviceWiseStatsData = res?.content;
+      this.currentPage3 = res.page;
+      this.totalPages3 = res.pages;
     })
     this.dialog.open(this.usedItemsDialogTwo);
+  }
+
+  setPagination3(task: any, current: any) {
+    let time = task?.time_connected.split('-');
+    let time_connected = time[0];
+    this.assetSer.deviceWiseStats({ deviceName: task?.device_name, time_connected: time_connected, doi: this.currentItem.date_connected, page: current }).subscribe((res: any) => {
+      this.deviceWiseStatsData = res?.content;
+      this.currentPage3 = res.page;
+      this.totalPages3 = res.pages;
+    })
   }
 
   filterDataObject = {
@@ -322,7 +349,7 @@ export class WifiAnalyticsComponent implements OnInit {
   sorted = false;
   sort(label: any) {
     this.sorted = !this.sorted;
-    var x = this.dayWiseStatsData;
+    var x = this.newDayWiseData;
     if (this.sorted == false) {
       x.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
     } else {

@@ -73,6 +73,7 @@ import { AddNewInstallationComponent } from './main-dashboard/add-new-installati
 import { AddDeviceFormComponent } from './main-dashboard/add-device-form/add-device-form.component';
 import { EditDeviceFormComponent } from './main-dashboard/edit-device-form/edit-device-form.component';
 import { SensorDataComponent } from './sensor-data/sensor-data.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 
 @NgModule({
@@ -138,7 +139,8 @@ import { SensorDataComponent } from './sensor-data/sensor-data.component';
     WifiDetailComponent,
     FilterComponent,
     TextAndNumberOnlyDirective,
-    SensorDataComponent
+    SensorDataComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -147,7 +149,8 @@ import { SensorDataComponent } from './sensor-data/sensor-data.component';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    MatDatepickerModule 
   ],
   providers: [
     DatePipe,

@@ -61,7 +61,7 @@
             <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th> -->
           <th>
-            <span>Wifi DeviceName</span>
+            <span>DeviceName</span>
             <img (click)="sort('device_name')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
           <th>
@@ -78,11 +78,11 @@
           </th>
           <th>
             <p>Total</p>
-            <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <img (click)="sort('active_count')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
           <th>
             <p>Average Time</p>
-            <img (click)="sort('ticketId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            <img (click)="sort('average_time_spent')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
           <th>
             <span>Details</span>
@@ -97,7 +97,7 @@
             <p>{{i+1}}</p>
           </td> -->
           <td>
-            <p class="pointer text-primary" (click)="show('wifi', cust)">{{cust.device_name}}</p>
+            <p class="pointer text-primary" (click)="show('wifi', cust)">{{cust.device_name}}-{{cust.device_description}}</p>
           </td>
           <td>{{cust.date_connected}}</td>
           <td>{{cust.active_count}}</td>
@@ -129,7 +129,7 @@
 
 <ng-template #usedItemsDialog>
   <div style="background-color: #084982;" >
-    <p class="dialog-title">{{ currentItem.device_name}}</p>
+    <p class="dialog-title">{{ currentItem.device_name}}-{{currentItem.device_description}}</p>
   </div>
 
   <div class="dialog-content">
@@ -152,9 +152,9 @@
 
             <th>
               <span>Total</span>
-              <img (click)="sort1('siteId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              <img (click)="sort1('active_count')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </th>
-            <th>Average Time
+            <th>Avg Time Spent
               <img (click)="sort1('avg_time_spent')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </th>
             <th >
@@ -193,6 +193,13 @@
         </tbody>
       </table>
     </div>
+    <nav>
+      <ul class="pagination">
+        <li class="page-item"><a class="page-link" (click)="setPagination2(currentItem, currentPage2 - 1)">Previous</a></li>
+        <li class="page-item"><input class="page-link" style="width: 50px" [(ngModel)]="currentPage2" disabled></li>
+        <li class="page-item"><a class="page-link" (click)="setPagination2(currentItem, currentPage2 + 1)">Next</a></li>
+      </ul>
+    </nav>
   </div>
 
   <div class="d-flex justify-content-end">
@@ -239,6 +246,14 @@
         </tbody>
       </table>
     </div>
+
+  <nav>
+    <ul class="pagination">
+      <li class="page-item"><a class="page-link" (click)="setPagination3(newitem, currentPage3-1)">Previous</a></li>
+      <li class="page-item"><input class="page-link" style="width: 50px" [(ngModel)]="currentPage3" disabled></li>
+      <li class="page-item"><a class="page-link" (click)="setPagination3(newitem, currentPage3+1)">Next</a></li>
+    </ul>
+  </nav>
   </div>
 
   <div class="d-flex justify-content-end">

@@ -341,6 +341,12 @@ export class AssetService {
     if(payload?.date_connected) {
       params = params.set('doi', payload?.date_connected)
     }
+    if(payload?.pagesize) {
+      params = params.set('pagesize',payload?.pagesize)
+    }
+    if(payload?.page) {
+      params= params.set('page',payload?.page)
+    }
 
     return this.http.get(url,{params:params})
   }
@@ -352,11 +358,17 @@ export class AssetService {
       params = params.set('deviceName',payload?.deviceName)
     }
     if(payload?.doi) {
-      console.log(payload)
+      // console.log(payload)
       params = params.set('doi', payload?.doi)
     }
     if(payload?.time_connected) {
       params = params.set('toi' ,payload?.time_connected)
+    }
+    if(payload?.pagesize) {
+      params = params.set('pagesize',payload?.pagesize)
+    }
+    if(payload?.page) {
+      params= params.set('page',payload?.page)
     }
     return this.http.get(url,{params:params});
   }

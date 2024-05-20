@@ -3,6 +3,7 @@ import { AssetService } from 'src/services/asset.service';
 import { InventoryService } from 'src/services/inventory.service';
 import { SiteService } from 'src/services/site.service';
 
+
 @Component({
   selector: 'app-filter',
   templateUrl: './filter.component.html',
@@ -11,6 +12,8 @@ import { SiteService } from 'src/services/site.service';
 export class FilterComponent {
 
   @Input() filterType: any;
+
+  @Input() toDate:any;
 
   @Output() loaderFromChild: any = new EventEmitter<boolean>(false);
   @Output() tableDataFromChild: any = new EventEmitter();
@@ -27,6 +30,14 @@ export class FilterComponent {
   ngOnInit() {
     this.getSitesListForUserName();
   }
+  maxDate: Date = new Date(); // Set maxDate to today’s date
+
+  // Filter function to disable dates greater than the current date
+  dateFilter = (d: Date | null): boolean => {
+    const today = new Date();
+    return (d || today) <= today;
+  }
+
 
   searchText: any;
   sitesList: any = [];
@@ -55,9 +66,9 @@ export class FilterComponent {
 
 
 
-  ticketStatusObj = {
-    doif:null,
-    doit:null,
+  ticketStatusObj: any = {
+    doif:new Date(),
+    doit:new Date(),
 
   }
 
@@ -116,11 +127,18 @@ export class FilterComponent {
     }
 
     if(type === 'wifi') {
+      if(this.ticketStatusObj.doif === null) {
+        this.ticketStatusObj.doit = null;
+        
+      } else {
+        this.ticketStatusObj.doit = new Date();
+      }
+
       this.loaderFromChild.emit(true);
       this.assetSer.dayWiseStats({siteId: siteId, device_name: deviceId, doif:doif, doit:doit}).subscribe((res: any) => {
         // let x = res.flatMap((item:any)=> item);
-        this.ticketStatusObj.doif = null;
-        this.ticketStatusObj.doit = null;
+        // this.ticketStatusObj.doif = null;
+        // this.ticketStatusObj.doit = null;
         this.loaderFromChild.emit(false);
         this.tableDataFromChild.emit(res.content);
       });
