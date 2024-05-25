@@ -43,6 +43,20 @@ export class WifiDetailComponent implements OnInit {
     // this.deviceData = this.show;
     // console.log(this.deviceData)
     this.wifiDeatils();
+    this.dayWiseStats()
+  }
+
+  newDayWiseData: any = [];
+  dayWiseStatsData: any;
+  response: any;
+  dayWiseStats() {
+    this.assetSer.dayWiseStats().subscribe((res: any) => {
+      // console.log(res);
+      this.response = res;
+      this.dayWiseStatsData = res.content;
+      this.newDayWiseData = this.dayWiseStatsData;
+      
+    })
   }
 
 graphData:any = [];
@@ -50,7 +64,7 @@ keys: any = [];
 values: any = [];
 wifiDeatils() {
   this.assetSer.getAnalytics(this.show).subscribe((res:any) => {
-    console.log(res);
+    // console.log(res);
     this.graphData.push({data: res.day, type: 'Day'});
     this.graphData.push({data: res.week, type: 'Week'});
     this.graphData.push({data: res.month, type: 'Month'});

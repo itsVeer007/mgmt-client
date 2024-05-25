@@ -5,7 +5,9 @@
     <div>
       <a class="close-main pointer" (click)="close()"><img src="assets/icons/close_form.svg" /></a>
       <a class="form-text">Day / Week / Month / Quarter - status</a>
+     
     </div>
+    <h2 style="color: rgb(18, 84, 87);" class="mx-1">DeviceName: {{show.device_name}}-{{show.device_description}}</h2>
 
     <div class="d-flex justify-content-between mb-3">
       <div class="box" *ngFor="let item of graphData">
