@@ -32,6 +32,7 @@ import { AddNewFrkitComponent } from './main-dashboard/add-new-frkit/add-new-frk
 import { LoginLoaderComponent } from './utilities/loader/login-loader.component';
 import { AddNewDcComponent } from './main-dashboard/add-new-dc/add-new-dc.component';
 
+
 //utilities
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { VjsPlayerComponent } from './utilities/vjs-player/vjs-player.component';
@@ -73,6 +74,7 @@ import { AddNewInstallationComponent } from './main-dashboard/add-new-installati
 import { AddDeviceFormComponent } from './main-dashboard/add-device-form/add-device-form.component';
 import { EditDeviceFormComponent } from './main-dashboard/edit-device-form/edit-device-form.component';
 import { SensorDataComponent } from './sensor-data/sensor-data.component';
+import { CamerasComponent } from './components/cameras/cameras.component';
 
 
 @NgModule({
@@ -138,7 +140,8 @@ import { SensorDataComponent } from './sensor-data/sensor-data.component';
     WifiDetailComponent,
     FilterComponent,
     TextAndNumberOnlyDirective,
-    SensorDataComponent
+    SensorDataComponent,
+    CamerasComponent
   ],
   imports: [
     BrowserModule,

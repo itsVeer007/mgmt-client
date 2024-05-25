@@ -3,6 +3,8 @@ import { SiteService } from 'src/services/site.service';
 import { AssetService } from 'src/services/asset.service';
 import { StorageService } from 'src/services/storage.service';
 import { MatDialog } from '@angular/material/dialog';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+
 
 @Component({
   selector: 'app-sites',
@@ -15,7 +17,8 @@ export class SitesComponent implements OnInit {
     private siteSer: SiteService,
     private assetSer: AssetService,
     public dialog: MatDialog,
-    private storageSer: StorageService
+    private storageSer: StorageService,
+    private fb:FormBuilder
   ) { }
 
   tableData: any = [];
@@ -28,12 +31,30 @@ export class SitesComponent implements OnInit {
   onHold: any = [];
   tempSite: any;
   // siteData: any;
+  createCenteralBox!: FormGroup;
+
   ngOnInit(): void {
     // this.tempSite = this.storageSer.get('temp_sites');
     // this.siteData = this.storageSer.get('temp_sites')?.sort((a: any, b: any) => a.siteId < b.siteId ? -1 : a.siteId > b.siteId ? 1 : 0);
     // this.tableData = this.siteData;
     // this.newTableData = this.tableData;
     this.getSitesListForUserName()
+
+    this.createCenteralBox=this.fb.group({
+      unitName: new FormControl(''),
+      siteId: new FormControl(''),
+      unitId: new FormControl(''),
+      createdBy: new FormControl(1),
+      description: new FormControl(''),
+      password: new FormControl(''),
+      centeralBoxUrl: new FormControl(''),
+      noOfActiveCameras: new FormControl(0),
+      remarks: new FormControl('')
+
+    })
+    
+
+
   }
 
   getSitesListForUserName() {
@@ -76,10 +97,29 @@ export class SitesComponent implements OnInit {
     x.style.display == 'none' ? x.style.display = 'flex' : x.style.display = 'none';
   }
 
-  onGetCentralboxDetail: any;
-  onGetCentralbox(id: any) {
-    this.siteSer.getCentralbox(id).subscribe((res: any) => {
-      // console.log(res)
+  @ViewChild('addCentralBoxDialog') addCentralBoxDialog = {} as TemplateRef<any>;
+  openAddCentralbox() {
+    // this.currentItem = data;
+    this.dialog.open(this.addCentralBoxDialog)
+    this.siteSer.getCentralbox(this.currentItem).subscribe((res: any) => {
+        // console.log(res)
+      })
+    }
+    
+    @ViewChild('viewCentralBoxDialog') viewCentralBoxDialog = {} as TemplateRef<any>;
+    onGetCentralboxDetail: any;
+  getCentalBox(data: any) {
+    this.currentItem = data
+    this.siteSer.getCentralbox(data).subscribe((res: any) => {
+      this.onGetCentralboxDetail = res.centralBox;
+    })
+    this.dialog.open(this.viewCentralBoxDialog)
+  }
+
+  createCentralBox(){
+    this.createCenteralBox.value.siteId=this.currentItem.siteId
+    this.siteSer.addCentralBox(this.createCenteralBox.value).subscribe((res:any) => {
+      console.log(res)
     })
   }
 
@@ -105,6 +145,7 @@ export class SitesComponent implements OnInit {
   showAddSite: boolean = false;
   showAddDevice: boolean = false;
   showInstallation: boolean = false;
+  showCamera: boolean = false;
   show(value: string) {
     if(value == 'site') {
       this.showAddSite = true
@@ -114,6 +155,9 @@ export class SitesComponent implements OnInit {
     }
     if(value == 'installation') {
       this.showInstallation = true
+    }
+    if(value == 'camera') {
+      this.showCamera = true
     }
   }
 
@@ -126,6 +170,9 @@ export class SitesComponent implements OnInit {
     }
     if(type == 'installation') {
       this.showInstallation = false
+    }
+    if(type == 'camera') {
+      this.showCamera = false
     }
   }
 

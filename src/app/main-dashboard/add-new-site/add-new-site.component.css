@@ -145,3 +145,25 @@ p {
   margin-left: auto;
   margin-right: -50px;
 }
+
+.getLatLong{
+  padding: 2px;
+  background-color: #084982;
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 11px;
+  border: none;
+  padding: 11px;
+  margin-bottom: 20px;
+
+}
+
+.checkBoxSize{
+  font-size: 10px;
+  padding: 0px;
+}
+
+.checkMargin
+{
+  margin-right: 0px;
+}

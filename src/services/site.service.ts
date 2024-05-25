@@ -24,6 +24,11 @@ export class SiteService {
     return this.http.post(url, payload);
   }
 
+  createSite(payload: any){
+    let url = 'http://192.168.0.209:8080/site/addSite_1_0';
+    return this.http.post(url, payload)
+  }
+
   getSitesListForUserName() {
     let url = `${this.baseUrl}/getSitesListForUserName_1_0`;
     let user = this.storageSer.get('user');
@@ -41,9 +46,25 @@ export class SiteService {
     return this.http.get(url);
   }
 
-  getCentralbox(id: any) {
-    let url = this.baseUrl + '/sites/getcentralBox_1_0/' + `${id}`;
+  getCentralbox(payload: any) {
+    let url = `http://192.168.0.209:8080/centralBox/getCentralBox_1_0/${payload.siteId}` ;
     return this.http.get(url);
   }
+
+  addCentralBox(payload: any) {
+    let url = 'http://192.168.0.209:8080/centralBox/addCentralBox_1_0';
+    return this.http.post(url, payload);
+  }
+
+
+
+  createCamera(payload: any){
+    let url = 'http://192.168.0.209:8080/camera/addCamera_1_0';
+    return this.http.post(url, payload)
+  }
+
+
+
+  
 
 }

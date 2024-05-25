@@ -176,9 +176,10 @@
               <a class="pointer" style="color: #084982;">View</a>
             </td>
             <td>
-              <a class="pointer" style="color: #000;" (click)="onGetCentralbox(data.siteId)">
-                <img src="assets/icons/add.svg" *ngIf="data.centralUnitId == '' || data.centralUnitId == null" width="40">
-                <span *ngIf="data.cntrl_Unit != '' && data.centralUnitId !=null">{{data?.centralUnitId}}</span>
+              <a class="pointer" style="color: #000;" >
+                <!-- <img src="assets/icons/add.svg" *ngIf="data.centralUnitId == '' || data.centralUnitId == null" width="40"> -->
+                <!-- <span *ngIf="data.cntrl_Unit != '' && data.centralUnitId !=null">{{data?.centralUnitId}}</span> -->
+                <img src="assets/icons/add.svg" width="40" (click)="getCentalBox(data)">
               </a>
             </td>
             <td>
@@ -229,6 +230,102 @@
     </div>
   </div>
 </div>
+
+<ng-template #viewCentralBoxDialog>
+  <div style="background-color: #084982;">
+    <p class="dialog-title">site </p>
+  </div>
+
+  <div class="dialog-content">
+    <div class="d-flex justify-content-center mb-1">
+      <button class="create-centeral-box-button" (click)="openAddCentralbox()">Create Centeral Box</button>
+    </div>
+
+    <div class="table-resp">
+      <table class="table table-hover" id="mytable">
+        <thead>
+          <tr class="form1" style="background-image: linear-gradient(to right, #084982, #D34124);">
+  
+            <th>
+              <span>unitId</span>
+              <img (click)="sort('url')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </th>
+  
+            <th>
+              <span>unitName</span>
+              <img (click)="sort('mode')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </th>
+
+            
+            
+            <th>Add Camera</th>
+  
+          </tr>
+        </thead>
+  
+        <tbody>
+          <tr *ngFor="let cust of onGetCentralboxDetail; let i = index">
+            <td>
+              <p>{{ cust.unitId }}</p>
+            </td>
+  
+            <td>
+              <p>{{ cust.unitName }}</p>
+            </td>
+  
+            <td>
+              <a (click)="show('camera')" mat-dialog-close>
+                <img src="assets/icons/add.svg" width="40">
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <div class="d-flex align-items-center justify-content-end">
+    <div>
+      <button class="dialog-close-btn" mat-dialog-close>Close</button>
+      <button class="dialog-update-btn" (click)="createCentralBox()" mat-dialog-close>Update</button>
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-template #addCentralBoxDialog>
+  <div style="background-color: #084982;">
+    <p class="dialog-title">site - {{currentItem.siteShortName}}</p>
+  </div>
+
+<form [formGroup]="createCenteralBox">
+  <div class="row m-0 dialog-content">
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Unit Id</mat-label>
+        <input matInput formControlName="unitId">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Unit Location Name </mat-label>
+        <input matInput formControlName="unitName">
+      </mat-form-field>
+    </div>
+  </div>
+
+</form>
+
+
+  <div class="d-flex align-items-center justify-content-end">
+    <div>
+      <button class="dialog-close-btn" mat-dialog-close>Close</button>
+      <button class="dialog-update-btn" (click)="createCentralBox()" mat-dialog-close>Update</button>
+    </div>
+  </div>
+</ng-template>
 
 <ng-template #viewSiteDialog>
   <div style="background-color: #084982;">
@@ -347,5 +444,9 @@
 
 <div *ngIf="showInstallation">
   <app-add-new-installation (newItemEvent)="closenow('installation')"></app-add-new-installation>
+</div>
+
+<div *ngIf="showCamera">
+  <app-add-new-camera (newItemEvent)="closenow('camera')"></app-add-new-camera>
 </div>
 
