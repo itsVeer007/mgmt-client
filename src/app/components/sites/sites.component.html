@@ -53,7 +53,8 @@
           </button>
           <mat-autocomplete #site="matAutocomplete">
             <mat-option value="All" (click)="filterSites('All')" *ngIf="tableData.length !== 0">All</mat-option>
-            <mat-option *ngFor="let item of tableData | search: siteSearch" [value]="item.siteId" (click)="filterSites(item.siteId)">
+            <mat-option *ngFor="let item of tableData | search: siteSearch" [value]="item.siteId"
+              (click)="filterSites(item.siteId)">
               {{ item.siteId }} - {{ item.siteName }}
             </mat-option>
           </mat-autocomplete>
@@ -92,31 +93,22 @@
             <img (click)="sort('siteName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
-          
-          
-          <th>
-            <span>QR</span>
-            <!-- <img (click)="sort('status')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
-          </th>
-          
           <th (click)="sort('address')">Address</th>
-          
-          <th (click)="sort('escl_Details')">Escl Details</th>
-          
-          <th (click)="sort('engr_Details')">Engr Details</th>
-          
-          <!-- <th>Services</th> -->
+
+          <!-- <th (click)="sort('escl_Details')">Escl Details</th>
+
+          <th (click)="sort('engr_Details')">Engr Details</th> -->
+
+          <th>Cameras</th>
 
           <th (click)="sort('cntrl_Unit')">Cntrl Unit</th>
-          
-          <th>Inventory</th>
-          
+
           <!-- <th>Analytics</th> -->
-          
+
           <th>Devices</th>
-          
+
           <!-- <th class="text-center">Installation</th> -->
-          
+
           <th>
             <span>Status</span>
             <!-- <img (click)="sort('status')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
@@ -124,24 +116,21 @@
           <th class="text-center">Actions</th>
         </tr>
       </thead>
-      
+
       <tbody *ngIf="!showLoader">
         <tr *ngFor="let data of newTableData | search : searchText; let i=index">
-            <!-- <td>
+          <!-- <td>
               <input type="checkbox" class="form-check-input" [(ngModel)]="data.selected" (change)="checkIfAllSelected(); deleteMultiRecords(data, i, $event); ViewByCheckbox(data, i, $event); EditByCheckbox(data, i, $event)" id="singleCheck">
             </td> -->
-            <td>
-              <p>{{ data.siteId }}</p>
-            </td>
-            <td style="width: 200px;">
-              <p>{{ data.siteName }}</p>
-            </td>
-            <td>
-              <p></p>
-            </td>
-            <td>
-              <a class="pointer" style="color: #084982;" (click)="addressView($event, i)">View</a>
-              <!-- <div class="plus-img" id="address{{i}}">
+          <td>
+            <p>{{ data.siteId }}</p>
+          </td>
+          <td style="width: 200px;">
+            <p>{{ data.siteName }}</p>
+          </td>
+          <td>
+            <a class="pointer" style="color: #084982;" (click)="addressView($event, i)">View</a>
+            <!-- <div class="plus-img" id="address{{i}}">
                 <p class="p-2" style="color: #ABABAB; text-align: left;">ADDRESS</p>
                 <div style="color: #000; text-align: left; padding: 10px;">
                   <p>Pathur Road, Tadepally</p>
@@ -149,11 +138,11 @@
                   <p>Andhra Pradesh, India</p>
                 </div>
               </div> -->
-            </td>
-            <td>
-              <!-- <a class="pointer" style="color: #084982;">{{data.escl_Details}}</a> -->
-              <a class="pointer" style="color: #084982;" (click)="onGetEngineer(data.siteId); engineerView($event, i)">View</a>
-              <!-- <div class="plus-img" style="margin-left: -388px;" id="engineer{{i}}">
+          </td>
+          <!-- <td>
+            <a class="pointer" style="color: #084982;"
+              (click)="onGetEngineer(data.siteId); engineerView($event, i)">View</a>
+            <div class="plus-img" style="margin-left: -388px;" id="engineer{{i}}">
                 <p class="p-2" style="color: #ABABAB; text-align: left;">Details:</p>
                 <div class="eng-detail" *ngFor="let item of engineerDetail">
                   <p>
@@ -169,53 +158,46 @@
                     {{ item.contactNo ? item.contactNo : '--' }}
                   </p>
                 </div>
-              </div> -->
-            </td>
-            <td>
-              <!-- <a class="pointer" style="color: #084982;">{{data.escl_Details}}</a> -->
-              <a class="pointer" style="color: #084982;">View</a>
-            </td>
-            <td>
-              <a class="pointer" style="color: #000;" >
-                <!-- <img src="assets/icons/add.svg" *ngIf="data.centralUnitId == '' || data.centralUnitId == null" width="40"> -->
-                <!-- <span *ngIf="data.cntrl_Unit != '' && data.centralUnitId !=null">{{data?.centralUnitId}}</span> -->
-                <img src="assets/icons/add.svg" width="40" (click)="getCentalBox(data)">
-              </a>
-            </td>
-            <td>
-              <!-- <a>
-                <img src="assets/icons/add-svg.svg" *ngIf="data.centralUnitId == '' || data.centralUnitId == null " width="40" height="40">
-                <span *ngIf="data.centralUnitId != '' && data.centralUnitId !=null">{{data?.centralUnitId}}</span>
-              </a> -->
-              View
-            </td>
-            <td>
-              <a class="pointer" (click)="show('device'); getDevices(data.siteId); saveSiteData(data)">
-                  <img src="assets/icons/add.svg" width="40">
-              </a>
-            </td>
-            <!-- <td class="text-center">
+              </div>
+          </td> -->
+          <td>
+            <p class="text-primary pointer" (click)="getCamerasForSiteId(data)">View</p>
+          </td>
+          <td>
+            <a class="pointer" style="color: #000;">
+              <!-- <img src="assets/icons/add.svg" *ngIf="data.centralUnitId == '' || data.centralUnitId == null" width="40"> -->
+              <!-- <span *ngIf="data.cntrl_Unit != '' && data.centralUnitId !=null">{{data?.centralUnitId}}</span> -->
+              <img src="assets/icons/add.svg" width="40" (click)="getCentalBox(data)">
+            </a>
+          </td>
+          <td>
+            <a class="pointer" (click)="show('device'); getDevices(data.siteId); saveSiteData(data)">
+              <img src="assets/icons/add.svg" width="40">
+            </a>
+          </td>
+          <!-- <td class="text-center">
               <a class="pointer" (click)="show('installation')">
                   <img src="assets/icons/feed_black.svg" style="opacity: 0.8;" width="18">
               </a>
             </td> -->
-            <td>
-              <p [style.color]="data.status == 'Active' ? '#00A44C': data.status == 'Onhold' ? '#F5B400': data.status == 'Inactive' ? '#fa500f': '#084982'">
-                {{ data.status ? data.status : 'Active' }}
-              </p>
-            </td>
-            <td class="table-icons">
-              <a class="mx-1 pointer" matTooltip="View">
-                <img src="assets/icons/view.svg" (click)="openViewPopup(data)" >
-              </a>
-              <a class="mx-1 pointer"  matTooltip="Edit">
-                <img src="assets/icons/edit.svg" (click)="openEditPopup(data)">
-              </a>
-              <a class="mx-1 pointer" value="Delete"  matTooltip="Delete">
-                <img src="assets/icons/delete.svg" (click)="openDeletePopup(data)">
-              </a>
-            </td>
-          </tr>
+          <td>
+            <p
+              [style.color]="data.status == 'Active' ? '#00A44C': data.status == 'Onhold' ? '#F5B400': data.status == 'Inactive' ? '#fa500f': '#084982'">
+              {{ data.status ? data.status : 'Active' }}
+            </p>
+          </td>
+          <td class="table-icons">
+            <a class="mx-1 pointer" matTooltip="View">
+              <img src="assets/icons/view.svg" (click)="openViewPopup(data)">
+            </a>
+            <a class="mx-1 pointer" matTooltip="Edit">
+              <img src="assets/icons/edit.svg" (click)="openEditPopup(data)">
+            </a>
+            <a class="mx-1 pointer" value="Delete" matTooltip="Delete">
+              <img src="assets/icons/delete.svg" (click)="openDeletePopup(data)">
+            </a>
+          </td>
+        </tr>
       </tbody>
     </table>
 
@@ -233,47 +215,44 @@
 
 <ng-template #viewCentralBoxDialog>
   <div style="background-color: #084982;">
-    <p class="dialog-title">site </p>
+    <p class="dialog-title m-0">central box </p>
   </div>
 
   <div class="dialog-content">
-    <div class="d-flex justify-content-center mb-1">
-      <button class="create-centeral-box-button" (click)="openAddCentralbox()">Create Centeral Box</button>
+    <div class="d-flex justify-content-end mb-1">
+      <button class="create-centeral-box-button" (click)="openAddCentralbox()">Create</button>
     </div>
 
-    <div class="table-resp">
+    <div class="table-res">
       <table class="table table-hover" id="mytable">
         <thead>
           <tr class="form1" style="background-image: linear-gradient(to right, #084982, #D34124);">
-  
+            <th>No</th>
             <th>
               <span>unitId</span>
               <img (click)="sort('url')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </th>
-  
             <th>
               <span>unitName</span>
               <img (click)="sort('mode')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </th>
+            <th class="text-center">Add Camera</th>
 
-            
-            
-            <th>Add Camera</th>
-  
           </tr>
         </thead>
-  
+
         <tbody>
           <tr *ngFor="let cust of onGetCentralboxDetail; let i = index">
+            <td>{{i+1}}</td>
             <td>
               <p>{{ cust.unitId }}</p>
             </td>
-  
+
             <td>
               <p>{{ cust.unitName }}</p>
             </td>
-  
-            <td>
+
+            <td class="text-center">
               <a (click)="show('camera')" mat-dialog-close>
                 <img src="assets/icons/add.svg" width="40">
               </a>
@@ -288,41 +267,80 @@
   <div class="d-flex align-items-center justify-content-end">
     <div>
       <button class="dialog-close-btn" mat-dialog-close>Close</button>
-      <button class="dialog-update-btn" (click)="createCentralBox()" mat-dialog-close>Update</button>
     </div>
   </div>
 </ng-template>
 
-
 <ng-template #addCentralBoxDialog>
   <div style="background-color: #084982;">
-    <p class="dialog-title">site - {{currentItem.siteShortName}}</p>
+    <p class="dialog-title">create central box</p>
   </div>
 
-<form [formGroup]="createCenteralBox">
-  <div class="row m-0 dialog-content">
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Unit Id</mat-label>
-        <input matInput formControlName="unitId">
-      </mat-form-field>
-    </div>
+  <div class="dialog-content">
+    <form class="p-0" [formGroup]="createCenteralBox">
+      <div class="row m-0">
+        <div class="col-lg-12">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Unit Id</mat-label>
+            <input matInput formControlName="unitId">
+          </mat-form-field>
+        </div>
 
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Unit Location Name </mat-label>
-        <input matInput formControlName="unitName">
-      </mat-form-field>
-    </div>
+        <div class="col-lg-12">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Unit Location Name </mat-label>
+            <input matInput formControlName="unitName">
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
   </div>
-
-</form>
 
 
   <div class="d-flex align-items-center justify-content-end">
-    <div>
+    <button class="dialog-close-btn" mat-dialog-close>Close</button>
+    <button class="dialog-update-btn" (click)="createCentralBox()" mat-dialog-close>Update</button>
+  </div>
+</ng-template>
+
+<ng-template #viewCamerasDialog>
+  <div style="background-color: #084982;">
+    <p class="dialog-title">cameras</p>
+  </div>
+
+  <div class="dialog-content">
+    <div class="table-res">
+      <table class="table table-hover">
+        <thead>
+          <tr class="form1">
+            <th>Camera Id</th>
+            <th>User Name</th>
+            <th>Password</th>
+            <th>Display Name</th>
+            <th>RTSP</th>
+            <th>WebRTC URL</th>
+            <th>HLS URL</th>
+            <th>Audio URL</th>
+          </tr>
+        </thead>
+        
+        <tbody>
+          <tr *ngFor="let cam of cameras; let i=index">
+              <td>{{cam.cameraId}}</td>
+              <td>{{cam.userName}}</td>
+              <td>{{cam.password}}</td>
+              <td>{{cam.displayName}}</td>
+              <td>{{cam.rtspUrl}}</td>
+              <td>{{cam.httpUrl}}</td>
+              <td>{{cam.HLSUrl}}</td>
+              <td>{{cam.audioUrl}}</td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="d-flex align-items-center justify-content-end">
       <button class="dialog-close-btn" mat-dialog-close>Close</button>
-      <button class="dialog-update-btn" (click)="createCentralBox()" mat-dialog-close>Update</button>
     </div>
   </div>
 </ng-template>
@@ -408,7 +426,7 @@
     <div>
       <button class="dialog-close-btn" mat-dialog-close>Close</button>
     </div>
-    <div  >
+    <div>
       <button class="dialog-update-btn" mat-dialog-close (click)="confirmEditRow()">Update</button>
     </div>
   </div>
@@ -424,10 +442,10 @@
   </div>
 
   <div class="d-flex align-items-center justify-content-end">
-<div>
+    <div>
       <button class="dialog-close-btn" mat-dialog-close>Close</button>
     </div>
-    <div  >
+    <div>
       <button class="dialog-update-btn" mat-dialog-close (click)="confirmDeleteRow()">OK</button>
     </div>
   </div>
@@ -449,4 +467,3 @@
 <div *ngIf="showCamera">
   <app-add-new-camera (newItemEvent)="closenow('camera')"></app-add-new-camera>
 </div>
-

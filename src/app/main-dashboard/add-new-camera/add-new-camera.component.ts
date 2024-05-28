@@ -2,7 +2,7 @@ import { Component, EventEmitter, HostListener, Input, OnInit, Output, TemplateR
 import { Router } from '@angular/router';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { HttpClient } from '@angular/common/http';
-import { Form, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Form, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from 'src/services/alert.service';
 import { SiteService } from 'src/services/site.service';
 import { StorageService } from 'src/services/storage.service';
@@ -51,21 +51,17 @@ export class AddNewCameraComponent {
 
   siteData:any=[]
   ngOnInit(): void {
-    this.siteData= this.storageService.get("siteIds")   
+    this.siteData= this.storageService.get("siteIds"); 
   
     this.createCamera=this.fb.group({
       name: new FormControl(''),
       rtspUrl: new FormControl(''),
-      userName: new FormControl(''),
-      password: new FormControl(''),
-      
-      
+      userName: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required),
       width: new FormControl(null),
       height: new FormControl(null),
-
       fps: new FormControl(0),
       HLSUrl: new FormControl(''),
-
       ptz: new FormControl(1),
       priority: new FormControl(''),
       active: new FormControl(''),
@@ -87,10 +83,8 @@ export class AddNewCameraComponent {
       audioSpeakerType: new FormControl(''),
       audioUrl: new FormControl(''),
       monitoring: new FormControl(''),
-
-      unitId: new FormControl(''),
-      noOfCameras: new FormControl('')
-
+      unitId: new FormControl('', Validators.required),
+      noOfCameras: new FormControl('', Validators.required)
     })
   }
 
@@ -123,7 +117,6 @@ export class AddNewCameraComponent {
   camList: any = [];
   addCamera(data: any) {
     this.camList = [];
-
     for(let i = 0; i < data.noOfCameras; i++) {
       let index = (i + 1).toString().padStart(2, '0');
       let index1;
@@ -173,13 +166,11 @@ export class AddNewCameraComponent {
   }
 
 
-  submit(data:any){
-    console.log(data);
-
+  submit(data:any, event: any) {
     if(this.createCamera.valid){
       this.siteSer.createCamera(data).subscribe((res:any) =>{
-        console.log(res)
         if(res.statusCode===200){
+          event.target.disabled = true;
           this.alertSer.snackSuccess(res.message)
         }
         else{

@@ -72,6 +72,11 @@
     cursor: pointer;
     text-decoration: none;
   }
+
+  .btn {
+    outline: none !important;
+    box-shadow: none !important;
+  }
   
   @media only screen and (max-width: 768px) {
     .lat, .long {

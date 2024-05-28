@@ -10,19 +10,20 @@ import { StorageService } from './storage.service';
 export class SiteService {
 
   baseUrl = 'http://54.92.215.87:943';
+  // baseUrl = 'http://192.168.0.193:8080';
 
   constructor(private http: HttpClient, private storageSer: StorageService) { }
 
-  listSites() {
-    let user: any = this.storageSer.get('user');
-    let url = this.baseUrl + '/sites/sitesList_2_0';
-    let payload = {
-      userName : user?.UserName,
-      accessToken : 'abc',
-      calling_System_Detail: "portal",
-    }
-    return this.http.post(url, payload);
-  }
+  // listSites() {
+  //   let user: any = this.storageSer.get('user');
+  //   let url = this.baseUrl + '/sites/sitesList_2_0';
+  //   let payload = {
+  //     userName : user?.UserName,
+  //     accessToken : 'abc',
+  //     calling_System_Detail: "portal",
+  //   }
+  //   return this.http.post(url, payload);
+  // }
 
   createSite(payload: any){
     let url = `${this.baseUrl}/site/addSite_1_0`;
@@ -52,19 +53,13 @@ export class SiteService {
   }
 
   addCentralBox(payload: any) {
-    let url = '${this.baseUrl}/centralBox/addCentralBox_1_0';
+    let url = `${this.baseUrl}/centralBox/addCentralBox_1_0`;
     return this.http.post(url, payload);
   }
 
-
-
   createCamera(payload: any){
-    let url = '${this.baseUrl}/camera/addCamera_1_0';
+    let url = `${this.baseUrl}/camera/addCamera_1_0`;
     return this.http.post(url, payload)
   }
-
-
-
-  
 
 }

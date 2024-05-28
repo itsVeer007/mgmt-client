@@ -4,6 +4,7 @@ import { AssetService } from 'src/services/asset.service';
 import { StorageService } from 'src/services/storage.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { AlertService } from 'src/services/alert.service';
 
 
 @Component({
@@ -18,7 +19,8 @@ export class SitesComponent implements OnInit {
     private assetSer: AssetService,
     public dialog: MatDialog,
     private storageSer: StorageService,
-    private fb:FormBuilder
+    private fb:FormBuilder,
+    private alertSer: AlertService
   ) { }
 
   tableData: any = [];
@@ -52,9 +54,6 @@ export class SitesComponent implements OnInit {
       remarks: new FormControl('')
 
     })
-    
-
-
   }
 
   getSitesListForUserName() {
@@ -69,6 +68,15 @@ export class SitesComponent implements OnInit {
       }, (err: any) => {
         this.showLoader = false;
     });
+  }
+
+  @ViewChild('viewCamerasDialog') viewCamerasDialog = {} as TemplateRef<any>;
+  cameras: any = [];
+  getCamerasForSiteId(data: any) {
+    this.dialog.open(this.viewCamerasDialog)
+    this.siteSer.getCamerasForSiteId(data.siteId).subscribe((res: any) => {
+      this.cameras = res;
+    })
   }
 
 
@@ -99,7 +107,6 @@ export class SitesComponent implements OnInit {
 
   @ViewChild('addCentralBoxDialog') addCentralBoxDialog = {} as TemplateRef<any>;
   openAddCentralbox() {
-    // this.currentItem = data;
     this.dialog.open(this.addCentralBoxDialog)
     this.siteSer.getCentralbox(this.currentItem).subscribe((res: any) => {
         // console.log(res)
@@ -116,11 +123,15 @@ export class SitesComponent implements OnInit {
     this.dialog.open(this.viewCentralBoxDialog)
   }
 
-  createCentralBox(){
+  createCentralBox() {
     this.createCenteralBox.value.siteId=this.currentItem.siteId
     this.siteSer.addCentralBox(this.createCenteralBox.value).subscribe((res:any) => {
-      console.log(res)
-    })
+      if(res.statusCode === 200) {
+        this.alertSer.success(res.message)
+      } else {
+        this.alertSer.error(res.message)
+      }
+    });
   }
 
   saveSiteData(site: any) {

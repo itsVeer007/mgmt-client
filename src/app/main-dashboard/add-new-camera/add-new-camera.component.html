@@ -10,14 +10,7 @@
 
     <div>
       <form [formGroup]="createCamera">
-
         <div class="row">
-          <div class="col-lg-12">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Unit Id</mat-label>
-              <input matInput formControlName="unitId">
-            </mat-form-field>
-          </div>  
           <div class="col-lg-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Username</mat-label>
@@ -66,26 +59,29 @@
                 <input matInput formControlName="audioUrl">
               </mat-form-field>
             </div>
-  
-
         </div>
-        
-        
+
           <div class="row">
             <div class="col-lg-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Unit Id</mat-label>
+                <input matInput formControlName="unitId">
+              </mat-form-field>
+            </div> 
+            <div class="col-lg-4">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>No of Cameras</mat-label>
                 <input matInput type="number" formControlName="noOfCameras" #noOfCams>
               </mat-form-field>
             </div>
-            <div class="col-lg-6 ">
-              <button class="btn btn-primary"   (click)="addCamera(createCamera.value)">ADD</button>
+            <div class="col-lg-2 text-end">
+              <button class="btn btn-primary w-100" (click)="addCamera(createCamera.value)">ADD</button>
             </div>
         </div >
       </form>
       
       
-      <div class="table-resp">
+      <div class="table-res" *ngIf="camList.length !== 0">
         <table class="table table-hover">
           <thead>
             <tr class="form1">
@@ -98,8 +94,6 @@
               <th>HLS URL</th>
               <th>Audio URL</th>
               <th></th>
-
-
             </tr>
           </thead>
           
@@ -114,20 +108,22 @@
                 <td>{{cam.HLSUrl}}</td>
                 <td>{{cam.audioUrl}}</td>
                 <td>
-                  <button class="btn btn-success p-1" style="font-size: 10px;" (click)="submit(cam)">
+                  <button class="btn btn-success p-1" style="font-size: 10px;" (click)="submit(cam, $event)">
                     Save
                   </button>
-                  <a class="mx-1 pointer"  matTooltip="Edit">
-                    <img src="assets/icons/edit.svg" (click)="openEditPopup(cam)">
-                  </a>
+                  <button class="btn btn-danger p-1 ms-1" style="font-size: 10px;" (click)="openEditPopup(cam)">
+                    Edit
+                  </button>
                 </td>
               </tr>
           </tbody>
         </table>
       </div>
-    </div>
 
-  
+      <div class="text-center">
+        <button class="btn btn-dark my-2" (click)="closeCamera()">Done</button>
+      </div>
+    </div>
 </div>
 
 
@@ -136,11 +132,7 @@
     <p class="dialog-title">MODIFY SITE</p>
   </div>
 
-  
-
   <div class="row m-0 dialog-content">
-
-
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Unit Id</mat-label>
@@ -189,8 +181,6 @@
         <input matInput [(ngModel)]="currentItem.audioUrl">
       </mat-form-field>
     </div>
-
-     
   </div>
 
   <div class="d-flex align-items-center justify-content-end">
