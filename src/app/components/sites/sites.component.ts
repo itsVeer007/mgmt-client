@@ -73,6 +73,7 @@ export class SitesComponent implements OnInit {
   @ViewChild('viewCamerasDialog') viewCamerasDialog = {} as TemplateRef<any>;
   cameras: any = [];
   getCamerasForSiteId(data: any) {
+    this.currentItem = data
     this.dialog.open(this.viewCamerasDialog)
     this.siteSer.getCamerasForSiteId(data.siteId).subscribe((res: any) => {
       this.cameras = res;
