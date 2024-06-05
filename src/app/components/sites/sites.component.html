@@ -93,7 +93,7 @@
             <img (click)="sort('siteName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
 
-          <th (click)="sort('address')">Address</th>
+          <!-- <th (click)="sort('address')">Address</th> -->
 
           <!-- <th (click)="sort('escl_Details')">Escl Details</th>
 
@@ -111,7 +111,7 @@
 
           <th>
             <span>Status</span>
-            <!-- <img (click)="sort('status')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"> -->
+            <img (click)="sort('status')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
           <th class="text-center">Actions</th>
         </tr>
@@ -128,17 +128,17 @@
           <td style="width: 200px;">
             <p>{{ data.siteName }}</p>
           </td>
-          <td>
+          <!-- <td>
             <a class="pointer" style="color: #084982;" (click)="addressView($event, i)">View</a>
-            <!-- <div class="plus-img" id="address{{i}}">
+            <div class="plus-img" id="address{{i}}">
                 <p class="p-2" style="color: #ABABAB; text-align: left;">ADDRESS</p>
                 <div style="color: #000; text-align: left; padding: 10px;">
                   <p>Pathur Road, Tadepally</p>
                   <p>Guntur - 522501</p>
                   <p>Andhra Pradesh, India</p>
                 </div>
-              </div> -->
-          </td>
+              </div>
+          </td> -->
           <!-- <td>
             <a class="pointer" style="color: #084982;"
               (click)="onGetEngineer(data.siteId); engineerView($event, i)">View</a>

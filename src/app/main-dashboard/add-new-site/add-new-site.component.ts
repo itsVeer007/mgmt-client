@@ -45,15 +45,15 @@ export class AddNewSiteComponent implements OnInit {
       ) { }
   
   createSite!: FormGroup;
-
-  siteData:any=[]
+  siteData:any = [];
   ngOnInit(): void {
     this.siteData= this.storageService.get("siteIds")   
+    this.user= this.storageService.get('user');
   
     this.createSite=this.fb.group({
-      siteName: new FormControl(''),
-      phoneNo: new FormControl(''),
-      email: new FormControl(''),
+      siteName: new FormControl('', Validators.required),
+      phoneNo: new FormControl('', Validators.required),
+      email: new FormControl('', Validators.required),
       website: new FormControl(''),
       
       
@@ -63,12 +63,12 @@ export class AddNewSiteComponent implements OnInit {
       latitude: new FormControl(''),
       longitude: new FormControl(''),
 
-      createdBy: new FormControl(1),
-      siteShortName: new FormControl(''),
+      createdBy: new FormControl(),
+      siteShortName: new FormControl('', Validators.required),
       remarks: new FormControl(''),
-      country: new FormControl(''),
-      state: new FormControl(''),
-      timezone: new FormControl(''),
+      country: new FormControl('', Validators.required),
+      state: new FormControl('', Validators.required),
+      timezone: new FormControl('', Validators.required),
       live: new FormControl(''),
       alerts: new FormControl(''),
       timeLapse: new FormControl(''),
@@ -93,10 +93,21 @@ export class AddNewSiteComponent implements OnInit {
 
     })
     // console.log(this.show)
+    this.onMetadataChange()
     this.getCountry()
   }
 
-  whNum: any
+  verticals: any;
+  onMetadataChange() {
+    let data = this.storageService.get('metaData');
+    data?.forEach((item: any) => {
+      if(item.typeName == 'Business_Verticals') {
+        this.verticals = item.metadata;
+      }
+    })
+  }
+
+  whNum: any;
   copyNumber() {
     let isChecked = this.createSite.value.isCheck;
     let num = this.createSite.value.contactNo;
@@ -195,8 +206,16 @@ export class AddNewSiteComponent implements OnInit {
     this.selectedFiles.pop();
   }
 
+  timeZones: any;
+  gettimeZones() {
+    this.http.get("assets/JSON/timezones.json").subscribe((res: any) => {
+      this.timeZones = res;
+    })
+  }
+
   countryList: any;
   getCountry() {
+    this.gettimeZones()
     this.http.get("assets/JSON/countryList.json").subscribe((res: any) => {
       this.countryList = res;
     })
@@ -219,11 +238,11 @@ export class AddNewSiteComponent implements OnInit {
 
   submit(){
     if(this.createSite.valid){
+      this.createSite.value.createdBy = this.user.UserId;
       this.siteSer.createSite(this.createSite.value).subscribe((res:any) =>{
         console.log(res)
         if(res.statusCode===200){
           this.alertSer.success(res.message)
-          
         }
         else{
           this.alertSer.error(res.message)

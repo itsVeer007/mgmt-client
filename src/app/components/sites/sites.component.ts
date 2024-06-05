@@ -190,13 +190,8 @@ export class SitesComponent implements OnInit {
   addressid = 0;
   addressView(e: any, i: any) {
     this.addressid = i;
-    var x = e.target.nextElementSibling;
+    // var x = e.target.nextElementSibling;
     // console.log("AddressView:: ",x)
-    if (x.style.display == 'none') {
-      x.style.display = 'flex';
-    } else {
-      x.style.display = 'none';
-    }
     // this.address = !this.address;
   }
 

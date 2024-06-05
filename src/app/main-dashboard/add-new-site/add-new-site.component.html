@@ -16,7 +16,7 @@
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Select Vertical</mat-label>
                 <mat-select formControlName="busVerticalId">
-                  <mat-option value="1">1</mat-option>
+                  <mat-option *ngFor="let item of verticals" [value]="item.keyId">{{ item.value }}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -64,15 +64,6 @@
                 <input matInput formControlName="siteShortName">
               </mat-form-field>
             </div>
-
-            <div class="col-lg-4">
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Created By</mat-label>
-                <input matInput formControlName="createdBy">
-              </mat-form-field>
-            </div>
-
-
           </div>
 
           <div class="row col-lg-12">
@@ -83,7 +74,9 @@
             <div class="col-lg-4">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Time Zone</mat-label>
-                <input matInput formControlName="timezone">
+                <mat-select formControlName="timezone">
+                  <mat-option *ngFor="let time of timeZones" [value]="time">{{ time }}</mat-option>
+                </mat-select>
               </mat-form-field>
             </div>
 
@@ -184,27 +177,27 @@
                 <input matInput formControlName="emailId">
               </mat-form-field>
             </div>
-
-            <div class="col-lg-6 mt-2 checkMargin">
+            
+            <div class="col-lg-12">
+              <div><input type="checkbox" formControlName="isCheck" (click)="copyNumber()"><span class="checkBoxSize" > Same as Conatct Number</span> </div>
+            </div>
+            <div class="col-lg-12 mt-2 checkMargin">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>WhatsApp</mat-label>
                 <input matInput formControlName="whatsapp" [value]="whNum">
               </mat-form-field>
             </div>
 
-            <div class="col-lg-6">
-              <div><input type="checkbox" formControlName="isCheck" (click)="copyNumber()"><span class="checkBoxSize" > Same as Conatct Number</span> </div>
+
+            <div class="col-lg-12">
+              <div><input type="checkbox"  formControlName="isCheck" (click)="dotcomcopyNumber()"><span class="checkBoxSize" > Same as Conatct Number</span> </div>
             </div>
 
-
-            <div class="col-lg-6 mt-2 checkMargin">
+            <div class="col-lg-12 mt-2 checkMargin">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>800 Dot Com Number</mat-label>
                 <input matInput formControlName="dotComWorking" [value]="dotcomnum">
               </mat-form-field>
-            </div>
-            <div class="col-lg-6">
-              <div><input type="checkbox"  formControlName="isCheck" (click)="dotcomcopyNumber()"><span class="checkBoxSize" > Same as Conatct Number</span> </div>
             </div>
 
           </div>
