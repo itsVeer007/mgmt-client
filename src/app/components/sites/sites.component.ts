@@ -59,7 +59,7 @@ export class SitesComponent implements OnInit {
   getSitesListForUserName() {
     this.showLoader = true;
     this.siteSer.getSitesListForUserName().subscribe((res: any) => {
-      // console.log(res);
+      console.log(res);
       this.showLoader = false;
       if(res?.Status == 'Success') {
         this.tableData = res.sites.sort((a: any, b: any) => a.siteName < b.siteName ? -1 : a.siteName > b.siteName ? 1 : 0);
@@ -73,9 +73,11 @@ export class SitesComponent implements OnInit {
   @ViewChild('viewCamerasDialog') viewCamerasDialog = {} as TemplateRef<any>;
   cameras: any = [];
   getCamerasForSiteId(data: any) {
+    console.log(data);
     this.currentItem = data
     this.dialog.open(this.viewCamerasDialog)
     this.siteSer.getCamerasForSiteId(data.siteId).subscribe((res: any) => {
+      console.log(res);
       this.cameras = res;
     })
   }
@@ -158,7 +160,8 @@ export class SitesComponent implements OnInit {
   showAddDevice: boolean = false;
   showInstallation: boolean = false;
   showCamera: boolean = false;
-  show(value: string) {
+  currentItem1: any;
+  show(value: string, data?: any) {
     if(value == 'site') {
       this.showAddSite = true
     }
@@ -170,6 +173,7 @@ export class SitesComponent implements OnInit {
     }
     if(value == 'camera') {
       this.showCamera = true
+      this.currentItem1 = data;
     }
   }
 
@@ -229,6 +233,7 @@ export class SitesComponent implements OnInit {
   currentItem: any;
   @ViewChild('viewSiteDialog') viewSiteDialog = {} as TemplateRef<any>;
   openViewPopup(item: any) {
+    console.log(item)
     this.currentItem = item;
     this.dialog.open(this.viewSiteDialog);
     // console.log(this.currentItem);
@@ -242,6 +247,13 @@ export class SitesComponent implements OnInit {
   openEditPopup(item: any) {
     this.currentItem = JSON.parse(JSON.stringify(item));
     this.dialog.open(this.editSiteDialog);
+  }
+
+  @ViewChild('editCameraDialog') editCameraDialog = {} as TemplateRef<any>;
+  openEditCamera(item: any) {
+    console.log(item)
+    this.currentItem = JSON.parse(JSON.stringify(item));
+    this.dialog.open(this.editCameraDialog);
   }
 
   confirmEditRow() {

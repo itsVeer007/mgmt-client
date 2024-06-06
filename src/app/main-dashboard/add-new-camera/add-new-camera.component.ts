@@ -34,6 +34,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class AddNewCameraComponent {
 
+  @Input() centeralBoxFrom: any;
   @Output() newItemEvent = new EventEmitter<boolean>();
   // http: any;
   user: any;
@@ -68,7 +69,7 @@ export class AddNewCameraComponent {
       httpTunnel: new FormControl(''),
       videoServerName: new FormControl(''),
       portNo: new FormControl(0),
-      centralBoxId: new FormControl(0),
+      centralBoxId: new FormControl(''),
       httpPortNo: new FormControl(0),
       indexNo: new FormControl(0),
       gtEnabled: new FormControl(''),
@@ -139,7 +140,7 @@ export class AddNewCameraComponent {
         fps: this.createCamera.value.fps,
         HLSUrl: this.createCamera.value.HLSUrl,
         indexNo: this.createCamera.value.indexNo,
-        centralBoxId: this.createCamera.value.centralBoxId,
+        centralBoxId: this.centeralBoxFrom?.centralBoxId,
         ptz: this.createCamera.value.ptz,
         priority: this.createCamera.value.priority,
         active: this.createCamera.value.active,

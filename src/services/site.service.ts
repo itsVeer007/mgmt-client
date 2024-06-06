@@ -62,4 +62,11 @@ export class SiteService {
     return this.http.post(url, payload)
   }
 
+  updateCamera(payload: any){
+    let url = `${this.baseUrl}/camera/updateCameraData_1_0/{camera_id}`;
+    return this.http.put(url, payload)
+  }
+
+
+
 }
