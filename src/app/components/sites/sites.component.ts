@@ -5,6 +5,7 @@ import { StorageService } from 'src/services/storage.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { AlertService } from 'src/services/alert.service';
+// import { error } from 'console';
 
 
 @Component({
@@ -56,6 +57,48 @@ export class SitesComponent implements OnInit {
     })
   }
 
+// BharadwajAPIS
+  currentItem: any;
+  @ViewChild('viewCamerasDialog') viewCamerasDialog = {} as TemplateRef<any>;
+  cameras: any = [];
+  getCamerasForSiteId(data: any) {
+    console.log(data);
+    this.currentItem = data
+    this.dialog.open(this.viewCamerasDialog)
+    this.siteSer.getCamerasForSiteId(data.siteId).subscribe((res: any) => {
+      console.log(res);
+      this.cameras = res;
+    })
+  }
+
+  
+  @ViewChild('editCameraDialog') editCameraDialog = {} as TemplateRef<any>;
+  openEditCamera(item: any) {
+    console.log(item)
+    this.currentItem = JSON.parse(JSON.stringify(item));
+    console.log(this.currentItem)
+    this.dialog.open(this.editCameraDialog);
+  }
+
+
+  updateCamera() {
+    // this.currentItem.videoServerName = this.currentItem.httpUrl;
+    // delete this.currentItem.httpUrl;
+    
+    this.siteSer.updateCamera(this.currentItem).subscribe((res:any)=>{
+      console.log(res);
+      if(res?.statusCode == 200) {
+        this.alertSer.success(res?.message)
+      } 
+    })
+  }
+
+
+  // BharadwajAPIS
+
+
+
+
   getSitesListForUserName() {
     this.showLoader = true;
     this.siteSer.getSitesListForUserName().subscribe((res: any) => {
@@ -70,17 +113,7 @@ export class SitesComponent implements OnInit {
     });
   }
 
-  @ViewChild('viewCamerasDialog') viewCamerasDialog = {} as TemplateRef<any>;
-  cameras: any = [];
-  getCamerasForSiteId(data: any) {
-    console.log(data);
-    this.currentItem = data
-    this.dialog.open(this.viewCamerasDialog)
-    this.siteSer.getCamerasForSiteId(data.siteId).subscribe((res: any) => {
-      console.log(res);
-      this.cameras = res;
-    })
-  }
+
 
 
   deviceData: any;
@@ -230,7 +263,7 @@ export class SitesComponent implements OnInit {
   }
 
 
-  currentItem: any;
+
   @ViewChild('viewSiteDialog') viewSiteDialog = {} as TemplateRef<any>;
   openViewPopup(item: any) {
     console.log(item)
@@ -239,9 +272,7 @@ export class SitesComponent implements OnInit {
     // console.log(this.currentItem);
   }
 
-  confirmViewRow() {
-    // console.log(this.currentItem);
-  }
+ 
 
   @ViewChild('editSiteDialog') editSiteDialog = {} as TemplateRef<any>;
   openEditPopup(item: any) {
@@ -249,16 +280,12 @@ export class SitesComponent implements OnInit {
     this.dialog.open(this.editSiteDialog);
   }
 
-  @ViewChild('editCameraDialog') editCameraDialog = {} as TemplateRef<any>;
-  openEditCamera(item: any) {
-    console.log(item)
-    this.currentItem = JSON.parse(JSON.stringify(item));
-    this.dialog.open(this.editCameraDialog);
-  }
 
   confirmEditRow() {
     // console.log(this.currentItem);
   }
+
+
 
 
   @ViewChild('deleteSiteDialog') deleteSiteDialog = {} as TemplateRef<any>;

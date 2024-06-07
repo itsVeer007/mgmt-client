@@ -215,6 +215,139 @@
   </div>
 </div>
 
+<ng-template #viewCamerasDialog>
+  <div style="background-color: #084982;">
+    <p class="dialog-title">cameras</p>
+  </div>
+
+  <div class="dialog-content">
+
+    <div class="d-flex justify-content-between">
+      <p >
+        Site Name :
+        <span class="blod">
+          {{currentItem?.siteName}}
+        </span>
+      </p>
+      <p>Cameras : <span class="blod">{{cameras.length}}</span></p>
+    </div>
+    <div class="table-res">
+      <table class="table table-hover">
+        <thead>
+          <tr class="form1">
+            <th>Camera Id</th>
+            <!-- <th>User Name</th>
+            <th>Password</th> -->
+            <th>Display Name</th>
+            <th>RTSP</th>
+            <th>WebRTC URL</th>
+            <th>HLS URL</th>
+            <th>Audio URL</th>
+            <th>
+              Edit
+            </th>
+          </tr>
+        </thead>
+        
+        <tbody>
+          <tr *ngFor="let cam of cameras; let i=index">
+              <td>{{cam.cameraId}}</td>
+              <!-- <td>{{cam.userName}}</td>
+              <td>{{cam.password}}</td> -->
+              <td>{{cam.name}}</td>
+              <td>{{cam.rtspUrl}}</td>
+              <td>{{cam.httpUrl}}</td>
+              <td>{{cam.HLSUrl}}</td>
+              <td>{{cam.audioUrl}}</td>
+              <td>
+                <a class="mx-1 pointer" (click)="openEditCamera(cam)" matTooltip="Edit">
+                  <img src="assets/icons/edit.svg">
+                </a>
+              </td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="d-flex align-items-center justify-content-end">
+      <button class="dialog-close-btn" mat-dialog-close>Close</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #editCameraDialog>
+  <div style="background-color: #084982;">
+    <p class="dialog-title">MODIFY SITE</p>
+  </div>
+
+  <div class="row m-0 dialog-content">
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Camera Id</mat-label>
+        <input matInput [(ngModel)]="currentItem.cameraId" >
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Display Name</mat-label>
+        <input matInput [(ngModel)]="currentItem.name">
+      </mat-form-field>
+    </div>
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>userName</mat-label>
+        <input matInput [(ngModel)]="currentItem.userName">
+      </mat-form-field>
+    </div>
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>password</mat-label>
+        <input matInput [(ngModel)]="currentItem.password">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>RTSP</mat-label>
+        <input matInput [(ngModel)]="currentItem.rtspUrl">
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>WebRTC</mat-label>
+        <input matInput [(ngModel)]="currentItem.videoServerName">
+      </mat-form-field>
+    </div>
+
+    <!-- <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>HLS</mat-label>
+        <input matInput [(ngModel)]="currentItem.hlsTunnel">
+      </mat-form-field>
+    </div> -->
+  
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Audio</mat-label>
+        <input matInput [(ngModel)]="currentItem.audioUrl">
+      </mat-form-field>
+    </div>
+
+  </div>
+
+
+  <div class="d-flex align-items-center justify-content-end">
+    <div>
+      <button class="dialog-close-btn" mat-dialog-close>Close</button>
+    </div>
+    <div>
+      <button class="dialog-update-btn" mat-dialog-close (click)="updateCamera()">Update</button>
+    </div>
+  </div>
+</ng-template>
+
 <ng-template #viewCentralBoxDialog>
   <div style="background-color: #084982;">
     <p class="dialog-title m-0">central box </p>
@@ -305,64 +438,7 @@
   </div>
 </ng-template>
 
-<ng-template #viewCamerasDialog>
-  <div style="background-color: #084982;">
-    <p class="dialog-title">cameras</p>
-  </div>
 
-  <div class="dialog-content">
-
-    <div class="d-flex justify-content-between">
-      <p>
-        <span>
-          Site Name : {{currentItem?.siteName}}
-        </span>
-      </p>
-      <p><span>Cameras</span>{{cameras.length}}</p>
-    </div>
-    <div class="table-res">
-      <table class="table table-hover">
-        <thead>
-          <tr class="form1">
-            <th>Camera Id</th>
-            <!-- <th>User Name</th>
-            <th>Password</th> -->
-            <th>Display Name</th>
-            <th>RTSP</th>
-            <th>WebRTC URL</th>
-            <th>HLS URL</th>
-            <th>Audio URL</th>
-            <th>
-              Edit
-            </th>
-          </tr>
-        </thead>
-        
-        <tbody>
-          <tr *ngFor="let cam of cameras; let i=index">
-              <td>{{cam.cameraId}}</td>
-              <!-- <td>{{cam.userName}}</td>
-              <td>{{cam.password}}</td> -->
-              <td>{{cam.name}}</td>
-              <td>{{cam.rtspUrl}}</td>
-              <td>{{cam.httpUrl}}</td>
-              <td>{{cam.HLSUrl}}</td>
-              <td>{{cam.audioUrl}}</td>
-              <td>
-                <a class="mx-1 pointer" (click)="openEditCamera(cam)" matTooltip="Edit">
-                  <img src="assets/icons/edit.svg">
-                </a>
-              </td>
-            </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="d-flex align-items-center justify-content-end">
-      <button class="dialog-close-btn" mat-dialog-close>Close</button>
-    </div>
-  </div>
-</ng-template>
 
 <ng-template #viewSiteDialog>
   <div style="background-color: #084982;">
@@ -470,66 +546,7 @@
   </div>
 </ng-template>
 
-<ng-template #editCameraDialog>
-  <div style="background-color: #084982;">
-    <p class="dialog-title">MODIFY SITE</p>
-  </div>
 
-  <div class="row m-0 dialog-content">
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Camera Id</mat-label>
-        <input matInput [(ngModel)]="currentItem.cameraId" >
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Display Name</mat-label>
-        <input name="deviceDescription" matInput [(ngModel)]="currentItem.name">
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>RTSP</mat-label>
-        <input name="deviceDescription" matInput [(ngModel)]="currentItem.rtspUrl">
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>WebRTC</mat-label>
-        <input name="deviceDescription" matInput [(ngModel)]="currentItem.httpUrl">
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>HLS</mat-label>
-        <input name="deviceDescription" matInput [(ngModel)]="currentItem.hlsTunnel">
-      </mat-form-field>
-    </div>
-  
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Audio</mat-label>
-        <input name="deviceDescription" matInput [(ngModel)]="currentItem.audioUrl">
-      </mat-form-field>
-    </div>
-
-  </div>
-
-
-  <div class="d-flex align-items-center justify-content-end">
-    <div>
-      <button class="dialog-close-btn" mat-dialog-close>Close</button>
-    </div>
-    <div>
-      <button class="dialog-update-btn" mat-dialog-close (click)="confirmEditRow()">Update</button>
-    </div>
-  </div>
-</ng-template>
 
 
 <div *ngIf="showAddSite">

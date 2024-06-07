@@ -63,7 +63,8 @@ export class SiteService {
   }
 
   updateCamera(payload: any){
-    let url = `${this.baseUrl}/camera/updateCameraData_1_0/{camera_id}`;
+    let url = `${this.baseUrl}/camera/updateCameraData_1_0/${payload.cameraId}`;
+    // let url = `http://192.168.0.115:8080/camera/updateCameraData_1_0/${payload.cameraId}`;
     return this.http.put(url, payload)
   }
 
