@@ -38,7 +38,8 @@ export class SiteService {
   }
 
   getCamerasForSiteId(payload: any) {
-    let url = `${this.baseUrl}/getCamerasForSiteId_1_0/${payload}`;
+    let url = `${this.baseUrl}/getCamerasForSiteId_1_0/${payload.siteId}`;
+    // let url = `http://192.168.0.127:8080/camera/getCameraFullDetailsForSiteId_1_0/${payload.siteId}`;
     return this.http.get(url);
   }
 
@@ -64,7 +65,7 @@ export class SiteService {
 
   updateCamera(payload: any){
     let url = `${this.baseUrl}/camera/updateCameraData_1_0/${payload.cameraId}`;
-    // let url = `http://192.168.0.115:8080/camera/updateCameraData_1_0/${payload.cameraId}`;
+    // let url = `http://192.168.0.127:8080/camera/updateCameraData_1_0/${payload.cameraId}`;
     return this.http.put(url, payload)
   }
 

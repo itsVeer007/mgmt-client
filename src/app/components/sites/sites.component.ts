@@ -5,7 +5,6 @@ import { StorageService } from 'src/services/storage.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { AlertService } from 'src/services/alert.service';
-// import { error } from 'console';
 
 
 @Component({
@@ -65,32 +64,58 @@ export class SitesComponent implements OnInit {
     console.log(data);
     this.currentItem = data
     this.dialog.open(this.viewCamerasDialog)
-    this.siteSer.getCamerasForSiteId(data.siteId).subscribe((res: any) => {
-      console.log(res);
+    this.siteSer.getCamerasForSiteId(data).subscribe((res: any) => {
+      // console.log(res);
       this.cameras = res;
     })
   }
 
   
   @ViewChild('editCameraDialog') editCameraDialog = {} as TemplateRef<any>;
+  currentCamera: any;
   openEditCamera(item: any) {
-    console.log(item)
-    this.currentItem = JSON.parse(JSON.stringify(item));
-    console.log(this.currentItem)
+    // console.log(item)
+    this.currentCamera = JSON.parse(JSON.stringify(item));
     this.dialog.open(this.editCameraDialog);
   }
 
 
   updateCamera() {
-    // this.currentItem.videoServerName = this.currentItem.httpUrl;
-    // delete this.currentItem.httpUrl;
-    
-    this.siteSer.updateCamera(this.currentItem).subscribe((res:any)=>{
-      console.log(res);
-      if(res?.statusCode == 200) {
-        this.alertSer.success(res?.message)
-      } 
-    })
+    let isHttps: boolean = this.currentCamera.httpUrl.startsWith('https');
+    let isRtsp: boolean = this.currentCamera.rtspUrl.startsWith('rtsp');
+    if(isHttps) {
+      if(this.currentCamera.httpUrl) {
+        this.currentCamera.httpUrl = this.currentCamera.httpUrl.slice(8);
+      }
+      if(this.currentCamera.audiUrl) {
+        this.currentCamera.audiUrl = this.currentCamera.audiUrl.slice(8);
+      }
+      if(this.currentCamera.hlsTunnel) {
+        this.currentCamera.hlsTunnel = this.currentCamera.hlsTunnel.slice(7);
+      }
+    } else {
+      if(this.currentCamera.httpUrl) {
+        this.currentCamera.httpUrl = this.currentCamera.httpUrl.slice(7);
+      }
+      if(this.currentCamera.audiUrl) {
+        this.currentCamera.audiUrl = this.currentCamera.audiUrl.slice(7);
+      }
+      if(this.currentCamera.hlsTunnel) {
+        this.currentCamera.hlsTunnel = this.currentCamera.hlsTunnel.slice(7);
+      }
+    }
+    if(isRtsp) {
+      if(this.currentCamera.rtspUrl) {
+        this.currentCamera.rtspUrl = this.currentCamera.rtspUrl.slice(7);
+      }
+    }
+    console.log(this.currentCamera)
+    // this.siteSer.updateCamera(this.currentCamera).subscribe((res:any)=>{
+    //   // console.log(res);
+    //   if(res.statusCode == 200) {
+    //     this.alertSer.success(res?.message)
+    //   } 
+    // })
   }
 
 
@@ -102,7 +127,7 @@ export class SitesComponent implements OnInit {
   getSitesListForUserName() {
     this.showLoader = true;
     this.siteSer.getSitesListForUserName().subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       this.showLoader = false;
       if(res?.Status == 'Success') {
         this.tableData = res.sites.sort((a: any, b: any) => a.siteName < b.siteName ? -1 : a.siteName > b.siteName ? 1 : 0);

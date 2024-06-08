@@ -255,7 +255,7 @@
               <!-- <td>{{cam.userName}}</td>
               <td>{{cam.password}}</td> -->
               <td>{{cam.name}}</td>
-              <td>{{cam.rtspUrl}}</td>
+              <td style="width: 100px;">{{cam.rtspUrl}}</td>
               <td>{{cam.httpUrl}}</td>
               <td>{{cam.HLSUrl}}</td>
               <td>{{cam.audioUrl}}</td>
@@ -284,54 +284,54 @@
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Camera Id</mat-label>
-        <input matInput [(ngModel)]="currentItem.cameraId" >
+        <input matInput [(ngModel)]="currentCamera.cameraId" >
       </mat-form-field>
     </div>
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Display Name</mat-label>
-        <input matInput [(ngModel)]="currentItem.name">
+        <input matInput [(ngModel)]="currentCamera.name">
       </mat-form-field>
     </div>
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>userName</mat-label>
-        <input matInput [(ngModel)]="currentItem.userName">
+        <input matInput [(ngModel)]="currentCamera.userName">
       </mat-form-field>
     </div>
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>password</mat-label>
-        <input matInput [(ngModel)]="currentItem.password">
+        <input matInput [(ngModel)]="currentCamera.password">
       </mat-form-field>
     </div>
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>RTSP</mat-label>
-        <input matInput [(ngModel)]="currentItem.rtspUrl">
+        <input matInput [(ngModel)]="currentCamera.rtspUrl">
       </mat-form-field>
     </div>
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>WebRTC</mat-label>
-        <input matInput [(ngModel)]="currentItem.videoServerName">
+        <input matInput [(ngModel)]="currentCamera.httpUrl">
       </mat-form-field>
     </div>
 
     <!-- <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>HLS</mat-label>
-        <input matInput [(ngModel)]="currentItem.hlsTunnel">
+        <input matInput [(ngModel)]="currentCamera.hlsTunnel">
       </mat-form-field>
     </div> -->
   
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Audio</mat-label>
-        <input matInput [(ngModel)]="currentItem.audioUrl">
+        <input matInput [(ngModel)]="currentCamera.audioUrl">
       </mat-form-field>
     </div>
 
