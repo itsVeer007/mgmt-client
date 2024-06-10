@@ -30,12 +30,32 @@ export class SiteService {
     return this.http.post(url, payload)
   }
 
+
   getSitesListForUserName() {
     let url = `${this.baseUrl}/getSitesListForUserName_1_0`;
+    
     let user = this.storageSer.get('user');
     let params = new HttpParams().set('userName', user?.UserName);
     return this.http.get(url, ({params: params}));
   }
+
+
+    gettimeZones() {
+      return this.http.get("assets/JSON/timezones.json");
+    }
+
+    getSiteFullDetails(payload:any) {
+      let url =`${this.baseUrl}/sites/getSiteFullDetails_1_0/${payload.siteId}`;
+      return this.http.get(url)
+    }
+
+    updateSiteDetails(payload:any) {
+      let url =`${this.baseUrl}/sites/updateSiteDetails_1_0/${payload.siteId}`;
+      return this.http.put(url,payload)
+    }
+  
+
+
 
   getCamerasForSiteId(payload: any) {
     let url = `${this.baseUrl}/getCamerasForSiteId_1_0/${payload.siteId}`;

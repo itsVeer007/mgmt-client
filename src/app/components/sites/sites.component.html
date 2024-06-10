@@ -280,7 +280,7 @@
     <p class="dialog-title">MODIFY SITE</p>
   </div>
 
-  <div class="row m-0 dialog-content">
+  <div class="row m-0 dialog-content" *ngIf="currentCamera">
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Camera Id</mat-label>
@@ -444,7 +444,7 @@
   <div style="background-color: #084982;">
     <p class="dialog-title">site - {{currentItem.siteShortName}}</p>
   </div>
-
+  
   <div class="row m-0 dialog-content">
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
@@ -452,36 +452,107 @@
         <input matInput [(ngModel)]="currentItem.siteId" disabled>
       </mat-form-field>
     </div>
+  
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Site Name</mat-label>
+        <input matInput [(ngModel)]="currentItem.siteName" disabled>
+        <input matInput>
+      </mat-form-field>
+    </div>
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Site Name</mat-label>
         <input matInput [(ngModel)]="currentItem.siteName" disabled>
+        <input matInput>
       </mat-form-field>
     </div>
-
-    <!-- <div class="col-lg-6">
+  
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Phone Number</mat-label>
+        <input matInput [(ngModel)]="currentItem.phoneNo" disabled>
+        <input matInput>
+      </mat-form-field>
+    </div>
+  
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label> Email</mat-label>
+        <input matInput disabled>
+        <input matInput>
+      </mat-form-field>
+    </div>
+  
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label> Website</mat-label>
+        <input matInput [(ngModel)]="currentItem.website" disabled>
+        <input matInput>
+      </mat-form-field>
+    </div>
+  
+  
+    <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Short Name</mat-label>
         <input matInput [(ngModel)]="currentItem.siteShortName" disabled>
       </mat-form-field>
     </div>
-
+  
+  
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Device External Id</mat-label>
-        <input matInput [(ngModel)]="currentItem.deviceExternalId" disabled>
+        <mat-label>Latitude</mat-label>
+        <input matInput [(ngModel)]="currentItem.latitude" disabled>
       </mat-form-field>
     </div>
-
+  
+  
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Location Type</mat-label>
-        <input matInput [(ngModel)]="currentItem.LocationType" disabled>
+        <mat-label>Longitude</mat-label>
+        <input matInput [(ngModel)]="currentItem.longitude" disabled>
       </mat-form-field>
-    </div> -->
+    </div>
+  
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Unit Id</mat-label>
+        <input matInput [(ngModel)]="currentItem.unitId" disabled>
+      </mat-form-field>
+    </div>
+  
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Country</mat-label>
+        <input matInput [(ngModel)]="currentItem.country" disabled>
+      </mat-form-field>
+    </div>
+  
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>State</mat-label>
+        <input matInput [(ngModel)]="currentItem.state" disabled>
+      </mat-form-field>
+    </div>
+  
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Timezone</mat-label>
+        <input matInput [(ngModel)]="currentItem.timezone" disabled>
+      </mat-form-field>
+    </div>
+  
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Status</mat-label>
+        <input matInput [(ngModel)]="currentItem.status" disabled>
+      </mat-form-field>
+    </div>
   </div>
-
+  
   <div class="d-flex align-items-center justify-content-end">
     <div>
       <button class="dialog-close-btn" mat-dialog-close>Close</button>
@@ -494,25 +565,139 @@
     <p class="dialog-title">MODIFY SITE</p>
   </div>
 
-  <div class="row m-0 dialog-content">
+  <div class="row m-0 dialog-content" *ngIf="currentSite">
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Site Id</mat-label>
-        <input matInput [(ngModel)]="currentItem.siteId" disabled>
+        <mat-label>siteName</mat-label>
+        <input matInput [(ngModel)]="currentSite.siteName" >
       </mat-form-field>
     </div>
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Site Name</mat-label>
-        <input name="deviceDescription" matInput [(ngModel)]="currentItem.siteName">
+        <mat-label> phoneNo</mat-label>
+        <input matInput [(ngModel)]="currentSite.phoneNo" >
       </mat-form-field>
     </div>
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Location Type</mat-label>
-        <input name="deviceDescription" matInput [(ngModel)]="currentItem.LocationType">
+        <mat-label> email</mat-label>
+        <input matInput [(ngModel)]="currentSite.email" >
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label> fax</mat-label>
+        <input matInput [(ngModel)]="currentSite.fax" >
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label> website</mat-label>
+        <input matInput [(ngModel)]="currentSite.website" >
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label> Site Type</mat-label>
+        <input matInput [(ngModel)]="currentSite.siteType" >
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label> Status</mat-label>
+        <input matInput [(ngModel)]="currentSite.status" >
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label> Bus Vertical Id</mat-label>
+        <input matInput [(ngModel)]="currentSite.busVerticalId" >
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label> customer Id</mat-label>
+        <input matInput [(ngModel)]="currentSite.customerId" >
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Escalation Id</mat-label>
+        <input matInput [(ngModel)]="currentSite.escalationId" >
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label> client Services Id</mat-label>
+        <input matInput [(ngModel)]="currentSite.clientServicesId" >
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label> Latitude</mat-label>
+        <input matInput [(ngModel)]="currentSite.latitude" >
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label> Longitude</mat-label>
+        <input matInput [(ngModel)]="currentSite.longitude" >
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label> Unit Id</mat-label>
+        <input matInput [(ngModel)]="currentSite.unitId" >
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Site Short Name</mat-label>
+        <input matInput [(ngModel)]="currentSite.siteShortName" >
+      </mat-form-field>
+    </div>
+
+    <!-- <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Country</mat-label>
+        <input matInput [(ngModel)]="currentSite.country" >
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>State</mat-label>
+        <input matInput [(ngModel)]="currentSite.state" >
+      </mat-form-field>
+    </div> -->
+
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Time Zone</mat-label>
+        <mat-select [(ngModel)]="currentSite.timezone">
+          <mat-option *ngFor="let time of timeZones" [value]="time">{{ time }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Remarks</mat-label>
+        <input matInput [(ngModel)]="currentSite.remarks"  >
       </mat-form-field>
     </div>
   </div>

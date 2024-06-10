@@ -61,7 +61,7 @@ export class SitesComponent implements OnInit {
   @ViewChild('viewCamerasDialog') viewCamerasDialog = {} as TemplateRef<any>;
   cameras: any = [];
   getCamerasForSiteId(data: any) {
-    console.log(data);
+    // console.log(data);
     this.currentItem = data
     this.dialog.open(this.viewCamerasDialog)
     this.siteSer.getCamerasForSiteId(data).subscribe((res: any) => {
@@ -109,18 +109,22 @@ export class SitesComponent implements OnInit {
         this.currentCamera.rtspUrl = this.currentCamera.rtspUrl.slice(7);
       }
     }
-    console.log(this.currentCamera)
-    // this.siteSer.updateCamera(this.currentCamera).subscribe((res:any)=>{
-    //   // console.log(res);
-    //   if(res.statusCode == 200) {
-    //     this.alertSer.success(res?.message)
-    //   } 
-    // })
+    this.siteSer.updateCamera(this.currentCamera).subscribe((res:any)=>{
+      // console.log(res);
+      if(res.statusCode == 200) {
+        this.alertSer.success(res?.message)
+      } 
+    })
   }
 
 
   // BharadwajAPIS
 
+  getSiteFullDetails(item:any) {
+    this.siteSer.getSiteFullDetails(item).subscribe((res:any)=> {
+      console.log(res);
+    })
+  }
 
 
 
@@ -288,30 +292,46 @@ export class SitesComponent implements OnInit {
   }
 
 
-
   @ViewChild('viewSiteDialog') viewSiteDialog = {} as TemplateRef<any>;
   openViewPopup(item: any) {
-    console.log(item)
     this.currentItem = item;
     this.dialog.open(this.viewSiteDialog);
-    // console.log(this.currentItem);
   }
 
  
+currentSite:any;
+
+timeZones: any;
+getTimeZones() {
+  this.siteSer.gettimeZones().subscribe((res: any) => {
+    this.timeZones = res;
+  })
+}
 
   @ViewChild('editSiteDialog') editSiteDialog = {} as TemplateRef<any>;
   openEditPopup(item: any) {
     this.currentItem = JSON.parse(JSON.stringify(item));
+    this.siteSer.getSiteFullDetails(item).subscribe((res:any)=> {
+      // console.log(res);
+      this.getTimeZones();
+      this.currentSite=res.siteDetails;
+      
+    })
     this.dialog.open(this.editSiteDialog);
   }
 
 
+resultSite:any;
   confirmEditRow() {
-    // console.log(this.currentItem);
+    this.siteSer.updateSiteDetails(this.currentSite).subscribe((res:any)=>{
+      if(res.statusCode == 200) {
+        this.getSitesListForUserName()
+        this.alertSer.success(res?.message);
+      } else {
+        this.alertSer.error(res?.message)
+      }
+    })
   }
-
-
-
 
   @ViewChild('deleteSiteDialog') deleteSiteDialog = {} as TemplateRef<any>;
   openDeletePopup(item: any) {
