@@ -83,6 +83,7 @@ export class SitesComponent implements OnInit {
   updateCamera() {
     let isHttps: boolean = this.currentCamera.httpUrl.startsWith('https');
     let isRtsp: boolean = this.currentCamera.rtspUrl.startsWith('rtsp');
+    let rtsp: any = this.currentCamera.rtspUrl.split('@');
     if(isHttps) {
       if(this.currentCamera.httpUrl) {
         this.currentCamera.httpUrl = this.currentCamera.httpUrl.slice(8);
@@ -106,12 +107,16 @@ export class SitesComponent implements OnInit {
     }
     if(isRtsp) {
       if(this.currentCamera.rtspUrl) {
-        this.currentCamera.rtspUrl = this.currentCamera.rtspUrl.slice(7);
+        this.currentCamera.rtspUrl = rtsp[rtsp.length - 1];
       }
     }
+    this.currentCamera.videoServerName=this.currentCamera.httpUrl;
     this.siteSer.updateCamera(this.currentCamera).subscribe((res:any)=>{
       // console.log(res);
       if(res.statusCode == 200) {
+        this.siteSer.getCamerasForSiteId(this.currentItem).subscribe((cams: any) => {
+          this.cameras = cams;
+        })
         this.alertSer.success(res?.message)
       } 
     })
