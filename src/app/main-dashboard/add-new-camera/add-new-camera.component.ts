@@ -34,6 +34,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class AddNewCameraComponent {
 
+  @Input() currentSiteFrom: any;
   @Input() centeralBoxFrom: any;
   @Output() newItemEvent = new EventEmitter<boolean>();
   // http: any;
@@ -108,6 +109,15 @@ export class AddNewCameraComponent {
     this.Business = !this.Business;
   }
 
+  cameras: any = [];
+  getCamerasForSiteId(data: any) {
+    this.siteSer.getCamerasForSiteId(data).subscribe((res: any) => {
+      // console.log(res);
+      this.cameras = res;
+      this.addCamera(this.createCamera.value)
+    })
+  }
+
   @ViewChild('editSiteDialog') editSiteDialog = {} as TemplateRef<any>;
   currentItem: any
   openEditPopup(item: any) {
@@ -117,8 +127,16 @@ export class AddNewCameraComponent {
 
   camList: any = [];
   addCamera(data: any) {
+    console.log(data)
     this.camList = [];
-    for(let i = 0; i < data.noOfCameras; i++) {
+    // let camIndex: number;
+    // if(this.cameras.length === 0) {
+    //   camIndex = 0;
+    // } else {
+    //   camIndex = this.cameras.length;
+    // }
+
+    for(let i = this.cameras.length; i <( data.noOfCameras + this.cameras.length); i++) {
       let index = (i + 1).toString().padStart(2, '0');
       let index1;
       if(i < 10) {
@@ -164,6 +182,7 @@ export class AddNewCameraComponent {
         noOfCameras: this.createCamera.value.noOfCameras
       });
     }
+    console.log(this.camList)
   }
 
 
@@ -173,8 +192,7 @@ export class AddNewCameraComponent {
         if(res.statusCode===200){
           event.target.disabled = true;
           this.alertSer.snackSuccess(res.message)
-        }
-        else{
+        } else{
           this.alertSer.error(res.message)
         }
       }, (err: any) => {
@@ -184,9 +202,7 @@ export class AddNewCameraComponent {
   }
 
   update() {
-    console.log(this.currentItem);
     this.siteSer.createCamera(this.currentItem).subscribe((res:any) =>{
-      console.log(res)
       if(res.statusCode===200){
         this.alertSer.success(res.message)
       }

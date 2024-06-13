@@ -72,6 +72,7 @@ export class SiteService {
     let url = `${this.baseUrl}/centralBox/getCentralBox_1_0/${payload.siteId}` ;
     return this.http.get(url);
   }
+  
 
   addCentralBox(payload: any) {
     let url = `${this.baseUrl}/centralBox/addCentralBox_1_0`;

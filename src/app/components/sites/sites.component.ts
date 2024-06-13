@@ -84,6 +84,7 @@ export class SitesComponent implements OnInit {
     let isHttps: boolean = this.currentCamera.httpUrl.startsWith('https');
     let isRtsp: boolean = this.currentCamera.rtspUrl.startsWith('rtsp');
     let rtsp: any = this.currentCamera.rtspUrl.split('@');
+    let webrtsp: any = this.currentCamera.httpUrl.split('/');
     if(isHttps) {
       if(this.currentCamera.httpUrl) {
         this.currentCamera.httpUrl = this.currentCamera.httpUrl.slice(8);
@@ -110,7 +111,15 @@ export class SitesComponent implements OnInit {
         this.currentCamera.rtspUrl = rtsp[rtsp.length - 1];
       }
     }
+
+    if(isHttps) {
+      if(this.currentCamera.httpUrl) {
+        this.currentCamera.httpUrl = webrtsp[2];
+      }
+    }
+    // console.log(this.currentCamera)
     this.currentCamera.videoServerName=this.currentCamera.httpUrl;
+    delete this.currentCamera.httpUrl;
     this.siteSer.updateCamera(this.currentCamera).subscribe((res:any)=>{
       // console.log(res);
       if(res.statusCode == 200) {
@@ -299,7 +308,10 @@ export class SitesComponent implements OnInit {
 
   @ViewChild('viewSiteDialog') viewSiteDialog = {} as TemplateRef<any>;
   openViewPopup(item: any) {
-    this.currentItem = item;
+    this.siteSer.getSiteFullDetails(item).subscribe((res:any)=>{
+      this.currentItem = res.siteDetails;
+    })
+    console.log(item)
     this.dialog.open(this.viewSiteDialog);
   }
 

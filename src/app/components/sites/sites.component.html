@@ -195,9 +195,9 @@
             <a class="mx-1 pointer" matTooltip="Edit">
               <img src="assets/icons/edit.svg" (click)="openEditPopup(data)">
             </a>
-            <a class="mx-1 pointer" value="Delete" matTooltip="Delete">
+            <!-- <a class="mx-1 pointer" value="Delete" matTooltip="Delete">
               <img src="assets/icons/delete.svg" (click)="openDeletePopup(data)">
-            </a>
+            </a> -->
           </td>
         </tr>
       </tbody>
@@ -457,15 +457,6 @@
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Site Name</mat-label>
         <input matInput [(ngModel)]="currentItem.siteName" disabled>
-        <input matInput>
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Site Name</mat-label>
-        <input matInput [(ngModel)]="currentItem.siteName" disabled>
-        <input matInput>
       </mat-form-field>
     </div>
   
@@ -473,15 +464,13 @@
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Phone Number</mat-label>
         <input matInput [(ngModel)]="currentItem.phoneNo" disabled>
-        <input matInput>
       </mat-form-field>
     </div>
   
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label> Email</mat-label>
-        <input matInput disabled>
-        <input matInput>
+        <input matInput [(ngModel)]="currentItem.email" disabled>
       </mat-form-field>
     </div>
   
@@ -489,7 +478,6 @@
       <mat-form-field appearance="outline" class="w-100">
         <mat-label> Website</mat-label>
         <input matInput [(ngModel)]="currentItem.website" disabled>
-        <input matInput>
       </mat-form-field>
     </div>
   
@@ -747,5 +735,5 @@
 </div>
 
 <div *ngIf="showCamera">
-  <app-add-new-camera (newItemEvent)="closenow('camera')" [centeralBoxFrom]="currentItem1"></app-add-new-camera>
+  <app-add-new-camera (newItemEvent)="closenow('camera')" [centeralBoxFrom]="currentItem1" [currentSiteFrom]="currentItem"></app-add-new-camera>
 </div>
