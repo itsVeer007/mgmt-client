@@ -101,7 +101,7 @@
 
           <th>Cameras</th>
 
-          <th (click)="sort('cntrl_Unit')">Cntrl Unit</th>
+          <th (click)="sort('cntrl_Unit')">Central Box</th>
 
           <!-- <th>Analytics</th> -->
 
@@ -257,7 +257,7 @@
               <td>{{cam.name}}</td>
               <td style="width: 100px;">{{cam.rtspUrl}}</td>
               <td>{{cam.httpUrl}}</td>
-              <td>{{cam.HLSUrl}}</td>
+              <td>{{cam.httpUrl}}</td>
               <td>{{cam.audioUrl}}</td>
               <td>
                 <a class="mx-1 pointer" (click)="openEditCamera(cam)" matTooltip="Edit">
@@ -723,7 +723,7 @@
 
 
 <div *ngIf="showAddSite">
-  <app-add-new-site (newItemEvent)="closenow('site')"></app-add-new-site>
+  <app-add-new-site (newItemEvent)="closenow('site'); getSitesListForUserName()"></app-add-new-site>
 </div>
 
 <div *ngIf="showAddDevice">

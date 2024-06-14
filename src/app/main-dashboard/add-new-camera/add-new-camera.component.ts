@@ -127,7 +127,7 @@ export class AddNewCameraComponent {
 
   camList: any = [];
   addCamera(data: any) {
-    console.log(data)
+    // console.log(data);
     this.camList = [];
     // let camIndex: number;
     // if(this.cameras.length === 0) {
@@ -135,6 +135,44 @@ export class AddNewCameraComponent {
     // } else {
     //   camIndex = this.cameras.length;
     // }
+    let isHttps: boolean = data.videoServerName.startsWith('https');
+    let isRtsp: boolean = data.rtspUrl.startsWith('rtsp');
+    let rtsp: any = data.rtspUrl.split('@');
+    let webrtsp: any = data.videoServerName.split('/');
+
+    if(isHttps) {
+      if(data.videoServerName) {
+        data.videoServerName = data.videoServerName.slice(8);
+      }
+      // if(data.audiUrl) {
+      //   data.audiUrl = data.audiUrl.slice(8);
+      // }
+      if(data.HLSUrl) {
+        data.HLSUrl = data.HLSUrl.slice(8);
+      }
+
+      if(data.videoServerName) {
+        data.videoServerName = webrtsp[2];
+      }
+    } else {
+      if(data.videoServerName) {
+        data.videoServerName = data.videoServerName.slice(7);
+      }
+      // if(data.audiUrl) {
+      //   data.audiUrl = data.audiUrl.slice(7);
+      // }
+      if(data.HLSUrl) {
+        data.HLSUrl = data.HLSUrl.slice(7);
+      }
+    }
+
+    if(isRtsp) {
+      if(data.rtspUrl) {
+        data.rtspUrl = data.rtspUrl.slice(7);
+        data.rtspUrl = rtsp[rtsp.length - 1];
+      }
+    }
+
 
     for(let i = this.cameras.length; i <( data.noOfCameras + this.cameras.length); i++) {
       let index = (i + 1).toString().padStart(2, '0');
@@ -182,7 +220,7 @@ export class AddNewCameraComponent {
         noOfCameras: this.createCamera.value.noOfCameras
       });
     }
-    console.log(this.camList)
+    // console.log(this.camList)
   }
 
 

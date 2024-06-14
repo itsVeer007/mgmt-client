@@ -240,8 +240,9 @@ export class AddNewSiteComponent implements OnInit {
     if(this.createSite.valid){
       this.createSite.value.createdBy = this.user.UserId;
       this.siteSer.createSite(this.createSite.value).subscribe((res:any) =>{
-        console.log(res)
+        // console.log(res);
         if(res.statusCode===200){
+          this.newItemEvent.emit()
           this.alertSer.success(res.message)
         }
         else{
