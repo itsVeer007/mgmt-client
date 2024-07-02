@@ -137,7 +137,7 @@
     color: #fff;
   }
 
-  @media only screen and (max-width: 2000px) {
+  @media only screen and (max-width: 767) {
     .user-pic img {
       width: 30px;
     }

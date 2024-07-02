@@ -1,25 +1,29 @@
 import { DatePipe } from '@angular/common';
 import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { AdvertisementsService } from 'src/services/advertisements.service';
 import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
 import { SiteService } from 'src/services/site.service';
 import { StorageService } from 'src/services/storage.service';
 
 @Component({
-  selector: 'app-advertisements',
-  templateUrl: './advertisements.component.html',
-  styleUrls: ['./advertisements.component.css']
+  selector: 'app-new-advertisement',
+  templateUrl: './new-advertisement.component.html',
+  styleUrls: ['./new-advertisement.component.css']
 })
-export class AdvertisementsComponent implements OnInit {
+export class NewAdvertisementComponent {
 
+
+  
   constructor(
     private assetService: AssetService,
     private siteSer: SiteService,
     public datepipe: DatePipe,
     public dialog: MatDialog,
     public alertSer: AlertService,
-    private storageSer: StorageService
+    private storageSer: StorageService,
+    private adver:AdvertisementsService
   ) { }
 
   searchText!: string;
@@ -27,71 +31,162 @@ export class AdvertisementsComponent implements OnInit {
   user: any;
   ngOnInit() {
     this.user = this.storageSer.get('user');
-    this.listAssets();
+    this.listAdsInfo();
+    // this.listAssets();
   }
+  pending:any =[]
+  addedAd:any = []
+  activated:any = []
+  removed:any = []
+  Deactivated:any = []
 
-  advertisements: any = [];
-  newAdvertisements: any = [];
-  pending: any = [];
-  added: any = [];
-  sycedAfterAddition: any = [];
-  sycedAfterRemoval: any = [];
-  removed: any = [];
-  listAssets() {
+  siteData:any=[]
+  showLoader:any
+  newlistAdsInfoData:any = [];
+  listAdsInfoData:any;
+
+  siteId:any = 'All';
+  deviceId:any = "All";
+  adName:any = 'All';
+
+
+  filterData:any
+  filter(type:any) {
+    let siteId:any;
+    let deviceId:any;
+    let adName:any;
+    this.siteId == 'All' ? siteId =  null : siteId = this.siteId;
+    this.deviceId == 'All'? deviceId = null : deviceId = this.deviceId;
+    this.adName == 'All'? adName = null : adName = this.adName;
+
+    if(type === "All") {
+      this.newlistAdsInfoData = this.listAdsInfoData.flatMap((item: any) => item.ads);
+    } else {
+      this.adver.listAdsInfo({siteId: siteId ,deviceId:deviceId, adName:adName}).subscribe((res:any)=> {
+        let x = res.sites.flatMap((item:any)=>item.devices);
+        this.newlistAdsInfoData = x.flatMap((item: any) => item.ads);
+      })
+    }
+  }
+  listAdsInfo() {
     this.tableLoader = true;
-    this.assetService.listAssets().subscribe((res: any) => {
-      this.tableLoader = false;
+    this.adver.listAdsInfo().subscribe((res:any)=> {
+      console.log(res);
       this.getMetadata();
-      let x = res.flatMap((item: any) => item.assets);
-      this.advertisements = x.sort((a: any, b: any) => a.deviceModeId > b.deviceModeId ? -1 : a.deviceModeId < b.deviceModeId ? 1 : 0);;
-      this.newAdvertisements = this.advertisements;
 
-      this.pending = [];
-      this.added = [];
-      this.sycedAfterAddition = [];
-      this.sycedAfterRemoval = [];
-      this.removed = [];
-      for(let item of this.newAdvertisements) {
+      this.tableLoader = false
+      this.siteData = res?.sites;
+      this.listAdsInfoData = res.sites.flatMap((item:any)=>item.devices);
+      this.newlistAdsInfoData = this.listAdsInfoData.flatMap((item: any) => item.ads);
+
+
+      for(let item of this.newlistAdsInfoData) {
         if(item.status == 1) {
-          this.pending.push(item);
-        } else if(item.status == 2) {
-          this.added.push(item);
-        } else if(item.status == 4) {
-          this.sycedAfterAddition.push(item);
-        } else if(item.status == 5) {
-          this.sycedAfterRemoval.push(item);
-        } else if(item.status == 3) {
-          this.removed.push(item);
+          this.pending.push(item)
+        } else  if(item.status == 2) {
+          this.addedAd.push(item)
+        }
+        else  if(item.status == 3) {
+          this.removed.push(item)
+        }
+        else  if(item.status == 4) {
+          this.activated.push(item)
+        }
+        else  if(item.status == 5) {
+          this.Deactivated.push(item)
         }
       }
     })
   }
+
+  ruleData:any
+  @ViewChild('usedItemsDialog') usedItemsDialog = {} as TemplateRef<any>;
+  openView(item:any) {
+    this.adver.listAdsInfo(item).subscribe((res:any)=> {
+      console.log(res);
+      // this.ruleData = res
+      let x = this.listAdsInfoData.flatMap((item: any) => item.ads);
+      this.ruleData = x.flatMap((item: any) => item.rules)
+      console.log(this.ruleData)
+    })
+    this.dialog.open(this.usedItemsDialog)
+  }
+
+
+currentItem:any
+  openViewPopup(item:any) {
+    console.log(item)
+    this.currentItem = item;
+  }
+
+  @ViewChild('editAssetDialog') editAssetDialog = {} as TemplateRef<any>;
+  openEditPopupp(item:any) {
+    this.currentItem = item
+    this.dialog.open(this.editAssetDialog);
+  }
+  
+  
+  updateAd() {
+    let updateData = {
+      adId:this.currentItem.adId,
+      modifiedBy:this.user?.UserId,
+      fromDate:this.currentItem.fromDate,
+      toDate:this.currentItem.toDate,
+      status:this.currentItem.status
+  }
+    this.adver.updateAd(updateData).subscribe((res:any)=> {
+      console.log(this.currentItem)
+      if(res?.statusCode == 200 ) {
+        this.alertSer.success(res?.message)
+      }
+    },(error:any)=> {
+      this.alertSer.error(error?.err?.message)
+    })
+  }
+
+  @ViewChild('deleteAssetDialog') deleteAssetDialog = {} as TemplateRef<any>;
+  deleteRow: any;
+  openDeletePopup(item: any) {
+    this.currentItem = item;
+    this.dialog.open(this.deleteAssetDialog);
+  }
+
+  confirmDeleteRow() {
+    this.adver.deleteAd(this.currentItem).subscribe((res:any)=> {
+      console.log(this.currentItem)
+      if(res?.statusCode == 200 ) {
+        this.alertSer.success(res?.message)
+      }
+    },(error:any)=> {
+      this.alertSer.error(error?.err?.message)
+    })
+    this.listAdsInfo();
+  }
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
 
   getLoaderFromChild(data: boolean) {
     this.tableLoader = data;
   }
 
   getAdsFromChild(data: any) {
-    this.newAdvertisements = data;
-    
-    this.pending = [];
-    this.added = [];
-    this.sycedAfterAddition = [];
-    this.sycedAfterRemoval = [];
-    this.removed = [];
-    for(let item of data) {
-      if(item.status == 1) {
-        this.pending.push(item);
-      } else if(item.status == 2) {
-        this.added.push(item);
-      } else if(item.status == 4) {
-        this.sycedAfterAddition.push(item);
-      } else if(item.status == 5) {
-        this.sycedAfterRemoval.push(item);
-      } else if(item.status == 3) {
-        this.removed.push(item);
-      }
-    }
+    this.newlistAdsInfoData = data;
   }
 
   getSearchFromChild(data: any) {
@@ -103,6 +198,7 @@ export class AdvertisementsComponent implements OnInit {
   addStatus: any;
   getMetadata() {
     let data = this.storageSer.get('metaData');
+    // console.log(data)
     data?.forEach((item: any) => {
       if(item.type == 2) {
         this.deviceType = item.metadata;
@@ -136,7 +232,7 @@ export class AdvertisementsComponent implements OnInit {
 
   changeAssetStatus() {
     this.assetService.updateAssetStatus(this.currentItem).subscribe((res: any) => {
-      this.listAssets();
+
       this.alertSer.success(res.message);
     }, (err: any) => {
       if(err) {
@@ -147,15 +243,11 @@ export class AdvertisementsComponent implements OnInit {
 
 
   /* add actions */
-  @ViewChild('editAssetDialog') editAssetDialog = {} as TemplateRef<any>;
-  openEditPopupp(item: any) {
-    this.currentItem = JSON.parse(JSON.stringify(item));
-    this.dialog.open(this.editAssetDialog);
-  }
+ 
 
   originalObject: any;
   changedKeys: any[] = [];
-  currentItem: any;
+
   onDateChange(e: any) {
     let x = e.targetElement.name;
     if(!(this.changedKeys.includes(x))) {
@@ -199,23 +291,13 @@ export class AdvertisementsComponent implements OnInit {
     })
   }
 
-  @ViewChild('deleteAssetDialog') deleteAssetDialog = {} as TemplateRef<any>;
-  deleteRow: any;
-  openDeletePopup(item: any) {
-    this.currentItem = item;
-    this.dialog.open(this.deleteAssetDialog);
-  }
+
 
   deleteRow1(item: any, i: any) {
     // console.log(item);
     setTimeout(() => {
-      this.advertisements.splice(i, 1);
+      this.newlistAdsInfoData.splice(i, 1);
     }, 1000);
-  }
-
-  confirmDeleteRow() {
-    // console.log(this.currentItem);
-    // this.assetTable = this.assetTable.filter((item: any) => item.siteId !== this.currentItem.siteId);
   }
 
   @ViewChild('addPlayerDialog') addPlayerDialog: any = ElementRef;
@@ -228,7 +310,7 @@ export class AdvertisementsComponent implements OnInit {
   sorted = false;
   sort(label: any) {
     this.sorted = !this.sorted;
-    var x = this.newAdvertisements;
+    var x = this.newlistAdsInfoData;
     if (this.sorted == false) {
       x.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
     } else {

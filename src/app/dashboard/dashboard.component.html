@@ -1,14 +1,13 @@
 <div class="">
   <!-- header -->
   <div class="header d-flex justify-content-between align-items-center">
-    <a class="menu-icon pointer" [matMenuTriggerFor]="menu1">
-      <img src="assets/icons/menu.svg">
-    </a>
     <a class="logo pointer ms-2"><img src="assets/icons/Logo.svg"></a>
     <a class="user-pic pointer me-2" [matMenuTriggerFor]="menu">
       <img src="assets/icons/profile.svg" width="35">
     </a>
-
+    <a class="menu-icon pointer" [matMenuTriggerFor]="menu1">
+      <img src="assets/icons/menu.svg">
+    </a>
   </div>
 
   <div class="row m-0">
@@ -138,6 +137,19 @@
               </li>
             </ul>
           </div>
+
+          <a *ngIf="isAdmin || isSupport" class="list-group-item " [routerLink]="['./new-device']" routerLinkActive="routeactive">
+            <img src="assets/icons/devices.svg">
+            <span>Devices</span>
+          </a>
+          <a *ngIf="isAdmin || isSupport" class="list-group-item " [routerLink]="['./new-adver']" routerLinkActive="routeactive">
+            <img src="assets/icons/devices.svg">
+            <span>Advertisemnts</span>
+          </a>
+          <!-- <a *ngIf="isAdmin || isSupport" class="list-group-item " [routerLink]="['./advertisements']" routerLinkActive="routeactive">
+            <img src="assets/icons/asset.svg">
+            <span>Advertisements</span>
+          </a> -->
           <!-- <div class="navigation" *ngIf="isAdmin || isSupport">
             <ul>
               <li class="m-2 has-sub">
@@ -154,7 +166,7 @@
       </nav>
     </div>
 
-    <div class="right-content col-lg-10 col-sm-12">
+    <div class="right-content col-lg-10">
       <router-outlet></router-outlet>
     </div>
   </div>

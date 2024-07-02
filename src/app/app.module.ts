@@ -33,6 +33,7 @@ import { LoginLoaderComponent } from './utilities/loader/login-loader.component'
 import { AddNewDcComponent } from './main-dashboard/add-new-dc/add-new-dc.component';
 
 
+
 //utilities
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { VjsPlayerComponent } from './utilities/vjs-player/vjs-player.component';
@@ -76,6 +77,11 @@ import { EditDeviceFormComponent } from './main-dashboard/edit-device-form/edit-
 import { SensorDataComponent } from './sensor-data/sensor-data.component';
 import { CamerasComponent } from './components/cameras/cameras.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { NewDeviceComponent } from './components/new-device/new-device.component';
+import { AddSecondDeviceComponent } from './main-dashboard/add-second-device/add-second-device.component';
+import { NewAdvertisementComponent } from './components/new-advertisement/new-advertisement.component';
+import { AddNewAdvertisementComponent } from './main-dashboard/add-new-advertisement/add-new-advertisement.component';
+
 
 
 @NgModule({
@@ -142,7 +148,12 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     FilterComponent,
     TextAndNumberOnlyDirective,
     SensorDataComponent,
-    CamerasComponent
+    CamerasComponent,
+    NewDeviceComponent,
+    AddSecondDeviceComponent,
+    NewAdvertisementComponent,
+    AddNewAdvertisementComponent
+
   ],
   imports: [
     BrowserModule,

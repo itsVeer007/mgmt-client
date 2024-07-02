@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainDashboardComponent } from '../main-dashboard/main-dashboard.component';
 import { AuthGuard } from '../utilities/auth/auth.guard';
@@ -31,6 +31,8 @@ import { AddNewUserComponent } from '../main-dashboard/add-new-user/add-new-user
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { SensorDataComponent } from '../sensor-data/sensor-data.component';
 import { CamerasComponent } from '../components/cameras/cameras.component';
+import { NewDeviceComponent } from '../components/new-device/new-device.component';
+import { NewAdvertisementComponent } from '../components/new-advertisement/new-advertisement.component';
 
 
 const routes: Routes = [
@@ -67,7 +69,10 @@ const routes: Routes = [
       { path:'fr-kit', component: FrKitComponent },
       { path:'wifi-analytics', component: WifiAnalyticsComponent },
       {path: 'sensor-data', component:SensorDataComponent},
-      {path: 'cameras', component:CamerasComponent}
+      {path: 'cameras', component:CamerasComponent},
+      {path: 'new-device',component:NewDeviceComponent},
+      {path: 'new-adver',component:NewAdvertisementComponent},
+      
     ]
   }
 ];

@@ -3,7 +3,9 @@ import { Component, EventEmitter, HostListener, OnInit, Output, TemplateRef, Vie
 import { MatOption } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSelect } from '@angular/material/select';
+import { Router } from '@angular/router';
 import { SensorDataComponent } from 'src/app/sensor-data/sensor-data.component';
+import { AdvertisementsService } from 'src/services/advertisements.service';
 import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
 import { InventoryService } from 'src/services/inventory.service';
@@ -11,31 +13,179 @@ import { SiteService } from 'src/services/site.service';
 import { StorageService } from 'src/services/storage.service';
 
 @Component({
-  selector: 'app-devices',
-  templateUrl: './devices.component.html',
-  styleUrls: ['./devices.component.css']
+  selector: 'app-new-device',
+  templateUrl: './new-device.component.html',
+  styleUrls: ['./new-device.component.css']
 })
-export class DevicesComponent implements OnInit {
+export class NewDeviceComponent {
 
   @Output() newItemEvent = new EventEmitter<boolean>();
 
   showLoader = false;
   constructor(
     private inventorySer: InventoryService,
+    private adver: AdvertisementsService,
     private assetSer: AssetService,
     private siteSer: SiteService,
     public dialog: MatDialog,
     public datePipe: DatePipe,
     public alertSer: AlertService,
-    private storageSer: StorageService
+    private storageSer: StorageService,
+    private router: Router
   ) { }
 
+  user:any;
   ngOnInit(): void {
+    this.user = this.storageSer.get('user');
+    this.listDeviceInfo()
     this.getSitesListForUserName()
     this.listDeviceAdsInfo();
     this.getStatus();
     // this.getData();
   }
+
+  cameras: any = [];
+  getCamerasForSiteId() {
+    this.siteSer.getCamerasForSiteId(this.currentItem).subscribe((res: any) => {
+      console.log(res);
+      this.cameras = res;
+    })
+  }
+  Active:any= [];
+  inactive:any = [];
+  newlistDeviceInfoData:any = [];
+  listDeviceInfoData:any
+  listDeviceInfo() {
+    this.showLoader = true;
+    this.adver.listDeviceInfo().subscribe((res:any)=> {
+      console.log(res);
+      this.showLoader = false
+      this.listDeviceInfoData = res?.sites.flatMap((item:any)=>item.Devices)
+      this.newlistDeviceInfoData = this.listDeviceInfoData
+      console.log(this.newlistDeviceInfoData);
+      for(let item of this.newlistDeviceInfoData) {
+        if(item.active == 1) {
+          this.Active.push(item)
+        } else  if(item.active == 0) {
+          this.inactive.push(item)
+        }
+      }
+    })
+  }
+
+  // .sort((a:any, b:any) => b.active - a.active);
+  @ViewChild('viewSiteDialog') viewSiteDialog = {} as TemplateRef<any>;
+  openViewPopup(item:any) {
+    this.currentItem = item;
+    this.dialog.open(this.viewSiteDialog)
+  }
+
+  
+  @ViewChild('editSiteDialog') editSiteDialog = {} as TemplateRef<any>;
+  openEditPopup(item: any) {
+    item.cameraId !== '0' ? this.cameraType = 1 : this.cameraType = 0;
+    item.modifiedBy = this.user?.UserId
+    this.currentItem = item;
+    console.log(this.currentItem)
+    this.getCamerasForSiteId()
+    this.dialog.open(this.editSiteDialog);
+  }
+
+  cameraType: any ;
+
+  getCurrentCamera(item:any) {
+    this.currentItem.cameraId = item.cameraId
+    this.currentItem.cameraName = item.name
+    this.currentItem.cameraUrl = item.rtspUrl
+  }
+
+  updateDeviceDtl() {
+    delete this.currentItem.modelObjectTypeId
+    this.adver.updateDeviceInfo(this.currentItem).subscribe((res:any)=> {
+      
+      console.log(res);
+      if(res?.statusCode == 200) {
+        this.alertSer.success(res?.message)
+      }
+    },(error:any)=> {
+      this.alertSer.error(error?.err?.message)
+    })
+  }
+
+  @ViewChild('deleteSiteDialog') deleteSiteDialog = {} as TemplateRef<any>;
+  DeletePopup(item:any) {
+    this.currentItem = item
+    this.dialog.open(this.deleteSiteDialog);
+    
+  }
+
+  openDeletePopup() {
+    console.log(this.currentItem)
+    this.adver.deleteDevice(this.currentItem).subscribe((res:any)=> {
+      console.log(res);
+      if(res?.statusCode == 200) {
+        this.alertSer.success(res?.message)
+      }
+    },(error:any)=> {
+      this.alertSer.error(error?.err?.message)
+    })
+    this.listDeviceInfo()
+  }
+
+  showMore:boolean = false;
+  showMore1:boolean = false;
+  openMore(type:any) {
+    if(type == 'more') {
+      this.showMore = true
+    }
+    
+  }
+
+  openMore1(type:any) {
+    if(type == 'more') {
+      this.showMore1 = true
+    }
+    
+  }
+
+  @ViewChild('rebootDeviceDialog') rebootDeviceDialog = {} as TemplateRef<any>;
+  openRebootDevice(item: any) {
+    this.currentItem = item;
+    this.dialog.open(this.rebootDeviceDialog);
+  }
+
+  rebootDevice(id: any) {
+    this.alertSer.wait();
+    this.adver.updateRebootDevice(id).subscribe((res: any) => {
+      // console.log(res)
+      if(res) {
+        this.alertSer.success(res?.message);
+      }
+    }, (err: any) => {
+      if(err) {
+        this.alertSer.error(err?.error?.message);
+      };
+    });
+  }
+
+  openAdver() {
+    this.router.navigate(['/home/new-adver'])
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   siteId: any;
   deviceId: any
 
@@ -148,7 +298,7 @@ export class DevicesComponent implements OnInit {
   }
 
   getDevicesFromChild(data: any) {
-    this.newDeviceData = data;
+    this.newlistDeviceInfoData = data;
 
     this.active = [];
     this.inActive = [];
@@ -211,25 +361,7 @@ export class DevicesComponent implements OnInit {
     })
   }
 
-  @ViewChild('rebootDeviceDialog') rebootDeviceDialog = {} as TemplateRef<any>;
-  openRebootDevice(item: any) {
-    this.currentItem = item;
-    this.dialog.open(this.rebootDeviceDialog);
-  }
 
-  rebootDevice(id: any) {
-    this.alertSer.wait();
-    this.assetSer.updateRebootDevice(id).subscribe((res: any) => {
-      // console.log(res)
-      if(res) {
-        this.alertSer.success(res?.message);
-      }
-    }, (err: any) => {
-      if(err) {
-        this.alertSer.error(err?.error?.message);
-      };
-    });
-  }
 
 
   showAddDevice: boolean = false;
@@ -251,22 +383,15 @@ export class DevicesComponent implements OnInit {
     this.dialog.open(this.editStatusDialog);
   }
 
-  @ViewChild('viewSiteDialog') viewSiteDialog = {} as TemplateRef<any>;
   currentItem: any;
   currentWorkingDays: any;
-  openViewPopup(item: any) {
-    this.currentItem = item;
-    this.currentWorkingDays = JSON.parse(JSON.stringify(this.currentItem.workingDays.split(',').map((item: any) => +item)));
-    this.dialog.open(this.viewSiteDialog);
-  }
+  // @ViewChild('viewSiteDialog') viewSiteDialog = {} as TemplateRef<any>;
+  // openViewPopup(item: any) {
+  //   this.currentItem = item;
+  //   this.currentWorkingDays = JSON.parse(JSON.stringify(this.currentItem.workingDays.split(',').map((item: any) => +item)));
+  //   this.dialog.open(this.viewSiteDialog);
+  // }
 
-  @ViewChild('editSiteDialog') editSiteDialog = {} as TemplateRef<any>;
-  openEditPopup(item: any) {
-    console.log(item)
-    this.currentItem = item;
-    this.currentWorkingDays = JSON.parse(JSON.stringify(this.currentItem.workingDays.split(',').map((item: any) => +item)));
-    this.dialog.open(this.editSiteDialog);
-  }
 
 
   sorted = false;
