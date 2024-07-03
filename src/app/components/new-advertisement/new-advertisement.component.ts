@@ -79,7 +79,6 @@ export class NewAdvertisementComponent {
       this.listAdsInfoData = res.sites.flatMap((item:any)=>item.devices);
       this.newlistAdsInfoData = this.listAdsInfoData.flatMap((item: any) => item.ads);
 
-
       for(let item of this.newlistAdsInfoData) {
         if(item.status == 1) {
           this.pending.push(item)
@@ -104,9 +103,11 @@ export class NewAdvertisementComponent {
   openView(item:any) {
     this.adver.listAdsInfo(item).subscribe((res:any)=> {
       console.log(res);
-      // this.ruleData = res
-      let x = this.listAdsInfoData.flatMap((item: any) => item.ads);
-      this.ruleData = x.flatMap((item: any) => item.rules)
+      let x = res.sites[0].devices[0].ads.flatMap((item: any) => item.rules);
+      x.forEach((el: any) => {
+        el.workingDays = el.workingDays.split(',').map(Number);
+      });
+      this.ruleData = x;
       console.log(this.ruleData)
     })
     this.dialog.open(this.usedItemsDialog)
@@ -154,13 +155,13 @@ currentItem:any
   confirmDeleteRow() {
     this.adver.deleteAd(this.currentItem).subscribe((res:any)=> {
       console.log(this.currentItem)
+      this.listAdsInfo();
       if(res?.statusCode == 200 ) {
         this.alertSer.success(res?.message)
       }
     },(error:any)=> {
       this.alertSer.error(error?.err?.message)
     })
-    this.listAdsInfo();
   }
 
 
@@ -196,6 +197,8 @@ currentItem:any
   deviceType: any;
   deviceMode: any;
   addStatus: any;
+  workingDays: any;
+  model_object_type:any
   getMetadata() {
     let data = this.storageSer.get('metaData');
     // console.log(data)
@@ -206,20 +209,33 @@ currentItem:any
         this.deviceMode = item.metadata;
       } else if(item.type == 8) {
         this.addStatus = item.metadata;
+      } else if(item.type == 6) {
+        this.workingDays = item.metadata;
+      }
+      else if(item.type == 7) {
+        this.model_object_type = item.metadata;
       }
     });
   }
+
+  addRule:boolean = false;
 
   showAsset: boolean = false;
   showAddAsset(type: any) {
     if (type == 'asset') {
       this.showAsset = true;
     }
+    if (type == 'rule') {
+      this.addRule = true;
+    }
   }
 
   closenow(type: String) {
     if (type == 'asset') {
       this.showAsset = false;
+    }
+    if (type == 'rule') {
+      this.addRule = false;
     }
   }
 

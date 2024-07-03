@@ -7,6 +7,7 @@
   
       <div>
         <!-- <button mat-flat-button color="primary" (click)="showAddAsset(siteIdInput.value, deviceIdInput.value)">Create Add</button> -->
+        <button class="create-btn mx-2" (click)="showAddAsset('rule')">Create Rule</button>
         <button class="create-btn" (click)="showAddAsset('asset')">Create Add</button>
       </div>
     </div>
@@ -87,7 +88,7 @@
           </button>
           <mat-autocomplete #device="matAutocomplete">
             <mat-option value="All" (click)="filter('All')">All</mat-option>
-            <mat-option *ngFor="let item of listAdsInfoData" [value]="item.deviceId" (click)="filter(item.deviceId)">{{item.deviceId}}</mat-option>
+            <mat-option *ngFor="let item of newlistAdsInfoData" [value]="item.deviceId" (click)="filter(item.deviceId)">{{item.deviceId}}</mat-option>
             <mat-option></mat-option>
           </mat-autocomplete>
         </mat-form-field>
@@ -131,13 +132,13 @@
   
             <th>
               <span>AdName</span>
-              <img (click)="sort('name')" class="pointer ms-1" src="assets/icons/sorticon.svg" matTooltip="filter"
+              <img (click)="sort('adName')" class="pointer ms-1" src="assets/icons/sorticon.svg" matTooltip="filter"
                 matTooltipPosition="right" width="15px">
             </th>
   
             <th>
               <span>Duration</span>
-              <img (click)="sort('deviceModeId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              <img (click)="sort('duration')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </th>
 <!--   
             <th>
@@ -162,6 +163,8 @@
   
             <th class="text-center">Play</th>
             <th><p>Rules</p></th>
+            <th><p>Status</p>
+              <img (click)="sort('status')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"></th>
   
             <th class="text-center">Actions</th>
           </tr>
@@ -169,16 +172,6 @@
   
         <tbody *ngIf="!tableLoader">
           <tr *ngFor="let item of newlistAdsInfoData | search: searchText; let i=index;">
-            <!-- <td>
-              <input type="checkbox"
-              class="form-check-input"
-              [(ngModel)]="item.selected"
-              (change)="checkIfAllSelected();
-              deleteMultiRecords(item, $event);
-              ViewByCheckbox(item, $event);
-              EditByCheckbox(item, $event)"
-              id="singleCheck">
-            </td> -->
             
             <td>{{i+1}}</td>
             <td>
@@ -194,7 +187,13 @@
             <td>
               <p>{{ item.toDate | date:'mediumDate' }}</p>
             </td>
-            <td>{{ item.status == 1 ? 'Pending' : item.status == 2 ? 'Added' : item.status == 3 ? 'Removed' : item.status == 4 ? 'Activated' : item.status == 5 ? 'Deactivated' : ''}}</td>
+            <td>
+              <!-- {{ item.status == 1 ? 'Pending' : item.status == 2 ? 'Added' : item.status == 3 ? 'Removed' : item.status == 4 ? 'Activated' : item.status == 5 ? 'Deactivated' : ''}} -->
+              <select class="form-control custom-form-control" [(ngModel)]="item.status">
+                <option *ngFor="let status of addStatus" [value]="status.keyId">{{status.value}}</option>
+              </select>
+            </td>
+
             <td class="text-center">
               <!-- <a class="pointer" [href]="item.url" target="_blank">
                 <img style="color: #bdb8b8;" src="assets/icons/play.svg" width="25" height="25" />
@@ -235,13 +234,14 @@
               </a>
               <span  *ngIf="item.rules !== 0" (click)="openView(item)">View</span>
             </td>
+            <td [style.color]="item.active == 1 ? 'Green' : item.active == 0 ? 'Red' : ''">{{item.active == 1 ? 'Active' : item.active == 0 ? 'Inactive':''}}</td>
   
            
   
             <td class="table-icons">
-              <a class="mx-1 pointer" (click)="openViewPopup(item)">
+              <!-- <a class="mx-1 pointer" (click)="openViewPopup(item)">
                 <img src="assets/icons/view.svg">
-              </a>
+              </a> -->
               <a class="mx-1 pointer" (click)="openEditPopupp(item)" matTooltip="edit">
                 <img src="assets/icons/edit.svg">
               </a>
@@ -308,20 +308,33 @@
               <td>
                 <p>{{i+1 }}</p>
               </td>
-              <td >
-                <p >{{ task.workingDays }}</p>
+              <td>
+                <!-- <select class="form-control custom-form-control" [(ngModel)]="task.workingDays" multiple>
+                  <option *ngFor="let status of workingDays" [value]="status.keyId">{{status.value}}</option>
+                </select> -->
+                <span class="custom-select">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Working Days</mat-label>
+                    <mat-select multiple [(ngModel)]="task.workingDays">
+                      <mat-option *ngFor="let day of workingDays" [value]="day.keyId">{{ day.value }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </span>
               </td>
               <td>
                 <p>{{ task.temp}}</p>
               </td>
               <td>
-                <p>{{ task.status }}</p>
+                <select class="form-control custom-form-control" [(ngModel)]="task.status">
+                  <option *ngFor="let status of addStatus" [value]="status.keyId">{{status.value}}</option>
+                </select>
               </td>
               <td>
                 <p>{{ task.objectCount }}</p>
               </td>
-              <td >{{task.modelObjectTypeId}}</td>
-  
+              <td > <select class="form-control custom-form-control" [(ngModel)]="task.modelObjectTypeId">
+                <option *ngFor="let status of model_object_type" [value]="status.keyId">{{status.value}}</option>
+              </select></td>
             </tr>
           </tbody>
         </table>
@@ -363,9 +376,11 @@
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Status</mat-label>
             <mat-select  [(ngModel)]="currentItem.status">
-              <mat-option *ngFor="let item of addStatus" [value]="item.keyId">
+              <!-- <mat-option *ngFor="let item of addStatus" [value]="item.keyId" [hidden]="item.keyId !== 4 && item.keyId !== 5">
                 {{ item.value }}
-              </mat-option>
+              </mat-option> -->
+              <mat-option [value]="2">Activated</mat-option>
+              <mat-option [value]="3">DeActivated</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -418,4 +433,7 @@
   
   <div *ngIf="showAsset">
     <app-add-new-advertisement (newItemEvent)="closenow('asset'); listAdsInfo()"></app-add-new-advertisement>
+  </div>
+  <div *ngIf="addRule">
+    <app-add-new-rule (newItemEvent)="closenow('rule')"> </app-add-new-rule>
   </div>

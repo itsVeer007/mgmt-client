@@ -51,6 +51,8 @@ export class NewDeviceComponent {
       this.cameras = res;
     })
   }
+
+  sites:any = [];
   Active:any= [];
   inactive:any = [];
   newlistDeviceInfoData:any = [];
@@ -60,6 +62,7 @@ export class NewDeviceComponent {
     this.adver.listDeviceInfo().subscribe((res:any)=> {
       console.log(res);
       this.showLoader = false
+      this.sites = res?.sites
       this.listDeviceInfoData = res?.sites.flatMap((item:any)=>item.Devices)
       this.newlistDeviceInfoData = this.listDeviceInfoData
       console.log(this.newlistDeviceInfoData);
@@ -333,7 +336,7 @@ export class NewDeviceComponent {
   weatherInterval: any;
   deviceStatus: any;
   getMetadata() {
-    let data = this.storageSer.get('metaData');;
+    let data = this.storageSer.get('metaData');
     data?.forEach((item: any) => {
       if(item.type == 2) {
         this.deviceType = item.metadata;

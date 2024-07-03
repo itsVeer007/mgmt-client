@@ -81,6 +81,7 @@ import { NewDeviceComponent } from './components/new-device/new-device.component
 import { AddSecondDeviceComponent } from './main-dashboard/add-second-device/add-second-device.component';
 import { NewAdvertisementComponent } from './components/new-advertisement/new-advertisement.component';
 import { AddNewAdvertisementComponent } from './main-dashboard/add-new-advertisement/add-new-advertisement.component';
+import { AddNewRuleComponent } from './main-dashboard/add-new-rule/add-new-rule.component';
 
 
 
@@ -152,7 +153,8 @@ import { AddNewAdvertisementComponent } from './main-dashboard/add-new-advertise
     NewDeviceComponent,
     AddSecondDeviceComponent,
     NewAdvertisementComponent,
-    AddNewAdvertisementComponent
+    AddNewAdvertisementComponent,
+    AddNewRuleComponent
 
   ],
   imports: [

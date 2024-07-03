@@ -217,7 +217,7 @@ form .add-btn:active {
 
 .dialog-content {
   padding: 10px 20px;
-  max-width: 100%;
+  max-width: 80vw;
   max-height: 80vh;
   overflow-y: auto;
 
