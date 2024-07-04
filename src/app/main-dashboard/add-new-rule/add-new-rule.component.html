@@ -4,13 +4,16 @@
     <div class="col-lg-6 col-8 add-form" id="camera" @inOutPaneAnimation>
       <div>
         <a class="close-main pointer" (click)="closenow()"><img src="assets/icons/close_form.svg" /></a>
-        <span class="form-heading">add advertisement</span>
+        <span class="form-heading">add Rule</span>
       </div>
   
       <!-- form -->
       <div>
         <form autocomplete="off" [formGroup]="addAssetForm" (ngSubmit)="addNewAsset()">
           <div class="row">
+            <div class="col-lg-6">
+              <input type="time">
+            </div>
               <div class="col-lg-6 col-md-6" >
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Ads</mat-label>

@@ -115,10 +115,10 @@ getMetadata() {
 
 submit(item:any) {
   if(this.userForm1.valid) {
-    this.newItemEvent.emit();
     item.createdBy = this.user?.UserId
     this.adver.createDevice(this.userForm1.value).subscribe((res:any)=> {
-      console.log(res);
+      // console.log(res);
+      this.newItemEvent.emit();
       this.alert.wait();
       if(res?.statusCode == 200) {
         this.alert.success(res?.message)

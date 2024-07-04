@@ -34,12 +34,10 @@ export class NewAdvertisementComponent {
     this.listAdsInfo();
     // this.listAssets();
   }
-  pending:any =[]
-  addedAd:any = []
-  activated:any = []
-  removed:any = []
-  Deactivated:any = []
-
+ 
+  searchSites(event: any) {
+    this.searchText = (event.target as HTMLInputElement).value;
+  }
   siteData:any=[]
   showLoader:any
   newlistAdsInfoData:any = [];
@@ -48,6 +46,7 @@ export class NewAdvertisementComponent {
   siteId:any = 'All';
   deviceId:any = "All";
   adName:any = 'All';
+  devices:any;
 
 
   filterData:any
@@ -68,6 +67,20 @@ export class NewAdvertisementComponent {
       })
     }
   }
+
+  listDevices(site: any) {
+    this.adver.listAdsInfo(site).subscribe((res: any) => {
+      this.devices = res.sites.flatMap((item:any)=>item.devices);
+    })
+  }
+
+
+  pending:any =[]
+  addedAd:any = []
+  activated:any = []
+  removed:any = []
+  Deactivated:any = []
+
   listAdsInfo() {
     this.tableLoader = true;
     this.adver.listAdsInfo().subscribe((res:any)=> {
@@ -77,6 +90,7 @@ export class NewAdvertisementComponent {
       this.tableLoader = false
       this.siteData = res?.sites;
       this.listAdsInfoData = res.sites.flatMap((item:any)=>item.devices);
+      this.devices = this.listAdsInfoData;
       this.newlistAdsInfoData = this.listAdsInfoData.flatMap((item: any) => item.ads);
 
       for(let item of this.newlistAdsInfoData) {

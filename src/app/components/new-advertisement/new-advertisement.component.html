@@ -14,13 +14,13 @@
   
     <!-- status -->
     <div class="row mb-2">
-      <div class="col-lg-1 col-md-1 d-flex justify-content-start">
+      <!-- <div class="col-lg-1 col-md-1 d-flex justify-content-start">
         <div class="vl-yellow"></div>
         <div class="mx-2">
           <div class="status">Pending</div>
           <div class="count">{{ pending?.length }}</div>
         </div>
-      </div>
+      </div> -->
   
       <div class="col-lg-1 col-md-1 d-flex justify-content-start">
         <div class="vl-green"></div>
@@ -68,17 +68,17 @@
       <div class="col-lg-3">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Site</mat-label>
-          <input matInput #siteIdInput [matAutocomplete]="site" [(ngModel)]="siteId">
+          <input matInput #siteIdInput [matAutocomplete]="site" [(ngModel)]="siteId" (keyup)="searchSites($event)">
           <button matSuffix mat-icon-button>
             <mat-icon>arrow_drop_down</mat-icon>
           </button>
           <mat-autocomplete #site="matAutocomplete">
             <mat-option value="All" (click)="filter('All')">All</mat-option>
-            <mat-option *ngFor="let item of siteData" [value]="item.siteId" (click)="filter(item.siteId)">{{item.siteId}}</mat-option>
-            <mat-option></mat-option>
+            <mat-option *ngFor="let item of siteData | search: searchText" [value]="item.siteId" (click)="filter(item.siteId); listDevices(item)">{{item.siteId}}</mat-option>
           </mat-autocomplete>
         </mat-form-field>
       </div>
+
       <div class="col-lg-3">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Device</mat-label>
@@ -88,8 +88,7 @@
           </button>
           <mat-autocomplete #device="matAutocomplete">
             <mat-option value="All" (click)="filter('All')">All</mat-option>
-            <mat-option *ngFor="let item of newlistAdsInfoData" [value]="item.deviceId" (click)="filter(item.deviceId)">{{item.deviceId}}</mat-option>
-            <mat-option></mat-option>
+            <mat-option *ngFor="let item of devices" [value]="item.deviceId" (click)="filter(item.deviceId)">{{item.deviceId}}</mat-option>
           </mat-autocomplete>
         </mat-form-field>
       </div>
@@ -422,6 +421,20 @@
     </div>
     <div class="dialog-content">
       <video [src]="currentItem?.url" width="500px" height="300px" autoplay controls></video>
+    </div>
+    <div class="d-flex align-items-center justify-content-end">
+      <div>
+        <button class="dialog-close-btn" mat-dialog-close>Close</button>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #addPlayerDialog>
+    <div style="background-color: #084982;">
+      <p class="dialog-title">ADD FILE</p>
+    </div>
+    <div class="dialog-content">
+      <video [src]="currentItem?.adUrl" width="500px" height="300px" autoplay controls></video>
     </div>
     <div class="d-flex align-items-center justify-content-end">
       <div>
