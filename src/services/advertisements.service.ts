@@ -30,9 +30,9 @@ export class AdvertisementsService {
     if(payload?.deviceId) {
       params = params.set('deviceId', payload?.deviceId);
     }
-    if(payload?.deviceType) {
-      params = params.set('deviceType', payload?.deviceType);
-    }
+    // if(payload?.deviceType) {
+    //   params = params.set('deviceType', payload?.deviceType);
+    // }
     if(payload?.deviceTypeId) {
       params = params.set('deviceTypeId', payload?.deviceTypeId);
     }

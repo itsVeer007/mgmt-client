@@ -50,13 +50,13 @@
         <div class="col-lg-3">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Site</mat-label>
-            <input matInput #siteIdInput [matAutocomplete]="site">
+            <input matInput #siteIdInput [matAutocomplete]="site" [(ngModel)]="siteId">
             <button matSuffix mat-icon-button>
               <mat-icon>arrow_drop_down</mat-icon>
             </button>
             <mat-autocomplete #site="matAutocomplete">
-              <mat-option value="All">All</mat-option>
-              <mat-option *ngFor="let item of sites" [value]="item.siteId">{{item.siteId}}-{{item.siteName}}</mat-option>
+              <mat-option value="All" (click)="filter('All')">All</mat-option>
+              <mat-option *ngFor="let item of sites" [value]="item.siteId" (click)="filter(item.siteId)">{{item.siteId}}-{{item.siteName}}</mat-option>
               <mat-option></mat-option>
             </mat-autocomplete>
           </mat-form-field>
@@ -64,13 +64,13 @@
         <div class="col-lg-3">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Device</mat-label>
-            <input matInput #deviceIdInput type="text" [matAutocomplete]="device">
+            <input matInput #deviceIdInput type="text" [matAutocomplete]="device" [(ngModel)]="deviceId">
             <button matSuffix mat-icon-button>
               <mat-icon>arrow_drop_down</mat-icon>
             </button>
             <mat-autocomplete #device="matAutocomplete">
-              <mat-option value="All">All</mat-option>
-              <mat-option *ngFor="let item of newlistDeviceInfoData" [value]="item.deviceId">{{item.deviceId}}</mat-option>
+              <mat-option value="All" (click)="filter('All')">All</mat-option>
+              <mat-option *ngFor="let item of newlistDeviceInfoData" [value]="item.deviceId" (click)="filter(item.deviceId)">{{item.deviceId}}</mat-option>
               <mat-option></mat-option>
             </mat-autocomplete>
           </mat-form-field>
@@ -78,8 +78,8 @@
         <div class="col-lg-3">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Device Type</mat-label>
-            <mat-select>
-              <mat-option *ngFor="let item of deviceType" [value]="item.keyId">{{item.value}}</mat-option>
+            <mat-select [(ngModel)]="deviceTypeId">
+              <mat-option *ngFor="let item of deviceType" [value]="item.keyId" (click)="filter(item.keyId)">{{item.value}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>

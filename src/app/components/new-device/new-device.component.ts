@@ -76,6 +76,31 @@ export class NewDeviceComponent {
     })
   }
 
+
+  siteId:any = 'All';
+  deviceId: any = "All";
+  deviceTypeId:any
+
+  filter(type:any) {
+    let siteId:any
+    let deviceId:any;
+    this.siteId == 'All' ? siteId = null : siteId = this.siteId;
+    this.deviceId == 'All' ? deviceId = null : deviceId = this.deviceId;
+  
+
+    if(type == 'All') {
+      this.newlistDeviceInfoData = this.listDeviceInfoData
+    } else {
+      this.adver.listDeviceInfo({siteId:siteId, deviceId:deviceId, deviceTypeId:  this.deviceTypeId}).subscribe((res:any)=> {
+        this.newlistDeviceInfoData = res?.sites.flatMap((item:any)=>item.Devices)
+      })
+    }
+  }
+
+
+
+
+
   // .sort((a:any, b:any) => b.active - a.active);
   @ViewChild('viewSiteDialog') viewSiteDialog = {} as TemplateRef<any>;
   openViewPopup(item:any) {
@@ -189,8 +214,8 @@ export class NewDeviceComponent {
 
 
 
-  siteId: any;
-  deviceId: any
+  // siteId: any;
+ 
 
   // current:any
   // currentItem1:any;
