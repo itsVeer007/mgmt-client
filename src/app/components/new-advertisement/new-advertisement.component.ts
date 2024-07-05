@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AdvertisementsService } from 'src/services/advertisements.service';
 import { AlertService } from 'src/services/alert.service';
@@ -14,7 +14,7 @@ import { StorageService } from 'src/services/storage.service';
 })
 export class NewAdvertisementComponent {
 
-
+@Output() newItemEvent = new EventEmitter<boolean>()
   
   constructor(
     private assetService: AssetService,
@@ -91,7 +91,7 @@ export class NewAdvertisementComponent {
       this.siteData = res?.sites;
       this.listAdsInfoData = res.sites.flatMap((item:any)=>item.devices);
       this.devices = this.listAdsInfoData;
-      this.newlistAdsInfoData = this.listAdsInfoData.flatMap((item: any) => item.ads);
+      this.newlistAdsInfoData = this.listAdsInfoData.flatMap((item: any) => item.ads.sort((a:any, b:any)=> a.adId > b.adId ? -1 : a.adId < b.adId ? 1 : 0));
 
       for(let item of this.newlistAdsInfoData) {
         if(item.status == 1) {
@@ -110,6 +110,14 @@ export class NewAdvertisementComponent {
         }
       }
     })
+  }
+
+  ticketStatusObj = {
+    startDate: null,
+    endDate:null
+  }
+  applyFilter() {
+
   }
 
   ruleData:any
@@ -233,9 +241,11 @@ currentItem:any
   }
 
   addRule:boolean = false;
-
+  final:any
   showAsset: boolean = false;
-  showAddAsset(type: any) {
+
+  showAddAsset(type: any , value?:any) {
+   this.final =  value 
     if (type == 'asset') {
       this.showAsset = true;
     }

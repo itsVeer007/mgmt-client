@@ -7,8 +7,8 @@
   
       <div>
         <!-- <button mat-flat-button color="primary" (click)="showAddAsset(siteIdInput.value, deviceIdInput.value)">Create Add</button> -->
-        <button class="create-btn mx-2" (click)="showAddAsset('rule')">Create Rule</button>
         <button class="create-btn" (click)="showAddAsset('asset')">Create Add</button>
+        <!-- <button class="create-btn mx-2" (click)="showAddAsset('rule')">Create Rule</button> -->
       </div>
     </div>
   
@@ -92,7 +92,7 @@
           </mat-autocomplete>
         </mat-form-field>
       </div>
-      <div class="col-lg-3">
+      <!-- <div class="col-lg-3">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Ads Name</mat-label>
           <input matInput #addIdInput type="text" [matAutocomplete]="add" [(ngModel)]="adName">
@@ -104,6 +104,23 @@
             <mat-option *ngFor="let item of newlistAdsInfoData" [value]="item.adName" (click)="filter(item.deviceId)">{{item.adName}}</mat-option>
             <mat-option></mat-option>
           </mat-autocomplete>
+        </mat-form-field>
+      </div> -->
+      <div class="col-lg-3 from-date">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Enter a date range</mat-label>
+          <mat-date-range-input [rangePicker]="rangePicker">
+            <input matStartDate placeholder="Created from" [(ngModel)]="ticketStatusObj.startDate">
+            <input matEndDate placeholder="Created to" [(ngModel)]="ticketStatusObj.endDate">
+          </mat-date-range-input>
+          <mat-datepicker-toggle matIconSuffix [for]="rangePicker"></mat-datepicker-toggle>
+  
+          <mat-date-range-picker #rangePicker>
+            <mat-date-range-picker-actions>
+              <button mat-button matDateRangePickerCancel>Cancel</button>
+              <button mat-raised-button color="primary" matDateRangePickerApply (click)="applyFilter()">Apply</button>
+            </mat-date-range-picker-actions>
+          </mat-date-range-picker>
         </mat-form-field>
       </div>
       <div class="col-lg-3">
@@ -156,13 +173,13 @@
             </th>
   
             <th>
-              <span>Status</span>
+              <span>SyncDeviceStatus</span>
               <img (click)="sort('status')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </th>
   
             <th class="text-center">Play</th>
             <th><p>Rules</p></th>
-            <th><p>Status</p>
+            <th><p>Add Status</p>
               <img (click)="sort('status')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"></th>
   
             <th class="text-center">Actions</th>
@@ -187,10 +204,10 @@
               <p>{{ item.toDate | date:'mediumDate' }}</p>
             </td>
             <td>
-              <!-- {{ item.status == 1 ? 'Pending' : item.status == 2 ? 'Added' : item.status == 3 ? 'Removed' : item.status == 4 ? 'Activated' : item.status == 5 ? 'Deactivated' : ''}} -->
-              <select class="form-control custom-form-control" [(ngModel)]="item.status">
+              {{ item.status == 1 ? 'Pending' : item.status == 2 ? 'Pending' : item.status == 3 ? 'Pending' : item.status == 4 ? 'Activated' : item.status == 5 ? 'Deactivated' : ''}}
+              <!-- <select class="form-control custom-form-control" [(ngModel)]="item.status">
                 <option *ngFor="let status of addStatus" [value]="status.keyId">{{status.value}}</option>
-              </select>
+              </select> -->
             </td>
 
             <td class="text-center">
@@ -227,12 +244,14 @@
               </button>
             </td> -->
   
-            <td class="text-center">
-              <a class="pointer" *ngIf="item.rules === 0 ">
-                <img style="color: #dd6868;" src="assets/icons/add.svg" width="50" height="25" />
+            <td class="text-center" *ngIf="item.active == 1">
+              <a class="pointer" *ngIf="item.rules === 0" (click)="showAddAsset('rule', item)">
+                <img style="color: #dd6868;" src="assets/icons/add.svg" width="50" height="25"   />
               </a>
               <span  *ngIf="item.rules !== 0" (click)="openView(item)">View</span>
             </td>
+            <td *ngIf="item.active !==1" class="text-center"><img src="assets\icons\minus.svg" alt=""></td>
+
             <td [style.color]="item.active == 1 ? 'Green' : item.active == 0 ? 'Red' : ''">{{item.active == 1 ? 'Active' : item.active == 0 ? 'Inactive':''}}</td>
   
            
@@ -265,6 +284,14 @@
     </div>
   </div>
   
+
+  <div *ngIf="showAsset">
+    <app-add-new-advertisement [newData]="null" (newItemEvent)="closenow('asset')"></app-add-new-advertisement>
+  </div>
+
+  <div *ngIf="addRule">
+    <app-add-new-rule [inputData]="final" (newItemEvent)="closenow('rule')"> </app-add-new-rule>
+  </div>
 
   <ng-template #usedItemsDialog>
     <div style="background-color: #084982;" >
@@ -443,10 +470,4 @@
     </div>
   </ng-template>
   
-  
-  <div *ngIf="showAsset">
-    <app-add-new-advertisement (newItemEvent)="closenow('asset'); listAdsInfo()"></app-add-new-advertisement>
-  </div>
-  <div *ngIf="addRule">
-    <app-add-new-rule (newItemEvent)="closenow('rule')"> </app-add-new-rule>
-  </div>
+ 

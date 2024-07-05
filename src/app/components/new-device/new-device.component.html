@@ -9,6 +9,7 @@
       <div style="position: relative;">
         <!-- <a class="pointer" (click)="show('device')"><img src="assets/icons/add.svg" alt="" /></a> -->
         <!-- <button mat-flat-button color="primary" class="py-0" (click)="show('device')">Create Device</button> -->
+   
         <button class="create-btn" (click)="show('device')">Create Device</button>
         <!-- <button class="create-btn mx-1" (click)="openSensor()">Sensors Data</button> -->
       </div>
@@ -203,7 +204,7 @@
                   margin-left: 10px;
                 " />
             </th> -->
-            <th>SINO</th>
+            <!-- <th>SINO</th> -->
             <th>
                 <span>Site</span>
                 <img (click)="sort('deviceId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">  
@@ -222,17 +223,20 @@
             </th>
             <th>
               <span>Camera Name</span>
+              <img (click)="sort('cameraName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </th>
             <th>
-                <span>Ads</span>
+                <span>Add</span>
             </th>
             <!-- <th>
              <p matTooltip="Installation">I Status</p>
               <img (click)="sort('status')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </th> -->
-            <th class="pointer"><p matTooltip="Installation">I </p> Status</th>
+            <th class="pointer"><p matTooltip="Installation">I </p> Status
+              <!-- <img (click)="sort('deviceTypeId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"></th> -->
             <th>Reboot</th>
-            <th class="pointer"><p matTooltip="Service">S </p> Status</th>
+            <th class="pointer"><p matTooltip="Service">S </p> Status
+              <img (click)="sort('active')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"></th>
             <th>
               <span>Actions</span>
             </th>
@@ -242,7 +246,7 @@
         <tbody *ngIf="!showLoader">
           <tr *ngFor="let cust of newlistDeviceInfoData | search : searchText  let i = index" >
             <ng-container>
-              <td>{{i+1}}</td>
+              <!-- <td>{{i+1}}</td> -->
             <!-- <td>
               <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="cust.selected" (change)="
                   checkIfAllSelected();
@@ -265,9 +269,9 @@
               <p>{{ cust.deviceTypeId == 1 ? 'Audio' : cust.deviceTypeId == 2 ? 'Video': cust.deviceTypeId == 3 ? 'Wifi' : ''}}</p>
             </td>
             <td>
-              <p>{{   cust.cameraName == null && cust.cameraId == 0 ? 'Device Camera' : cust.cameraName}}</p>
+              <p>{{  cust.cameraId == 0 ? 'Device Camera' : cust.cameraName}}</p>
             </td>
-            <td class="pointer" style="color: #084982;" matTooltip="View" (click)="openAdver()">View</td>
+            <td class="pointer" style="color: #084982;" matTooltip="Add Advertisement" (click)="show('asset', cust)"><img src="assets/icons/add.svg" alt="" width="35px"></td>
             <!-- <td>
               <p class="text-primary pointer" (click)="show('device-info')">1</p>
             </td>
@@ -279,7 +283,7 @@
                 {{ cust.status == 1 ? 'Online' : cust.status == 2 ? 'Offline' : '' }}
               </p> -->
               <select class="form-control custom-form-control" [(ngModel)]="cust.status">
-                <option *ngFor="let status of deviceStatus" [value]="status.keyId">{{status.value}}</option>
+                <option *ngFor="let item of deviceStatus" [value]="item.keyId">{{item.value}}</option>
               </select>
             </td>
   
@@ -322,9 +326,15 @@
   
   </div>
   
-  <div *ngIf="showAddDevice">
-    <app-add-second-device (newItemEvent)="closenow('device'); listDeviceInfo()"></app-add-second-device>
+  <div *ngIf="showDeviceInfo">
+    <app-add-second-device (newItemEvent)="close('device'); listDeviceInfo()"></app-add-second-device>
   </div>
+
+  
+  <div *ngIf="showAddDevice">
+    <app-add-new-advertisement [newData]="data" (newItemEvent)="close('asset')"></app-add-new-advertisement>
+  </div>
+
 <!--   
   <div *ngIf="showDeviceInfo">
     <app-device-info (newItemEvent)="closenow('device-info')"></app-device-info>
@@ -476,12 +486,12 @@
   
   <ng-template #editSiteDialog>
     <div style="background-color: #084982;">
-      <p class="dialog-title">Update device</p>
+      <p class="dialog-title">Update Device -{{currentItem?.siteId}}-{{currentItem?.deviceId}}</p>
     </div>
   
       <div class="dialog-content">
         <div class="row m-0" *ngIf="currentItem">
-          <div class="col-lg-4 col-md-4">
+          <!-- <div class="col-lg-4 col-md-4">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Site Id</mat-label>
               <input matInput [(ngModel)]="currentItem.siteId" disabled>
@@ -502,7 +512,7 @@
                 <mat-option *ngFor="let item of deviceType" [value]="item.keyId">{{ item.value }}</mat-option>
               </mat-select>
             </mat-form-field>
-          </div>
+          </div> -->
   
           <div class="col-lg-4 col-md-4">
             <mat-form-field appearance="outline" class="w-100">
@@ -664,99 +674,9 @@
     </div>
   </ng-template>
   
-  <ng-template #sensorDialog>
-    <div class="main">
-      <div class="text-center">
-        <p class="dialog-title">Sensors</p>
-      </div>
-    </div>
-    
-    <div class="d-flex justify-content-start">
-      <div class="users-header mt-2 mx-3">
-        <p class="m-0 mb-2">Sensors - <span>{{ newGetDataForDevice?.length }}</span></p>
-      </div>
-      <div class="users-header mt-2 mx-3">
-        <p class="m-0 mb-2">Zones - <span>{{ newGetDataForDevice?.length }}</span></p>
-      </div>
-    </div>
-    <div class="dialog-content" style="min-width: 950px; min-height: 300px;">
-      <!-- <div class="row"> -->
-      <!-- <app-filter [filterType]="'sensors'" (tableDataFromChild)="getDevicesFromChild1($event)">
-      </app-filter> -->
-    
-      <div class="row">
-        <div class="col-lg-4 col-md-4">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Site</mat-label>
-            <mat-select [(ngModel)]="siteId">
-              <mat-option *ngFor="let item of tableData" [value]="item.siteId" (click)="getData(item)">{{ item.siteId }} - {{item.siteName}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="col-lg-4 col-md-4">
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Device</mat-label>
-            <mat-select [(ngModel)]="deviceId">
-              <mat-option *ngFor="let item of deviceData" [value]="item.deviceId" (click)="getData(item)">{{ item.deviceId }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div>
-      <!-- </div> -->
-    
-      <div class="device-list">
-        <!-- <div class="device-item" *ngFor="let item of getDataForDevice">
-            <p class="mb-2 heading"><span style="color: brown;">Device Name:&nbsp;</span>{{item.device_name}}</p>
-            <span *ngFor="let val of item.devices_data">
-              <div>
-                <p><span  style="color: darkcyan;">Date:&nbsp;</span>{{val.dateTime}}</p>
-              </div>
-              <p><span style="color: darkcyan;">sensor_id:&nbsp;</span>{{val.sensor_id}}</p>
-              <div class="mb-2">
-                <p><span style="color: darkcyan;">status:&nbsp;</span>{{val.status}}</p>
-              </div>
-            </span>
-          </div> -->
-        <ng-container *ngIf="!showLoader1">
-          <div class="device-item mb-3" *ngFor="let item of newGetDataForDevice">
-            <mat-card>
-              <div class="d-flex justify-content-around align-items-center mx-3">
-                <h2 class="text-center mt-3">ZONE:&nbsp;{{item?.zoneId}}</h2>
-                <!-- <h2>SiteId:&nbsp;{{item?.site_id}}</h2> -->
-              </div>
-            </mat-card>
-            <div class="d-flex justify-content-around align-items-center">
-              <h2 class=" heading dialog-title  mb-1" style=" width: 100px;"><span class="">Device</span></h2>
-              <h2 class="heading dialog-title mb-1" style=" width: 100px;"><span class="">Name</span></h2>
-              <h2 class="heading dialog-title mb-1" style=" width: 100px;"><span class="">Type</span></h2>
-              <h2 class="heading dialog-title mb-1" style=" width: 100px;"><span class="">Status</span></h2>
-              <h2 class="heading dialog-title mb-1" style=" width: 100px;"><span class="">Time</span></h2>
-            </div>
-            <div *ngFor="let val of item.devices_data">
-              <div class="d-flex justify-content-around align-items-center">
-                <p class="dialog-title" style="width: 100px;">{{val.sensorDeviceId}} </p>
-                <p class="dialog-title" style="width: 100px;">{{val.sensorId}}</p>
-                <p class="dialog-title" style="width: 100px;">{{val.sensorType}}</p>
-                <p class="dialog-title" style="width: 100px;">{{val.status}}</p>
-                <p class="dialog-title" style="width: 100px;">{{val.latestTimeStamp | date:'shortTime'}}</p>
-              </div>
-            </div>
-          </div>
-        </ng-container>
-        <div *ngIf="showLoader1">
-          <app-loader class="d-flex justify-content-center align-items-center" style="height: 30vh;"></app-loader>
-        </div>
-        <div class="d-flex justify-content-center align-items-center"
-          style="height: 50vh;font-weight: 600; font-size: larger;" *ngIf="getDataForDevice.length == 0 && !showLoader1">No
-          Data</div>
-      </div>
-      <div class="d-flex justify-content-end mt-2">
-        <button class="dialog-close-btn" mat-dialog-close>Close</button>
-      </div>
-    </div>
-  </ng-template>
+ 
   
   
-  
+ 
   
   

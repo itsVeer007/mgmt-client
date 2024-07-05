@@ -36,7 +36,7 @@ import { AdvertisementsService } from 'src/services/advertisements.service';
 })
 export class AddNewAdvertisementComponent {
 
-  @Output() newItemEvent = new EventEmitter<any>();
+
 
   constructor(
     private router: Router,
@@ -49,6 +49,11 @@ export class AddNewAdvertisementComponent {
     private siteSer: SiteService,
     private adver:AdvertisementsService
   ) { }
+
+
+
+  @Output() newItemEvent = new EventEmitter<any>();
+  @Input() newData:any;
 
   addAssetForm: any = FormGroup;
   searchText: any;
@@ -69,13 +74,14 @@ export class AddNewAdvertisementComponent {
   // deviceIdFromStorage: any;
   user: any;
   ngOnInit(): void {
+    console.log(this.newData)
     this.user = this.storageSer.get('user');
     // this.deviceIdFromStorage = this.storageSer.get('add_body');
     this.addAssetForm = this.fb.group({
       'file': new FormControl('', Validators.required),
       'deviceId': new FormControl(''),
-      'adName': new FormControl('', Validators.required),
-      'fromDate': new FormControl('', Validators.required),
+      'adName': new FormControl(''),
+      'fromDate': new FormControl(''),
       'toDate': new FormControl(''),
       'remarks': new FormControl(''),
     });
@@ -84,7 +90,7 @@ export class AddNewAdvertisementComponent {
     this.onMetadataChange()
 
     // this.listAdsInfo();
-    this.listDeviceInfo()
+    // this.listDeviceInfo()
   };
 
   showLoader:boolean = false;
@@ -95,9 +101,9 @@ export class AddNewAdvertisementComponent {
   listDeviceInfo() {
     this.showLoader = true;
     this.adver.listDeviceInfo().subscribe((res:any)=> {
-      console.log(res);
+      // console.log(res);
       this.showLoader = false
-      this.listDeviceInfoData = res?.sites.flatMap((item:any)=>item.Devices)
+      this.listDeviceInfoData = res?.sites.flatMap((item:any)=>item.devices)
       this.newlistDeviceInfoData = this.listDeviceInfoData
       console.log(this.newlistDeviceInfoData);
       for(let item of this.newlistDeviceInfoData) {
@@ -115,12 +121,17 @@ export class AddNewAdvertisementComponent {
   addNewAsset() {
     if(this.addAssetForm.valid) {
       // this.alertSer.wait();
+      this.addAssetForm.value.deviceId = this.newData.deviceId
       this.adver.createAd(this.addAssetForm.value, this.selectedFile).subscribe((res: any) => {
         this.newItemEvent.emit();
-        this.alertSer.success(res?.message);
-        }, (err: any) => {
-          this.alertSer.error(err?.error?.message);
-        });
+        if(res?.statusCode == 200 ) {
+          this.alertSer.success(res?.message)
+        } else{
+          this.alertSer.error(res?.message)
+        }
+      },(error:any)=> {
+        this.alertSer.error(error?.err?.message)
+      });
     }
   }
 

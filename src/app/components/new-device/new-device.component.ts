@@ -39,7 +39,7 @@ export class NewDeviceComponent {
     this.user = this.storageSer.get('user');
     this.listDeviceInfo()
     this.getSitesListForUserName()
-    this.listDeviceAdsInfo();
+  
     this.getStatus();
     // this.getData();
   }
@@ -61,11 +61,12 @@ export class NewDeviceComponent {
     this.showLoader = true;
     this.adver.listDeviceInfo().subscribe((res:any)=> {
       console.log(res);
+      this.getMetadata();
       this.showLoader = false
       this.sites = res?.sites
       this.listDeviceInfoData = res?.sites.flatMap((item:any)=>item.Devices)
-      this.newlistDeviceInfoData = this.listDeviceInfoData
-      console.log(this.newlistDeviceInfoData);
+      this.newlistDeviceInfoData = this.listDeviceInfoData;
+      // console.log(this.newlistDeviceInfoData);
       for(let item of this.newlistDeviceInfoData) {
         if(item.active == 1) {
           this.Active.push(item)
@@ -76,6 +77,9 @@ export class NewDeviceComponent {
     })
   }
 
+  closenow(){
+    this.newItemEvent.emit()
+  }
 
   siteId:any = 'All';
   deviceId: any = "All";
@@ -101,7 +105,6 @@ export class NewDeviceComponent {
 
 
 
-  // .sort((a:any, b:any) => b.active - a.active);
   @ViewChild('viewSiteDialog') viewSiteDialog = {} as TemplateRef<any>;
   openViewPopup(item:any) {
     this.currentItem = item;
@@ -120,6 +123,7 @@ export class NewDeviceComponent {
   }
 
   cameraType: any ;
+  currentItem: any;
 
   getCurrentCamera(item:any) {
     this.currentItem.cameraId = item.cameraId
@@ -129,11 +133,18 @@ export class NewDeviceComponent {
 
   updateDeviceDtl() {
     delete this.currentItem.modelObjectTypeId
+    delete this.currentItem.cameraName
+    delete this.currentItem.cameraUrl
+    delete this.currentItem.siteName
+    delete this.currentItem.deviceTypeId
+    
     this.adver.updateDeviceInfo(this.currentItem).subscribe((res:any)=> {
       
       console.log(res);
       if(res?.statusCode == 200) {
         this.alertSer.success(res?.message)
+      } else {
+        this.alertSer.error(res?.message)
       }
     },(error:any)=> {
       this.alertSer.error(error?.err?.message)
@@ -196,65 +207,16 @@ export class NewDeviceComponent {
     });
   }
 
-  openAdver() {
-    this.router.navigate(['/home/new-adver'])
+
+  openView:boolean = false;
+  openAdver(type:any) {
+    if(type == 'view') {
+      this.openView = true;
+    }
   }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-  // siteId: any;
- 
-
-  // current:any
-  // currentItem1:any;
-  getDataForDevice:any = [];
-  newGetDataForDevice:any = [];
-  showLoader1: boolean = false
-  getData(item:any) {
-    this.showLoader1 = true;
-    this.inventorySer.getData(item).subscribe((res:any)=> {
-      // console.log(res);
-      this.showLoader1 = false
-      this.getDataForDevice = res;
-      this.newGetDataForDevice = this.getDataForDevice;
-      // this.getDataForDevice = res.flatMap((item:any)=> item.devices_data);
-      // console.log(this.getDataForDevice)
-    })
-  }
-
-  // openDialog(): void {
-  //   this.getData();
-  //   const dialogRef = this.dialog.open(SensorDataComponent,{
-
-  //     width: '100%',
-  //     height:'90vh'
-
-  //   });
-
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log('The dialog was closed');
-  //   });
-
-  // }
-
-    @ViewChild('sensorDialog') sensorDialog = {} as TemplateRef<any>
-    openSensor() {
-    this.siteId = this.tableData[0].siteId
-    this.getData(this.newTableData[0])
-    this.dialog.open(this.sensorDialog);
-  }
 
    /* searches */
     siteSearch: any;
@@ -289,29 +251,7 @@ export class NewDeviceComponent {
   }
 
   searchText: any;
-  deviceData: any = [];
-  newDeviceData: any = [];
-  active: any = [];
-  inActive: any = [];
-  listDeviceAdsInfo() {
-    this.showLoader = true;
-    this.assetSer.listDeviceAdsInfo().subscribe((res: any) => {
-      // console.log(res);
-      this.showLoader = false;
-      this.getMetadata();
-      this.deviceData = res.flatMap((item: any) => item.adsDevices);
-      this.newDeviceData = this.deviceData;
-      this.active = [];
-      this.inActive = []
-      for(let item of this.newDeviceData) {
-        if(item.status == 1) {
-          this.active.push(item);
-        } else if(item.status == 2) {
-          this.inActive.push(item);
-        }
-      }
-    })
-  }
+ 
 
   upTime: any;
   getStatus() {
@@ -328,19 +268,11 @@ export class NewDeviceComponent {
   getDevicesFromChild(data: any) {
     this.newlistDeviceInfoData = data;
 
-    this.active = [];
-    this.inActive = [];
-    for(let item of data) {
-      if(item.status == 1) {
-        this.active.push(item);
-      } else if(item.status == 2) {
-        this.inActive.push(item);
-      }
-    }
+   
   }
 
   getDevicesFromChild1(data: any) {
-    this.newGetDataForDevice = data;
+    // this.newGetDataForDevice = data;
     console.log(data)
   }
 
@@ -385,23 +317,33 @@ export class NewDeviceComponent {
         this.weatherInterval = item.metadata;
       } else if(item.type == 4) {
         this.deviceStatus = item.metadata;
+        console.log(this.deviceStatus)
       }
     })
   }
 
 
 
-
+  data:any
   showAddDevice: boolean = false;
   showDeviceInfo: boolean = false;
-  show(type: any) {
-    if(type == 'device') { this.showAddDevice = true }
-    if(type == 'device-info') { this.showDeviceInfo = true }
+  show(type: any, value?:any) {
+    this.data = value;
+    if(type == 'asset') {
+       this.showAddDevice = true 
+      }
+    if(type == 'device') {
+       this.showDeviceInfo = true 
+      }
   }
 
-  closenow(type: any) {
-    if(type == 'device') {this.showAddDevice = false}
-    if(type == 'device-info') {this.showDeviceInfo = false}
+  close(type: any) {
+    if(type == 'asset') {
+      this.showAddDevice = false
+    }
+    if(type == 'device') {
+      this.showDeviceInfo = false
+    }
   }
 
   @ViewChild('editStatusDialog') editStatusDialog = {} as TemplateRef<any>;
@@ -411,7 +353,7 @@ export class NewDeviceComponent {
     this.dialog.open(this.editStatusDialog);
   }
 
-  currentItem: any;
+  
   currentWorkingDays: any;
   // @ViewChild('viewSiteDialog') viewSiteDialog = {} as TemplateRef<any>;
   // openViewPopup(item: any) {
@@ -425,7 +367,7 @@ export class NewDeviceComponent {
   sorted = false;
   sort(label: any) {
     this.sorted = !this.sorted;
-    var x = this.newDeviceData;
+    var x = this.newlistDeviceInfoData;
     if (this.sorted == false) {
       x.sort((a: string, b: string) => a[label] > b[label] ? 1 : a[label] < b[label] ? -1 : 0);
     } else {

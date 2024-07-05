@@ -1,5 +1,5 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, EventEmitter, Output } from '@angular/core'
+import { Component, EventEmitter, Input, Output } from '@angular/core'
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/services/alert.service';
@@ -43,6 +43,8 @@ export class AddNewRuleComponent {
     private siteSer: SiteService
   ) { }
 
+  @Input() inputData:any
+
   @Output() newItemEvent = new EventEmitter();
 
   addAssetForm: any = FormGroup;
@@ -61,6 +63,7 @@ export class AddNewRuleComponent {
   // deviceIdFromStorage: any;
   user: any;
   ngOnInit(): void {
+    console.log(this.inputData)
     this.user = this.storageSer.get('user');
     // this.deviceIdFromStorage = this.storageSer.get('add_body');
     this.addAssetForm = this.fb.group({

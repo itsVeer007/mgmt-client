@@ -4,19 +4,19 @@
     <div class="col-lg-6 col-8 add-form" id="camera" @inOutPaneAnimation>
       <div>
         <a class="close-main pointer" (click)="closeForm()"><img src="assets/icons/close_form.svg" /></a>
-        <span class="form-heading">add advertisement</span>
+        <span class="form-heading">add advertisement - {{newData?.deviceId}}</span>
       </div>
   
       <!-- form -->
       <div>
         <form autocomplete="off" [formGroup]="addAssetForm" (ngSubmit)="addNewAsset()">
           <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-12" *ngIf="newData === null">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Select Device</mat-label>
                 <mat-select formControlName="deviceId">
-                  <mat-option *ngFor="let device of listDeviceInfoData" [value]="device.deviceId">{{ device.deviceId }}</mat-option>
-                  <mat-option *ngIf="filteredDevices.length == 0" disabled>No Devices</mat-option>
+                  <mat-option *ngFor="let device of listDeviceInfoData" [value]="device.deviceId">{{ device.deviceId }}-{{device.deviceName}}</mat-option>
+                  <!-- <mat-option *ngIf="filteredDevices.length == 0" disabled>No Devices</mat-option> -->
                 </mat-select>
                 <mat-error>Device is required</mat-error>
               </mat-form-field>
