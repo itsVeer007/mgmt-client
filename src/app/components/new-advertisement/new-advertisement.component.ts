@@ -29,11 +29,21 @@ export class NewAdvertisementComponent {
   searchText!: string;
   tableLoader: boolean = false;
   user: any;
+  selectedName:any
   ngOnInit() {
     this.user = this.storageSer.get('user');
     this.listAdsInfo();
     // this.listAssets();
+    this.adver.itemName.subscribe((res:any)=>{
+      console.log(res)
+      // this.selectedName = res;
+      this.siteId = res.siteId;
+      this.deviceId = res.deviceId
+      this.filter(res);
+    })
   }
+
+
  
   searchSites(event: any) {
     this.searchText = (event.target as HTMLInputElement).value;
@@ -47,26 +57,35 @@ export class NewAdvertisementComponent {
   deviceId:any = "All";
   adName:any = 'All';
   devices:any;
-
+  ticketStatusObj = {
+    fromDate: null,
+    toDate:null
+  }
 
   filterData:any
   filter(type:any) {
     let siteId:any;
     let deviceId:any;
     let adName:any;
+    let fromDate: any = this.ticketStatusObj.fromDate;
+    let toDate: any = this.ticketStatusObj.toDate; 
+
     this.siteId == 'All' ? siteId =  null : siteId = this.siteId;
     this.deviceId == 'All'? deviceId = null : deviceId = this.deviceId;
     this.adName == 'All'? adName = null : adName = this.adName;
+    
 
     if(type === "All") {
       this.newlistAdsInfoData = this.listAdsInfoData.flatMap((item: any) => item.ads);
     } else {
-      this.adver.listAdsInfo({siteId: siteId ,deviceId:deviceId, adName:adName}).subscribe((res:any)=> {
+      this.adver.listAdsInfo({siteId: siteId ,deviceId:deviceId, adName:adName, fromDate:this.ticketStatusObj.fromDate, toDate:this.ticketStatusObj.toDate}).subscribe((res:any)=> {
         let x = res.sites.flatMap((item:any)=>item.devices);
         this.newlistAdsInfoData = x.flatMap((item: any) => item.ads);
       })
     }
   }
+
+
 
   listDevices(site: any) {
     this.adver.listAdsInfo(site).subscribe((res: any) => {
@@ -93,32 +112,27 @@ export class NewAdvertisementComponent {
       this.devices = this.listAdsInfoData;
       this.newlistAdsInfoData = this.listAdsInfoData.flatMap((item: any) => item.ads.sort((a:any, b:any)=> a.adId > b.adId ? -1 : a.adId < b.adId ? 1 : 0));
 
-      for(let item of this.newlistAdsInfoData) {
-        if(item.status == 1) {
-          this.pending.push(item)
-        } else  if(item.status == 2) {
-          this.addedAd.push(item)
-        }
-        else  if(item.status == 3) {
-          this.removed.push(item)
-        }
-        else  if(item.status == 4) {
-          this.activated.push(item)
-        }
-        else  if(item.status == 5) {
-          this.Deactivated.push(item)
-        }
-      }
+      // for(let item of this.newlistAdsInfoData) {
+      //   if(item.status == 1) {
+      //     this.pending.push(item)
+      //   } else  if(item.status == 2) {
+      //     this.addedAd.push(item)
+      //   }
+      //   else  if(item.status == 3) {
+      //     this.removed.push(item)
+      //   }
+      //   else  if(item.status == 4) {
+      //     this.activated.push(item)
+      //   }
+      //   else  if(item.status == 5) {
+      //     this.Deactivated.push(item)
+      //   }
+      // }
     })
   }
 
-  ticketStatusObj = {
-    startDate: null,
-    endDate:null
-  }
-  applyFilter() {
 
-  }
+
 
   ruleData:any
   @ViewChild('usedItemsDialog') usedItemsDialog = {} as TemplateRef<any>;

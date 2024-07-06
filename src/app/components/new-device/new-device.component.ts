@@ -41,7 +41,7 @@ export class NewDeviceComponent {
     this.getSitesListForUserName()
   
     this.getStatus();
-    // this.getData();
+    this.listAdsInfo();
   }
 
 
@@ -71,6 +71,43 @@ export class NewDeviceComponent {
       }
     })
   }
+
+  newlistAdsInfoData:any =[]
+  listAdsInfoData:any = []
+  siteData:any;
+  listAdsInfo() {
+    this.adver.listAdsInfo().subscribe((res:any)=> {
+      console.log(res);
+      this.getMetadata();
+      this.siteData = res?.sites;
+      this.listAdsInfoData = res.sites.flatMap((item:any)=>item.devices);
+      this.devices = this.listAdsInfoData;
+      this.newlistAdsInfoData = this.listAdsInfoData.flatMap((item: any) => item.ads);
+
+      // for(let item of this.newlistAdsInfoData) {
+      //   if(item.status == 1) {
+      //     this.pending.push(item)
+      //   } else  if(item.status == 2) {
+      //     this.addedAd.push(item)
+      //   }
+      //   else  if(item.status == 3) {
+      //     this.removed.push(item)
+      //   }
+      //   else  if(item.status == 4) {
+      //     this.activated.push(item)
+      //   }
+      //   else  if(item.status == 5) {
+      //     this.Deactivated.push(item)
+      //   }
+      // }
+    })
+  }
+
+  openadver(item:any) {
+    this.adver.itemName.next(item)
+    this.router.navigate(['/home/new-adver'])
+  }
+  
 
   listDevices(site: any) {
     this.adver.listDeviceInfo(site).subscribe((res: any) => {
@@ -148,8 +185,7 @@ export class NewDeviceComponent {
     delete this.currentItem.deviceTypeId
     
     this.adver.updateDeviceInfo(this.currentItem).subscribe((res:any)=> {
-      
-      console.log(res);
+      // console.log(res);
       if(res?.statusCode == 200) {
         this.alertSer.success(res?.message)
       } else {
@@ -158,6 +194,7 @@ export class NewDeviceComponent {
     },(error:any)=> {
       this.alertSer.error(error?.err?.message)
     })
+    this.listDeviceInfo();
   }
 
   @ViewChild('deleteSiteDialog') deleteSiteDialog = {} as TemplateRef<any>;

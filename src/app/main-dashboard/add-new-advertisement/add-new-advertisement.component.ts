@@ -90,7 +90,7 @@ export class AddNewAdvertisementComponent {
     this.onMetadataChange()
 
     // this.listAdsInfo();
-    // this.listDeviceInfo()
+    this.listDeviceInfo()
   };
 
   showLoader:boolean = false;
@@ -101,18 +101,11 @@ export class AddNewAdvertisementComponent {
   listDeviceInfo() {
     this.showLoader = true;
     this.adver.listDeviceInfo().subscribe((res:any)=> {
-      // console.log(res);
+      console.log(res);
       this.showLoader = false
-      this.listDeviceInfoData = res?.sites.flatMap((item:any)=>item.devices)
+      this.listDeviceInfoData = res?.sites.flatMap((item:any)=>item.Devices)
       this.newlistDeviceInfoData = this.listDeviceInfoData
-      console.log(this.newlistDeviceInfoData);
-      for(let item of this.newlistDeviceInfoData) {
-        if(item.active == 1) {
-          this.Active.push(item)
-        } else  if(item.active == 0) {
-          this.inactive.push(item)
-        }
-      }
+      // console.log(this.newlistDeviceInfoData);
     })
   }
 
@@ -120,7 +113,7 @@ export class AddNewAdvertisementComponent {
   submit: boolean = false;
   addNewAsset() {
     if(this.addAssetForm.valid) {
-      // this.alertSer.wait();
+      this.alertSer.wait();
       this.addAssetForm.value.deviceId = this.newData.deviceId
       this.adver.createAd(this.addAssetForm.value, this.selectedFile).subscribe((res: any) => {
         this.newItemEvent.emit();

@@ -2,6 +2,7 @@ import { HttpClient,HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { StorageService } from './storage.service';
 import { formatDate } from '@angular/common';
+import { BehaviorSubject } from 'rxjs';
 
 
 @Injectable({
@@ -12,6 +13,8 @@ export class AdvertisementsService {
   constructor(private http:HttpClient,
     private storageSer: StorageService
   ) { }
+
+  public itemName = new BehaviorSubject<string>('')
 
    baseUrl = 'http://192.168.0.107:8000';
 
@@ -84,6 +87,7 @@ export class AdvertisementsService {
   }
 
   listAdsInfo(payload?: any) {
+    console.log(payload)
     let url = this.baseUrl + '/proximity_ads/listAdsAndRules_1_0';
     let params = new HttpParams();
     if(payload?.siteId) {
@@ -92,9 +96,16 @@ export class AdvertisementsService {
     if(payload?.deviceId) {
       params = params.set('deviceId', payload?.deviceId);
     }
-    if(payload?.adName) {
-      params = params.set('adName', payload?.adName);
+    if(payload?.fromDate) {
+      console.log(payload)
+      params = params.set('fromDate', formatDate(payload?.fromDate, 'yyyy-MM-dd', 'en-us'));
     } 
+    if(payload?.toDate) {
+      params = params.set('toDate', formatDate(payload?.toDate, 'yyyy-MM-dd', 'en-us'));
+    } 
+    // if(payload?.adName) {
+    //   params = params.set('adName', payload?.adName);
+    // } 
     return this.http.get(url, {params: params})
    }
 

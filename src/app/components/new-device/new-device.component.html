@@ -195,6 +195,9 @@
                 <span>Site</span>
                 <img (click)="sort('deviceId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">  
             </th>
+            <th><p>SiteName</p>
+              <img (click)="sort('siteName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">  
+            </th>
             <th>
               <span>Device Id</span>
               <img (click)="sort('deviceId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
@@ -214,6 +217,7 @@
             <th>
                 <span>Add</span>
             </th>
+            <th><p>Details</p></th>
             <th class="pointer"><p matTooltip="Installation">I </p> Status
               <!-- <img (click)="sort('deviceTypeId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"></th> -->
             <th>Reboot</th>
@@ -231,6 +235,7 @@
             <td>
               <p>{{ cust.siteId }}</p>
             </td>
+            <td>{{cust.siteName}}</td>
             <td>
                 <p>{{ cust.deviceId }}</p>
               </td>
@@ -244,6 +249,7 @@
               <p>{{  cust.cameraId == 0 ? 'Device Camera' : cust.cameraName}}</p>
             </td>
             <td class="pointer" style="color: #084982;" matTooltip="Add Advertisement" (click)="show('asset', cust)"><img src="assets/icons/add.svg" alt="" width="35px"></td>
+            <td class="pointer" (click)="openadver(cust)">View</td>
             <td>
               <select class="form-control custom-form-control" [(ngModel)]="cust.status">
                 <option *ngFor="let item of deviceStatus" [value]="item.keyId">{{item.value}}</option>

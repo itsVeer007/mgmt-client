@@ -110,15 +110,15 @@
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Enter a date range</mat-label>
           <mat-date-range-input [rangePicker]="rangePicker">
-            <input matStartDate placeholder="Created from" [(ngModel)]="ticketStatusObj.startDate">
-            <input matEndDate placeholder="Created to" [(ngModel)]="ticketStatusObj.endDate">
+            <input matStartDate placeholder="Created from" [(ngModel)]="ticketStatusObj.fromDate">
+            <input matEndDate placeholder="Created to" [(ngModel)]="ticketStatusObj.toDate">
           </mat-date-range-input>
           <mat-datepicker-toggle matIconSuffix [for]="rangePicker"></mat-datepicker-toggle>
   
           <mat-date-range-picker #rangePicker>
             <mat-date-range-picker-actions>
               <button mat-button matDateRangePickerCancel>Cancel</button>
-              <button mat-raised-button color="primary" matDateRangePickerApply (click)="applyFilter()">Apply</button>
+              <button mat-raised-button color="primary" matDateRangePickerApply (click)="filter(ticketStatusObj)">Apply</button>
             </mat-date-range-picker-actions>
           </mat-date-range-picker>
         </mat-form-field>
@@ -141,10 +141,18 @@
       <table class="table table-hover" id="mytable">
         <thead>
           <tr class="form1">
-            <th>
+            <th><p>SiteName</p>
+            </th>
+            <th>DeviceId
+              <img (click)="sort('siteId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </th>
+            <th>DeviceName
+              <img (click)="sort('siteName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </th>
+            <!-- <th>
               <span>Id</span>
               <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-            </th>
+            </th> -->
   
             <th>
               <span>AdName</span>
@@ -188,8 +196,10 @@
   
         <tbody *ngIf="!tableLoader">
           <tr *ngFor="let item of newlistAdsInfoData | search: searchText; let i=index;">
-            
-            <td>{{i+1}}</td>
+            <td>{{item.siteName}}</td>
+            <td>{{item.deviceId}}</td>
+            <td>{{item.deviceName}}</td>
+            <!-- <td>{{i+1}}</td> -->
             <td>
               <p>{{ item.adName }}</p>
             </td>
@@ -218,31 +228,6 @@
                 <img style="color: #bdb8b8;" src="assets/icons/play.svg" width="25" height="25" />
               </a>
             </td>
-  
-            <!-- <td style="width: 200px;">
-              <p>{{ item.name.slice(0, -4) }}</p>
-            </td> -->
-  
-            <!-- <td>
-              <p>{{ item.deviceId ? item.deviceId : '--' }}</p>
-            </td> -->
-<!--   
-            <td>
-              <p *ngIf="item.deviceModeId == 1">Continuous</p>
-              <p *ngIf="item.deviceModeId == 2">Weather Based</p>
-              <p *ngIf="item.deviceModeId == 3">AI Based</p>
-          
-            </td> -->
-  
-           
-  
-           
-  
-            <!-- <td>
-              <button style="background: transparent; border: none;" (click)="showAddAsset()">
-                <img src="assets/icons/add.svg" alt="" width="30" height="30">
-              </button>
-            </td> -->
   
             <td class="text-center" *ngIf="item.active == 1">
               <a class="pointer" *ngIf="item.rules === 0" (click)="showAddAsset('rule', item)">
@@ -286,7 +271,7 @@
   
 
   <div *ngIf="showAsset">
-    <app-add-new-advertisement [newData]="null" (newItemEvent)="closenow('asset')"></app-add-new-advertisement>
+    <app-add-new-advertisement [newData]="null" (newItemEvent)="closenow('asset'); listAdsInfo()"></app-add-new-advertisement>
   </div>
 
   <div *ngIf="addRule">
