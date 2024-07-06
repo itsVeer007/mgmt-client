@@ -44,14 +44,9 @@ export class NewDeviceComponent {
     // this.getData();
   }
 
-  cameras: any = [];
-  getCamerasForSiteId() {
-    this.siteSer.getCamerasForSiteId(this.currentItem).subscribe((res: any) => {
-      console.log(res);
-      this.cameras = res;
-    })
-  }
 
+
+  devices:any
   sites:any = [];
   Active:any= [];
   inactive:any = [];
@@ -62,11 +57,11 @@ export class NewDeviceComponent {
     this.adver.listDeviceInfo().subscribe((res:any)=> {
       console.log(res);
       this.getMetadata();
-      this.showLoader = false
+      this.showLoader = false;
       this.sites = res?.sites
       this.listDeviceInfoData = res?.sites.flatMap((item:any)=>item.Devices)
+      this.devices = this.listDeviceInfoData
       this.newlistDeviceInfoData = this.listDeviceInfoData;
-      // console.log(this.newlistDeviceInfoData);
       for(let item of this.newlistDeviceInfoData) {
         if(item.active == 1) {
           this.Active.push(item)
@@ -77,8 +72,21 @@ export class NewDeviceComponent {
     })
   }
 
+  listDevices(site: any) {
+    this.adver.listDeviceInfo(site).subscribe((res: any) => {
+      this.devices = res.sites.flatMap((item:any)=>item.Devices);
+    })
+  }
+
   closenow(){
     this.newItemEvent.emit()
+  }
+  cameras: any = [];
+  getCamerasForSiteId() {
+    this.siteSer.getCamerasForSiteId(this.currentItem).subscribe((res: any) => {
+      // console.log(res);
+      this.cameras = res;
+    })
   }
 
   siteId:any = 'All';
@@ -114,7 +122,8 @@ export class NewDeviceComponent {
   
   @ViewChild('editSiteDialog') editSiteDialog = {} as TemplateRef<any>;
   openEditPopup(item: any) {
-    item.cameraId !== '0' ? this.cameraType = 1 : this.cameraType = 0;
+    item.cameraId == null ? this.cameraType == 0 : this.cameraType = 1
+    // item.cameraId !== null ? this.cameraType = 1 : this.cameraType = 0;
     item.modifiedBy = this.user?.UserId
     this.currentItem = item;
     console.log(this.currentItem)

@@ -165,6 +165,7 @@ currentItem:any
     },(error:any)=> {
       this.alertSer.error(error?.err?.message)
     })
+    this.listAdsInfo()
   }
 
   @ViewChild('deleteAssetDialog') deleteAssetDialog = {} as TemplateRef<any>;
