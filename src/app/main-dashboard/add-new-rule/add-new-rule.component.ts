@@ -56,6 +56,8 @@ export class AddNewRuleComponent {
     this.personshow = !this.personshow;
   }
 
+  person:any = 0
+
   siteId:any
   adFor: any = null;
   enableDemo: boolean = false;

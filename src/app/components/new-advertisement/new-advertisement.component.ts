@@ -44,10 +44,18 @@ export class NewAdvertisementComponent {
   }
 
 
- 
+ searchSite:any
   searchSites(event: any) {
-    this.searchText = (event.target as HTMLInputElement).value;
+    this.searchSite = (event.target as HTMLInputElement).value;
   }
+  searchDevice:any
+  searchDevices(event: any) {
+    this.searchDevice = (event.target as HTMLInputElement).value;
+  }
+  // searchSite:any
+  // searchSites(event: any) {
+  //   this.searchSite = (event.target as HTMLInputElement).value;
+  // }
   siteData:any=[]
   showLoader:any
   newlistAdsInfoData:any = [];
@@ -80,7 +88,7 @@ export class NewAdvertisementComponent {
     } else {
       this.adver.listAdsInfo({siteId: siteId ,deviceId:deviceId, adName:adName, fromDate:this.ticketStatusObj.fromDate, toDate:this.ticketStatusObj.toDate}).subscribe((res:any)=> {
         let x = res.sites.flatMap((item:any)=>item.devices);
-        this.newlistAdsInfoData = x.flatMap((item: any) => item.ads);
+        this.newlistAdsInfoData = x.flatMap((item: any) => item.ads.sort((a:any,b:any)=> a.active > b.active ? 1 : a.active < b.active ? -1 : 0));
       })
     }
   }
@@ -174,12 +182,12 @@ currentItem:any
     this.adver.updateAd(updateData).subscribe((res:any)=> {
       console.log(this.currentItem)
       if(res?.statusCode == 200 ) {
+        this.filter(this.currentItem)
         this.alertSer.success(res?.message)
       }
     },(error:any)=> {
       this.alertSer.error(error?.err?.message)
     })
-    this.listAdsInfo()
   }
 
   @ViewChild('deleteAssetDialog') deleteAssetDialog = {} as TemplateRef<any>;
@@ -191,9 +199,9 @@ currentItem:any
 
   confirmDeleteRow() {
     this.adver.deleteAd(this.currentItem).subscribe((res:any)=> {
-      console.log(this.currentItem)
-      this.listAdsInfo();
+      // console.log(this.currentItem)
       if(res?.statusCode == 200 ) {
+        this.filter(this.currentItem);
         this.alertSer.success(res?.message)
       }
     },(error:any)=> {

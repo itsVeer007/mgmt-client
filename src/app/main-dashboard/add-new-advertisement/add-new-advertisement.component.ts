@@ -93,6 +93,13 @@ export class AddNewAdvertisementComponent {
     this.listDeviceInfo()
   };
 
+  
+  currentDeviceType: any;
+  getDeviceType(data: any) {
+    console.log(data)
+    this.currentDeviceType = data.deviceTypeId;
+  }
+
   showLoader:boolean = false;
   Active:any= [];
   inactive:any = [];
@@ -114,7 +121,9 @@ export class AddNewAdvertisementComponent {
   addNewAsset() {
     if(this.addAssetForm.valid) {
       this.alertSer.wait();
-      this.addAssetForm.value.deviceId = this.newData.deviceId
+      if(this.newData !== null) {
+        this.addAssetForm.value.deviceId = this.newData.deviceId
+      }
       this.adver.createAd(this.addAssetForm.value, this.selectedFile).subscribe((res: any) => {
         this.newItemEvent.emit();
         if(res?.statusCode == 200 ) {

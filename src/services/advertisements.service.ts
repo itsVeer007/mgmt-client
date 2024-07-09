@@ -87,7 +87,6 @@ export class AdvertisementsService {
   }
 
   listAdsInfo(payload?: any) {
-    console.log(payload)
     let url = this.baseUrl + '/proximity_ads/listAdsAndRules_1_0';
     let params = new HttpParams();
     if(payload?.siteId) {
@@ -97,7 +96,6 @@ export class AdvertisementsService {
       params = params.set('deviceId', payload?.deviceId);
     }
     if(payload?.fromDate) {
-      console.log(payload)
       params = params.set('fromDate', formatDate(payload?.fromDate, 'yyyy-MM-dd', 'en-us'));
     } 
     if(payload?.toDate) {

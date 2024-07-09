@@ -62,13 +62,13 @@ export class NewDeviceComponent {
       this.listDeviceInfoData = res?.sites.flatMap((item:any)=>item.Devices)
       this.devices = this.listDeviceInfoData
       this.newlistDeviceInfoData = this.listDeviceInfoData;
-      for(let item of this.newlistDeviceInfoData) {
-        if(item.active == 1) {
-          this.Active.push(item)
-        } else  if(item.active == 0) {
-          this.inactive.push(item)
-        }
-      }
+      // for(let item of this.newlistDeviceInfoData) {
+      //   if(item.active == 1) {
+      //     this.Active.push(item)
+      //   } else  if(item.active == 0) {
+      //     this.inactive.push(item)
+      //   }
+      // }
     })
   }
 
@@ -138,10 +138,15 @@ export class NewDeviceComponent {
   
 
     if(type == 'All') {
+      this.deviceId = 'All'
       this.newlistDeviceInfoData = this.listDeviceInfoData
     } else {
       this.adver.listDeviceInfo({siteId:siteId, deviceId:deviceId, deviceTypeId:  this.deviceTypeId}).subscribe((res:any)=> {
-        this.newlistDeviceInfoData = res?.sites.flatMap((item:any)=>item.Devices)
+        if(res.statusCode === 200) {
+          this.newlistDeviceInfoData = res?.sites.flatMap((item:any)=>item.Devices)
+        } else {
+          this.newlistDeviceInfoData = []
+        }
       })
     }
   }
@@ -183,6 +188,9 @@ export class NewDeviceComponent {
     delete this.currentItem.cameraUrl
     delete this.currentItem.siteName
     delete this.currentItem.deviceTypeId
+    if(this.cameraType === 0 ) {
+      this.currentItem.cameraId = '0'
+    }
     
     this.adver.updateDeviceInfo(this.currentItem).subscribe((res:any)=> {
       // console.log(res);
@@ -191,10 +199,10 @@ export class NewDeviceComponent {
       } else {
         this.alertSer.error(res?.message)
       }
+      this.listDeviceInfo();
     },(error:any)=> {
       this.alertSer.error(error?.err?.message)
     })
-    this.listDeviceInfo();
   }
 
   @ViewChild('deleteSiteDialog') deleteSiteDialog = {} as TemplateRef<any>;
@@ -204,17 +212,16 @@ export class NewDeviceComponent {
     
   }
 
-  openDeletePopup() {
-    console.log(this.currentItem)
+  deleteDevice() {
     this.adver.deleteDevice(this.currentItem).subscribe((res:any)=> {
-      console.log(res);
-      if(res?.statusCode == 200) {
+      // console.log(res);
+      if(res.statusCode == 200) {
         this.alertSer.success(res?.message)
       }
+      this.listDeviceInfo()
     },(error:any)=> {
       this.alertSer.error(error?.err?.message)
     })
-    this.listDeviceInfo()
   }
 
   showMore:boolean = false;
@@ -420,5 +427,22 @@ export class NewDeviceComponent {
       x.sort((a: string, b: string) => b[label] > a[label] ? 1 : b[label] < a[label] ? -1 : 0);
     }
   }
+
+
+ 
+  deviceSearch: any;
+  searchDevices(event: any) {
+    this.deviceSearch = (event.target as HTMLInputElement).value;
+  }
+
+  deviceTypeSearch: any;
+  searchTypeDevices(event: any) {
+    this.deviceTypeSearch = (event.target as HTMLInputElement).value;
+  }
+
+  // searchTableData() {
+  //   this.searchFromChild.emit(this.searchText);
+  // }
+
 
 }

@@ -1,60 +1,59 @@
 <div class="container-fluid" id="top">
     <!-- header -->
-    <div class="d-flex align-items-center justify-content-between">
-      <div class="users-header">
+    <div class="d-flex align-items-center justify-content-between mt-2">
+      <!-- <div class="users-header">
         <p>List of Advertisements - <span>{{ newlistAdsInfoData?.length }}</span></p>
+      </div> -->
+      <div class="row mb-2">
+        <div class="col-lg-1 col-md-1 d-flex justify-content-start">
+          <div class="vl-yellow"></div>
+          <div class="mx-2">
+            <div class="status">Total Ads</div>
+            <div class="count">{{ newlistAdsInfoData?.length }}</div>
+          </div>
+        </div>
+    
+        <div class="col-lg-1 col-md-1 d-flex justify-content-start">
+          <div class="vl-green"></div>
+          <div class="mx-2">
+            <div class="status">Added</div>
+            <div class="count">{{ addedAd?.length }}</div>
+          </div>
+        </div>
+    
+        <div class="col-lg-1 col-md-1 d-flex justify-content-start">
+          <div class="vl-blue"></div>
+          <div class="mx-2">
+            <div class="status">Activated</div>
+            <div class="count">{{ activated?.length }}</div>
+          </div>
+        </div>
+    
+        <div class="col-lg-1 col-md-1 d-flex justify-content-start">
+          <div class="vl-red"></div>
+          <div class="mx-2">
+            <div class="status">Removed</div>
+            <div class="count">{{ removed?.length }}</div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-2 d-flex justify-content-start">
+          <div class="vl-orange"></div>
+          <div class="mx-2">
+            <div class="status">Deactivated</div>
+            <div class="count">{{ Deactivated?.length }}</div>
+          </div>
+        </div>
+    
       </div>
+    
   
       <div>
-        <!-- <button mat-flat-button color="primary" (click)="showAddAsset(siteIdInput.value, deviceIdInput.value)">Create Add</button> -->
-        <button class="create-btn" (click)="showAddAsset('asset')">Create Add</button>
-        <!-- <button class="create-btn mx-2" (click)="showAddAsset('rule')">Create Rule</button> -->
+        <button class="create-btn mb-5" (click)="showAddAsset('asset')">Create Ad</button>
       </div>
     </div>
   
     <!-- status -->
-    <div class="row mb-2">
-      <!-- <div class="col-lg-1 col-md-1 d-flex justify-content-start">
-        <div class="vl-yellow"></div>
-        <div class="mx-2">
-          <div class="status">Pending</div>
-          <div class="count">{{ pending?.length }}</div>
-        </div>
-      </div> -->
-  
-      <div class="col-lg-1 col-md-1 d-flex justify-content-start">
-        <div class="vl-green"></div>
-        <div class="mx-2">
-          <div class="status">Added</div>
-          <div class="count">{{ addedAd?.length }}</div>
-        </div>
-      </div>
-  
-      <div class="col-lg-1 col-md-1 d-flex justify-content-start">
-        <div class="vl-blue"></div>
-        <div class="mx-2">
-          <div class="status">Activated</div>
-          <div class="count">{{ activated?.length }}</div>
-        </div>
-      </div>
-  
-      <div class="col-lg-1 col-md-1 d-flex justify-content-start">
-        <div class="vl-orange"></div>
-        <div class="mx-2">
-          <div class="status">Deactivated</div>
-          <div class="count">{{ Deactivated?.length }}</div>
-        </div>
-      </div>
-  
-      <div class="col-lg-1 col-md-1 d-flex justify-content-start">
-        <div class="vl-red"></div>
-        <div class="mx-2">
-          <div class="status">Removed</div>
-          <div class="count">{{ removed?.length }}</div>
-        </div>
-      </div>
-    </div>
-  
+   
     <div>
       <!-- <div class="col-lg-12"> -->
         <!-- <app-filter [filterType]="'advertisements'" (tableDataFromChild)="getAdsFromChild($event)"
@@ -74,7 +73,7 @@
           </button>
           <mat-autocomplete #site="matAutocomplete">
             <mat-option value="All" (click)="filter('All')">All</mat-option>
-            <mat-option *ngFor="let item of siteData | search: searchText" [value]="item.siteId" (click)="filter(item.siteId); listDevices(item)">{{item.siteId}}</mat-option>
+            <mat-option *ngFor="let item of siteData | search: searchSite" [value]="item.siteId" (click)="filter(item.siteId); listDevices(item)">{{item.siteId}}-{{item.siteName}}</mat-option>
           </mat-autocomplete>
         </mat-form-field>
       </div>
@@ -82,13 +81,13 @@
       <div class="col-lg-3">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Device</mat-label>
-          <input matInput #deviceIdInput type="text" [matAutocomplete]="device" [(ngModel)]="deviceId">
+          <input matInput #deviceIdInput type="text" [matAutocomplete]="device" [(ngModel)]="deviceId" (keyup)="searchDevices($event)">
           <button matSuffix mat-icon-button>
             <mat-icon>arrow_drop_down</mat-icon>
           </button>
           <mat-autocomplete #device="matAutocomplete">
             <mat-option value="All" (click)="filter('All')">All</mat-option>
-            <mat-option *ngFor="let item of devices" [value]="item.deviceId" (click)="filter(item.deviceId)">{{item.deviceId}}</mat-option>
+            <mat-option *ngFor="let item of devices | search: searchDevice" [value]="item.deviceId" (click)="filter(item.deviceId)">{{item.deviceId}}-{{item.deviceName}}</mat-option>
           </mat-autocomplete>
         </mat-form-field>
       </div>
@@ -181,13 +180,13 @@
             </th>
   
             <th>
-              <span>SyncDeviceStatus</span>
+              <span>DeviceSyncStatus</span>
               <img (click)="sort('status')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </th>
   
             <th class="text-center">Play</th>
             <th><p>Rules</p></th>
-            <th><p>Add Status</p>
+            <th><p>Ad Status</p>
               <img (click)="sort('status')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"></th>
   
             <th class="text-center">Actions</th>
@@ -359,8 +358,9 @@
   </ng-template>
   
   <ng-template #editAssetDialog>
-    <div style="background-color: #084982;">
-      <p class="dialog-title">MODIFY Ad - {{ currentItem?.deviceId }} ({{ currentItem?.mimeType.slice(0, -4) }})</p>
+    <div style="background-color: #084982;" class="d-flex justify-content-between align-items-center">
+      <p class="dialog-title">MODIFY Ad - {{ currentItem?.adName }} ({{ currentItem?.mimeType.slice(0, -4) }})</p>
+      <p  class="dialog-title">{{currentItem?.deviceName}}</p>
     </div>
   
     <div class="dialog-content">
