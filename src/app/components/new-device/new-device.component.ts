@@ -61,7 +61,7 @@ export class NewDeviceComponent {
       this.sites = res?.sites
       this.listDeviceInfoData = res?.sites.flatMap((item:any)=>item.Devices)
       this.devices = this.listDeviceInfoData
-      this.newlistDeviceInfoData = this.listDeviceInfoData;
+      this.newlistDeviceInfoData = this.listDeviceInfoData.sort((a:any,b:any)=> a.active > b.active ? -1 : a.active < b.active ? 1 : 0);
       // for(let item of this.newlistDeviceInfoData) {
       //   if(item.active == 1) {
       //     this.Active.push(item)
