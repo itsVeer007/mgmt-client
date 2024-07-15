@@ -262,6 +262,7 @@ export class DevicesComponent implements OnInit {
 
   @ViewChild('editSiteDialog') editSiteDialog = {} as TemplateRef<any>;
   openEditPopup(item: any) {
+    console.log(item)
     this.currentItem = item;
     this.currentWorkingDays = JSON.parse(JSON.stringify(this.currentItem.workingDays.split(',').map((item: any) => +item)));
     this.dialog.open(this.editSiteDialog);

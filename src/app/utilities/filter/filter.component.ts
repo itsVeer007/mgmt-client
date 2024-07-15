@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { AdvertisementsService } from 'src/services/advertisements.service';
 import { AssetService } from 'src/services/asset.service';
 import { InventoryService } from 'src/services/inventory.service';
 import { SiteService } from 'src/services/site.service';
+import { StorageService } from 'src/services/storage.service';
 
 
 @Component({
@@ -22,13 +24,16 @@ export class FilterComponent {
 
   constructor(
     private siteSer: SiteService,
-    private storageSer: SiteService,
+    private storageSer:StorageService,
     private assetSer: AssetService,
     private inventorySer: InventoryService,
+    private advSer: AdvertisementsService,
   ) { }
 
   ngOnInit() {
+    console.log(this.filterType)
     this.getSitesListForUserName();
+    this.getMetadata();
   }
   maxDate: Date = new Date(); // Set maxDate to today’s date
 
@@ -62,10 +67,6 @@ export class FilterComponent {
     })
   }
 
-
-
-
-
   ticketStatusObj: any = {
     doif:new Date(),
     doit:new Date(),
@@ -79,10 +80,11 @@ export class FilterComponent {
   //     console.log(res);
   //   })
   // }
-
+ 
   siteId: any =  'All';
   deviceId: any = 'All';
   status: any = 'All';
+  deviceTypeId: any = 'All';
   // advertisements: any = [];
   // devices: any = [];
   filterWithSites(type: any) {
@@ -90,8 +92,10 @@ export class FilterComponent {
     let doit: any = this.ticketStatusObj.doit; 
     let siteId: any;
     let deviceId: any;
+    let deviceTypeId : any;
     this.siteId == 'All' ? siteId = null : siteId = this.siteId;
     this.deviceId == 'All' ? deviceId = null : deviceId = this.deviceId;
+    this.deviceTypeId == 'All'? deviceTypeId = null : deviceTypeId = this.deviceTypeId
 
     if(type === 'advertisements' || type === 'wifi') {
       this.loaderFromChild.emit(true);
@@ -114,6 +118,16 @@ export class FilterComponent {
       this.assetSer.listDeviceAdsInfo1({siteId: siteId, deviceId: deviceId}).subscribe((res: any) => {
         this.loaderFromChild.emit(false);
         let x = res.flatMap((item: any) => item.adsDevices);
+        console.log(x)
+        this.tableDataFromChild.emit(x);
+      })
+    }
+
+    if(type === 'newdevices') {
+      this.loaderFromChild.emit(true);
+      this.advSer.listDeviceInfo({siteId: siteId, deviceId: deviceId, deviceTypeId: this.deviceTypeId}).subscribe((res: any) => {
+        this.loaderFromChild.emit(false);
+        let x = res?.sites?.flatMap((item: any) => item.Devices);
         this.tableDataFromChild.emit(x);
       })
     }
@@ -157,6 +171,46 @@ export class FilterComponent {
 
   searchTableData() {
     this.searchFromChild.emit(this.searchText);
+  }
+
+  deviceTypes: any;
+  deviceMode: any;
+  workingDay: any;
+  tempRange: any;
+  ageRange: any;
+  modelObjectType: any;
+  model: any;
+  modelResolution: any;
+  softwareVersion: any;
+  weatherInterval: any;
+  deviceStatus: any;
+  getMetadata() {
+    let data = this.storageSer.get('metaData');
+    data?.forEach((item: any) => {
+      if(item.type == 2) {
+        this.deviceTypes = item.metadata;
+      } else if(item.type == 1) {
+        this.deviceMode = item.metadata;
+      } else if(item.type == 6) {
+        this.workingDay = item.metadata;
+      } else if(item.type == 10) {
+        this.tempRange = item.metadata;
+      } else if(item.type == 13) {
+        this.ageRange = item.metadata;
+      } else if(item.type == 7) {
+        this.modelObjectType = item.metadata;
+      } else if(item.type == 18) {
+        this.model = item.metadata;
+      } else if(item.type == 19) {
+        this.modelResolution = item.metadata;
+      } else if(item.type == 20) {
+        this.softwareVersion = item.metadata;
+      } else if(item.type == 21) {
+        this.weatherInterval = item.metadata;
+      } else if(item.type == 4) {
+        this.deviceStatus = item.metadata;
+      }
+    })
   }
 
 }

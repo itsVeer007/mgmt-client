@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainDashboardComponent } from '../main-dashboard/main-dashboard.component';
 import { AuthGuard } from '../utilities/auth/auth.guard';
@@ -32,6 +32,8 @@ import { DashboardComponent } from '../dashboard/dashboard.component';
 import { SensorDataComponent } from '../sensor-data/sensor-data.component';
 import { CamerasComponent } from '../components/cameras/cameras.component';
 import { DefenderComponent } from '../components/defender/defender.component';
+import { NewDeviceComponent } from '../components/new-device/new-device.component';
+import { NewAdvertisementComponent } from '../components/new-advertisement/new-advertisement.component';
 
 
 const routes: Routes = [
@@ -70,6 +72,9 @@ const routes: Routes = [
       {path: 'sensor-data', component:SensorDataComponent},
       {path: 'cameras', component:CamerasComponent},
       {path: 'defender', component:DefenderComponent}
+      {path: 'new-device',component:NewDeviceComponent},
+      {path: 'new-adver',component:NewAdvertisementComponent},
+      
     ]
   }
 ];
