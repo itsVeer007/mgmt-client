@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { environment } from '../environments/environment';
 import { StorageService } from './storage.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ import { StorageService } from './storage.service';
 export class SiteService {
 
   baseUrl = 'http://54.92.215.87:943';
+  shoowMenu: any;
   // baseUrl = 'http://192.168.0.193:8080';
 
   constructor(private http: HttpClient, private storageSer: StorageService) { }
@@ -88,6 +90,26 @@ export class SiteService {
     let url = `${this.baseUrl}/camera/updateCameraData_1_0/${payload.cameraId}`;
     // let url = `http://192.168.0.127:8080/camera/updateCameraData_1_0/${payload.cameraId}`;
     return this.http.put(url, payload)
+  }
+
+
+  showDefenderDetails():Observable<any>{
+    let url="http://192.168.0.232:7548/showDefenderDetails";
+  
+    return this.http.get(url);
+  
+  }
+  
+  addCamDetails(payload: any) {
+    // let url = `${this.baseUrl}/centralBox/addCentralBox_1_0`;
+    let url="http://192.168.0.232:7548/addDefenderCamDetails";
+    return this.http.post(url, payload);
+  }
+  
+  addRouterDetails(payload: any) {
+    // let url = `${this.baseUrl}/centralBox/addCentralBox_1_0`;
+    let url="http://192.168.0.232:7548/addDefenderCamDetails";
+    return this.http.post(url, payload);
   }
 
 

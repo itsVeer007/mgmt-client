@@ -76,6 +76,9 @@ import { EditDeviceFormComponent } from './main-dashboard/edit-device-form/edit-
 import { SensorDataComponent } from './sensor-data/sensor-data.component';
 import { CamerasComponent } from './components/cameras/cameras.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { DefenderComponent } from './components/defender/defender.component';
+import { AddDefenderCamComponent } from './main-dashboard/add-defender-cam/add-defender-cam.component';
+import { AddDefenderRouterComponent } from './main-dashboard/add-defender-router/add-defender-router.component';
 
 
 @NgModule({
@@ -142,7 +145,10 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     FilterComponent,
     TextAndNumberOnlyDirective,
     SensorDataComponent,
-    CamerasComponent
+    CamerasComponent,
+    DefenderComponent,
+    AddDefenderCamComponent,
+    AddDefenderRouterComponent
   ],
   imports: [
     BrowserModule,

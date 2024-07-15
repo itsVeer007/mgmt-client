@@ -31,6 +31,7 @@ import { AddNewUserComponent } from '../main-dashboard/add-new-user/add-new-user
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { SensorDataComponent } from '../sensor-data/sensor-data.component';
 import { CamerasComponent } from '../components/cameras/cameras.component';
+import { DefenderComponent } from '../components/defender/defender.component';
 
 
 const routes: Routes = [
@@ -67,7 +68,8 @@ const routes: Routes = [
       { path:'fr-kit', component: FrKitComponent },
       { path:'wifi-analytics', component: WifiAnalyticsComponent },
       {path: 'sensor-data', component:SensorDataComponent},
-      {path: 'cameras', component:CamerasComponent}
+      {path: 'cameras', component:CamerasComponent},
+      {path: 'defender', component:DefenderComponent}
     ]
   }
 ];
