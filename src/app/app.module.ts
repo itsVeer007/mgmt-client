@@ -159,7 +159,8 @@ import { AddNewDeviceComponent } from './main-dashboard/add-new-device/add-new-d
     AddSecondDeviceComponent,
     NewAdvertisementComponent,
     AddNewAdvertisementComponent,
-    AddNewRuleComponent
+    AddNewRuleComponent,
+    NewDeviceComponent
 
   ],
   imports: [

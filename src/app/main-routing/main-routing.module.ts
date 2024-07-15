@@ -71,7 +71,7 @@ const routes: Routes = [
       { path:'wifi-analytics', component: WifiAnalyticsComponent },
       {path: 'sensor-data', component:SensorDataComponent},
       {path: 'cameras', component:CamerasComponent},
-      {path: 'defender', component:DefenderComponent}
+      {path: 'defender', component:DefenderComponent},
       {path: 'new-device',component:NewDeviceComponent},
       {path: 'new-adver',component:NewAdvertisementComponent},
       
