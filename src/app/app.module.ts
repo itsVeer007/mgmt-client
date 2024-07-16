@@ -25,7 +25,6 @@ import { AddMetadataComponent } from './main-dashboard/add-metadata/add-metadata
 import { DeviceViewComponent } from './main-dashboard/add-device/device-view/device-view.component';
 import { AddProductMasterComponent } from './main-dashboard/add-product-master/add-product-master.component';
 import { AddNewVendorComponent } from './main-dashboard/add-new-vendor/add-new-vendor.component';
-import { AddNewDeviceComponent } from './main-dashboard/add-new-device/add-new-device.component';
 import { AddNewOrderComponent } from './main-dashboard/add-new-order/add-new-order.component';
 import { AddNewIndentComponent } from './main-dashboard/add-new-indent/add-new-indent.component';
 import { AddNewFrkitComponent } from './main-dashboard/add-new-frkit/add-new-frkit.component';
@@ -77,11 +76,15 @@ import { EditDeviceFormComponent } from './main-dashboard/edit-device-form/edit-
 import { SensorDataComponent } from './sensor-data/sensor-data.component';
 import { CamerasComponent } from './components/cameras/cameras.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { DefenderComponent } from './components/defender/defender.component';
+import { AddDefenderCamComponent } from './main-dashboard/add-defender-cam/add-defender-cam.component';
+import { AddDefenderRouterComponent } from './main-dashboard/add-defender-router/add-defender-router.component';
 import { NewDeviceComponent } from './components/new-device/new-device.component';
 import { AddSecondDeviceComponent } from './main-dashboard/add-second-device/add-second-device.component';
 import { NewAdvertisementComponent } from './components/new-advertisement/new-advertisement.component';
 import { AddNewAdvertisementComponent } from './main-dashboard/add-new-advertisement/add-new-advertisement.component';
 import { AddNewRuleComponent } from './main-dashboard/add-new-rule/add-new-rule.component';
+import { AddNewDeviceComponent } from './main-dashboard/add-new-device/add-new-device.component';
 
 
 
@@ -150,11 +153,14 @@ import { AddNewRuleComponent } from './main-dashboard/add-new-rule/add-new-rule.
     TextAndNumberOnlyDirective,
     SensorDataComponent,
     CamerasComponent,
-    NewDeviceComponent,
+    DefenderComponent,
+    AddDefenderCamComponent,
+    AddDefenderRouterComponent,
     AddSecondDeviceComponent,
     NewAdvertisementComponent,
     AddNewAdvertisementComponent,
-    AddNewRuleComponent
+    AddNewRuleComponent,
+    NewDeviceComponent
 
   ],
   imports: [

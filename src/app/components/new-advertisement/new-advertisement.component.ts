@@ -88,7 +88,7 @@ export class NewAdvertisementComponent {
     } else {
       this.adver.listAdsInfo({siteId: siteId ,deviceId:deviceId, adName:adName, fromDate:this.ticketStatusObj.fromDate, toDate:this.ticketStatusObj.toDate}).subscribe((res:any)=> {
         let x = res.sites.flatMap((item:any)=>item.devices);
-        this.newlistAdsInfoData = x.flatMap((item: any) => item.ads.sort((a:any,b:any)=> a.active > b.active ? 1 : a.active < b.active ? -1 : 0));
+        this.newlistAdsInfoData = x.flatMap((item: any) => item.ads);
       })
     }
   }
@@ -117,7 +117,7 @@ export class NewAdvertisementComponent {
       this.siteData = res?.sites;
       this.listAdsInfoData = res.sites.flatMap((item:any)=>item.devices);
       this.devices = this.listAdsInfoData;
-      this.newlistAdsInfoData = this.listAdsInfoData.flatMap((item: any) => item.ads.sort((a:any, b:any)=> a.adId > b.adId ? -1 : a.adId < b.adId ? 1 : 0));
+      this.newlistAdsInfoData = this.listAdsInfoData.flatMap((item: any) => item.ads.sort((a:any,b:any)=> a.active > b.active ? -1 : a.active < b.active ? 1 : 0));
 
       for(let item of this.newlistAdsInfoData) {
         if(item.status == 1) {

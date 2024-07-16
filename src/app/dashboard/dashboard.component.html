@@ -35,6 +35,11 @@
             <span>Users</span>
           </a>
 
+          <a *ngIf="isAdmin || isSupport" class="list-group-item " [routerLink]="['./defender']" routerLinkActive="routeactive">
+            <img src="assets/icons/user-white.svg">
+            <span>Defender</span>
+          </a>
+
           <div class="navigation" *ngIf="isAdmin || isSupport || isFr">
             <ul>
               <li class="m-2 has-sub">
@@ -226,6 +231,9 @@
           <a class="list-group-item my-2" [routerLink]="['./users']" routerLinkActive="routeactive">
               <img src="assets/icons/user-white.svg" /><span>Users</span>
           </a>
+          <a class="list-group-item my-2" [routerLink]="['./defender']" routerLinkActive="routeactive">
+            <img src="assets/icons/user-white.svg" /><span>Defender</span>
+        </a>
           <a class="list-group-item " [routerLink]="['./indents']" routerLinkActive="routeactive">
             <img src="assets/icons/inventory.svg">
             <span>Indents</span>
