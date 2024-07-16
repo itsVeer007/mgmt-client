@@ -35,7 +35,7 @@ export class NewAdvertisementComponent {
     this.listAdsInfo();
     // this.listAssets();
     this.adver.itemName.subscribe((res:any)=>{
-      console.log(res)
+      // console.log(res)
       // this.selectedName = res;
       this.siteId = res.siteId;
       this.deviceId = res.deviceId
@@ -94,7 +94,6 @@ export class NewAdvertisementComponent {
   }
 
 
-
   listDevices(site: any) {
     this.adver.listAdsInfo(site).subscribe((res: any) => {
       this.devices = res.sites.flatMap((item:any)=>item.devices);
@@ -111,7 +110,7 @@ export class NewAdvertisementComponent {
   listAdsInfo() {
     this.tableLoader = true;
     this.adver.listAdsInfo().subscribe((res:any)=> {
-      console.log(res);
+      // console.log(res);
       this.getMetadata();
 
       this.tableLoader = false
@@ -120,22 +119,22 @@ export class NewAdvertisementComponent {
       this.devices = this.listAdsInfoData;
       this.newlistAdsInfoData = this.listAdsInfoData.flatMap((item: any) => item.ads.sort((a:any, b:any)=> a.adId > b.adId ? -1 : a.adId < b.adId ? 1 : 0));
 
-      // for(let item of this.newlistAdsInfoData) {
-      //   if(item.status == 1) {
-      //     this.pending.push(item)
-      //   } else  if(item.status == 2) {
-      //     this.addedAd.push(item)
-      //   }
-      //   else  if(item.status == 3) {
-      //     this.removed.push(item)
-      //   }
-      //   else  if(item.status == 4) {
-      //     this.activated.push(item)
-      //   }
-      //   else  if(item.status == 5) {
-      //     this.Deactivated.push(item)
-      //   }
-      // }
+      for(let item of this.newlistAdsInfoData) {
+        if(item.status == 1) {
+          this.pending.push(item)
+        } else  if(item.status == 2) {
+          this.addedAd.push(item)
+        }
+        else  if(item.status == 3) {
+          this.removed.push(item)
+        }
+        else  if(item.status == 4) {
+          this.activated.push(item)
+        }
+        else  if(item.status == 5) {
+          this.Deactivated.push(item)
+        }
+      }
     })
   }
 
@@ -152,7 +151,7 @@ export class NewAdvertisementComponent {
         el.workingDays = el.workingDays.split(',').map(Number);
       });
       this.ruleData = x;
-      console.log(this.ruleData)
+      // console.log(this.ruleData)
     })
     this.dialog.open(this.usedItemsDialog)
   }
@@ -160,12 +159,13 @@ export class NewAdvertisementComponent {
 
 currentItem:any
   openViewPopup(item:any) {
-    console.log(item)
+    // console.log(item)
     this.currentItem = item;
   }
 
   @ViewChild('editAssetDialog') editAssetDialog = {} as TemplateRef<any>;
   openEditPopupp(item:any) {
+    console.log(item)
     this.currentItem = item
     this.dialog.open(this.editAssetDialog);
   }
@@ -177,7 +177,7 @@ currentItem:any
       modifiedBy:this.user?.UserId,
       fromDate:this.currentItem.fromDate,
       toDate:this.currentItem.toDate,
-      status:this.currentItem.status
+      status:this.currentItem.status == 4 ? 2 : 3
   }
     this.adver.updateAd(updateData).subscribe((res:any)=> {
       console.log(this.currentItem)
@@ -277,6 +277,7 @@ currentItem:any
     }
   }
 
+  lastSubmittedItemId:any
   closenow(type: String) {
     if (type == 'asset') {
       this.showAsset = false;
@@ -295,7 +296,6 @@ currentItem:any
 
   changeAssetStatus() {
     this.assetService.updateAssetStatus(this.currentItem).subscribe((res: any) => {
-
       this.alertSer.success(res.message);
     }, (err: any) => {
       if(err) {

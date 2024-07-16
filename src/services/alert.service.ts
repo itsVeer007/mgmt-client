@@ -60,6 +60,16 @@ export class AlertService {
     })
   }
 
+  successMessage(message: any) {
+    Swal.fire({
+      icon: 'success',
+      title: `Done!`,
+      text: `${message}`,
+      showCloseButton: true,
+      timer: 2000,
+    })
+  }
+
   wait() {
     Swal.fire({
       text: "Please wait",

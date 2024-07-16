@@ -5,37 +5,34 @@
         <p>List of Advertisements - <span>{{ newlistAdsInfoData?.length }}</span></p>
       </div> -->
       <div class="row mb-2">
-        <div class="col-lg-1 col-md-1 d-flex justify-content-start">
+        <div class="col-lg-2 col-md-2 d-flex justify-content-start">
           <div class="vl-yellow"></div>
           <div class="mx-2">
             <div class="status">Total Ads</div>
             <div class="count">{{ newlistAdsInfoData?.length }}</div>
           </div>
         </div>
-    
-        <div class="col-lg-1 col-md-1 d-flex justify-content-start">
+        <!-- <div class="col-lg-1 col-md-1 d-flex justify-content-start">
           <div class="vl-green"></div>
           <div class="mx-2">
             <div class="status">Added</div>
             <div class="count">{{ addedAd?.length }}</div>
           </div>
-        </div>
-    
-        <div class="col-lg-1 col-md-1 d-flex justify-content-start">
+        </div> -->
+        <div class="col-lg-2 col-md-2 d-flex justify-content-start">
           <div class="vl-blue"></div>
           <div class="mx-2">
             <div class="status">Activated</div>
             <div class="count">{{ activated?.length }}</div>
           </div>
         </div>
-    
-        <div class="col-lg-1 col-md-1 d-flex justify-content-start">
+        <!-- <div class="col-lg-1 col-md-1 d-flex justify-content-start">
           <div class="vl-red"></div>
           <div class="mx-2">
             <div class="status">Removed</div>
             <div class="count">{{ removed?.length }}</div>
           </div>
-        </div>
+        </div> -->
         <div class="col-lg-2 col-md-2 d-flex justify-content-start">
           <div class="vl-orange"></div>
           <div class="mx-2">
@@ -43,10 +40,14 @@
             <div class="count">{{ Deactivated?.length }}</div>
           </div>
         </div>
-    
+        <div class="col-lg-2 col-md-2 d-flex justify-content-start">
+          <div class="vl-orange"></div>
+          <div class="mx-2">
+            <div class="status">Pending</div>
+            <div class="count">{{ pending?.length }}</div>
+          </div>
+        </div>
       </div>
-    
-  
       <div>
         <button class="create-btn mb-5" (click)="showAddAsset('asset')">Create Ad</button>
       </div>
@@ -140,13 +141,15 @@
       <table class="table table-hover" id="mytable">
         <thead>
           <tr class="form1">
-            <th><p>SiteName</p>
+            <th><p>SiteName
+              <img (click)="sort('siteName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </p>
             </th>
             <th>DeviceId
-              <img (click)="sort('siteId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              <img (click)="sort('deviceId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </th>
             <th>DeviceName
-              <img (click)="sort('siteName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+              <img (click)="sort('deviceName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </th>
             <!-- <th>
               <span>Id</span>
@@ -212,8 +215,21 @@
             <td>
               <p>{{ item.toDate | date:'mediumDate' }}</p>
             </td>
-            <td>
-              {{ item.status == 1 ? 'Pending' : item.status == 2 ? 'Pending' : item.status == 3 ? 'Pending' : item.status == 4 ? 'Activated' : item.status == 5 ? 'Deactivated' : ''}}
+            <td class="text-center">
+              <!-- <div> -->
+                <span *ngIf="item.status == 1 || item.status == 2 || item.status == 3">
+                  <img src="assets\icons\pending.svg" alt="" height="20px" width="20px" matTooltip="Pending">
+                </span>
+                <span *ngIf="item.status == 4">
+                  Activated
+                </span>
+                <span *ngIf="item.status == 5">
+                  Deactivated
+                </span>
+                <span *ngIf="item.status != 1 && item.status != 2 && item.status != 3 && item.status != 4 && item.status != 5">
+                </span>
+              <!-- </div> -->
+              <!-- {{ item.status == 1 ? 'Pending': item.status == 2 ? 'Pending' : item.status == 3 ? 'Pending' : item.status == 4 ? 'Activated' : item.status == 5 ? 'Deactivated' : ''}} -->
               <!-- <select class="form-control custom-form-control" [(ngModel)]="item.status">
                 <option *ngFor="let status of addStatus" [value]="status.keyId">{{status.value}}</option>
               </select> -->
@@ -224,16 +240,18 @@
                 <img style="color: #bdb8b8;" src="assets/icons/play.svg" width="25" height="25" />
               </a> -->
               <a class="pointer" (click)="openPlayerDialog(item)">
-                <img style="color: #bdb8b8;" src="assets/icons/play.svg" width="25" height="25" />
+                <img style="color: #bdb8b8;" src="assets/icons/play.svg" height="20px" width="20px" />
               </a>
             </td>
   
             <td class="text-center" *ngIf="item.active == 1">
-              <a class="pointer" *ngIf="item.rules === 0" (click)="showAddAsset('rule', item)">
+              <a class="pointer" *ngIf="item.rules === 0" (click)="showAddAsset('rule', item)" matTooltip="Add Rule">
                 <img style="color: #dd6868;" src="assets/icons/add.svg" width="50" height="25"   />
               </a>
-              <span  *ngIf="item.rules !== 0" (click)="openView(item)">View</span>
+              <span  *ngIf="item.rules !== 0" (click)="openView(item)" matTooltip="View Ads">View</span>
             </td>
+
+
             <td *ngIf="item.active !==1" class="text-center"><img src="assets\icons\minus.svg" alt=""></td>
 
             <td [style.color]="item.active == 1 ? 'Green' : item.active == 0 ? 'Red' : ''">{{item.active == 1 ? 'Active' : item.active == 0 ? 'Inactive':''}}</td>
@@ -387,11 +405,15 @@
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Status</mat-label>
             <mat-select  [(ngModel)]="currentItem.status">
-              <!-- <mat-option *ngFor="let item of addStatus" [value]="item.keyId" [hidden]="item.keyId !== 4 && item.keyId !== 5">
+              <!-- <mat-option *ngFor="let item of addStatus" [value]="item.keyId" [hidden]="item.keyId !== 4 && item.keyId !== 5  && item.keyId !== 3">
                 {{ item.value }}
               </mat-option> -->
-              <mat-option [value]="2">Activated</mat-option>
-              <mat-option [value]="3">DeActivated</mat-option>
+              <!-- <mat-option >Pending</mat-option> -->
+              <mat-option [value]="2" hidden>Pending</mat-option>
+              <mat-option [value]="3" hidden>Pending</mat-option>
+
+              <mat-option [value]="4">Activated</mat-option>
+              <mat-option [value]="5">DeActivated</mat-option>
             </mat-select>
           </mat-form-field>
         </div>

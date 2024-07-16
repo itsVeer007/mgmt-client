@@ -69,6 +69,7 @@ export class AdvertisementsService {
 
 
   createAd(payload: any, file: any) {
+    console.log(payload);
     let url = this.baseUrl + "/proximity_ads/createAd_1_0";
     let user = this.storageSer.get('user');
 

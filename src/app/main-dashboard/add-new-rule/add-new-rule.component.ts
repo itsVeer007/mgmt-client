@@ -204,7 +204,7 @@ export class AddNewRuleComponent {
   cameras: any = [];
   getCamerasForSiteId() {
     this.siteSer.getCamerasForSiteId(this.currentItem).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       this.cameras = res;
     })
   }
