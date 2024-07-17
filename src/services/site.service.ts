@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SiteService {
+  
 
   baseUrl = 'http://54.92.215.87:943';
   shoowMenu: any;
@@ -58,11 +59,14 @@ export class SiteService {
   
 
 
+    baseUrlForCamera = 'http://rsmgmt.ivisecurity.com:8943'
 
-  getCamerasForSiteId(payload: any) {
-    let url = `${this.baseUrl}/getCamerasForSiteId_1_0/${payload.siteId}`;
+  getCamerasForSiteId(payload?: any) {
+    console.log(payload)
+    let url = this.baseUrlForCamera + '/camera/getCameraShortDetailsForSiteId_1_0';
     // let url = `http://192.168.0.127:8080/camera/getCameraFullDetailsForSiteId_1_0/${payload.siteId}`;
-    return this.http.get(url);
+    let params = new HttpParams().set('siteId', payload);
+    return this.http.get(url, {params:params});
   }
 
   getEngineer(id: any) {

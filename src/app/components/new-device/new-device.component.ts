@@ -42,6 +42,15 @@ export class NewDeviceComponent {
   
     this.getStatus();
     this.listAdsInfo();
+
+    this.alertSer.ruleSubject.subscribe({
+      next: (res: any) => {
+        if(res) {
+          this.show('rule', true)
+          this.close('asset')
+        }
+      }
+    })
   }
 
 
@@ -386,6 +395,7 @@ export class NewDeviceComponent {
   data:any
   showAddDevice: boolean = false;
   showDeviceInfo: boolean = false;
+  addRule: boolean = false;
   show(type: any, value?:any) {
     this.data = value;
     if(type == 'asset') {
@@ -394,6 +404,9 @@ export class NewDeviceComponent {
     if(type == 'device') {
        this.showDeviceInfo = true 
       }
+    if(type == 'rule') {
+      this.addRule = true 
+    }
   }
 
   close(type: any) {
@@ -402,6 +415,9 @@ export class NewDeviceComponent {
     }
     if(type == 'device') {
       this.showDeviceInfo = false
+    }
+    if(type == 'rule') {
+      this.addRule = false
     }
   }
 

@@ -2,6 +2,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, Output } from '@angular/core'
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AdvertisementsService } from 'src/services/advertisements.service';
 import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
 import { MetadataService } from 'src/services/metadata.service';
@@ -40,7 +41,8 @@ export class AddNewRuleComponent {
     private alertSer: AlertService,
     private siteService: SiteService,
     private storageSer: StorageService,
-    private siteSer: SiteService
+    private siteSer: SiteService,
+    private adver:AdvertisementsService
   ) { }
 
   @Input() inputData:any
@@ -52,11 +54,39 @@ export class AddNewRuleComponent {
   currentDate = new Date();
 
   personshow : boolean = false;
-  toggleShowOnOff() {
-    this.personshow = !this.personshow;
-  }
 
-  person:any = 0
+  toggleShowOnOff(event: any): void {
+    console.log(event.value)
+    this.personshow = !this.personshow;
+    // if (this.personshow) {
+    //   console.log(this.personshow);
+    //   this.addAssetForm.get('objectRule').setValue(2);
+    // } else {
+    //   this.addAssetForm.get('objectRule').setValue(1); 
+    // }
+
+    // const newValue = this.personshow ? 2 : 1;
+    // this.addAssetForm.get('objectRule').setValue(newValue);
+    // this.addAssetForm.get('objectRule').markAsDirty();
+    // this.addAssetForm.get('objectRule').markAsTouched();
+
+    // if (!this.personshow) {
+    //   this.refreshFields();
+    // }
+  }
+    // refreshFields(): void {
+   
+    //   this.addAssetForm.get('modelObjectTypeId').reset();
+    //   this.addAssetForm.get('objectCount').reset();
+    //   this.addAssetForm.get('deviceCam').reset();
+    //   this.addAssetForm.get('cameraId').reset();
+    // }
+  
+
+
+  objectRule:any 
+
+  person:any = 1;
 
   siteId:any
   adFor: any = null;
@@ -78,15 +108,18 @@ export class AddNewRuleComponent {
         modelObjectTypeId: new FormControl(''),
         objectCount: new FormControl(''),
         createdBy: new FormControl(''),
-        persons: new FormControl(''),
-        vehicles: new FormControl(''),
+
+        // persons: new FormControl(''),
+        // vehicles: new FormControl(''),
         deviceCam: new FormControl('')
     });
 
-
+    this.getCamerasForSiteId()
     this.getSitesListForUserName();
     this.onMetadataChange()
-  };
+  }
+
+ 
 
   siteData: any = [];
   getSitesListForUserName() {
@@ -95,6 +128,7 @@ export class AddNewRuleComponent {
         this.siteData = res.sites?.sort((a: any, b: any) => a.siteId < b.siteId ? -1 : a.siteId > b.siteId ? 1 : 0);
       }
     });
+    
   }
 
   filteredDevices: any = [];
@@ -135,6 +169,7 @@ export class AddNewRuleComponent {
     }
   }
 
+  
 
 
   closenow() {
@@ -151,7 +186,7 @@ export class AddNewRuleComponent {
   modelResolution: any;
   softwareVersion: any;
   weatherInterval: any;
-  adsTime: any;
+  temp_ranges: any;
   onMetadataChange() {
     let data = this.storageSer.get('metaData');
     data?.forEach((item: any) => {
@@ -175,8 +210,8 @@ export class AddNewRuleComponent {
         this.softwareVersion = item.metadata;
       } else if(item.type == 21) {
         this.weatherInterval = item.metadata;
-      } else if(item.type == 9) {
-        this.adsTime = item.metadata;
+      } else if(item.type == 96) {
+        this.temp_ranges = item.metadata;
       }
     })
   }
@@ -203,18 +238,202 @@ export class AddNewRuleComponent {
   currentItem:any;
   cameras: any = [];
   getCamerasForSiteId() {
-    this.siteSer.getCamerasForSiteId(this.currentItem).subscribe((res: any) => {
-      // console.log(res);
-      this.cameras = res;
+    this.siteSer.getCamerasForSiteId(this.inputData?.siteId).subscribe((res: any) => {
+      console.log(res);
+      this.cameras = res.cameras;
     })
   }
 
-  addNewAsset() {
-    
+
+  
+
+
+  adTimes: any = {
+    name: 'All',
+    completed: false,
+    subtasks: [
+      {name: '00', completed: false},
+      {name: '01', completed: false},
+      {name: '02', completed: false},
+      {name: '03', completed: false},
+      {name: '04', completed: false},
+      {name: '05', completed: false},
+      {name: '06', completed: false},
+      {name: '07', completed: false},
+      {name: '08', completed: false},
+      {name: '09', completed: false},
+      {name: '10', completed: false},
+      {name: '11', completed: false},
+      {name: '12', completed: false},
+      {name: '13', completed: false},
+      {name: '14', completed: false},
+      {name: '15', completed: false},
+      {name: '16', completed: false},
+      {name: '17', completed: false},
+      {name: '18', completed: false},
+      {name: '19', completed: false},
+      {name: '20', completed: false},
+      {name: '21', completed: false},
+      {name: '22', completed: false},
+      {name: '23', completed: false}
+    ],
+  };
+
+  adDays: any = {
+    name: 'All',
+    completed: false,
+    subtasks: [
+      {name: 'SUN', completed: false},
+      {name: 'MON', completed: false},
+      {name: 'TUE', completed: false},
+      {name: 'WED', completed: false},
+      {name: 'THU', completed: false},
+      {name: 'FRI', completed: false},
+      {name: 'SAT', completed: false},
+    ],
+  };
+
+  selectAllAddTimes: boolean = false;
+  selectAllAddDays: boolean = false;
+  updateAllComplete() {
+    this.selectAllAddTimes = this.adTimes.subtasks != null && this.adTimes.subtasks.every((t: any) => t.completed);
   }
 
+  updateAllComplete1() {
+    this.selectAllAddDays = this.adDays.subtasks != null && this.adDays.subtasks.every((t: any) => t.completed);
+  }
+
+  setAll(completed: boolean) {
+    this.selectAllAddTimes = completed;
+    if (this.adTimes.subtasks == null) {
+      return;
+    }
+    this.adTimes.subtasks.forEach((t: any) => (t.completed = completed));
+  }
+
+  setAll1(completed: boolean) {
+    this.selectAllAddDays = completed;
+    if (this.adDays.subtasks == null) {
+      return;
+    }
+    this.adDays.subtasks.forEach((t: any) => (t.completed = completed));
+  }
+
+  camera:any = this.addAssetForm.value
   deviceCam:any= 0;
-  devicecamera:any = 0
+
+  // addNewAsset() {
+  //   let times = this.adTimes.subtasks.filter((item: any)=> item.completed);
+  //   let finalTimes = times.map((task: any) => task.name);
+  //   this.addAssetForm.value.adHours = finalTimes.join(',')
+  //   console.log(finalTimes.join(','));
+
+  //   let days = this.adDays.subtasks.filter((item: any)=> item.completed);
+  //   let finalDays = days.map((task: any) => task.name);
+  //   this.addAssetForm.value.workingDays = finalDays.join(',')
+  //   console.log(finalDays.join(','))
+  //   this.addAssetForm.value.createdBy = this.user?.UserId
+    
+  //   if(this.deviceCam == 0 ) {
+  //     this.addAssetForm.value.cameraId = this.deviceCam.toString()
+  //   } else {
+  //     this.addAssetForm.value.cameraId = this.addAssetForm.value.cameraId
+  //   }
+  //   this.addAssetForm.value.adId = this.inputData?.adId,
+  //   this.objectRule == true ? this.addAssetForm.value.objectRule = 2 : this.addAssetForm.value.objectRule = 1
+  //   delete this.addAssetForm.value.deviceCam
+
+
+  //   this.adver.createRule(this.addAssetForm.value).subscribe((res:any)=> {
+  //     console.log(res)
+  //     this.newItemEvent.emit();
+  //     if(res?.statusCode == 200) {
+  //       this.alertSer.success(res?.message)
+  //     } else {
+  //       this.alertSer.error(res?.message)
+  //     }
+  //   },(error:any)=> {
+  //     this.alertSer.error(error?.err?.message)
+  //   }
+  // )
+  // }
+
+  addNewAsset() {
+    if(this.objectRule == true) {
+      let times = this.adTimes.subtasks.filter((item: any)=> item.completed);
+        let finalTimes = times.map((task: any) => task.name);
+        this.addAssetForm.value.adHours = finalTimes.join(',')
+        console.log(finalTimes.join(','));
+    
+        let days = this.adDays.subtasks.filter((item: any)=> item.completed);
+        let finalDays = days.map((task: any) => task.name);
+        this.addAssetForm.value.workingDays = finalDays.join(',')
+        console.log(finalDays.join(','))
+        this.addAssetForm.value.createdBy = this.user?.UserId
+        
+        if(this.deviceCam == 0 ) {
+          this.addAssetForm.value.cameraId = this.deviceCam.toString()
+        } else {
+          this.addAssetForm.value.cameraId = this.addAssetForm.value.cameraId
+        }
+        this.addAssetForm.value.adId = this.inputData?.adId,
+        this.objectRule == true ? this.addAssetForm.value.objectRule = 2 : this.addAssetForm.value.objectRule = 1
+        delete this.addAssetForm.value.deviceCam
+    
+    
+        this.adver.createRule(this.addAssetForm.value).subscribe((res:any)=> {
+          console.log(res)
+          this.newItemEvent.emit();
+          if(res?.statusCode == 200) {
+            this.alertSer.success(res?.message)
+          } else {
+            this.alertSer.error(res?.message)
+          }
+        },(error:any)=> {
+          this.alertSer.error(error?.err?.message)
+        }
+      )
+    } else {
+      let times = this.adTimes.subtasks.filter((item: any)=> item.completed);
+        let finalTimes = times.map((task: any) => task.name);
+        this.addAssetForm.value.adHours = finalTimes.join(',')
+        console.log(finalTimes.join(','));
+    
+        let days = this.adDays.subtasks.filter((item: any)=> item.completed);
+        let finalDays = days.map((task: any) => task.name);
+        this.addAssetForm.value.workingDays = finalDays.join(',')
+        console.log(finalDays.join(','))
+        this.addAssetForm.value.createdBy = this.user?.UserId
+        
+        // if(this.deviceCam == 0 ) {
+        //   this.addAssetForm.value.cameraId = this.deviceCam.toString()
+        // } else {
+        //   this.addAssetForm.value.cameraId = this.addAssetForm.value.cameraId
+        // }
+        this.addAssetForm.value.adId = this.inputData?.adId,
+        this.objectRule == true ? this.addAssetForm.value.objectRule = 2 : this.addAssetForm.value.objectRule = 1
+        delete this.addAssetForm.value.deviceCam
+        delete this.addAssetForm.value.modelObjectTypeId
+        delete this.addAssetForm.value.objectCount
+        delete this.addAssetForm.value.cameraId
+    
+    
+        this.adver.createRule(this.addAssetForm.value).subscribe((res:any)=> {
+          console.log(res)
+          this.newItemEvent.emit();
+          if(res?.statusCode == 200) {
+            this.alertSer.success(res?.message)
+          } else {
+            this.alertSer.error(res?.message)
+          }
+        },(error:any)=> {
+          this.alertSer.error(error?.err?.message)
+        }
+      )
+    }
+
+  }
+
 
 
 }

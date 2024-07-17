@@ -268,6 +268,7 @@ currentItem:any
   showAsset: boolean = false;
 
   showAddAsset(type: any , value?:any) {
+    console.log(value)
    this.final =  value 
     if (type == 'asset') {
       this.showAsset = true;

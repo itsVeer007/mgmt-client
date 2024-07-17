@@ -194,13 +194,13 @@
       <table class="table table-hover" id="mytable">
         <thead>
           <tr class="form1">
-            <th>
+            <!-- <th>
                 <span>Site</span>
                 <img (click)="sort('deviceId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">  
             </th>
             <th><p>SiteName</p>
               <img (click)="sort('siteName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">  
-            </th>
+            </th> -->
             <th>
               <span>Device Id</span>
               <img (click)="sort('deviceId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
@@ -235,10 +235,10 @@
         <tbody *ngIf="!showLoader">
           <tr *ngFor="let cust of newlistDeviceInfoData | search : searchText  let i = index" >
             <ng-container>
-            <td>
+            <!-- <td>
               <p>{{ cust.siteId }}</p>
             </td>
-            <td>{{cust.siteName}}</td>
+            <td>{{cust.siteName}}</td> -->
             <td>
                 <p>{{ cust.deviceId }}</p>
               </td>
@@ -297,6 +297,10 @@
   
   <div *ngIf="showAddDevice">
     <app-add-new-advertisement [newData]="data" (newItemEvent)="close('asset')"></app-add-new-advertisement>
+  </div>
+
+  <div *ngIf="addRule">
+    <app-add-new-rule (newItemEvent)="close('rule')"> </app-add-new-rule>
   </div>
 
 <!--   

@@ -126,5 +126,10 @@ export class AdvertisementsService {
     return this.http.delete(url, {body:myObj})
    }
 
+   createRule(payload:any) {
+    let url = this.baseUrl + '/proximity_ads/createRule_1_0';
+    return this.http.post(url,payload)
+   }
+
 
 }

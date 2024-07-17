@@ -127,6 +127,7 @@ export class AddNewAdvertisementComponent {
       }
       this.adver.createAd(this.addAssetForm.value, this.selectedFile).subscribe((res: any) => {
         console.log(res);
+        this.newItemEvent.emit();
         if(res?.statusCode == 200 ) {
           this.alertSer.successMessage(res?.message)
         } else {

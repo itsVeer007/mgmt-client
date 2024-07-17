@@ -141,7 +141,7 @@
       <table class="table table-hover" id="mytable">
         <thead>
           <tr class="form1">
-            <th><p>SiteName
+            <!-- <th><p>SiteName
               <img (click)="sort('siteName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </p>
             </th>
@@ -150,7 +150,7 @@
             </th>
             <th>DeviceName
               <img (click)="sort('deviceName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-            </th>
+            </th> -->
             <!-- <th>
               <span>Id</span>
               <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
@@ -182,15 +182,17 @@
               <img (click)="sort('toDate')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </th>
   
-            <th>
+            <th class="text-center">
               <span>DeviceSyncStatus</span>
               <img (click)="sort('status')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
             </th>
   
             <th class="text-center">Play</th>
-            <th><p>Rules</p></th>
-            <th><p>Ad Status</p>
-              <img (click)="sort('status')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px"></th>
+             <th class="text-center" ><p>Rules</p></th>
+            <th>
+              <p>Ad Status</p>
+              <img (click)="sort('status')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </th>
   
             <th class="text-center">Actions</th>
             <!-- <th></th> -->
@@ -199,9 +201,9 @@
   
         <tbody *ngIf="!tableLoader">
           <tr *ngFor="let item of newlistAdsInfoData | search: searchText; let i=index;">
-            <td>{{item.siteName}}</td>
+            <!-- <td>{{item.siteName}}</td>
             <td>{{item.deviceId}}</td>
-            <td>{{item.deviceName}}</td>
+            <td>{{item.deviceName}}</td> -->
             <!-- <td>{{i+1}}</td> -->
             <td>
               <p>{{ item.adName }}</p>

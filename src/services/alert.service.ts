@@ -1,5 +1,8 @@
-import { Injectable, NgZone } from '@angular/core';
+import { ElementRef, Injectable, NgZone, ViewChild } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { Subject } from 'rxjs';
+import { NewAdvertisementComponent } from 'src/app/components/new-advertisement/new-advertisement.component';
+import { NewDeviceComponent } from 'src/app/components/new-device/new-device.component';
 import Swal from 'sweetalert2';
 
 @Injectable({
@@ -60,14 +63,20 @@ export class AlertService {
     })
   }
 
+  ruleSubject: Subject<boolean> = new Subject(); 
   successMessage(message: any) {
     Swal.fire({
       icon: 'success',
-      title: `Done!`,
+      title: "Done!",
       text: `${message}`,
-      showCloseButton: true,
-      timer: 2000,
-    })
+      showDenyButton: true,
+      confirmButtonText: "Are you want to add rule?",
+    }).then((res) => {
+      console.log(res)
+      if(res.isConfirmed) {
+        this.ruleSubject.next(true);
+      }
+    });
   }
 
   wait() {
