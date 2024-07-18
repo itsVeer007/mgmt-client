@@ -48,24 +48,24 @@ export class AddNewUserComponent implements OnInit {
   UserForm: any =  FormGroup;
   user = {
     firstTimeFlag: "F",
-    userName: null,
-    firstName: null,
-    lastName: null,
+    userName: '',
+    firstName: '',
+    lastName: '',
     genderFlag: "M",
-    realm: null,
-    emailId: null,
-    contactNumber: null,
-    alternateContactNumber: null,
-    addressLine1: null,
-    addressLine2: null,
-    country: null,
-    state: null,
-    district: null,
-    pincode: null,
-    city: null,
-    createdBy: 1,
+    realm: '',
+    emailId: '',
+    contactNumber: '',
+    alternateContactNumber: '',
+    addressLine1: '',
+    addressLine2: '',
+    country: '',
+    state: '',
+    district: '',
+    pincode: 0,
+    city: '',
+    createdBy: null,
     employeeFlag: "F",
-    empId: null,
+    empId: '',
     safetyEscortFlag: "F"
   }
 
@@ -106,20 +106,22 @@ export class AddNewUserComponent implements OnInit {
   filterState(val: any) {
     let x = this.countryList.filter((el: any) => el.countryName == val);
     this.stateList = x.flatMap((el: any) => el.states);
-    this.user.state = null;
-    this.user.district = null;
+    this.user.state = '';
+    this.user.district = '';
   }
 
   cityList: any
   filterCity(val: any) {
     let x = this.stateList.filter((el: any) => el.stateName == val);
     this.cityList = x.flatMap((el: any) => el.cities);
-    this.user.district = null;
+    this.user.district = '';
   }
 
   closeAddUser() {
     this.newItemEvent.emit();
   }
+
+
 
   createUser() {
     if(this.UserForm.valid) {
