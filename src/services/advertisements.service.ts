@@ -69,6 +69,7 @@ export class AdvertisementsService {
 
 
   createAd(payload: any, file: any) {
+    console.log(payload);
     let url = this.baseUrl + "/proximity_ads/createAd_1_0";
     let user = this.storageSer.get('user');
 
@@ -123,6 +124,11 @@ export class AdvertisementsService {
         modifiedBy: user?.UserId
     }
     return this.http.delete(url, {body:myObj})
+   }
+
+   createRule(payload:any) {
+    let url = this.baseUrl + '/proximity_ads/createRule_1_0';
+    return this.http.post(url,payload)
    }
 
 

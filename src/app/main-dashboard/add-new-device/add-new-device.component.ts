@@ -259,7 +259,7 @@ export class AddNewDeviceComponent implements OnInit {
   selectedAll: any;
   selectAll() {
     for (var i = 0; i < this.workingDay.length; i++) {
-      console.log(this.workingDay[i])
+      // console.log(this.workingDay[i])
       this.workingDay[i].selected = !this.workingDay[i].selected;
     }
   }

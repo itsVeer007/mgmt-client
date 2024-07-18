@@ -16,14 +16,14 @@
         <div class="col-lg-2 col-md-2 d-flex justify-content-start">
           <div class="vl-green"></div>
           <div class="mx-2">
-            <div class="status">Online</div>
+            <div class="status">Active</div>
             <div class="count">{{ Active?.length }}</div>
           </div>
         </div>
         <div class="col-lg-2 col-md-2 d-flex justify-content-start">
           <div class="vl-red"></div>
           <div class="mx-2">
-            <div class="status">Offline</div>
+            <div class="status">Inactive</div>
             <div class="count">{{ inactive?.length }}</div>
           </div>
         </div>
@@ -194,13 +194,13 @@
       <table class="table table-hover" id="mytable">
         <thead>
           <tr class="form1">
-            <th>
+            <!-- <th>
                 <span>Site</span>
                 <img (click)="sort('deviceId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">  
             </th>
             <th><p>SiteName</p>
               <img (click)="sort('siteName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">  
-            </th>
+            </th> -->
             <th>
               <span>Device Id</span>
               <img (click)="sort('deviceId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
@@ -235,10 +235,10 @@
         <tbody *ngIf="!showLoader">
           <tr *ngFor="let cust of newlistDeviceInfoData | search : searchText  let i = index" >
             <ng-container>
-            <td>
+            <!-- <td>
               <p>{{ cust.siteId }}</p>
             </td>
-            <td>{{cust.siteName}}</td>
+            <td>{{cust.siteName}}</td> -->
             <td>
                 <p>{{ cust.deviceId }}</p>
               </td>
@@ -251,7 +251,7 @@
             <td>
               <p>{{  cust.cameraId == 0 ? 'Device Camera' : cust.cameraName}}</p>
             </td>
-            <td class="pointer" style="color: #084982;" matTooltip="Add Advertisement" (click)="show('asset', cust)"><img src="assets/icons/add.svg" alt="" width="35px"></td>
+            <td class="pointer" style="color: #084982;" matTooltip="Add Advertisement" (click)="show('asset', cust)"><img src="assets/icons/add.svg" alt="" width="25px"></td>
             <td class="pointer" (click)="openadver(cust)"  matTooltip="view Ad Details">View</td>
             <td>
               <select class="form-control custom-form-control" [(ngModel)]="cust.status">
@@ -259,7 +259,7 @@
               </select>
             </td>
             <td (click)="openRebootDevice(cust)">
-              <img class="pointer" style="opacity: 0.7;" src="assets/icons/restart.svg" width="25" height="25">
+              <img class="pointer" style="opacity: 0.7;" src="assets/icons/restart.svg" width="20" matTooltip="Reboot">
             </td>
             <td [style.color]="cust.active == 1 ? 'Green' : cust.active == 0 ? 'Red' : ''">{{cust.active == 1 ? 'Active' : cust.active == 0 ? 'Inactive' : ''}}</td>
             <td>
@@ -267,10 +267,10 @@
                 <img src="assets/icons/view.svg" alt="">
               </a> -->
               <a class="pointer mx-1" matTooltip="Edit" (click)="openEditPopup(cust)">
-                <img src="assets/icons/edit.svg" alt="">
+                <img src="assets/icons/edit.svg" alt="" width="12px">
               </a>
               <a class="pointer mx-1" matTooltip="Delete" (click)="DeletePopup(cust)">
-                <img src="assets/icons/delete.svg" alt="">
+                <img src="assets/icons/delete.svg" alt="" width="10px">
               </a>
             </td>
           </ng-container>
@@ -297,6 +297,10 @@
   
   <div *ngIf="showAddDevice">
     <app-add-new-advertisement [newData]="data" (newItemEvent)="close('asset')"></app-add-new-advertisement>
+  </div>
+
+  <div *ngIf="addRule">
+    <app-add-new-rule (newItemEvent)="close('rule')"> </app-add-new-rule>
   </div>
 
 <!--   
@@ -449,8 +453,9 @@
   </ng-template>
   
   <ng-template #editSiteDialog>
-    <div style="background-color: #084982;">
-      <p class="dialog-title">{{currentItem?.siteId}}-{{currentItem?.deviceId}}</p>
+    <div style="background-color: #084982;" class="d-flex justify-content-between align-items-center">
+      <p class="dialog-title">{{currentItem?.siteName}}-{{currentItem?.deviceName}}</p>
+      <p class="dialog-title">{{currentItem?.deviceId}}</p>
     </div>
   
       <div class="dialog-content">
@@ -500,13 +505,13 @@
           </div>
           <div class="col-lg-3">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Status</mat-label>
+              <mat-label>DeviceStatus</mat-label>
               <mat-select  [(ngModel)]="currentItem.active">
                 <!-- <mat-option *ngFor="let item of addStatus" [value]="item.keyId" [hidden]="item.keyId !== 4 && item.keyId !== 5">
                   {{ item.value }}
                 </mat-option> -->
                 <mat-option [value]="1">Active</mat-option>
-                <mat-option [value]="0">InActive</mat-option>
+                <mat-option [value]="0">Inactive</mat-option>
               </mat-select>
             </mat-form-field>
           </div>

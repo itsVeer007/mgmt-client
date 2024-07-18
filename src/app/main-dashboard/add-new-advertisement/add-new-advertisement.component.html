@@ -29,8 +29,9 @@
                 <div><a (click)="fileInput.click()" class="pointer">Upload your file</a></div>
               </div>
               <div>
-                <input hidden (change)="onFileSelected($event)" #fileInput type="file" formControlName="file"
-                  [accept]="(currentDeviceType == 1 || newData?.deviceTypeId == 1) ? 'audio/*' : 'video/*'">
+                <!-- <input hidden (change)="onFileSelected($event)" #fileInput type="file" formControlName="file"
+                  [accept]="(currentDeviceType == 1 || newData?.deviceTypeId == 1) ? 'audio/*' : 'video/*'"> -->
+                <input hidden (change)="onFileSelected($event)" #fileInput type="file" formControlName="file">
                 <mat-card class="mt-2" *ngIf="selectedFile">
                     <div class="d-flex align-items-center justify-content-between p-2">
                     <span>
@@ -43,6 +44,7 @@
                   </mat-card>
               </div>
               <span class="ms-3" style="color: #f44336; font-size: 12px; font-weight: 500;" *ngIf="(addAssetForm.controls['file'].hasError('required')) && submit">File is required</span>
+              <span class="ms-3" style="color: #f44336; font-size: 12px; font-weight: 500;" *ngIf="isAudio">Please select valid file</span>
             </div>
   
             <!-- <div class="mb-3">
@@ -55,6 +57,13 @@
                 <mat-label>Add Name</mat-label>
                 <input matInput formControlName="adName">
                 <mat-error>Add Name is required</mat-error>
+              </mat-form-field>
+            </div>
+            
+            <div class="col-lg-6 col-md-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Description</mat-label>
+                <input matInput formControlName="remarks">
               </mat-form-field>
             </div>
   
@@ -75,12 +84,6 @@
                 <mat-error>To Date is required</mat-error>
               </mat-form-field>
             </div>
-            <div class="col-lg-6 col-md-6">
-                <mat-form-field appearance="outline" class="w-100">
-                  <mat-label>Description</mat-label>
-                  <input matInput formControlName="remarks">
-                </mat-form-field>
-              </div>
             <div class="text-center my-5">
               <button class="add-btn">ADD</button>
             </div>

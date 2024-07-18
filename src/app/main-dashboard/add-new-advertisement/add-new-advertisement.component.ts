@@ -96,7 +96,7 @@ export class AddNewAdvertisementComponent {
   
   currentDeviceType: any;
   getDeviceType(data: any) {
-    console.log(data)
+    // console.log(data)
     this.currentDeviceType = data.deviceTypeId;
   }
 
@@ -108,7 +108,7 @@ export class AddNewAdvertisementComponent {
   listDeviceInfo() {
     this.showLoader = true;
     this.adver.listDeviceInfo().subscribe((res:any)=> {
-      console.log(res);
+      // console.log(res);
       this.showLoader = false
       this.listDeviceInfoData = res?.sites.flatMap((item:any)=>item.Devices)
       this.newlistDeviceInfoData = this.listDeviceInfoData
@@ -117,6 +117,7 @@ export class AddNewAdvertisementComponent {
   }
 
   /* create Asset */
+  lastSubmittedItemId:any = []
   submit: boolean = false;
   addNewAsset() {
     if(this.addAssetForm.valid) {
@@ -125,10 +126,11 @@ export class AddNewAdvertisementComponent {
         this.addAssetForm.value.deviceId = this.newData.deviceId
       }
       this.adver.createAd(this.addAssetForm.value, this.selectedFile).subscribe((res: any) => {
+        console.log(res);
         this.newItemEvent.emit();
         if(res?.statusCode == 200 ) {
-          this.alertSer.success(res?.message)
-        } else{
+          this.alertSer.successMessage(res?.message)
+        } else {
           this.alertSer.error(res?.message)
         }
       },(error:any)=> {
@@ -190,13 +192,31 @@ export class AddNewAdvertisementComponent {
   /* file upload */
   selectedFile: any;
   // selectedFiles: any = [];
+  isAudio: boolean = false;
   onFileSelected(event: any) {
+    console.log(event.target.files)
+    let x = event.target.files[0].type;
+    if(this.currentDeviceType === 1 || this.newData?.deviceTypeId == 1) {
+      if(x === 'audio/mpeg' || x === 'video/mp4') {
+        this.isAudio = false
+      } else {
+        this.isAudio = true;
+      }
+    } else if(this.currentDeviceType === 2 || this.newData?.deviceTypeId == 2 || this.currentDeviceType === 3 || this.newData?.deviceTypeId == 3) {
+      if(x !== 'audio/mpeg') {
+        this.isAudio = false
+      } else {
+        this.isAudio = true;
+      }
+    } 
+
     if(typeof(event) == 'object') {
       this.selectedFile = event.target.files[0] ?? null;
     }
   }
 
   deleteFile() {
+    this.isAudio = false
     this.selectedFile = null;
     // this.assetData.file = null;
   }
