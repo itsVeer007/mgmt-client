@@ -74,7 +74,7 @@ export class SitesComponent implements OnInit {
   @ViewChild('editCameraDialog') editCameraDialog = {} as TemplateRef<any>;
   currentCamera: any;
   openEditCamera(item: any) {
-    // console.log(item)
+    console.log(item)
     this.currentCamera = JSON.parse(JSON.stringify(item));
     this.dialog.open(this.editCameraDialog);
   }

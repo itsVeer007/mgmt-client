@@ -90,6 +90,7 @@
             </th> -->
           <th (click)="sort('siteId')">ID</th>
           <th (click)="sort('customerName')">Name</th>
+          <th (click)="sort('')">Assign Site</th>
           <!-- <th (click)="sort('custType')">Role</th> -->
           <th (click)="sort('contactNumber')">Contact Number</th>
           <th (click)="sort('emailId')">Email id</th>
@@ -117,6 +118,14 @@
           <td>
             <p>{{ cust.firstName }}</p>
           </td>
+
+          <td>
+            <p>{{ cust.assignSite }}</p>
+            <a class="pointer mx-1" matTooltip="Assign Site to the user" (click)="assignSite(cust)">
+              <img src="assets/icons/add_circle.svg"> 
+            </a>
+          </td>
+
           <!-- <td>
             <p>{{ cust.roleList }}</p>
           </td> -->
@@ -162,6 +171,9 @@
               <img src="assets/icons/delete.svg">
             </a>
           </td>
+
+
+
         </tr>
       </tbody>
     </table>
@@ -337,6 +349,30 @@
   <div class="d-flex align-items-center justify-content-end mt-2">
     <button class="dialog-close-btn" mat-dialog-close>Close</button>
     <button class="dialog-update-btn" mat-dialog-close (click)="updateUser()">Update</button>
+  </div>
+</ng-template>
+
+<ng-template #assignSiteDialog>
+  <div style="background-color: #084982;">
+    <p class="text-white p-1">Assign Site</p>
+  </div>
+
+  <div class="dialog-content">
+    <div class="row">
+      <div class="col-lg-12">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Select Site</mat-label>
+          <mat-select [(ngModel)]="selectedSites">
+            <mat-option *ngFor="let site of siteData" [value]="site.siteId">{{site.siteName}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="d-flex align-items-center justify-content-end mt-2">
+      <button class="dialog-close-btn" mat-dialog-close>Close</button>
+      <button class="dialog-update-btn" mat-dialog-close (click)="submitAssignSite()">Submit</button>
+    </div>
   </div>
 </ng-template>
 

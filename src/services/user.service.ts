@@ -62,8 +62,8 @@ export class UserService {
     // let url = this.baseUrl + "/createUser_1_0";
     let url = `${this.baseUrl}/createUser_1_0`;
     var user: any = this.storageSer.get('user');
-    payload.accesstoken = user.access_token;
-    payload.callingUsername = user.UserName;
+    payload.createdBy = user.UserId;
+    // payload.callingUsername = user.UserName;
     return this.http.post(url, payload);
   }
 
@@ -81,6 +81,11 @@ export class UserService {
   updateUser(payload: any) {
     let url = `http://34.206.37.237/userDetails/updateUser_1_0/${payload?.userId}`;
     return this.http.put(url, payload);
+  }
+
+  applySitesMapping(payload: any){
+    let url ='http://34.206.37.237/userDetails/applySitesMapping_1_0';
+    return this.http.post(url,payload);
   }
   
 }

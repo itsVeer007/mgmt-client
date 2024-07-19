@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertService } from 'src/services/alert.service';
 import { StorageService } from 'src/services/storage.service';
@@ -21,8 +21,10 @@ export class UsersComponent implements OnInit {
   
   showLoader = false;
   userData: any;
+  siteData: any
   ngOnInit(): void {
     this.userData = this.storageSer.get('user');
+    this.siteData = this.storageSer.get('siteIds');
     this.listUsers();
   }
 
@@ -91,6 +93,23 @@ export class UsersComponent implements OnInit {
   closenow(type: String) {
     if (type == 'user') { this.showAddUser = false; }
     if(type == 'additionalSite') {this.showAddSite = false;}
+  }
+
+  @ViewChild('assignSiteDialog') assignSiteDialog = ElementRef;
+  assignSite(user:any){
+    console.log(user)
+    this.currentUser = user
+    this.dialog.open(this.assignSiteDialog)
+    
+  }
+
+  selectedSites: any
+  submitAssignSite(){
+    this.userSer.applySitesMapping({userId: this.currentUser?.user_id, siteList: [this.selectedSites]}).subscribe({
+      next: (res)=>{
+        console.log(res)
+      }
+    })
   }
 
   showAddUser: boolean = false;
