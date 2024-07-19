@@ -62,7 +62,6 @@ export class SiteService {
     baseUrlForCamera = 'http://rsmgmt.ivisecurity.com:8943'
 
   getCamerasForSiteId(payload?: any) {
-    console.log(payload)
     let url = this.baseUrlForCamera + '/camera/getCameraShortDetailsForSiteId_1_0';
     // let url = `http://192.168.0.127:8080/camera/getCameraFullDetailsForSiteId_1_0/${payload.siteId}`;
     let params = new HttpParams().set('siteId', payload);

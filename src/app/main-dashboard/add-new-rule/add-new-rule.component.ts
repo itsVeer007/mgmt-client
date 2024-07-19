@@ -46,6 +46,7 @@ export class AddNewRuleComponent {
   ) { }
 
   @Input() inputData:any
+  @Input() deviceInputData:any
 
   @Output() newItemEvent = new EventEmitter();
 
@@ -56,23 +57,7 @@ export class AddNewRuleComponent {
   personshow : boolean = false;
 
   toggleShowOnOff(event: any): void {
-    console.log(event.value)
     this.personshow = !this.personshow;
-    // if (this.personshow) {
-    //   console.log(this.personshow);
-    //   this.addAssetForm.get('objectRule').setValue(2);
-    // } else {
-    //   this.addAssetForm.get('objectRule').setValue(1); 
-    // }
-
-    // const newValue = this.personshow ? 2 : 1;
-    // this.addAssetForm.get('objectRule').setValue(newValue);
-    // this.addAssetForm.get('objectRule').markAsDirty();
-    // this.addAssetForm.get('objectRule').markAsTouched();
-
-    // if (!this.personshow) {
-    //   this.refreshFields();
-    // }
   }
     // refreshFields(): void {
    
@@ -95,7 +80,8 @@ export class AddNewRuleComponent {
   // deviceIdFromStorage: any;
   user: any;
   ngOnInit(): void {
-    console.log(this.inputData)
+
+    // console.log(this.deviceInputData)
     this.user = this.storageSer.get('user');
     // this.deviceIdFromStorage = this.storageSer.get('add_body');
     this.addAssetForm = this.fb.group({
@@ -109,15 +95,34 @@ export class AddNewRuleComponent {
         objectCount: new FormControl(''),
         createdBy: new FormControl(''),
 
-        // persons: new FormControl(''),
-        // vehicles: new FormControl(''),
+        tempFrom: new FormControl(''),
+        tempTo: new FormControl(''),
+      
         deviceCam: new FormControl('')
     });
 
-    this.getCamerasForSiteId()
     this.getSitesListForUserName();
     this.onMetadataChange()
+    // this.getCamerasForSiteIdForDevice();
+    
+    this.adver.ruleForDevice.subscribe({
+      next: (res: any)=> {
+        // console.log(res)
+        this.getCamerasForSiteId(res.siteId? res.siteId : this.inputData.siteId)
+      }
+    });
+
+
+
+    this.adver.addIdSub.subscribe({
+      next: (res: any)=> {
+        // console.log(res)
+        this.finalId = res;
+      }
+    });
   }
+
+  finalId:any
 
  
 
@@ -237,12 +242,22 @@ export class AddNewRuleComponent {
 
   currentItem:any;
   cameras: any = [];
-  getCamerasForSiteId() {
-    this.siteSer.getCamerasForSiteId(this.inputData?.siteId).subscribe((res: any) => {
+  getCamerasForSiteId(site: any) {
+    this.siteSer.getCamerasForSiteId(site).subscribe((res: any) => {
       console.log(res);
       this.cameras = res.cameras;
     })
   }
+
+  
+
+  // camerass: any = [];
+  // getCamerasForSiteIdForDevice() {
+  //   this.siteSer.getCamerasForSiteId(this.deviceInputData?.siteId).subscribe((res: any) => {
+  //     console.log(res);
+  //     this.camerass = res.cameras;
+  //   })
+  // }
 
 
   
@@ -296,26 +311,20 @@ export class AddNewRuleComponent {
   selectAllAddTimes: boolean = false;
   selectAllAddDays: boolean = false;
   updateAllComplete() {
-    this.selectAllAddTimes = this.adTimes.subtasks != null && this.adTimes.subtasks.every((t: any) => t.completed);
+    this.selectAllAddTimes = this.adTimes.subtasks.every((t: any) => t.completed);
   }
 
   updateAllComplete1() {
-    this.selectAllAddDays = this.adDays.subtasks != null && this.adDays.subtasks.every((t: any) => t.completed);
+    this.selectAllAddDays = this.adDays.subtasks.every((t: any) => t.completed);
   }
 
   setAll(completed: boolean) {
     this.selectAllAddTimes = completed;
-    if (this.adTimes.subtasks == null) {
-      return;
-    }
     this.adTimes.subtasks.forEach((t: any) => (t.completed = completed));
   }
 
   setAll1(completed: boolean) {
     this.selectAllAddDays = completed;
-    if (this.adDays.subtasks == null) {
-      return;
-    }
     this.adDays.subtasks.forEach((t: any) => (t.completed = completed));
   }
 
@@ -370,15 +379,23 @@ export class AddNewRuleComponent {
         this.addAssetForm.value.workingDays = finalDays.join(',')
         console.log(finalDays.join(','))
         this.addAssetForm.value.createdBy = this.user?.UserId
+
+        let formValue = this.addAssetForm.value;
+
+        // Combine 'tempFrom' and 'tempTo' into a single 'temp' string
+        formValue.temp = `${formValue.tempFrom.toString()}-${formValue.tempTo.toString()}`;
         
         if(this.deviceCam == 0 ) {
           this.addAssetForm.value.cameraId = this.deviceCam.toString()
         } else {
           this.addAssetForm.value.cameraId = this.addAssetForm.value.cameraId
         }
-        this.addAssetForm.value.adId = this.inputData?.adId,
+
+        this.addAssetForm.value.adId = this.inputData?.adId ? this.inputData?.adId :this.finalId
         this.objectRule == true ? this.addAssetForm.value.objectRule = 2 : this.addAssetForm.value.objectRule = 1
         delete this.addAssetForm.value.deviceCam
+        delete this.addAssetForm.value.tempFrom
+        delete this.addAssetForm.value.tempTo
     
     
         this.adver.createRule(this.addAssetForm.value).subscribe((res:any)=> {
@@ -404,18 +421,27 @@ export class AddNewRuleComponent {
         this.addAssetForm.value.workingDays = finalDays.join(',')
         console.log(finalDays.join(','))
         this.addAssetForm.value.createdBy = this.user?.UserId
+
+        let formValue = this.addAssetForm.value;
+
+        // Combine 'tempFrom' and 'tempTo' into a single 'temp' string
+        formValue.temp = `${formValue.tempFrom.toString()}-${formValue.tempTo.toString()}`;
         
         // if(this.deviceCam == 0 ) {
         //   this.addAssetForm.value.cameraId = this.deviceCam.toString()
         // } else {
         //   this.addAssetForm.value.cameraId = this.addAssetForm.value.cameraId
         // }
-        this.addAssetForm.value.adId = this.inputData?.adId,
+        // this.addAssetForm.value.adId = this.inputData?.adId,
+        
+        this.addAssetForm.value.adId = this.inputData?.adId ? this.inputData?.adId :this.finalId
         this.objectRule == true ? this.addAssetForm.value.objectRule = 2 : this.addAssetForm.value.objectRule = 1
         delete this.addAssetForm.value.deviceCam
         delete this.addAssetForm.value.modelObjectTypeId
         delete this.addAssetForm.value.objectCount
         delete this.addAssetForm.value.cameraId
+        delete this.addAssetForm.value.tempFrom
+        delete this.addAssetForm.value.tempTo
     
     
         this.adver.createRule(this.addAssetForm.value).subscribe((res:any)=> {

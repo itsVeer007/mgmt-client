@@ -2,7 +2,7 @@ import { HttpClient,HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { StorageService } from './storage.service';
 import { formatDate } from '@angular/common';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 
 @Injectable({
@@ -13,6 +13,9 @@ export class AdvertisementsService {
   constructor(private http:HttpClient,
     private storageSer: StorageService
   ) { }
+
+  public ruleForDevice: BehaviorSubject<any> = new BehaviorSubject('');
+  public addIdSub: BehaviorSubject<any> = new BehaviorSubject('');
 
   public itemName = new BehaviorSubject<string>('')
 

@@ -51,6 +51,8 @@ export class NewDeviceComponent {
         }
       }
     })
+
+    
   }
 
 
@@ -131,14 +133,7 @@ export class NewDeviceComponent {
   closenow(){
     this.newItemEvent.emit()
   }
-  cameras: any = [];
-  getCamerasForSiteId() {
-    this.siteSer.getCamerasForSiteId(this.currentItem).subscribe((res: any) => {
-      // console.log(res);
-      this.cameras = res;
-    })
-  }
-
+ 
   siteId:any = 'All';
   deviceId: any = "All";
   deviceTypeId:any
@@ -164,9 +159,14 @@ export class NewDeviceComponent {
     }
   }
 
-
-
-
+  cameras: any = [];
+  getCamerasForSiteId() {
+    console.log(this.currentItem)
+    this.siteSer.getCamerasForSiteId(this.currentItem).subscribe((res: any) => {
+      // console.log(res);
+      this.cameras = res;
+    })
+  }
 
   @ViewChild('viewSiteDialog') viewSiteDialog = {} as TemplateRef<any>;
   openViewPopup(item:any) {
@@ -392,11 +392,13 @@ export class NewDeviceComponent {
 
 
 
+  deviceSiteId:any
   data:any
   showAddDevice: boolean = false;
   showDeviceInfo: boolean = false;
   addRule: boolean = false;
-  show(type: any, value?:any) {
+  show(type: any, value:any) {
+
     this.data = value;
     if(type == 'asset') {
        this.showAddDevice = true 
@@ -407,6 +409,10 @@ export class NewDeviceComponent {
     if(type == 'rule') {
       this.addRule = true 
     }
+  }
+
+  sendSite(site: any) {
+    this.adver.ruleForDevice.next(site);
   }
 
   close(type: any) {
