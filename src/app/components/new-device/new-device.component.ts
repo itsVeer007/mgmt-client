@@ -72,7 +72,9 @@ export class NewDeviceComponent {
       this.sites = res?.sites
       this.listDeviceInfoData = res?.sites.flatMap((item:any) => item.Devices);
       this.devices = this.listDeviceInfoData;
+      // this.newlistDeviceInfoData = this.listDeviceInfoData.sort((a:any, b:any)=> a.createdTime > b.createdTime && a.active == 1 ? -1:  a.createdTime < b.createdTime ? 1 : 0);
       this.newlistDeviceInfoData = this.listDeviceInfoData.sort((a:any, b:any)=> a.active > b.active ? -1:  a.active < b.active ? 1 : 0);
+
       // console.log(this.newlistDeviceInfoData)
       this.Active = [];
       this.inactive=[];

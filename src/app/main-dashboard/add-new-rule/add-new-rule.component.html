@@ -52,7 +52,9 @@
                   <mat-label>Temperature from</mat-label>
                   <mat-select formControlName="tempFrom" >
                     <mat-option *ngFor="let item of temp_ranges" [value]="item.value">{{item.value}}</mat-option>
+                  
                   </mat-select>
+                  <mat-error>Temperature from required</mat-error>
                 </mat-form-field>
               </div>
               <div class="col-lg-6 col-md-6 mt-2">
@@ -61,6 +63,7 @@
                   <mat-select formControlName="tempTo" >
                     <mat-option *ngFor="let item of temp_ranges" [value]="item.value">{{item.value}}</mat-option>
                   </mat-select>
+                  <mat-error>Temperature to required</mat-error>
                 </mat-form-field>
               </div>
             </div>
