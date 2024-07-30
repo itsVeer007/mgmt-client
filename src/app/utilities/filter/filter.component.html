@@ -1,6 +1,6 @@
 <div class="filter">
     <div class="row">
-        <div class="col-lg-3">
+        <div class="col-lg-3 w-100">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Site</mat-label>
             <input matInput #siteIdInput [matAutocomplete]="site" [(ngModel)]="siteId" (keyup)="searchSites($event)">
@@ -8,7 +8,7 @@
               <mat-icon>arrow_drop_down</mat-icon>
             </button>
             <mat-autocomplete #site="matAutocomplete">
-              <mat-option value="All" (click)="filterWithSites(filterType)">All</mat-option>
+              <mat-option value="All" (click)="filterWithSites(filterType)" *ngIf="filterType != 'users'">All</mat-option>
               <mat-option *ngFor="let item of sitesList | search: siteSearch" [value]="item.siteId" (click)="filterWithSites(filterType)">
                 {{ item.siteId }} - {{ item.siteName }}
               </mat-option>
@@ -70,7 +70,7 @@
             </mat-form-field>
         </div> -->
 
-        <div class="col-lg-3" *ngIf="filterType !== 'sensors'">
+        <div class="col-lg-3" *ngIf="filterType !== 'sensors' && filterType !== 'users'">
           <mat-form-field class="example-form-field" appearance="outline" class="w-100">
             <mat-label>Search</mat-label>
             <input matInput type="text" [(ngModel)]="searchText" (ngModelChange)="searchTableData()">

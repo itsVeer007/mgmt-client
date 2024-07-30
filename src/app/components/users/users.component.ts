@@ -28,6 +28,8 @@ export class UsersComponent implements OnInit {
     this.listUsers();
   }
 
+  inactiveUsers:any=[];
+  activeUsers:any=[];
   searchText: any;
   userTableData: any = [];
   listUsers() {
@@ -36,6 +38,11 @@ export class UsersComponent implements OnInit {
       // console.log(res);
       this.showLoader = false;
       this.userTableData = res;
+      this.userTableData.forEach((element:any) => {
+        element.status== 'T' ? this.activeUsers.push(element) : this.inactiveUsers.push(element)
+         
+        
+      });
     })
   }
 
@@ -101,6 +108,27 @@ export class UsersComponent implements OnInit {
     this.currentUser = user
     this.dialog.open(this.assignSiteDialog)
     
+  }
+
+  userSites:any=[]
+  getSitesListforUser(user:any){
+    console.log(user)
+    this.userSites=[];
+    this.userSer.getSitesListForUserName({UserName: user?.User_Name}).subscribe({
+      next: (res:any)=>{
+        console.log(res)
+        if (res.Status=='Success') {
+          this.userSites=res.sites;         
+        }
+        else{
+          this.userSites=[];
+        }
+
+
+      }
+    })
+
+
   }
 
   selectedSites: any
