@@ -29,7 +29,7 @@
         </div>
       </div>
       <div>
-        <button class="create-btn mb-4" (click)="show('device')">Create Device</button>
+        <button class="create-btn mb-4" (click)="show('device', null)">Create Device</button>
       </div>
     </div>
   
@@ -251,7 +251,7 @@
             <td>
               <p>{{  cust.cameraId == 0 ? 'Device Camera' : cust.cameraName}}</p>
             </td>
-            <td class="pointer" style="color: #084982;" matTooltip="Add Advertisement" (click)="show('asset', cust)"><img src="assets/icons/add.svg" alt="" width="25px"></td>
+            <td class="pointer" style="color: #084982;" matTooltip="Add Advertisement" (click)="show('asset', cust); sendSite(cust)"><img src="assets/icons/add.svg" alt="" width="25px"></td>
             <td class="pointer" (click)="openadver(cust)"  matTooltip="view Ad Details">View</td>
             <td>
               <select class="form-control custom-form-control" [(ngModel)]="cust.status">
@@ -300,7 +300,7 @@
   </div>
 
   <div *ngIf="addRule">
-    <app-add-new-rule (newItemEvent)="close('rule')"> </app-add-new-rule>
+    <app-add-new-rule [deviceInputData]="data"  (newItemEvent)="close('rule')" > </app-add-new-rule>
   </div>
 
 <!--   

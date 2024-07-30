@@ -91,6 +91,8 @@ export class AddNewAdvertisementComponent {
 
     // this.listAdsInfo();
     this.listDeviceInfo()
+
+    
   };
 
   
@@ -117,6 +119,7 @@ export class AddNewAdvertisementComponent {
   }
 
   /* create Asset */
+  addId:any;
   lastSubmittedItemId:any = []
   submit: boolean = false;
   addNewAsset() {
@@ -127,6 +130,8 @@ export class AddNewAdvertisementComponent {
       }
       this.adver.createAd(this.addAssetForm.value, this.selectedFile).subscribe((res: any) => {
         console.log(res);
+        this.addId = res.adId
+        this.adver.addIdSub.next(this.addId)
         this.newItemEvent.emit();
         if(res?.statusCode == 200 ) {
           this.alertSer.successMessage(res?.message)

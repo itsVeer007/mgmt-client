@@ -120,14 +120,13 @@ export class NewAdvertisementComponent {
       this.newlistAdsInfoData = this.listAdsInfoData.flatMap((item: any) => item.ads.sort((a:any,b:any)=> a.active > b.active ? -1 : a.active < b.active ? 1 : 0));
 
       for(let item of this.newlistAdsInfoData) {
-        if(item.status == 1) {
+        if(item.status == 1 || item.status == 2 || item.status == 3) {
           this.pending.push(item)
-        } else  if(item.status == 2) {
-          this.addedAd.push(item)
-        }
-        else  if(item.status == 3) {
-          this.removed.push(item)
-        }
+        } 
+        
+        // else  if(item.status == 3) {
+        //   this.removed.push(item)
+        // }
         else  if(item.status == 4) {
           this.activated.push(item)
         }

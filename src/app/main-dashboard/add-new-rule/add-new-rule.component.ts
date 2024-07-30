@@ -46,6 +46,7 @@ export class AddNewRuleComponent {
   ) { }
 
   @Input() inputData:any
+  @Input() deviceInputData:any
 
   @Output() newItemEvent = new EventEmitter();
 
@@ -56,23 +57,11 @@ export class AddNewRuleComponent {
   personshow : boolean = false;
 
   toggleShowOnOff(event: any): void {
-    console.log(event.value)
     this.personshow = !this.personshow;
-    // if (this.personshow) {
-    //   console.log(this.personshow);
-    //   this.addAssetForm.get('objectRule').setValue(2);
-    // } else {
-    //   this.addAssetForm.get('objectRule').setValue(1); 
-    // }
-
-    // const newValue = this.personshow ? 2 : 1;
-    // this.addAssetForm.get('objectRule').setValue(newValue);
-    // this.addAssetForm.get('objectRule').markAsDirty();
-    // this.addAssetForm.get('objectRule').markAsTouched();
-
-    // if (!this.personshow) {
-    //   this.refreshFields();
-    // }
+      this.addAssetForm.get('modelObjectTypeId').setValue(1);
+      this.addAssetForm.get('objectCount').reset();
+      this.addAssetForm.get('deviceCam').reset(0);
+      // this.addAssetForm.get('cameraId').reset().setValue(0);
   }
     // refreshFields(): void {
    
@@ -95,13 +84,14 @@ export class AddNewRuleComponent {
   // deviceIdFromStorage: any;
   user: any;
   ngOnInit(): void {
-    console.log(this.inputData)
+
+    // console.log(this.deviceInputData)
     this.user = this.storageSer.get('user');
     // this.deviceIdFromStorage = this.storageSer.get('add_body');
     this.addAssetForm = this.fb.group({
         adId : new FormControl(''),
-        adHours: new FormControl(''),
-        workingDays: new FormControl(''),
+        adHours: new FormControl('true'),
+        workingDays: new FormControl('true'),
         temp: new FormControl(''),
         objectRule: new FormControl(''),
         cameraId: new FormControl(''),
@@ -109,15 +99,34 @@ export class AddNewRuleComponent {
         objectCount: new FormControl(''),
         createdBy: new FormControl(''),
 
-        // persons: new FormControl(''),
-        // vehicles: new FormControl(''),
+        tempFrom: new FormControl('', Validators.required),
+        tempTo: new FormControl('',Validators.required),
+      
         deviceCam: new FormControl('')
     });
 
-    this.getCamerasForSiteId()
     this.getSitesListForUserName();
     this.onMetadataChange()
+    // this.getCamerasForSiteIdForDevice();
+    
+    this.adver.ruleForDevice.subscribe({
+      next: (res: any)=> {
+        // console.log(res)
+        this.getCamerasForSiteId(res.siteId? res.siteId : this.inputData.siteId)
+      }
+    });
+
+
+
+    this.adver.addIdSub.subscribe({
+      next: (res: any)=> {
+        // console.log(res)
+        this.finalId = res;
+      }
+    });
   }
+
+  finalId:any
 
  
 
@@ -237,12 +246,22 @@ export class AddNewRuleComponent {
 
   currentItem:any;
   cameras: any = [];
-  getCamerasForSiteId() {
-    this.siteSer.getCamerasForSiteId(this.inputData?.siteId).subscribe((res: any) => {
+  getCamerasForSiteId(site: any) {
+    this.siteSer.getCamerasForSiteId(site).subscribe((res: any) => {
       console.log(res);
       this.cameras = res.cameras;
     })
   }
+
+  
+
+  // camerass: any = [];
+  // getCamerasForSiteIdForDevice() {
+  //   this.siteSer.getCamerasForSiteId(this.deviceInputData?.siteId).subscribe((res: any) => {
+  //     console.log(res);
+  //     this.camerass = res.cameras;
+  //   })
+  // }
 
 
   
@@ -250,72 +269,66 @@ export class AddNewRuleComponent {
 
   adTimes: any = {
     name: 'All',
-    completed: false,
+    completed: true,
     subtasks: [
-      {name: '00', completed: false},
-      {name: '01', completed: false},
-      {name: '02', completed: false},
-      {name: '03', completed: false},
-      {name: '04', completed: false},
-      {name: '05', completed: false},
-      {name: '06', completed: false},
-      {name: '07', completed: false},
-      {name: '08', completed: false},
-      {name: '09', completed: false},
-      {name: '10', completed: false},
-      {name: '11', completed: false},
-      {name: '12', completed: false},
-      {name: '13', completed: false},
-      {name: '14', completed: false},
-      {name: '15', completed: false},
-      {name: '16', completed: false},
-      {name: '17', completed: false},
-      {name: '18', completed: false},
-      {name: '19', completed: false},
-      {name: '20', completed: false},
-      {name: '21', completed: false},
-      {name: '22', completed: false},
-      {name: '23', completed: false}
+      {name: '00', completed: true},
+      {name: '01', completed: true},
+      {name: '02', completed: true},
+      {name: '03', completed: true},
+      {name: '04', completed: true},
+      {name: '05', completed: true},
+      {name: '06', completed: true},
+      {name: '07', completed: true},
+      {name: '08', completed: true},
+      {name: '09', completed: true},
+      {name: '10', completed: true},
+      {name: '11', completed: true},
+      {name: '12', completed: true},
+      {name: '13', completed: true},
+      {name: '14', completed: true},
+      {name: '15', completed: true},
+      {name: '16', completed: true},
+      {name: '17', completed: true},
+      {name: '18', completed: true},
+      {name: '19', completed: true},
+      {name: '20', completed: true},
+      {name: '21', completed: true},
+      {name: '22', completed: true},
+      {name: '23', completed: true}
     ],
   };
 
   adDays: any = {
     name: 'All',
-    completed: false,
+    completed: true,
     subtasks: [
-      {name: 'SUN', completed: false},
-      {name: 'MON', completed: false},
-      {name: 'TUE', completed: false},
-      {name: 'WED', completed: false},
-      {name: 'THU', completed: false},
-      {name: 'FRI', completed: false},
-      {name: 'SAT', completed: false},
+      {name: '0', completed: true},
+      {name: '1', completed: true},
+      {name: '2', completed: true},
+      {name: '3', completed: true},
+      {name: '4', completed: true},
+      {name: '5', completed: true},
+      {name: '6', completed: true},
     ],
   };
 
-  selectAllAddTimes: boolean = false;
-  selectAllAddDays: boolean = false;
+  selectAllAddTimes: boolean = true;
+  selectAllAddDays: boolean = true;
   updateAllComplete() {
-    this.selectAllAddTimes = this.adTimes.subtasks != null && this.adTimes.subtasks.every((t: any) => t.completed);
+    this.selectAllAddTimes = this.adTimes.subtasks.every((t: any) => t.completed);
   }
 
   updateAllComplete1() {
-    this.selectAllAddDays = this.adDays.subtasks != null && this.adDays.subtasks.every((t: any) => t.completed);
+    this.selectAllAddDays = this.adDays.subtasks.every((t: any) => t.completed);
   }
 
   setAll(completed: boolean) {
     this.selectAllAddTimes = completed;
-    if (this.adTimes.subtasks == null) {
-      return;
-    }
     this.adTimes.subtasks.forEach((t: any) => (t.completed = completed));
   }
 
   setAll1(completed: boolean) {
     this.selectAllAddDays = completed;
-    if (this.adDays.subtasks == null) {
-      return;
-    }
     this.adDays.subtasks.forEach((t: any) => (t.completed = completed));
   }
 
@@ -359,78 +372,100 @@ export class AddNewRuleComponent {
   // }
 
   addNewAsset() {
-    if(this.objectRule == true) {
-      let times = this.adTimes.subtasks.filter((item: any)=> item.completed);
-        let finalTimes = times.map((task: any) => task.name);
-        this.addAssetForm.value.adHours = finalTimes.join(',')
-        console.log(finalTimes.join(','));
-    
-        let days = this.adDays.subtasks.filter((item: any)=> item.completed);
-        let finalDays = days.map((task: any) => task.name);
-        this.addAssetForm.value.workingDays = finalDays.join(',')
-        console.log(finalDays.join(','))
-        this.addAssetForm.value.createdBy = this.user?.UserId
-        
-        if(this.deviceCam == 0 ) {
-          this.addAssetForm.value.cameraId = this.deviceCam.toString()
-        } else {
-          this.addAssetForm.value.cameraId = this.addAssetForm.value.cameraId
-        }
-        this.addAssetForm.value.adId = this.inputData?.adId,
-        this.objectRule == true ? this.addAssetForm.value.objectRule = 2 : this.addAssetForm.value.objectRule = 1
-        delete this.addAssetForm.value.deviceCam
-    
-    
-        this.adver.createRule(this.addAssetForm.value).subscribe((res:any)=> {
-          console.log(res)
-          this.newItemEvent.emit();
-          if(res?.statusCode == 200) {
-            this.alertSer.success(res?.message)
+    if(this.addAssetForm.value.valid) {
+      if(this.objectRule == true) {
+        let times = this.adTimes.subtasks.filter((item: any)=> item.completed);
+          let finalTimes = times.map((task: any) => task.name);
+          this.addAssetForm.value.adHours = finalTimes.join(',')
+          console.log(finalTimes.join(','));
+      
+          let days = this.adDays.subtasks.filter((item: any)=> item.completed);
+          let finalDays = days.map((task: any) => task.name);
+          this.addAssetForm.value.workingDays = finalDays.join(',')
+          console.log(finalDays.join(','))
+          this.addAssetForm.value.createdBy = this.user?.UserId
+  
+          let formValue = this.addAssetForm.value;
+  
+          // Combine 'tempFrom' and 'tempTo' into a single 'temp' string
+          formValue.temp = `${formValue.tempFrom.toString()}to${formValue.tempTo.toString()}`;
+          
+          if(this.deviceCam == 0 ) {
+            this.addAssetForm.value.cameraId = this.deviceCam.toString()
           } else {
-            this.alertSer.error(res?.message)
+            this.addAssetForm.value.cameraId = this.addAssetForm.value.cameraId
           }
-        },(error:any)=> {
-          this.alertSer.error(error?.err?.message)
-        }
-      )
-    } else {
-      let times = this.adTimes.subtasks.filter((item: any)=> item.completed);
-        let finalTimes = times.map((task: any) => task.name);
-        this.addAssetForm.value.adHours = finalTimes.join(',')
-        console.log(finalTimes.join(','));
-    
-        let days = this.adDays.subtasks.filter((item: any)=> item.completed);
-        let finalDays = days.map((task: any) => task.name);
-        this.addAssetForm.value.workingDays = finalDays.join(',')
-        console.log(finalDays.join(','))
-        this.addAssetForm.value.createdBy = this.user?.UserId
-        
-        // if(this.deviceCam == 0 ) {
-        //   this.addAssetForm.value.cameraId = this.deviceCam.toString()
-        // } else {
-        //   this.addAssetForm.value.cameraId = this.addAssetForm.value.cameraId
-        // }
-        this.addAssetForm.value.adId = this.inputData?.adId,
-        this.objectRule == true ? this.addAssetForm.value.objectRule = 2 : this.addAssetForm.value.objectRule = 1
-        delete this.addAssetForm.value.deviceCam
-        delete this.addAssetForm.value.modelObjectTypeId
-        delete this.addAssetForm.value.objectCount
-        delete this.addAssetForm.value.cameraId
-    
-    
-        this.adver.createRule(this.addAssetForm.value).subscribe((res:any)=> {
-          console.log(res)
-          this.newItemEvent.emit();
-          if(res?.statusCode == 200) {
-            this.alertSer.success(res?.message)
-          } else {
-            this.alertSer.error(res?.message)
+  
+          this.addAssetForm.value.objectCount = this.addAssetForm.value.objectCount ? this.addAssetForm.value.objectCount : 1
+  
+          this.addAssetForm.value.adId = this.inputData?.adId ? this.inputData?.adId :this.finalId
+          this.objectRule == true ? this.addAssetForm.value.objectRule = 2 : this.addAssetForm.value.objectRule = 1
+          delete this.addAssetForm.value.deviceCam
+          delete this.addAssetForm.value.tempFrom
+          delete this.addAssetForm.value.tempTo
+      
+      
+          this.adver.createRule(this.addAssetForm.value).subscribe((res:any)=> {
+            console.log(res)
+            this.newItemEvent.emit();
+            if(res?.statusCode == 200) {
+              this.alertSer.success(res?.message)
+            } else {
+              this.alertSer.error(res?.message)
+            }
+          },(error:any)=> {
+            this.alertSer.error(error?.err?.message)
           }
-        },(error:any)=> {
-          this.alertSer.error(error?.err?.message)
-        }
-      )
+        )
+      } else {
+        let times = this.adTimes.subtasks.filter((item: any)=> item.completed);
+          let finalTimes = times.map((task: any) => task.name);
+          this.addAssetForm.value.adHours = finalTimes.join(',')
+          console.log(finalTimes.join(','));
+      
+          let days = this.adDays.subtasks.filter((item: any)=> item.completed);
+          let finalDays = days.map((task: any) => task.name);
+          this.addAssetForm.value.workingDays = finalDays.join(',')
+          console.log(finalDays.join(','))
+          this.addAssetForm.value.createdBy = this.user?.UserId
+  
+          let formValue = this.addAssetForm.value;
+  
+          // Combine 'tempFrom' and 'tempTo' into a single 'temp' string
+          formValue.temp = `${formValue.tempFrom.toString()}to${formValue.tempTo.toString()}`;
+          
+          // if(this.deviceCam == 0 ) {
+          //   this.addAssetForm.value.cameraId = this.deviceCam.toString()
+          // } else {
+          //   this.addAssetForm.value.cameraId = this.addAssetForm.value.cameraId
+          // }
+          // this.addAssetForm.value.adId = this.inputData?.adId,
+          
+          this.addAssetForm.value.adId = this.inputData?.adId ? this.inputData?.adId :this.finalId
+          this.objectRule == true ? this.addAssetForm.value.objectRule = 2 : this.addAssetForm.value.objectRule = 1
+          delete this.addAssetForm.value.deviceCam
+          delete this.addAssetForm.value.modelObjectTypeId
+          delete this.addAssetForm.value.objectCount
+          delete this.addAssetForm.value.cameraId
+          delete this.addAssetForm.value.tempFrom
+          delete this.addAssetForm.value.tempTo
+      
+      
+          this.adver.createRule(this.addAssetForm.value).subscribe((res:any)=> {
+            console.log(res)
+            this.newItemEvent.emit();
+            if(res?.statusCode == 200) {
+              this.alertSer.success(res?.message)
+            } else {
+              this.alertSer.error(res?.message)
+            }
+          },(error:any)=> {
+            this.alertSer.error(error?.err?.message)
+          }
+        )
+      }
     }
+    
 
   }
 

@@ -18,6 +18,7 @@
                     <mat-checkbox [checked]="selectAllAddTimes"  (change)="setAll($event.checked)">
                       {{adTimes.name}}
                     </mat-checkbox>
+                    
                     <div *ngFor="let subtask of adTimes.subtasks">
                       <mat-checkbox [(ngModel)]="subtask.completed" formControlName="adHours" (ngModelChange)="updateAllComplete()">
                         {{subtask.name}}
@@ -45,18 +46,43 @@
             </mat-card>
             
           <mat-card class="mt-2">
-            <!-- <div class="col-lg-6 col-md-6 mt-2">
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Temperature</mat-label>
-                <mat-select formControlName="temp" >
-                  <mat-option *ngFor="let item of temp_ranges" [value]="item.keyId">{{item.code}}</mat-option>
-                </mat-select>
-              </mat-form-field>
+            <div class="row">
+              <div class="col-lg-6 col-md-6 mt-2">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Temperature from</mat-label>
+                  <mat-select formControlName="tempFrom" >
+                    <mat-option *ngFor="let item of temp_ranges" [value]="item.value">{{item.value}}</mat-option>
+                  
+                  </mat-select>
+                  <mat-error>Temperature from required</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-lg-6 col-md-6 mt-2">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Temperature to</mat-label>
+                  <mat-select formControlName="tempTo" >
+                    <mat-option *ngFor="let item of temp_ranges" [value]="item.value">{{item.value}}</mat-option>
+                  </mat-select>
+                  <mat-error>Temperature to required</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            
+            <!-- <div class="row">
+              <div class="col-lg-6 col-md-6 mt-3">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Temperature From</mat-label>
+                  <input matInput type="text" formControlName="temp"  placeholder=" Temperature From ">
+                </mat-form-field>
+              </div>
+              <div class="col-lg-6 col-md-6 mt-3">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Temperature To</mat-label>
+                  <input matInput type="text" formControlName="temp"  placeholder="Temperature to">
+                </mat-form-field>
+              </div>
             </div> -->
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Temperature</mat-label>
-              <input matInput type="text" formControlName="temp"  placeholder="-10 to 45">
-            </mat-form-field>
+          
 
           </mat-card>
   
@@ -130,7 +156,15 @@
         </form>
       </div>
       <!-- /form -->
+      <!-- <div>
+        <mat-slider min="200" max="500">
+          <input value="300" matSliderStartThumb>
+          <input value="400" matSliderEndThumb>
+        </mat-slider>
+      </div> -->
     </div>
+
+  
   </div>
   
   

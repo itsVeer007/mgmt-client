@@ -69,10 +69,11 @@ export class AlertService {
       icon: 'success',
       title: "Done!",
       text: `${message}`,
-      showDenyButton: true,
-      confirmButtonText: "Are you want to add rule?",
+      // showDenyButton: true,
+      showCancelButton: true,
+      // denyButtonText: "Use scheduled playback",
+      confirmButtonText: "Set playback rules?",
     }).then((res) => {
-      console.log(res)
       if(res.isConfirmed) {
         this.ruleSubject.next(true);
       }
