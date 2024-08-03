@@ -34,6 +34,7 @@ import { CamerasComponent } from '../components/cameras/cameras.component';
 import { DefenderComponent } from '../components/defender/defender.component';
 import { NewDeviceComponent } from '../components/new-device/new-device.component';
 import { NewAdvertisementComponent } from '../components/new-advertisement/new-advertisement.component';
+import { GeneralComponent } from '../components/general/general.component';
 
 
 const routes: Routes = [
@@ -74,6 +75,7 @@ const routes: Routes = [
       {path: 'defender', component:DefenderComponent},
       {path: 'new-device',component:NewDeviceComponent},
       {path: 'new-adver',component:NewAdvertisementComponent},
+      {path: 'general',component:GeneralComponent},
       
     ]
   }

@@ -1,0 +1,686 @@
+
+<div class="container-fluid">
+
+    <!-- header -->
+    <div class="d-flex justify-content-between align-items-center my-3">
+      <!-- <div class="users-header">
+        <p class="m-0">Total Devices - <span>{{ newlistDeviceInfoData?.length }}</span></p>
+      </div> -->
+      <div class="row mb-2">
+        <div class="col-lg-3 col-md-3 d-flex justify-content-start">
+          <div class="vl-yellow"></div>
+          <div class="mx-2">
+            <div class="status">Total Devices</div>
+            <div class="count">{{ newlistDeviceInfoData?.length }}</div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-2 d-flex justify-content-start">
+          <div class="vl-green"></div>
+          <div class="mx-2">
+            <div class="status">Active</div>
+            <div class="count">{{ Active?.length }}</div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-2 d-flex justify-content-start">
+          <div class="vl-red"></div>
+          <div class="mx-2">
+            <div class="status">Inactive</div>
+            <div class="count">{{ inactive?.length }}</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <!-- <button class="create-btn mb-4" (click)="show('device', null)">Create Device</button> -->
+      </div>
+    </div>
+  
+    <!-- count -->
+    
+  
+    <!-- form -->
+      <div>
+        <!-- <div class="col-md-6 col-lg-6"> -->
+          <!-- <app-filter
+            [filterType]="'newdevices'"
+            (tableDataFromChild)="getDevicesFromChild($event)"
+            (searchFromChild)="getSearchFromChild($event)"
+            (loaderFromChild)="getLoaderFromChild($event)"
+          >
+          </app-filter> -->
+        <!-- </div> -->
+      </div>
+
+
+      <div class="row">
+        <div class="col-lg-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Site</mat-label>
+            <input matInput #siteIdInput [matAutocomplete]="site" [(ngModel)]="siteId" (keyup)="searchSites($event)">
+            <button matSuffix mat-icon-button>
+              <mat-icon>arrow_drop_down</mat-icon>
+            </button>
+            <mat-autocomplete #site="matAutocomplete">
+              <mat-option value="All" (click)="filter('All'); listDevices('All')" >All</mat-option>
+              <mat-option *ngFor="let item of getSitesDataForSite | search:siteSearch" [value]="item.siteId" (click)="filter(item.siteId); listDevices(item)">{{item.siteId}}-{{item.siteName}}</mat-option>
+              <mat-option></mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Device</mat-label>
+            <input matInput #deviceIdInput type="text" [matAutocomplete]="device" [(ngModel)]="deviceId" (keyup)="searchDevices($event)">
+            <button matSuffix mat-icon-button>
+              <mat-icon>arrow_drop_down</mat-icon>
+            </button>
+            <mat-autocomplete #device="matAutocomplete">
+              <mat-option value="All" (click)="filter('All')">All</mat-option>
+              <mat-option *ngFor="let item of devices | search:deviceSearch" [value]="item.deviceId" (click)="filter(item.deviceId)">{{item.deviceId}}-{{item.deviceName}}</mat-option>
+              <mat-option></mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-3">
+          <mat-form-field class="example-form-field" appearance="outline" class="w-100">
+            <mat-label>Search</mat-label>
+            <input matInput type="text" [(ngModel)]="searchText">
+            <button matSuffix mat-icon-button>
+              <mat-icon>search</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+      </div>
+    <!-- <div class="status-tile row py-2 mx-1 mb-3 d-lg-flex d-none">
+      <div class="col-lg-1">
+        <p>Sites</p>
+        <p class="status-tile-count">2</p>
+      </div>
+  
+      <div class="col-lg-1">
+        <p>Devices</p>
+        <p class="status-tile-count">2</p>
+      </div>
+  
+      <div class="col-lg-2">
+        <p>Audio</p>
+        <p class="status-tile-count">2</p>
+        <div class="tile-sub-count row py-1 mt-1 me-3">
+          <div class="col-lg-6">
+            <img class="mb-1 me-1" src="assets/icons/green-dot.png" alt="" width="15px">
+            <span>1</span>
+          </div>
+  
+          <div class="col-lg-6">
+            <img class="mb-1 me-1" src="assets/icons/red-dot.png" alt="" width="15px">
+            <span>0</span>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-lg-2">
+        <p>Video</p>
+        <p class="status-tile-count">2</p>
+        <div class="tile-sub-count row py-1 mt-1 me-3">
+          <div class="col-lg-6">
+            <img class="mb-1 me-1" src="assets/icons/green-dot.png" alt="" width="15px">
+            <span>1</span>
+          </div>
+  
+          <div class="col-lg-6">
+            <img class="mb-1 me-1" src="assets/icons/red-dot.png" alt="" width="15px">
+            <span>0</span>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-lg-2">
+        <p>Wifi</p>
+        <p class="status-tile-count">2</p>
+        <div class="tile-sub-count row py-1 mt-1 me-3">
+          <div class="col-lg-6">
+            <img class="mb-1 me-1" src="assets/icons/green-dot.png" alt="" width="15px">
+            <span>1</span>
+          </div>
+  
+          <div class="col-lg-6">
+            <img class="mb-1 me-1" src="assets/icons/red-dot.png" alt="" width="15px">
+            <span>0</span>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-lg-2">
+        <p>Gaurd</p>
+        <p class="status-tile-count">2</p>
+        <div class="tile-sub-count row py-1 mt-1 me-3">
+          <div class="col-lg-6">
+            <img class="mb-1 me-1" src="assets/icons/green-dot.png" alt="" width="18px">
+            <span>1</span>
+          </div>
+  
+          <div class="col-lg-6">
+            <img class="mb-1 me-1" src="assets/icons/red-dot.png" alt="" width="18px">
+            <span>0</span>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-lg-2">
+        <p>Security</p>
+        <p class="status-tile-count">2</p>
+        <div class="tile-sub-count row py-1 mt-1 me-3">
+          <div class="col-lg-6">
+            <img class="mb-1 me-1" src="assets/icons/green-dot.png" alt="" width="18px">
+            <span>1</span>
+          </div>
+  
+          <div class="col-lg-6">
+            <img class="mb-1 me-1" src="assets/icons/red-dot.png" alt="" width="18px">
+            <span>0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+   -->
+    <!-- table -->
+    <div class="table-resp">
+      <table class="table table-hover" id="mytable">
+        <thead>
+          <tr class="form1">
+            <th>
+                <span>SiteID</span>
+                <img (click)="sort('deviceId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">  
+            </th>
+            <th><p>SiteName</p>
+              <img (click)="sort('siteName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">  
+            </th>
+            <th><p>timeZone</p>
+                <img (click)="sort('siteName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">  
+              </th>
+              <th>Details</th>
+            <th>
+              <span>Actions</span>
+            </th>
+          </tr>
+        </thead>
+  
+        <tbody *ngIf="!showLoader">
+          <tr *ngFor="let cust of getSitesDataForSite | search : searchText  let i = index" >
+            <ng-container>
+            <td>
+              <p>{{ cust.siteId }}</p>
+            </td>
+            <td>{{cust.siteName}}</td>
+            <td>
+                <p>{{ cust.timeZone }}</p>
+            </td>
+            <td (click)="cameraData(cust)">view</td>
+            
+         
+            <td>
+              <a class="pointer mx-1" matTooltip="view">
+                <img src="assets/icons/view.svg" alt="">
+              </a>
+              <a class="pointer mx-1" matTooltip="Edit">
+                <img src="assets/icons/edit.svg" alt="" width="12px">
+              </a>
+              <a class="pointer mx-1" matTooltip="Delete">
+                <img src="assets/icons/delete.svg" alt="" width="10px">
+              </a>
+            </td>
+          </ng-container>
+          </tr>
+        </tbody>
+      </table>
+      <!-- error info -->
+      <div class="err-info" style="height: 40vh;" *ngIf="newlistDeviceInfoData.length == 0 && !showLoader">
+        <h1 class="text-secondary">No Devices</h1>
+      </div>
+  
+      <!-- loader -->
+      <div *ngIf="showLoader" class="d-flex justify-content-center align-items-center" style="height: 40vh;">
+        <app-loader></app-loader>
+      </div>
+    </div>
+  
+  </div>
+  
+  <!-- <div *ngIf="showDeviceInfo">
+    <app-add-second-device (newItemEvent)="close('device'); getSitesData()"></app-add-second-device>
+  </div> -->
+
+  
+  <div *ngIf="showAddDevice">
+    <app-add-new-advertisement [newData]="data" (newItemEvent)="close('asset')"></app-add-new-advertisement>
+  </div>
+
+  <div *ngIf="addRule">
+    <app-add-new-rule [deviceInputData]="data"  (newItemEvent)="close('rule')" > </app-add-new-rule>
+  </div>
+
+<!--   
+  <div *ngIf="showDeviceInfo">
+    <app-device-info (newItemEvent)="closenow('device-info')"></app-device-info>
+  </div> -->
+  
+  <ng-template #viewSiteDialog>
+    <div style="background-color: #084982;">
+      <p class="dialog-title">deviceId - {{currentItem?.deviceId}}</p>
+    </div>
+  
+    <div class="dialog-content">
+      <div class="row m-0" *ngIf="currentItem">
+        <div class="col-lg-4 col-md-4">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Site Id</mat-label>
+            <input matInput [(ngModel)]="currentItem.siteId" disabled>
+          </mat-form-field>
+        </div>
+  
+        <div class="col-lg-4 col-md-4">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Device Id</mat-label>
+            <input matInput [(ngModel)]="currentItem.deviceId" disabled>
+          </mat-form-field>
+        </div>
+  
+        <div class="col-lg-4 col-md-4">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Device Type</mat-label>
+            <mat-select [(ngModel)]="currentItem.deviceTypeId" disabled>
+              <mat-option *ngFor="let item of deviceType" [value]="item.keyId">{{ item.value }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+  
+        <div class="col-lg-4 col-md-4">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Device Name</mat-label>
+            <input matInput [(ngModel)]="currentItem.deviceName" disabled>
+          </mat-form-field>
+        </div>
+  
+        <div class="col-lg-4 col-md-4">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Status</mat-label>
+            <mat-select [(ngModel)]="currentItem.status" disabled>
+              <mat-option *ngFor="let item of deviceStatus" [value]="item.keyId">{{ item.value }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+  
+        <div class="col-lg-4 col-md-4">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Remarks</mat-label>
+            <input matInput [(ngModel)]="currentItem.remarks" disabled>
+          </mat-form-field>
+        </div>
+  
+
+         <ng-container *ngIf="currentItem?.cameraId null">
+          <div class="col-lg-4 col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Camera Id</mat-label>
+              <mat-select [(ngModel)]="currentItem.cameraId" disabled>
+                <mat-option [value]="currentItem.cameraId">{{ currentItem.cameraId }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+  
+          <div class="col-lg-4 col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Camera Name</mat-label>
+              <input matInput [(ngModel)]="currentItem.cameraName" disabled>
+            </mat-form-field>
+          </div>
+  
+          <div class="col-lg-4 col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Camera url</mat-label>
+              <input matInput [(ngModel)]="currentItem.cameraUrl" disabled>
+            </mat-form-field>
+          </div>
+
+          <div><Button (click)="openMore('more')">More</Button></div>
+       
+  
+       <div *ngIf="showMore">
+        <div class="row mt-3">
+          <div class="col-lg-4 col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Model Name</mat-label>
+              <mat-select [(ngModel)]="currentItem.modelName" disabled>
+                <mat-option [value]="currentItem.modelName">{{ currentItem.modelName }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+    
+          <div class="col-lg-4 col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Model Object Type</mat-label>
+              <mat-select [(ngModel)]="currentItem.modelObjectTypeId" disabled>
+                <mat-option [value]="currentItem.modelObjectTypeId">{{ currentItem.modelObjectTypeId }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+    
+          <div class="col-lg-4 col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Model Height</mat-label>
+              <input matInput [(ngModel)]="currentItem.modelHeight" disabled>
+            </mat-form-field>
+          </div>
+    
+          <div class="col-lg-4 col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Model Width</mat-label>
+              <input matInput [(ngModel)]="currentItem.modelWidth" disabled>
+            </mat-form-field>
+          </div>
+    
+          <div class="col-lg-4 col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Threshold</mat-label>
+              <mat-select [(ngModel)]="currentItem.modelThreshold" disabled>
+                <mat-option [value]="currentItem.modelThreshold">{{ currentItem.modelThreshold }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+    
+          <div class="col-lg-4 col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Max Results</mat-label>
+              <mat-select [(ngModel)]="currentItem.modelMaxResults" disabled>
+                <mat-option [value]="currentItem.modelMaxResults">{{ currentItem.modelMaxResults }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        
+  
+       </div>
+         </ng-container>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end">
+      <button class="dialog-close-btn" mat-dialog-close>Close</button>
+    </div>
+  </ng-template>
+  
+  <ng-template #editSiteDialog>
+    <div style="background-color: #084982;" class="d-flex justify-content-between align-items-center">
+      <p class="dialog-title">{{currentItem?.siteName}}-{{currentItem?.deviceName}}</p>
+      <p class="dialog-title">{{currentItem?.deviceId}}</p>
+    </div>
+  
+      <div class="dialog-content">
+        <div class="row m-0" *ngIf="currentItem">
+          <!-- <div class="col-lg-4 col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Site Id</mat-label>
+              <input matInput [(ngModel)]="currentItem.siteId" disabled>
+            </mat-form-field>
+          </div>
+  
+          <div class="col-lg-4 col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Device Id</mat-label>
+              <input matInput [(ngModel)]="currentItem.deviceId" disabled>
+            </mat-form-field>
+          </div>
+  
+          <div class="col-lg-4 col-md-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Device Type</mat-label>
+              <mat-select [(ngModel)]="currentItem.deviceTypeId" disabled>
+                <mat-option *ngFor="let item of deviceType" [value]="item.keyId">{{ item.value }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div> -->
+  
+          <div class="col-lg-3 col-md-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Device Name</mat-label>
+              <input matInput [(ngModel)]="currentItem.deviceName">
+            </mat-form-field>
+          </div>
+          <div class="col-lg-3 col-md-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Status</mat-label>
+              <mat-select [(ngModel)]="currentItem.status">
+                <mat-option *ngFor="let item of deviceStatus" [value]="item.keyId">{{ item.value }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-3 col-md-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Remarks</mat-label>
+              <input matInput [(ngModel)]="currentItem.remarks">
+            </mat-form-field>
+          </div>
+          <div class="col-lg-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>DeviceStatus</mat-label>
+              <mat-select  [(ngModel)]="currentItem.active">
+                <!-- <mat-option *ngFor="let item of addStatus" [value]="item.keyId" [hidden]="item.keyId !== 4 && item.keyId !== 5">
+                  {{ item.value }}
+                </mat-option> -->
+                <mat-option [value]="1">Active</mat-option>
+                <mat-option [value]="0">Inactive</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+         <ng-container *ngIf="currentItem?.cameraId !== null">
+          <div class="col-lg-12 mt-2" style="font-size: 10px; font-weight: 700;">
+            <mat-radio-group class="w-50" [(ngModel)]="cameraType">
+              <mat-label>Camera Type</mat-label>
+              <mat-radio-button class="ms-3" name="camera"  [value]="0">Device camera</mat-radio-button>
+              <mat-radio-button class="ms-3" name="camera" [value]="1">Existing camera list</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div class="col-lg-4 col-md-4" *ngIf="cameraType === 1">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Camera Id</mat-label>
+              <mat-select [(ngModel)]="currentItem.cameraId">
+                <mat-option *ngIf="cameras.length == 0">No Cameras</mat-option>
+                <mat-option *ngFor="let item of cameras" [value]="item.cameraId" (click)="getCurrentCamera(item)">{{ item?.cameraId }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-4 col-md-4" *ngIf="cameraType === 1">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Camera Name</mat-label>
+              <mat-select [(ngModel)]="currentItem.cameraName">
+                <mat-option *ngIf="cameras.length == 0">No Cameras</mat-option>
+                <mat-option *ngFor="let item of cameras" [value]="item.name" (click)="getCurrentCamera(item)">{{ item?.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-4 col-md-4" *ngIf="cameraType === 1">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Camera url</mat-label>
+              <mat-select [(ngModel)]="currentItem.cameraUrl">
+                <mat-option *ngIf="cameras.length == 0">No Cameras</mat-option>
+                <mat-option *ngFor="let item of cameras" [value]="item.rtspUrl" (click)="getCurrentCamera(item)">{{ item?.rtspUrl }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+                <div class="col-lg-4 col-md-4">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Model Name</mat-label>
+                    <mat-select [(ngModel)]="currentItem.modelName">
+                      <mat-option [value]="currentItem.modelName">{{ currentItem.modelName }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Model Object Type</mat-label>
+                    <mat-select [(ngModel)]="currentItem.modelObjectTypeId">
+                      <mat-option *ngFor="let item of deviceType" [value]="item.keyId">{{item.value}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Model Height</mat-label>
+                    <input matInput [(ngModel)]="currentItem.modelHeight">
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Model Width</mat-label>
+                    <input matInput [(ngModel)]="currentItem.modelWidth">
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Threshold</mat-label>
+                    <input matInput [(ngModel)]="currentItem.modelThreshold">
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Maximum Result</mat-label>
+                    <input matInput [(ngModel)]="currentItem.modelMaxResults">
+                  </mat-form-field>
+                </div> 
+         </ng-container>
+        </div>
+      </div>
+  
+   <div class="d-flex justify-content-end align-items-center">
+     <div>
+       <button class="dialog-close-btn" mat-dialog-close>Close</button>
+      </div>
+      <div>
+        <button class="dialog-update-btn" mat-dialog-close (click)="updateDeviceDtl()">Update</button>
+      </div>
+   </div>
+  </ng-template>
+  
+  <ng-template #deleteSiteDialog>
+    <div style="background-color: #084982;">
+      <p class="dialog-title">delete device</p>
+    </div>
+  
+    <div class="dialog-content">
+      <p>Do you want to delete this item?</p>
+    </div>
+  
+    <div class="d-flex align-items-center justify-content-end">
+      <div>
+        <button class="dialog-close-btn" mat-dialog-close>Close</button>
+      </div>
+      <div  >
+        <button class="dialog-update-btn" mat-dialog-close (click)="deleteDevice()">OK</button>
+      </div>
+    </div>
+  </ng-template>
+  
+  <ng-template #rebootDeviceDialog>
+    <div style="background-color: #084982;">
+      <p class="dialog-title">reboot device</p>
+    </div>
+  
+    <div class="dialog-content">
+      <p>Do you want to reboot this device?</p>
+    </div>
+  
+    <div class="d-flex align-items-center justify-content-end">
+      <div>
+        <button class="dialog-close-btn" mat-dialog-close>Close</button>
+      </div>
+      <div  >
+        <button class="dialog-update-btn" mat-dialog-close (click)="rebootDevice(currentItem.deviceId)">Reboot</button>
+      </div>
+    </div>
+  </ng-template>
+  
+ 
+  <ng-template #inventoryItemsDialog>
+    <div style="background-color: #084982;">
+      <p class="dialog-title">items</p>
+    </div>
+  
+    <div class="dialog-content">
+      <div class="table-res">
+        <table class="table" id="mytable">
+          <thead>
+            <tr class="task-table">
+              <th>
+                <p style="display: inline-flex;">
+                  <span>cameraId</span>
+                 
+                </p>
+              </th>
+  
+              <th>
+                <p style="display: inline-flex;">
+                  <span>cameraName</span>
+                 
+                </p>
+              </th>
+  
+              <th>
+                <p style="display: inline-flex;">
+                  <span>audioSpeakerType</span>
+                
+                </p>
+              </th>
+  
+              <th>
+                <p style="display: inline-flex;">
+                  <span>s3RequestName</span>
+                  
+                </p>
+              </th>
+  
+              <th>
+                <p style="display: inline-flex;">
+                  <span>s3_server_host</span>
+                 
+                </p>
+              </th>
+  
+            </tr>
+          </thead>
+  
+          <tbody>
+            <tr *ngFor="let inven of viewData let i = index">
+              <td>
+                <p>{{ inven.cameraId }}</p>
+              </td>
+  
+              <td>
+                <p>{{ inven.cameraName }}</p>
+              </td>
+  
+              <td>
+                <p>{{ inven.audioSpeakerType }}</p>
+              </td>
+  
+              <td>
+                <p>{{ inven.s3RequestName }}</p>
+              </td>
+  
+              <td>
+                <p>{{ inven.s3_server_host }}</p>
+              </td>
+  
+            </tr>
+          </tbody>
+        </table>
+      </div>
+   
+    </div>
+  
+    <div class="d-flex justify-content-end">
+      <button class="dialog-close-btn" mat-dialog-close>Close</button>
+    </div>
+  </ng-template>
+  
+ 
+  
+  

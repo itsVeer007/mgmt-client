@@ -134,5 +134,18 @@ export class AdvertisementsService {
     return this.http.post(url,payload)
    }
 
+   baseUrlForGe = 'http://192.168.0.169:1111';
+
+   getSitesData(payload?:any) {
+    let url = this.baseUrlForGe + '/getSitesData';
+    let params = new HttpParams();
+    if(payload?.siteId) {
+      params = params.set('siteId', payload?.siteId);
+    }
+    if(payload?.deviceId) {
+      params = params.set('deviceId', payload?.deviceId);
+    }
+    return this.http.get(url, {params: params})
+   }
 
 }
