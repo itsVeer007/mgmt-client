@@ -10,22 +10,22 @@
         <div class="col-lg-3 col-md-3 d-flex justify-content-start">
           <div class="vl-yellow"></div>
           <div class="mx-2">
-            <div class="status">Total Devices</div>
-            <div class="count">{{ newlistDeviceInfoData?.length }}</div>
+            <div class="status">Total Sites</div>
+            <div class="count">{{ getSitesDataForSite?.length }}</div>
           </div>
         </div>
         <div class="col-lg-2 col-md-2 d-flex justify-content-start">
           <div class="vl-green"></div>
           <div class="mx-2">
             <div class="status">Active</div>
-            <div class="count">{{ Active?.length }}</div>
+            <!-- <div class="count">{{ Active?.length }}</div> -->
           </div>
         </div>
         <div class="col-lg-2 col-md-2 d-flex justify-content-start">
           <div class="vl-red"></div>
           <div class="mx-2">
             <div class="status">Inactive</div>
-            <div class="count">{{ inactive?.length }}</div>
+            <!-- <div class="count">{{ inactive?.length }}</div> -->
           </div>
         </div>
       </div>
@@ -60,7 +60,7 @@
               <mat-icon>arrow_drop_down</mat-icon>
             </button>
             <mat-autocomplete #site="matAutocomplete">
-              <mat-option value="All" (click)="filter('All'); listDevices('All')" >All</mat-option>
+              <mat-option value="All" (click)="filter('All');" >All</mat-option>
               <mat-option *ngFor="let item of getSitesDataForSite | search:siteSearch" [value]="item.siteId" (click)="filter(item.siteId); listDevices(item)">{{item.siteId}}-{{item.siteName}}</mat-option>
               <mat-option></mat-option>
             </mat-autocomplete>
@@ -75,11 +75,26 @@
             </button>
             <mat-autocomplete #device="matAutocomplete">
               <mat-option value="All" (click)="filter('All')">All</mat-option>
-              <mat-option *ngFor="let item of devices | search:deviceSearch" [value]="item.deviceId" (click)="filter(item.deviceId)">{{item.deviceId}}-{{item.deviceName}}</mat-option>
+              <mat-option *ngFor="let item of newdevices | search:deviceSearch" [value]="item.deviceId" (click)="filter(item.deviceId)">{{item.deviceId}}</mat-option>
               <mat-option></mat-option>
             </mat-autocomplete>
           </mat-form-field>
         </div>
+        <div class="col-lg-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Device</mat-label>
+            <input matInput #timeInput type="text" [matAutocomplete]="time" [(ngModel)]="timeZone">
+            <button matSuffix mat-icon-button>
+              <mat-icon>arrow_drop_down</mat-icon>
+            </button>
+            <mat-autocomplete #time="matAutocomplete">
+              <mat-option value="All" (click)="filter('All')">All</mat-option>
+              <mat-option *ngFor="let item of getSitesDataForSite | removeDuplicates:'timeZone' " [value]="item.timeZone" (click)="filter(item.timeZone)">{{item.timeZone}}</mat-option>
+              <mat-option></mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+      
 
         <div class="col-lg-3">
           <mat-form-field class="example-form-field" appearance="outline" class="w-100">
@@ -184,7 +199,7 @@
     </div>
    -->
     <!-- table -->
-    <div class="table-resp">
+    <!-- <div class="table-resp">
       <table class="table table-hover" id="mytable">
         <thead>
           <tr class="form1">
@@ -206,7 +221,7 @@
         </thead>
   
         <tbody *ngIf="!showLoader">
-          <tr *ngFor="let cust of getSitesDataForSite | search : searchText  let i = index" >
+          <tr *ngFor="let cust of newgetSitesDataForSite | search : searchText  let i = index" >
             <ng-container>
             <td>
               <p>{{ cust.siteId }}</p>
@@ -233,17 +248,72 @@
           </tr>
         </tbody>
       </table>
-      <!-- error info -->
+ 
       <div class="err-info" style="height: 40vh;" *ngIf="newlistDeviceInfoData.length == 0 && !showLoader">
         <h1 class="text-secondary">No Devices</h1>
       </div>
-  
-      <!-- loader -->
+ 
+      <div *ngIf="showLoader" class="d-flex justify-content-center align-items-center" style="height: 40vh;">
+        <app-loader></app-loader>
+      </div>
+    </div> -->
+    <div class="table-resp">
+      <table class="table table-hover" id="mytable">
+        <thead>
+          <tr class="form1">
+            <th>
+              <span>SiteID</span>
+              <img (click)="sort('siteId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </th>
+            <th>
+              <p>SiteName</p>
+              <img (click)="sort('siteName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </th>
+            <th>
+              <p>TimeZone</p>
+              <img (click)="sort('timeZone')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </th>
+            <th>centralBoxId</th>
+            <th>Device ID</th>
+            <th>Unit Name</th>
+            <th>Details</th>
+          </tr>
+        </thead>
+    
+        <tbody *ngIf="!showLoader">
+          <!-- Iterate over each site in the newgetSitesDataForSite array -->
+          <ng-container *ngFor="let site of newgetSitesDataForSite | search : searchText let i = index">
+            <ng-container *ngFor="let centralBox of site.CentralBox; let first = first">
+              <tr>
+                <!-- Only display siteId and siteName for the first CentralBox -->
+                <td *ngIf="first" [attr.rowspan]="site.CentralBox.length">
+                  <p>{{ site.siteId }}</p>
+                </td>
+                <td *ngIf="first" [attr.rowspan]="site.CentralBox.length">
+                  {{ site.siteName }}
+                </td>
+                <td *ngIf="first" [attr.rowspan]="site.CentralBox.length">
+                  <p>{{ site.timeZone }}</p>
+                </td>
+                <td>{{centralBox.centralBoxId}}</td>
+                <td>{{ centralBox.deviceId }}</td>
+                <td>{{ centralBox.unitName }}</td>
+                <td (click)="cameraData(site)">view</td>
+              </tr>
+            </ng-container>
+          </ng-container>
+        </tbody>
+      </table>
+    
+      <div class="err-info" style="height: 40vh;" *ngIf="newlistDeviceInfoData.length == 0 && !showLoader">
+        <h1 class="text-secondary">No Devices</h1>
+      </div>
+    
       <div *ngIf="showLoader" class="d-flex justify-content-center align-items-center" style="height: 40vh;">
         <app-loader></app-loader>
       </div>
     </div>
-  
+    
   </div>
   
   <!-- <div *ngIf="showDeviceInfo">

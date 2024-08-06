@@ -137,13 +137,16 @@ export class AdvertisementsService {
    baseUrlForGe = 'http://192.168.0.169:1111';
 
    getSitesData(payload?:any) {
-    let url = this.baseUrlForGe + '/getSitesData';
+    let url = this.baseUrlForGe + '/generic/allSitesInfo_1_0';
     let params = new HttpParams();
     if(payload?.siteId) {
       params = params.set('siteId', payload?.siteId);
     }
     if(payload?.deviceId) {
       params = params.set('deviceId', payload?.deviceId);
+    }
+    if(payload?.timeZone) {
+      params = params.set('timeZone', payload?.timeZone);
     }
     return this.http.get(url, {params: params})
    }

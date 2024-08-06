@@ -54,8 +54,10 @@ export class GeneralComponent {
     })
   }
 
+  devicesForSite:any
   cameraDetails:any=[];
   CentralBoxDetails:any = []
+
   newgetSitesDataForSite:any = [];
   getSitesDataForSite:any;
 
@@ -64,8 +66,17 @@ export class GeneralComponent {
       console.log(res);
       this.getMetadata();
       this.getSitesDataForSite = res.siteDetails;
-      this.CentralBoxDetails = res.getSitesDataForSite.flatMap((item:any)=>item.CentralBox);
-      this.cameraDetails = this.CentralBoxDetails.flatMap((item: any) => item.cameras);
+      this.newdevices = this.getSitesDataForSite
+      this.newgetSitesDataForSite = this.getSitesDataForSite
+      this.newdevices = this.getSitesDataForSite.flatMap((item:any)=>item.CentralBox);
+      console.log(this.CentralBoxDetails);
+    })
+  }
+  
+  newdevices:any
+  listDevices(site: any) {
+    this.adver.getSitesData(site).subscribe((res: any) => {
+      this.newdevices = res.siteDetails.flatMap((item:any)=>item.CentralBox);
     })
   }
 
@@ -81,6 +92,26 @@ viewData:any
       console.log(item)
     })
     this.dialog.open(this.inventoryItemsDialog)
+  }
+
+  filter(type:any) {
+    let siteId:any
+    let deviceId:any;
+    let timeZone:any;
+
+    this.siteId == 'All' ? siteId = null : siteId = this.siteId;
+    this.deviceId == 'All' ? deviceId = null : deviceId = this.deviceId;
+    this.timeZone == 'All' ? timeZone = null : timeZone = this.timeZone;
+  
+      this.adver.getSitesData({siteId:siteId, deviceId:deviceId ,timeZone:timeZone }).subscribe((res:any)=> {
+        if(res.Status === 'Success') {
+          this.newgetSitesDataForSite = res?.siteDetails
+          // this.newgetSitesDataForSite = this.camData.flatMap((item:any)=>item.cameras)
+        } else {
+          this.newgetSitesDataForSite = []
+        }
+      })
+    
   }
 
 
@@ -99,7 +130,7 @@ viewData:any
       this.showLoader = false;
       this.sites = res?.sites
       this.listDeviceInfoData = res?.sites.flatMap((item:any) => item.Devices);
-      this.devices = this.listDeviceInfoData;
+      // this.devices = this.listDeviceInfoData;
       // this.newlistDeviceInfoData = this.listDeviceInfoData.sort((a:any, b:any)=> a.createdTime > b.createdTime && a.active == 1 ? -1:  a.createdTime < b.createdTime ? 1 : 0);
       this.newlistDeviceInfoData = this.listDeviceInfoData.sort((a:any, b:any)=> a.active > b.active ? -1:  a.active < b.active ? 1 : 0);
 
@@ -154,40 +185,37 @@ viewData:any
   }
   
 
-  listDevices(site: any) {
-    this.adver.listDeviceInfo(site).subscribe((res: any) => {
-      this.devices = res.sites.flatMap((item:any)=>item.Devices);
-    })
-  }
+  
 
   closenow(){
     this.newItemEvent.emit()
   }
  
   siteId:any = 'All';
+  timeZone:any = 'All';
   deviceId: any = "All";
   deviceTypeId:any
 
-  filter(type:any) {
-    let siteId:any
-    let deviceId:any;
-    this.siteId == 'All' ? siteId = null : siteId = this.siteId;
-    this.deviceId == 'All' ? deviceId = null : deviceId = this.deviceId;
+  // filter(type:any) {
+  //   let siteId:any
+  //   let deviceId:any;
+  //   this.siteId == 'All' ? siteId = null : siteId = this.siteId;
+  //   this.deviceId == 'All' ? deviceId = null : deviceId = this.deviceId;
   
 
-    if(type == 'All') {
-      this.deviceId = 'All'
-      this.newlistDeviceInfoData = this.listDeviceInfoData
-    } else {
-      this.adver.listDeviceInfo({siteId:siteId, deviceId:deviceId, deviceTypeId:  this.deviceTypeId}).subscribe((res:any)=> {
-        if(res.statusCode === 200) {
-          this.newlistDeviceInfoData = res?.sites.flatMap((item:any)=>item.Devices)
-        } else {
-          this.newlistDeviceInfoData = []
-        }
-      })
-    }
-  }
+  //   if(type == 'All') {
+  //     this.deviceId = 'All'
+  //     this.newlistDeviceInfoData = this.listDeviceInfoData
+  //   } else {
+  //     this.adver.listDeviceInfo({siteId:siteId, deviceId:deviceId, deviceTypeId:  this.deviceTypeId}).subscribe((res:any)=> {
+  //       if(res.statusCode === 200) {
+  //         this.newlistDeviceInfoData = res?.sites.flatMap((item:any)=>item.Devices)
+  //       } else {
+  //         this.newlistDeviceInfoData = []
+  //       }
+  //     })
+  //   }
+  // }
 
   cameras: any = [];
   getCamerasForSiteId() {
