@@ -3,10 +3,10 @@
 
     <!-- header -->
     <div class="d-flex justify-content-between align-items-center my-3">
-      <!-- <div class="users-header">
-        <p class="m-0">Total Devices - <span>{{ newlistDeviceInfoData?.length }}</span></p>
-      </div> -->
-      <div class="row mb-2">
+      <div class="users-header">
+        <p class="m-0">Total Sites - <span>{{ getSitesDataForSite?.length }}</span></p>
+      </div>
+      <!-- <div class="row mb-2">
         <div class="col-lg-3 col-md-3 d-flex justify-content-start">
           <div class="vl-yellow"></div>
           <div class="mx-2">
@@ -18,17 +18,18 @@
           <div class="vl-green"></div>
           <div class="mx-2">
             <div class="status">Active</div>
-            <!-- <div class="count">{{ Active?.length }}</div> -->
+            <div class="count">{{ Active?.length }}</div>
           </div>
         </div>
         <div class="col-lg-2 col-md-2 d-flex justify-content-start">
           <div class="vl-red"></div>
           <div class="mx-2">
             <div class="status">Inactive</div>
-            <!-- <div class="count">{{ inactive?.length }}</div> -->
+            <div class="count">{{ inactive?.length }}</div>
           </div>
         </div>
-      </div>
+      </div> -->
+
       <div>
         <!-- <button class="create-btn mb-4" (click)="show('device', null)">Create Device</button> -->
       </div>
@@ -82,14 +83,14 @@
         </div>
         <div class="col-lg-3">
           <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Device</mat-label>
-            <input matInput #timeInput type="text" [matAutocomplete]="time" [(ngModel)]="timeZone">
+            <mat-label>TimeZone</mat-label>
+            <input matInput #timeInput type="text" [matAutocomplete]="time" [(ngModel)]="timeZone" (keyup)="searchTypeDevices($event)">
             <button matSuffix mat-icon-button>
               <mat-icon>arrow_drop_down</mat-icon>
             </button>
             <mat-autocomplete #time="matAutocomplete">
               <mat-option value="All" (click)="filter('All')">All</mat-option>
-              <mat-option *ngFor="let item of getSitesDataForSite | removeDuplicates:'timeZone' " [value]="item.timeZone" (click)="filter(item.timeZone)">{{item.timeZone}}</mat-option>
+              <mat-option *ngFor="let item of getSitesDataForSite | search:deviceTypeSearch " [value]="item.timeZone" (click)="filter(item.timeZone)" [hidden]="item.timeZone == '' ">{{item.timeZone}}</mat-option>
               <mat-option></mat-option>
             </mat-autocomplete>
           </mat-form-field>
@@ -298,14 +299,14 @@
                 <td>{{centralBox.centralBoxId}}</td>
                 <td>{{ centralBox.deviceId }}</td>
                 <td>{{ centralBox.unitName }}</td>
-                <td (click)="cameraData(site)">view</td>
+                <td (click)="cameraData(site)"style="cursor: pointer; color: blue;">view</td>
               </tr>
             </ng-container>
           </ng-container>
         </tbody>
       </table>
     
-      <div class="err-info" style="height: 40vh;" *ngIf="newlistDeviceInfoData.length == 0 && !showLoader">
+      <div class="err-info" style="height: 40vh;" *ngIf="newgetSitesDataForSite.length == 0 && !showLoader">
         <h1 class="text-secondary">No Devices</h1>
       </div>
     
@@ -671,7 +672,7 @@
  
   <ng-template #inventoryItemsDialog>
     <div style="background-color: #084982;">
-      <p class="dialog-title">items</p>
+      <p class="dialog-title">Camera Details</p>
     </div>
   
     <div class="dialog-content">
@@ -682,14 +683,12 @@
               <th>
                 <p style="display: inline-flex;">
                   <span>cameraId</span>
-                 
                 </p>
               </th>
   
               <th>
                 <p style="display: inline-flex;">
                   <span>cameraName</span>
-                 
                 </p>
               </th>
   
@@ -713,32 +712,79 @@
                  
                 </p>
               </th>
-  
+              <th><p>Monitoring</p></th>
+              <th><p >rtspUrl</p></th>
+              <th><p>videoServerName</p></th>
+              <th>camera_config_url</th>
+              <th>eventsImageUrl</th>
+              <th>hlsTunnel</th>
+              <th>snapshotUrl</th>
+              <th>audioUrl</th>
+              <!-- <th>Camera Urls</th> -->
             </tr>
           </thead>
-  
           <tbody>
             <tr *ngFor="let inven of viewData let i = index">
               <td>
-                <p>{{ inven.cameraId }}</p>
+                <p style="font-size: 11px;">{{ inven.cameraId }}</p>
               </td>
   
               <td>
-                <p>{{ inven.cameraName }}</p>
+                <p style="font-size: 11px;">{{ inven.cameraName }}</p>
               </td>
   
               <td>
-                <p>{{ inven.audioSpeakerType }}</p>
+                <p style="font-size: 11px;">{{ inven.audioSpeakerType }}</p>
               </td>
   
               <td>
-                <p>{{ inven.s3RequestName }}</p>
+                <p style="font-size: 11px;">{{ inven.s3RequestName }}</p>
               </td>
   
               <td>
-                <p>{{ inven.s3_server_host }}</p>
+                <p style="font-size: 11px;">{{ inven.s3_server_host }}</p>
               </td>
-  
+              <td>
+                <p [style.color]="inven.monitoring == 'T' ? 'blue' : inven.monitoring == 'F' ? 'Red' : '' ">{{ inven.monitoring}}</p>
+              </td>
+              <td>
+                <p class="wrap-text text-center">{{ inven.rtspUrl }}</p>
+              </td>
+              <td>
+                <p class="wrap-text text-center">{{ inven.videoServerName }}</p>
+              </td>
+              <td>
+                <p class="wrap-text text-center">{{ inven.camera_config_url ?? '-' }}</p>
+              </td>
+              <td>
+                <p class="wrap-text text-center">{{ inven.eventsImageUrl ?? '-' }}</p>
+              </td>
+              <td>
+                <p class="wrap-text text-center">{{ inven.hlsTunnel ?? '-' }}</p>
+              </td>
+              <td>
+                <p class="wrap-text text-center">{{ inven.snapshotUrl ?? '-' }}</p>
+              </td>
+              <td>
+                <p class="wrap-text text-center ">{{ inven.audioUrl ?? '-' }}</p>
+              </td>
+              <!-- <td>
+          
+                  <p mat-button [matMenuTriggerFor]="menu">View</p>
+                  <mat-menu #menu="matMenu"  class="custom-menu p-2" style="color: blue;">
+                    <p style="font-size: 12px;">1.{{inven.rtspUrl}}</p>
+                    <p style="font-size: 12px;">2.{{inven.videoServerName}}</p>
+                    <p style="font-size: 12px;">3.{{inven.camera_config_url}}</p>
+                    <p style="font-size: 12px;">4.{{inven.eventsImageUrl}}</p>
+                    <p style="font-size: 12px;">5.{{inven.hlsTunnel}}</p>
+                    <p style="font-size: 12px;">6.{{inven.snapshotUrl}}</p>
+                    <p style="font-size: 12px;">7.{{inven.audioUrl}}</p>
+                
+                </mat-menu>
+             
+                
+              </td> -->
+              
             </tr>
           </tbody>
         </table>

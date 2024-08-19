@@ -63,13 +63,13 @@ export class GeneralComponent {
 
   getSitesData() {
     this.adver.getSitesData().subscribe((res:any)=> {
-      console.log(res);
+      // console.log(res);
       this.getMetadata();
       this.getSitesDataForSite = res.siteDetails;
       this.newdevices = this.getSitesDataForSite
       this.newgetSitesDataForSite = this.getSitesDataForSite
       this.newdevices = this.getSitesDataForSite.flatMap((item:any)=>item.CentralBox);
-      console.log(this.CentralBoxDetails);
+      // console.log(this.CentralBoxDetails);
     })
   }
   
@@ -86,10 +86,10 @@ camData:any
 viewData:any
   cameraData(item:any) {
     this.adver.getSitesData(item).subscribe((res:any)=> {
-      console.log(item)
+      // console.log(item)
       this.camData = res.siteDetails.flatMap((item:any)=>item.CentralBox)
       this.viewData = this.camData.flatMap((item:any)=>item.cameras)
-      console.log(item)
+      // console.log(item)
     })
     this.dialog.open(this.inventoryItemsDialog)
   }
@@ -520,6 +520,7 @@ viewData:any
   searchDevices(event: any) {
     this.deviceSearch = (event.target as HTMLInputElement).value;
   }
+  
 
   deviceTypeSearch: any;
   searchTypeDevices(event: any) {

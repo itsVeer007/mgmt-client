@@ -134,7 +134,8 @@ export class AdvertisementsService {
     return this.http.post(url,payload)
    }
 
-   baseUrlForGe = 'http://192.168.0.169:1111';
+  //  baseUrlForGe = 'http://192.168.0.169:1111';
+      baseUrlForGe= 'http://usstaging.ivisecurity.com:8943'
 
    getSitesData(payload?:any) {
     let url = this.baseUrlForGe + '/generic/allSitesInfo_1_0';
@@ -147,6 +148,9 @@ export class AdvertisementsService {
     }
     if(payload?.timeZone) {
       params = params.set('timeZone', payload?.timeZone);
+    }
+    if(payload?.cameraId) {
+      params = params.set('cameraId', payload?.cameraId);
     }
     return this.http.get(url, {params: params})
    }

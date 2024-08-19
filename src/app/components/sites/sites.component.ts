@@ -186,14 +186,15 @@ export class SitesComponent implements OnInit {
 
   @ViewChild('addCentralBoxDialog') addCentralBoxDialog = {} as TemplateRef<any>;
   openAddCentralbox() {
+    this.createCenteralBox.reset()
     this.dialog.open(this.addCentralBoxDialog)
     this.siteSer.getCentralbox(this.currentItem).subscribe((res: any) => {
-        // console.log(res)
+        console.log(res)
       })
     }
     
-    @ViewChild('viewCentralBoxDialog') viewCentralBoxDialog = {} as TemplateRef<any>;
-    onGetCentralboxDetail: any;
+  @ViewChild('viewCentralBoxDialog') viewCentralBoxDialog = {} as TemplateRef<any>;
+  onGetCentralboxDetail: any;
   getCentalBox(data: any) {
     this.currentItem = data
     this.siteSer.getCentralbox(data).subscribe((res: any) => {

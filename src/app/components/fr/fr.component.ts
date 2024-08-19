@@ -69,7 +69,7 @@ export class FrComponent implements OnInit {
         this.taskStatus = item.metadata;
       } else if(item.type == "Source_of_Request") {
         this.sourceOfRequest = item.metadata;
-      } else if(item.type == "Indent_Status") {
+      } else if(item.type == 102) {
         this.indentStatus = item.metadata;
       }
     }

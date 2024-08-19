@@ -128,15 +128,15 @@ export class AddNewTicketComponent implements OnInit {
       } else if(item.type == 1) {
         this.deviceMode = item.metadata;
       } 
-      else if(item.type == 32) {
+      else if(item.type == 101) {
         this.ticketType = item.metadata;
-      } else if(item.type == 33) {
+      } else if(item.type == 57) {
         this.sourceOfRequest = item.metadata;
-      } else if(item.type == 34) {
+      } else if(item.type == 58) {
         this.ticketPriority = item.metadata;
-      } else if(item.type == 35) {
+      } else if(item.type == 59) {
         this.ticketCategory = item.metadata;
-      } else if(item.type == 36) {
+      } else if(item.type == 60) {
         this.ticketSubCategory = item.metadata;
       } else if(item.type == 37) {
         this.taskReason = item.metadata;

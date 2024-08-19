@@ -35,6 +35,7 @@ export class IndentsComponent implements OnInit {
         this.notFr = true;
       }
     }
+    // this.getMetadata()
   }
 
   showLoader = false;
@@ -145,8 +146,9 @@ export class IndentsComponent implements OnInit {
   indentStatus: any;
   getMetadata() {
     let data = this.storageSer.get('metaData');
+    console.log(data)
     for(let item of data) {
-      if(item.type == 'Indent_Status') {
+      if(item.type === 102) {
         this.indentStatus = item.metadata;
       }
     }

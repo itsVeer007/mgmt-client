@@ -137,7 +137,7 @@ export class AddNewDcComponent {
     this.show == 'fromInventory' ? statusId = 2 : statusId = 5;
     this.show == 'fromInventory' ? userId = this.inventoryBody.name : userId = this.user?.UserId;
     this.inventorySer.listFRItems(userId, statusId).subscribe((res: any) => {
-      // console.log(res)
+      console.log(res)
       this.productIds = res;
     })
   }
@@ -149,7 +149,7 @@ export class AddNewDcComponent {
   currentItemCode: any;
   getItemCode(name: any) {
     this.inventorySer.getItemCode(name).subscribe((res: any) => {
-      // console.log(res)
+      console.log(res)
       this.currentItemCode = res
     })
   }
