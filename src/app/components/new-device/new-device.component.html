@@ -233,7 +233,7 @@
         </thead>
   
         <tbody *ngIf="!showLoader">
-          <tr *ngFor="let cust of newlistDeviceInfoData | search : searchText  let i = index" >
+          <tr *ngFor="let cust of newlistDeviceInfoData | search : searchText  let i = index"  [ngClass]="{'highlight': isHighlighted(cust.deviceId)}">
             <ng-container>
             <!-- <td>
               <p>{{ cust.siteId }}</p>
@@ -241,10 +241,10 @@
             <td>{{cust.siteName}}</td> -->
             <td>
                 <p>{{ cust.deviceId }}</p>
-              </td>
-              <td>
+            </td>
+            <td>
                 {{cust.deviceName}}
-              </td>
+            </td>
             <td>
               <p>{{ cust.deviceTypeId == 1 ? 'Audio' : cust.deviceTypeId == 2 ? 'Video': cust.deviceTypeId == 3 ? 'Wifi' : ''}}</p>
             </td>

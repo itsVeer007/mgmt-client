@@ -67,12 +67,12 @@ export class AlertService {
   successMessage(message: any) {
     Swal.fire({
       icon: 'success',
-      title: "Done!",
+      title: "Advertisement Created Successfully",
       text: `${message}`,
       // showDenyButton: true,
       showCancelButton: true,
       // denyButtonText: "Use scheduled playback",
-      confirmButtonText: "Set playback rules?",
+      confirmButtonText: "Do you want to add rules for this advertisement?",
     }).then((res) => {
       if(res.isConfirmed) {
         this.ruleSubject.next(true);

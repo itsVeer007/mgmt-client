@@ -52,10 +52,19 @@ export class NewDeviceComponent {
       }
     })
 
-    
+    this.adver.deviceId.subscribe((res:any)=> {
+      this.finanlDeviceId = res
+    })
+
   }
 
+  isHighlighted(adId: string): boolean {
+    // console.log(adId)
+    return this.finanlDeviceId === adId;
+  }
 
+ 
+  finanlDeviceId:any
 
   devices:any
   sites:any = [];
@@ -72,8 +81,8 @@ export class NewDeviceComponent {
       this.sites = res?.sites
       this.listDeviceInfoData = res?.sites.flatMap((item:any) => item.Devices);
       this.devices = this.listDeviceInfoData;
-      // this.newlistDeviceInfoData = this.listDeviceInfoData.sort((a:any, b:any)=> a.createdTime > b.createdTime && a.active == 1 ? -1:  a.createdTime < b.createdTime ? 1 : 0);
-      this.newlistDeviceInfoData = this.listDeviceInfoData.sort((a:any, b:any)=> a.active > b.active ? -1:  a.active < b.active ? 1 : 0);
+      this.newlistDeviceInfoData = this.listDeviceInfoData.sort((a:any, b:any)=> a.createdTime > b.createdTime && a.active == 1 ? -1:  a.createdTime < b.createdTime ? 1 : 0);
+      // this.newlistDeviceInfoData = this.listDeviceInfoData.sort((a:any, b:any)=> a.active > b.active ? -1:  a.active < b.active ? 1 : 0);
 
       // console.log(this.newlistDeviceInfoData)
       this.Active = [];
@@ -193,6 +202,7 @@ export class NewDeviceComponent {
   currentItem: any;
 
   getCurrentCamera(item:any) {
+    console.log(item)
     this.currentItem.cameraId = item.cameraId
     this.currentItem.cameraName = item.name
     this.currentItem.cameraUrl = item.rtspUrl
@@ -400,7 +410,6 @@ export class NewDeviceComponent {
   showDeviceInfo: boolean = false;
   addRule: boolean = false;
   show(type: any, value:any) {
-
     this.data = value;
     if(type == 'asset') {
        this.showAddDevice = true 

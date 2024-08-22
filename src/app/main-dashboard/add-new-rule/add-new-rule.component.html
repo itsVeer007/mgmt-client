@@ -4,7 +4,8 @@
     <div class="col-lg-6 col-8 add-form" id="camera" @inOutPaneAnimation>
       <div>
         <a class="close-main pointer" (click)="closenow()"><img src="assets/icons/close_form.svg" /></a>
-        <span class="form-heading" >Add Rule For <span *ngIf="inputData">- {{inputData?.adName}}</span></span>
+        <span class="form-heading">Add Rule For <span >- {{inputData?.adName? inputData?.adName : finalName}}</span></span>
+        <!-- <span class="form-heading"  *ngIf="!inputData">Add Rule For <span *ngIf="finalName"> ( {{finalName}} )</span></span> -->
       </div>
   
       <!-- form -->
@@ -38,7 +39,7 @@
                     </mat-checkbox>
                     <div *ngFor="let subtask of adDays.subtasks">
                       <mat-checkbox [(ngModel)]="subtask.completed" formControlName="workingDays" (ngModelChange)="updateAllComplete1()">
-                        {{subtask.name}}
+                        {{subtask.first}}
                       </mat-checkbox>
                     </div>
                   </div>
@@ -47,9 +48,9 @@
             
           <mat-card class="mt-2">
             <div class="row">
-              <div class="col-lg-6 col-md-6 mt-2">
+              <div class="col-lg-4 col-md-4 mt-2">
                 <mat-form-field appearance="outline" class="w-100">
-                  <mat-label>Temperature from</mat-label>
+                  <mat-label>Temp from</mat-label>
                   <mat-select formControlName="tempFrom" >
                     <mat-option *ngFor="let item of temp_ranges" [value]="item.value">{{item.value}}</mat-option>
                   
@@ -57,9 +58,9 @@
                   <mat-error>Temperature from required</mat-error>
                 </mat-form-field>
               </div>
-              <div class="col-lg-6 col-md-6 mt-2">
+              <div class="col-lg-4 col-md-4 mt-2">
                 <mat-form-field appearance="outline" class="w-100">
-                  <mat-label>Temperature to</mat-label>
+                  <mat-label>Temp to</mat-label>
                   <mat-select formControlName="tempTo" >
                     <mat-option *ngFor="let item of temp_ranges" [value]="item.value">{{item.value}}</mat-option>
                   </mat-select>
@@ -138,7 +139,7 @@
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Camera Details</mat-label>
                   <mat-select formControlName="cameraId" [(ngModel)]="camera">
-                    <mat-option *ngFor="let item of cameras" [value]="item.cameraId">{{item.cameraId}} - {{item.name}}</mat-option>
+                    <mat-option *ngFor="let item of cameras" [value]="item.cameraId"><span style="font-size: 11px;">{{item.cameraId}}-{{item.name}}-{{item.rtspUrl}}</span></mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>

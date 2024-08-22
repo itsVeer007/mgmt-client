@@ -1,7 +1,9 @@
 import { animate, style, transition, trigger } from '@angular/animations';
+import { Dialog } from '@angular/cdk/dialog';
 import { Component, EventEmitter, Input, Output } from '@angular/core'
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AdvertisementsComponent } from 'src/app/components/advertisements/advertisements.component';
 import { AdvertisementsService } from 'src/services/advertisements.service';
 import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
@@ -34,6 +36,7 @@ import { StorageService } from 'src/services/storage.service';
 })
 export class AddNewRuleComponent {
   constructor(
+    private dialog:Dialog,
     private router: Router,
     private fb: FormBuilder,
     private assetSer: AssetService,
@@ -83,9 +86,10 @@ export class AddNewRuleComponent {
 
   // deviceIdFromStorage: any;
   user: any;
+  finalId:any
+  finalName:any
   ngOnInit(): void {
-
-    // console.log(this.deviceInputData)
+    console.log(this.inputData)
     this.user = this.storageSer.get('user');
     // this.deviceIdFromStorage = this.storageSer.get('add_body');
     this.addAssetForm = this.fb.group({
@@ -99,9 +103,9 @@ export class AddNewRuleComponent {
         objectCount: new FormControl(''),
         createdBy: new FormControl(''),
 
-        tempFrom: new FormControl('', Validators.required),
-        tempTo: new FormControl('',Validators.required),
-      
+        tempFrom: new FormControl(''),
+        tempTo: new FormControl(''),
+        
         deviceCam: new FormControl('')
     });
 
@@ -117,16 +121,22 @@ export class AddNewRuleComponent {
     });
 
 
-
     this.adver.addIdSub.subscribe({
       next: (res: any)=> {
-        // console.log(res)
+        console.log(res)
         this.finalId = res;
+      }
+    });
+
+    this.adver.addNameSub.subscribe({
+      next: (res: any)=> {
+        console.log(res)
+        this.finalName = res
       }
     });
   }
 
-  finalId:any
+  
 
  
 
@@ -205,6 +215,7 @@ export class AddNewRuleComponent {
         this.deviceMode = item.metadata;
       } else if(item.type == 6) {
         this.workingDay = item.metadata;
+        console.log(this.workingDay)
       } else if(item.type == 11) {
         this.tempRange = item.metadata;
       } else if(item.type == 13) {
@@ -248,7 +259,7 @@ export class AddNewRuleComponent {
   cameras: any = [];
   getCamerasForSiteId(site: any) {
     this.siteSer.getCamerasForSiteId(site).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       this.cameras = res.cameras;
     })
   }
@@ -302,18 +313,19 @@ export class AddNewRuleComponent {
     name: 'All',
     completed: true,
     subtasks: [
-      {name: '0', completed: true},
-      {name: '1', completed: true},
-      {name: '2', completed: true},
-      {name: '3', completed: true},
-      {name: '4', completed: true},
-      {name: '5', completed: true},
-      {name: '6', completed: true},
+      {first:'Sun', name: '0', completed: true},
+      {first:'Mon', name: '1', completed: true},
+      {first:'Tue', name: '2', completed: true},
+      {first:'Wed', name: '3', completed: true},
+      {first:'Thu', name: '4', completed: true},
+      {first:'Fri', name: '5', completed: true},
+      {first:'Sat', name: '6', completed: true},
     ],
   };
 
   selectAllAddTimes: boolean = true;
   selectAllAddDays: boolean = true;
+  
   updateAllComplete() {
     this.selectAllAddTimes = this.adTimes.subtasks.every((t: any) => t.completed);
   }
@@ -372,21 +384,22 @@ export class AddNewRuleComponent {
   // }
 
   addNewAsset() {
-    if(this.addAssetForm.value.valid) {
+    if(this.addAssetForm.valid) {
       if(this.objectRule == true) {
         let times = this.adTimes.subtasks.filter((item: any)=> item.completed);
+        console.log(times)
           let finalTimes = times.map((task: any) => task.name);
+          console.log(finalTimes)
           this.addAssetForm.value.adHours = finalTimes.join(',')
-          console.log(finalTimes.join(','));
       
           let days = this.adDays.subtasks.filter((item: any)=> item.completed);
           let finalDays = days.map((task: any) => task.name);
           this.addAssetForm.value.workingDays = finalDays.join(',')
-          console.log(finalDays.join(','))
+
           this.addAssetForm.value.createdBy = this.user?.UserId
   
           let formValue = this.addAssetForm.value;
-  
+
           // Combine 'tempFrom' and 'tempTo' into a single 'temp' string
           formValue.temp = `${formValue.tempFrom.toString()}to${formValue.tempTo.toString()}`;
           
@@ -397,7 +410,6 @@ export class AddNewRuleComponent {
           }
   
           this.addAssetForm.value.objectCount = this.addAssetForm.value.objectCount ? this.addAssetForm.value.objectCount : 1
-  
           this.addAssetForm.value.adId = this.inputData?.adId ? this.inputData?.adId :this.finalId
           this.objectRule == true ? this.addAssetForm.value.objectRule = 2 : this.addAssetForm.value.objectRule = 1
           delete this.addAssetForm.value.deviceCam
@@ -410,9 +422,13 @@ export class AddNewRuleComponent {
             this.newItemEvent.emit();
             if(res?.statusCode == 200) {
               this.alertSer.success(res?.message)
+              this.adver.addIdSub.next(this.inputData?.adId ? this.inputData?.adId :this.finalId)
+              this.router.navigate(['/home/new-adver']);
+              
             } else {
               this.alertSer.error(res?.message)
             }
+            this.listAdsInfo()
           },(error:any)=> {
             this.alertSer.error(error?.err?.message)
           }
@@ -421,12 +437,12 @@ export class AddNewRuleComponent {
         let times = this.adTimes.subtasks.filter((item: any)=> item.completed);
           let finalTimes = times.map((task: any) => task.name);
           this.addAssetForm.value.adHours = finalTimes.join(',')
-          console.log(finalTimes.join(','));
+          // console.log(finalTimes.join(','));
       
           let days = this.adDays.subtasks.filter((item: any)=> item.completed);
           let finalDays = days.map((task: any) => task.name);
           this.addAssetForm.value.workingDays = finalDays.join(',')
-          console.log(finalDays.join(','))
+          // console.log(finalDays.join(','))
           this.addAssetForm.value.createdBy = this.user?.UserId
   
           let formValue = this.addAssetForm.value;
@@ -456,9 +472,13 @@ export class AddNewRuleComponent {
             this.newItemEvent.emit();
             if(res?.statusCode == 200) {
               this.alertSer.success(res?.message)
+              this.adver.addIdSub.next(this.inputData?.adId ? this.inputData?.adId :this.finalId)
+              this.router.navigate(['/home/new-adver']);
+
             } else {
               this.alertSer.error(res?.message)
             }
+            this.listAdsInfo()
           },(error:any)=> {
             this.alertSer.error(error?.err?.message)
           }
@@ -467,6 +487,44 @@ export class AddNewRuleComponent {
     }
     
 
+  }
+
+  pending:any =[]
+  addedAd:any = []
+  activated:any = []
+  removed:any = []
+  Deactivated:any = []
+
+  showLoader:any
+  newlistAdsInfoData:any = [];
+  listAdsInfoData:any;
+  devices:any
+
+  listAdsInfo() {
+    this.adver.listAdsInfo().subscribe((res:any)=> {
+      // console.log(res);
+      this.siteData = res?.sites;
+      this.listAdsInfoData = res.sites.flatMap((item:any)=>item.devices);
+      this.devices = this.listAdsInfoData;
+      this.newlistAdsInfoData = this.listAdsInfoData.flatMap((item: any) => item.ads);
+      this.newlistAdsInfoData = this.newlistAdsInfoData.sort((a:any, b:any)=> a.createdTime > b.createdTime && a.active == 1 ? -1:  a.createdTime < b.createdTime ? 1 : 0);
+
+      for(let item of this.newlistAdsInfoData) {
+        if(item.status == 1 || item.status == 2 || item.status == 3) {
+          this.pending.push(item)
+        } 
+        
+        // else  if(item.status == 3) {
+        //   this.removed.push(item)
+        // }
+        else  if(item.status == 4) {
+          this.activated.push(item)
+        }
+        else  if(item.status == 5) {
+          this.Deactivated.push(item)
+        }
+      }
+    })
   }
 
 

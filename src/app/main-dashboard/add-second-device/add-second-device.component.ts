@@ -60,8 +60,11 @@ ngOnInit():void {
     'createdBy': new FormControl(''),
     'remarks': new FormControl('')
   })
+
+
 }
 
+finanlDeviceId:any
 
 close() {
   this.newItemEvent.emit();
@@ -112,12 +115,14 @@ getMetadata() {
 }
 
 
-
+deviceId:any 
 submit(item:any) {
   if(this.userForm1.valid) {
     item.createdBy = this.user?.UserId
     this.adver.createDevice(this.userForm1.value).subscribe((res:any)=> {
-      // console.log(res);
+      console.log(res);
+      this.deviceId = res.deviceId
+      this.adver.deviceId.next(res.deviceId)
       this.newItemEvent.emit();
       this.alert.wait();
       if(res?.statusCode == 200) {

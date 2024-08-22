@@ -30,17 +30,31 @@ export class NewAdvertisementComponent {
   tableLoader: boolean = false;
   user: any;
   selectedName:any
+  newAdId: string | null = null;
   ngOnInit() {
     this.user = this.storageSer.get('user');
     this.listAdsInfo();
     // this.listAssets();
     this.adver.itemName.subscribe((res:any)=>{
-      // console.log(res)
-      // this.selectedName = res;
-      this.siteId = res.siteId;
-      this.deviceId = res.deviceId
-      this.filter(res);
-    })
+      this.selectedName = res;
+      if(res.siteId) {
+        this.siteId = res.siteId;
+        this.filter(res);
+      }
+      if(res.deviceId) {
+        this.deviceId = res.deviceId
+      }
+    });
+
+    this.adver.addIdSub.subscribe((res:any) => {
+      this.newAdId = res;
+      console.log(res)
+    });
+  }
+
+  isHighlighted(adId: string): boolean {
+    // console.log(adId)
+    return this.newAdId === adId;
   }
 
 
@@ -48,14 +62,17 @@ export class NewAdvertisementComponent {
   searchSites(event: any) {
     this.searchSite = (event.target as HTMLInputElement).value;
   }
+
   searchDevice:any
   searchDevices(event: any) {
     this.searchDevice = (event.target as HTMLInputElement).value;
   }
+
   // searchSite:any
   // searchSites(event: any) {
   //   this.searchSite = (event.target as HTMLInputElement).value;
   // }
+
   siteData:any=[]
   showLoader:any
   newlistAdsInfoData:any = [];
@@ -87,8 +104,8 @@ export class NewAdvertisementComponent {
       this.newlistAdsInfoData = this.listAdsInfoData.flatMap((item: any) => item.ads);
     } else {
       this.adver.listAdsInfo({siteId: siteId ,deviceId:deviceId, adName:adName, fromDate:this.ticketStatusObj.fromDate, toDate:this.ticketStatusObj.toDate}).subscribe((res:any)=> {
-        let x = res.sites.flatMap((item:any)=>item.devices);
-        this.newlistAdsInfoData = x.flatMap((item: any) => item.ads);
+        let x = res.sites.flatMap((item: any) => item.devices);
+        this.newlistAdsInfoData = x.flatMap((item: any) => item.ads.sort((a:any, b:any)=> a.createdTime > b.createdTime ? -1 :  a.createdTime < b.createdTime ? 1 : 0));
       })
     }
   }
@@ -117,8 +134,12 @@ export class NewAdvertisementComponent {
       this.siteData = res?.sites;
       this.listAdsInfoData = res.sites.flatMap((item:any)=>item.devices);
       this.devices = this.listAdsInfoData;
-      this.newlistAdsInfoData = this.listAdsInfoData.flatMap((item: any) => item.ads.sort((a:any,b:any)=> a.active > b.active ? -1 : a.active < b.active ? 1 : 0));
+      this.newlistAdsInfoData = this.listAdsInfoData.flatMap((item: any) => item.ads);
+      this.newlistAdsInfoData = this.newlistAdsInfoData.sort((a:any, b:any)=> a.createdTime > b.createdTime ? -1 :  a.createdTime < b.createdTime ? 1 : 0);
 
+      this.activated = [];
+      this.Deactivated = [];
+      this.pending = [];
       for(let item of this.newlistAdsInfoData) {
         if(item.status == 1 || item.status == 2 || item.status == 3) {
           this.pending.push(item)
@@ -146,9 +167,19 @@ export class NewAdvertisementComponent {
     this.adver.listAdsInfo(item).subscribe((res:any)=> {
       console.log(res);
       let x = res.sites[0].devices[0].ads.flatMap((item: any) => item.rules);
+      console.log(x)
       x.forEach((el: any) => {
-        el.workingDays = el.workingDays.split(',').map(Number);
-      });
+        if (el && typeof el === 'object' && 'workingDays' in el) {
+          if (el.workingDays) {
+            el.workingDays = el.workingDays.split(',').map(Number);
+          } else {
+            el.workingDays = [];
+          }
+          console.log(el.workingDays);
+        }
+       
+      }
+    );
       this.ruleData = x;
       // console.log(this.ruleData)
     })
@@ -169,6 +200,7 @@ currentItem:any
     this.dialog.open(this.editAssetDialog);
   }
   
+  isStatusChanged: boolean = false;
   
   updateAd() {
     let updateData = {
@@ -176,8 +208,9 @@ currentItem:any
       modifiedBy:this.user?.UserId,
       fromDate:this.currentItem.fromDate,
       toDate:this.currentItem.toDate,
-      status:this.currentItem.status == 4 ? 2 : 3
-  }
+      status: (this.isStatusChanged && this.currentItem.status == 4) ? 2 :  (this.isStatusChanged && this.currentItem.status == 5) ? 3 : this.currentItem.status
+      // status:this.currentItem.status == 4 ? 2 : 3
+    }
     this.adver.updateAd(updateData).subscribe((res:any)=> {
       console.log(this.currentItem)
       if(res?.statusCode == 200 ) {

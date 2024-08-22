@@ -15,7 +15,11 @@ export class AdvertisementsService {
   ) { }
 
   public ruleForDevice: BehaviorSubject<any> = new BehaviorSubject('');
+
   public addIdSub: BehaviorSubject<any> = new BehaviorSubject('');
+  public addNameSub: BehaviorSubject<any> = new BehaviorSubject('');
+
+  public deviceId: BehaviorSubject<any> = new BehaviorSubject('');
 
   public itemName = new BehaviorSubject<string>('')
 
@@ -105,9 +109,9 @@ export class AdvertisementsService {
     if(payload?.toDate) {
       params = params.set('toDate', formatDate(payload?.toDate, 'yyyy-MM-dd', 'en-us'));
     } 
-    // if(payload?.adName) {
-    //   params = params.set('adName', payload?.adName);
-    // } 
+    if(payload?.adName) {
+      params = params.set('adName', payload?.adName);
+    } 
     return this.http.get(url, {params: params})
    }
 

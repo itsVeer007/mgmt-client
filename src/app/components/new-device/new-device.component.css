@@ -51,4 +51,8 @@
   .finalData{
     text-align: center;
   }
+
+  .highlight {
+    background-color: rgb(111, 238, 145); /* Or any other highlight color */
+  }
   

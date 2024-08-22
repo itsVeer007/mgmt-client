@@ -74,7 +74,6 @@ export class AddNewAdvertisementComponent {
   // deviceIdFromStorage: any;
   user: any;
   ngOnInit(): void {
-    console.log(this.newData)
     this.user = this.storageSer.get('user');
     // this.deviceIdFromStorage = this.storageSer.get('add_body');
     this.addAssetForm = this.fb.group({
@@ -122,6 +121,30 @@ export class AddNewAdvertisementComponent {
   addId:any;
   lastSubmittedItemId:any = []
   submit: boolean = false;
+  // addNewAsset() {
+  //   if(this.addAssetForm.valid) {
+  //     this.alertSer.wait();
+  //     if(this.newData !== null) {
+  //       this.addAssetForm.value.deviceId = this.newData.deviceId
+  //     }
+  //     this.adver.createAd(this.addAssetForm.value, this.selectedFile).subscribe((res: any) => {
+  //       console.log(res);
+  //       this.addId = res.adId
+  //       this.adver.addIdSub.next(this.addId)
+  //       this.newItemEvent.emit(this.addId);
+  //       if(res?.statusCode == 200 ) {
+  //         this.alertSer.successMessage(res?.message)
+  //       } else {
+  //         this.alertSer.error(res?.message)
+  //       }
+  //     },(error:any)=> {
+  //       this.alertSer.error(error?.err?.message)
+  //     });
+  //   }
+  // }
+
+
+  addName:any
   addNewAsset() {
     if(this.addAssetForm.valid) {
       this.alertSer.wait();
@@ -130,29 +153,30 @@ export class AddNewAdvertisementComponent {
       }
       this.adver.createAd(this.addAssetForm.value, this.selectedFile).subscribe((res: any) => {
         console.log(res);
-        this.addId = res.adId
-        this.adver.addIdSub.next(this.addId)
-        this.newItemEvent.emit();
+
+        this.adver.addIdSub.next(res.adId)
+        this.adver.addNameSub.next(res.adName)
+
+        this.newItemEvent.emit(res.adId);
+
+       if(!this.newData) {
+        if(res?.statusCode == 200 ) {
+          this.alertSer.success(res?.message)
+        } else {
+          this.alertSer.error(res?.message)
+        }
+       } else  {
         if(res?.statusCode == 200 ) {
           this.alertSer.successMessage(res?.message)
         } else {
           this.alertSer.error(res?.message)
         }
+       }
       },(error:any)=> {
         this.alertSer.error(error?.err?.message)
-      });
+      } );
     }
   }
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -202,16 +226,16 @@ export class AddNewAdvertisementComponent {
     console.log(event.target.files)
     let x = event.target.files[0].type;
     if(this.currentDeviceType === 1 || this.newData?.deviceTypeId == 1) {
-      if(x === 'audio/mpeg' || x === 'video/mp4') {
+      if(x === 'audio/mpeg' || x === 'video/mp4' || x === 'video/avi' || x == 'audio/wav' || x == 'audio/vnd.dlna.adts') {
         this.isAudio = false
       } else {
         this.isAudio = true;
       }
     } else if(this.currentDeviceType === 2 || this.newData?.deviceTypeId == 2 || this.currentDeviceType === 3 || this.newData?.deviceTypeId == 3) {
-      if(x !== 'audio/mpeg') {
-        this.isAudio = false
+      if(x === 'audio/mpeg' || x === 'audio/vnd.dlna.adts') {
+        this.isAudio = true
       } else {
-        this.isAudio = true;
+        this.isAudio = false;
       }
     } 
 
