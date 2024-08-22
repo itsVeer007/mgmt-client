@@ -1,0 +1,86 @@
+<div class="d-flex justify-content-end align-items-center mt-3">
+    <button  class="btn btn-light" (click)="openButton()">
+        <span><img src="assets/icons/edit.svg" alt="" class="mx-2" width="16px"></span>
+        <span >Compose</span>
+        </button>
+</div>
+
+
+<ng-template #mailItemsDialog>
+    <div style="background-color: rgb(225, 235, 235);" class="d-flex justify-content-between align-items-center p-2">
+        <p>New Message</p>
+        <span ></span>
+        <p mat-dialog-close><img src="assets\icons\close_24dp_000000.svg" alt="" width="14px"></p>
+    </div>
+    <mat-dialog-content>
+        <form autocomplete="off" [formGroup]="userForm">
+            <div class="">
+                <div class="">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>RecipientEmails</mat-label>
+                        <input matInput formControlName="recipientEmails">
+                        <mat-error>RecipientEmails is required</mat-error>
+                      </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Bcc</mat-label>
+                        <input matInput formControlName="Bcc">
+                      </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Cc</mat-label>
+                        <input matInput formControlName="Cc">
+                      </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Name</mat-label>
+                        <input matInput formControlName="name">
+                        <mat-error>Name is required</mat-error>
+                      </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>subject </mat-label>
+                        <input matInput   formControlName="subject">
+                        <mat-error>subject is required</mat-error>
+                      </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>body </mat-label>
+                        <input matInput  formControlName="body">
+                        <mat-error>body is required</mat-error>
+                      </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>FileName </mat-label>
+                        <input matInput   formControlName="fileName">
+                        <mat-error>fileName is required</mat-error>
+                      </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Footer</mat-label>
+                        <input matInput  formControlName="footer">
+                        <mat-error>Footer is required</mat-error>
+                      </mat-form-field>
+                </div>
+                <div class="">
+                    <!-- <label for="formFileMultiple" class="form-label">Multiple files input example</label> -->
+                    <input class="form-control" type="file" id="formFileMultiple" multiple formControlName="files" (change)="fileUpload($event)">
+                    <!-- <mat-error>Files is required</mat-error> -->
+                  </div>
+                  <div class="mt-2 d-flex justify-content-end align-items-center">
+                    <button type="button" class="btn btn-secondary btn-sm" (click)="submit()">Send</button>
+                    
+                  </div>
+            </div>
+        </form>
+        
+    </mat-dialog-content>
+    
+</ng-template>

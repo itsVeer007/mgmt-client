@@ -111,7 +111,7 @@ export class AddNewCameraComponent {
 
   cameras: any = [];
   getCamerasForSiteId(data: any) {
-    this.siteSer.getCamerasForSiteId(data).subscribe((res: any) => {
+    this.siteSer.getCamerasForSiteId(data.siteId).subscribe((res: any) => {
       // console.log(res);
       this.cameras = res;
       this.addCamera(this.createCamera.value)
@@ -177,7 +177,7 @@ export class AddNewCameraComponent {
     for(let i = this.cameras.length; i <( data.noOfCameras + this.cameras.length); i++) {
       let index = (i + 1).toString().padStart(2, '0');
       let index1;
-      if(i < 10) {
+      if(i < 9) {
         index1 = (i + 1).toString().padStart(2, 'C');
       } else {
         index1 = (i + 1).toString().padStart(3, 'C');

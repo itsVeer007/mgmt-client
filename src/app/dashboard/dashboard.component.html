@@ -151,6 +151,14 @@
             <img src="assets/icons/devices.svg">
             <span>Advertisemnts</span>
           </a>
+          <a *ngIf="isAdmin || isSupport" class="list-group-item " [routerLink]="['./general']" routerLinkActive="routeactive">
+            <img src="assets/icons/devices.svg">
+            <span>General</span>
+          </a>
+          <a *ngIf="isAdmin || isSupport" class="list-group-item " [routerLink]="['./mail']" routerLinkActive="routeactive">
+            <img src="assets/icons/devices.svg">
+            <span>Gmail</span>
+          </a>
           <!-- <a *ngIf="isAdmin || isSupport" class="list-group-item " [routerLink]="['./advertisements']" routerLinkActive="routeactive">
             <img src="assets/icons/asset.svg">
             <span>Advertisements</span>

@@ -107,6 +107,8 @@
 
           <th>Ads Devices</th>
 
+          <th>User Details</th>
+
           <!-- <th class="text-center">Installation</th> -->
 
           <th>
@@ -177,6 +179,23 @@
               <p class="text-primary">View</p>
             </a>
           </td>
+
+          <td>
+            <a class="pointer" (click)="getSiteUserDetails(data)">
+              <!-- <img src="assets/icons/add.svg" width="40"> -->
+              <p class="text-primary" [matMenuTriggerFor]="siteUserDetails">View</p>
+              <mat-menu #siteUserDetails="matMenu"> 
+                <P class="text-center">Total No.of Users:<span> {{siteUsers.length}}</span></P>
+                <div class="p-2 mx-2" style="font-size: 14px;">
+                  <div *ngFor="let userSite of siteUsers; let i = index">
+                  <span>({{i+1}})</span><span> {{userSite.User_Name}}</span>
+                  </div>
+                </div>
+
+    
+              </mat-menu>
+            </a>
+          </td>
           <!-- <td class="text-center">
               <a class="pointer" (click)="show('installation')">
                   <img src="assets/icons/feed_black.svg" style="opacity: 0.8;" width="18">
@@ -229,7 +248,7 @@
           {{currentItem?.siteName}}
         </span>
       </p>
-      <p>Cameras : <span class="blod">{{cameras.length}}</span></p>
+      <p>Cameras : <span class="blod">{{cameras?.length}}</span></p>
     </div>
     <div class="table-res">
       <table class="table table-hover">
@@ -257,7 +276,7 @@
               <td>{{cam.name}}</td>
               <td style="width: 100px;">{{cam.rtspUrl}}</td>
               <td>{{cam.httpUrl}}</td>
-              <td>{{cam.httpUrl}}</td>
+              <td>{{cam.hlsTunnel}}</td>
               <td>{{cam.audioUrl}}</td>
               <td>
                 <a class="mx-1 pointer" (click)="openEditCamera(cam)" matTooltip="Edit">

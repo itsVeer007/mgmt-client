@@ -31,7 +31,8 @@ export class FilterComponent {
   ) { }
 
   ngOnInit() {
-    console.log(this.filterType)
+    console.log(this.filterType);
+    this.filterType==='users'? this.siteId=null: this.siteId='ALL';
     this.getSitesListForUserName();
     this.getMetadata();
   }
@@ -81,7 +82,7 @@ export class FilterComponent {
   //   })
   // }
  
-  siteId: any =  'All';
+  siteId: any ;
   deviceId: any = 'All';
   status: any = 'All';
   deviceTypeId: any = 'All';

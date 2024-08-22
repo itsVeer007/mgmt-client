@@ -104,15 +104,15 @@ export class AddProductMasterComponent implements OnInit {
           this.productCategory = item.metadata;
         } else if(item.type == 0) {
           this.productType = item.metadata;
-        } else if(item.type == 40) {
+        } else if(item.type == 64) {
           this.uomId = item.metadata;
-        } else if(item.type == 42) {
+        } else if(item.type == 66) {
           this.partType = item.metadata;
-        } else if(item.type == 48) {
+        } else if(item.type == 72) {
           this.partCode = item.metadata;
-        } else if(item.type == 43) {
+        } else if(item.type == 67) {
           this.partCategory = item.metadata;
-        } else if(item.type == 44) {
+        } else if(item.type == 68) {
           this.buildType = item.metadata;
         }
       }

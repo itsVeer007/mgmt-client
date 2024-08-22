@@ -13,7 +13,7 @@ export class SiteService {
 
   baseUrl = 'http://54.92.215.87:943';
   shoowMenu: any;
-  // baseUrl = 'http://192.168.0.193:8080';
+  // baseUrl = 'http://192.168.0.194:8000';
 
   constructor(private http: HttpClient, private storageSer: StorageService) { }
 
@@ -61,11 +61,17 @@ export class SiteService {
 
     baseUrlForCamera = 'http://rsmgmt.ivisecurity.com:8943'
 
-  getCamerasForSiteId(payload?: any) {
-    let url = this.baseUrlForCamera + '/camera/getCameraShortDetailsForSiteId_1_0';
-    // let url = `http://192.168.0.127:8080/camera/getCameraFullDetailsForSiteId_1_0/${payload.siteId}`;
-    let params = new HttpParams().set('siteId', payload);
-    return this.http.get(url, {params:params});
+  // getCamerasForSiteId(payload?: any) {
+  //   console.log(payload)
+  //   let url = this.baseUrlForCamera + '/camera/getCameraShortDetailsForSiteId_1_0';
+  //   // let url = `http://192.168.0.127:8080/camera/getCameraFullDetailsForSiteId_1_0/${payload.siteId}`;
+  //   let params = new HttpParams().set('siteId', payload);
+  //   return this.http.get(url, {params:params});
+  // }
+
+  getCamerasForSiteId(payload: any) {
+    let url = `${this.baseUrl}/getCamerasForSiteId_1_0/${payload}`;
+    return this.http.get(url);
   }
 
   getEngineer(id: any) {
@@ -113,6 +119,15 @@ export class SiteService {
     // let url = `${this.baseUrl}/centralBox/addCentralBox_1_0`;
     let url="http://192.168.0.232:7548/addDefenderCamDetails";
     return this.http.post(url, payload);
+  }
+
+
+  getSiteUserDetails(payload: any){
+    // let url= `http://192.168.0.194:8000/userDetails/getUsersDetailsForSiteId_1_0/${payload.siteId}`;
+    // let url= `${this.baseUrl}/userDetails/getUsersDetailsForSiteId_1_0/${payload.siteId}`;
+    let url= `http://34.206.37.237:80/userDetails/getUsersDetailsForSiteId_1_0/${payload.siteId}`;
+    
+    return this.http.get(url);
   }
 
 

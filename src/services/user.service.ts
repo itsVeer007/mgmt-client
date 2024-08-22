@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
@@ -14,7 +14,8 @@ export class UserService {
 
   constructor(private http: HttpClient, private router: Router, private storageSer: StorageService) { }
 
-  baseUrl = "http://34.206.37.237:80/userDetails";
+  baseUrl = "http://34.206.37.237:80";
+  // baseUrl = 'http://192.168.0.194:8000';
 
   login(payload: any) {
     let url = this.baseUrl + "/businessInterface/login/login_2_0";
@@ -27,7 +28,7 @@ export class UserService {
   }
 
   loginNew(payload: any) {
-    let url  = this.baseUrl + `/user_login_1_0`;
+    let url  = this.baseUrl + `/userDetails/user_login_1_0`;
     return this.http.post(url, payload);
   }
 
@@ -54,13 +55,13 @@ export class UserService {
   }
 
   listUsers() {
-    let url = this.baseUrl + '/listUsers_1_0';
+    let url = this.baseUrl + '/userDetails/listUsers_1_0';
     return this.http.get(url);
   }
 
   createUser(payload: any) {
     // let url = this.baseUrl + "/createUser_1_0";
-    let url = `${this.baseUrl}/createUser_1_0`;
+    let url = `${this.baseUrl}/userDetails/createUser_1_0`;
     var user: any = this.storageSer.get('user');
     payload.createdBy = user.UserId;
     // payload.callingUsername = user.UserName;
@@ -69,7 +70,7 @@ export class UserService {
 
   getUserInfoForUserId(payload: any) {
     var user: any = this.storageSer.get('user');
-    let url = `${this.baseUrl}/getUserInfoForUserId_1_0/${payload?.userId}`;
+    let url = `${this.baseUrl}/userDetails/getUserInfoForUserId_1_0/${payload?.userId}`;
     return this.http.get(url);
   }
 
@@ -86,6 +87,21 @@ export class UserService {
   applySitesMapping(payload: any){
     let url ='http://34.206.37.237/userDetails/applySitesMapping_1_0';
     return this.http.post(url,payload);
+  }
+
+  // getSitesListforUser(payload: any) {
+  //   var user: any = this.storageSer.get('user');
+  //   let url = `${this.baseUrl}/getSitesListforUser_1_0/${payload?.userId}`;
+  //   return this.http.get(url);
+  // }
+
+  getSitesListForUserName(payload: any) {
+    // let url = `${this.baseUrl}/getSitesListForUserName_1_0`;
+    let url = `http://54.92.215.87:943/getSitesListForUserName_1_0`;
+    
+    // let user = this.storageSer.get('user');
+    let params = new HttpParams().set('userName', payload?.UserName);
+    return this.http.get(url, {params: params});
   }
   
 }

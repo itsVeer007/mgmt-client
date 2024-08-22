@@ -35,7 +35,6 @@ import { AddNewDcComponent } from './main-dashboard/add-new-dc/add-new-dc.compon
 
 //utilities
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-import { VjsPlayerComponent } from './utilities/vjs-player/vjs-player.component';
 import { LoaderComponent } from './utilities/loader/loader.component';
 import { DatePipe } from '@angular/common';
 import { SearchPipe } from './utilities/pipes/search.pipe';
@@ -85,6 +84,8 @@ import { NewAdvertisementComponent } from './components/new-advertisement/new-ad
 import { AddNewAdvertisementComponent } from './main-dashboard/add-new-advertisement/add-new-advertisement.component';
 import { AddNewRuleComponent } from './main-dashboard/add-new-rule/add-new-rule.component';
 import { AddNewDeviceComponent } from './main-dashboard/add-new-device/add-new-device.component';
+import { GeneralComponent } from './components/general/general.component';
+import { MailComponent } from './mail/mail.component';
 
 
 
@@ -109,7 +110,6 @@ import { AddNewDeviceComponent } from './main-dashboard/add-new-device/add-new-d
     InventoryComponent,
     AddDeviceComponent,
     AddNewAssetComponent,
-    VjsPlayerComponent,
     VerticalsComponent,
     AnalyticsComponent,
     AddNewInventoryComponent,
@@ -160,8 +160,9 @@ import { AddNewDeviceComponent } from './main-dashboard/add-new-device/add-new-d
     NewAdvertisementComponent,
     AddNewAdvertisementComponent,
     AddNewRuleComponent,
-    NewDeviceComponent
-
+    NewDeviceComponent,
+    GeneralComponent,
+    MailComponent
   ],
   imports: [
     BrowserModule,

@@ -144,7 +144,7 @@ export class TicketsComponent implements OnInit {
     for(let item of data) {
       if(item.type == 'Ticket_Status') {
         this.statusVal = item.metadata;
-      } else if(item.type == "Ticket_Priority") {
+      } else if(item.type ==58) {
         this.priorityVal = item.metadata;
       } else if(item.type == "Assigned_To") {
         this.assignedTo = item.metadata;
@@ -152,9 +152,9 @@ export class TicketsComponent implements OnInit {
         this.ticketType = item.metadata;
       } else if(item.type == "Source_of_Request") {
         this.sourceOfRequest = item.metadata;
-      } else if(item.type == 'Ticket_Category') {
+      } else if(item.type ==59) {
         this.ticketCategory = item.metadata;
-      } else if(item.type == 'Ticket_Sub_Category') {
+      } else if(item.type == 60) {
         this.ticketSubCategory = item.metadata;
       } else if(item.type == 'Task_Reason') {
         this.taskReason = item.metadata;

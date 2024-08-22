@@ -61,11 +61,11 @@ export class SitesComponent implements OnInit {
   @ViewChild('viewCamerasDialog') viewCamerasDialog = {} as TemplateRef<any>;
   cameras: any = [];
   getCamerasForSiteId(data: any) {
-    // console.log(data);
+    console.log(data);
     this.currentItem = data
     this.dialog.open(this.viewCamerasDialog)
-    this.siteSer.getCamerasForSiteId(data).subscribe((res: any) => {
-      // console.log(res);
+    this.siteSer.getCamerasForSiteId(data.siteId).subscribe((res: any) => {
+      console.log(res);
       this.cameras = res;
     })
   }
@@ -123,7 +123,7 @@ export class SitesComponent implements OnInit {
     this.siteSer.updateCamera(this.currentCamera).subscribe((res:any)=>{
       // console.log(res);
       if(res.statusCode == 200) {
-        this.siteSer.getCamerasForSiteId(this.currentItem).subscribe((cams: any) => {
+        this.siteSer.getCamerasForSiteId(this.currentItem?.siteId).subscribe((cams: any) => {
           this.cameras = cams;
         })
         this.alertSer.success(res?.message)
@@ -186,14 +186,15 @@ export class SitesComponent implements OnInit {
 
   @ViewChild('addCentralBoxDialog') addCentralBoxDialog = {} as TemplateRef<any>;
   openAddCentralbox() {
+    this.createCenteralBox.reset()
     this.dialog.open(this.addCentralBoxDialog)
     this.siteSer.getCentralbox(this.currentItem).subscribe((res: any) => {
-        // console.log(res)
+        console.log(res)
       })
     }
     
-    @ViewChild('viewCentralBoxDialog') viewCentralBoxDialog = {} as TemplateRef<any>;
-    onGetCentralboxDetail: any;
+  @ViewChild('viewCentralBoxDialog') viewCentralBoxDialog = {} as TemplateRef<any>;
+  onGetCentralboxDetail: any;
   getCentalBox(data: any) {
     this.currentItem = data
     this.siteSer.getCentralbox(data).subscribe((res: any) => {
@@ -440,6 +441,29 @@ resultSite:any;
     }
   }
 
+
+  siteUsers:any=[];
+  getSiteUserDetails(data:any){
+    console.log(data)
+    this.siteSer.getSiteUserDetails(data).subscribe((res:any)=>{
+      console.log(res)
+      this.siteUsers=res.usersDetails;
+    })
+    
+  }
+
+  // currentItem: any;
+  // @ViewChild('viewCamerasDialog') viewCamerasDialog = {} as TemplateRef<any>;
+  // cameras: any = [];
+  // getCamerasForSiteId(data: any) {
+  //   console.log(data);
+  //   this.currentItem = data
+  //   this.dialog.open(this.viewCamerasDialog)
+  //   this.siteSer.getCamerasForSiteId(data.siteId).subscribe((res: any) => {
+  //     console.log(res);
+  //     this.cameras = res;
+  //   })
+  // }
 }
 
 
