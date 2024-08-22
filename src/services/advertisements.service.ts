@@ -90,6 +90,29 @@ export class AdvertisementsService {
     return this.http.post(url, formData);
   }
 
+  baseUrlForMail = 'http://192.168.0.193:8000'
+
+  postMail(payload:any, file:any) {
+    console.log(payload)
+    let user = this.storageSer.get('user');
+    let url = this.baseUrlForMail + '/generic/send_email_1_0';
+
+
+    let formData = new FormData();
+
+    formData.append('recipientEmails', String(payload.recipientEmails || '')),
+    formData.append('Bcc', payload.Bcc),
+    formData.append('Cc', payload.Cc),
+    formData.append('name', payload.name),
+    formData.append('subject', payload.subject),
+    formData.append('body', payload.body),
+    formData.append('fileName', payload.fileName),
+    formData.append('footer', payload.footer),
+    formData.append('createdBy', user?.UserId),
+    formData.append('files', file);
+    return this.http.post(url, formData);
+  }
+
   listAdsInfo(payload?: any) {
     let url = this.baseUrl + '/proximity_ads/listAdsAndRules_1_0';
     let params = new HttpParams();
@@ -154,5 +177,7 @@ export class AdvertisementsService {
     }
     return this.http.get(url, {params: params})
    }
+
+
 
 }

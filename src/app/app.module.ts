@@ -85,6 +85,7 @@ import { AddNewAdvertisementComponent } from './main-dashboard/add-new-advertise
 import { AddNewRuleComponent } from './main-dashboard/add-new-rule/add-new-rule.component';
 import { AddNewDeviceComponent } from './main-dashboard/add-new-device/add-new-device.component';
 import { GeneralComponent } from './components/general/general.component';
+import { MailComponent } from './mail/mail.component';
 
 
 
@@ -160,7 +161,8 @@ import { GeneralComponent } from './components/general/general.component';
     AddNewAdvertisementComponent,
     AddNewRuleComponent,
     NewDeviceComponent,
-    GeneralComponent
+    GeneralComponent,
+    MailComponent
   ],
   imports: [
     BrowserModule,

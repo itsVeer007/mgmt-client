@@ -35,6 +35,7 @@ import { DefenderComponent } from '../components/defender/defender.component';
 import { NewDeviceComponent } from '../components/new-device/new-device.component';
 import { NewAdvertisementComponent } from '../components/new-advertisement/new-advertisement.component';
 import { GeneralComponent } from '../components/general/general.component';
+import { MailComponent } from '../mail/mail.component';
 
 
 const routes: Routes = [
@@ -76,6 +77,7 @@ const routes: Routes = [
       {path: 'new-device',component:NewDeviceComponent},
       {path: 'new-adver',component:NewAdvertisementComponent},
       {path: 'general',component:GeneralComponent},
+      {path: 'mail', component:MailComponent}
       
     ]
   }
