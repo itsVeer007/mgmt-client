@@ -225,6 +225,7 @@ export class AddNewAdvertisementComponent {
   onFileSelected(event: any) {
     console.log(event.target.files)
     let x = event.target.files[0].type;
+    
     if(this.currentDeviceType === 1 || this.newData?.deviceTypeId == 1) {
       if(x === 'audio/mpeg' || x === 'video/mp4' || x === 'video/avi' || x == 'audio/wav' || x == 'audio/vnd.dlna.adts') {
         this.isAudio = false

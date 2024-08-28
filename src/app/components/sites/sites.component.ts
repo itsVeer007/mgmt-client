@@ -75,6 +75,7 @@ export class SitesComponent implements OnInit {
   currentCamera: any;
   openEditCamera(item: any) {
     console.log(item)
+    // this.currentCamera = item
     this.currentCamera = JSON.parse(JSON.stringify(item));
     this.dialog.open(this.editCameraDialog);
   }

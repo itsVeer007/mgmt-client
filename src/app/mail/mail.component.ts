@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, TemplateRef, ViewChild } from '@angular/core';
-import { FormGroup,FormBuilder, FormControl,Validators} from '@angular/forms';
+import { FormGroup,FormBuilder, FormControl,Validators,} from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AdvertisementsService } from 'src/services/advertisements.service';
 import { AlertService } from 'src/services/alert.service';
@@ -24,20 +24,22 @@ export class MailComponent {
 
   ngOnInit() {
     this.userForm = this.fb.group({
-      'recipientEmails': new FormControl('',Validators.required),
+      'recipientEmails': new FormControl('', Validators.required),
       'name':new FormControl('', Validators.required),
       'Bcc': new FormControl(''),
       'Cc': new FormControl(''),
       'subject':new FormControl('',Validators.required),
       'body': new FormControl('', Validators.required),
       'files':new FormControl('', Validators.required),
-      'fileName':new FormControl('', Validators.required),
-      'footer': new FormControl('', Validators.required),
-      'createdBy': new FormControl(1665)
+      'fileName':new FormControl(''),
+      'footer': new FormControl(''),
+      'regardsFrom': new FormControl('', Validators.required),
+      'createdBy': new FormControl('')
     })
   }
 
-  userForm:any = FormGroup
+  userForm!: FormGroup;
+  
 
   @ViewChild('mailItemsDialog') mailItemsDialog = {} as TemplateRef<any>;
   // openButton() {
@@ -48,8 +50,10 @@ export class MailComponent {
   openButton() {
     const dialogRef = this.dialog.open(this.mailItemsDialog, {
       width:'30%',
-      position: { right: '10px', top: '280px' }
+      // height:'90%'
+      // position: { right: '10px', top: '280px' }
     });
+    this.userForm.reset()
   
     // dialogRef.afterClosed().subscribe(result => {
     //   console.log(`Dialog result: ${result}`);
@@ -66,6 +70,17 @@ export class MailComponent {
       console.log('Dialog was closed');
     });
   }
+
+
+  openForm:boolean = false;
+  openForm2:boolean = false;
+  openFirst() {
+    this.openForm = ! this.openForm
+    }
+
+    openSecond() {
+      this.openForm2 = !this.openForm2
+    }
  
 
   submit() {
@@ -73,11 +88,18 @@ export class MailComponent {
       // this.alert.wait();
       this.adver.postMail(this.userForm.value, this.selectedFile).subscribe((res:any)=> {
         console.log(res)
+        this.userForm.reset();
+        if(res.statusCode == 200) {
+          this.alert.success(res.message)
+        }
+      },(err:any)=> {
+        this.alert.error(err?.error?.message)
       })
-    }
+    } 
+   
   }
 
-  selectedFile:any
+  selectedFile:any = [];
   fileUpload(event:any) {
     console.log(event.target.files[0])
     this.selectedFile = event.target.files[0]

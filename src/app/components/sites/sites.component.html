@@ -354,6 +354,32 @@
       </mat-form-field>
     </div>
 
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>timelapse</mat-label>
+        <input matInput [(ngModel)]="currentCamera.timelapse">
+      </mat-form-field>
+    </div>
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>snapshotUrl</mat-label>
+        <input matInput [(ngModel)]="currentCamera.snapshotUrl">
+      </mat-form-field>
+    </div>
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>s3_server_host</mat-label>
+        <input matInput [(ngModel)]="currentCamera.s3_server_host">
+      </mat-form-field>
+    </div>
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>camera_config_url</mat-label>
+        <input matInput [(ngModel)]="currentCamera.camera_config_url">
+      </mat-form-field>
+    </div>
+    
+
   </div>
 
 
