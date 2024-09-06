@@ -94,19 +94,20 @@ export class AdvertisementsService {
     return this.http.post(url, formData);
   }
 
-  baseUrlForMail = 'http://192.168.0.193:8080'
+  // baseUrlForMail = 'http://192.168.0.193:8080'
+
+  stagingEmailUrl = 'http://usstaging.ivisecurity.com:8943'
 
   postMail(payload:any, file:any) {
     console.log(payload)
     let user = this.storageSer.get('user');
-    let url = this.baseUrlForMail + '/generic/send_email_2_0';
-
+    let url = `${this.stagingEmailUrl}/generic/send_report_email_1_0`;
 
     let formData = new FormData();
 
     formData.append('recipientEmails',payload.recipientEmails),
-    formData.append('Bcc', payload.Bcc),
-    formData.append('Cc', payload.Cc),
+    formData.append('Bcc', payload.Bcc ?? ''),
+    formData.append('Cc', payload.Cc ?? ''),
     formData.append('name', payload.name),
     formData.append('subject', payload.subject),
     formData.append('body', payload.body),

@@ -85,6 +85,7 @@ export class UserService {
   }
 
   applySitesMapping(payload: any){
+    console.log(payload)
     let url ='http://34.206.37.237/userDetails/applySitesMapping_1_0';
     return this.http.post(url,payload);
   }

@@ -155,10 +155,10 @@
             <img src="assets/icons/devices.svg">
             <span>General</span>
           </a>
-          <a *ngIf="isAdmin || isSupport" class="list-group-item " [routerLink]="['./mail']" routerLinkActive="routeactive">
+          <!-- <a *ngIf="isAdmin || isSupport" class="list-group-item " [routerLink]="['./mail']" routerLinkActive="routeactive">
             <img src="assets/icons/devices.svg">
             <span>Gmail</span>
-          </a>
+          </a> -->
           <!-- <a *ngIf="isAdmin || isSupport" class="list-group-item " [routerLink]="['./advertisements']" routerLinkActive="routeactive">
             <img src="assets/icons/asset.svg">
             <span>Advertisements</span>
@@ -180,7 +180,13 @@
     </div>
 
     <div class="right-content col-lg-10">
+      <div class="d-flex justify-content-end align-items-center">
+        <button  class="btn btn-light email-button"  (click)="openButton()">
+            <span><img src="assets/icons/mail_27dp_000000.svg" alt="" width="16px"></span>
+            </button>
+      </div>
       <router-outlet></router-outlet>
+
     </div>
   </div>
 
@@ -282,6 +288,8 @@
       </nav>
     </div>
   </mat-menu>
+
+  
 </div>
 
 

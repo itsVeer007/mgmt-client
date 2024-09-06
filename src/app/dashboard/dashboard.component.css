@@ -274,3 +274,14 @@
     background: #AA4337;
     color: #ffffff;
   }
+
+  .email-button {
+    background-color: rgb(190, 122, 77);
+    position: fixed;
+    right: 0px;
+    bottom: 0px;
+    margin: 18px;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+}

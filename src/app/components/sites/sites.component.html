@@ -120,7 +120,7 @@
       </thead>
 
       <tbody *ngIf="!showLoader">
-        <tr *ngFor="let data of newTableData | search : searchText; let i=index">
+        <tr *ngFor="let data of final.sites | search : searchText; let i=index">
           <!-- <td>
               <input type="checkbox" class="form-check-input" [(ngModel)]="data.selected" (change)="checkIfAllSelected(); deleteMultiRecords(data, i, $event); ViewByCheckbox(data, i, $event); EditByCheckbox(data, i, $event)" id="singleCheck">
             </td> -->
@@ -223,7 +223,7 @@
     </table>
 
     <!-- error info -->
-    <div class="err-info" style="height: 45vh;" *ngIf="newTableData?.length == 0 && !showLoader">
+    <div class="err-info" style="height: 45vh;" *ngIf="final?.length == 0 && !showLoader">
       <h1 class="text-secondary">No Sites</h1>
     </div>
 

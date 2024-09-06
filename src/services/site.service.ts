@@ -70,6 +70,7 @@ export class SiteService {
   // }
 
   getCamerasForSiteId(payload: any) {
+    console.log(payload)
     let url = `${this.baseUrl}/getCamerasForSiteId_1_0/${payload}`;
     return this.http.get(url);
   }
@@ -86,6 +87,8 @@ export class SiteService {
   
 
   addCentralBox(payload: any) {
+    // let user = JSON.parse(localStorage.getItem('user')!);
+    console.log(payload)
     let url = `${this.baseUrl}/centralBox/addCentralBox_1_0`;
     return this.http.post(url, payload);
   }

@@ -1,7 +1,9 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { StorageService } from 'src/services/storage.service';
 import { UserService } from 'src/services/user.service';
+import { MailComponent } from '../mail/mail.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,7 +16,8 @@ export class DashboardComponent implements OnInit {
     private userSer: UserService,
     private router: Router,
     private storageSer: StorageService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private dialog:MatDialog
   ) { }
 
 
@@ -42,6 +45,10 @@ export class DashboardComponent implements OnInit {
 
   logout() {
     this.userSer.logout();
+  }
+
+  openButton() {
+    this.dialog.open(MailComponent)
   }
 
 }

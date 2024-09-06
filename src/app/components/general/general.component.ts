@@ -66,7 +66,7 @@ export class GeneralComponent {
       // console.log(res);
       this.getMetadata();
       this.getSitesDataForSite = res.siteDetails;
-      this.newdevices = this.getSitesDataForSite
+      // this.newdevices = this.getSitesDataForSite
       this.newgetSitesDataForSite = this.getSitesDataForSite
       this.newdevices = this.getSitesDataForSite.flatMap((item:any)=>item.CentralBox);
       // console.log(this.CentralBoxDetails);
@@ -102,16 +102,14 @@ viewData:any
     this.siteId == 'All' ? siteId = null : siteId = this.siteId;
     this.deviceId == 'All' ? deviceId = null : deviceId = this.deviceId;
     this.timeZone == 'All' ? timeZone = null : timeZone = this.timeZone;
-  
       this.adver.getSitesData({siteId:siteId, deviceId:deviceId ,timeZone:timeZone }).subscribe((res:any)=> {
-        if(res.Status === 'Success') {
-          this.newgetSitesDataForSite = res?.siteDetails
+        if(res.status === 'Success') {
+          this.newgetSitesDataForSite = res.siteDetails
           // this.newgetSitesDataForSite = this.camData.flatMap((item:any)=>item.cameras)
         } else {
           this.newgetSitesDataForSite = []
         }
       })
-    
   }
 
 
@@ -240,7 +238,7 @@ viewData:any
     // item.cameraId !== null ? this.cameraType = 1 : this.cameraType = 0;
     item.modifiedBy = this.user?.UserId
     this.currentItem = JSON.parse(JSON.stringify(item));
-    console.log(this.currentItem)
+    // console.log(this.currentItem)
     this.getCamerasForSiteId()
     this.dialog.open(this.editSiteDialog);
   }

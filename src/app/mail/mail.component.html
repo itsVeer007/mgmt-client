@@ -1,12 +1,13 @@
-<div class="d-flex justify-content-end align-items-center mt-3">
+<!-- <div class="d-flex justify-content-end align-items-center mt-3">
     <button  class="btn btn-light" (click)="openButton()">
         <span><img src="assets/icons/edit.svg" alt="" class="mx-2" width="16px"></span>
         <span >Compose</span>
         </button>
-</div>
+</div> -->
 
 
-<ng-template #mailItemsDialog>
+<!-- <ng-template #mailItemsDialog> -->
+  <div class="emailForm">
     <div style="background-color: rgb(225, 235, 235);" class="d-flex justify-content-between align-items-center p-2">
         <p>New Message</p>
         <span ></span>
@@ -17,10 +18,11 @@
         <form autocomplete="off" [formGroup]="userForm" >
             <div class="">
                <div class="text-end pointer">
-                <span class="mx-2" (click)="openFirst()">BCC</span>
-                <span (click)="openSecond()">CC</span>
+                <a><span class="mx-2 text-secondary" (click)="openFirst()">BCC</span></a>
+                <a><span class="text-secondary" (click)="openSecond()">CC</span></a>
                </div>
 
+    
                 <div class="">
                     <mat-form-field  class="w-100">
                         <mat-label>RecipientEmails</mat-label>
@@ -32,13 +34,13 @@
                 <div *ngIf="openForm">
                     <mat-form-field  class="w-100">
                         <mat-label>Bcc</mat-label>
-                        <input matInput formControlName="Bcc">
+                        <input matInput type="text" formControlName="Bcc">
                       </mat-form-field>
                 </div>
                 <div *ngIf="openForm2">
                     <mat-form-field  class="w-100">
                         <mat-label>Cc</mat-label>
-                        <input matInput formControlName="Cc">
+                        <input matInput type="text" formControlName="Cc">
                       </mat-form-field>
                 </div>
                 <div>
@@ -63,7 +65,7 @@
                       </mat-form-field>
                 </div> -->
                 <div>
-                    <textarea class="form-control" placeholder="body here" id="floatingTextarea2" style="height: 90px" formControlName="body"></textarea>
+                    <textarea class="form-control" placeholder="body here" id="floatingTextarea2" style="height: 80px" formControlName="body"></textarea>
                     <!-- <label for="floatingTextarea2">Body</label> -->
                 </div>
 
@@ -78,7 +80,7 @@
                     <mat-form-field  class="w-100">
                         <mat-label>Regards From</mat-label>
                         <input matInput   formControlName="regardsFrom">
-                        <mat-error>fileName is required</mat-error>
+                        <mat-error>Regards is required</mat-error>
                       </mat-form-field>
                 </div>
                 <!-- <div>
@@ -94,21 +96,22 @@
                         <label for="formFileMultiple" class="form-label">Multiple files input example</label>
                         <input class="form-control" type="file" id="formFileMultiple" multiple formControlName="files" (change)="fileUpload($event)">
                       </div> -->
-                    <mat-card *ngIf="selectedFile.length !== 0">
+                    <!-- <mat-card *ngIf="selectedFile.length !== 0">
                         <div class="d-flex justify-content-between align-items-center">
                             <span>{{selectedFile.name}}</span>
                             <span><img src="assets/icons/delete.svg" alt=""></span>
                         </div>
-                    </mat-card>
+                    </mat-card> -->
                 </div>
 
                   <div class="mt-2 d-flex justify-content-end align-items-center">
-                    <button type="button" class="btn btn-secondary btn-sm" (click)="submit()">Send</button>
+                    <button type="button" class="btn btn-secondary btn-sm" (click)="submit()" mat-dialog-close>Send</button>
                   </div>
             </div>
         </form>
      </div>
         
+  </div>
     <!-- </mat-dialog-content> -->
     
-</ng-template>
+<!-- </ng-template> -->

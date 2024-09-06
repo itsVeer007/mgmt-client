@@ -35,7 +35,10 @@ export class SitesComponent implements OnInit {
   // siteData: any;
   createCenteralBox!: FormGroup;
 
+  user:any
   ngOnInit(): void {
+    this.user = this.storageSer.get('user');
+    // console.log(user)
     // this.tempSite = this.storageSer.get('temp_sites');
     // this.siteData = this.storageSer.get('temp_sites')?.sort((a: any, b: any) => a.siteId < b.siteId ? -1 : a.siteId > b.siteId ? 1 : 0);
     // this.tableData = this.siteData;
@@ -142,15 +145,16 @@ export class SitesComponent implements OnInit {
   }
 
 
-
+  final:any
   getSitesListForUserName() {
     this.showLoader = true;
     this.siteSer.getSitesListForUserName().subscribe((res: any) => {
       // console.log(res);
       this.showLoader = false;
       if(res?.Status == 'Success') {
-        this.tableData = res.sites.sort((a: any, b: any) => a.siteName < b.siteName ? -1 : a.siteName > b.siteName ? 1 : 0);
-        this.newTableData = this.tableData;
+        this.final = res
+        // this.tableData = res.sites.sort((a: any, b: any) => a.siteName < b.siteName ? -1 : a.siteName > b.siteName ? 1 : 0);
+        // this.newTableData = this.tableData;
       }
       }, (err: any) => {
         this.showLoader = false;
@@ -206,6 +210,7 @@ export class SitesComponent implements OnInit {
 
   createCentralBox() {
     this.createCenteralBox.value.siteId=this.currentItem.siteId
+    this.createCenteralBox.value.createdBy = this.user.UserId
     this.siteSer.addCentralBox(this.createCenteralBox.value).subscribe((res:any) => {
       if(res.statusCode === 200) {
         this.alertSer.success(res.message)
@@ -316,8 +321,6 @@ export class SitesComponent implements OnInit {
     console.log(item)
     this.dialog.open(this.viewSiteDialog);
   }
-
- 
 currentSite:any;
 
 timeZones: any;
@@ -432,7 +435,7 @@ resultSite:any;
   }
 
   sorted = false;
-  sort(label:any){
+  sort(label:any) {
     this.sorted = !this.sorted;
     var x = this.tableData;
     if(this.sorted==false){

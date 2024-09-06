@@ -132,7 +132,7 @@ export class UsersComponent implements OnInit {
   }
 
   selectedSites: any
-  submitAssignSite(){
+  submitAssignSite() {
     this.userSer.applySitesMapping({userId: this.currentUser?.user_id, siteList: [this.selectedSites]}).subscribe({
       next: (res)=>{
         console.log(res)
