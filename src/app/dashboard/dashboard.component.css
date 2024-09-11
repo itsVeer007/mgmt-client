@@ -276,8 +276,9 @@
   }
 
   .email-button {
-    background-color: rgb(190, 122, 77);
+    background-color: #D34124;
     position: fixed;
+    z-index: 999;
     right: 0px;
     bottom: 0px;
     margin: 18px;

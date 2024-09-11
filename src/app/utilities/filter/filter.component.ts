@@ -135,7 +135,7 @@ export class FilterComponent {
 
     if(type === 'sensors') {
       this.loaderFromChild.emit(true);
-      this.inventorySer.getData({siteId:siteId, device_name: deviceId}).subscribe((res:any)=> {
+      this.inventorySer.listSensorData({siteId:siteId, device_name: deviceId}).subscribe((res:any)=> {
         let x = res.flatMap((item:any)=> item);
         this.tableDataFromChild.emit(x);
       })

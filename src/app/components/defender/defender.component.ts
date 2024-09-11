@@ -14,11 +14,11 @@ export class DefenderComponent {
   showMenu!:boolean;
   ngOnInit(){
     this.showDefenderDetails()
-    this.siteservice.shoowMenu.subscribe({
-      next: (res:any)=>{
-        this.showMenu=res;
-      }
-    })
+    // this.siteservice.shoowMenu.subscribe({
+    //   next: (res:any)=>{
+    //     this.showMenu=res;
+    //   }
+    // })
   }
 
   headerItems : Array<string>=["S.No", "Unit Id", "Make", "Registercode", "IP", "Position", "Router SN", "IMSI" ];

@@ -5,6 +5,7 @@ import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';
 import { MetadataService } from 'src/services/metadata.service';
 import { StorageService } from 'src/services/storage.service';
+import { UserService } from 'src/services/user.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -21,7 +22,8 @@ export class TicketsComponent implements OnInit {
     private datePipe: DatePipe,
     private dialog: MatDialog,
     private alertSer: AlertService,
-    private storageSer: StorageService
+    private storageSer: StorageService,
+    private userSer: UserService
   ) { }
 
   siteData: any;
@@ -383,7 +385,7 @@ export class TicketsComponent implements OnInit {
   frList: any;
   openAssigned(item: any) {
     this.assignedObj.assignedTo = null;
-    this.inventorySer.listUsersByRole().subscribe((res: any) => {
+    this.userSer.listUsersByRole().subscribe((res: any) => {
       this.frList = res;
     })
     this.toAssign = item;

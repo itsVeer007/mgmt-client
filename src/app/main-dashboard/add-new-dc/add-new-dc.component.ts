@@ -7,6 +7,7 @@ import { DcChallanComponent } from 'src/app/components/dc-challan/dc-challan.com
 import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';
 import { StorageService } from 'src/services/storage.service';
+import { UserService } from 'src/services/user.service';
 
 @Component({
   selector: 'app-add-new-dc',
@@ -39,7 +40,8 @@ export class AddNewDcComponent {
     private alertSer: AlertService,
     private dialog: MatDialog,
     public datepipe: DatePipe,
-    private storageSer: StorageService
+    private storageSer: StorageService,
+    private userSer: UserService
   ) { }
 
   @Input() show: any;
@@ -89,7 +91,7 @@ export class AddNewDcComponent {
   frList: any;
   filteredFrList:any;
   listFrs() {
-    this.inventorySer.listUsersByRole().subscribe((res: any) => {
+    this.userSer.listUsersByRole().subscribe((res: any) => {
       this.frList = res;
     })
   }

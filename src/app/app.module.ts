@@ -72,7 +72,7 @@ import { TextAndNumberOnlyDirective } from './utilities/directives/text-and-numb
 import { AddNewInstallationComponent } from './main-dashboard/add-new-installation/add-new-installation.component';
 import { AddDeviceFormComponent } from './main-dashboard/add-device-form/add-device-form.component';
 import { EditDeviceFormComponent } from './main-dashboard/edit-device-form/edit-device-form.component';
-import { SensorDataComponent } from './sensor-data/sensor-data.component';
+import { SensorDataComponent } from './components/sensor-data/sensor-data.component';
 import { CamerasComponent } from './components/cameras/cameras.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { DefenderComponent } from './components/defender/defender.component';

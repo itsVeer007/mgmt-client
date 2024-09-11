@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertService } from 'src/services/alert.service';
+import { SiteService } from 'src/services/site.service';
 import { StorageService } from 'src/services/storage.service';
 import { UserService } from 'src/services/user.service';
 
@@ -16,7 +17,8 @@ export class UsersComponent implements OnInit {
     private userSer: UserService,
     private alertSer: AlertService,
     private dialog: MatDialog,
-    private storageSer: StorageService
+    private storageSer: StorageService,
+    private siteSer: SiteService
   ) { }
   
   showLoader = false;
@@ -114,7 +116,7 @@ export class UsersComponent implements OnInit {
   getSitesListforUser(user:any){
     console.log(user)
     this.userSites=[];
-    this.userSer.getSitesListForUserName({UserName: user?.User_Name}).subscribe({
+    this.siteSer.getSitesListForUserName().subscribe({
       next: (res:any)=>{
         console.log(res)
         if (res.Status=='Success') {

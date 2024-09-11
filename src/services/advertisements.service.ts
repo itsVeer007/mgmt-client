@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { StorageService } from './storage.service';
 import { formatDate } from '@angular/common';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -15,16 +16,12 @@ export class AdvertisementsService {
   ) { }
 
   public ruleForDevice: BehaviorSubject<any> = new BehaviorSubject('');
-
   public addIdSub: BehaviorSubject<any> = new BehaviorSubject('');
   public addNameSub: BehaviorSubject<any> = new BehaviorSubject('');
-
   public deviceId: BehaviorSubject<any> = new BehaviorSubject('');
-
   public itemName = new BehaviorSubject<string>('')
 
-   baseUrl = 'http://192.168.0.107:8000';
-
+   baseUrl = environment.baseUrl;
 
    createDevice(payload:any) {
     let url = this.baseUrl + '/proximity_ads/createDevice_1_0';
@@ -94,14 +91,13 @@ export class AdvertisementsService {
     return this.http.post(url, formData);
   }
 
-  // baseUrlForMail = 'http://192.168.0.193:8080'
 
-  stagingEmailUrl = 'http://usstaging.ivisecurity.com:8943'
+  emailUrl = environment.emailUrl;
 
   postMail(payload:any, file:any) {
     console.log(payload)
     let user = this.storageSer.get('user');
-    let url = `${this.stagingEmailUrl}/generic/send_report_email_1_0`;
+    let url = `${this.emailUrl}/generic/send_report_email_1_0`;
 
     let formData = new FormData();
 
@@ -163,11 +159,9 @@ export class AdvertisementsService {
     return this.http.post(url,payload)
    }
 
-  //  baseUrlForGe = 'http://192.168.0.169:1111';
-      baseUrlForGe= 'http://usstaging.ivisecurity.com:8943'
 
    getSitesData(payload?:any) {
-    let url = this.baseUrlForGe + '/generic/allSitesInfo_1_0';
+    let url = this.emailUrl + '/generic/allSitesInfo_1_0';
     let params = new HttpParams();
     if(payload?.siteId) {
       params = params.set('siteId', payload?.siteId);

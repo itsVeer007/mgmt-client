@@ -6,11 +6,10 @@ import { environment } from '../environments/environment';
   providedIn: 'root'
 })
 export class MetadataService {
-
-  baseUrl = `${environment.baseUrl}/common`;
-  // baseUrl = 'http://192.168.0.196:8081';
-
+  
   constructor(private http: HttpClient) { }
+  
+  baseUrl = `${environment.baseUrl}/common`;
 
   getMetadata() {
     let url = this.baseUrl + '/getValuesListByType_1_0';
@@ -40,13 +39,6 @@ export class MetadataService {
 
   updateMetadataKeyValue(payload: any) {
     let url = this.baseUrl + '/updateMetadataKeyValue_1_0';
-    // let myObj = {
-    //   "type": payload,
-    //   "keyId": payload,
-    //   "value": payload,
-    //   "modifiedBy": 1,
-    //   "remarks": payload
-    // }
     return this.http.put(url, payload);
   }
 }

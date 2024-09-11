@@ -39,7 +39,7 @@ export class SensorDataComponent {
   getDataForDevice:any;
   newGetDataForDevice:any;
   getData() {
-    this.inventorySer.getData().subscribe((res:any)=> {
+    this.inventorySer.listSensorData().subscribe((res:any)=> {
       console.log(res);
       this.getDataForDevice = res;
       this.newGetDataForDevice = this.getDataForDevice;

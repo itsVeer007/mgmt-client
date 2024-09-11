@@ -7,6 +7,7 @@ import { AlertService } from 'src/services/alert.service';
 import { InventoryService } from 'src/services/inventory.service';
 import { MetadataService } from 'src/services/metadata.service';
 import { StorageService } from 'src/services/storage.service';
+import { UserService } from 'src/services/user.service';
 
 @Component({
   selector: 'app-fr-reports',
@@ -22,7 +23,8 @@ export class FrReportsComponent implements OnInit {
     private datePipe: DatePipe,
     public dialog: MatDialog,
     public alertSer: AlertService,
-    private storageSer: StorageService
+    private storageSer: StorageService,
+    private userSer : UserService
   ) { }
 
   siteData: any;
@@ -35,7 +37,7 @@ export class FrReportsComponent implements OnInit {
   frList: any;
   filteredFrList:any;
   listFrs() {
-    this.inventorySer.listUsersByRole().subscribe((res: any) => {
+    this.userSer.listUsersByRole().subscribe((res: any) => {
       this.getMetadata();
       this.frList = res;
     })

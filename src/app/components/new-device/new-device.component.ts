@@ -4,7 +4,7 @@ import { MatOption } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSelect } from '@angular/material/select';
 import { Router } from '@angular/router';
-import { SensorDataComponent } from 'src/app/sensor-data/sensor-data.component';
+import { SensorDataComponent } from 'src/app/components/sensor-data/sensor-data.component';
 import { AdvertisementsService } from 'src/services/advertisements.service';
 import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
@@ -131,7 +131,7 @@ export class NewDeviceComponent {
 
   openadver(item:any) {
     this.adver.itemName.next(item)
-    this.router.navigate(['/home/new-adver'])
+    this.router.navigate(['/dashboard/new-adver'])
   }
   
 

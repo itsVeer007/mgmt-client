@@ -3,7 +3,7 @@ import { Component, EventEmitter, HostListener, OnInit, Output, TemplateRef, Vie
 import { MatOption } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSelect } from '@angular/material/select';
-import { SensorDataComponent } from 'src/app/sensor-data/sensor-data.component';
+import { SensorDataComponent } from 'src/app/components/sensor-data/sensor-data.component';
 import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
 import { InventoryService } from 'src/services/inventory.service';
@@ -46,7 +46,7 @@ export class DevicesComponent implements OnInit {
   showLoader1: boolean = false
   getData(item:any) {
     this.showLoader1 = true;
-    this.inventorySer.getData(item).subscribe((res:any)=> {
+    this.inventorySer.listSensorData(item).subscribe((res:any)=> {
       // console.log(res);
       this.showLoader1 = false
       this.getDataForDevice = res;

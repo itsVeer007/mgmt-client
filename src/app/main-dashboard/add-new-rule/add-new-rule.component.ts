@@ -423,7 +423,7 @@ export class AddNewRuleComponent {
             if(res?.statusCode == 200) {
               this.alertSer.success(res?.message)
               this.adver.addIdSub.next(this.inputData?.adId ? this.inputData?.adId :this.finalId)
-              this.router.navigate(['/home/new-adver']);
+              this.router.navigate(['/dashboard/new-adver']);
               
             } else {
               this.alertSer.error(res?.message)
@@ -473,7 +473,7 @@ export class AddNewRuleComponent {
             if(res?.statusCode == 200) {
               this.alertSer.success(res?.message)
               this.adver.addIdSub.next(this.inputData?.adId ? this.inputData?.adId :this.finalId)
-              this.router.navigate(['/home/new-adver']);
+              this.router.navigate(['/dashboard/new-adver']);
 
             } else {
               this.alertSer.error(res?.message)

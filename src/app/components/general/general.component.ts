@@ -4,7 +4,7 @@ import { MatOption } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSelect } from '@angular/material/select';
 import { Router } from '@angular/router';
-import { SensorDataComponent } from 'src/app/sensor-data/sensor-data.component';
+import { SensorDataComponent } from 'src/app/components/sensor-data/sensor-data.component';
 import { AdvertisementsService } from 'src/services/advertisements.service';
 import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
@@ -39,10 +39,10 @@ export class GeneralComponent {
     this.user = this.storageSer.get('user');
     this.getSitesData()
     this.listDeviceInfo()
-    this.getSitesListForUserName()
-  
-    this.getStatus();
-    this.listAdsInfo();
+
+    // this.getSitesListForUserName();
+    // this.getStatus();
+    // this.listAdsInfo();
 
     this.alertSer.ruleSubject.subscribe({
       next: (res: any) => {
@@ -62,8 +62,9 @@ export class GeneralComponent {
   getSitesDataForSite:any;
 
   getSitesData() {
+    this.showLoader = true;
     this.adver.getSitesData().subscribe((res:any)=> {
-      // console.log(res);
+      this.showLoader = false;
       this.getMetadata();
       this.getSitesDataForSite = res.siteDetails;
       // this.newdevices = this.getSitesDataForSite
@@ -81,7 +82,7 @@ export class GeneralComponent {
   }
 
 
-  @ViewChild('inventoryItemsDialog') inventoryItemsDialog = {} as TemplateRef<any>;
+@ViewChild('inventoryItemsDialog') inventoryItemsDialog = {} as TemplateRef<any>;
 camData:any
 viewData:any
   cameraData(item:any) {
@@ -179,7 +180,7 @@ viewData:any
 
   openadver(item:any) {
     this.adver.itemName.next(item)
-    this.router.navigate(['/home/new-adver'])
+    this.router.navigate(['/dashboard/new-adver'])
   }
   
 

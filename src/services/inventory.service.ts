@@ -11,7 +11,6 @@ import { StorageService } from './storage.service';
 export class InventoryService {
 
   baseUrl = `${environment.baseUrl}/inventoryAndtickets`;
-  // baseUrl = 'http://192.168.0.129:8081';
 
   constructor(private http: HttpClient, public datepipe: DatePipe, private storageSer: StorageService) { }
 
@@ -557,8 +556,6 @@ export class InventoryService {
   }
 
 
-  /* -------------------------------------------------------------- end ------------------------------------------------------------------------------------ */
-
 
   /* orders */
   listOrders() {
@@ -618,8 +615,6 @@ export class InventoryService {
   }
 
 
-
-  /* vendor service */
   listVendors() {
     let url = this.baseUrl + '/listVendors_1_0';
     return this.http.get(url)
@@ -645,17 +640,9 @@ export class InventoryService {
     return this.http.delete(url);
   }
 
-  listUsersByRole() {
-    let url = 'http://34.206.37.237:80/userDetails' + '/listUsersByRole_1_0';
-    let params = new HttpParams().set('roleId', 30);
-    return this.http.get(url, {params: params});
-  }
 
-  baseUrl1 = 'http://192.168.0.169:1234';
-  // baseUrl1   = 'http://usstaging.ivisecurity.com:947';
-
-  getData(payload?:any) {
-    let url = this.baseUrl1 + '/sensors/listSensorData_1_0';
+  listSensorData(payload?:any) {
+    let url = this.baseUrl + '/sensors/listSensorData_1_0';
     let params = new HttpParams();
     if(payload?.siteId) {
       params = params.set('siteId', payload?.siteId)

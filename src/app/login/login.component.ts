@@ -40,25 +40,6 @@ export class LoginComponent implements OnInit {
     // });
   }
 
-  login() {
-    this.showLoader = true;
-    this.userSer.login(this.loginForm.value).subscribe((res: any) => {
-      // console.log(res);
-      this.showLoader = false;
-      if(res?.Status == "Success") {
-        this.storageSer.set('user', res);
-        this.userSer.user$.next(res);
-        this.route.navigate(['home/main-dashboard']);
-        this.getSitesListForUserName();
-      } else if(res?.Status == "Failed") {
-        this.alertSer.error(res?.message);
-      }
-    }, (err: any) => {
-      this.showLoader = false;
-      this.alertSer.error(err?.error?.message);
-    });
-  }
-
   showPassword: boolean = false;
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
@@ -76,7 +57,7 @@ export class LoginComponent implements OnInit {
           this.storageSer.set('user', res);
           this.userSer.user$.next(res);
           this.getSitesListForUserName();
-          this.router.navigate(['/home/main-dashboard']);
+          this.router.navigate(['/dashboard/main-dashboard']);
         } else if(res?.Status == 'Failed') {
           this.alertSer.error(res?.message);
         }

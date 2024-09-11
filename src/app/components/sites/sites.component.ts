@@ -5,6 +5,7 @@ import { StorageService } from 'src/services/storage.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { AlertService } from 'src/services/alert.service';
+import { UserService } from 'src/services/user.service';
 
 
 @Component({
@@ -20,7 +21,8 @@ export class SitesComponent implements OnInit {
     public dialog: MatDialog,
     private storageSer: StorageService,
     private fb:FormBuilder,
-    private alertSer: AlertService
+    private alertSer: AlertService,
+    private userSer: UserService
   ) { }
 
   tableData: any = [];
@@ -448,9 +450,7 @@ resultSite:any;
 
   siteUsers:any=[];
   getSiteUserDetails(data:any){
-    console.log(data)
-    this.siteSer.getSiteUserDetails(data).subscribe((res:any)=>{
-      console.log(res)
+    this.userSer.getSiteUserDetails(data).subscribe((res:any)=>{
       this.siteUsers=res.usersDetails;
     })
     

@@ -4,7 +4,11 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://usstaging.ivisecurity.com:8080'
+  baseUrl: 'http://usstaging.ivisecurity.com:8080',
+  
+  authUrl: 'http://usstaging.ivisecurity.com:8922',
+  siteUrl: 'http://usstaging.ivisecurity.com:8943',
+  emailUrl: 'http://usstaging.ivisecurity.com:8943',
 };
 
 /*

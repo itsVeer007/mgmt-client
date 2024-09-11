@@ -11,9 +11,8 @@ import { Observable } from 'rxjs';
 export class SiteService {
   
 
-  baseUrl = 'http://54.92.215.87:943';
-  shoowMenu: any;
-  // baseUrl = 'http://192.168.0.194:8000';
+  baseUrl = environment.siteUrl;
+  // shoowMenu: any;
 
   constructor(private http: HttpClient, private storageSer: StorageService) { }
 
@@ -59,8 +58,6 @@ export class SiteService {
   
 
 
-    baseUrlForCamera = 'http://rsmgmt.ivisecurity.com:8943'
-
   // getCamerasForSiteId(payload?: any) {
   //   console.log(payload)
   //   let url = this.baseUrlForCamera + '/camera/getCameraShortDetailsForSiteId_1_0';
@@ -70,7 +67,6 @@ export class SiteService {
   // }
 
   getCamerasForSiteId(payload: any) {
-    console.log(payload)
     let url = `${this.baseUrl}/getCamerasForSiteId_1_0/${payload}`;
     return this.http.get(url);
   }
@@ -80,15 +76,15 @@ export class SiteService {
     return this.http.get(url);
   }
 
+
+
+
   getCentralbox(payload: any) {
     let url = `${this.baseUrl}/centralBox/getCentralBox_1_0/${payload.siteId}` ;
     return this.http.get(url);
   }
   
-
   addCentralBox(payload: any) {
-    // let user = JSON.parse(localStorage.getItem('user')!);
-    console.log(payload)
     let url = `${this.baseUrl}/centralBox/addCentralBox_1_0`;
     return this.http.post(url, payload);
   }
@@ -100,39 +96,22 @@ export class SiteService {
 
   updateCamera(payload: any){
     let url = `${this.baseUrl}/camera/updateCameraData_1_0/${payload.cameraId}`;
-    // let url = `http://192.168.0.127:8080/camera/updateCameraData_1_0/${payload.cameraId}`;
     return this.http.put(url, payload)
   }
 
-
   showDefenderDetails():Observable<any>{
-    let url="http://192.168.0.232:7548/showDefenderDetails";
-  
+    let url= this.baseUrl + "/showDefenderDetails";
     return this.http.get(url);
-  
   }
   
   addCamDetails(payload: any) {
-    // let url = `${this.baseUrl}/centralBox/addCentralBox_1_0`;
-    let url="http://192.168.0.232:7548/addDefenderCamDetails";
+    let url= this.baseUrl + "/addDefenderCamDetails";
     return this.http.post(url, payload);
   }
   
   addRouterDetails(payload: any) {
-    // let url = `${this.baseUrl}/centralBox/addCentralBox_1_0`;
-    let url="http://192.168.0.232:7548/addDefenderCamDetails";
+    let url= this.baseUrl + "/addDefenderCamDetails";
     return this.http.post(url, payload);
   }
-
-
-  getSiteUserDetails(payload: any){
-    // let url= `http://192.168.0.194:8000/userDetails/getUsersDetailsForSiteId_1_0/${payload.siteId}`;
-    // let url= `${this.baseUrl}/userDetails/getUsersDetailsForSiteId_1_0/${payload.siteId}`;
-    let url= `http://34.206.37.237:80/userDetails/getUsersDetailsForSiteId_1_0/${payload.siteId}`;
-    
-    return this.http.get(url);
-  }
-
-
 
 }

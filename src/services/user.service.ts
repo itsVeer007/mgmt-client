@@ -3,29 +3,23 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { StorageService } from './storage.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  // isLoggedin = new BehaviorSubject<boolean>(false);
+
   user$ = new BehaviorSubject<any>(null);
   error$ = new BehaviorSubject<string>('');
 
-  constructor(private http: HttpClient, private router: Router, private storageSer: StorageService) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private storageSer: StorageService
+  ) { }
 
-  baseUrl = "http://34.206.37.237:80";
-  // baseUrl = 'http://192.168.0.194:8000';
-
-  login(payload: any) {
-    let url = this.baseUrl + "/businessInterface/login/login_2_0";
-    let loginBody = {
-      userName: payload.userName,
-      password: payload.password,
-      calling_System_Detail: "portal"
-    }
-    return this.http.post(url, loginBody);
-  }
+  baseUrl = environment.authUrl;
 
   loginNew(payload: any) {
     let url  = this.baseUrl + `/userDetails/user_login_1_0`;
@@ -35,7 +29,6 @@ export class UserService {
   logout() {
     this.storageSer.clearData();
     this.storageSer.clearData();
-    // this.isLoggedin.next(false);
     this.user$.next(null);
     this.router.navigate(['./login']);
   }
@@ -59,12 +52,16 @@ export class UserService {
     return this.http.get(url);
   }
 
+  listUsersByRole() {
+    let url = this.baseUrl + '/listUsersByRole_1_0';
+    let params = new HttpParams().set('roleId', 30);
+    return this.http.get(url, {params: params});
+  }
+
   createUser(payload: any) {
-    // let url = this.baseUrl + "/createUser_1_0";
     let url = `${this.baseUrl}/userDetails/createUser_1_0`;
     var user: any = this.storageSer.get('user');
     payload.createdBy = user.UserId;
-    // payload.callingUsername = user.UserName;
     return this.http.post(url, payload);
   }
 
@@ -74,20 +71,19 @@ export class UserService {
     return this.http.get(url);
   }
 
-  // getUserInfoForId(payload: any) {
-  //   let url = `http://34.206.37.237/userDetails/getUserInfoForUserId_1_0/${payload}`;
-  //   return this.http.get(url);
-  // }
-
   updateUser(payload: any) {
-    let url = `http://34.206.37.237/userDetails/updateUser_1_0/${payload?.userId}`;
+    let url = `${this.baseUrl}/userDetails/updateUser_1_0/${payload?.userId}`;
     return this.http.put(url, payload);
   }
 
   applySitesMapping(payload: any){
-    console.log(payload)
-    let url ='http://34.206.37.237/userDetails/applySitesMapping_1_0';
+    let url =`${this.baseUrl}/userDetails/applySitesMapping_1_0`;
     return this.http.post(url,payload);
+  }
+
+  getSiteUserDetails(payload: any){
+    let url= `${this.baseUrl}/userDetails/getUsersDetailsForSiteId_1_0/${payload.siteId}`;
+    return this.http.get(url);
   }
 
   // getSitesListforUser(payload: any) {
@@ -96,13 +92,10 @@ export class UserService {
   //   return this.http.get(url);
   // }
 
-  getSitesListForUserName(payload: any) {
-    // let url = `${this.baseUrl}/getSitesListForUserName_1_0`;
-    let url = `http://54.92.215.87:943/getSitesListForUserName_1_0`;
-    
-    // let user = this.storageSer.get('user');
-    let params = new HttpParams().set('userName', payload?.UserName);
-    return this.http.get(url, {params: params});
-  }
+  // getSitesListForUserName(payload: any) {
+  //   let url = `${this.baseUrl}/getSitesListForUserName_1_0`;
+  //   let params = new HttpParams().set('userName', payload?.UserName);
+  //   return this.http.get(url, {params: params});
+  // }
   
 }
