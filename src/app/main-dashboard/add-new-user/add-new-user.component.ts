@@ -126,7 +126,7 @@ export class AddNewUserComponent implements OnInit {
   createUser() {
     if(this.UserForm.valid) {
       this.userSer.createUser(this.user).subscribe((res: any) => {
-        if(res.status_code == 200) {
+        if(res.statusCode == 200) {
           this.newItemEvent.emit();
           this.alertSer.success(res.message);
         }

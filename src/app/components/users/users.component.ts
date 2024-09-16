@@ -42,8 +42,6 @@ export class UsersComponent implements OnInit {
       this.userTableData = res;
       this.userTableData.forEach((element:any) => {
         element.status== 'T' ? this.activeUsers.push(element) : this.inactiveUsers.push(element)
-         
-        
       });
     })
   }
@@ -67,6 +65,7 @@ export class UsersComponent implements OnInit {
   @ViewChild('editprofileDialog') editprofileDialog = {} as TemplateRef<any>;
   openEditProfileDialog(data: any) {
     this.userSer.getUserInfoForUserId({userId: data?.user_id}).subscribe((res: any) => {
+      console.log(res)
       this.currentUser = res;
     });
     this.dialog.open(this.editprofileDialog);
@@ -74,6 +73,15 @@ export class UsersComponent implements OnInit {
 
   updateUser() {
     this.currentUser.modifiedBy = this.userData?.UserId;
+    delete this.currentUser.roleList
+    // delete this.currentUser.userId
+    delete this.currentUser.verificationId
+    delete this.currentUser.modifiedTime
+    delete this.currentUser.email
+    delete this.currentUser.createdTime
+    delete this.currentUser.createdBy
+
+
     this.userSer.updateUser(this.currentUser).subscribe((res: any) => {
       // console.log(res);
       if(res.statusCode == 200) {
@@ -106,7 +114,7 @@ export class UsersComponent implements OnInit {
 
   @ViewChild('assignSiteDialog') assignSiteDialog = ElementRef;
   assignSite(user:any){
-    console.log(user)
+    this.getSitesListForUserName();
     this.currentUser = user
     this.dialog.open(this.assignSiteDialog)
     
@@ -114,30 +122,50 @@ export class UsersComponent implements OnInit {
 
   userSites:any=[]
   getSitesListforUser(user:any){
-    console.log(user)
+    // console.log(user)
     this.userSites=[];
-    this.siteSer.getSitesListForUserName().subscribe({
+    this.siteSer.getSitesListForUserName1(user).subscribe({
       next: (res:any)=>{
-        console.log(res)
-        if (res.Status=='Success') {
-          this.userSites=res.sites;         
+        if (res.Status==='Success') {
+          this.userSites=res.sites;    
+          // this.alertSer.success(res.message)     
         }
         else{
           this.userSites=[];
         }
-
-
+      },
+      error:(err:any) => {
+        this.alertSer.error(err.error.message)
       }
+      
+
+      
     })
+  }
 
-
+  sitesList: any = [];
+  getSitesListForUserName() {
+    this.siteSer.getSitesListForUserName().subscribe((res: any) => {
+      // console.log(res)
+      if(res?.Status == 'Success') {
+        this.sitesList = res.sites.sort((a: any, b: any) => a.siteId < b.siteId ? -1 : a.siteId > b.siteId ? 1 : 0);
+      }
+      }, (err: any) => {
+    });
   }
 
   selectedSites: any
   submitAssignSite() {
     this.userSer.applySitesMapping({userId: this.currentUser?.user_id, siteList: [this.selectedSites]}).subscribe({
-      next: (res)=>{
-        console.log(res)
+      next: (res:any)=>{
+        if (res.status==='Success') {   
+          this.alertSer.success(res.message)     
+        } else {
+          this.alertSer.error(res.message)
+        }
+      },
+      error:(err:any) => {
+        this.alertSer.error(err.error.message)
       }
     })
   }

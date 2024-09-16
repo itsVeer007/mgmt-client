@@ -64,7 +64,7 @@ export class AddNewCameraComponent {
       height: new FormControl(null),
       fps: new FormControl(0),
       HLSUrl: new FormControl(''),
-      ptz: new FormControl(1),
+      ptz: new FormControl(''),
       priority: new FormControl(''),
       active: new FormControl(''),
       httpTunnel: new FormControl(''),
@@ -112,7 +112,7 @@ export class AddNewCameraComponent {
   cameras: any = [];
   getCamerasForSiteId(data: any) {
     this.siteSer.getCamerasForSiteId(data.siteId).subscribe((res: any) => {
-      // console.log(res);
+      console.log(res);
       this.cameras = res;
       this.addCamera(this.createCamera.value)
     })
@@ -127,7 +127,7 @@ export class AddNewCameraComponent {
 
   camList: any = [];
   addCamera(data: any) {
-    // console.log(data);
+    console.log(data);
     this.camList = [];
     // let camIndex: number;
     // if(this.cameras.length === 0) {
@@ -217,18 +217,26 @@ export class AddNewCameraComponent {
         audioUrl: this.createCamera.value.audioUrl,
         monitoring: this.createCamera.value.monitoring,
         unitId: this.createCamera.value.unitId,
-        noOfCameras: this.createCamera.value.noOfCameras
+        noOfCameras: this.createCamera.value.noOfCameras,
+
+
+        timelapse:this.createCamera.value.timelapse,
+        s3_server_host:this.createCamera.value.s3_server_host,
+        snapshotUrl:this.createCamera.value.snapshotUrl,
+        camera_config_url:this.createCamera.value.camera_config_url
       });
     }
-    // console.log(this.camList)
+    console.log(this.camList)
   }
 
+  editDisabledFlags: { [key: string]: boolean } = {}; // Object to track disabled state for each camera by id
 
   submit(data:any, event: any) {
     if(this.createCamera.valid){
       this.siteSer.createCamera(data).subscribe((res:any) =>{
         if(res.statusCode===200){
           event.target.disabled = true;
+          this.editDisabledFlags[data.id] = true;
           this.alertSer.snackSuccess(res.message)
         } else{
           this.alertSer.error(res.message)
@@ -250,6 +258,24 @@ export class AddNewCameraComponent {
     }, (err: any) => {
       this.alertSer.error(err.error.message)
     })
+  }
+
+
+
+
+  unitId: string = '';
+  cameraconfigUrl: string = '';
+  snapshotsUrl: string = '';
+  webrtcUrl: string = '';
+  hlsTunnel: string = '';
+  audioUrl: string = '';
+
+  generateUrls(): void {
+    this.cameraconfigUrl = this.unitId ? `${this.unitId}+camconfig-repo.pitunnel.com` : '';
+    this.snapshotsUrl = this.unitId ? `${this.unitId}+snapshots-repo.pitunnel.com` : '';
+    this.webrtcUrl = this.unitId ? `${this.unitId}+live-repo.pitunnel.com` : '';
+    this.hlsTunnel = this.unitId ? `${this.unitId}+hlslive-repo.pitunnel.com` : '';
+    this.audioUrl = this.unitId ? `${this.unitId}+audio-repo.pitunnel.com/play/siren` : '';
   }
 
 }

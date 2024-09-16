@@ -31,7 +31,6 @@ export class FilterComponent {
   ) { }
 
   ngOnInit() {
-    console.log(this.filterType);
     this.filterType==='users'? this.siteId=null: this.siteId='ALL';
     this.getSitesListForUserName();
     this.getMetadata();

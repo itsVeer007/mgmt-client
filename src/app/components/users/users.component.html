@@ -196,9 +196,9 @@
             <a class="pointer mx-1" matTooltip="Edit" (click)="openEditProfileDialog(cust)">
               <img src="assets/icons/edit.svg">
             </a>
-            <a class="pointer mx-1" value="Delete" matTooltip="Delete">
+            <!-- <a class="pointer mx-1" value="Delete" matTooltip="Delete">
               <img src="assets/icons/delete.svg">
-            </a>
+            </a> -->
           </td>
 
 
@@ -305,6 +305,7 @@
     <p class="text-white p-1">EDIT PROFILE</p>
   </div>
   <div class="dialog-content" *ngIf="currentUser">
+
     <div class="row m-0">
       <div class="col-lg-6">
         <mat-form-field appearance="outline" class="w-100">
@@ -320,20 +321,8 @@
       </div>
       <div class="col-lg-6">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Email</mat-label>
-          <input matInput [(ngModel)]="currentUser.email">
-        </mat-form-field>
-      </div>
-      <div class="col-lg-6">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>ContactNo 1</mat-label>
-          <input matInput [(ngModel)]="currentUser.contactNo1">
-        </mat-form-field>
-      </div>
-      <div class="col-lg-6">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>ContactNo 2</mat-label>
-          <input matInput [(ngModel)]="currentUser.contactNo2">
+          <mat-label>profileImage</mat-label>
+          <input matInput [(ngModel)]="currentUser.profileImage">
         </mat-form-field>
       </div>
       <div class="col-lg-6">
@@ -350,6 +339,18 @@
       </div>
       <div class="col-lg-6">
         <mat-form-field appearance="outline" class="w-100">
+          <mat-label>ContactNo 1</mat-label>
+          <input matInput [(ngModel)]="currentUser.contactNo1">
+        </mat-form-field>
+      </div>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>ContactNo 2</mat-label>
+          <input matInput [(ngModel)]="currentUser.contactNo2">
+        </mat-form-field>
+      </div>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
           <mat-label>City</mat-label>
           <input matInput [(ngModel)]="currentUser.city">
         </mat-form-field>
@@ -358,6 +359,12 @@
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Pin</mat-label>
           <input matInput [(ngModel)]="currentUser.pin">
+        </mat-form-field>
+      </div>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>district</mat-label>
+          <input matInput [(ngModel)]="currentUser.district">
         </mat-form-field>
       </div>
       <div class="col-lg-6">
@@ -372,6 +379,42 @@
           <input matInput [(ngModel)]="currentUser.country">
         </mat-form-field>
       </div>
+
+
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>gender</mat-label>
+          <input matInput [(ngModel)]="currentUser.gender">
+        </mat-form-field>
+      </div>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>active</mat-label>
+          <input matInput [(ngModel)]="currentUser.active">
+        </mat-form-field>
+      </div>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>employee</mat-label>
+          <input matInput [(ngModel)]="currentUser.employee">
+        </mat-form-field>
+      </div>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>empId</mat-label>
+          <input matInput [(ngModel)]="currentUser.empId">
+        </mat-form-field>
+      </div>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>safetyEscort</mat-label>
+          <input matInput [(ngModel)]="currentUser.safetyEscort">
+        </mat-form-field>
+      </div>
+
+
+
+      
     </div>
   </div>
 
@@ -387,8 +430,23 @@
   </div>
 
   <div class="dialog-content">
-    <div class="w-100">
-      <app-filter [filterType]="'users'"></app-filter>
+    <!-- <div class="w-100">
+      <app-filter [filterType]="'users'" (tableDataFromChild)="getSites($event)"></app-filter>
+    </div> -->
+
+    <div>
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Select site</mat-label>
+        <input matInput #siteIdInput [matAutocomplete]="site" [(ngModel)]="selectedSites" >
+        <button matSuffix mat-icon-button>
+          <mat-icon>arrow_drop_down</mat-icon>
+        </button>
+        <mat-autocomplete #site="matAutocomplete">
+          <mat-option *ngFor="let item of sitesList | search: searchText" [value]="item.siteId">
+            {{ item.siteId }} - {{ item.siteName }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
     </div>
     
 

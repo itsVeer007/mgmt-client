@@ -41,6 +41,12 @@ export class SiteService {
     return this.http.get(url, ({params: params}));
   }
 
+  getSitesListForUserName1(payload: any) {
+    let url = `${this.baseUrl}/getSitesListForUserName_1_0`;
+    let params = new HttpParams().set('userName', payload?.User_Name);
+    return this.http.get(url, ({params: params}));
+  }
+
 
     gettimeZones() {
       return this.http.get("assets/JSON/timezones.json");

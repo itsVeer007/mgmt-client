@@ -70,7 +70,7 @@ export class SitesComponent implements OnInit {
     this.currentItem = data
     this.dialog.open(this.viewCamerasDialog)
     this.siteSer.getCamerasForSiteId(data.siteId).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       this.cameras = res;
     })
   }
@@ -79,7 +79,7 @@ export class SitesComponent implements OnInit {
   @ViewChild('editCameraDialog') editCameraDialog = {} as TemplateRef<any>;
   currentCamera: any;
   openEditCamera(item: any) {
-    console.log(item)
+    // console.log(item)
     // this.currentCamera = item
     this.currentCamera = JSON.parse(JSON.stringify(item));
     this.dialog.open(this.editCameraDialog);
@@ -214,8 +214,10 @@ export class SitesComponent implements OnInit {
     this.createCenteralBox.value.siteId=this.currentItem.siteId
     this.createCenteralBox.value.createdBy = this.user.UserId
     this.siteSer.addCentralBox(this.createCenteralBox.value).subscribe((res:any) => {
+      console.log(res)
       if(res.statusCode === 200) {
         this.alertSer.success(res.message)
+        this.getCentalBox(this.currentItem)
       } else {
         this.alertSer.error(res.message)
       }
@@ -319,8 +321,8 @@ export class SitesComponent implements OnInit {
   openViewPopup(item: any) {
     this.siteSer.getSiteFullDetails(item).subscribe((res:any)=>{
       this.currentItem = res.siteDetails;
+      // console.log(this.currentItem)
     })
-    console.log(item)
     this.dialog.open(this.viewSiteDialog);
   }
 currentSite:any;
