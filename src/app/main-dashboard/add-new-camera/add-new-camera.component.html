@@ -85,13 +85,13 @@
               </mat-form-field>
             </div>
 
-            <!-- <div class="col-lg-4">
+            <div class="col-lg-4">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>camera_config_url</mat-label>
                 <input matInput type="text" formControlName="camera_config_url">
               </mat-form-field>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-4"> 
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>snapshotUrl</mat-label>
                 <input matInput type="text" formControlName="snapshotUrl">
@@ -102,13 +102,13 @@
                 <mat-label>s3_server_host</mat-label>
                 <input matInput type="number" formControlName="s3_server_host">
               </mat-form-field>
-            </div> -->
-            <!-- <div class="col-lg-4">
+            </div>
+            <div class="col-lg-4">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>timelapse</mat-label>
                 <input matInput type="text" formControlName="timelapse">
               </mat-form-field>
-            </div> -->
+            </div>
             
             <div class="col-lg-2 text-end">
               <button class="btn btn-primary w-100" (click)="getCamerasForSiteId(currentSiteFrom)">ADD</button>
@@ -129,8 +129,9 @@
               <th>WebRTC URL</th>
               <th>HLS URL</th>
               <th>Audio URL</th>
-              <th>snapshotUrl</th>
-              <th><p>camera_config_url</p></th>
+              <th>Snapshot Url</th>
+              <th>Camera Config Url</th>
+              <th></th>
             </tr>
           </thead>
           
@@ -147,12 +148,14 @@
                 <td>{{cam.snapshotUrl}}</td>
                 <td>{{cam.camera_config_url}}</td>
                 <td>
-                  <button class="btn btn-success p-1" style="font-size: 10px;" (click)="submit(cam, $event)">
-                    Save
-                  </button>
-                  <button class="btn btn-danger p-1 ms-1" style="font-size: 10px;" (click)="openEditPopup(cam)"   [disabled]="editDisabledFlags[cam.id]">
-                    Edit
-                  </button>
+                  <div class="d-inline-flex">
+                    <button class="btn btn-success p-1" style="font-size: 10px;" (click)="submit(cam, $event)">
+                      Save
+                    </button>
+                    <button class="btn btn-danger p-1 ms-1" style="font-size: 10px;" (click)="openEditPopup(cam)" [disabled]="editDisabledFlags[cam.id]">
+                      Edit
+                    </button>
+                  </div>
                 </td>
               </tr>
           </tbody>

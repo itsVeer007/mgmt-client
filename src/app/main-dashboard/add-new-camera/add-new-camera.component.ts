@@ -86,7 +86,12 @@ export class AddNewCameraComponent {
       audioUrl: new FormControl(''),
       monitoring: new FormControl(''),
       unitId: new FormControl('', Validators.required),
-      noOfCameras: new FormControl('', Validators.required)
+      noOfCameras: new FormControl('', Validators.required),
+
+      timelapse: new FormControl(''),
+      s3_server_host: new FormControl(''),
+      snapshotUrl: new FormControl(''),
+      camera_config_url: new FormControl('')
     })
   }
 
@@ -127,7 +132,6 @@ export class AddNewCameraComponent {
 
   camList: any = [];
   addCamera(data: any) {
-    console.log(data);
     this.camList = [];
     // let camIndex: number;
     // if(this.cameras.length === 0) {
@@ -136,6 +140,7 @@ export class AddNewCameraComponent {
     //   camIndex = this.cameras.length;
     // }
     let isHttps: boolean = data.videoServerName.startsWith('https');
+    let isHttp: boolean = data.videoServerName.startsWith('http');
     let isRtsp: boolean = data.rtspUrl.startsWith('rtsp');
     let rtsp: any = data.rtspUrl.split('@');
     let webrtsp: any = data.videoServerName.split('/');
@@ -154,7 +159,7 @@ export class AddNewCameraComponent {
       if(data.videoServerName) {
         data.videoServerName = webrtsp[2];
       }
-    } else {
+    } else if(isHttp){
       if(data.videoServerName) {
         data.videoServerName = data.videoServerName.slice(7);
       }
@@ -174,7 +179,7 @@ export class AddNewCameraComponent {
     }
 
 
-    for(let i = this.cameras.length; i <( data.noOfCameras + this.cameras.length); i++) {
+    for(let i = this.cameras.length; i < (data.noOfCameras + this.cameras.length); i++) {
       let index = (i + 1).toString().padStart(2, '0');
       let index1;
       if(i < 9) {
@@ -219,25 +224,22 @@ export class AddNewCameraComponent {
         unitId: this.createCamera.value.unitId,
         noOfCameras: this.createCamera.value.noOfCameras,
 
-
         timelapse:this.createCamera.value.timelapse,
         s3_server_host:this.createCamera.value.s3_server_host,
         snapshotUrl:this.createCamera.value.snapshotUrl,
         camera_config_url:this.createCamera.value.camera_config_url
       });
     }
-    console.log(this.camList)
   }
 
-  editDisabledFlags: { [key: string]: boolean } = {}; // Object to track disabled state for each camera by id
-
+  editDisabledFlags: { [key: string]: boolean } = {};
   submit(data:any, event: any) {
     if(this.createCamera.valid){
-      this.siteSer.createCamera(data).subscribe((res:any) =>{
+      this.siteSer.createCamera(data).subscribe((res:any) => {
         if(res.statusCode===200){
           event.target.disabled = true;
           this.editDisabledFlags[data.id] = true;
-          this.alertSer.snackSuccess(res.message)
+          this.alertSer.snackSuccess(res.message);
         } else{
           this.alertSer.error(res.message)
         }
@@ -271,11 +273,11 @@ export class AddNewCameraComponent {
   audioUrl: string = '';
 
   generateUrls(): void {
-    this.cameraconfigUrl = this.unitId ? `${this.unitId}+camconfig-repo.pitunnel.com` : '';
-    this.snapshotsUrl = this.unitId ? `${this.unitId}+snapshots-repo.pitunnel.com` : '';
-    this.webrtcUrl = this.unitId ? `${this.unitId}+live-repo.pitunnel.com` : '';
-    this.hlsTunnel = this.unitId ? `${this.unitId}+hlslive-repo.pitunnel.com` : '';
-    this.audioUrl = this.unitId ? `${this.unitId}+audio-repo.pitunnel.com/play/siren` : '';
+    this.cameraconfigUrl = this.unitId ? `${this.unitId}/camconfig-repo.pitunnel.com` : '';
+    this.snapshotsUrl = this.unitId ? `${this.unitId}/snapshots-repo.pitunnel.com` : '';
+    this.webrtcUrl = this.unitId ? `${this.unitId}/live-repo.pitunnel.com` : '';
+    this.hlsTunnel = this.unitId ? `${this.unitId}/hlslive-repo.pitunnel.com` : '';
+    this.audioUrl = this.unitId ? `${this.unitId}/audio-repo.pitunnel.com/play/siren` : '';
   }
 
 }
