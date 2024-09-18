@@ -155,6 +155,8 @@ p {
   border: none;
   padding: 11px;
   margin-bottom: 20px;
+  text-decoration: none;
+  cursor: pointer;
 
 }
 

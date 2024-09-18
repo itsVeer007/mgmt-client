@@ -92,6 +92,8 @@ export class SiteService {
   
   addCentralBox(payload: any) {
     let url = `${this.baseUrl}/centralBox/addCentralBox_1_0`;
+    let user = this.storageSer.get('user');
+    payload.createdBy = user.UserId;
     return this.http.post(url, payload);
   }
 

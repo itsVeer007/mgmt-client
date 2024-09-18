@@ -9,7 +9,7 @@ export class MetadataService {
   
   constructor(private http: HttpClient) { }
   
-  baseUrl = `${environment.baseUrl}/common`;
+  baseUrl = `${environment.adsAndInventoryUrl}/common`;
 
   getMetadata() {
     let url = this.baseUrl + '/getValuesListByType_1_0';

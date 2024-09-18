@@ -463,6 +463,7 @@
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Unit Id</mat-label>
             <input matInput formControlName="unitId">
+            <mat-error>*required</mat-error>
           </mat-form-field>
         </div>
 
@@ -470,16 +471,17 @@
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Unit Location Name </mat-label>
             <input matInput formControlName="unitName">
+            <mat-error>*required</mat-error>
           </mat-form-field>
         </div>
       </div>
+
+
+      <div class="d-flex align-items-center justify-content-end">
+        <button class="dialog-close-btn" mat-dialog-close>Close</button>
+        <button class="dialog-update-btn" (click)="createCentralBox()">Update</button>
+      </div>
     </form>
-  </div>
-
-
-  <div class="d-flex align-items-center justify-content-end">
-    <button class="dialog-close-btn" mat-dialog-close>Close</button>
-    <button class="dialog-update-btn" (click)="createCentralBox()" mat-dialog-close>Update</button>
   </div>
 </ng-template>
 

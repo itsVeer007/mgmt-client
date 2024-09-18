@@ -117,7 +117,7 @@ export class AddNewCameraComponent {
   cameras: any = [];
   getCamerasForSiteId(data: any) {
     this.siteSer.getCamerasForSiteId(data.siteId).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       this.cameras = res;
       this.addCamera(this.createCamera.value)
     })
@@ -261,8 +261,6 @@ export class AddNewCameraComponent {
       this.alertSer.error(err.error.message)
     })
   }
-
-
 
 
   unitId: string = '';

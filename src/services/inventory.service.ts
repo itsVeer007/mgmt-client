@@ -10,7 +10,7 @@ import { StorageService } from './storage.service';
 })
 export class InventoryService {
 
-  baseUrl = `${environment.baseUrl}/inventoryAndtickets`;
+  baseUrl = `${environment.adsAndInventoryUrl}/inventoryAndtickets`;
 
   constructor(private http: HttpClient, public datepipe: DatePipe, private storageSer: StorageService) { }
 

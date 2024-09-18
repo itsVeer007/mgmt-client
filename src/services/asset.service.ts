@@ -15,7 +15,7 @@ export class AssetService {
 
   constructor(private http: HttpClient, private date: DatePipe, private storageSer: StorageService) { }
 
-  baseUrl = `${environment.baseUrl}/proximityads`;
+  baseUrl = `${environment.adsAndInventoryUrl}/proximityads`;
 
 
   // httpOptions = {

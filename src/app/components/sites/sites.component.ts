@@ -3,7 +3,7 @@ import { SiteService } from 'src/services/site.service';
 import { AssetService } from 'src/services/asset.service';
 import { StorageService } from 'src/services/storage.service';
 import { MatDialog } from '@angular/material/dialog';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from 'src/services/alert.service';
 import { UserService } from 'src/services/user.service';
 
@@ -48,10 +48,10 @@ export class SitesComponent implements OnInit {
     this.getSitesListForUserName()
 
     this.createCenteralBox=this.fb.group({
-      unitName: new FormControl(''),
+      unitName: new FormControl('', Validators.required),
       siteId: new FormControl(''),
-      unitId: new FormControl(''),
-      createdBy: new FormControl(1),
+      unitId: new FormControl('', Validators.required),
+      createdBy: new FormControl(''),
       description: new FormControl(''),
       password: new FormControl(''),
       centeralBoxUrl: new FormControl(''),
@@ -196,7 +196,7 @@ export class SitesComponent implements OnInit {
     this.createCenteralBox.reset()
     this.dialog.open(this.addCentralBoxDialog)
     this.siteSer.getCentralbox(this.currentItem).subscribe((res: any) => {
-        console.log(res)
+        // console.log(res)
       })
     }
     
@@ -211,13 +211,13 @@ export class SitesComponent implements OnInit {
   }
 
   createCentralBox() {
-    this.createCenteralBox.value.siteId=this.currentItem.siteId
-    this.createCenteralBox.value.createdBy = this.user.UserId
-    this.siteSer.addCentralBox(this.createCenteralBox.value).subscribe((res:any) => {
-      console.log(res)
+    if(!this.createCenteralBox.valid) return;
+    this.createCenteralBox.value.siteId = this.currentItem.siteId;
+    this.siteSer.addCentralBox(this.createCenteralBox.value).subscribe((res: any) => {
       if(res.statusCode === 200) {
-        this.alertSer.success(res.message)
-        this.getCentalBox(this.currentItem)
+        this.alertSer.success(res.message);
+        this.dialog.closeAll();
+        this.getCentalBox(this.currentItem);
       } else {
         this.alertSer.error(res.message)
       }

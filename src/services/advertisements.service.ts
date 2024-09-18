@@ -21,7 +21,7 @@ export class AdvertisementsService {
   public deviceId: BehaviorSubject<any> = new BehaviorSubject('');
   public itemName = new BehaviorSubject<string>('')
 
-   baseUrl = environment.baseUrl;
+   baseUrl = environment.adsAndInventoryUrl;
 
    createDevice(payload:any) {
     let url = this.baseUrl + '/proximity_ads/createDevice_1_0';
