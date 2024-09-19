@@ -189,25 +189,35 @@ export class FilterComponent {
     data?.forEach((item: any) => {
       if(item.type == 2) {
         this.deviceTypes = item.metadata;
-      } else if(item.type == 1) {
+      }
+      if(item.type == 1) {
         this.deviceMode = item.metadata;
-      } else if(item.type == 6) {
+      }
+      if(item.type == 6) {
         this.workingDay = item.metadata;
-      } else if(item.type == 10) {
+      }
+      if(item.type == 10) {
         this.tempRange = item.metadata;
-      } else if(item.type == 13) {
+      }
+      if(item.type == 13) {
         this.ageRange = item.metadata;
-      } else if(item.type == 7) {
+      }
+      if(item.type == 7) {
         this.modelObjectType = item.metadata;
-      } else if(item.type == 18) {
+      }
+      if(item.type == 18) {
         this.model = item.metadata;
-      } else if(item.type == 19) {
+      }
+      if(item.type == 19) {
         this.modelResolution = item.metadata;
-      } else if(item.type == 20) {
+      }
+      if(item.type == 20) {
         this.softwareVersion = item.metadata;
-      } else if(item.type == 21) {
+      }
+      if(item.type == 21) {
         this.weatherInterval = item.metadata;
-      } else if(item.type == 4) {
+      }
+      if(item.type == 4) {
         this.deviceStatus = item.metadata;
       }
     })

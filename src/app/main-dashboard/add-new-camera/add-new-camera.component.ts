@@ -139,44 +139,40 @@ export class AddNewCameraComponent {
     // } else {
     //   camIndex = this.cameras.length;
     // }
-    let isHttps: boolean = data.videoServerName.startsWith('https');
-    let isHttp: boolean = data.videoServerName.startsWith('http');
-    let isRtsp: boolean = data.rtspUrl.startsWith('rtsp');
-    let rtsp: any = data.rtspUrl.split('@');
-    let webrtsp: any = data.videoServerName.split('/');
 
-    if(isHttps) {
-      if(data.videoServerName) {
-        data.videoServerName = data.videoServerName.slice(8);
-      }
-      // if(data.audiUrl) {
-      //   data.audiUrl = data.audiUrl.slice(8);
-      // }
-      if(data.HLSUrl) {
-        data.HLSUrl = data.HLSUrl.slice(8);
-      }
 
-      if(data.videoServerName) {
-        data.videoServerName = webrtsp[2];
-      }
-    } else if(isHttp){
-      if(data.videoServerName) {
-        data.videoServerName = data.videoServerName.slice(7);
-      }
-      // if(data.audiUrl) {
-      //   data.audiUrl = data.audiUrl.slice(7);
-      // }
-      if(data.HLSUrl) {
-        data.HLSUrl = data.HLSUrl.slice(7);
-      }
-    }
+    // let isHttps: boolean = data.videoServerName.startsWith('https');
+    // let isHttp: boolean = data.videoServerName.startsWith('http');
+    // let isRtsp: boolean = data.rtspUrl.startsWith('rtsp');
+    // let rtsp: any = data.rtspUrl.split('@');
+    // let webrtsp: any = data.videoServerName.split('/');
 
-    if(isRtsp) {
-      if(data.rtspUrl) {
-        data.rtspUrl = data.rtspUrl.slice(7);
-        data.rtspUrl = rtsp[rtsp.length - 1];
-      }
-    }
+    // if(isHttps) {
+    //   if(data.videoServerName) {
+    //     data.videoServerName = data.videoServerName.slice(8);
+    //   }
+    //   if(data.HLSUrl) {
+    //     data.HLSUrl = data.HLSUrl.slice(8);
+    //   }
+
+    //   if(data.videoServerName) {
+    //     data.videoServerName = webrtsp[2];
+    //   }
+    // } else if(isHttp){
+    //   if(data.videoServerName) {
+    //     data.videoServerName = data.videoServerName.slice(7);
+    //   }
+    //   if(data.HLSUrl) {
+    //     data.HLSUrl = data.HLSUrl.slice(7);
+    //   }
+    // }
+
+    // if(isRtsp) {
+    //   if(data.rtspUrl) {
+    //     data.rtspUrl = data.rtspUrl.slice(7);
+    //     data.rtspUrl = rtsp[rtsp.length - 1];
+    //   }
+    // }
 
 
     for(let i = this.cameras.length; i < (data.noOfCameras + this.cameras.length); i++) {
@@ -232,13 +228,12 @@ export class AddNewCameraComponent {
     }
   }
 
-  editDisabledFlags: { [key: string]: boolean } = {};
   submit(data:any, event: any) {
     if(this.createCamera.valid){
       this.siteSer.createCamera(data).subscribe((res:any) => {
         if(res.statusCode===200){
           event.target.disabled = true;
-          this.editDisabledFlags[data.id] = true;
+          event.target.nextElementSibling.disabled = true;
           this.alertSer.snackSuccess(res.message);
         } else{
           this.alertSer.error(res.message)

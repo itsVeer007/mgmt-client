@@ -1,95 +1,14 @@
 <div class="container-fluid col-lg-12 main-dashboard">
-  <!-- <div class="d-flex justify-content-between  dashboard-header" style="position: sticky;">
-        <h4 class="head">DASHBOARD</h4>
-        <div [hidden]="icons111" class="icons1">
-            <div class="d-flex flex-row justify-content icons pointer">
-                <a (click)="showAddBusinessVertical=!showAddBusinessVertical"><img src="assets/icons/Union 24@2x.png" class="mx-2" width="15" height="15" /></a>
-                <a (click)="showAddCustomer=!showAddCustomer"><img src="assets/icons/Union 25@2x.png" class="mx-2" width="15" height="15" /></a>
-                <a (click)="showAddSite=!showAddSite"><img src="assets/icons/Union 26@2x.png" class="mx-2" width="15"
-                        height="15" /></a>
-                <a (click)="showAddCamera=!showAddCamera"><img src="assets/icons/bx-cctv@2x.png" class="mx-2" width="15" height="15" /></a>
-                <a><img src="assets/icons/Union 27@2x.png" class="mx-2" width="15" height="15" /></a>
-                <a (click)="showAddUser=!showAddUser"><img src="assets/icons/Union 29@2x.png" class="mx-2" width="15" height="15" /></a>
-            </div>
-        </div>
-        <div class="showtray">
-            <button class="btn btn-default" (click)="iconssnew()" style="box-shadow: none !important; margin-top: -13px;">
-                <img src="assets/icons/add-svg.svg" width="40" height="40" /></button>
-        </div>
-  </div> -->
 
   <div class="d-flex justify-content-between verticals">
     <span class="mt-2" style="font-size: 20px; font-weight: 600; color:#28231D;">Dashboard</span>
-    <!-- <h6 class="mt-4" style="font-size: 16px;"><b>verticals - <span> 8</span></b></h6> -->
     <div>
-      <!-- <span>
-          <img src="assets/icons/Union 18@2x.png" width="15" height="15">
-          <span class="mx-2">&nbsp;1&nbsp;-&nbsp;4&nbsp;</span>
-          <img src="assets/icons/Union 18@2x.png" style=" transform: rotate(180deg);" width="15" height="15">
-          </span> -->
     </div>
-
-    <!-- <div class="">
-          <div *ngIf="icons111" class="icons1" id="icons-site" (click)="icons111=!icons111">
-            <div class="lists" *ngIf="showIconVertical" style="margin-left: -235px;">Business Vertical</div>
-            <div class="lists" *ngIf="showIconCustomer" style="margin-left: -180px;">Customer</div>
-            <div class="lists" *ngIf="showIconSite" style="margin-left: -135px;">Site</div>
-            <div class="lists" *ngIf="showIconCamera" style="margin-left: -115px;">Camera</div>
-            <div class="lists" *ngIf="showIconAnalytic" style="margin-left: -85px;">Analytic</div>
-            <div class="lists" *ngIf="showIconUser" style="margin-left: -40px;">User</div>
-
-          <div class="d-flex flex-row justify-content icons pointer" style="position: absolute;">
-              <a (click)="iconssnew('vert');showAddBusinessVertical=!showAddBusinessVertical">
-              <img src="assets/icons/vertical.svg" class="mx-2" width="15" height="15"
-                  (mouseenter)="showIconVertical = true" (mouseleave)="showIconVertical = false" />
-              </a>
-
-              <a (click)="iconssnew('cust');showAddCustomer=!showAddCustomer">
-              <img src="assets/icons/customer.svg" class="list mx-2" width="15" height="15"
-              (mouseenter)="showIconCustomer = true" (mouseleave)="showIconCustomer = false" />
-              </a>
-
-              <a (click)="iconssnew('site');showAddSite=!showAddSite">
-                <img src="assets/icons/sites.svg" class="list mx-2" width="15" height="15" (mouseenter)="showIconSite = true"
-                  (mouseleave)="showIconSite = false" />
-              </a>
-
-              <a (click)="iconssnew('camr');showAddCamera=!showAddCamera">
-                <img src="assets/icons/cam.svg" class="list mx-2" width="15" height="15" (mouseenter)="showIconCamera = true"
-                  (mouseleave)="showIconCamera = false" />
-              </a>
-
-              <a>
-                <img src="assets/icons/analytic.svg" class="list mx-2" width="15" height="15"
-                  (mouseenter)="showIconAnalytic = true" (mouseleave)="showIconAnalytic = false" />
-              </a>
-
-              <a (click)="iconssnew('user');showAddUser=!showAddUser">
-                <img src="assets/icons/user-white.svg" class="list mx-2" width="15" height="15"
-                  (mouseenter)="showIconUser = true" (mouseleave)="showIconUser = false" />
-              </a>
-            </div>
-          </div>
-          <div class="showtray">
-            <button class="btn btn-default" (click)="iconssnew('btn')" style="box-shadow: none !important; padding: 1px; ">
-              <img src="assets/icons/add-svg.svg" width="40" height="40" /></button>
-          </div>
-          <div>
-            <img src="assets/icons/Union 18@2x.png" width="20" height="10" />
-            <span class="mx-3">1 - 4</span>
-            <img src="assets/icons/Union 17@2x.png" width="20" height="10" />
-          </div>
-
-        </div> -->
-
   </div>
 
 
-  <!-- class="d-flex justify-content-between card-menu" -->
   <div class="row d-flex justify-content-between align-items-center my-4">
-
     <img src="assets/icons/next.svg" alt="" class="prevvert" (click)="prevvert()">
-
     <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12 card-menu" *ngFor="let ver of showcardReport">
       <div class="card1 my-1">
         <div class="card-header">
@@ -99,184 +18,11 @@
           </div>
           <span style="color: #084982; font-size: 18px;"><b>25</b></span>
         </div>
-        <!-- <div class="card-body">
-                <div class="d-flex flex-row justify-content">
-                    <div class="d-flex flex-column justify-content-start text-center">
-                        <img src="assets/icons/cust-icon.svg" />
-                        <span class="mt-2"><b>{{ver.customersCount}}</b></span>
-                    </div>
-
-                    <div class="d-flex flex-column justify-content-start text-center">
-                        <img src="assets/icons/site-icon.svg" />
-                        <span class="mt-2"><b>{{ver.sitesCount}}</b></span>
-                    </div>
-
-                    <div class="d-flex flex-column justify-content-start text-center">
-                        <img src="assets/icons/cam-icon.svg" />
-                        <span class="mt-2"><b>{{ver.cameraCount}}</b></span>
-                    </div>
-
-                    <div class="d-flex flex-column justify-content-start text-center">
-                        <img src="assets/icons/analy-icon.svg" />
-                        <span class="mt-2"><b>{{ver.analyticCount}}</b></span>
-                    </div>
-                </div>
-            </div> -->
       </div>
     </div>
-
-    <!-- <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12 card-menu">
-          <div class="card my-1">
-              <div class="card-header">
-                  <h6><b>Grocery</b></h6>
-              </div>
-              <div class="card-body ">
-                  <div class="d-flex flex-row justify-content">
-                      <div class="d-flex flex-column justify-content-start text-center">
-                          <img src="assets/icons/cust-icon.svg" />
-                          <span class="mt-2"><b>1</b></span>
-                      </div>
-
-                      <div class="d-flex flex-column justify-content-start text-center">
-                          <img src="assets/icons/site-icon.svg" />
-                          <span class="mt-2"><b>2</b></span>
-                      </div>
-
-                      <div class="d-flex flex-column justify-content-start text-center">
-                          <img src="assets/icons/cam-icon.svg" />
-                          <span class="mt-2"><b>15</b></span>
-                      </div>
-
-                      <div class="d-flex flex-column justify-content-start text-center">
-                          <img src="assets/icons/analy-icon.svg" />
-                          <span class="mt-2"><b>10</b></span>
-                      </div>
-
-                  </div>
-              </div>
-          </div>
-      </div>
-
-      <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12 card-menu">
-          <div class="card my-1">
-              <div class="card-header">
-                  <h6><b>Gas Station</b></h6>
-              </div>
-              <div class="card-body ">
-                  <div class="d-flex flex-row justify-content">
-                      <div class="d-flex flex-column justify-content-start text-center">
-                          <img src="assets/icons/cust-icon.svg" />
-                          <span class="mt-2"><b>1</b></span>
-                      </div>
-
-                      <div class="d-flex flex-column justify-content-start text-center">
-                          <img src="assets/icons/site-icon.svg" />
-                          <span class="mt-2"><b>1</b></span>
-                      </div>
-
-                      <div class="d-flex flex-column justify-content-start text-center">
-                          <img src="assets/icons/cam-icon.svg" />
-                          <span class="mt-2"><b>7</b></span>
-                      </div>
-
-                      <div class="d-flex flex-column justify-content-start text-center">
-                          <img src="assets/icons/analy-icon.svg" />
-                          <span class="mt-2"><b>7</b></span>
-                      </div>
-
-                  </div>
-              </div>
-          </div>
-      </div>
-
-      <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12 card-menu">
-          <div class="card my-1">
-              <div class="card-header">
-                  <h6><b>Store</b></h6>
-              </div>
-              <div class="card-body ">
-                  <div class="d-flex flex-row justify-content">
-                      <div class="d-flex flex-column justify-content-start text-center">
-                          <img src="assets/icons/cust-icon.svg" />
-                          <span class="mt-2"><b>1</b></span>
-                      </div>
-
-                      <div class="d-flex flex-column justify-content-start text-center">
-                          <img src="assets/icons/site-icon.svg" />
-                          <span class="mt-2"><b>1</b></span>
-                      </div>
-
-                      <div class="d-flex flex-column justify-content-start text-center">
-                          <img src="assets/icons/cam-icon.svg" />
-                          <span class="mt-2"><b>7</b></span>
-                      </div>
-
-                      <div class="d-flex flex-column justify-content-start text-center">
-                          <img src="assets/icons/analy-icon.svg" />
-                          <span class="mt-2"><b>7</b></span>
-                      </div>
-
-                  </div>
-              </div>
-          </div>
-      </div>
-
-
-
-      <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12 card-menu">
-          <div class="card my-1">
-              <div class="card-header">
-                  <h6><b>Construction</b></h6>
-              </div>
-              <div class="card-body ">
-                  <div class="d-flex flex-row justify-content">
-                      <div class="d-flex flex-column justify-content-start text-center">
-                          <img src="assets/icons/cust-icon.svg" />
-                          <span class="mt-2"><b>3</b></span>
-                      </div>
-
-                      <div class="d-flex flex-column justify-content-start text-center">
-                          <img src="assets/icons/site-icon.svg" />
-                          <span class="mt-2"><b>15</b></span>
-                      </div>
-
-                      <div class="d-flex flex-column justify-content-start text-center">
-                          <img src="assets/icons/cam-icon.svg" />
-                          <span class="mt-2"><b>20</b></span>
-                      </div>
-
-                      <div class="d-flex flex-column justify-content-start text-center">
-                          <img src="assets/icons/analy-icon.svg" />
-                          <span class="mt-2"><b>7</b></span>
-                      </div>
-
-                  </div>
-              </div>
-          </div>
-      </div> -->
     <img src="assets/icons/next.svg" alt="" class="nextvert" (click)="nextvert()">
   </div>
 
-
-
-  <!-- <div>
-        <div class="form1">
-            <form autocomplete="off" class="d-flex flex-row justify-content-start">
-                <div class="m-2">
-                    <select id="inputState" class="form-select mr-5">
-                        <option selected>ALL</option>
-                        <option>...</option>
-                    </select>
-                </div>
-                <div class="input-count m-2 d-flex flex-row justify-content-between">
-                    <div>
-                        <input type="text" class="form-control" placeholder="Customers" />
-                    </div>
-                    <span class="text-center span1" style="margin: 8px 20px; color: #084982;">5</span>
-                </div>
-            </form>
-        </div>
-    </div> -->
 
   <div class="table-resp">
     <table class="table table-striped my-3">
@@ -310,30 +56,10 @@
           <td class="pt-2 text-center">{{main.camerasCount}}</td>
           <td class="pt-2 text-center">{{main.analyticsCount}}</td>
           <td class="pt-2 text-center">{{main.usersCount}}</td>
-          <!-- <td class="text-center" style="position: relative;">
-                    <div class="icons1 new-icon" id="icons1{{i}}" style="display: none;">
-                        <div class="d-flex align-items-center justify-content-evenly plus-img">
-                            <a class="pointer" (click)="openIcon('site')"><img src="assets/icons/Union 26@2x.png" width="15" height="15" /></a>
-                            <a class="pointer"><img src="assets/icons/bx-cctv@2x.png" width="15" height="15" /></a>
-                            <a class="pointer"><img src="assets/icons/Union 27@2x.png" width="15" height="15" /></a>
-                            <a class="pointer" (click)="openIcon('user')"><img src="assets/icons/Union 29@2x.png" width="15" height="15" /></a>
-                        </div>
-                    </div>
-                    <button class="btn btn-default" (click)="iconss1($event, i)"
-                        style="box-shadow: none !important;">
-                        <img src="assets/icons/add-svg.svg" width="30" height="30" />
-                    </button>
-                  </td> -->
         </tr>
       </tbody>
     </table>
   </div>
-
-  <!-- <div>
-      <div class="form1">
-          <p class="text-white p-3" style="font-size: 16px!important; font-weight: 700!important;">Analytics</p>
-      </div>
-  </div> -->
 
   <div class="row charts">
     <div class="d-flex justify-content-between my-1 verticals">
@@ -358,13 +84,4 @@
       <div id="chart4"></div>
     </div>
   </div>
-</div>
-
-
-<div style="position: fixed; top:0;" *ngIf="showAddSite">
-  <app-add-new-site (newItemEvent)="closenow($event, 'site')"></app-add-new-site>
-</div>
-
-<div style="position: fixed; top:0;" *ngIf="showAddUser">
-  <app-add-new-user (newItemEvent)="closenow($event, 'user')"></app-add-new-user>
 </div>

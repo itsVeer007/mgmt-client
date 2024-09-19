@@ -79,55 +79,54 @@ export class SitesComponent implements OnInit {
   @ViewChild('editCameraDialog') editCameraDialog = {} as TemplateRef<any>;
   currentCamera: any;
   openEditCamera(item: any) {
-    // console.log(item)
-    // this.currentCamera = item
+    console.log(item)
     this.currentCamera = JSON.parse(JSON.stringify(item));
     this.dialog.open(this.editCameraDialog);
   }
 
 
   updateCamera() {
-    let isHttps: boolean = this.currentCamera.httpUrl.startsWith('https');
-    let isRtsp: boolean = this.currentCamera.rtspUrl.startsWith('rtsp');
-    let rtsp: any = this.currentCamera.rtspUrl.split('@');
-    let webrtsp: any = this.currentCamera.httpUrl.split('/');
-    if(isHttps) {
-      if(this.currentCamera.httpUrl) {
-        this.currentCamera.httpUrl = this.currentCamera.httpUrl.slice(8);
-      }
-      if(this.currentCamera.audiUrl) {
-        this.currentCamera.audiUrl = this.currentCamera.audiUrl.slice(8);
-      }
-      if(this.currentCamera.hlsTunnel) {
-        this.currentCamera.hlsTunnel = this.currentCamera.hlsTunnel.slice(7);
-      }
-    } else {
-      if(this.currentCamera.httpUrl) {
-        this.currentCamera.httpUrl = this.currentCamera.httpUrl.slice(7);
-      }
-      if(this.currentCamera.audiUrl) {
-        this.currentCamera.audiUrl = this.currentCamera.audiUrl.slice(7);
-      }
-      if(this.currentCamera.hlsTunnel) {
-        this.currentCamera.hlsTunnel = this.currentCamera.hlsTunnel.slice(7);
-      }
-    }
-    if(isRtsp) {
-      if(this.currentCamera.rtspUrl) {
-        this.currentCamera.rtspUrl = rtsp[rtsp.length - 1];
-      }
-    }
+    // let isHttps: boolean = this.currentCamera.httpUrl.startsWith('https');
+    // let isHttp: boolean = this.currentCamera.httpUrl.startsWith('http');
+    // let isRtsp: boolean = this.currentCamera.rtspUrl.startsWith('rtsp');
+    // let rtsp: any = this.currentCamera.rtspUrl.split('@');
+    // let webrtsp: any = this.currentCamera.httpUrl.split('/');
+    // if(isHttps) {
+    //   if(this.currentCamera.httpUrl) {
+    //     this.currentCamera.httpUrl = this.currentCamera.httpUrl.slice(8);
+    //   }
+    //   if(this.currentCamera.audiUrl) {
+    //     this.currentCamera.audiUrl = this.currentCamera.audiUrl.slice(8);
+    //   }
+    //   if(this.currentCamera.hlsTunnel) {
+    //     this.currentCamera.hlsTunnel = this.currentCamera.hlsTunnel.slice(7);
+    //   }
+    // } else if(isHttp) {
+    //   if(this.currentCamera.httpUrl) {
+    //     this.currentCamera.httpUrl = this.currentCamera.httpUrl.slice(7);
+    //   }
+    //   if(this.currentCamera.audiUrl) {
+    //     this.currentCamera.audiUrl = this.currentCamera.audiUrl.slice(7);
+    //   }
+    //   if(this.currentCamera.hlsTunnel) {
+    //     this.currentCamera.hlsTunnel = this.currentCamera.hlsTunnel.slice(7);
+    //   }
+    // }
+    // if(isRtsp) {
+    //   if(this.currentCamera.rtspUrl) {
+    //     this.currentCamera.rtspUrl = rtsp[rtsp.length - 1];
+    //   }
+    // }
 
-    if(isHttps) {
-      if(this.currentCamera.httpUrl) {
-        this.currentCamera.httpUrl = webrtsp[2];
-      }
-    }
-    // console.log(this.currentCamera)
-    this.currentCamera.videoServerName=this.currentCamera.httpUrl;
+    // if(isHttps) {
+    //   if(this.currentCamera.httpUrl) {
+    //     this.currentCamera.httpUrl = webrtsp[2];
+    //   }
+    // }
+
+    this.currentCamera.videoServerName = this.currentCamera.httpUrl;
     delete this.currentCamera.httpUrl;
     this.siteSer.updateCamera(this.currentCamera).subscribe((res:any)=>{
-      // console.log(res);
       if(res.statusCode == 200) {
         this.siteSer.getCamerasForSiteId(this.currentItem?.siteId).subscribe((cams: any) => {
           this.cameras = cams;

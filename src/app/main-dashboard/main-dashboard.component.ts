@@ -14,8 +14,7 @@ export class MainDashboardComponent implements OnInit {
 
   constructor(
     private chartservice: ChartService,
-    private http: HttpClient,
-    private route: ActivatedRoute
+    private http: HttpClient
   ) { }
 
 
@@ -33,22 +32,6 @@ export class MainDashboardComponent implements OnInit {
     this.mychart4();
   }
 
-  openicons11(i: any) {
-    var y = <HTMLElement>document.getElementById(`icons1${this.currentid}`);
-    if (y.style.display == 'flex' || y.style.display == 'block') {
-      y.style.display = 'none';
-    }
-  }
-
-  showAddSite = false;
-  closenow(value: any, type: String) {
-    if (type == 'site') { this.showAddSite = value; }
-    if (type == 'camr') { this.showAddCamera = value; }
-    if (type == 'cust') { this.showAddCustomer = value; }
-    if (type == 'vert') { this.showAddBusinessVertical = value; }
-    if (type == 'user') { this.showAddUser = value; }
-  }
-
 
   showIconVertical: boolean = false;
   showIconCustomer: boolean = false;
@@ -62,9 +45,7 @@ export class MainDashboardComponent implements OnInit {
     this.getNoOfElements();
     this.http.get('assets/JSON/verticalCard.json').subscribe(res => {
       this.cardReport = res;
-      // console.log(res)
       var a = JSON.parse(JSON.stringify(res));
-      // console.log(this.noOfCards);
       this.showcardReport = a.splice(0, this.noOfCards);
     });
   }
@@ -230,51 +211,22 @@ export class MainDashboardComponent implements OnInit {
     this.chartservice.createchart(charttype, threeD, title, data, elementid, antype)
   }
 
-  // icons111: boolean = false;
-  openIcon(type: any) {
-    if(type == 'site') {this.showAddSite = true};
-    if(type == 'user') {this.showAddUser = true};
-
-    this.showIconSite = false;
-    this.showIconUser = false;
-  }
-
-  icons11: boolean = false;
-  currentid = 0;
-  iconss1(e: any, i: any) {
-    this.currentid = i;
-    var x = e.target.parentNode.previousElementSibling;
-    if (x.id.includes("icons1")) {
-      if (x.style.display == 'none') {
-        x.style.display = 'block';
-      } else {
-        x.style.display = 'none';
-      }
-    }
-  }
-
   showcardReport: any;
   prevvert() {
-    var indexOfFirstElem = this.cardReport.map((item: any) => {
-      return item.id
-    }).indexOf(this.showcardReport[0].id);
+    var indexOfFirstElem = this.cardReport.map((item: any) => item.id).indexOf(this.showcardReport[0].id);
 
-    // console.log(indexOfFirstElem, (this.cardReport.length - 1))
     if (indexOfFirstElem != 0) {
-      indexOfFirstElem = indexOfFirstElem -= 1;
+      indexOfFirstElem -= 1;
       var a = JSON.parse(JSON.stringify(this.cardReport))
       this.showcardReport = a.splice(indexOfFirstElem, this.noOfCards);
     }
   }
 
   nextvert() {
-    var indexOfFirstElem = this.cardReport.map((item: any) => {
-      return item.id
-    }).indexOf(this.showcardReport[0].id);
+    var indexOfFirstElem = this.cardReport.map((item: any) => item.id).indexOf(this.showcardReport[0].id);
 
-    // console.log(indexOfFirstElem, (this.cardReport.length - 1))
-    if ((indexOfFirstElem + this.noOfCards) < (this.cardReport.length)) {
-      indexOfFirstElem = indexOfFirstElem += 1;
+    if ((indexOfFirstElem + this.noOfCards) < this.cardReport.length) {
+      indexOfFirstElem += 1;
       var a = JSON.parse(JSON.stringify(this.cardReport))
       this.showcardReport = a.splice(indexOfFirstElem, this.noOfCards);
     }

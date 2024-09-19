@@ -135,23 +135,23 @@
           </thead>
           
           <tbody>
-            <tr *ngFor="let cam of camList; let i=index">
-                <td>{{cam.cameraId}}</td>
-                <td>{{cam.userName}}</td>
-                <td>{{cam.password}}</td>
-                <td>{{cam.displayName}}</td>
-                <td>{{cam.rtspUrl}}</td>
-                <td>{{cam.videoServerName}}</td>
-                <td>{{cam.HLSUrl}}</td>
-                <td>{{cam.audioUrl}}</td>
-                <td>{{cam.snapshotUrl}}</td>
-                <td>{{cam.camera_config_url}}</td>
+            <tr *ngFor="let cam of camList; let i=index;">
+                <td>{{cam?.cameraId}}</td>
+                <td>{{cam?.userName}}</td>
+                <td>{{cam?.password}}</td>
+                <td>{{cam?.displayName}}</td>
+                <td>{{cam?.rtspUrl}}</td>
+                <td>{{cam?.videoServerName}}</td>
+                <td>{{cam?.HLSUrl}}</td>
+                <td>{{cam?.audioUrl}}</td>
+                <td>{{cam?.snapshotUrl}}</td>
+                <td>{{cam?.camera_config_url}}</td>
                 <td>
                   <div class="d-inline-flex">
                     <button class="btn btn-success p-1" style="font-size: 10px;" (click)="submit(cam, $event)">
                       Save
                     </button>
-                    <button class="btn btn-danger p-1 ms-1" style="font-size: 10px;" (click)="openEditPopup(cam)" [disabled]="editDisabledFlags[cam.id]">
+                    <button class="btn btn-danger p-1 ms-1" style="font-size: 10px;" (click)="openEditPopup(cam)">
                       Edit
                     </button>
                   </div>
