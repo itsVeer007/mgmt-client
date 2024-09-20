@@ -26,13 +26,6 @@
                 <mat-error>*required</mat-error>
               </mat-form-field>
             </div>
-
-            <!-- <div class="col-lg-6">
-              <mat-form-field appearance="outline" class="w-100">
-                  <mat-label>Display Name</mat-label>
-                  <input matInput formControlName="displayName">
-                </mat-form-field>
-              </div> -->
   
             <div class="col-lg-6">
               <mat-form-field appearance="outline" class="w-100">
@@ -76,43 +69,37 @@
               </mat-form-field>
             </div>
 
-            <div class="col-lg-6">
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-label>s3_server_host</mat-label>
-                <input matInput type="number" formControlName="s3_server_host">
-              </mat-form-field>
-            </div>
-
-            <div class="col-lg-6">
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-label>timelapse</mat-label>
-                <input matInput type="text" formControlName="timelapse">
-              </mat-form-field>
+            <div class="col-lg-12" style="font-size: 10px; font-weight: 700;">
+              <mat-radio-group class="w-50" formControlName="timelapse">
+                <mat-label>Timelapse</mat-label>
+                <mat-radio-button class="ms-3" name="logs" value="T">True</mat-radio-button>
+                <mat-radio-button class="ms-3" name="logs" value="F" checked>False</mat-radio-button>
+              </mat-radio-group>
             </div>
         </div>
 
-          <div class="row">
-            <div class="col-lg-6">
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Unit Id</mat-label>
-                <input matInput formControlName="unitId"  [(ngModel)]="unitId">
-                <mat-error>*required</mat-error>
-              </mat-form-field>
-            </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Unit Id</mat-label>
+              <input matInput formControlName="unitId"  [(ngModel)]="unitId">
+              <mat-error>*required</mat-error>
+            </mat-form-field>
+          </div>
 
 
-            <div class="col-lg-4">
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-label>No of Cameras</mat-label>
-                <input matInput type="number" formControlName="noOfCameras" #noOfCams >
-                <mat-error>*required</mat-error>
-              </mat-form-field>
-            </div>
-            
-            <div class="col-lg-2 text-end">
-              <button class="btn btn-primary w-100" (click)="getCamerasForSiteId(currentSiteFrom)">ADD</button>
-            </div>
-        </div >
+          <div class="col-lg-4">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>No of Cameras</mat-label>
+              <input matInput type="number" formControlName="noOfCameras" #noOfCams >
+              <mat-error>*required</mat-error>
+            </mat-form-field>
+          </div>
+          
+          <div class="col-lg-2 text-end">
+            <button class="btn btn-primary w-100" (click)="getCamerasForSiteId(currentSiteFrom)">ADD</button>
+          </div>
+      </div>
       </form>
       
       
@@ -168,9 +155,9 @@
 </div>
 
 
-<ng-template #editSiteDialog>
+<ng-template #editCameraDialog>
   <div style="background-color: #084982;">
-    <p class="dialog-title">MODIFY SITE</p>
+    <p class="dialog-title">MODIFY CAMERA</p>
   </div>
 
   <div class="row m-0 dialog-content">
@@ -222,6 +209,27 @@
         <input matInput [(ngModel)]="currentItem.audioUrl">
       </mat-form-field>
     </div>
+
+    <!-- <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>timelapse</mat-label>
+        <input matInput [(ngModel)]="currentItem.timelapse">
+      </mat-form-field>
+    </div> -->
+
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>snapshotUrl</mat-label>
+        <input matInput [(ngModel)]="currentItem.snapshotUrl">
+      </mat-form-field>
+    </div>
+    
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>camera_config_url</mat-label>
+        <input matInput [(ngModel)]="currentItem.camera_config_url">
+      </mat-form-field>
+    </div>
   </div>
 
   <div class="d-flex align-items-center justify-content-end">
@@ -229,7 +237,7 @@
       <button class="dialog-close-btn" mat-dialog-close>Close</button>
     </div>
     <div  >
-      <button class="dialog-update-btn" mat-dialog-close (click)="update()">Update</button>
+      <button class="dialog-update-btn" mat-dialog-close>Update</button>
     </div>
   </div>
 </ng-template>

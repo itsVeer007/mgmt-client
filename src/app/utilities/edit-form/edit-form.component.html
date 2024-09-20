@@ -1,0 +1,19 @@
+<div class="dialog-content">
+    <div class="row">
+        <div class="col-6" *ngFor="let item of arrayOfObjs">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>{{ item.key }}</mat-label>
+                <input matInput [(ngModel)]="item.val">
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="d-flex align-items-center justify-content-end">
+        <div>
+          <button class="dialog-close-btn" mat-dialog-close>Close</button>
+        </div>
+        <div>
+          <button class="dialog-update-btn" mat-dialog-close>Update</button>
+        </div>
+      </div>
+</div>

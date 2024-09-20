@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from 'src/services/alert.service';
 import { UserService } from 'src/services/user.service';
+import { EditFormComponent } from 'src/app/utilities/edit-form/edit-form.component';
 
 
 @Component({
@@ -66,11 +67,9 @@ export class SitesComponent implements OnInit {
   @ViewChild('viewCamerasDialog') viewCamerasDialog = {} as TemplateRef<any>;
   cameras: any = [];
   getCamerasForSiteId(data: any) {
-    console.log(data);
-    this.currentItem = data
+    this.currentItem = data;
     this.dialog.open(this.viewCamerasDialog)
     this.siteSer.getCamerasForSiteId(data.siteId).subscribe((res: any) => {
-      // console.log(res);
       this.cameras = res;
     })
   }
@@ -79,9 +78,10 @@ export class SitesComponent implements OnInit {
   @ViewChild('editCameraDialog') editCameraDialog = {} as TemplateRef<any>;
   currentCamera: any;
   openEditCamera(item: any) {
-    console.log(item)
     this.currentCamera = JSON.parse(JSON.stringify(item));
     this.dialog.open(this.editCameraDialog);
+    // this.storageSer.edit_sub.next(item);
+    // this.dialog.open(EditFormComponent)
   }
 
 
@@ -128,20 +128,19 @@ export class SitesComponent implements OnInit {
     delete this.currentCamera.httpUrl;
     this.siteSer.updateCamera(this.currentCamera).subscribe((res:any)=>{
       if(res.statusCode == 200) {
-        this.siteSer.getCamerasForSiteId(this.currentItem?.siteId).subscribe((cams: any) => {
-          this.cameras = cams;
-        })
-        this.alertSer.success(res?.message)
-      } 
+        this.getCamerasForSiteId(this.currentItem);
+        this.alertSer.success(res.message)
+      } else {
+        this.alertSer.error(res.message);
+      }
     })
   }
 
 
   // BharadwajAPIS
-
   getSiteFullDetails(item:any) {
     this.siteSer.getSiteFullDetails(item).subscribe((res:any)=> {
-      console.log(res);
+      // console.log(res);
     })
   }
 
@@ -153,9 +152,9 @@ export class SitesComponent implements OnInit {
       // console.log(res);
       this.showLoader = false;
       if(res?.Status == 'Success') {
-        this.final = res
-        // this.tableData = res.sites.sort((a: any, b: any) => a.siteName < b.siteName ? -1 : a.siteName > b.siteName ? 1 : 0);
-        // this.newTableData = this.tableData;
+        // this.final = res.sites.sort((a: any, b: any) => a.siteName < b.siteName ? -1 : a.siteName > b.siteName ? 1 : 0);
+        this.tableData = res.sites.sort((a: any, b: any) => a.siteName < b.siteName ? -1 : a.siteName > b.siteName ? 1 : 0);
+        this.newTableData = this.tableData;
       }
       }, (err: any) => {
         this.showLoader = false;
@@ -320,18 +319,17 @@ export class SitesComponent implements OnInit {
   openViewPopup(item: any) {
     this.siteSer.getSiteFullDetails(item).subscribe((res:any)=>{
       this.currentItem = res.siteDetails;
-      // console.log(this.currentItem)
     })
     this.dialog.open(this.viewSiteDialog);
   }
-currentSite:any;
 
-timeZones: any;
-getTimeZones() {
-  this.siteSer.gettimeZones().subscribe((res: any) => {
-    this.timeZones = res;
-  })
-}
+  currentSite:any;
+  timeZones: any;
+  getTimeZones() {
+    this.siteSer.gettimeZones().subscribe((res: any) => {
+      this.timeZones = res;
+    })
+  }
 
   @ViewChild('editSiteDialog') editSiteDialog = {} as TemplateRef<any>;
   openEditPopup(item: any) {

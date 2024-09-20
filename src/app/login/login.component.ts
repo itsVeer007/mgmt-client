@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
 
   user = null;
   showLoader: boolean = false;
-  loginForm: any = FormGroup;
+  loginForm!: FormGroup;
 
   ngOnInit() {
     this.storageSer.clearData();
@@ -35,9 +35,6 @@ export class LoginComponent implements OnInit {
       userName: ['', Validators.required],
       password: ['', Validators.required]
     });
-    // this.userSer.user$.subscribe((res: any) => {
-    //   this.user = res
-    // });
   }
 
   showPassword: boolean = false;

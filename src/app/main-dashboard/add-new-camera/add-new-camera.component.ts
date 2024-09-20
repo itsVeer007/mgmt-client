@@ -77,7 +77,7 @@ export class AddNewCameraComponent {
       displayName: new FormControl(''),
       internalIp: new FormControl(''),
       internalPort: new FormControl(0),
-      s3RequestName: new FormControl(''),
+      s3RequestName: new FormControl('2'),
       events: new FormControl(''),
       eventsOnAWS: new FormControl(''),
       eventsOnCPE: new FormControl(''),
@@ -88,7 +88,7 @@ export class AddNewCameraComponent {
       unitId: new FormControl('', Validators.required),
       noOfCameras: new FormControl('', Validators.required),
 
-      timelapse: new FormControl(''),
+      timelapse: new FormControl('F'),
       s3_server_host: new FormControl(''),
       snapshotUrl: new FormControl(''),
       camera_config_url: new FormControl('')
@@ -123,11 +123,12 @@ export class AddNewCameraComponent {
     })
   }
 
-  @ViewChild('editSiteDialog') editSiteDialog = {} as TemplateRef<any>;
+  @ViewChild('editCameraDialog') editCameraDialog = {} as TemplateRef<any>;
   currentItem: any
   openEditPopup(item: any) {
-    this.currentItem = JSON.parse(JSON.stringify(item));
-    this.dialog.open(this.editSiteDialog);
+    // this.currentItem = JSON.parse(JSON.stringify(item));
+    this.currentItem = item;
+    this.dialog.open(this.editCameraDialog);
   }
 
   camList: any = [];
@@ -246,14 +247,14 @@ export class AddNewCameraComponent {
 
   update() {
     this.siteSer.createCamera(this.currentItem).subscribe((res:any) =>{
-      if(res.statusCode===200){
-        this.alertSer.success(res.message)
+      if(res.statusCode === 200){
+        this.alertSer.success(res.message);
       }
       else{
-        this.alertSer.error(res.message)
+        this.alertSer.error(res.message);
       }
     }, (err: any) => {
-      this.alertSer.error(err.error.message)
+      this.alertSer.error(err.error.message);
     })
   }
 

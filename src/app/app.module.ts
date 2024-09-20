@@ -86,6 +86,7 @@ import { AddNewRuleComponent } from './main-dashboard/add-new-rule/add-new-rule.
 import { AddNewDeviceComponent } from './main-dashboard/add-new-device/add-new-device.component';
 import { GeneralComponent } from './components/general/general.component';
 import { MailComponent } from './mail/mail.component';
+import { EditFormComponent } from './utilities/edit-form/edit-form.component';
 
 
 
@@ -162,7 +163,8 @@ import { MailComponent } from './mail/mail.component';
     AddNewRuleComponent,
     NewDeviceComponent,
     GeneralComponent,
-    MailComponent
+    MailComponent,
+    EditFormComponent
   ],
   imports: [
     BrowserModule,
