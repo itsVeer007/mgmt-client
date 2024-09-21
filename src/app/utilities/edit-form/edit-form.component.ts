@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { MetadataService } from 'src/services/metadata.service';
 import { StorageService } from 'src/services/storage.service';
 
 
@@ -10,44 +11,51 @@ import { StorageService } from 'src/services/storage.service';
 export class EditFormComponent {
 
   constructor(
-    private storageSer: StorageService
+    private storageSer: StorageService,
+    private metaSrvc: MetadataService
   ) {}
 
-  // obj: any =     {
-  //   "cameraId": "IVISINVIP36301C13",
-  //   "name": "3RD FLOOR HUB ROOM",
-  //   "userName": "admin",
-  //   "password": "Tdp@2021",
-  //   "status": "Y",
-  //   "siteId": 36301,
-  //   "centralBoxId": 63001,
-  //   "unitId": "IVISINVIP363011",
-  //   "noOfActiveCameras": 20,
-  //   "requestName": "NA",
-  //   "audioSpeakerType": "Analog",
-  //   "audioUrl": null,
-  //   "timezone": "Asia/Kolkata",
-  //   "camMonitor": "T",
-  // }
-
-  arrayOfObjs: Array<any> = new Array();
   ngOnInit(): void {
-    let fields: any;
+    this.convert();
+  }
+
+  getMetaType(data: any):any {
+    let x = this.storageSer.get('metaData');
+    return x.filter((item: any) => item.type === data);
+  }
+  
+  arrayOfObjs: Array<any> = new Array();
+  convert(): void {
+    let fields;
     this.storageSer.edit_sub.subscribe({
       next: (res) => {
-        console.log(res);
-        this.arrayOfObjs = Object.entries(res).reduce((acc: any, [key, val]) => {
-          acc.push({ key, val });
+        fields = Object.entries(res.objectEntries).reduce((acc: any, [key, value]) => {
+          acc.push({ key, value });
           return acc;
-        }, [])
+        }, []);
+
+        fields.forEach((item: any) => {
+          if(res.selectTypes.includes(item.key)) {
+            item.inputType = 'select';
+          }
+          this.arrayOfObjs.push(item);
+        });
         console.log(this.arrayOfObjs);
       }
-    })
-
+    });
+  }
+  
+  update(): void {
+    let fields: any = [];
+    this.arrayOfObjs.forEach((item: any) => {
+      delete item.inputType;
+      fields.push(item)
+    });
+    console.log(fields)
 
 
     // let y = this.arrayOfObjs.reduce((acc: any, curr: any) => {
-    //   acc[curr.key] = curr.val;
+    //   acc[curr.key] = curr.value;
     //   return acc
     // }, {})
     // console.log(y);

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
 
-  edit_sub: Subject<any> = new Subject();
+  edit_sub: BehaviorSubject<any> = new BehaviorSubject({objectEntries: {}, selectTypes: []});
 
   constructor() { }
 

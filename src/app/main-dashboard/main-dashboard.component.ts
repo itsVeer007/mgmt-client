@@ -225,16 +225,16 @@ export class MainDashboardComponent implements OnInit {
   }
 
   nextvert() {
-    // var indexOfFirstElem = this.cardReport.map((item: any) => item.id).indexOf(this.showcardReport[0].id);
+    var indexOfFirstElem = this.cardReport.map((item: any) => item.id).indexOf(this.showcardReport[0].id);
 
-    // if ((indexOfFirstElem + this.noOfCards) < this.cardReport.length) {
-    //   indexOfFirstElem += 1;
-    //   var a = JSON.parse(JSON.stringify(this.cardReport))
-    //   this.showcardReport = a.splice(indexOfFirstElem, this.noOfCards);
-    // }
+    if ((indexOfFirstElem + this.noOfCards) < this.cardReport.length) {
+      indexOfFirstElem += 1;
+      var a = JSON.parse(JSON.stringify(this.cardReport))
+      this.showcardReport = a.splice(indexOfFirstElem, this.noOfCards);
+    }
 
-    let x = this.cardReport.slice(this.startIndex++, this.endIndex++);
-    this.showcardReport = x;
+    // let x = this.cardReport.slice(this.startIndex++, this.endIndex++);
+    // this.showcardReport = x;
   }
 
 }
