@@ -127,7 +127,7 @@ export class SitesComponent implements OnInit {
 
     this.currentCamera.videoServerName = this.currentCamera.httpUrl;
     delete this.currentCamera.httpUrl;
-    this.siteSer.updateCamera(this.currentCamera).subscribe((res:any)=>{
+    this.siteSer.updateCamera(this.currentCamera).subscribe((res:any) => {
       if(res.statusCode == 200) {
         this.getCamerasForSiteId(this.currentItem);
         this.alertSer.success(res.message)

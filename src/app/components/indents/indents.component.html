@@ -348,7 +348,7 @@
       <button class="dialog-close-btn" mat-dialog-close>Close</button>
     </div>
     <div  >
-      <button class="dialog-update-btn" mat-dialog-close (click)="updateIndent()">Update</button>
+      <button class="dialog-submit-btn" mat-dialog-close (click)="updateIndent()">Update</button>
     </div>
   </div>
 </ng-template>
@@ -367,7 +367,7 @@
         <button class="dialog-close-btn" mat-dialog-close>Close</button>
       </div>
       <div>
-        <button class="dialog-update-btn" mat-dialog-close (click)="deleteIndent()">OK</button>
+        <button class="dialog-submit-btn" mat-dialog-close (click)="deleteIndent()">OK</button>
       </div>
     </div>
 </ng-template>
@@ -398,7 +398,7 @@
   </div>
 
   <div  >
-    <button class="dialog-update-btn" (click)="openReplaceComponent()">Replace</button>
+    <button class="dialog-submit-btn" (click)="openReplaceComponent()">Replace</button>
   </div>
 
   <div class="d-flex align-items-center justify-content-end">
@@ -406,7 +406,7 @@
       <button class="dialog-close-btn" mat-dialog-close>Close</button>
     </div>
     <div  >
-      <button class="dialog-update-btn" mat-dialog-close (click)="addComponent()">Create</button>
+      <button class="dialog-submit-btn" mat-dialog-close (click)="addComponent()">Create</button>
     </div>
   </div>
 </ng-template>
@@ -444,7 +444,7 @@
       <button class="dialog-close-btn" mat-dialog-close>Close</button>
     </div>
     <div  >
-      <button class="dialog-update-btn" mat-dialog-close (click)="replaceComponent()">Update</button>
+      <button class="dialog-submit-btn" mat-dialog-close (click)="replaceComponent()">Update</button>
     </div>
   </div>
 </ng-template>
@@ -570,7 +570,7 @@
                   <button class="dialog-close-btn" mat-dialog-close>Close</button>
                 </div>
                 <div  >
-                  <button class="dialog-update-btn" mat-dialog-close (click)="updateInventoryStatus()" [disabled]="this.statusObj.statusId == null && this.statusObj.inventoryId == null">
+                  <button class="dialog-submit-btn" mat-dialog-close (click)="updateInventoryStatus()" [disabled]="this.statusObj.statusId == null && this.statusObj.inventoryId == null">
                     Update
                   </button>
                 </div>

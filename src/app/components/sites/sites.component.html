@@ -82,33 +82,22 @@
           <!-- <th>
             <input type="checkbox" class="form-check-input" [(ngModel)]="selectedAll" (change)="selectAll();" id="allcheck" style="background-color: #00000000; border-color:#fff;margin-left:10px;">
           </th> -->
-
           <th>
             <span>Id</span>
             <img (click)="sort('siteId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
-
           <th>
             <P>Name</P>
             <img (click)="sort('siteName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
-
           <!-- <th (click)="sort('address')">Address</th> -->
-
           <!-- <th (click)="sort('escl_Details')">Escl Details</th>
-
           <th (click)="sort('engr_Details')">Engr Details</th> -->
-
           <th>Cameras</th>
-
           <th (click)="sort('cntrl_Unit')">Central Box</th>
-
           <!-- <th>Analytics</th> -->
-
           <th>Ads Devices</th>
-
           <th>User Details</th>
-
           <!-- <th class="text-center">Installation</th> -->
 
           <th>
@@ -295,17 +284,15 @@
 </ng-template>
 
 <ng-template #editCameraDialog>
-  <div style="background-color: #084982;">
-    <p class="dialog-title">MODIFY SITE</p>
-  </div>
+  <div class="dialog-title">modify camera - {{currentCamera?.cameraId}}</div>
 
   <div class="row m-0 dialog-content" *ngIf="currentCamera">
-    <div class="col-lg-6">
+    <!-- <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Camera Id</mat-label>
-        <input matInput [(ngModel)]="currentCamera.cameraId" >
+        <input matInput [(ngModel)]="currentCamera.cameraId" disabled>
       </mat-form-field>
-    </div>
+    </div> -->
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
@@ -328,28 +315,28 @@
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>RTSP</mat-label>
+        <mat-label>RTSP URL</mat-label>
         <input matInput [(ngModel)]="currentCamera.rtspUrl">
       </mat-form-field>
     </div>
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>WebRTC</mat-label>
+        <mat-label>WebRTC URL</mat-label>
         <input matInput [(ngModel)]="currentCamera.httpUrl">
       </mat-form-field>
     </div>
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>HLS</mat-label>
+        <mat-label>HLS URL</mat-label>
         <input matInput [(ngModel)]="currentCamera.hlsTunnel">
       </mat-form-field>
     </div>
   
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Audio</mat-label>
+        <mat-label>Audio URL</mat-label>
         <input matInput [(ngModel)]="currentCamera.audioUrl">
       </mat-form-field>
     </div>
@@ -363,35 +350,29 @@
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>snapshotUrl</mat-label>
+        <mat-label>Snapshot URL</mat-label>
         <input matInput [(ngModel)]="currentCamera.snapshotUrl">
       </mat-form-field>
     </div>
     
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>camera_config_url</mat-label>
+        <mat-label>Config URL</mat-label>
         <input matInput [(ngModel)]="currentCamera.camera_config_url">
       </mat-form-field>
     </div>
-    
-
   </div>
 
 
   <div class="d-flex align-items-center justify-content-end">
-    <div>
-      <button class="dialog-close-btn" mat-dialog-close>Close</button>
-    </div>
-    <div>
-      <button class="dialog-update-btn" mat-dialog-close (click)="updateCamera()">Update</button>
-    </div>
+    <button class="dialog-close-btn" mat-dialog-close>Close</button>
+    <button class="dialog-submit-btn" mat-dialog-close (click)="updateCamera()">Update</button>
   </div>
 </ng-template>
 
 <ng-template #viewCentralBoxDialog>
   <div style="background-color: #084982;">
-    <p class="dialog-title m-0">central box </p>
+    <p class="dialog-title m-0">central box</p>
   </div>
 
   <div class="dialog-content">
@@ -475,7 +456,7 @@
 
       <div class="d-flex align-items-center justify-content-end">
         <button class="dialog-close-btn" mat-dialog-close>Close</button>
-        <button class="dialog-update-btn" (click)="createCentralBox()">Update</button>
+        <button class="dialog-submit-btn" (click)="createCentralBox()">Update</button>
       </div>
     </form>
   </div>
@@ -738,7 +719,7 @@
       <button class="dialog-close-btn" mat-dialog-close>Close</button>
     </div>
     <div>
-      <button class="dialog-update-btn" mat-dialog-close (click)="confirmEditRow()">Update</button>
+      <button class="dialog-submit-btn" mat-dialog-close (click)="confirmEditRow()">Update</button>
     </div>
   </div>
 </ng-template>
@@ -757,7 +738,7 @@
       <button class="dialog-close-btn" mat-dialog-close>Close</button>
     </div>
     <div>
-      <button class="dialog-update-btn" mat-dialog-close (click)="confirmDeleteRow()">OK</button>
+      <button class="dialog-submit-btn" mat-dialog-close (click)="confirmDeleteRow()">OK</button>
     </div>
   </div>
 </ng-template>

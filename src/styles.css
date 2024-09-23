@@ -115,7 +115,7 @@ p {
   position: fixed;
   top: 65px;
   right: 0;
-  z-index: 99;
+  z-index: 999;
   width: 100%;
   margin: 0 !important;
 }
@@ -225,7 +225,7 @@ form .add-btn:active {
 
 
 /*Dialog update-btn*/
-.dialog-update-btn {
+.dialog-submit-btn {
   background-color: #084982;
   color: #fff;
   width: 70px;
@@ -236,7 +236,7 @@ form .add-btn:active {
   margin: 0 10px 10px 0;
 }
 
-.dialog-update-btn:active {
+.dialog-submit-btn:active {
   opacity: 0.8;
 }
 
@@ -350,10 +350,12 @@ form .add-btn:active {
 }
 
 .dialog-title {
-  padding: 10px;
-  margin-bottom: 10px !important;
-  font-weight: 600;
+  /* margin-bottom: 10px !important; */
+  
+  background-color: #084982;
   color: #fff;
+  font-weight: 600;
+  padding: 10px;
   text-transform: uppercase;
 }
 

@@ -31,6 +31,7 @@
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>RTSP URL</mat-label>
                 <input matInput formControlName="rtspUrl" >
+                <mat-error>*required</mat-error>
               </mat-form-field>
             </div>
             
@@ -38,6 +39,7 @@
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>WebRTC URL</mat-label>
                 <input matInput formControlName="videoServerName" [(ngModel)]="webrtcUrl">
+                <mat-error>*required</mat-error>
               </mat-form-field>
             </div>
             
@@ -45,6 +47,7 @@
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>HLS URL</mat-label>
                 <input matInput formControlName="HLSUrl" [(ngModel)]="hlsTunnel">
+                <mat-error>*required</mat-error>
               </mat-form-field>
             </div>
             
@@ -57,15 +60,17 @@
 
             <div class="col-lg-6">
               <mat-form-field appearance="outline" class="w-100">
-                <mat-label>camera_config_url</mat-label>
+                <mat-label>Config URL</mat-label>
                 <input matInput type="text" formControlName="camera_config_url">
+                <mat-error>*required</mat-error>
               </mat-form-field>
             </div>
 
             <div class="col-lg-6"> 
               <mat-form-field appearance="outline" class="w-100">
-                <mat-label>snapshotUrl</mat-label>
+                <mat-label>Snapshot Url</mat-label>
                 <input matInput type="text" formControlName="snapshotUrl">
+                <mat-error>*required</mat-error>
               </mat-form-field>
             </div>
 
@@ -110,13 +115,13 @@
               <th>Camera Id</th>
               <th>User Name</th>
               <th>Password</th>
-              <th>Display Name</th>
+              <th>Name</th>
               <th>RTSP</th>
               <th>WebRTC URL</th>
               <th>HLS URL</th>
               <th>Audio URL</th>
-              <th>Snapshot Url</th>
-              <th>Camera Config Url</th>
+              <th>Snaps Url</th>
+              <th>Config Url</th>
               <th></th>
             </tr>
           </thead>
@@ -237,7 +242,7 @@
       <button class="dialog-close-btn" mat-dialog-close>Close</button>
     </div>
     <div  >
-      <button class="dialog-update-btn" mat-dialog-close>Update</button>
+      <button class="dialog-submit-btn" mat-dialog-close>Update</button>
     </div>
   </div>
 </ng-template>

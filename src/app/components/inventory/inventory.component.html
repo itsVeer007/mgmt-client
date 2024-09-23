@@ -444,7 +444,7 @@
                   <button class="dialog-close-btn" mat-dialog-close>Close</button>
                 </div>
                 <div mat-dialog-actions>
-                  <button class="dialog-update-btn" mat-dialog-close (click)="changeAssetStatus()" [disabled]="statusObj.statusId == null">Update</button>
+                  <button class="dialog-submit-btn" mat-dialog-close (click)="changeAssetStatus()" [disabled]="statusObj.statusId == null">Update</button>
                 </div>
               </div>
             </ng-template>
@@ -599,7 +599,7 @@
                     <button class="dialog-close-btn" mat-dialog-close>Close</button>
                   </div>
                   <div>
-                    <button class="dialog-update-btn" mat-dialog-close (click)="updateInventoryStatus()">Update</button>
+                    <button class="dialog-submit-btn" mat-dialog-close (click)="updateInventoryStatus()">Update</button>
                   </div>
                 </div>
               </ng-template>
@@ -731,7 +731,7 @@
                   <button class="dialog-close-btn" mat-dialog-close>Close</button>
                 </div>
                 <div mat-dialog-actions>
-                  <button class="dialog-update-btn" mat-dialog-close (click)="updateInventoryStatus()">Update</button>
+                  <button class="dialog-submit-btn" mat-dialog-close (click)="updateInventoryStatus()">Update</button>
                 </div>
               </div>
             </ng-template>
@@ -935,7 +935,7 @@
       <button class="dialog-close-btn" mat-dialog-close>Close</button>
     </div>
     <div>
-      <button class="dialog-update-btn" mat-dialog-close  (click)="updateDC()">Update</button>
+      <button class="dialog-submit-btn" mat-dialog-close  (click)="updateDC()">Update</button>
     </div>
   </div>
 </ng-template>
@@ -1102,7 +1102,7 @@
       <button class="dialog-close-btn" mat-dialog-close>Close</button>
     </div>
     <div mat-dialog-actions>
-      <button class="dialog-update-btn" mat-dialog-close (click)="updateInventory()">Update</button>
+      <button class="dialog-submit-btn" mat-dialog-close (click)="updateInventory()">Update</button>
     </div>
   </div>
 </ng-template>
@@ -1122,7 +1122,7 @@
       <button class="dialog-close-btn" mat-dialog-close>Close</button>
     </div>
     <div mat-dialog-actions>
-      <button class="dialog-update-btn" mat-dialog-close (click)="deleteInventory()">OK</button>
+      <button class="dialog-submit-btn" mat-dialog-close (click)="deleteInventory()">OK</button>
     </div>
   </div>
 </ng-template>
@@ -1231,7 +1231,7 @@
       <button class="dialog-close-btn" mat-dialog-close>Close</button>
     </div>
     <div mat-dialog-actions>
-      <button class="dialog-update-btn" mat-dialog-close (click)="editWarranty()">Update</button>
+      <button class="dialog-submit-btn" mat-dialog-close (click)="editWarranty()">Update</button>
     </div>
   </div>
 </ng-template>
