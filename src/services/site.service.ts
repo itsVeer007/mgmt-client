@@ -41,7 +41,7 @@ export class SiteService {
     return this.http.get(url, ({params: params}));
   }
 
-  getSitesListForUserName1(payload: any) {
+  getSitesListForAssign(payload: any) {
     let url = `${this.baseUrl}/getSitesListForUserName_1_0`;
     let params = new HttpParams().set('userName', payload?.User_Name);
     return this.http.get(url, ({params: params}));
@@ -105,7 +105,7 @@ export class SiteService {
 
   updateCamera(payload: any){
     let url = `${this.baseUrl}/camera/updateCameraData_1_0/${payload.cameraId}`;
-    // let url = `http://192.168.0.217:8000/camera/updateCameraData_1_0/${payload.cameraId}`;
+    // let url = `http://192.168.0.217:8000/camera/updateCameraData_1_0/${pay4load.cameraId}`;
     return this.http.put(url, payload)
   }
 

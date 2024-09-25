@@ -82,14 +82,14 @@
     </div>
 
     <div class="col-lg-3"></div>
-  <!-- /form -->
+    <!-- /form -->
 
-  <!-- table starts -->
-  <div class="table-resp">
-    <table class="table table-hover" id="mytable">
-      <thead>
-        <tr class="form1">
-          <!-- <th>
+    <!-- table starts -->
+    <div class="table-resp">
+      <table class="table table-hover" id="mytable">
+        <thead>
+          <tr class="form1">
+            <!-- <th>
             <input type="checkbox" class="form-check-input" [(ngModel)]="selectedAll" (change)="selectAll()"
               id="allcheck" style="
                 background-color: #00000000;
@@ -98,36 +98,36 @@
               " />
           </th> -->
 
-          <th>
-            <span>Id</span>
-            <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-          </th>
+            <th>
+              <span>Id</span>
+              <img (click)="sort('id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </th>
 
-          <th>
-            <span>Vendor</span>
-            <img (click)="sort('vendor')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-          </th>
+            <th>
+              <span>Vendor</span>
+              <img (click)="sort('vendor')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </th>
 
-          <th>
-            <span>Invoice no</span>
-            <img (click)="sort('invoiceNo')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-          </th>
+            <th>
+              <span>Invoice no</span>
+              <img (click)="sort('invoiceNo')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </th>
 
-          <th>
-            <span>Order placed</span>
-          </th>
+            <th>
+              <span>Order placed</span>
+            </th>
 
-          <th>
-            <span>Order items</span>
-          </th>
+            <th>
+              <span>Order items</span>
+            </th>
 
-          <th class="text-center">Actions</th>
-        </tr>
-      </thead>
+            <th class="text-center">Actions</th>
+          </tr>
+        </thead>
 
-      <tbody>
-        <tr *ngFor="let cust of newOrdersTable | search : searchText; let i = index" (dblclick)="openViewPopup(cust)">
-          <!-- <td>
+        <tbody>
+          <tr *ngFor="let cust of newOrdersTable | search : searchText; let i = index" (dblclick)="openViewPopup(cust)">
+            <!-- <td>
             <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="cust.selected" (change)="
                 checkIfAllSelected();
                 deleteMultiRecords(cust, i, $event);
@@ -136,138 +136,132 @@
               " id="singleCheck" />
           </td> -->
 
-          <td>
-            <p>{{ cust.id }}</p>
-          </td>
+            <td>
+              <p>{{ cust.id }}</p>
+            </td>
 
-          <td>
-            <p>{{ cust.vendor }}</p>
-          </td>
+            <td>
+              <p>{{ cust.vendor }}</p>
+            </td>
 
-          <td>
-            <p>{{ cust.invoiceNo }}</p>
-          </td>
+            <td>
+              <p>{{ cust.invoiceNo }}</p>
+            </td>
 
-          <td>
-            <p>{{ cust.orderPlaced }}</p>
-          </td>
+            <td>
+              <p>{{ cust.orderPlaced }}</p>
+            </td>
 
-          <td>
-            <p style="cursor: pointer;" (click)="openOrderItems(cust)">View</p>
-          </td>
+            <td>
+              <p style="cursor: pointer;" (click)="openOrderItems(cust)">View</p>
+            </td>
 
-          <td class="table-icons">
+            <td class="table-icons">
 
               <a class="mx-1 pointer" (click)="openViewPopup(cust)">
-                <img src="assets/icons/view.svg"  />
+                <img src="assets/icons/view.svg" />
               </a>
               <a class="mx-1 pointer" (click)="openEditPopup(cust)">
                 <img src="assets/icons/edit.svg" />
               </a>
               <a class="mx-1 pointer" value="Delete" (click)="openDeletePopup(cust)">
-                <img src="assets/icons/delete.svg"  />
+                <img src="assets/icons/delete.svg" />
               </a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <!-- table ends -->
-  </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-  <div class="d-flex align-items-center justify-content-center" style="height: 45vh;" *ngIf="ordersTable?.length == 0 && !showLoader">
-    <h1 class="text-secondary">No Data</h1>
-  </div>
+    <div class="d-flex align-items-center justify-content-center" style="height: 45vh;"
+      *ngIf="ordersTable?.length == 0 && !showLoader">
+      <h1 class="text-secondary">No Data</h1>
+    </div>
 
-  <!-- Loader -->
-  <div >
-    <app-loader *ngIf="showLoader" class="d-flex justify-content-center align-items-center" style="height: 45vh;"></app-loader>
-  </div>
-  <!-- /Loader -->
-
-</div>
-
-
-
-
-<!-- view Popup -->
-<ng-template #viewInventoryDialog>
-  <div style="background-color: #084982;">
-    <p class="dialog-title m-0">view order</p>
-  </div>
-
-  <div class="dialog-content">
-    <div *ngIf="currentItem">
-      <mat-list>
-        <div class="row">
-          <div class="col-lg-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Id</mat-label>
-              <input matInput [(ngModel)]="currentItem.id" disabled>
-            </mat-form-field>
-          </div>
-
-          <div class="col-lg-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Invoice</mat-label>
-              <input matInput [(ngModel)]="currentItem.invoiceNo" disabled>
-            </mat-form-field>
-          </div>
-
-          <div class="col-lg-6 col-md-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <input matInput [matDatepicker]="picker1" placeholder="Order Placed" [(ngModel)]="currentItem.orderPlaced" disabled>
-              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-              <mat-datepicker #picker1></mat-datepicker>
-            </mat-form-field>
-          </div>
-
-          <div class="col-lg-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Vendor</mat-label>
-              <input matInput [(ngModel)]="currentItem.vendor" disabled>
-            </mat-form-field>
-          </div>
-        </div>
-      </mat-list>
+    <!-- Loader -->
+    <div>
+      <app-loader *ngIf="showLoader" class="d-flex justify-content-center align-items-center"
+        style="height: 45vh;"></app-loader>
     </div>
   </div>
 
-  <div class="d-flex justify-content-end"  >
-    <button class="dialog-close-btn" mat-dialog-close>Close</button>
-  </div>
-</ng-template>
-<!-- view Popup -->
+  <ng-template #viewInventoryDialog>
+    <div style="background-color: #084982;">
+      <p class="dialog-title m-0">view order</p>
+    </div>
 
-<!-- edit Popup -->
-<ng-template #editInventoryDialog>
-  <div style="background-color: #084982;">
-    <p class="dialog-title">EDIT ORDER</p>
-  </div>
+    <div class="dialog-content">
+      <div *ngIf="currentItem">
+        <mat-list>
+          <div class="row">
+            <div class="col-lg-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Id</mat-label>
+                <input matInput [(ngModel)]="currentItem.id" disabled>
+              </mat-form-field>
+            </div>
 
-  <div class="dialog-content">
-    <div class="row" *ngIf="currentItem">
-      <div class="col-lg-6">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Id</mat-label>
-          <input matInput [(ngModel)]="currentItem.id" disabled>
-        </mat-form-field>
+            <div class="col-lg-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Invoice</mat-label>
+                <input matInput [(ngModel)]="currentItem.invoiceNo" disabled>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-6 col-md-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput [matDatepicker]="picker1" placeholder="Order Placed"
+                  [(ngModel)]="currentItem.orderPlaced" disabled>
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+            <div class="col-lg-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Vendor</mat-label>
+                <input matInput [(ngModel)]="currentItem.vendor" disabled>
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-list>
       </div>
+    </div>
 
-      <div class="col-lg-6">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Invoice No</mat-label>
-          <input matInput [(ngModel)]="currentItem.invoiceNo">
-        </mat-form-field>
-      </div>
+    <div class="d-flex justify-content-end">
+      <button class="dialog-close-btn" mat-dialog-close>Close</button>
+    </div>
+  </ng-template>
 
-      <!-- <div class="col-lg-6">
+  <ng-template #editInventoryDialog>
+    <div style="background-color: #084982;">
+      <p class="dialog-title">EDIT ORDER</p>
+    </div>
+
+    <div class="dialog-content">
+      <div class="row" *ngIf="currentItem">
+        <div class="col-lg-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Id</mat-label>
+            <input matInput [(ngModel)]="currentItem.id" disabled>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Invoice No</mat-label>
+            <input matInput [(ngModel)]="currentItem.invoiceNo">
+          </mat-form-field>
+        </div>
+
+        <!-- <div class="col-lg-6">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Remarks</mat-label>
           <input matInput [(ngModel)]="currentItem.remarks">
         </mat-form-field>
       </div> -->
 
-      <!-- <div class="col-lg-6">
+        <!-- <div class="col-lg-6">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Status</mat-label>
           <mat-select name="statusId" [(ngModel)]="currentItem.statusId">
@@ -275,207 +269,165 @@
           </mat-select>
         </mat-form-field>
       </div> -->
-    </div>
-  </div>
-
-  <div class="d-flex align-items-center justify-content-end">
-<div>
-      <button class="dialog-close-btn" mat-dialog-close>Close</button>
-    </div>
-    <div  >
-      <button class="dialog-submit-btn" mat-dialog-close (click)="updateOrder()">Update</button>
-    </div>
-  </div>
-</ng-template>
-<!-- edit Popup -->
-
-<!-- delete Popup -->
-<ng-template #deleteInventoryDialog>
-  <div style="background-color: #084982;">
-    <p class="dialog-title m-0">DELETE ORDER</p>
-  </div>
-
-  <div class="dialog-content">
-    <div class="text-center">Do you want to delete this item?</div>
-  </div>
-
-  <div class="d-flex align-items-center justify-content-end">
-<div>
-      <button class="dialog-close-btn" mat-dialog-close>Close</button>
-    </div>
-    <div  >
-      <button class="dialog-submit-btn" mat-dialog-close (click)="deleteInventory()">OK</button>
-    </div>
-  </div>
-</ng-template>
-<!-- /delete Popup -->
-
-
-<!-- order items popup-->
-<ng-template #orderItemsDialog>
-  <div style="background-color: #084982;">
-    <p class="dialog-title m-0">ORDER ITEMS</p>
-  </div>
-
-  <div class="dialog-content">
-    <div class="d-flex justify-content-end">
-      <!-- <a class="pointer" (click)="show('user')"><img src="assets/icons/add.svg" alt="" /></a> -->
-      <button mat-flat-button color="primary" class="py-0 my-1" (click)="openCreateOrder(orderItemsId)">Add Order-Item</button>
+      </div>
     </div>
 
-    <ng-template #createOrderDialog>
-      <div style="background-color: #084982;">
-        <p class="dialog-title m-0">add order-item</p>
+    <div class="d-flex align-items-center justify-content-end">
+      <div>
+        <button class="dialog-close-btn" mat-dialog-close>Close</button>
       </div>
-
-      <div class="dialog-content">
-        <div class="row">
-          <div class="col-lg-12">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Product</mat-label>
-              <mat-select [(ngModel)]="orderItemBody.productId">
-                <mat-option *ngFor="let item of productIds" [value]="item.id">{{ item.name }}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-
-          <div class="col-lg-12">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>productQuantity</mat-label>
-              <input matInput [(ngModel)]="orderItemBody.productQuantity">
-            </mat-form-field>
-          </div>
-
-          <div class="col-lg-12">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>remarks</mat-label>
-              <input matInput [(ngModel)]="orderItemBody.remarks">
-            </mat-form-field>
-          </div>
-        </div>
+      <div>
+        <button class="dialog-submit-btn" mat-dialog-close (click)="updateOrder()">Update</button>
       </div>
-
-      <div class="d-flex align-items-center justify-content-end">
- <div>
-          <button class="dialog-close-btn" mat-dialog-close>Close</button>
-        </div>
-        <div  >
-          <button class="dialog-submit-btn" mat-dialog-close (click)="addItemToOrder()">Add</button>
-        </div>
-      </div>
-    </ng-template>
-
-    <ng-template #updateOrderDialog>
-      <div style="background-color: #084982;">
-        <p class="dialog-title">modify order-item</p>
-      </div>
-
-      <div class="dialog-content">
-        <div class="row" *ngIf="currentItem">
-
-          <div class="col-lg-12">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Id</mat-label>
-              <input matInput [(ngModel)]="currentItem.id">
-            </mat-form-field>
-          </div>
-
-          <div class="col-lg-12">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Quantity</mat-label>
-              <input matInput [(ngModel)]="currentItem.productQuantity">
-            </mat-form-field>
-          </div>
-
-          <div class="col-lg-12">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>remarks</mat-label>
-              <input matInput [(ngModel)]="currentItem.remarks">
-            </mat-form-field>
-          </div>
-        </div>
-      </div>
-
-      <div class="d-flex align-items-center justify-content-end">
- <div>
-          <button class="dialog-close-btn" mat-dialog-close>Close</button>
-        </div>
-        <div  >
-          <button class="dialog-submit-btn" mat-dialog-close (click)="updateOrderItem()">Update</button>
-        </div>
-      </div>
-    </ng-template>
-
-    <ng-template #deleteOrderItemsDialog>
-      <div style="background-color: #084982;">
-        <p class="dialog-title">delete order-item</p>
-      </div>
-
-      <div class="dialog-content">
-        <div class="text-center">Do you want to delete this item?</div>
-      </div>
-
-      <div class="d-flex align-items-center justify-content-end">
- <div>
-          <button class="dialog-close-btn" mat-dialog-close>Close</button>
-        </div>
-        <div  >
-          <button class="dialog-submit-btn" mat-dialog-close (click)="deleteOrderItem()">Delete</button>
-        </div>
-      </div>
-    </ng-template>
-
-    <div class="table-res">
-      <table class="table" id="mytable">
-        <thead>
-          <tr class="task-table">
-            <th>id</th>
-
-            <th>productName</th>
-
-            <th>orderId</th>
-
-            <th>productQuantity</th>
-
-            <th>Actions</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr *ngFor="let cust of orderItems; let i = index">
-            <td>
-              <p>{{ cust.id }}</p>
-            </td>
-
-            <td>
-              <p>{{ cust.productName }}</p>
-            </td>
-
-            <td>
-              <p>{{ cust.orderId }}</p>
-            </td>
-
-            <td>
-              <p>{{ cust.productQuantity }}</p>
-            </td>
-
-            <td>
-              <a class="mx-2" (click)="openUpdateOrder(cust)">
-                <img src="assets/icons/edit.svg" >
-              </a>
-              <a class="mx-2" value="Delete" (click)="opendeleteOrderItem(cust)">
-                <img src="assets/icons/delete.svg" >
-              </a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
     </div>
+  </ng-template>
+
+  <ng-template #orderItemsDialog>
+    <div style="background-color: #084982;">
+      <p class="dialog-title m-0">ORDER ITEMS</p>
+    </div>
+
+    <div class="dialog-content">
+      <div class="d-flex justify-content-end">
+        <!-- <a class="pointer" (click)="show('user')"><img src="assets/icons/add.svg" alt="" /></a> -->
+        <button mat-flat-button color="primary" class="py-0 my-1" (click)="openCreateOrder(orderItemsId)">Add
+          Order-Item</button>
+      </div>
+
+
+      <div class="table-res">
+        <table class="table" id="mytable">
+          <thead>
+            <tr class="task-table">
+              <th>id</th>
+
+              <th>productName</th>
+
+              <th>orderId</th>
+
+              <th>productQuantity</th>
+
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let cust of orderItems; let i = index">
+              <td>
+                <p>{{ cust.id }}</p>
+              </td>
+
+              <td>
+                <p>{{ cust.productName }}</p>
+              </td>
+
+              <td>
+                <p>{{ cust.orderId }}</p>
+              </td>
+
+              <td>
+                <p>{{ cust.productQuantity }}</p>
+              </td>
+
+              <td>
+                <a class="mx-2" (click)="openUpdateOrder(cust)">
+                  <img src="assets/icons/edit.svg">
+                </a>
+                <a class="mx-2" value="Delete" (click)="opendeleteOrderItem(cust)">
+                  <img src="assets/icons/delete.svg">
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #createOrderDialog>
+    <div style="background-color: #084982;">
+      <p class="dialog-title m-0">add order-item</p>
+    </div>
+
+    <div class="dialog-content">
+      <div class="row">
+        <div class="col-lg-12">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Product</mat-label>
+            <mat-select [(ngModel)]="orderItemBody.productId">
+              <mat-option *ngFor="let item of productIds" [value]="item.id">{{ item.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-12">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>productQuantity</mat-label>
+            <input matInput [(ngModel)]="orderItemBody.productQuantity">
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-12">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>remarks</mat-label>
+            <input matInput [(ngModel)]="orderItemBody.remarks">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex align-items-center justify-content-end">
+      <div>
+        <button class="dialog-close-btn" mat-dialog-close>Close</button>
+      </div>
+      <div>
+        <button class="dialog-submit-btn" mat-dialog-close (click)="addItemToOrder()">Add</button>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #updateOrderDialog>
+    <div style="background-color: #084982;">
+      <p class="dialog-title">modify order-item</p>
+    </div>
+
+    <div class="dialog-content">
+      <div class="row" *ngIf="currentItem">
+
+        <div class="col-lg-12">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Id</mat-label>
+            <input matInput [(ngModel)]="currentItem.id">
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-12">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Quantity</mat-label>
+            <input matInput [(ngModel)]="currentItem.productQuantity">
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-12">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>remarks</mat-label>
+            <input matInput [(ngModel)]="currentItem.remarks">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex align-items-center justify-content-end">
+      <div>
+        <button class="dialog-close-btn" mat-dialog-close>Close</button>
+      </div>
+      <div>
+        <button class="dialog-submit-btn" mat-dialog-close (click)="updateOrderItem()">Update</button>
+      </div>
+    </div>
+  </ng-template>
+
+
+  <div *ngIf="showInventory">
+    <app-add-new-order (newItemEvent)="closenow($event, 'vendor')"></app-add-new-order>
   </div>
-</ng-template>
-<!-- /order items popup-->
-
-
-<div  *ngIf="showInventory">
-  <app-add-new-order (newItemEvent)="closenow($event, 'vendor')"></app-add-new-order>
-</div>

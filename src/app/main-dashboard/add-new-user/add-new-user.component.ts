@@ -45,37 +45,14 @@ export class AddNewUserComponent implements OnInit {
   ) { }
 
 
-  UserForm: any =  FormGroup;
-  user = {
-    firstTimeFlag: "F",
-    userName: '',
-    firstName: '',
-    lastName: '',
-    genderFlag: "M",
-    realm: '',
-    emailId: '',
-    contactNumber: '',
-    alternateContactNumber: '',
-    addressLine1: '',
-    addressLine2: '',
-    country: '',
-    state: '',
-    district: '',
-    pincode: 0,
-    city: '',
-    createdBy: null,
-    employeeFlag: "F",
-    empId: '',
-    safetyEscortFlag: "F"
-  }
-
+  UserForm!: FormGroup;
   ngOnInit() {
     this.UserForm = this.fb.group({
-      firstTimeFlag: new FormControl(''),
+      firstTimeFlag: new FormControl('F'),
       userName: new FormControl('', Validators.required),
       firstName: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
-      genderFlag: new FormControl('', Validators.required),
+      genderFlag: new FormControl('M', Validators.required),
       realm: new FormControl('', Validators.required),
       emailId: new FormControl('', Validators.required),
       contactNumber: new FormControl('', Validators.required),
@@ -86,11 +63,11 @@ export class AddNewUserComponent implements OnInit {
       country: new FormControl('', Validators.required),
       state: new FormControl('', Validators.required),
       district: new FormControl('', Validators.required),
-      pincode: new FormControl('', Validators.required),
+      pincode: new FormControl(0, Validators.required),
       city: new FormControl('', Validators.required),
-      employeeFlag: new FormControl(''),
+      employeeFlag: new FormControl('F'),
       empId: new FormControl(''),
-      safetyEscortFlag: new FormControl('')
+      safetyEscortFlag: new FormControl('F')
     });
     this.getCountry();
   }
@@ -106,15 +83,15 @@ export class AddNewUserComponent implements OnInit {
   filterState(val: any) {
     let x = this.countryList.filter((el: any) => el.countryName == val);
     this.stateList = x.flatMap((el: any) => el.states);
-    this.user.state = '';
-    this.user.district = '';
+    this.UserForm.value.state = '';
+    this.UserForm.value.district = '';
   }
 
   cityList: any
   filterCity(val: any) {
     let x = this.stateList.filter((el: any) => el.stateName == val);
     this.cityList = x.flatMap((el: any) => el.cities);
-    this.user.district = '';
+    this.UserForm.value.district = '';
   }
 
   closeAddUser() {
@@ -125,7 +102,7 @@ export class AddNewUserComponent implements OnInit {
 
   createUser() {
     if(this.UserForm.valid) {
-      this.userSer.createUser(this.user).subscribe((res: any) => {
+      this.userSer.createUser(this.UserForm.value).subscribe((res: any) => {
         if(res.statusCode == 200) {
           this.newItemEvent.emit();
           this.alertSer.success(res.message);

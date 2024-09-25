@@ -355,10 +355,7 @@
     </table>
   </div>
 </div>
-<!-- table ends -->
 
-
-<!-- view Popup -->
 <ng-template #viewInventoryDialog>
   <div *ngIf="currentItem">
     <div>
@@ -398,9 +395,7 @@
     </div>
   </div>
 </ng-template>
-<!-- view Popup -->
 
-<!-- edit Popup -->
 <ng-template #editInventoryDialog>
   <div>
     <p style="font-weight: 600; color: #ABABAB;">MODIFY PRODUCT</p>
@@ -559,38 +554,6 @@
     </div>
   </div>
 </ng-template>
-<!-- edit Popup -->
-
-<!-- Delete Popup -->
-<ng-template #deleteInventoryDialog>
-  <div class="d-flex justify-content-between">
-    <p>Delete Row</p>
-  </div>
-  <div class="text-center">Do you want to delete this item?</div>
-
-  <div class="d-flex align-items-center justify-content-end">
-<div>
-      <button class="dialog-close-btn" mat-dialog-close>Close</button>
-    </div>
-    <div  >
-      <button class="dialog-submit-btn" mat-dialog-close (click)="deleteInventory()">OK</button>
-    </div>
-  </div>
-</ng-template>
-<!-- /Delete Popup -->
-
-
-<!-- Detai View Popup -->
-<!-- <div *ngIf="showDetail" style="position: absolute; top: 150px; left: 500px;">
-  <mat-list class="bg-info">
-    <mat-list-item>Item 1</mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item>Item 2</mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item>Item 3</mat-list-item>
-  </mat-list>
-</div> -->
-<!-- /Detai View Popup -->
 
 
 <div  *ngIf="showInventory">

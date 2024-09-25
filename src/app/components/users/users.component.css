@@ -1,0 +1,31 @@
+.menu-items {
+    padding: 10px;
+    height: 50vh;
+}
+
+.site-list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px;
+}
+
+.site-list .site-name {
+    width: 150px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.assign-btn {
+    width: 66px;
+    background-color: #084982;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 12px;
+    border: none;
+}
+
+.assign-btn-active {
+    background-color: #D34124;
+}

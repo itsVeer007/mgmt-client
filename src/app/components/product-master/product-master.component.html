@@ -488,25 +488,6 @@
   </div>
 </ng-template>
 
-<ng-template #deleteProductDialog>
-  <div style="background-color: #084982;">
-    <p class="dialog-title">DELETE PRODUCT</p>
-  </div>
-
-  <div class="dialog-content">
-    <div class="text-center">Do you want to delete this item?</div>
-  </div>
-
-  <div class="d-flex align-items-center justify-content-end">
-<div>
-      <button class="dialog-close-btn" mat-dialog-close>Close</button>
-    </div>
-    <div  >
-      <button class="dialog-submit-btn" mat-dialog-close (click)="deleteProduct()">OK</button>
-    </div>
-  </div>
-</ng-template>
-
 <div  *ngIf="showProduct">
   <app-add-product-master (newItemEvent)="closenow('product'); listProduct()"></app-add-product-master>
 </div>

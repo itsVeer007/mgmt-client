@@ -33,6 +33,7 @@ export class UsersComponent implements OnInit {
   inactiveUsers:any=[];
   activeUsers:any=[];
   searchText: any;
+  assignText: any;
   userTableData: any = [];
   listUsers() {
     this.showLoader = true;
@@ -112,45 +113,43 @@ export class UsersComponent implements OnInit {
     if(type == 'additionalSite') {this.showAddSite = false;}
   }
 
-  @ViewChild('assignSiteDialog') assignSiteDialog = ElementRef;
-  assignSite(user:any){
-    this.getSitesListForUserName();
-    this.currentUser = user
-    this.dialog.open(this.assignSiteDialog)
-    
-  }
+  // @ViewChild('assignSiteDialog') assignSiteDialog = ElementRef;
+  // assignSite(user:any){
+  //   this.getSitesListForUserName();
+  //   this.currentUser = user
+  //   this.dialog.open(this.assignSiteDialog)
+  // }
 
-  userSites:any=[]
-  getSitesListforUser(user:any){
-    // console.log(user)
-    this.userSites=[];
-    this.siteSer.getSitesListForUserName1(user).subscribe({
+  userSites: any;
+  getSitesListForAssign(user:any) {
+    this.userSites = null;
+    this.siteSer.getSitesListForAssign(user).subscribe({
       next: (res:any)=>{
-        if (res.Status==='Success') {
-          this.userSites=res.sites;    
-          // this.alertSer.success(res.message)     
-        }
-        else{
-          this.userSites=[];
-        }
+        this.userSites = res;
+        this.isAssigned()
       },
       error:(err:any) => {
         this.alertSer.error(err.error.message)
       }
-      
+    });
+  }
 
-      
-    })
+  isAssigned() {
+    return this.sitesList.filter((item: any) => this.userSites?.sites?.some((el: any) =>  {
+      if(item.siteId == el.siteId) {
+        item.isAssigned = true;
+      }
+    }));
   }
 
   sitesList: any = [];
-  getSitesListForUserName() {
+  getSitesListForUserName(user:any) {
     this.siteSer.getSitesListForUserName().subscribe((res: any) => {
-      // console.log(res)
-      if(res?.Status == 'Success') {
+      if(res.Status == 'Success') {
         this.sitesList = res.sites.sort((a: any, b: any) => a.siteId < b.siteId ? -1 : a.siteId > b.siteId ? 1 : 0);
+        this.sitesList.forEach((item: any) => item.isAssigned = false);
+        this.getSitesListForAssign(user);
       }
-      }, (err: any) => {
     });
   }
 
