@@ -10,7 +10,7 @@
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>{{ item.key }}</mat-label>
             <mat-select [(ngModel)]="item.value">
-              <mat-option *ngFor="let val of getMetaType(2)" [value]="val.keyId">{{ val.value }}</mat-option>
+              <!-- <mat-option *ngFor="let val of metaData.metadata" [value]="val?.keyId">{{ val?.value }}</mat-option> -->
                <mat-option>1</mat-option>
                <mat-option>2</mat-option>
             </mat-select>

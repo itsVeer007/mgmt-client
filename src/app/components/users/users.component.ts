@@ -143,20 +143,27 @@ export class UsersComponent implements OnInit {
   }
 
   sitesList: any = [];
+  showLoading: boolean = false;
   getSitesListForUserName(user:any) {
+    this.sitesList = [];
+    this.assignText = null;
+    this.showLoading = true;
     this.siteSer.getSitesListForUserName().subscribe((res: any) => {
+      this.showLoading = false;
       if(res.Status == 'Success') {
         this.sitesList = res.sites.sort((a: any, b: any) => a.siteId < b.siteId ? -1 : a.siteId > b.siteId ? 1 : 0);
         this.sitesList.forEach((item: any) => item.isAssigned = false);
+
+        this.currentUser = user;
         this.getSitesListForAssign(user);
       }
     });
   }
 
   selectedSites: any
-  submitAssignSite() {
-    this.userSer.applySitesMapping({userId: this.currentUser?.user_id, siteList: [this.selectedSites]}).subscribe({
-      next: (res:any)=>{
+  submitAssignSite(site: any) {
+    this.userSer.applySitesMapping({userId: this.currentUser?.user_id, siteList: [site?.siteId]}).subscribe({
+      next: (res:any) => {
         if (res.status==='Success') {   
           this.alertSer.success(res.message)     
         } else {

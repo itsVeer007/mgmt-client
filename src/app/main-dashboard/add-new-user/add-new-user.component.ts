@@ -55,7 +55,7 @@ export class AddNewUserComponent implements OnInit {
       genderFlag: new FormControl('M', Validators.required),
       realm: new FormControl('', Validators.required),
       emailId: new FormControl('', Validators.required),
-      contactNumber: new FormControl('', Validators.required),
+      contactNumber: new FormControl('(844) GET-IVIS', Validators.required),
       alternateContactNumber: new FormControl(''),
       addressLine1: new FormControl(''),
       addressLine2: new FormControl(''),
@@ -76,7 +76,7 @@ export class AddNewUserComponent implements OnInit {
   getCountry() {
     this.http.get("assets/JSON/countryList.json").subscribe((res: any) => {
       this.countryList = res;
-    })
+    });
   }
 
   stateList: any = [];
@@ -98,20 +98,19 @@ export class AddNewUserComponent implements OnInit {
     this.newItemEvent.emit();
   }
 
-
-
   createUser() {
     if(this.UserForm.valid) {
       this.userSer.createUser(this.UserForm.value).subscribe((res: any) => {
         if(res.statusCode == 200) {
           this.newItemEvent.emit();
           this.alertSer.success(res.message);
+        } else {
+          this.alertSer.error(res.message);
         }
       }, (err: any) => {
         this.alertSer.error(err.error.message);
       });
     }
-    // console.log(this.user);
   }
 
   // checkbox: boolean = false;

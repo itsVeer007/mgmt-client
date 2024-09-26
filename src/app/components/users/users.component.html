@@ -146,27 +146,27 @@
             <!-- <span class="mx-3"> Add Site <img src="assets/icons/add_circle.svg" (click)="assignSite(cust)"></span> -->
 
             
-            <div class="menu-items">
-              <div (click)="$event.stopPropagation();">
-                <mat-form-field class="example-form-field" appearance="outline" class="w-100">
-                  <mat-label>Search</mat-label>
-                  <input matInput type="text" [(ngModel)]="assignText">
-                  <button matSuffix mat-icon-button>
-                    <mat-icon>search</mat-icon>
-                  </button>
-                </mat-form-field>
-              </div>
+            <div class="p-2" (click)="$event.stopPropagation()">
+              <mat-form-field class="example-form-field" appearance="outline" class="w-100">
+                <mat-label>Search</mat-label>
+                <input matInput type="text" [(ngModel)]="assignText">
+                <button matSuffix mat-icon-button>
+                  <mat-icon>search</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
 
-              <!-- <ng-container *ngIf="!userSites">
+            <div class="menu-items">
+              <ng-container *ngIf="showLoading">
                 <p class="text-center">Loading...</p>
-              </ng-container> -->
+              </ng-container>
               <!-- <ng-container *ngIf="userSites?.Status === 'Failed'">
                 <p class="text-center">No Sites Mapped Yet!</p>
               </ng-container> -->
               <ng-container>
                 <div class="site-list" *ngFor="let site of sitesList | search: assignText; let i = index">
                   <span class="site-name">{{i+1}}. <span>{{site.siteName}}</span></span>
-                  <button [ngClass]="site?.isAssigned ? 'assign-btn assign-btn-active' : 'assign-btn'" [disabled]="site?.isAssigned">
+                  <button [ngClass]="site?.isAssigned ? 'assign-btn assign-btn-active' : 'assign-btn'" (click)="submitAssignSite(site)" [disabled]="site?.isAssigned">
                     {{ site?.isAssigned ? 'Assigned' : 'Assign' }}
                   </button>
                 </div>
@@ -467,7 +467,7 @@
 
     <div class="d-flex align-items-center justify-content-end mt-2">
       <button class="dialog-close-btn" mat-dialog-close>Close</button>
-      <button class="dialog-submit-btn" mat-dialog-close (click)="submitAssignSite()">Submit</button>
+      <button class="dialog-submit-btn" mat-dialog-close>Submit</button>
     </div>
   </div>
 </ng-template>

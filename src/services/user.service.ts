@@ -72,14 +72,13 @@ export class UserService {
   }
 
   updateUser(payload: any) {
-    console.log(payload)
     let url = `${this.baseUrl}/userDetails/updateUser_1_0/${payload?.userId}`;
     return this.http.put(url, payload);
   }
 
   applySitesMapping(payload: any){
     let url =`${this.baseUrl}/userDetails/applySitesMapping_1_0`;
-    return this.http.post(url,payload);
+    return this.http.post(url, payload);
   }
 
   getSiteUserDetails(payload: any){
