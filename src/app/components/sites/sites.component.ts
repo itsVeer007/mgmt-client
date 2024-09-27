@@ -79,10 +79,10 @@ export class SitesComponent implements OnInit {
   currentCamera: any;
   cameraSelectTypes: any = ["status", "audioSpeakerType", "timezone"];
   openEditCamera(item: any) {
-    // this.currentCamera = JSON.parse(JSON.stringify(item));
-    // this.dialog.open(this.editCameraDialog);
-    this.storageSer.edit_sub.next({objectEntries: item, selectTypes: this.cameraSelectTypes});
-    this.dialog.open(EditFormComponent)
+    this.currentCamera = JSON.parse(JSON.stringify(item));
+    this.dialog.open(this.editCameraDialog);
+    // this.storageSer.edit_sub.next({objectEntries: item, selectTypes: this.cameraSelectTypes});
+    // this.dialog.open(EditFormComponent)
   }
 
 
