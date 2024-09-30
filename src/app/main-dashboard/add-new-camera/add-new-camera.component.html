@@ -26,6 +26,36 @@
                 <mat-error>*required</mat-error>
               </mat-form-field>
             </div>
+            <div class="col-lg-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>S3 Request Name</mat-label>
+                <input matInput formControlName="s3RequestName">
+              </mat-form-field>
+            </div>
+            <div class="col-lg-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>FPS</mat-label>
+                <input matInput type="number" formControlName="fps">
+              </mat-form-field>
+            </div>
+            <div class="col-lg-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>PortNo</mat-label>
+                <input matInput type="number" formControlName="portNo">
+              </mat-form-field>
+            </div>
+            <div class="col-lg-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>HTTP PortNo</mat-label>
+                <input matInput type="number" formControlName="httpPortNo">
+              </mat-form-field>
+            </div>
+            <div class="col-lg-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Internal Port</mat-label>
+                <input matInput type="number" formControlName="internalPort">
+              </mat-form-field>
+            </div>
   
             <div class="col-lg-6">
               <mat-form-field appearance="outline" class="w-100">
@@ -38,7 +68,7 @@
             <div class="col-lg-6">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>WebRTC URL</mat-label>
-                <input matInput formControlName="videoServerName" [(ngModel)]="webrtcUrl">
+                <input matInput formControlName="videoServerName">
                 <mat-error>*required</mat-error>
               </mat-form-field>
             </div>
@@ -46,7 +76,7 @@
             <div class="col-lg-6">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>HLS URL</mat-label>
-                <input matInput formControlName="HLSUrl" [(ngModel)]="hlsTunnel">
+                <input matInput formControlName="HLSUrl">
                 <mat-error>*required</mat-error>
               </mat-form-field>
             </div>
@@ -54,7 +84,7 @@
             <div class="col-lg-6">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Audio URL</mat-label>
-                <input matInput formControlName="audioUrl" [(ngModel)]="audioUrl">
+                <input matInput formControlName="audioUrl">
               </mat-form-field>
             </div>
 
@@ -73,30 +103,54 @@
                 <mat-error>*required</mat-error>
               </mat-form-field>
             </div>
+        </div>
 
-            <div class="col-lg-12" style="font-size: 10px; font-weight: 700;">
-              <mat-radio-group class="w-50" formControlName="timelapse">
-                <mat-label>Timelapse</mat-label>
-                <mat-radio-button class="ms-3" name="logs" value="T">True</mat-radio-button>
-                <mat-radio-button class="ms-3" name="logs" value="F" checked>False</mat-radio-button>
-              </mat-radio-group>
-            </div>
+        <div class="row">
+          <div class="col-lg-6" style="font-size: 10px; font-weight: 700;">
+            <p>Timelapse</p>
+            <mat-radio-group class="w-50" formControlName="timelapse">
+              <mat-radio-button class="ms-3" name="logs" value="T">True</mat-radio-button>
+              <mat-radio-button class="ms-3" name="logs" value="F" checked>False</mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+          <div class="col-lg-6" style="font-size: 10px; font-weight: 700;">
+            <p>PTZ</p>
+            <mat-radio-group class="w-50" formControlName="ptz">
+              <mat-radio-button class="ms-3" name="ptz" value="T">True</mat-radio-button>
+              <mat-radio-button class="ms-3" name="ptz" value="F" checked>False</mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+          <div class="col-lg-6" style="font-size: 10px; font-weight: 700;">
+            <p>Events</p>
+            <mat-radio-group class="w-50" formControlName="events">
+              <mat-radio-button class="ms-3" name="events" value="T">True</mat-radio-button>
+              <mat-radio-button class="ms-3" name="events" value="F" checked>False</mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+          <div class="col-lg-6" style="font-size: 10px; font-weight: 700;">
+            <p>Monitoring</p>
+            <mat-radio-group class="w-50" formControlName="monitoring">
+              <mat-radio-button class="ms-3" name="monitoring" value="T">True</mat-radio-button>
+              <mat-radio-button class="ms-3" name="monitoring" value="F" checked>False</mat-radio-button>
+            </mat-radio-group>
+          </div>
         </div>
 
         <div class="row">
           <div class="col-lg-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Unit Id</mat-label>
-              <input matInput formControlName="unitId"  [(ngModel)]="unitId">
+              <input matInput formControlName="unitId">
               <mat-error>*required</mat-error>
             </mat-form-field>
           </div>
-
-
           <div class="col-lg-4">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>No of Cameras</mat-label>
-              <input matInput type="number" formControlName="noOfCameras" #noOfCams >
+              <input matInput type="number" formControlName="noOfCameras" #noOfCams>
               <mat-error>*required</mat-error>
             </mat-form-field>
           </div>
@@ -112,7 +166,7 @@
         <table class="table table-hover">
           <thead>
             <tr class="form1">
-              <th>Camera Id</th>
+              <th>Name</th>
               <th>User Name</th>
               <th>Password</th>
               <th>Name</th>
@@ -158,91 +212,3 @@
       </div>
     </div>
 </div>
-
-
-<ng-template #editCameraDialog>
-  <div style="background-color: #084982;">
-    <p class="dialog-title">MODIFY CAMERA</p>
-  </div>
-
-  <div class="row m-0 dialog-content">
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Unit Id</mat-label>
-        <input matInput [(ngModel)]="currentItem.unitId">
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Username</mat-label>
-        <input matInput [(ngModel)]="currentItem.userName">
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Password</mat-label>
-        <input matInput [(ngModel)]="currentItem.password">
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>RTSP URL</mat-label>
-        <input matInput [(ngModel)]="currentItem.rtspUrl">
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>WebRTC URL</mat-label>
-        <input matInput [(ngModel)]="currentItem.videoServerName">
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>HLS URL</mat-label>
-        <input matInput [(ngModel)]="currentItem.HLSUrl">
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Audio URL</mat-label>
-        <input matInput [(ngModel)]="currentItem.audioUrl">
-      </mat-form-field>
-    </div>
-
-    <!-- <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>timelapse</mat-label>
-        <input matInput [(ngModel)]="currentItem.timelapse">
-      </mat-form-field>
-    </div> -->
-
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>snapshotUrl</mat-label>
-        <input matInput [(ngModel)]="currentItem.snapshotUrl">
-      </mat-form-field>
-    </div>
-    
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>camera_config_url</mat-label>
-        <input matInput [(ngModel)]="currentItem.camera_config_url">
-      </mat-form-field>
-    </div>
-  </div>
-
-  <div class="d-flex align-items-center justify-content-end">
-    <div>
-      <button class="dialog-close-btn" mat-dialog-close>Close</button>
-    </div>
-    <div  >
-      <button class="dialog-submit-btn" mat-dialog-close>Update</button>
-    </div>
-  </div>
-</ng-template>

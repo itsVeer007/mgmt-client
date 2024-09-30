@@ -224,21 +224,9 @@
 </div>
 
 <ng-template #viewCamerasDialog>
-  <div style="background-color: #084982;">
-    <p class="dialog-title">cameras</p>
-  </div>
+  <div class="dialog-title">{{currentItem?.siteName}}</div>
 
   <div class="dialog-content">
-
-    <div class="d-flex justify-content-between">
-      <p >
-        Site Name :
-        <span class="blod">
-          {{currentItem?.siteName}}
-        </span>
-      </p>
-      <p>Cameras : <span class="blod">{{cameras?.length}}</span></p>
-    </div>
     <div class="table-res">
       <table class="table table-hover">
         <thead>
@@ -263,7 +251,7 @@
               <!-- <td>{{cam.userName}}</td>
               <td>{{cam.password}}</td> -->
               <td>{{cam.name}}</td>
-              <td style="width: 100px;">{{cam.rtspUrl}}</td>
+              <td>{{cam.rtspUrl}}</td>
               <td>{{cam.httpUrl}}</td>
               <td>{{cam.hlsTunnel}}</td>
               <td>{{cam.audioUrl}}</td>
@@ -280,93 +268,6 @@
     <div class="d-flex align-items-center justify-content-end">
       <button class="dialog-close-btn" mat-dialog-close>Close</button>
     </div>
-  </div>
-</ng-template>
-
-<ng-template #editCameraDialog>
-  <div class="dialog-title">modify camera - {{currentCamera?.cameraId}}</div>
-
-  <div class="row m-0 dialog-content" *ngIf="currentCamera">
-    <!-- <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Camera Id</mat-label>
-        <input matInput [(ngModel)]="currentCamera.cameraId" disabled>
-      </mat-form-field>
-    </div> -->
-
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Display Name</mat-label>
-        <input matInput [(ngModel)]="currentCamera.name">
-      </mat-form-field>
-    </div>
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>userName</mat-label>
-        <input matInput [(ngModel)]="currentCamera.userName">
-      </mat-form-field>
-    </div>
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>password</mat-label>
-        <input matInput [(ngModel)]="currentCamera.password">
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>RTSP URL</mat-label>
-        <input matInput [(ngModel)]="currentCamera.rtspUrl">
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>WebRTC URL</mat-label>
-        <input matInput [(ngModel)]="currentCamera.httpUrl">
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>HLS URL</mat-label>
-        <input matInput [(ngModel)]="currentCamera.hlsTunnel">
-      </mat-form-field>
-    </div>
-  
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Audio URL</mat-label>
-        <input matInput [(ngModel)]="currentCamera.audioUrl">
-      </mat-form-field>
-    </div>
-
-    <!-- <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>timelapse</mat-label>
-        <input matInput [(ngModel)]="currentCamera.timelapse">
-      </mat-form-field>
-    </div> -->
-
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Snapshot URL</mat-label>
-        <input matInput [(ngModel)]="currentCamera.snapshotUrl">
-      </mat-form-field>
-    </div>
-    
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Config URL</mat-label>
-        <input matInput [(ngModel)]="currentCamera.camera_config_url">
-      </mat-form-field>
-    </div>
-  </div>
-
-
-  <div class="d-flex align-items-center justify-content-end">
-    <button class="dialog-close-btn" mat-dialog-close>Close</button>
-    <button class="dialog-submit-btn" mat-dialog-close (click)="updateCamera()">Update</button>
   </div>
 </ng-template>
 

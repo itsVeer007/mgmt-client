@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { environment } from '../environments/environment';
 import { StorageService } from './storage.service';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +11,11 @@ import { Observable } from 'rxjs';
 export class SiteService {
   
 
-  baseUrl = environment.siteUrl;
-  // shoowMenu: any;
-
+  cameras_sub: BehaviorSubject<any> = new BehaviorSubject([]);
+  
   constructor(private http: HttpClient, private storageSer: StorageService) { }
+  
+  baseUrl = environment.siteUrl;
 
   // listSites() {
   //   let user: any = this.storageSer.get('user');

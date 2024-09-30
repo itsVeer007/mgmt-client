@@ -6,6 +6,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 })
 export class StorageService {
 
+  current_sub: BehaviorSubject<any> = new BehaviorSubject(null);
   edit_sub: BehaviorSubject<any> = new BehaviorSubject({objectEntries: {}, selectTypes: []});
 
   constructor() { }

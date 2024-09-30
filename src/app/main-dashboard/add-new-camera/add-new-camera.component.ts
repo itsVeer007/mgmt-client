@@ -7,6 +7,7 @@ import { AlertService } from 'src/services/alert.service';
 import { SiteService } from 'src/services/site.service';
 import { StorageService } from 'src/services/storage.service';
 import { MatDialog } from '@angular/material/dialog';
+import { EditCameraComponent } from 'src/app/components/cameras/edit-camera/edit-camera.component';
 
 
 @Component({
@@ -64,7 +65,7 @@ export class AddNewCameraComponent {
       height: new FormControl(null),
       fps: new FormControl(0),
       HLSUrl: new FormControl(''),
-      ptz: new FormControl(''),
+      ptz: new FormControl('F'),
       priority: new FormControl(''),
       active: new FormControl(''),
       httpTunnel: new FormControl(''),
@@ -77,19 +78,18 @@ export class AddNewCameraComponent {
       displayName: new FormControl(''),
       internalIp: new FormControl(''),
       internalPort: new FormControl(0),
-      s3RequestName: new FormControl('2'),
-      events: new FormControl(''),
+      s3RequestName: new FormControl(''),
+      events: new FormControl('F'),
       eventsOnAWS: new FormControl(''),
       eventsOnCPE: new FormControl(''),
       eventsServerIp: new FormControl(''),
       audioSpeakerType: new FormControl(''),
       audioUrl: new FormControl(''),
-      monitoring: new FormControl(''),
+      monitoring: new FormControl('T'),
       unitId: new FormControl('', Validators.required),
       noOfCameras: new FormControl('', Validators.required),
-
       timelapse: new FormControl('F'),
-      s3_server_host: new FormControl(''),
+      s3_server_host: new FormControl(2),
       snapshotUrl: new FormControl(''),
       camera_config_url: new FormControl('')
     })
@@ -123,12 +123,13 @@ export class AddNewCameraComponent {
     })
   }
 
-  @ViewChild('editCameraDialog') editCameraDialog = {} as TemplateRef<any>;
+  // @ViewChild('editCameraDialog') editCameraDialog = {} as TemplateRef<any>;
   currentItem: any
   openEditPopup(item: any) {
-    // this.currentItem = JSON.parse(JSON.stringify(item));
-    this.currentItem = item;
-    this.dialog.open(this.editCameraDialog);
+    // this.currentItem = item;
+    // this.dialog.open(this.editCameraDialog);
+    this.storageService.current_sub.next({ type: 'camera', data: item });
+    this.dialog.open(EditCameraComponent);
   }
 
   camList: any = [];
@@ -220,7 +221,6 @@ export class AddNewCameraComponent {
         monitoring: this.createCamera.value.monitoring,
         unitId: this.createCamera.value.unitId,
         noOfCameras: this.createCamera.value.noOfCameras,
-
         timelapse:this.createCamera.value.timelapse,
         s3_server_host:this.createCamera.value.s3_server_host,
         snapshotUrl:this.createCamera.value.snapshotUrl,
@@ -230,19 +230,18 @@ export class AddNewCameraComponent {
   }
 
   submit(data:any, event: any) {
-    if(this.createCamera.valid){
-      this.siteSer.createCamera(data).subscribe((res:any) => {
-        if(res.statusCode===200){
-          event.target.disabled = true;
-          event.target.nextElementSibling.disabled = true;
-          this.alertSer.snackSuccess(res.message);
-        } else{
-          this.alertSer.error(res.message)
-        }
-      }, (err: any) => {
-        this.alertSer.error(err.error.message)
-      })
-    }
+    if(!this.createCamera.valid) return;
+    this.siteSer.createCamera(data).subscribe((res:any) => {
+      if(res.statusCode === 200){
+        event.target.disabled = true;
+        event.target.nextElementSibling.disabled = true;
+        this.alertSer.snackSuccess(res.message);
+      } else{
+        this.alertSer.error(res.message)
+      }
+    }, (err: any) => {
+      this.alertSer.error(err.error.message)
+    })
   }
 
   update() {
@@ -259,19 +258,19 @@ export class AddNewCameraComponent {
   }
 
 
-  unitId: string = '';
-  cameraconfigUrl: string = '';
-  snapshotsUrl: string = '';
-  webrtcUrl: string = '';
-  hlsTunnel: string = '';
-  audioUrl: string = '';
+  // unitId: string = '';
+  // cameraconfigUrl: string = '';
+  // snapshotsUrl: string = '';
+  // webrtcUrl: string = '';
+  // hlsTunnel: string = '';
+  // audioUrl: string = '';
 
-  generateUrls(): void {
-    this.cameraconfigUrl = this.unitId ? `${this.unitId}/camconfig-repo.pitunnel.com` : '';
-    this.snapshotsUrl = this.unitId ? `${this.unitId}/snapshots-repo.pitunnel.com` : '';
-    this.webrtcUrl = this.unitId ? `${this.unitId}/live-repo.pitunnel.com` : '';
-    this.hlsTunnel = this.unitId ? `${this.unitId}/hlslive-repo.pitunnel.com` : '';
-    this.audioUrl = this.unitId ? `${this.unitId}/audio-repo.pitunnel.com/play/siren` : '';
-  }
+  // generateUrls(): void {
+  //   this.cameraconfigUrl = this.unitId ? `${this.unitId}/camconfig-repo.pitunnel.com` : '';
+  //   this.snapshotsUrl = this.unitId ? `${this.unitId}/snapshots-repo.pitunnel.com` : '';
+  //   this.webrtcUrl = this.unitId ? `${this.unitId}/live-repo.pitunnel.com` : '';
+  //   this.hlsTunnel = this.unitId ? `${this.unitId}/hlslive-repo.pitunnel.com` : '';
+  //   this.audioUrl = this.unitId ? `${this.unitId}/audio-repo.pitunnel.com/play/siren` : '';
+  // }
 
 }

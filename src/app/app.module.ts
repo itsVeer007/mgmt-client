@@ -87,6 +87,7 @@ import { AddNewDeviceComponent } from './main-dashboard/add-new-device/add-new-d
 import { GeneralComponent } from './components/general/general.component';
 import { MailComponent } from './mail/mail.component';
 import { EditFormComponent } from './utilities/edit-form/edit-form.component';
+import { EditCameraComponent } from './components/cameras/edit-camera/edit-camera.component';
 
 
 
@@ -161,6 +162,7 @@ import { EditFormComponent } from './utilities/edit-form/edit-form.component';
     NewAdvertisementComponent,
     AddNewAdvertisementComponent,
     AddNewRuleComponent,
+    EditCameraComponent,
     NewDeviceComponent,
     GeneralComponent,
     MailComponent,

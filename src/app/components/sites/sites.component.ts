@@ -7,6 +7,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { AlertService } from 'src/services/alert.service';
 import { UserService } from 'src/services/user.service';
 import { EditFormComponent } from 'src/app/utilities/edit-form/edit-form.component';
+import { EditCameraComponent } from '../cameras/edit-camera/edit-camera.component';
 
 
 @Component({
@@ -68,19 +69,22 @@ export class SitesComponent implements OnInit {
   cameras: any = [];
   getCamerasForSiteId(data: any) {
     this.currentItem = data;
-    this.dialog.open(this.viewCamerasDialog)
-    this.siteSer.getCamerasForSiteId(data.siteId).subscribe((res: any) => {
-      this.cameras = res;
+    this.dialog.open(this.viewCamerasDialog);
+    this.siteSer.getCamerasForSiteId(data.siteId).subscribe((response: any) => {
+      this.siteSer.cameras_sub.next(response);
+      this.siteSer.cameras_sub.subscribe((res) => this.cameras = res);
     })
   }
 
   
-  @ViewChild('editCameraDialog') editCameraDialog = {} as TemplateRef<any>;
+  // @ViewChild('editCameraDialog') editCameraDialog = {} as TemplateRef<any>;
   currentCamera: any;
   cameraSelectTypes: any = ["status", "audioSpeakerType", "timezone"];
   openEditCamera(item: any) {
-    this.currentCamera = JSON.parse(JSON.stringify(item));
-    this.dialog.open(this.editCameraDialog);
+    // this.currentCamera = JSON.parse(JSON.stringify(item));
+    // this.dialog.open(this.editCameraDialog);
+    this.storageSer.current_sub.next({ type: 'site', data: item });
+    this.dialog.open(EditCameraComponent);
     // this.storageSer.edit_sub.next({objectEntries: item, selectTypes: this.cameraSelectTypes});
     // this.dialog.open(EditFormComponent)
   }
@@ -455,19 +459,6 @@ resultSite:any;
     })
     
   }
-
-  // currentItem: any;
-  // @ViewChild('viewCamerasDialog') viewCamerasDialog = {} as TemplateRef<any>;
-  // cameras: any = [];
-  // getCamerasForSiteId(data: any) {
-  //   console.log(data);
-  //   this.currentItem = data
-  //   this.dialog.open(this.viewCamerasDialog)
-  //   this.siteSer.getCamerasForSiteId(data.siteId).subscribe((res: any) => {
-  //     console.log(res);
-  //     this.cameras = res;
-  //   })
-  // }
 }
 
 
