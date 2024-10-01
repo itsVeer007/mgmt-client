@@ -49,21 +49,19 @@ export class SiteService {
   }
 
 
-    gettimeZones() {
-      return this.http.get("assets/JSON/timezones.json");
-    }
+  gettimeZones() {
+    return this.http.get("assets/JSON/timezones.json");
+  }
 
-    getSiteFullDetails(payload:any) {
-      let url =`${this.baseUrl}/sites/getSiteFullDetails_1_0/${payload.siteId}`;
-      return this.http.get(url)
-    }
+  getSiteFullDetails(payload:any) {
+    let url =`${this.baseUrl}/sites/getSiteFullDetails_1_0/${payload.siteId}`;
+    return this.http.get(url)
+  }
 
-    updateSiteDetails(payload:any) {
-      let url =`${this.baseUrl}/sites/updateSiteDetails_1_0/${payload.siteId}`;
-      return this.http.put(url,payload)
-    }
-  
-
+  updateSiteDetails(payload:any) {
+    let url =`${this.baseUrl}/sites/updateSiteDetails_1_0/${payload.siteId}`;
+    return this.http.put(url,payload)
+  }
 
   // getCamerasForSiteId(payload?: any) {
   //   console.log(payload)
@@ -82,9 +80,6 @@ export class SiteService {
     let url = this.baseUrl + '/sites/getEngineerdetails_1_0/' + `${id}`;
     return this.http.get(url);
   }
-
-
-
 
   getCentralbox(payload: any) {
     let url = `${this.baseUrl}/centralBox/getCentralBox_1_0/${payload.siteId}` ;

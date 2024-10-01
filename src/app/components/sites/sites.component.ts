@@ -154,11 +154,9 @@ export class SitesComponent implements OnInit {
   getSitesListForUserName() {
     this.showLoader = true;
     this.siteSer.getSitesListForUserName().subscribe((res: any) => {
-      // console.log(res);
       this.showLoader = false;
       if(res?.Status == 'Success') {
-        // this.final = res.sites.sort((a: any, b: any) => a.siteName < b.siteName ? -1 : a.siteName > b.siteName ? 1 : 0);
-        this.tableData = res.sites.sort((a: any, b: any) => a.siteName < b.siteName ? -1 : a.siteName > b.siteName ? 1 : 0);
+        this.tableData = res.sites;
         this.newTableData = this.tableData;
       }
       }, (err: any) => {

@@ -112,7 +112,7 @@
       </thead>
 
       <tbody *ngIf="!showLoader">
-        <tr *ngFor="let cust of userTableData | search : searchText; let i = index">
+        <tr *ngFor="let cust of userTableData | orderBy: 'User_Name' | search : searchText; let i = index">
           <!-- <td>
             <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="cust.selected" (change)="
             checkIfAllSelected();
