@@ -100,40 +100,40 @@ export class AddNewSiteComponent implements OnInit {
 
 
   /* searches */
-  siteSearch: any;
-  countrySearch:any
-  stateSearch:any;
-  districtSearch:any;
-  timeSearch:any
-  siteNg: any = 'All'
+  countrySearch: any;
+  stateSearch: any;
+  districtSearch: any;
+  timeSearch: any;
 
   searchCountry(event: any) {
     this.countrySearch = (event.target as HTMLInputElement).value
-  } 
+  }
+  
   searchState(event: any) {
     this.stateSearch = (event.target as HTMLInputElement).value
   } 
   
-  // searchDistrict(event: any) {
-  //   this.districtSearch = (event.target as HTMLInputElement).value
-  // } 
+  searchDistrict(event: any) {
+    this.districtSearch = (event.target as HTMLInputElement).value
+  } 
   
-  // searchTime(event: any) {
-  //   this.timeSearch = (event.target as HTMLInputElement).value
-  // } 
+  searchTime(event: any) {
+    this.timeSearch = (event.target as HTMLInputElement).value
+  } 
 
-  searchTime(event: Event) {
-    const input = event.target as HTMLInputElement;
-    this.timeZones = this.timeZones.filter((timeZone:any) =>
-      timeZone.toLowerCase().includes(input.value.toLowerCase())
-    );
-  }
-  searchDistrict(event: Event) {
-    const input = event.target as HTMLInputElement;
-    this.cityList = this.cityList.filter((cityList:any) =>
-      cityList.toLowerCase().includes(input.value.toLowerCase())
-    );
-  }
+  // searchTime(event: Event) {
+  //   const input = event.target as HTMLInputElement;
+  //   this.timeZones = this.timeZones.filter((timeZone:any) =>
+  //     timeZone.toLowerCase().includes(input.value.toLowerCase())
+  //   );
+  // }
+
+  // searchDistrict(event: Event) {
+  //   const input = event.target as HTMLInputElement;
+  //   this.cityList = this.cityList.filter((cityList:any) =>
+  //     cityList.toLowerCase().includes(input.value.toLowerCase())
+  //   );
+  // }
   
   verticals: any;
   onMetadataChange() {

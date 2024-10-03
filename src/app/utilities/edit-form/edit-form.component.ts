@@ -18,26 +18,32 @@ export class EditFormComponent {
   ngOnInit(): void {
     this.convert();
   }
-
-  getMetaType(data: any):any {
-    let x = this.storageSer.get('metaData');
-    return x.filter((item: any) => item.type === data);
-  }
   
   arrayOfObjs: Array<any> = new Array();
   convert(): void {
-    let fields;
+    let fields: any;
     this.storageSer.edit_sub.subscribe({
       next: (res) => {
         fields = Object.entries(res.objectEntries).reduce((acc: any, [key, value]) => {
           acc.push({ key, value });
           return acc;
         }, []);
-
+        
         fields.forEach((item: any) => {
-          if(res.selectTypes.includes(item.key)) {
-            item.inputType = 'select';
-          }
+          let fieldKeys = Object.values(item);
+          res.selectTypes.forEach((val: any, i: any) => {
+            let typeKeys = Object.values(val);
+
+            fieldKeys.forEach((el: any) => {
+              if(typeKeys.includes(el)) {
+                item.inputType = 'select';
+                item.options = res.selectTypes[i].data[0].metadata
+              }
+            })
+          });
+          // if(res.selectTypes.includes(item)) {
+          //   item.inputType = 'select';
+          // }
           this.arrayOfObjs.push(item);
         });
         console.log(this.arrayOfObjs);
@@ -49,9 +55,10 @@ export class EditFormComponent {
     let fields: any = [];
     this.arrayOfObjs.forEach((item: any) => {
       delete item.inputType;
-      fields.push(item)
+      delete item.options;
+      fields.push(item);
     });
-    console.log(fields)
+    console.log(fields);
 
 
     // let y = this.arrayOfObjs.reduce((acc: any, curr: any) => {

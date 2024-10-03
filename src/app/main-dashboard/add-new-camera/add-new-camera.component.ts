@@ -89,7 +89,7 @@ export class AddNewCameraComponent {
       unitId: new FormControl('', Validators.required),
       noOfCameras: new FormControl('', Validators.required),
       timelapse: new FormControl('F'),
-      s3_server_host: new FormControl(2),
+      s3_server_host: new FormControl('2'),
       snapshotUrl: new FormControl(''),
       camera_config_url: new FormControl('')
     })

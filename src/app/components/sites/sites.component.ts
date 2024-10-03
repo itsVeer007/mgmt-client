@@ -8,6 +8,7 @@ import { AlertService } from 'src/services/alert.service';
 import { UserService } from 'src/services/user.service';
 import { EditFormComponent } from 'src/app/utilities/edit-form/edit-form.component';
 import { EditCameraComponent } from '../cameras/edit-camera/edit-camera.component';
+import { MetadataService } from 'src/services/metadata.service';
 
 
 @Component({
@@ -24,7 +25,8 @@ export class SitesComponent implements OnInit {
     private storageSer: StorageService,
     private fb:FormBuilder,
     private alertSer: AlertService,
-    private userSer: UserService
+    private userSer: UserService,
+    private metaSer: MetadataService
   ) { }
 
   tableData: any = [];
@@ -76,15 +78,35 @@ export class SitesComponent implements OnInit {
     })
   }
 
+  getMetadataByType(data: any):any {
+    let metaData: any = this.storageSer.get('metaData');
+    return metaData.filter((item: any) => item.type === data);
+  }
+
   
   // @ViewChild('editCameraDialog') editCameraDialog = {} as TemplateRef<any>;
   currentCamera: any;
-  cameraSelectTypes: any = ["status", "audioSpeakerType", "timezone"];
+  cameraSelectTypes: any = [
+    {
+      label: "status",
+      data: this.getMetadataByType(4)
+    },
+    {
+      label: "audioSpeakerType",
+      data: this.getMetadataByType(3)
+    },
+    {
+      label: "timezone",
+      data: this.getMetadataByType(4)
+    }
+  ];
   openEditCamera(item: any) {
     // this.currentCamera = JSON.parse(JSON.stringify(item));
     // this.dialog.open(this.editCameraDialog);
+
     this.storageSer.current_sub.next({ type: 'site', data: item });
     this.dialog.open(EditCameraComponent);
+
     // this.storageSer.edit_sub.next({objectEntries: item, selectTypes: this.cameraSelectTypes});
     // this.dialog.open(EditFormComponent)
   }

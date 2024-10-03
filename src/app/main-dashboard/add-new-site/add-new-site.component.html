@@ -85,20 +85,21 @@
             <div class="col-lg-4">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Time Zone</mat-label>
-                <input matInput [matAutocomplete]="timeZone" (keydown)="searchTime($event)"  formControlName="timezone">
+                <input matInput [matAutocomplete]="timeZone" (keyup)="searchTime($event)" formControlName="timezone">
                 <button matSuffix mat-icon-button>
                   <mat-icon>arrow_drop_down</mat-icon>
                 </button>
                 <mat-autocomplete #timeZone="matAutocomplete">
-                  <mat-option *ngFor="let time of timeZones " [value]="time">{{ time }}</mat-option>
+                  <mat-option *ngFor="let time of timeZones | search: timeSearch" [value]="time">{{ time }}</mat-option>
                 </mat-autocomplete>
                 <mat-error>*required</mat-error>
               </mat-form-field>
             </div>
+
             <div class="col-lg-4">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Select Country</mat-label>
-                <input matInput [matAutocomplete]="country" (keyup)="searchCountry($event)"  formControlName="country">
+                <input matInput [matAutocomplete]="country" (keyup)="searchCountry($event)" formControlName="country">
                 <button matSuffix mat-icon-button>
                   <mat-icon>arrow_drop_down</mat-icon>
                 </button>
@@ -126,7 +127,7 @@
             <div class="col-lg-4">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Select District</mat-label>
-                <input matInput  [matAutocomplete]="district" (input)="searchDistrict($event)"   formControlName="district">
+                <input matInput  [matAutocomplete]="district" (keyup)="searchDistrict($event)"   formControlName="district">
                 <button matSuffix mat-icon-button>
                   <mat-icon>arrow_drop_down</mat-icon>
                 </button>

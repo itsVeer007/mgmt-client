@@ -37,7 +37,7 @@ export class EditCameraComponent implements OnInit {
   updateCamera() {
     if(this.type === 'camera') return;
     this.currentCamera.videoServerName = this.currentCamera.httpUrl;
-    delete this.currentCamera.httpUrl;
+    // delete this.currentCamera.httpUrl;
     this.siteSer.updateCamera(this.currentCamera).subscribe((res: any) => {
       if(res.statusCode == 200) {
         this.getCamerasForSiteId(this.currentCamera);

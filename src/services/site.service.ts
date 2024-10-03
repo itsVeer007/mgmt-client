@@ -94,14 +94,15 @@ export class SiteService {
   }
 
   createCamera(payload: any){
-    let url = `${this.baseUrl}/camera/addCamera_1_0`;
-    // let url = `http://192.168.0.217:8000/camera/addCamera_1_0`;
+    // let url = `${this.baseUrl}/camera/addCamera_1_0`;
+    let url = `http://192.168.0.217:8000/camera/addCamera_1_0`;
     return this.http.post(url, payload)
   }
 
   updateCamera(payload: any){
-    let url = `${this.baseUrl}/camera/updateCameraData_1_0/${payload.cameraId}`;
-    // let url = `http://192.168.0.217:8000/camera/updateCameraData_1_0/${pay4load.cameraId}`;
+    // let url = `${this.baseUrl}/camera/updateCameraData_1_0/${payload.cameraId}`;
+    let url = `http://192.168.0.217:8000/camera/updateCameraData_1_0/${payload.cameraId}`;
+    // delete payload.httpUrl;
     return this.http.put(url, payload)
   }
 
