@@ -64,7 +64,7 @@ export class AddNewCameraComponent {
       width: new FormControl(null),
       height: new FormControl(null),
       fps: new FormControl(0),
-      HLSUrl: new FormControl(''),
+      hlsTunnel: new FormControl(''),
       ptz: new FormControl('F'),
       priority: new FormControl(''),
       active: new FormControl(''),
@@ -116,8 +116,10 @@ export class AddNewCameraComponent {
 
   cameras: any = [];
   getCamerasForSiteId(data: any) {
+    this.showLoader = true;
     this.siteSer.getCamerasForSiteId(data.siteId).subscribe((res: any) => {
       // console.log(res);
+      this.showLoader = false;
       this.cameras = res;
       this.addCamera(this.createCamera.value)
     })
@@ -178,15 +180,15 @@ export class AddNewCameraComponent {
 
 
     for(let i = this.cameras.length; i < (data.noOfCameras + this.cameras.length); i++) {
-      let index = (i + 1).toString().padStart(2, '0');
-      let index1;
+      let initialIndex = (i + 1).toString().padStart(2, '0');
+      let finalIndex;
       if(i < 9) {
-        index1 = (i + 1).toString().padStart(2, 'C');
+        finalIndex = (i + 1).toString().padStart(2, 'C');
       } else {
-        index1 = (i + 1).toString().padStart(3, 'C');
+        finalIndex = (i + 1).toString().padStart(3, 'C');
       }
-      let x = `Camera ${index}`;
-      let y = `${this.createCamera.value.unitId}${index1}`;
+      let x = `Camera ${initialIndex}`;
+      let y = `${this.createCamera.value.unitId}${finalIndex}`;
 
       this.camList.push({
         cameraId: y,
@@ -197,7 +199,7 @@ export class AddNewCameraComponent {
         width: this.createCamera.value.width,
         height: this.createCamera.value.height,
         fps: this.createCamera.value.fps,
-        HLSUrl: this.createCamera.value.HLSUrl,
+        hlsTunnel: this.createCamera.value.hlsTunnel,
         indexNo: this.createCamera.value.indexNo,
         centralBoxId: this.centeralBoxFrom?.centralBoxId,
         ptz: this.createCamera.value.ptz,
@@ -221,21 +223,24 @@ export class AddNewCameraComponent {
         monitoring: this.createCamera.value.monitoring,
         unitId: this.createCamera.value.unitId,
         noOfCameras: this.createCamera.value.noOfCameras,
-        timelapse:this.createCamera.value.timelapse,
-        s3_server_host:this.createCamera.value.s3_server_host,
-        snapshotUrl:this.createCamera.value.snapshotUrl,
-        camera_config_url:this.createCamera.value.camera_config_url
+        timelapse: this.createCamera.value.timelapse,
+        s3_server_host: this.createCamera.value.s3_server_host,
+        snapshotUrl: this.createCamera.value.snapshotUrl,
+        camera_config_url: this.createCamera.value.camera_config_url
       });
     }
   }
 
+  btnLoader: any = null;
+  showLoader: boolean = false;
   submit(data:any, event: any) {
     if(!this.createCamera.valid) return;
+
+    event.target.disabled = true;
+    event.target.nextElementSibling.disabled = true;
     this.siteSer.createCamera(data).subscribe((res:any) => {
       if(res.statusCode === 200){
-        event.target.disabled = true;
-        event.target.nextElementSibling.disabled = true;
-        this.alertSer.snackSuccess(res.message);
+        this.alertSer.success(res.message);
       } else{
         this.alertSer.error(res.message)
       }
@@ -248,8 +253,7 @@ export class AddNewCameraComponent {
     this.siteSer.createCamera(this.currentItem).subscribe((res:any) =>{
       if(res.statusCode === 200){
         this.alertSer.success(res.message);
-      }
-      else{
+      } else{
         this.alertSer.error(res.message);
       }
     }, (err: any) => {

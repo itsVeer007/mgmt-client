@@ -21,7 +21,6 @@ export class EditCameraComponent implements OnInit {
   ngOnInit(): void {
     this.storageSer.current_sub.subscribe({
       next: (res: any) => {
-        console.log(res)
         this.type = res.type;
         this.currentCamera = res.data;
       }

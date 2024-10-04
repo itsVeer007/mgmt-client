@@ -172,3 +172,8 @@
   {
     margin-right: 0px;
   }
+
+  .spinner-border {
+    height: 10px !important;
+    width: 10px !important;
+  }

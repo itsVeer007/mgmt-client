@@ -76,7 +76,7 @@
           <div class="col-lg-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>HLS URL</mat-label>
-              <input matInput formControlName="HLSUrl">
+              <input matInput formControlName="hlsTunnel">
               <mat-error>*required</mat-error>
             </mat-form-field>
           </div>
@@ -188,7 +188,7 @@
               <td>{{cam?.displayName}}</td>
               <td>{{cam?.rtspUrl}}</td>
               <td>{{cam?.videoServerName}}</td>
-              <td>{{cam?.HLSUrl}}</td>
+              <td>{{cam?.hlsTunnel}}</td>
               <td>{{cam?.audioUrl}}</td>
               <td>{{cam?.snapshotUrl}}</td>
               <td>{{cam?.camera_config_url}}</td>
@@ -206,8 +206,9 @@
           </tbody>
         </table>
       </div>
+      <div *ngIf="showLoader" class="text-center fw-bold">Loading...</div>
 
-      <div class="text-center">
+      <div class="text-center" *ngIf="camList.length !== 0">
         <button class="btn btn-dark my-2" (click)="closeCamera()">Done</button>
       </div>
     </div>

@@ -85,26 +85,25 @@
             <div class="col-lg-4">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Time Zone</mat-label>
-                <input matInput [matAutocomplete]="timeZone" (keyup)="searchTime($event)" formControlName="timezone">
+                <input matInput [matAutocomplete]="timeZone" formControlName="timezone">
                 <button matSuffix mat-icon-button>
                   <mat-icon>arrow_drop_down</mat-icon>
                 </button>
                 <mat-autocomplete #timeZone="matAutocomplete">
-                  <mat-option *ngFor="let time of timeZones | search: timeSearch" [value]="time">{{ time }}</mat-option>
+                  <mat-option *ngFor="let time of timeZones | search: createSite.value.timezone" [value]="time.value">{{ time.value }}</mat-option>
                 </mat-autocomplete>
                 <mat-error>*required</mat-error>
               </mat-form-field>
             </div>
-
             <div class="col-lg-4">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Select Country</mat-label>
-                <input matInput [matAutocomplete]="country" (keyup)="searchCountry($event)" formControlName="country">
+                <input matInput [matAutocomplete]="country" formControlName="country">
                 <button matSuffix mat-icon-button>
                   <mat-icon>arrow_drop_down</mat-icon>
                 </button>
                 <mat-autocomplete #country="matAutocomplete">
-                  <mat-option *ngFor="let country of countryList | search: countrySearch" [value]="country.countryName" (click)="filterState(country.countryName)">
+                  <mat-option *ngFor="let country of countryList | search: createSite.value.country" [value]="country.countryName" (click)="filterState(country.countryName)">
                     {{ country.countryName }}
                   </mat-option>
                 </mat-autocomplete>
@@ -114,12 +113,12 @@
             <div class="col-lg-4">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Select State</mat-label>
-                <input matInput  [matAutocomplete]="state" (keyup)="searchState($event)"  formControlName="state">
+                <input matInput  [matAutocomplete]="state" formControlName="state">
                 <button matSuffix mat-icon-button>
                   <mat-icon>arrow_drop_down</mat-icon>
                 </button>
                 <mat-autocomplete #state="matAutocomplete">
-                  <mat-option *ngFor="let state of stateList | search: stateSearch" [value]="state.stateName" (click)="filterCity(state.stateName)">{{ state.stateName }}</mat-option>
+                  <mat-option *ngFor="let state of stateList | search: createSite.value.state" [value]="state.stateName" (click)="filterCity(state.stateName)">{{ state.stateName }}</mat-option>
                 </mat-autocomplete>
                 <mat-error>*required</mat-error>
               </mat-form-field>
@@ -127,12 +126,12 @@
             <div class="col-lg-4">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Select District</mat-label>
-                <input matInput  [matAutocomplete]="district" (keyup)="searchDistrict($event)"   formControlName="district">
+                <input matInput  [matAutocomplete]="district" formControlName="district">
                 <button matSuffix mat-icon-button>
                   <mat-icon>arrow_drop_down</mat-icon>
                 </button>
                 <mat-autocomplete #district="matAutocomplete">
-                  <mat-option *ngFor="let city of cityList " [value]="city">{{ city }}</mat-option>
+                  <mat-option *ngFor="let city of cityList | search: createSite.value.district" [value]="city">{{ city }}</mat-option>
                 </mat-autocomplete>
               </mat-form-field>
             </div>

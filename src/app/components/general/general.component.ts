@@ -38,7 +38,7 @@ export class GeneralComponent {
   ngOnInit(): void {
     this.user = this.storageSer.get('user');
     this.getSitesData()
-    this.listDeviceInfo()
+    // this.listDeviceInfo()
 
     // this.getSitesListForUserName();
     // this.getStatus();
@@ -103,7 +103,9 @@ viewData:any
     this.siteId == 'All' ? siteId = null : siteId = this.siteId;
     this.deviceId == 'All' ? deviceId = null : deviceId = this.deviceId;
     this.timeZone == 'All' ? timeZone = null : timeZone = this.timeZone;
+    this.showLoader = true;
       this.adver.getSitesData({siteId:siteId, deviceId:deviceId ,timeZone:timeZone }).subscribe((res:any)=> {
+        this.showLoader = false;
         if(res.status === 'Success') {
           this.newgetSitesDataForSite = res.siteDetails
           // this.newgetSitesDataForSite = this.camData.flatMap((item:any)=>item.cameras)
