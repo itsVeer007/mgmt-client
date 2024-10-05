@@ -84,7 +84,6 @@ export class SitesComponent implements OnInit {
   }
 
   
-  // @ViewChild('editCameraDialog') editCameraDialog = {} as TemplateRef<any>;
   currentCamera: any;
   cameraSelectTypes: any = [
     {
@@ -101,9 +100,6 @@ export class SitesComponent implements OnInit {
     }
   ];
   openEditCamera(item: any) {
-    // this.currentCamera = JSON.parse(JSON.stringify(item));
-    // this.dialog.open(this.editCameraDialog);
-
     this.storageSer.current_sub.next({ type: 'site', data: item });
     this.dialog.open(EditCameraComponent);
 
@@ -113,44 +109,6 @@ export class SitesComponent implements OnInit {
 
 
   updateCamera() {
-    // let isHttps: boolean = this.currentCamera.httpUrl.startsWith('https');
-    // let isHttp: boolean = this.currentCamera.httpUrl.startsWith('http');
-    // let isRtsp: boolean = this.currentCamera.rtspUrl.startsWith('rtsp');
-    // let rtsp: any = this.currentCamera.rtspUrl.split('@');
-    // let webrtsp: any = this.currentCamera.httpUrl.split('/');
-    // if(isHttps) {
-    //   if(this.currentCamera.httpUrl) {
-    //     this.currentCamera.httpUrl = this.currentCamera.httpUrl.slice(8);
-    //   }
-    //   if(this.currentCamera.audiUrl) {
-    //     this.currentCamera.audiUrl = this.currentCamera.audiUrl.slice(8);
-    //   }
-    //   if(this.currentCamera.hlsTunnel) {
-    //     this.currentCamera.hlsTunnel = this.currentCamera.hlsTunnel.slice(7);
-    //   }
-    // } else if(isHttp) {
-    //   if(this.currentCamera.httpUrl) {
-    //     this.currentCamera.httpUrl = this.currentCamera.httpUrl.slice(7);
-    //   }
-    //   if(this.currentCamera.audiUrl) {
-    //     this.currentCamera.audiUrl = this.currentCamera.audiUrl.slice(7);
-    //   }
-    //   if(this.currentCamera.hlsTunnel) {
-    //     this.currentCamera.hlsTunnel = this.currentCamera.hlsTunnel.slice(7);
-    //   }
-    // }
-    // if(isRtsp) {
-    //   if(this.currentCamera.rtspUrl) {
-    //     this.currentCamera.rtspUrl = rtsp[rtsp.length - 1];
-    //   }
-    // }
-
-    // if(isHttps) {
-    //   if(this.currentCamera.httpUrl) {
-    //     this.currentCamera.httpUrl = webrtsp[2];
-    //   }
-    // }
-
     this.currentCamera.videoServerName = this.currentCamera.httpUrl;
     delete this.currentCamera.httpUrl;
     this.siteSer.updateCamera(this.currentCamera).subscribe((res:any) => {
@@ -282,7 +240,7 @@ export class SitesComponent implements OnInit {
       this.showInstallation = true
     }
     if(value == 'camera') {
-      this.showCamera = true
+      this.showCamera = true;
       this.currentItem1 = data;
     }
   }

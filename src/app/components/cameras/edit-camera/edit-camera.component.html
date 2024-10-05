@@ -82,6 +82,12 @@
   </div>
   <div class="col-lg-6">
     <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Live Restart URL</mat-label>
+      <input matInput [(ngModel)]="currentCamera.liveRestartUrl">
+    </mat-form-field>
+  </div>
+  <div class="col-lg-6">
+    <mat-form-field appearance="outline" class="w-100">
       <mat-label>Config URL</mat-label>
       <input matInput [(ngModel)]="currentCamera.camera_config_url">
     </mat-form-field>

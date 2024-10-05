@@ -14,17 +14,17 @@ import { EditCameraComponent } from 'src/app/components/cameras/edit-camera/edit
   selector: 'app-add-new-camera',
   templateUrl: './add-new-camera.component.html',
   styleUrls: ['./add-new-camera.component.css'],
-  animations:[
+  animations: [
     trigger("inOutPaneAnimation", [
       transition(":enter", [
-        style({ opacity: 0, transform: "translateX(100%)" }), //apply default styles before animation starts
+        style({ opacity: 0, transform: "translateX(100%)" }),
         animate(
           "500ms ease-in-out",
           style({ opacity: 1, transform: "translateX(0)" })
         )
       ]),
       transition(":leave", [
-        style({ opacity: 1, transform: "translateX(0)" }), //apply default styles before animation starts
+        style({ opacity: 1, transform: "translateX(0)" }),
         animate(
           "500ms ease-in-out",
           style({ opacity: 0, transform: "translateX(100%)" })
@@ -38,38 +38,37 @@ export class AddNewCameraComponent {
   @Input() currentSiteFrom: any;
   @Input() centeralBoxFrom: any;
   @Output() newItemEvent = new EventEmitter<boolean>();
-  // http: any;
   user: any;
 
-  constructor(private router: Router,
-     private siteSer: SiteService, 
-     private fb:FormBuilder,
-      private storageService:StorageService,
-       private alertSer:AlertService,
-       private http:HttpClient,
-       public dialog: MatDialog,
-      ) { }
-  
+  constructor(
+    private router: Router,
+    private siteSer: SiteService,
+    private fb: FormBuilder,
+    private storageService: StorageService,
+    private alertSer: AlertService,
+    public dialog: MatDialog,
+  ) { }
+
   createCamera!: FormGroup;
 
-  siteData:any=[]
+  siteData: any = []
   ngOnInit(): void {
-    this.siteData= this.storageService.get("siteIds"); 
-  
-    this.createCamera=this.fb.group({
+    this.siteData = this.storageService.get("siteIds");
+
+    this.createCamera = this.fb.group({
       name: new FormControl(''),
       rtspUrl: new FormControl(''),
-      userName: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.required),
+      userName: new FormControl('admin', Validators.required),
+      password: new FormControl('123456', Validators.required),
       width: new FormControl(null),
       height: new FormControl(null),
       fps: new FormControl(0),
-      hlsTunnel: new FormControl(''),
+      hlsTunnel: new FormControl(`https://${this.centeralBoxFrom.unitId}hlslive-repo.pitunnel.com`),
       ptz: new FormControl('F'),
       priority: new FormControl(''),
       active: new FormControl(''),
       httpTunnel: new FormControl(''),
-      videoServerName: new FormControl(''),
+      videoServerName: new FormControl(`https://${this.centeralBoxFrom.unitId}live-repo.pitunnel.com`),
       portNo: new FormControl(0),
       centralBoxId: new FormControl(''),
       httpPortNo: new FormControl(0),
@@ -84,15 +83,16 @@ export class AddNewCameraComponent {
       eventsOnCPE: new FormControl(''),
       eventsServerIp: new FormControl(''),
       audioSpeakerType: new FormControl(''),
-      audioUrl: new FormControl(''),
+      audioUrl: new FormControl(`https://${this.centeralBoxFrom.unitId}audio-repo.pitunnel.com`),
       monitoring: new FormControl('T'),
-      unitId: new FormControl('', Validators.required),
+      unitId: new FormControl(this.centeralBoxFrom.unitId, Validators.required),
       noOfCameras: new FormControl('', Validators.required),
       timelapse: new FormControl('F'),
       s3_server_host: new FormControl('2'),
-      snapshotUrl: new FormControl(''),
-      camera_config_url: new FormControl('')
-    })
+      liveRestartUrl: new FormControl(`https://${this.centeralBoxFrom.unitId}liverestart-repo.pitunnel.com`),
+      camera_config_url: new FormControl(`https://${this.centeralBoxFrom.unitId}camconfig-repo.pitunnel.com`)
+    });
+
   }
 
   closeCamera() {
@@ -115,6 +115,7 @@ export class AddNewCameraComponent {
   }
 
   cameras: any = [];
+  showLoader: boolean = false;
   getCamerasForSiteId(data: any) {
     this.showLoader = true;
     this.siteSer.getCamerasForSiteId(data.siteId).subscribe((res: any) => {
@@ -122,14 +123,13 @@ export class AddNewCameraComponent {
       this.showLoader = false;
       this.cameras = res;
       this.addCamera(this.createCamera.value)
+    }, (err: any) => {
+      this.showLoader = false;
     })
   }
 
-  // @ViewChild('editCameraDialog') editCameraDialog = {} as TemplateRef<any>;
   currentItem: any
   openEditPopup(item: any) {
-    // this.currentItem = item;
-    // this.dialog.open(this.editCameraDialog);
     this.storageService.current_sub.next({ type: 'camera', data: item });
     this.dialog.open(EditCameraComponent);
   }
@@ -137,52 +137,10 @@ export class AddNewCameraComponent {
   camList: any = [];
   addCamera(data: any) {
     this.camList = [];
-    // let camIndex: number;
-    // if(this.cameras.length === 0) {
-    //   camIndex = 0;
-    // } else {
-    //   camIndex = this.cameras.length;
-    // }
-
-
-    // let isHttps: boolean = data.videoServerName.startsWith('https');
-    // let isHttp: boolean = data.videoServerName.startsWith('http');
-    // let isRtsp: boolean = data.rtspUrl.startsWith('rtsp');
-    // let rtsp: any = data.rtspUrl.split('@');
-    // let webrtsp: any = data.videoServerName.split('/');
-
-    // if(isHttps) {
-    //   if(data.videoServerName) {
-    //     data.videoServerName = data.videoServerName.slice(8);
-    //   }
-    //   if(data.HLSUrl) {
-    //     data.HLSUrl = data.HLSUrl.slice(8);
-    //   }
-
-    //   if(data.videoServerName) {
-    //     data.videoServerName = webrtsp[2];
-    //   }
-    // } else if(isHttp){
-    //   if(data.videoServerName) {
-    //     data.videoServerName = data.videoServerName.slice(7);
-    //   }
-    //   if(data.HLSUrl) {
-    //     data.HLSUrl = data.HLSUrl.slice(7);
-    //   }
-    // }
-
-    // if(isRtsp) {
-    //   if(data.rtspUrl) {
-    //     data.rtspUrl = data.rtspUrl.slice(7);
-    //     data.rtspUrl = rtsp[rtsp.length - 1];
-    //   }
-    // }
-
-
-    for(let i = this.cameras.length; i < (data.noOfCameras + this.cameras.length); i++) {
+    for (let i = this.cameras.length; i < (data.noOfCameras + this.cameras.length); i++) {
       let initialIndex = (i + 1).toString().padStart(2, '0');
       let finalIndex;
-      if(i < 9) {
+      if (i < 9) {
         finalIndex = (i + 1).toString().padStart(2, 'C');
       } else {
         finalIndex = (i + 1).toString().padStart(3, 'C');
@@ -225,35 +183,34 @@ export class AddNewCameraComponent {
         noOfCameras: this.createCamera.value.noOfCameras,
         timelapse: this.createCamera.value.timelapse,
         s3_server_host: this.createCamera.value.s3_server_host,
-        snapshotUrl: this.createCamera.value.snapshotUrl,
+        liveRestartUrl: this.createCamera.value.liveRestartUrl,
         camera_config_url: this.createCamera.value.camera_config_url
       });
     }
   }
 
   btnLoader: any = null;
-  showLoader: boolean = false;
-  submit(data:any, event: any) {
-    if(!this.createCamera.valid) return;
+  submit(data: any, event: any) {
+    if (!this.createCamera.valid) return;
 
     event.target.disabled = true;
     event.target.nextElementSibling.disabled = true;
-    this.siteSer.createCamera(data).subscribe((res:any) => {
-      if(res.statusCode === 200){
+    this.siteSer.createCamera(data).subscribe((res: any) => {
+      if (res.statusCode === 200) {
         this.alertSer.success(res.message);
-      } else{
-        this.alertSer.error(res.message)
+      } else {
+        this.alertSer.error(res.message);
       }
     }, (err: any) => {
-      this.alertSer.error(err.error.message)
+      this.alertSer.error(err.error.message);
     })
   }
 
   update() {
-    this.siteSer.createCamera(this.currentItem).subscribe((res:any) =>{
-      if(res.statusCode === 200){
+    this.siteSer.createCamera(this.currentItem).subscribe((res: any) => {
+      if (res.statusCode === 200) {
         this.alertSer.success(res.message);
-      } else{
+      } else {
         this.alertSer.error(res.message);
       }
     }, (err: any) => {

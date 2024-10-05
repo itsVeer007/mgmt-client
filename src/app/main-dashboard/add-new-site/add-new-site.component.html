@@ -20,15 +20,6 @@
               </mat-form-field>
             </div>
 
-            <!-- <div class="col-lg-4">
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Select Customer</mat-label>
-                <mat-select formControlName="siteName">
-                  <mat-option *ngFor="let item of siteData " [value]="item.siteId">{{item.siteName}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div> -->
-
             <div class="col-lg-4">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Site Name</mat-label>
@@ -74,14 +65,6 @@
               <p class="mb-1" >ADDRESS</p>
             </div>
 
-            <!-- <div class="col-lg-4">
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Time Zone</mat-label>
-                <mat-select formControlName="timezone">
-                  <mat-option *ngFor="let time of timeZones" [value]="time">{{ time }}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div> -->
             <div class="col-lg-4">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Time Zone</mat-label>
@@ -135,33 +118,6 @@
                 </mat-autocomplete>
               </mat-form-field>
             </div>
-
-            <!-- <div class="col-lg-4">
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Select Country</mat-label>
-                <mat-select formControlName="country">
-                  <mat-option *ngFor="let country of countryList" [value]="country.countryName" (click)="filterState(country.countryName)">{{ country.countryName }}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div> -->
-
-            <!-- <div class="col-lg-4">
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Select State</mat-label>
-                <mat-select formControlName="state">
-                  <mat-option *ngFor="let state of stateList" [value]="state.stateName" (click)="filterCity(state.stateName)">{{ state.stateName }}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div> -->
-
-            <!-- <div class="col-lg-4">
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Select District</mat-label>
-                <mat-select formControlName="district">
-                  <mat-option *ngFor="let city of cityList" [value]="city">{{ city }}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div> -->
 
             <div class="col-lg-8">
               <mat-form-field appearance="outline" class="w-100">
@@ -550,10 +506,8 @@
         </div>
         <div class="col-lg-12 text-center my-4">
           <button class="btn add-btn" (click)="submit()">Submit</button>
-          
         </div>
       </form>
     </div>
-
   </div>
 </div>

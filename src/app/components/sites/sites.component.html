@@ -228,10 +228,10 @@
       <table class="table table-hover">
         <thead>
           <tr class="form1">
-            <th>Camera Id</th>
+            <th>Camera</th>
             <!-- <th>User Name</th>
             <th>Password</th> -->
-            <th>Display Name</th>
+            <th>Name</th>
             <th>RTSP</th>
             <th>WebRTC URL</th>
             <th>HLS URL</th>
@@ -597,7 +597,7 @@
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Time Zone</mat-label>
         <mat-select [(ngModel)]="currentSite.timezone">
-          <mat-option *ngFor="let time of timeZones" [value]="time">{{ time }}</mat-option>
+          <mat-option *ngFor="let time of timeZones" [value]="time.value">{{ time.value }}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
