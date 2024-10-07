@@ -52,30 +52,26 @@ export class AddNewSiteComponent implements OnInit {
   
     this.createSite=this.fb.group({
       siteName: new FormControl('', Validators.required),
-      phoneNo: new FormControl('', Validators.required),
-      email: new FormControl('', Validators.required),
+      phoneNo: new FormControl('(844) GET-IVIS', Validators.required),
+      email: new FormControl('support@ivisecurity.com', Validators.required),
       website: new FormControl(''),
-      
-      
       busVerticalId: new FormControl(null),
       customerId: new FormControl(null),
-
       latitude: new FormControl(''),
       longitude: new FormControl(''),
-
       createdBy: new FormControl(),
       siteShortName: new FormControl('', Validators.required),
       remarks: new FormControl(''),
-      country: new FormControl('', Validators.required),
-      state: new FormControl('', Validators.required),
-      timezone: new FormControl('', Validators.required),
-      live: new FormControl(''),
-      alerts: new FormControl(''),
-      timeLapse: new FormControl(''),
-      insights: new FormControl(''),
-      advertisements: new FormControl(''),
-      safetyEscort: new FormControl(''),
-      sensors: new FormControl(''),
+      country: new FormControl('USA', Validators.required),
+      state: new FormControl('nvidia', Validators.required),
+      timezone: new FormControl('America/Los_Angeles', Validators.required),
+      live: new FormControl('T'),
+      alerts: new FormControl('T'),
+      timeLapse: new FormControl('F'),
+      insights: new FormControl('F'),
+      advertisements: new FormControl('F'),
+      safetyEscort: new FormControl('F'),
+      sensors: new FormControl('F'),
       esclLeve1: new FormControl(''),
       name: new FormControl(''),
       contactNo: new FormControl(''),
@@ -86,12 +82,13 @@ export class AddNewSiteComponent implements OnInit {
       line_1: new FormControl(''),
       line_2: new FormControl(''),
       area: new FormControl(''),
-      district: new FormControl(''),
+      district: new FormControl('Las Vegas'),
       pin: new FormControl(''),
 
-      isCheck: new FormControl(false)
+      contactCheck: new FormControl(false),
+      whatsappCheck: new FormControl(false)
+    });
 
-    })
     this.timeZones = this.timeZones;
     // console.log(this.show)
     this.onMetadataChange()
@@ -108,22 +105,21 @@ export class AddNewSiteComponent implements OnInit {
     })
   }
 
-  whNum: any;
-  copyNumber() {
-    let isChecked = this.createSite.value.isCheck;
-    let num = this.createSite.value.contactNo;
-    // this.whNum = this.createSite.value.whatsapp;
 
-    !isChecked ? this.whNum = num : this.whNum = '';
+  fillShortName(event: any) {
+    this.createSite.get('siteShortName')!.setValue(event.target.value);
   }
 
-  dotcomnum: any
-  dotcomcopyNumber() {
-    let isChecked = this.createSite.value.isCheck;
+  copyNumber() {
+    let isChecked = this.createSite.value.contactCheck;
     let num = this.createSite.value.contactNo;
-    // this.whNum = this.createSite.value.whatsapp;
+    !isChecked ? this.createSite.get('whatsapp')!.setValue(num) : this.createSite.get('whatsapp')!.setValue('');
+  }
 
-    !isChecked ? this.dotcomnum = num : this.dotcomnum = '';
+  dotcomcopyNumber() {
+    let isChecked = this.createSite.value.whatsappCheck;
+    let num = this.createSite.value.contactNo;
+    !isChecked ? this.createSite.get('dotComWorking')!.setValue(num) : this.createSite.get('dotComWorking')!.setValue('');
   }
 
   closeAddSite() {

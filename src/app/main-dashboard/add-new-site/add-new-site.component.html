@@ -23,11 +23,17 @@
             <div class="col-lg-4">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Site Name</mat-label>
-                <input matInput formControlName="siteName">
+                <input matInput formControlName="siteName" (keyup)="fillShortName($event)">
                 <mat-error>*required</mat-error>
               </mat-form-field>
             </div>
-
+            <div class="col-lg-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Site Short Name</mat-label>
+                <input matInput formControlName="siteShortName">
+                <mat-error>*required</mat-error>
+              </mat-form-field>
+            </div>
             <div class="col-lg-4">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Contact Number</mat-label>
@@ -35,7 +41,6 @@
                 <mat-error>*required</mat-error>
               </mat-form-field>
             </div>
-
             <div class="col-lg-4">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Email Id</mat-label>
@@ -43,19 +48,10 @@
                 <mat-error>*required</mat-error>
               </mat-form-field>
             </div>
-
             <div class="col-lg-4">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Website</mat-label>
                 <input matInput formControlName="website">
-              </mat-form-field>
-            </div>
-
-            <div class="col-lg-4">
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-label>Site Short Name</mat-label>
-                <input matInput formControlName="siteShortName">
-                <mat-error>*required</mat-error>
               </mat-form-field>
             </div>
           </div>
@@ -191,44 +187,48 @@
             </div>
             
             <div class="col-lg-12">
-              <div><input type="checkbox" formControlName="isCheck" (click)="copyNumber()"><span class="checkBoxSize" > Same as Conatct Number</span> </div>
+              <div class="d-flex align-items-center">
+                <input type="checkbox" formControlName="contactCheck" (click)="copyNumber()">
+                <span class="checkBoxSize ms-1">Same as Conatct Number</span>
+              </div>
             </div>
             <div class="col-lg-12 mt-2 checkMargin">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>WhatsApp</mat-label>
-                <input matInput formControlName="whatsapp" [value]="whNum">
+                <input matInput formControlName="whatsapp">
               </mat-form-field>
             </div>
 
 
             <div class="col-lg-12">
-              <div><input type="checkbox"  formControlName="isCheck" (click)="dotcomcopyNumber()"><span class="checkBoxSize" > Same as Conatct Number</span> </div>
+              <div class="d-flex align-items-center">
+                <input type="checkbox" formControlName="whatsappCheck" (click)="dotcomcopyNumber()">
+                <span class="checkBoxSize ms-1">Same as Conatct Number</span>
+              </div>
             </div>
-
             <div class="col-lg-12 mt-2 checkMargin">
               <mat-form-field appearance="outline" class="w-100">
                 <mat-label>800 Dot Com Number</mat-label>
-                <input matInput formControlName="dotComWorking" [value]="dotcomnum">
+                <input matInput formControlName="dotComWorking">
               </mat-form-field>
             </div>
-
           </div>
 
           
 
           <div class="row col-lg-12 service">
-            <div class="col-lg-12 col-md-12 col-lg-12">
+            <!-- <div class="col-lg-12 col-md-12 col-lg-12">
               <p class="mb-1">SERVICES</p>
             </div>
 
             <div class="d-flex justify-content-between checklist my-2">
               <div><input type="checkbox" formControlName="live"/> Security</div>
+              <div><input type="checkbox" formControlName="alerts"/> Alerts</div>
               <div><input type="checkbox" formControlName="advertisements"> Advertisements</div>
               <div><input type="checkbox" formControlName="timeLapse"> Timelapse</div>
               <div><input type="checkbox" formControlName="insights"/> Insights</div>
-              <div><input type="checkbox" formControlName="alerts"/> Alerts</div>
               <div><input type="checkbox" formControlName="safetyEscort"/> Safety Escort</div>
-            </div>
+            </div> -->
 
             <!-- <div class="mb-2" *ngIf="Monitoring">
               <mat-card>

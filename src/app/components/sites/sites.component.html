@@ -236,9 +236,7 @@
             <th>WebRTC URL</th>
             <th>HLS URL</th>
             <th>Audio URL</th>
-            <th>
-              Edit
-            </th>
+            <th>Edit</th>
           </tr>
         </thead>
         
@@ -247,16 +245,12 @@
               <td>{{cam.cameraId}}</td>
               <!-- <td>{{cam.userName}}</td>
               <td>{{cam.password}}</td> -->
-              <td>{{cam.name}}</td>
-              <td>{{cam.rtspUrl}}</td>
-              <td>{{cam.httpUrl}}</td>
-              <td>{{cam.hlsTunnel}}</td>
-              <td>{{cam.audioUrl}}</td>
-              <td>
-                <a class="mx-1 pointer" (click)="openEditCamera(cam)" matTooltip="Edit">
-                  <img src="assets/icons/edit.svg">
-                </a>
-              </td>
+              <td><p class="min-td">{{cam.name}}</p></td>
+              <td><p class="min-td">{{cam.rtspUrl}}</p></td>
+              <td><p class="min-td">{{cam.httpUrl}}</p></td>
+              <td><p class="min-td">{{cam.hlsTunnel}}</p></td>
+              <td><p class="min-td">{{cam.audioUrl}}</p></td>
+              <td><a class="mx-1 pointer" (click)="openEditCamera(cam)" matTooltip="Edit"><img src="assets/icons/edit.svg"></a></td>
             </tr>
         </tbody>
       </table>
@@ -476,42 +470,56 @@
   <div class="row m-0 dialog-content" *ngIf="currentSite">
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label>siteName</mat-label>
+        <mat-label>Site Name</mat-label>
         <input matInput [(ngModel)]="currentSite.siteName" >
       </mat-form-field>
     </div>
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label> phoneNo</mat-label>
+        <mat-label>Site Short Name</mat-label>
+        <input matInput [(ngModel)]="currentSite.siteShortName" >
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Unit Id</mat-label>
+        <input matInput [(ngModel)]="currentSite.unitId" >
+      </mat-form-field>
+    </div>
+
+    <div class="col-lg-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Phone No</mat-label>
         <input matInput [(ngModel)]="currentSite.phoneNo" >
       </mat-form-field>
     </div>
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label> email</mat-label>
+        <mat-label>Email</mat-label>
         <input matInput [(ngModel)]="currentSite.email" >
       </mat-form-field>
     </div>
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label> fax</mat-label>
+        <mat-label>Fax</mat-label>
         <input matInput [(ngModel)]="currentSite.fax" >
       </mat-form-field>
     </div>
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label> website</mat-label>
+        <mat-label>Website</mat-label>
         <input matInput [(ngModel)]="currentSite.website" >
       </mat-form-field>
     </div>
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label> Site Type</mat-label>
+        <mat-label>Site Type</mat-label>
         <input matInput [(ngModel)]="currentSite.siteType" >
       </mat-form-field>
     </div>
@@ -525,14 +533,14 @@
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label> Bus Vertical Id</mat-label>
+        <mat-label>Business Vertical Id</mat-label>
         <input matInput [(ngModel)]="currentSite.busVerticalId" >
       </mat-form-field>
     </div>
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label> customer Id</mat-label>
+        <mat-label>Customer Id</mat-label>
         <input matInput [(ngModel)]="currentSite.customerId" >
       </mat-form-field>
     </div>
@@ -544,38 +552,24 @@
       </mat-form-field>
     </div>
 
-    <div class="col-lg-6">
+    <!-- <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label> client Services Id</mat-label>
+        <mat-label>Client Services</mat-label>
         <input matInput [(ngModel)]="currentSite.clientServicesId" >
       </mat-form-field>
-    </div>
+    </div> -->
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label> Latitude</mat-label>
+        <mat-label>Latitude</mat-label>
         <input matInput [(ngModel)]="currentSite.latitude" >
       </mat-form-field>
     </div>
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-label> Longitude</mat-label>
+        <mat-label>Longitude</mat-label>
         <input matInput [(ngModel)]="currentSite.longitude" >
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label> Unit Id</mat-label>
-        <input matInput [(ngModel)]="currentSite.unitId" >
-      </mat-form-field>
-    </div>
-
-    <div class="col-lg-6">
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Site Short Name</mat-label>
-        <input matInput [(ngModel)]="currentSite.siteShortName" >
       </mat-form-field>
     </div>
 

@@ -31,25 +31,24 @@
       <input matInput type="number" [(ngModel)]="currentCamera.fps">
     </mat-form-field>
   </div>
-  <div class="col-lg-6">
+  <!-- <div class="col-lg-6">
     <mat-form-field appearance="outline" class="w-100">
       <mat-label>PortNo</mat-label>
       <input matInput type="number" [(ngModel)]="currentCamera.portNo">
     </mat-form-field>
-  </div>
+  </div> -->
   <div class="col-lg-6">
     <mat-form-field appearance="outline" class="w-100">
       <mat-label>HTTP PortNo</mat-label>
       <input matInput type="number" [(ngModel)]="currentCamera.httpPortNo">
     </mat-form-field>
   </div>
-  <div class="col-lg-6">
+  <!-- <div class="col-lg-6">
     <mat-form-field appearance="outline" class="w-100">
       <mat-label>Internal Port</mat-label>
       <input matInput type="number" [(ngModel)]="currentCamera.internalPort">
     </mat-form-field>
-  </div>
-
+  </div> -->
   <div class="col-lg-6">
     <mat-form-field appearance="outline" class="w-100">
       <mat-label>RTSP URL</mat-label>
@@ -95,31 +94,31 @@
 
   <div class="row">
     <div class="col-lg-6" style="font-size: 10px; font-weight: 700;">
+      <mat-radio-group class="w-50" [(ngModel)]="currentCamera.monitoring">
+        <p>Monitoring</p>
+        <mat-radio-button class="ms-3" name="monitoring" value="T">True</mat-radio-button>
+        <mat-radio-button class="ms-3" name="monitoring" value="F" checked>False</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div class="col-lg-6" style="font-size: 10px; font-weight: 700;">
+      <mat-radio-group class="w-50" [(ngModel)]="currentCamera.events">
+        <p>Events</p>
+        <mat-radio-button class="ms-3" name="events" value="T">True</mat-radio-button>
+        <mat-radio-button class="ms-3" name="events" value="F" checked>False</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div class="col-lg-6" style="font-size: 10px; font-weight: 700;">
+      <mat-radio-group class="w-50" [(ngModel)]="currentCamera.timelapse">
+        <p>Timelapse</p>
+        <mat-radio-button class="ms-3" name="timelapse" value="T">True</mat-radio-button>
+        <mat-radio-button class="ms-3" name="timelapse" value="F" checked>False</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div class="col-lg-6" style="font-size: 10px; font-weight: 700;">
         <mat-radio-group class="w-50" [(ngModel)]="currentCamera.ptz">
           <p>PTZ</p>
           <mat-radio-button class="ms-3" name="ptz" value="T">True</mat-radio-button>
           <mat-radio-button class="ms-3" name="ptz" value="F" checked>False</mat-radio-button>
-        </mat-radio-group>
-      </div>
-      <div class="col-lg-6" style="font-size: 10px; font-weight: 700;">
-        <mat-radio-group class="w-50" [(ngModel)]="currentCamera.events">
-          <p>Events</p>
-          <mat-radio-button class="ms-3" name="events" value="T">True</mat-radio-button>
-          <mat-radio-button class="ms-3" name="events" value="F" checked>False</mat-radio-button>
-        </mat-radio-group>
-      </div>
-      <div class="col-lg-6" style="font-size: 10px; font-weight: 700;">
-        <mat-radio-group class="w-50" [(ngModel)]="currentCamera.monitoring">
-          <p>Monitoring</p>
-          <mat-radio-button class="ms-3" name="monitoring" value="T">True</mat-radio-button>
-          <mat-radio-button class="ms-3" name="monitoring" value="F" checked>False</mat-radio-button>
-        </mat-radio-group>
-      </div>
-      <div class="col-lg-6" style="font-size: 10px; font-weight: 700;">
-        <mat-radio-group class="w-50" [(ngModel)]="currentCamera.timelapse">
-          <p>Timelapse</p>
-          <mat-radio-button class="ms-3" name="timelapse" value="T">True</mat-radio-button>
-          <mat-radio-button class="ms-3" name="timelapse" value="F" checked>False</mat-radio-button>
         </mat-radio-group>
       </div>
   </div>

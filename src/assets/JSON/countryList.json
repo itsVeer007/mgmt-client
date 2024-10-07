@@ -964,6 +964,15 @@
         ]
       },
       {
+        "stateName": "Nevada",
+        "cities": [
+          "Las Vegas",
+          "Carson City",
+          "Henderson",
+          "Reno"
+        ]
+      },
+      {
         "stateName": "Washington",
         "cities": [
           "Downtown Seattle",

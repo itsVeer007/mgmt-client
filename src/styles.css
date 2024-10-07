@@ -35,6 +35,13 @@ p {
   text-decoration: none;
 }
 
+.min-td {
+  width: min(100px, 150px) !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+}
+
 .changesvgcolor {
   filter: invert(21%) sepia(57%) saturate(2120%) hue-rotate(205deg) brightness(101%) contrast(103%);
 }

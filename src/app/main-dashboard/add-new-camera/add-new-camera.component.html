@@ -98,21 +98,12 @@
 
         <div class="row ml-5 mb-2">
           <div class="col-lg-6" style="font-size: 10px; font-weight: 700;">
-            <p>Timelapse</p>
-            <mat-radio-group class="w-50" formControlName="timelapse">
-              <mat-radio-button class="ms-3" name="logs" value="T">True</mat-radio-button>
-              <mat-radio-button class="ms-3" name="logs" value="F" checked>False</mat-radio-button>
+            <p>Monitoring</p>
+            <mat-radio-group class="w-50" formControlName="monitoring">
+              <mat-radio-button class="ms-3" name="monitoring" value="T">True</mat-radio-button>
+              <mat-radio-button class="ms-3" name="monitoring" value="F" checked>False</mat-radio-button>
             </mat-radio-group>
           </div>
-
-          <div class="col-lg-6" style="font-size: 10px; font-weight: 700;">
-            <p>PTZ</p>
-            <mat-radio-group class="w-50" formControlName="ptz">
-              <mat-radio-button class="ms-3" name="ptz" value="T">True</mat-radio-button>
-              <mat-radio-button class="ms-3" name="ptz" value="F" checked>False</mat-radio-button>
-            </mat-radio-group>
-          </div>
-
           <div class="col-lg-6" style="font-size: 10px; font-weight: 700;">
             <p>Events</p>
             <mat-radio-group class="w-50" formControlName="events">
@@ -120,12 +111,18 @@
               <mat-radio-button class="ms-3" name="events" value="F" checked>False</mat-radio-button>
             </mat-radio-group>
           </div>
-
           <div class="col-lg-6" style="font-size: 10px; font-weight: 700;">
-            <p>Monitoring</p>
-            <mat-radio-group class="w-50" formControlName="monitoring">
-              <mat-radio-button class="ms-3" name="monitoring" value="T">True</mat-radio-button>
-              <mat-radio-button class="ms-3" name="monitoring" value="F" checked>False</mat-radio-button>
+            <p>Timelapse</p>
+            <mat-radio-group class="w-50" formControlName="timelapse">
+              <mat-radio-button class="ms-3" name="logs" value="T">True</mat-radio-button>
+              <mat-radio-button class="ms-3" name="logs" value="F" checked>False</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div class="col-lg-6" style="font-size: 10px; font-weight: 700;">
+            <p>PTZ</p>
+            <mat-radio-group class="w-50" formControlName="ptz">
+              <mat-radio-button class="ms-3" name="ptz" value="T">True</mat-radio-button>
+              <mat-radio-button class="ms-3" name="ptz" value="F" checked>False</mat-radio-button>
             </mat-radio-group>
           </div>
         </div>
