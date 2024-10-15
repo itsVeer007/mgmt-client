@@ -75,50 +75,45 @@ export class SitesComponent implements OnInit {
     this.siteSer.getCamerasForSiteId(data.siteId).subscribe((response: any) => {
       this.siteSer.cameras_sub.next(response);
       this.siteSer.cameras_sub.subscribe((res) => this.cameras = res);
-    })
+    });
   }
-
-  getMetadataByType(data: any):any {
-    let metaData: any = this.storageSer.get('metaData');
-    return metaData.filter((item: any) => item.type === data);
-  }
-
   
   currentCamera: any;
-  cameraSelectTypes: any = [
+  dropdownFields_camera: any = [
     {
       label: "status",
-      data: this.getMetadataByType(4)
+      data: this.storageSer.getMetadataByType(4)
     },
     {
       label: "audioSpeakerType",
-      data: this.getMetadataByType(3)
+      data: this.storageSer.getMetadataByType(3)
     },
     {
       label: "timezone",
-      data: this.getMetadataByType(4)
+      data: this.storageSer.getMetadataByType(4)
     }
   ];
   openEditCamera(item: any) {
-    this.storageSer.current_sub.next({ type: 'site', data: item });
-    this.dialog.open(EditCameraComponent);
+    // this.storageSer.current_sub.next({ type: 'site', data: item });
+    // this.dialog.open(EditCameraComponent);
 
-    // this.storageSer.edit_sub.next({objectEntries: item, selectTypes: this.cameraSelectTypes});
-    // this.dialog.open(EditFormComponent)
+    this.storageSer.edit_sub.next({ data: item, dropdownData: this.dropdownFields_camera, updateUrl: 'camera/updateCameraData_1_0', getUrl: 'getCamerasForSiteId_1_0' });
+    this.dialog.open(EditFormComponent);
   }
 
 
   updateCamera() {
-    this.currentCamera.videoServerName = this.currentCamera.httpUrl;
-    delete this.currentCamera.httpUrl;
-    this.siteSer.updateCamera(this.currentCamera).subscribe((res:any) => {
-      if(res.statusCode == 200) {
-        this.getCamerasForSiteId(this.currentItem);
-        this.alertSer.success(res.message)
-      } else {
-        this.alertSer.error(res.message);
-      }
-    })
+    // this.currentCamera.videoServerName = this.currentCamera.httpUrl;
+    // delete this.currentCamera.httpUrl;
+
+    // this.siteSer.updateCamera(this.currentCamera).subscribe((res:any) => {
+    //   if(res.statusCode == 200) {
+    //     this.getCamerasForSiteId(this.currentItem);
+    //     this.alertSer.success(res.message)
+    //   } else {
+    //     this.alertSer.error(res.message);
+    //   }
+    // })
   }
 
 

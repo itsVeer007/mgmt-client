@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AlertService } from 'src/services/alert.service';
 import { MetadataService } from 'src/services/metadata.service';
 import { StorageService } from 'src/services/storage.service';
 
@@ -12,7 +13,8 @@ export class EditFormComponent {
 
   constructor(
     private storageSer: StorageService,
-    private metaSrvc: MetadataService
+    private metaSrvc: MetadataService,
+    private alertSrvc: AlertService
   ) {}
 
   ngOnInit(): void {
@@ -20,30 +22,29 @@ export class EditFormComponent {
   }
   
   arrayOfObjs: Array<any> = new Array();
+  urls: any;
   convert(): void {
     let fields: any;
     this.storageSer.edit_sub.subscribe({
       next: (res) => {
-        fields = Object.entries(res.objectEntries).reduce((acc: any, [key, value]) => {
+        this.urls = res;
+        fields = Object.entries(res.data).reduce((acc: any, [key, value]) => {
           acc.push({ key, value });
           return acc;
         }, []);
         
         fields.forEach((item: any) => {
           let fieldKeys = Object.values(item);
-          res.selectTypes.forEach((val: any, i: any) => {
+          res.dropdownData.forEach((val: any, i: any) => {
             let typeKeys = Object.values(val);
 
             fieldKeys.forEach((el: any) => {
               if(typeKeys.includes(el)) {
                 item.inputType = 'select';
-                item.options = res.selectTypes[i].data[0].metadata
+                item.options = res.dropdownData[i].data[0].metadata
               }
             })
           });
-          // if(res.selectTypes.includes(item)) {
-          //   item.inputType = 'select';
-          // }
           this.arrayOfObjs.push(item);
         });
         console.log(this.arrayOfObjs);
@@ -52,20 +53,26 @@ export class EditFormComponent {
   }
   
   update(): void {
-    let fields: any = [];
-    this.arrayOfObjs.forEach((item: any) => {
-      delete item.inputType;
-      delete item.options;
-      fields.push(item);
-    });
-    console.log(fields);
+    // let fields: any = [];
+    // this.arrayOfObjs.forEach((item: any) => {
+    //   delete item.inputType;
+    //   delete item.options;
+    //   fields.push(item);
+    // });
 
 
-    // let y = this.arrayOfObjs.reduce((acc: any, curr: any) => {
-    //   acc[curr.key] = curr.value;
-    //   return acc
-    // }, {})
-    // console.log(y);
+    let data = this.arrayOfObjs.reduce((acc: any, curr: any) => {
+      acc[curr.key] = curr.value;
+      return acc
+    }, {});
+    console.log(data);
+
+    this.storageSer.updateData(this.urls.updateUrl, data, data.cameraId).subscribe({
+      next: (res: any) => {
+        this.alertSrvc.success(res.message);
+        this.storageSer.getData(this.urls.getUrl, data.siteId).subscribe()
+      }
+    })
   }
 
 }

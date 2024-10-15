@@ -15,7 +15,7 @@ export class SiteService {
   
   constructor(private http: HttpClient, private storageSer: StorageService) { }
   
-  baseUrl = environment.siteUrl;
+  baseUrl = environment.baseUrl;
 
   // listSites() {
   //   let user: any = this.storageSer.get('user');
@@ -45,7 +45,7 @@ export class SiteService {
   getSitesListForAssign(payload: any) {
     let url = `${this.baseUrl}/getSitesListForUserName_1_0`;
     let params = new HttpParams().set('userName', payload?.User_Name);
-    return this.http.get(url, ({params: params}));
+    return this.http.get(url, {params: params});
   }
 
 

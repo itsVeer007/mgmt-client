@@ -226,6 +226,7 @@ form .add-btn:active {
   margin: 0 !important;
   padding: 10px 20px;
   width: clamp(20vw, 50vw, 80vw);
+  height: clamp(20vh, 75vh, 100vh);
   overflow-y: auto !important;
 }
 

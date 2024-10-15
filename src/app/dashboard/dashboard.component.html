@@ -20,12 +20,12 @@
             <img src="assets/icons/dashboard.svg">
             <span>Dashboard</span>
           </a>
-          <a *ngIf="isAdmin || isSupport" class="list-group-item " [routerLink]="['./sites']" routerLinkActive="routeactive">
+          <a  class="list-group-item " [routerLink]="['./sites']" routerLinkActive="routeactive">
               <img src="assets/icons/sites.svg">
               <span>Sites</span>
           </a>
 
-          <!-- <a  *ngIf="isAdmin || isSupport" class="list-group-item " [routerLink]="['./cameras']" routerLinkActive="routeactive">
+          <!-- <a   class="list-group-item " [routerLink]="['./cameras']" routerLinkActive="routeactive">
             <img src="assets/icons/sites.svg">
             <span>Cameras</span>
         </a> -->
@@ -35,12 +35,12 @@
             <span>Users</span>
           </a>
 
-          <!-- <a *ngIf="isAdmin || isSupport" class="list-group-item " [routerLink]="['./defender']" routerLinkActive="routeactive">
+          <!-- <a  class="list-group-item " [routerLink]="['./defender']" routerLinkActive="routeactive">
             <img src="assets/icons/user-white.svg">
             <span>Defender</span>
           </a> -->
 
-          <div class="navigation" *ngIf="isAdmin || isSupport || isFr">
+          <div class="navigation">
             <ul>
               <li class="m-2 has-sub">
                 <a class="d-inline-flex align-items-center">
@@ -64,29 +64,29 @@
             </ul>
           </div>
 
-          <a *ngIf="isAdmin || isSupport" class="list-group-item " [routerLink]="['./general']" routerLinkActive="routeactive">
+          <a  class="list-group-item " [routerLink]="['./general']" routerLinkActive="routeactive">
             <img src="assets/icons/devices.svg">
             <span>General</span>
           </a>
-          <a *ngIf="isAdmin || isSupport" class="list-group-item " [routerLink]="['./new-device']" routerLinkActive="routeactive">
+          <a  class="list-group-item " [routerLink]="['./new-device']" routerLinkActive="routeactive">
             <img src="assets/icons/devices.svg">
             <span>Devices</span>
           </a>
-          <a *ngIf="isAdmin || isSupport" class="list-group-item " [routerLink]="['./new-adver']" routerLinkActive="routeactive">
+          <a  class="list-group-item " [routerLink]="['./new-adver']" routerLinkActive="routeactive">
             <img src="assets/icons/devices.svg">
             <span>Advertisemnts</span>
           </a>
 
-          <!-- <a *ngIf="isAdmin || isSupport" class="list-group-item " [routerLink]="['./devices']" routerLinkActive="routeactive">
+          <!-- <a  class="list-group-item " [routerLink]="['./devices']" routerLinkActive="routeactive">
             <img src="assets/icons/devices.svg">
             <span>Devices</span>
           </a>
-          <a *ngIf="isAdmin || isSupport" class="list-group-item " [routerLink]="['./advertisements']" routerLinkActive="routeactive">
+          <a  class="list-group-item " [routerLink]="['./advertisements']" routerLinkActive="routeactive">
             <img src="assets/icons/asset.svg">
             <span>Advertisements</span>
           </a> -->
 
-          <div class="navigation" *ngIf="isAdmin || isSupport || isFr">
+          <div class="navigation">
             <ul>
               <li class="m-2 has-sub">
                 <a class="d-inline-flex align-items-center">
@@ -125,7 +125,7 @@
             <img src="assets/icons/report.svg">
             <span>Reports</span>
           </a> -->
-          <div class="navigation" *ngIf="isAdmin || isSupport">
+          <div class="navigation" >
             <ul>
               <li class="has-sub m-2">
                 <a class="d-inline-flex align-items-center">
@@ -156,15 +156,15 @@
             </ul>
           </div>
 
-          <!-- <a *ngIf="isAdmin || isSupport" class="list-group-item " [routerLink]="['./mail']" routerLinkActive="routeactive">
+          <!-- <a  class="list-group-item " [routerLink]="['./mail']" routerLinkActive="routeactive">
             <img src="assets/icons/devices.svg">
             <span>Gmail</span>
           </a> -->
-          <!-- <a *ngIf="isAdmin || isSupport" class="list-group-item " [routerLink]="['./advertisements']" routerLinkActive="routeactive">
+          <!-- <a  class="list-group-item " [routerLink]="['./advertisements']" routerLinkActive="routeactive">
             <img src="assets/icons/asset.svg">
             <span>Advertisements</span>
           </a> -->
-          <!-- <div class="navigation" *ngIf="isAdmin || isSupport">
+          <!-- <div class="navigation" >
             <ul>
               <li class="m-2 has-sub">
                 <a><img src="assets/icons/miscellaneous.svg">Miscellaneous<span><img src="assets/icons/arrow_right.svg" alt=""></span></a>
