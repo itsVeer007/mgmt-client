@@ -94,11 +94,11 @@ export class SitesComponent implements OnInit {
     }
   ];
   openEditCamera(item: any) {
-    // this.storageSer.current_sub.next({ type: 'site', data: item });
-    // this.dialog.open(EditCameraComponent);
+    this.storageSer.current_sub.next({ type: 'site', data: item });
+    this.dialog.open(EditCameraComponent);
 
-    this.storageSer.edit_sub.next({ data: item, dropdownData: this.dropdownFields_camera, updateUrl: 'camera/updateCameraData_1_0', getUrl: 'getCamerasForSiteId_1_0' });
-    this.dialog.open(EditFormComponent);
+    // this.storageSer.edit_sub.next({ data: item, dropdownData: this.dropdownFields_camera, updateUrl: 'camera/updateCameraData_1_0', getUrl: 'getCamerasForSiteId_1_0' });
+    // this.dialog.open(EditFormComponent);
   }
 
 
