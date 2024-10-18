@@ -3,37 +3,13 @@
   <div class="col-lg-6 col-8 add-form" id="user" @inOutPaneAnimation>
     <div>
       <a class="close-main pointer" (click)="closeAddUser()"><img src="assets/icons/close_form.svg" /></a>
-      <span class="form-heading">add user</span>
+      <span class="form-heading">create user</span>
     </div>
 
     <div style="height: 70vh; overflow-y: auto;">
       <form autocomplete="off" [formGroup]="UserForm">
         <div class="row">
-          <!-- <div class="col-lg-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Select gender</mat-label>
-              <mat-select formControlName="gender" [(ngModel)]="user.genderFlag">
-                <mat-option value="M">Male</mat-option>
-                <mat-option value="F">Female</mat-option>
-              </mat-select>
-              <mat-error >Gender is required</mat-error>
-            </mat-form-field>
-          </div> -->
-          <div class="col-lg-6 mt-2">
-              <mat-form-field appearance="outline" class="w-100">
-                <mat-label>User Name</mat-label>
-                <input matInput formControlName="userName">
-                <mat-error >Name is required</mat-error>
-              </mat-form-field>
-          </div>
-          <!-- <div class="col-lg-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Password</mat-label>
-              <input matInput formControlName="password">
-              <mat-error >Password is required</mat-error>
-            </mat-form-field>
-          </div> -->
-          <div class="col-lg-6 mt-2">
+          <div class="col-lg-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>First Name</mat-label>
               <input matInput formControlName="firstName">
@@ -47,29 +23,20 @@
               <mat-error >Last name is required</mat-error>
             </mat-form-field>
           </div>
-          <div class="col-lg-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Select realm</mat-label>
-              <mat-select formControlName="realm">
-                <mat-option value="IVISUSA">IVISUSA</mat-option>
-              </mat-select>
-              <mat-error >Realm is required</mat-error>
-            </mat-form-field>
-          </div>
-          <div class="col-lg-6 mb-2">
+          <!-- <div class="col-lg-6 mb-2">
             <p>Gender</p>
             <mat-radio-group formControlName="genderFlag">
               <mat-radio-button value="M" class="me-5">Male</mat-radio-button>
               <mat-radio-button value="F">Female</mat-radio-button>
             </mat-radio-group>
-          </div>
-          <div class="col-lg-6 mb-2">
-            <p>Employee</p>
-            <mat-radio-group formControlName="employeeFlag">
-              <mat-radio-button value="T" class="me-5">Yes</mat-radio-button>
-              <mat-radio-button value="F">No</mat-radio-button>
-            </mat-radio-group>
-          </div>
+          </div> -->
+          <div class="col-lg-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>User Name</mat-label>
+              <input matInput formControlName="userName">
+              <mat-error >Name is required</mat-error>
+            </mat-form-field>
+        </div>
           <div class="col-lg-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Email Id</mat-label>
@@ -92,14 +59,14 @@
           </div>
           <div class="col-lg-6">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Enter Address</mat-label>
+              <mat-label>Address line 1</mat-label>
               <input matInput formControlName="addressLine1">
               <mat-error >Address is required</mat-error>
             </mat-form-field>
           </div>
           <div class="col-lg-6">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Enter Alternate Address</mat-label>
+              <mat-label>Address line 2</mat-label>
               <input matInput formControlName="addressLine2">
             </mat-form-field>
           </div>
@@ -121,7 +88,7 @@
               <mat-error >State is required</mat-error>
             </mat-form-field>
           </div>
-          <div class="col-lg-6">
+          <!-- <div class="col-lg-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Select district</mat-label>
               <mat-select formControlName="district">
@@ -129,14 +96,7 @@
               </mat-select>
               <mat-error >City is required</mat-error>
             </mat-form-field>
-          </div>
-          <div class="col-lg-6">
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Pincode</mat-label>
-              <input matInput type="number" formControlName="pincode">
-              <mat-error >Pin is required</mat-error>
-            </mat-form-field>
-          </div>
+          </div> -->
           <div class="col-lg-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>City</mat-label>
@@ -144,6 +104,21 @@
               <mat-error >City is required</mat-error>
             </mat-form-field>
           </div>
+          <div class="col-lg-6">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Zip code</mat-label>
+              <input matInput type="number" formControlName="pincode">
+              <mat-error >Pin is required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 mb-2">
+            <p>Employee</p>
+            <mat-radio-group formControlName="employeeFlag">
+              <mat-radio-button value="T" class="me-5">Yes</mat-radio-button>
+              <mat-radio-button value="F">No</mat-radio-button>
+            </mat-radio-group>
+          </div>
+
           <div class="row">
             <!-- <label class="main col-lg-4 ms-1 mt-2">Safety Escort
               <input type="checkbox"  [ngModel]="user.safetyEscort=='true' ? true : false" (ngModelChange)="user.safetyEscort = $event ? 'T' : 'F'" formControlName="safetyEscort">
@@ -170,7 +145,7 @@
           </div>
 
           <div class="text-center my-3">
-            <button type="submit" class="btn add-btn" (click)="createUser()">ADD</button>
+            <button type="submit" class="btn add-btn" (click)="createUser()">create</button>
           </div>
         </div>
       </form>

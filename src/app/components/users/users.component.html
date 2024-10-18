@@ -12,7 +12,7 @@
 
   <!-- count starts -->
   <div class="row">
-    <div class="col-lg-1 col-md-1 col-sm-1 d-flex justify-content-start">
+    <!-- <div class="col-lg-1 col-md-1 col-sm-1 d-flex justify-content-start">
       <div class="vl-green"></div>
       <div class="mx-2">
         <div class="status">Active</div>
@@ -25,7 +25,7 @@
         <div class="status">Inactive</div>
         <div class="count">{{inactiveUsers.length}}</div>
       </div>
-    </div>
+    </div> -->
     <!-- <div class="col-lg-1 col-md-1 col-sm-1 d-flex justify-content-start">
       <div class="vl-yellow"></div>
       <div class="mx-2">
@@ -33,47 +33,19 @@
         <div class="count">0</div>
       </div>
     </div> -->
+    <div class="col-lg-3 col-md-3 col-sm-12">
+      <mat-form-field class="example-form-field" appearance="outline" class="w-100">
+        <mat-label>Search</mat-label>
+        <input matInput type="text" [(ngModel)]="searchText">
+        <button matSuffix mat-icon-button>
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
   </div>
 
   <!-- form starts -->
-  <div class="search-form">
-    <!-- <div class="col-lg-10 col-md-10">
-      <form class="row p-0">
-        <div class="col-lg-4 col-md-4 col-sm-4 select">
-          <select class="form-select">
-            <option selected>All</option>
-            <option></option>
-          </select>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-4 search">
-          <input type="text" placeholder="Search" name="search2" [(ngModel)]="searchText" />
-          <button type="submit">
-            <a><img src="assets/icons/search.svg" /></a>
-          </button>
-        </div>
-      </form>
-    </div> -->
-    <div class="row col-md-12 mt-2">
-      <!-- <div class="col-lg-3 col-md-3 col-sm-12">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>User Name</mat-label>
-          <mat-select>
-            <mat-option *ngFor="let cust of userTableData" [value]="cust.firstName">{{ cust.firstName }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div> -->
-
-      <div class="col-lg-3 col-md-3 col-sm-12">
-        <mat-form-field class="example-form-field" appearance="outline" class="w-100">
-          <mat-label>Search</mat-label>
-          <input matInput type="text" [(ngModel)]="searchText">
-          <button matSuffix mat-icon-button>
-            <mat-icon>search</mat-icon>
-          </button>
-        </mat-form-field>
-      </div>
-    </div>
-  </div>
+  <!-- <div class="search-form"></div> -->
 
   <!-- table starts -->
   <div class="table-resp">
@@ -99,7 +71,7 @@
             <img (click)="sort('firstName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
 
           </th>
-          <th (click)="sort('')">Assign Site</th>
+          <th (click)="sort('')">Sites</th>
           <!-- <th (click)="sort('custType')">Role</th> -->
           <th (click)="sort('contactNumber')">Contact Number</th>
           <th (click)="sort('emailId')">Email id</th>
@@ -146,7 +118,7 @@
             <!-- <span class="mx-3"> Add Site <img src="assets/icons/add_circle.svg" (click)="assignSite(cust)"></span> -->
 
             
-            <div class="p-2" (click)="$event.stopPropagation()">
+            <div class="srh p-2" (click)="$event.stopPropagation()">
               <mat-form-field class="example-form-field" appearance="outline" class="w-100">
                 <mat-label>Search</mat-label>
                 <input matInput type="text" [(ngModel)]="assignText">
@@ -164,12 +136,20 @@
                 <p class="text-center">No Sites Mapped Yet!</p>
               </ng-container> -->
               <ng-container>
-                <div class="site-list" *ngFor="let site of sitesList | search: assignText; let i = index">
+                <div class="mb-2">
+                  <mat-button-toggle-group name="fontStyle" [(ngModel)]="assignedBtn" *ngIf="!showLoading">
+                    <mat-button-toggle [value]="0" (click)="$event.stopPropagation(); filterAssigned(0)">All</mat-button-toggle>
+                    <mat-button-toggle [value]="1" (click)="$event.stopPropagation(); filterAssigned(1)">Assigned</mat-button-toggle>
+                    <mat-button-toggle [value]="2" (click)="$event.stopPropagation(); filterAssigned(2)">Not Assigned</mat-button-toggle>
+                  </mat-button-toggle-group>
+                </div>
+                <div class="site-list" *ngFor="let site of newSitesList | search: assignText; let i = index">
                   <span class="site-name">{{i+1}}. <span>{{site.siteName}}</span></span>
                   <button [ngClass]="site?.isAssigned ? 'assign-btn assign-btn-active' : 'assign-btn'" (click)="submitAssignSite(site)" [disabled]="site?.isAssigned">
                     {{ site?.isAssigned ? 'Assigned' : 'Assign' }}
                   </button>
                 </div>
+                <div class="text-center" *ngIf="newSitesList?.length === 0 && !showLoading">NO SITES</div>
               </ng-container>
             </div>
           </mat-menu>
@@ -184,15 +164,22 @@
             <p>{{ cust.email }}</p>
           </td>
           <td>
-            <p class="text-primary pointer" [matMenuTriggerFor]="userAddress" (click)="getUserInfoForUserId(cust)">View
-            </p>
+            <p class="text-primary pointer" [matMenuTriggerFor]="userAddress" (click)="getUserInfoForUserId(cust)">View</p>
             <mat-menu #userAddress="matMenu">
-              <p class="px-2 py-1" *ngIf="currentUser != null">{{ currentUser?.address_line1 }}</p>
+              <!-- <p class="px-2 py-1" *ngIf="currentUser != null">{{ currentUser?.address_line1 }}</p>
               <p class="px-2 py-1" *ngIf="currentUser != null">
                 {{ currentUser?.city }}, {{ currentUser?.district }}, {{ currentUser?.state }}, {{ currentUser?.country
                 }}, {{ currentUser?.pin }}
               </p>
-              <p class="px-2 py-1" *ngIf="currentUser == null">No Data</p>
+              <p class="px-2 py-1" *ngIf="currentUser == null">No Data</p> -->
+              <p class="px-2 py-1" *ngIf="userInfo">
+                {{ userInfo?.city }}<br>
+                {{ userInfo?.district }}<br>
+                {{ userInfo?.state }}<br>
+                {{ userInfo?.country }}<br>
+                {{ userInfo?.pin }}
+              </p>
+              <p *ngIf="!userInfo">No Data</p>
             </mat-menu>
           </td>
           <!-- <td>
@@ -376,14 +363,8 @@
       </div>
       <div class="col-lg-6">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Pin</mat-label>
+          <mat-label>Zip code</mat-label>
           <input matInput [(ngModel)]="currentUser.pin">
-        </mat-form-field>
-      </div>
-      <div class="col-lg-6">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>district</mat-label>
-          <input matInput [(ngModel)]="currentUser.district">
         </mat-form-field>
       </div>
       <div class="col-lg-6">
@@ -398,38 +379,30 @@
           <input matInput [(ngModel)]="currentUser.country">
         </mat-form-field>
       </div>
-
-
-      <div class="col-lg-6">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>gender</mat-label>
-          <input matInput [(ngModel)]="currentUser.gender">
-        </mat-form-field>
-      </div>
-      <div class="col-lg-6">
+      <!-- <div class="col-lg-6">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>active</mat-label>
           <input matInput [(ngModel)]="currentUser.active">
         </mat-form-field>
-      </div>
+      </div> -->
       <div class="col-lg-6">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>employee</mat-label>
           <input matInput [(ngModel)]="currentUser.employee">
         </mat-form-field>
       </div>
-      <div class="col-lg-6">
+      <!-- <div class="col-lg-6">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>empId</mat-label>
           <input matInput [(ngModel)]="currentUser.empId">
         </mat-form-field>
-      </div>
-      <div class="col-lg-6">
+      </div> -->
+      <!-- <div class="col-lg-6">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>safetyEscort</mat-label>
           <input matInput [(ngModel)]="currentUser.safetyEscort">
         </mat-form-field>
-      </div>
+      </div> -->
     </div>
   </div>
 

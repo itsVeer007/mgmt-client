@@ -187,6 +187,7 @@ form .add-btn {
   border-radius: 25px;
   border-width: 0;
   font-size: 12px;
+  text-transform: uppercase;
 }
 
 form .add-btn:active {

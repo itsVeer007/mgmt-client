@@ -50,7 +50,11 @@ export class UsersComponent implements OnInit {
   userInfo: any;
   getUserInfoForUserId(data: any) {
     this.userSer.getUserInfoForUserId({userId: data?.user_id}).subscribe((res: any) => {
-      this.userInfo = res;
+      if(res.Status == 'Failed') {
+        this.userInfo = null;
+      } else {
+        this.userInfo = res;
+      }
     })
   }
   
@@ -135,17 +139,31 @@ export class UsersComponent implements OnInit {
   }
 
   isAssigned() {
-    return this.sitesList.filter((item: any) => this.userSites?.sites?.some((el: any) =>  {
+    return this.newSitesList.filter((item: any) => this.userSites?.sites?.some((el: any) =>  {
       if(item.siteId == el.siteId) {
         item.isAssigned = true;
       }
     }));
   }
 
+  filterAssigned(val: any) {
+    let data: any = this.sitesList;
+    if(val === 0) {
+      this.newSitesList = data
+    } else if(val === 1) {
+      this.newSitesList = data.filter((item: any) => item.isAssigned)
+    } else if(val === 2) {
+      this.newSitesList = data.filter((item: any) => !item.isAssigned)
+    }
+  }
+
   sitesList: any = [];
+  newSitesList: any = [];
   showLoading: boolean = false;
+  assignedBtn : any = 0;
   getSitesListForUserName(user:any) {
-    this.sitesList = [];
+    this.newSitesList = [];
+    this.assignedBtn = 0;
     this.assignText = null;
     this.showLoading = true;
     this.siteSer.getSitesListForUserName().subscribe((res: any) => {
@@ -153,6 +171,7 @@ export class UsersComponent implements OnInit {
       if(res.Status == 'Success') {
         this.sitesList = res.sites.sort((a: any, b: any) => a.siteId < b.siteId ? -1 : a.siteId > b.siteId ? 1 : 0);
         this.sitesList.forEach((item: any) => item.isAssigned = false);
+        this.newSitesList = this.sitesList;
 
         this.currentUser = user;
         this.getSitesListForAssign(user);
