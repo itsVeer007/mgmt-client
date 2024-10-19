@@ -33,13 +33,13 @@
           <div class="col-lg-6">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>User Name</mat-label>
-              <input matInput formControlName="userName">
+              <input matInput formControlName="userName" (keyup)="fillShortName($event)">
               <mat-error >Name is required</mat-error>
             </mat-form-field>
         </div>
           <div class="col-lg-6">
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Email Id</mat-label>
+              <mat-label>Email address</mat-label>
               <input matInput formControlName="emailId">
               <mat-error >Email is required</mat-error>
             </mat-form-field>
@@ -111,12 +111,18 @@
               <mat-error >Pin is required</mat-error>
             </mat-form-field>
           </div>
-          <div class="col-lg-6 mb-2">
+          <div class="col-lg-12 mb-2">
             <p>Employee</p>
             <mat-radio-group formControlName="employeeFlag">
               <mat-radio-button value="T" class="me-5">Yes</mat-radio-button>
               <mat-radio-button value="F">No</mat-radio-button>
             </mat-radio-group>
+          </div>
+          <div class="col-lg-12" *ngIf="UserForm.get('employeeFlag')?.value === 'T'">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Employee ID</mat-label>
+              <input matInput formControlName="empId">
+            </mat-form-field>
           </div>
 
           <div class="row">

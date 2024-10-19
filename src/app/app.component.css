@@ -76,3 +76,8 @@
 ::ng-deep .mat-mdc-menu-content {
     padding: 0 !important;
 }
+
+::ng-deep .mat-button-toggle-label-content {
+    font-family: Roboto, "Helvetica Neue", sans-serif !important;
+    font-size: 14px !important;
+}

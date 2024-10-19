@@ -2,7 +2,7 @@
   <!-- header starts -->
   <div class="d-flex justify-content-between">
     <div class="users-header">
-      <p>List of all Users - <span>{{userTableData.length}}</span></p>
+      <p>List of Users - <span>{{userTableData.length}}</span></p>
     </div>
     <div>
       <button class="create-btn" (click)="show('user')">Create User</button>
@@ -65,26 +65,29 @@
             <img (click)="sort('user_id')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
           <th>
-            <span>
-              Name
-            </span>
+            <span>Name</span>
             <img (click)="sort('firstName')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-
           </th>
           <th (click)="sort('')">Sites</th>
           <!-- <th (click)="sort('custType')">Role</th> -->
-          <th (click)="sort('contactNumber')">Contact Number</th>
-          <th (click)="sort('emailId')">Email id</th>
+          <th>
+            <span>Contact Number</span>
+            <img (click)="sort('contactNumber')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+          </th>
+          <th>
+            <span>Email id</span>
+            <img (click)="sort('emailId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+          </th>
           <th (click)="sort('address')">Address</th>
           <!-- <th (click)="sort('contactPerson')">#Sites</th> -->
           <!-- <th (click)="sort('contactPerson')">Safety Escort</th> -->
-          <th (click)="sort('status')">Status</th>
+          <!-- <th (click)="sort('status')">Status</th> -->
           <th class="text-center">Actions</th>
         </tr>
       </thead>
 
       <tbody *ngIf="!showLoader">
-        <tr *ngFor="let cust of userTableData | orderBy: 'User_Name' | search : searchText; let i = index">
+        <tr *ngFor="let cust of userTableData | orderBy: 'User_Name' | search : searchText; let i = index" [style.background]="rowIndex == i ? '#ababab' : ''">
           <!-- <td>
             <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="cust.selected" (change)="
             checkIfAllSelected();
@@ -102,22 +105,12 @@
           <td>
             <p>{{ cust.assignSite }}</p>
             <a class="pointer mx-1.
-            " [matMenuTriggerFor]="sitesMenu" (click)="getSitesListForUserName(cust)">
+            " [matMenuTriggerFor]="sitesMenu" (click)="getSitesListForUserName(cust, i)">
               <!-- matTooltip="Assign Site to the user" -->
               View
             </a>
           </td>
           <mat-menu #sitesMenu="matMenu">
-            <!-- <p class="px-2 py-1" *ngIf="currentUser != null">{{ currentUser?.address_line1 }}</p> -->
-            <!-- <P class="text-center">Total No.of Sites:<span> {{userSites.length}}</span></P> -->
-            <!-- <div class="d-flex justify-content-end">
-              <button class="btn btn-primary " (click)="assignSite(cust)" style="border-radius: 10px;">
-                Add 
-             </button>
-            </div> -->
-            <!-- <span class="mx-3"> Add Site <img src="assets/icons/add_circle.svg" (click)="assignSite(cust)"></span> -->
-
-            
             <div class="srh p-2" (click)="$event.stopPropagation()">
               <mat-form-field class="example-form-field" appearance="outline" class="w-100">
                 <mat-label>Search</mat-label>
@@ -126,6 +119,13 @@
                   <mat-icon>search</mat-icon>
                 </button>
               </mat-form-field>
+            </div>
+            <div class="m-1">
+              <mat-button-toggle-group name="fontStyle" [(ngModel)]="assignedBtn" *ngIf="!showLoading">
+                <mat-button-toggle [value]="0" (click)="$event.stopPropagation(); filterAssigned(0)">All</mat-button-toggle>
+                <mat-button-toggle [value]="1" (click)="$event.stopPropagation(); filterAssigned(1)">Assigned</mat-button-toggle>
+                <mat-button-toggle [value]="2" (click)="$event.stopPropagation(); filterAssigned(2)">Not Assigned</mat-button-toggle>
+              </mat-button-toggle-group>
             </div>
 
             <div class="menu-items">
@@ -136,24 +136,16 @@
                 <p class="text-center">No Sites Mapped Yet!</p>
               </ng-container> -->
               <ng-container>
-                <div class="mb-2">
-                  <mat-button-toggle-group name="fontStyle" [(ngModel)]="assignedBtn" *ngIf="!showLoading">
-                    <mat-button-toggle [value]="0" (click)="$event.stopPropagation(); filterAssigned(0)">All</mat-button-toggle>
-                    <mat-button-toggle [value]="1" (click)="$event.stopPropagation(); filterAssigned(1)">Assigned</mat-button-toggle>
-                    <mat-button-toggle [value]="2" (click)="$event.stopPropagation(); filterAssigned(2)">Not Assigned</mat-button-toggle>
-                  </mat-button-toggle-group>
-                </div>
-                <div class="site-list" *ngFor="let site of newSitesList | search: assignText; let i = index">
+                <div class="site-list" *ngFor="let site of newSitesList | orderBy: 'isAssigned' | search: assignText; let i = index">
                   <span class="site-name">{{i+1}}. <span>{{site.siteName}}</span></span>
-                  <button [ngClass]="site?.isAssigned ? 'assign-btn assign-btn-active' : 'assign-btn'" (click)="submitAssignSite(site)" [disabled]="site?.isAssigned">
-                    {{ site?.isAssigned ? 'Assigned' : 'Assign' }}
+                  <button [ngClass]="site?.isAssigned ? 'assign-btn assign-btn-active' : 'assign-btn'" (click)="submitAssignSite(site); $event.stopPropagation()">
+                    {{ site?.isAssigned ? 'Unassign' : 'Assign' }}
                   </button>
                 </div>
                 <div class="text-center" *ngIf="newSitesList?.length === 0 && !showLoading">NO SITES</div>
               </ng-container>
             </div>
           </mat-menu>
-
           <!-- <td>
             <p>{{ cust.roleList }}</p>
           </td> -->
@@ -166,12 +158,6 @@
           <td>
             <p class="text-primary pointer" [matMenuTriggerFor]="userAddress" (click)="getUserInfoForUserId(cust)">View</p>
             <mat-menu #userAddress="matMenu">
-              <!-- <p class="px-2 py-1" *ngIf="currentUser != null">{{ currentUser?.address_line1 }}</p>
-              <p class="px-2 py-1" *ngIf="currentUser != null">
-                {{ currentUser?.city }}, {{ currentUser?.district }}, {{ currentUser?.state }}, {{ currentUser?.country
-                }}, {{ currentUser?.pin }}
-              </p>
-              <p class="px-2 py-1" *ngIf="currentUser == null">No Data</p> -->
               <p class="px-2 py-1" *ngIf="userInfo">
                 {{ userInfo?.city }}<br>
                 {{ userInfo?.district }}<br>
@@ -183,19 +169,11 @@
             </mat-menu>
           </td>
           <!-- <td>
-            <a class="pointer" (click)="show('additionalSite')">
-              <img src="assets/icons/add.svg" width="40">
-            </a>
-          </td> -->
-          <!-- <td>
-            <p>{{ cust.safetyEscort }}</p>
-          </td> -->
-          <td>
             <p
               [style.color]="cust.status == 'T' ? '#00A44C' : cust.status == 'Onhold' ? '#F5B400' : cust.status == 'F' ? '#fa500f' : ''">
               {{ cust.status == 'T' ? 'Active' : cust.status == 'F' ? 'Inactive' : 'Inactive' }}
             </p>
-          </td>
+          </td> -->
 
           <td class="text-center">
             <a class="pointer mx-1" matTooltip="View" (click)="openViewProfileDialog(cust)">
@@ -240,7 +218,7 @@
       <div class="col-lg-6">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Last Name</mat-label>
-          <input matInput [(ngModel)]="currentUser.LastName" disabled>
+          <input matInput [(ngModel)]="currentUser.lastName" disabled>
         </mat-form-field>
       </div>
       <div class="col-lg-6">
@@ -322,13 +300,7 @@
       <div class="col-lg-6">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Last Name</mat-label>
-          <input matInput [(ngModel)]="currentUser.LastName">
-        </mat-form-field>
-      </div>
-      <div class="col-lg-6">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>profileImage</mat-label>
-          <input matInput [(ngModel)]="currentUser.profileImage">
+          <input matInput [(ngModel)]="currentUser.lastName">
         </mat-form-field>
       </div>
       <div class="col-lg-6">

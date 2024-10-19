@@ -12,6 +12,9 @@ import { UserService } from 'src/services/user.service';
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
+  @HostListener('document:mousedown', ['$event']) onGlobalClick(e: any): void {
+    this.rowIndex = -1
+  }
 
   constructor(
     private userSer: UserService,
@@ -70,7 +73,6 @@ export class UsersComponent implements OnInit {
   @ViewChild('editprofileDialog') editprofileDialog = {} as TemplateRef<any>;
   openEditProfileDialog(data: any) {
     this.userSer.getUserInfoForUserId({userId: data?.user_id}).subscribe((res: any) => {
-      console.log(res)
       this.currentUser = res;
     });
     this.dialog.open(this.editprofileDialog);
@@ -130,7 +132,7 @@ export class UsersComponent implements OnInit {
     this.siteSer.getSitesListForAssign(user).subscribe({
       next: (res:any)=>{
         this.userSites = res;
-        this.isAssigned()
+        this.isAssigned();
       },
       error:(err:any) => {
         this.alertSer.error(err.error.message)
@@ -151,9 +153,9 @@ export class UsersComponent implements OnInit {
     if(val === 0) {
       this.newSitesList = data
     } else if(val === 1) {
-      this.newSitesList = data.filter((item: any) => item.isAssigned)
+      this.newSitesList = data.filter((item: any) => item.isAssigned);
     } else if(val === 2) {
-      this.newSitesList = data.filter((item: any) => !item.isAssigned)
+      this.newSitesList = data.filter((item: any) => !item.isAssigned);
     }
   }
 
@@ -161,10 +163,14 @@ export class UsersComponent implements OnInit {
   newSitesList: any = [];
   showLoading: boolean = false;
   assignedBtn : any = 0;
-  getSitesListForUserName(user:any) {
+  rowIndex!: number;
+  getSitesListForUserName(user:any, index: number) {
     this.newSitesList = [];
     this.assignedBtn = 0;
     this.assignText = null;
+
+    this.rowIndex = index;
+    this.currentItem = user;
     this.showLoading = true;
     this.siteSer.getSitesListForUserName().subscribe((res: any) => {
       this.showLoading = false;
@@ -172,6 +178,7 @@ export class UsersComponent implements OnInit {
         this.sitesList = res.sites.sort((a: any, b: any) => a.siteId < b.siteId ? -1 : a.siteId > b.siteId ? 1 : 0);
         this.sitesList.forEach((item: any) => item.isAssigned = false);
         this.newSitesList = this.sitesList;
+        this.isAssigned()
 
         this.currentUser = user;
         this.getSitesListForAssign(user);
@@ -181,18 +188,35 @@ export class UsersComponent implements OnInit {
 
   selectedSites: any
   submitAssignSite(site: any) {
-    this.userSer.applySitesMapping({userId: this.currentUser?.user_id, siteList: [site?.siteId]}).subscribe({
-      next: (res:any) => {
-        if (res.status==='Success') {   
-          this.alertSer.success(res.message)     
-        } else {
-          this.alertSer.error(res.message)
+    if(site.isAssigned) {
+      this.userSer.unassignSiteForUser({userId: this.currentUser?.user_id, siteId: site?.siteId}).subscribe({
+        next: (res:any) => {
+          if (res.statusCode === 200) {
+            this.getSitesListForUserName(this.currentItem, -1);
+            this.alertSer.snackSuccess(res.message);  
+          } else {
+            this.alertSer.error(res.message);
+          }
+        },
+        error:(err:any) => {
+          this.alertSer.error(err.error.message)
         }
-      },
-      error:(err:any) => {
-        this.alertSer.error(err.error.message)
-      }
-    })
+      })
+    } else {
+      this.userSer.applySitesMapping({userId: this.currentUser?.user_id, siteList: [site?.siteId]}).subscribe({
+        next: (res:any) => {
+          if (res.status === 'Success') {
+            this.getSitesListForUserName(this.currentItem, -1);
+            this.alertSer.snackSuccess(res.message);  
+          } else {
+            this.alertSer.error(res.message);
+          }
+        },
+        error:(err:any) => {
+          this.alertSer.error(err.error.message)
+        }
+      })
+    }
   }
 
   showAddUser: boolean = false;

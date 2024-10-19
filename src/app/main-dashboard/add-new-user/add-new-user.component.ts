@@ -48,7 +48,7 @@ export class AddNewUserComponent implements OnInit {
   UserForm!: FormGroup;
   ngOnInit() {
     this.UserForm = this.fb.group({
-      firstTimeFlag: new FormControl('F'),
+      firstTimeFlag: new FormControl('T'),
       userName: new FormControl('', Validators.required),
       firstName: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
@@ -59,11 +59,10 @@ export class AddNewUserComponent implements OnInit {
       alternateContactNumber: new FormControl(''),
       addressLine1: new FormControl(''),
       addressLine2: new FormControl(''),
-      address_2: new FormControl(''),
       country: new FormControl('', Validators.required),
       state: new FormControl('', Validators.required),
       // district: new FormControl('', Validators.required),
-      pincode: new FormControl(null),
+      pincode: new FormControl(null, Validators.required),
       city: new FormControl('', Validators.required),
       employeeFlag: new FormControl('F'),
       empId: new FormControl(''),
@@ -96,6 +95,10 @@ export class AddNewUserComponent implements OnInit {
 
   closeAddUser() {
     this.newItemEvent.emit();
+  }
+
+  fillShortName(event: any) {
+    this.UserForm.get('emailId')!.setValue(event.target.value + '@gmail.com');
   }
 
   createUser() {

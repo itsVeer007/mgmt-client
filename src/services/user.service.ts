@@ -82,6 +82,11 @@ export class UserService {
     return this.http.post(url, payload);
   }
 
+  unassignSiteForUser(payload: any){
+    let url =`${environment.baseUrl}/userDetails/unassignSiteForUser_1_0`;
+    return this.http.post(url, payload);
+  }
+
   getSiteUserDetails(payload: any){
     let url= `${this.baseUrl}/userDetails/getUsersDetailsForSiteId_1_0/${payload.siteId}`;
     return this.http.get(url);

@@ -129,12 +129,6 @@ export class MetaDataComponent implements OnInit {
     })
   }
 
-  @ViewChild('deleteDataDialog') deleteDataDialog = {} as TemplateRef<any>;
-  openDeletePopup(item: any, i: any) {
-    this.currentItem = item;
-    this.dialog.open(this.deleteDataDialog);
-  }
-
   deleteRow1(item: any, i: any) {
     // console.log(item);
     this.showLoader = true;
