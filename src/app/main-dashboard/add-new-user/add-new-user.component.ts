@@ -2,7 +2,6 @@ import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@a
 import { animate, style, transition, trigger } from '@angular/animations';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from 'src/services/user.service';
 import { StorageService } from 'src/services/storage.service';
@@ -33,10 +32,10 @@ import { AlertService } from 'src/services/alert.service';
 })
 export class AddNewUserComponent implements OnInit {
 
-  @Output() newItemEvent = new EventEmitter<any>();
+  @Output() newItemEvent: EventEmitter<any> = new EventEmitter();
 
   constructor(
-    private router:Router,
+    private router: Router,
     private userSer: UserService,
     private fb: FormBuilder,
     private http: HttpClient,

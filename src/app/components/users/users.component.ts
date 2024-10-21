@@ -106,7 +106,6 @@ export class UsersComponent implements OnInit {
   closeDot(e: any, i: any) {
     this.currentid = i;
     var x = e.target.parentNode.nextElementSibling;
-    // console.log("THREE DOTS:: ",e.target.parentNode.nextElementSibling);
     if (x.style.display == 'none') {
       x.style.display = 'block';
     } else {
@@ -135,7 +134,7 @@ export class UsersComponent implements OnInit {
         this.isAssigned();
       },
       error:(err:any) => {
-        this.alertSer.error(err.error.message)
+        this.alertSer.error(err.error.message);
       }
     });
   }
@@ -162,7 +161,7 @@ export class UsersComponent implements OnInit {
   sitesList: any = [];
   newSitesList: any = [];
   showLoading: boolean = false;
-  assignedBtn : any = 0;
+  assignedBtn!: number;
   rowIndex!: number;
   getSitesListForUserName(user:any, index: number) {
     this.newSitesList = [];
@@ -239,14 +238,12 @@ export class UsersComponent implements OnInit {
   selectedAll: any;
   selectAll() {
     for(var i = 0; i < this.userTableData.length; i++) {
-      // console.log(this.userTableData[i].selected);
       this.userTableData[i].selected = !this.userTableData[i].selected;
     }
   }
 
   checkIfAllSelected() {
     this.selectedAll = this.userTableData.every((item: any) => {
-      // console.log(item);
       return item.selected == true;
     })
   }
@@ -254,7 +251,6 @@ export class UsersComponent implements OnInit {
 
   deleteRow: any;
   deleteRow1(item: any, i: any) {
-    // console.log(item);
     this.showLoader = true;
     setTimeout(() => {
       this.showLoader = false;
@@ -264,7 +260,6 @@ export class UsersComponent implements OnInit {
 
   deletePopup: boolean = true;
   confirmDeleteRow() {
-    // console.log(this.currentItem);
     this.userTableData = this.userTableData.filter((item: any) => item.siteId !== this.currentItem.siteId);
     this.deletePopup = true;
   }
@@ -283,7 +278,7 @@ export class UsersComponent implements OnInit {
 
   editPopup: boolean = true;
   confirmEditRow() {
-    // console.log(/this.currentItem);
+    // console.log(this.currentItem);
     // this.userTableData= this.userTableData.filter((item:any) => item.siteId !== this.currentItem.siteId);
     this.editPopup = true;
     this.listUsers();
@@ -337,7 +332,6 @@ export class UsersComponent implements OnInit {
     var checked = (e.target.checked);
     if (checked && !this.viewArray.includes(itemV)) {
       this.viewArray.push(itemV);
-      console.log(this.viewArray);
       this.currentItem = this.viewArray[(this.viewArray.length - 1)];
     }
     if (!checked && this.viewArray.includes(itemV)) {
@@ -354,7 +348,6 @@ export class UsersComponent implements OnInit {
   deletearray: any = [];
   deleteMultiRecords(item: any, i: any, e: any) {
     var checked = (e.target.checked);
-    // console.log("Delete Multiple Records:: ", item);
     if (this.deletearray.length == 0) { this.deletearray.push(item) }
 
     this.deletearray.forEach((el: any) => {
@@ -367,7 +360,6 @@ export class UsersComponent implements OnInit {
         this.deletearray.splice(currentindex, 1)
       }
     });
-    // console.log(this.deletearray)
   }
 
   deleteSelected() {

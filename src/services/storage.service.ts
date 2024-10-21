@@ -15,7 +15,7 @@ export class StorageService {
 
   getMetadataByType(data: any):any {
     let metaData: any = this.get('metaData');
-    return metaData.filter((item: any) => item.type === data);
+    return metaData?.filter((item: any) => item.type === data);
   }
 
   getData(url: string, params?: string) {
