@@ -63,7 +63,7 @@ export class AddNewSiteComponent implements OnInit {
       siteShortName: new FormControl('', Validators.required),
       remarks: new FormControl(''),
       country: new FormControl('USA', Validators.required),
-      state: new FormControl('nvidia', Validators.required),
+      state: new FormControl('Nevada', Validators.required),
       timezone: new FormControl('America/Los_Angeles', Validators.required),
       live: new FormControl('T'),
       alerts: new FormControl('T'),

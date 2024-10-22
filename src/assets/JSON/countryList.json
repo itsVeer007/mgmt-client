@@ -4,191 +4,256 @@
     "states": [
       {
         "stateName": "Australian Capital Territory",
-        "cities": ["Canberra", "Uriarra Village", "Tharwa"]
+        "cities": [
+          "Canberra",
+          "Uriarra Village",
+          "Tharwa"
+        ]
       },
-
       {
         "stateName": "Northern Territory",
-        "cities": ["Alice Springs", "Darwin", "Katherine"]
+        "cities": [
+          "Alice Springs",
+          "Darwin",
+          "Katherine"
+        ]
       },
       {
-        "stateName": "Melbourne",
-        "cities": ["Kensington", "Parkville", "Southbank"]
+        "stateName": "Victoria",
+        "cities": [
+          "Melbourne",
+          "Geelong",
+          "Ballarat"
+        ]
       },
       {
-        "stateName": "Sydney",
-        "cities": ["Circular Quay", "Darling Harbour", "Sydney Harbour"]
+        "stateName": "New South Wales",
+        "cities": [
+          "Sydney",
+          "Newcastle",
+          "Wollongong"
+        ]
       },
       {
         "stateName": "Tasmania",
-        "cities": ["Burnie", "Devonport", "Hobart"]
+        "cities": [
+          "Burnie",
+          "Devonport",
+          "Hobart"
+        ]
       }
     ]
   },
-
   {
     "countryName": "Belgium",
     "states": [
       {
-        "stateName": "New South Wales",
-        "cities": ["Armidale", "Ballina", "Balranald"]
-      },
-
-      {
-        "stateName": "Northern Territory",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
-      },
-      {
-        "stateName": "Queensland",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+        "stateName": "Flanders",
+        "cities": [
+          "Antwerp",
+          "Ghent",
+          "Bruges"
+        ]
       },
       {
-        "stateName": "South Australia",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+        "stateName": "Wallonia",
+        "cities": [
+          "Namur",
+          "Liège",
+          "Charleroi"
+        ]
       },
       {
-        "stateName": "Tasmania",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+        "stateName": "Brussels-Capital Region",
+        "cities": [
+          "Brussels",
+          "Etterbeek",
+          "Anderlecht"
+        ]
       }
     ]
   },
-
   {
     "countryName": "Brazil",
     "states": [
       {
-        "stateName": "New South Wales",
-        "cities": ["Armidale", "Ballina", "Balranald"]
-      },
-
-      {
-        "stateName": "Northern Territory",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
-      },
-      {
-        "stateName": "Queensland",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+        "stateName": "São Paulo",
+        "cities": [
+          "São Paulo",
+          "Campinas",
+          "Santos"
+        ]
       },
       {
-        "stateName": "South Australia",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+        "stateName": "Rio de Janeiro",
+        "cities": [
+          "Rio de Janeiro",
+          "Niterói",
+          "Petrópolis"
+        ]
       },
       {
-        "stateName": "Tasmania",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+        "stateName": "Minas Gerais",
+        "cities": [
+          "Belo Horizonte",
+          "Uberlândia",
+          "Juiz de Fora"
+        ]
+      },
+      {
+        "stateName": "Bahia",
+        "cities": [
+          "Salvador",
+          "Feira de Santana",
+          "Vitória da Conquista"
+        ]
       }
     ]
   },
-
   {
     "countryName": "Canada",
     "states": [
       {
-        "stateName": "New South Wales",
-        "cities": ["Armidale", "Ballina", "Balranald"]
-      },
-
-      {
-        "stateName": "Northern Territory",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
-      },
-      {
-        "stateName": "Queensland",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+        "stateName": "Ontario",
+        "cities": [
+          "Toronto",
+          "Ottawa",
+          "Hamilton"
+        ]
       },
       {
-        "stateName": "South Australia",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+        "stateName": "Quebec",
+        "cities": [
+          "Montreal",
+          "Quebec City",
+          "Sherbrooke"
+        ]
       },
       {
-        "stateName": "Tasmania",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+        "stateName": "British Columbia",
+        "cities": [
+          "Vancouver",
+          "Victoria",
+          "Surrey"
+        ]
+      },
+      {
+        "stateName": "Alberta",
+        "cities": [
+          "Calgary",
+          "Edmonton",
+          "Red Deer"
+        ]
       }
     ]
   },
-
   {
     "countryName": "China",
     "states": [
       {
-        "stateName": "New South Wales",
-        "cities": ["Armidale", "Ballina", "Balranald"]
-      },
-
-      {
-        "stateName": "Northern Territory",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
-      },
-      {
-        "stateName": "Queensland",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+        "stateName": "Guangdong",
+        "cities": [
+          "Guangzhou",
+          "Shenzhen",
+          "Foshan"
+        ]
       },
       {
-        "stateName": "South Australia",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+        "stateName": "Beijing",
+        "cities": [
+          "Beijing"
+        ]
       },
       {
-        "stateName": "Tasmania",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+        "stateName": "Shanghai",
+        "cities": [
+          "Shanghai"
+        ]
+      },
+      {
+        "stateName": "Zhejiang",
+        "cities": [
+          "Hangzhou",
+          "Ningbo",
+          "Wenzhou"
+        ]
       }
     ]
   },
-
   {
     "countryName": "France",
     "states": [
       {
-        "stateName": "New South Wales",
-        "cities": ["Armidale", "Ballina", "Balranald"]
-      },
-
-      {
-        "stateName": "Northern Territory",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
-      },
-      {
-        "stateName": "Queensland",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+        "stateName": "Île-de-France",
+        "cities": [
+          "Paris",
+          "Versailles",
+          "Boulogne-Billancourt"
+        ]
       },
       {
-        "stateName": "South Australia",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+        "stateName": "Provence-Alpes-Côte d'Azur",
+        "cities": [
+          "Marseille",
+          "Nice",
+          "Toulon"
+        ]
       },
       {
-        "stateName": "Tasmania",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+        "stateName": "Nouvelle-Aquitaine",
+        "cities": [
+          "Bordeaux",
+          "Limoges",
+          "Poitiers"
+        ]
+      },
+      {
+        "stateName": "Occitanie",
+        "cities": [
+          "Toulouse",
+          "Montpellier",
+          "Nîmes"
+        ]
       }
     ]
   },
-
   {
     "countryName": "Germany",
     "states": [
       {
-        "stateName": "New South Wales",
-        "cities": ["Armidale", "Ballina", "Balranald"]
-      },
-
-      {
-        "stateName": "Northern Territory",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
-      },
-      {
-        "stateName": "Queensland",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+        "stateName": "North Rhine-Westphalia",
+        "cities": [
+          "Düsseldorf",
+          "Cologne",
+          "Dortmund"
+        ]
       },
       {
-        "stateName": "South Australia",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+        "stateName": "Bavaria",
+        "cities": [
+          "Munich",
+          "Nuremberg",
+          "Augsburg"
+        ]
       },
       {
-        "stateName": "Tasmania",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+        "stateName": "Baden-Württemberg",
+        "cities": [
+          "Stuttgart",
+          "Mannheim",
+          "Karlsruhe"
+        ]
+      },
+      {
+        "stateName": "Hesse",
+        "cities": [
+          "Frankfurt",
+          "Wiesbaden",
+          "Darmstadt"
+        ]
       }
     ]
   },
-
-
   {
     "countryName": "India",
     "states": [
@@ -216,7 +281,6 @@
           "West Godavari"
         ]
       },
-
       {
         "stateName": "Bihar",
         "cities": [
@@ -623,406 +687,333 @@
       }
     ]
   },
-
   {
     "countryName": "Italy",
     "states": [
       {
-        "stateName": "New South Wales",
-        "cities": ["Armidale", "Ballina", "Balranald"]
-      },
-
-      {
-        "stateName": "Northern Territory",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
-      },
-      {
-        "stateName": "Queensland",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+        "stateName": "Lazio",
+        "cities": [
+          "Rome",
+          "Latina",
+          "Frosinone"
+        ]
       },
       {
-        "stateName": "South Australia",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+        "stateName": "Lombardy",
+        "cities": [
+          "Milan",
+          "Bergamo",
+          "Brescia"
+        ]
       },
       {
-        "stateName": "Tasmania",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+        "stateName": "Tuscany",
+        "cities": [
+          "Florence",
+          "Pisa",
+          "Siena"
+        ]
+      },
+      {
+        "stateName": "Veneto",
+        "cities": [
+          "Venice",
+          "Verona",
+          "Padua"
+        ]
       }
     ]
   },
-
   {
     "countryName": "Japan",
     "states": [
       {
-        "stateName": "New South Wales",
-        "cities": ["Armidale", "Ballina", "Balranald"]
-      },
-
-      {
-        "stateName": "Northern Territory",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
-      },
-      {
-        "stateName": "Queensland",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+        "stateName": "Tokyo",
+        "cities": [
+          "Tokyo",
+          "Chiyoda",
+          "Shibuya"
+        ]
       },
       {
-        "stateName": "South Australia",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+        "stateName": "Osaka",
+        "cities": [
+          "Osaka",
+          "Sakai",
+          "Hirakata"
+        ]
       },
       {
-        "stateName": "Tasmania",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+        "stateName": "Hokkaido",
+        "cities": [
+          "Sapporo",
+          "Hakodate",
+          "Asahikawa"
+        ]
+      },
+      {
+        "stateName": "Kyoto",
+        "cities": [
+          "Kyoto",
+          "Uji",
+          "Kameoka"
+        ]
       }
     ]
   },
-
   {
     "countryName": "Malaysia",
     "states": [
       {
-        "stateName": "New South Wales",
-        "cities": ["Armidale", "Ballina", "Balranald"]
-      },
-
-      {
-        "stateName": "Northern Territory",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
-      },
-      {
-        "stateName": "Queensland",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+        "stateName": "Selangor",
+        "cities": [
+          "Shah Alam",
+          "Petaling Jaya",
+          "Klang"
+        ]
       },
       {
-        "stateName": "South Australia",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+        "stateName": "Penang",
+        "cities": [
+          "George Town",
+          "Butterworth",
+          "Batu Ferringhi"
+        ]
       },
       {
-        "stateName": "Tasmania",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+        "stateName": "Sabah",
+        "cities": [
+          "Kota Kinabalu",
+          "Sandakan",
+          "Tawau"
+        ]
+      },
+      {
+        "stateName": "Sarawak",
+        "cities": [
+          "Kuching",
+          "Miri",
+          "Sibu"
+        ]
       }
     ]
   },
-
   {
     "countryName": "Singapore",
     "states": [
       {
-        "stateName": "New South Wales",
-        "cities": ["Armidale", "Ballina", "Balranald"]
-      },
-
-      {
-        "stateName": "Northern Territory",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+        "stateName": "Central Region",
+        "cities": [
+          "Singapore"
+        ]
       },
       {
-        "stateName": "Queensland",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+        "stateName": "North Region",
+        "cities": [
+          "Woodlands",
+          "Yishun",
+          "Sembawang"
+        ]
       },
       {
-        "stateName": "South Australia",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
-      },
-      {
-        "stateName": "Tasmania",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+        "stateName": "East Region",
+        "cities": [
+          "Tampines",
+          "Pasir Ris",
+          "Changi"
+        ]
       }
     ]
   },
-
   {
     "countryName": "United Kingdom",
     "states": [
       {
-        "stateName": "New South Wales",
-        "cities": ["Armidale", "Ballina", "Balranald"]
-      },
-
-      {
-        "stateName": "Northern Territory",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
-      },
-      {
-        "stateName": "Queensland",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+        "stateName": "England",
+        "cities": [
+          "London",
+          "Manchester",
+          "Birmingham"
+        ]
       },
       {
-        "stateName": "South Australia",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+        "stateName": "Scotland",
+        "cities": [
+          "Edinburgh",
+          "Glasgow",
+          "Aberdeen"
+        ]
       },
       {
-        "stateName": "Tasmania",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
+        "stateName": "Wales",
+        "cities": [
+          "Cardiff",
+          "Swansea",
+          "Newport"
+        ]
+      },
+      {
+        "stateName": "Northern Ireland",
+        "cities": [
+          "Belfast",
+          "Derry",
+          "Lisburn"
+        ]
       }
     ]
   },
-
   {
     "countryName": "USA",
     "states": [
       {
         "stateName": "Alabama",
         "cities": [
-          "Downtown Birmingham",
-          "Five Points South (Birmingham)",
-          "The Wharf (Orange Beach)",
-          "Downtown Mobile",
-          "The Entertainment District (Huntsville)",
-          "Downtown Montgomery",
-          "Uptown (Birmingham)",
-          "Historic District (Fairhope)",
-          "Downtown Decatur",
-          "LoDa (Lower Dauphin Street) Historic District (Mobile)",
-          "Downtown Tuscaloosa",
-          "Downtown Florence",
-          "Downtown Gadsden",
-          "Downtown Anniston",
-          "Downtown Auburn",
-          "The Village of Providence (Huntsville)",
-          "Downtown Prattville",
-          "Old Cloverdale (Montgomery)",
-          "Downtown Opelika",
-          "Downtown Dothan"
+          "Birmingham",
+          "Montgomery",
+          "Mobile",
+          "Huntsville",
+          "Tuscaloosa",
+          "Hoover",
+          "Dothan",
+          "Auburn",
+          "Decatur",
+          "Gadsden"
         ]
       },
-
       {
         "stateName": "Alaska",
         "cities": [
-          "Downtown Anchorage",
-          "Spenard (Anchorage)",
-          "South Addition (Anchorage)",
-          "Downtown Juneau",
-          "Old Town (Fairbanks)",
-          "Mountain View (Anchorage)",
-          "Downtown Sitka",
-          "Midtown (Anchorage)",
-          "Downtown Ketchikan",
-          "Airport Heights (Anchorage)",
-          "Russian Jack (Anchorage)",
-          "Downtown Palmer",
-          "College (Fairbanks)",
-          "Mountain View (Juneau)",
-          "Downtown Homer",
-          "Downtown Soldotna",
-          "Sourdough (Fairbanks)",
-          "Downtown Kodiak",
-          "Downtown Valdez",
-          "Downtown Wasilla"
+          "Anchorage",
+          "Juneau",
+          "Fairbanks",
+          "Sitka",
+          "Ketchikan",
+          "Wasilla",
+          "Kenai",
+          "Kodiak",
+          "Bethel",
+          "Palmer"
         ]
       },
       {
         "stateName": "California",
         "cities": [
-          "Downtown Los Angeles",
-          "Hollywood (Los Angeles)",
-          "Beverly Hills",
-          "Downtown San Francisco",
-          "Union Square (San Francisco)",
-          "Fisherman's Wharf (San Francisco)",
-          "Chinatown (San Francisco)",
-          "The Castro (San Francisco)",
-          "Downtown San Diego",
-          "Gaslamp Quarter (San Diego)",
-          "Little Italy (San Diego)",
-          "La Jolla (San Diego)",
-          "Downtown Sacramento",
-          "Midtown (Sacramento)",
-          "Old Town Pasadena",
+          "Los Angeles",
+          "San Francisco",
+          "San Diego",
+          "Sacramento",
+          "San Jose",
+          "Fresno",
+          "Oakland",
+          "Long Beach",
           "Santa Monica",
-          "Venice Beach (Los Angeles)",
-          "The Mission (San Francisco)",
-          "Downtown Oakland",
-          "Napa Valley"
+          "Beverly Hills"
         ]
       },
       {
         "stateName": "Colorado",
         "cities": [
-          "Downtown Denver",
-          "LoDo (Lower Downtown Denver)",
-          "RiNo (River North Art District)",
-          "Cherry Creek (Denver)",
-          "Highland (Denver)",
-          "Old Colorado City (Colorado Springs)",
-          "Downtown Boulder",
-          "Pearl Street Mall (Boulder)",
-          "Fort Collins Old Town",
-          "Uptown (Denver)",
-          "South Broadway (Denver)",
-          "The Highlands (Boulder)",
-          "Old Town Arvada",
-          "Downtown Colorado Springs",
-          "Sloans Lake (Denver)",
-          "Old Town Fort Collins",
-          "RiNo (River North) (Colorado Springs)",
-          "Downtown Aspen",
-          "Downtown Durango",
-          "Old Town Pueblo"
+          "Denver",
+          "Colorado Springs",
+          "Aurora",
+          "Fort Collins",
+          "Boulder",
+          "Pueblo",
+          "Greeley",
+          "Aspen",
+          "Vail",
+          "Durango"
         ]
       },
       {
         "stateName": "Florida",
         "cities": [
-          "South Beach (Miami Beach)",
-          "Downtown Miami",
-          "Wynwood (Miami)",
-          "Art Deco Historic District (Miami Beach)",
-          "Downtown Orlando",
-          "Thornton Park (Orlando)",
-          "Ybor City (Tampa)",
-          "Downtown Tampa",
-          "Downtown St. Petersburg",
-          "Historic District (St. Augustine)",
-          "Downtown Sarasota",
-          "Downtown Fort Myers",
-          "Key West Historic District",
-          "Walt Disney World Resort (Lake Buena Vista)",
-          "Coral Gables (Miami)",
-          "Coconut Grove (Miami)",
-          "Downtown West Palm Beach",
-          "Rosemary District (Sarasota)",
-          "Downtown Jacksonville",
-          "St. Armands Circle (Sarasota)"
+          "Miami",
+          "Orlando",
+          "Tampa",
+          "Jacksonville",
+          "Tallahassee",
+          "St. Petersburg",
+          "Fort Lauderdale",
+          "Naples",
+          "Sarasota",
+          "Pensacola"
         ]
       },
       {
         "stateName": "New Jersey",
         "cities": [
-          "Downtown Jersey City",
-          "Hoboken Waterfront",
-          "Red Bank Downtown",
-          "Princeton Downtown",
-          "Asbury Park Boardwalk",
-          "Morristown Green",
-          "Montclair Center",
-          "Newark Ironbound",
-          "Cape May Historic District",
-          "Haddonfield Historic District",
-          "Downtown New Brunswick",
-          "Hoboken Washington Street",
-          "Collingswood Downtown",
-          "Englewood Downtown",
-          "Ridgewood Downtown",
-          "Downtown Rahway",
-          "Summit Downtown",
-          "Downtown Westfield",
-          "Downtown Somerville",
-          "Metuchen Downtown"
+          "Newark",
+          "Jersey City",
+          "Paterson",
+          "Elizabeth",
+          "Edison",
+          "Trenton",
+          "Camden",
+          "Clifton",
+          "Hoboken",
+          "Atlantic City"
         ]
       },
       {
         "stateName": "Texas",
         "cities": [
-          "Downtown Austin",
-          "Riverwalk (San Antonio)",
-          "Uptown (Dallas)",
-          "The Heights (Houston)",
-          "South Congress (Austin)",
-          "West 7th (Fort Worth)",
-          "The Strand Historic District (Galveston)",
-          "Deep Ellum (Dallas)",
-          "Pearl District (San Antonio)",
-          "Bishop Arts District (Dallas)",
-          "Montrose (Houston)",
-          "Southtown (San Antonio)",
-          "South Lamar (Austin)",
-          "Historic Market Square (San Antonio)",
-          "Sundance Square (Fort Worth)",
-          "Downtown Historic District (Grapevine)",
-          "Downtown Plano",
-          "Midtown (Houston)",
-          "Southtown Arts District (San Antonio)",
-          "Downtown Arlington"
+          "Houston",
+          "Dallas",
+          "Austin",
+          "San Antonio",
+          "Fort Worth",
+          "El Paso",
+          "Arlington",
+          "Plano",
+          "Corpus Christi",
+          "Laredo"
         ]
       },
       {
         "stateName": "Virginia",
         "cities": [
-          "Downtown Richmond",
-          "The Fan (Richmond)",
-          "Carytown (Richmond)",
-          "Shockoe Bottom (Richmond)",
-          "Old Town Alexandria",
-          "Georgetown (Washington, D.C.)",
-          "Downtown Norfolk",
-          "Ghent (Norfolk)",
-          "Virginia Beach Oceanfront",
-          "Downtown Roanoke",
-          "Downtown Charlottesville",
-          "Clarendon (Arlington)",
-          "Ballston (Arlington)",
-          "Old Town Winchester",
-          "Fredericksburg Historic District",
-          "Reston Town Center",
-          "Town Center (Virginia Beach)",
-          "Downtown Suffolk",
-          "Downtown Fredericksburg",
-          "Short Pump (Glen Allen)"
+          "Richmond",
+          "Virginia Beach",
+          "Norfolk",
+          "Chesapeake",
+          "Arlington",
+          "Newport News",
+          "Alexandria",
+          "Roanoke",
+          "Charlottesville",
+          "Hampton"
         ]
       },
       {
         "stateName": "Nevada",
         "cities": [
           "Las Vegas",
+          "Reno",
           "Carson City",
           "Henderson",
-          "Reno"
+          "Sparks",
+          "Elko",
+          "Boulder City",
+          "North Las Vegas",
+          "Mesquite",
+          "Winnemucca"
         ]
       },
       {
         "stateName": "Washington",
         "cities": [
-          "Downtown Seattle",
-          "Pike Place Market (Seattle)",
-          "Capitol Hill (Seattle)",
-          "Fremont (Seattle)",
-          "Belltown (Seattle)",
-          "Downtown Bellevue",
-          "Pioneer Square (Seattle)",
-          "University District (Seattle)",
-          "Queen Anne (Seattle)",
-          "Georgetown (Seattle)",
-          "Downtown Tacoma",
-          "Stadium District (Tacoma)",
-          "Downtown Spokane",
-          "South Lake Union (Seattle)",
-          "Ballard (Seattle)",
-          "International District/Chinatown (Seattle)",
-          "Columbia City (Seattle)",
-          "Downtown Olympia",
-          "Wallingford (Seattle)",
-          "Greenwood (Seattle)"
+          "Seattle",
+          "Spokane",
+          "Tacoma",
+          "Bellevue",
+          "Olympia",
+          "Everett",
+          "Bellingham",
+          "Redmond",
+          "Kent",
+          "Yakima"
         ]
-      }
-    ]
-  },
-
-  {
-    "countryName": "Zimbabwe",
-    "states": [
-      {
-        "stateName": "New South Wales",
-        "cities": ["Armidale", "Ballina", "Balranald"]
-      },
-
-      {
-        "stateName": "Northern Territory",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
-      },
-      {
-        "stateName": "Queensland",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
-      },
-      {
-        "stateName": "South Australia",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
-      },
-      {
-        "stateName": "Tasmania",
-        "cities": ["Duesseldorf", "Leinfelden-Echterdingen", "Eschborn"]
       }
     ]
   }
