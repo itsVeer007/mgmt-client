@@ -43,15 +43,16 @@ export class UsersComponent implements OnInit {
     this.userSer.listUsers().subscribe((res: any) => {
       // console.log(res);
       this.showLoader = false;
-      this.userTableData = res;
+      this.userTableData = res.sort((a: any, b: any) => a.user_id < b.user_id ? 1 : a.user_id > b.user_id ? -1 : 0);
       this.userTableData.forEach((element:any) => {
-        element.status== 'T' ? this.activeUsers.push(element) : this.inactiveUsers.push(element)
+        element.STATUS == 'IVISUSA' ? this.activeUsers.push(element) : this.inactiveUsers.push(element)
       });
     })
   }
 
   userInfo: any;
   getUserInfoForUserId(data: any) {
+    this.rowIndex = this.userTableData.indexOf(data);
     this.userSer.getUserInfoForUserId({userId: data?.user_id}).subscribe((res: any) => {
       if(res.Status == 'Failed') {
         this.userInfo = null;
@@ -66,6 +67,10 @@ export class UsersComponent implements OnInit {
   openViewProfileDialog(data: any) {
     this.userSer.getUserInfoForUserId({userId: data?.user_id}).subscribe((res: any) => {
       this.currentUser = res;
+      // if(res.Status !== 'Failed') {
+      // } else {
+
+      // }
     });
     this.dialog.open(this.viewprofileDialog);
   }
@@ -132,6 +137,7 @@ export class UsersComponent implements OnInit {
       next: (res:any)=>{
         this.userSites = res;
         this.isAssigned();
+        this.filterAssigned(1)
       },
       error:(err:any) => {
         this.alertSer.error(err.error.message);
@@ -163,13 +169,14 @@ export class UsersComponent implements OnInit {
   showLoading: boolean = false;
   assignedBtn!: number;
   rowIndex!: number;
-  getSitesListForUserName(user:any, index: number) {
+  getSitesListForUserName(user:any) {
     this.newSitesList = [];
-    this.assignedBtn = 0;
+    this.assignedBtn = 1;
     this.assignText = null;
 
-    this.rowIndex = index;
+    this.rowIndex = this.userTableData.indexOf(user);
     this.currentItem = user;
+    this.currentUser = user;
     this.showLoading = true;
     this.siteSer.getSitesListForUserName().subscribe((res: any) => {
       this.showLoading = false;
@@ -177,10 +184,9 @@ export class UsersComponent implements OnInit {
         this.sitesList = res.sites.sort((a: any, b: any) => a.siteId < b.siteId ? -1 : a.siteId > b.siteId ? 1 : 0);
         this.sitesList.forEach((item: any) => item.isAssigned = false);
         this.newSitesList = this.sitesList;
-        this.isAssigned()
-
-        this.currentUser = user;
         this.getSitesListForAssign(user);
+        // this.isAssigned()
+
       }
     });
   }
@@ -191,7 +197,7 @@ export class UsersComponent implements OnInit {
       this.userSer.unassignSiteForUser({userId: this.currentUser?.user_id, siteId: site?.siteId}).subscribe({
         next: (res:any) => {
           if (res.statusCode === 200) {
-            this.getSitesListForUserName(this.currentItem, -1);
+            this.getSitesListForUserName(this.currentItem);
             this.alertSer.snackSuccess(res.message);  
           } else {
             this.alertSer.error(res.message);
@@ -205,14 +211,14 @@ export class UsersComponent implements OnInit {
       this.userSer.applySitesMapping({userId: this.currentUser?.user_id, siteList: [site?.siteId]}).subscribe({
         next: (res:any) => {
           if (res.status === 'Success') {
-            this.getSitesListForUserName(this.currentItem, -1);
+            this.getSitesListForUserName(this.currentItem);
             this.alertSer.snackSuccess(res.message);  
           } else {
             this.alertSer.error(res.message);
           }
         },
         error:(err:any) => {
-          this.alertSer.error(err.error.message)
+          this.alertSer.error(err.error.message);
         }
       })
     }

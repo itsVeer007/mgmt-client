@@ -19,10 +19,10 @@ export class UserService {
     private storageSer: StorageService
   ) { }
 
-  baseUrl = environment.authUrl;
+  // baseUrl = environment.authUrl;
 
   loginNew(payload: any) {
-    let url  = this.baseUrl + `/userDetails/user_login_1_0`;
+    let url  = environment.authUrl + `/userDetails/user_login_1_0`;
     return this.http.post(url, payload);
   }
 
@@ -48,18 +48,18 @@ export class UserService {
   }
 
   listUsers() {
-    let url = this.baseUrl + '/userDetails/listUsers_1_0';
+    let url = environment.authUrl + '/userDetails/listUsers_1_0';
     return this.http.get(url);
   }
 
   listUsersByRole() {
-    let url = this.baseUrl + '/listUsersByRole_1_0';
+    let url = environment.authUrl + '/userDetails/listUsersByRole_1_0';
     let params = new HttpParams().set('roleId', 30);
     return this.http.get(url, {params: params});
   }
 
   createUser(payload: any) {
-    let url = `${this.baseUrl}/userDetails/createUser_1_0`;
+    let url = `${environment.authUrl}/userDetails/createUser_1_0`;
     // let url = 'http://192.168.0.218:9000/userDetails/createUser_1_0';
     var user: any = this.storageSer.get('user');
     payload.createdBy = user.UserId;
@@ -68,27 +68,27 @@ export class UserService {
 
   getUserInfoForUserId(payload: any) {
     var user: any = this.storageSer.get('user');
-    let url = `${this.baseUrl}/userDetails/getUserInfoForUserId_1_0/${payload?.userId}`;
+    let url = `${environment.authUrl}/userDetails/getUserInfoForUserId_1_0/${payload?.userId}`;
     return this.http.get(url);
   }
 
   updateUser(payload: any) {
-    let url = `${this.baseUrl}/userDetails/updateUser_1_0/${payload?.userId}`;
+    let url = `${environment.authUrl}/userDetails/updateUser_1_0/${payload?.userId}`;
     return this.http.put(url, payload);
   }
 
   applySitesMapping(payload: any){
-    let url =`${this.baseUrl}/userDetails/applySitesMapping_1_0`;
+    let url =`${environment.authUrl}/userDetails/applySitesMapping_1_0`;
     return this.http.post(url, payload);
   }
 
   unassignSiteForUser(payload: any){
-    let url =`${environment.baseUrl}/userDetails/unassignSiteForUser_1_0`;
+    let url =`${environment.authUrl}/userDetails/unassignSiteForUser_1_0`;
     return this.http.post(url, payload);
   }
 
   getSiteUserDetails(payload: any){
-    let url= `${this.baseUrl}/userDetails/getUsersDetailsForSiteId_1_0/${payload.siteId}`;
+    let url= `${environment.authUrl}/userDetails/getUsersDetailsForSiteId_1_0/${payload.siteId}`;
     return this.http.get(url);
   }
 
