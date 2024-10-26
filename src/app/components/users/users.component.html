@@ -85,7 +85,12 @@
           <!-- <th (click)="sort('custType')">Role</th> -->
           <!-- <th (click)="sort('contactPerson')">#Sites</th> -->
           <!-- <th (click)="sort('contactPerson')">Safety Escort</th> -->
-          <th (click)="sort('status')">Status</th>
+          <th>
+            <p class="d-inline-flex">
+              <span style="white-space: nowrap;">Status</span>
+              <img (click)="sort('STATUS')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
+            </p>
+          </th>
           <th class="text-center">Actions</th>
         </tr>
       </thead>
