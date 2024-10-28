@@ -1,10 +1,10 @@
 <div class="container-fluid">
 
-  <!-- header starts -->
+  <!-- header -->
   <div class="d-flex justify-content-between my-2">
     <div class="users-header">
 
-      <!-- count starts -->
+      <!-- count -->
       <div class="row">
         <div class="col-lg-2 d-flex justify-content-start">
           <div class="vl-blue"></div>
@@ -234,9 +234,9 @@
             <a class="pointer mx-1" matTooltip="Edit" (click)="openEditProfileDialog(cust)">
               <img src="assets/icons/edit.svg">
             </a>
-            <!-- <a class="pointer mx-1" value="Delete" matTooltip="Delete">
+            <a class="pointer mx-1" value="Delete" matTooltip="Deactivate" (click)="confirmDeleteRow(cust)">
               <img src="assets/icons/delete.svg">
-            </a> -->
+            </a>
           </td>
         </tr>
       </tbody>
@@ -257,10 +257,22 @@
 
 <ng-template #viewprofileDialog>
   <div style="background-color: #084982;">
-    <p class="text-white p-1">VIEW PROFILE</p>
+    <p class="text-white p-1">VIEW PROFILE FOR - {{currentUser?.userId}}</p>
   </div>
   <div class="dialog-content" *ngIf="currentUser">
     <div class="row m-0">
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>User Name</mat-label>
+          <input matInput [(ngModel)]="currentUser.userName" disabled>
+        </mat-form-field>
+      </div>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Email Address</mat-label>
+          <input matInput [(ngModel)]="currentUser.email" disabled>
+        </mat-form-field>
+      </div>
       <div class="col-lg-6">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>First Name</mat-label>
@@ -271,12 +283,6 @@
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Last Name</mat-label>
           <input matInput [(ngModel)]="currentUser.lastName" disabled>
-        </mat-form-field>
-      </div>
-      <div class="col-lg-6">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Email</mat-label>
-          <input matInput [(ngModel)]="currentUser.email" disabled>
         </mat-form-field>
       </div>
       <div class="col-lg-6">
@@ -305,14 +311,8 @@
       </div>
       <div class="col-lg-6">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>City</mat-label>
-          <input matInput [(ngModel)]="currentUser.city" disabled>
-        </mat-form-field>
-      </div>
-      <div class="col-lg-6">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Pin</mat-label>
-          <input matInput [(ngModel)]="currentUser.pin" disabled>
+          <mat-label>Country</mat-label>
+          <input matInput [(ngModel)]="currentUser.country" disabled>
         </mat-form-field>
       </div>
       <div class="col-lg-6">
@@ -323,8 +323,20 @@
       </div>
       <div class="col-lg-6">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Country</mat-label>
-          <input matInput [(ngModel)]="currentUser.country" disabled>
+          <mat-label>City</mat-label>
+          <input matInput [(ngModel)]="currentUser.city" disabled>
+        </mat-form-field>
+      </div>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Pin</mat-label>
+          <input matInput [(ngModel)]="currentUser.pin" disabled>
+        </mat-form-field>
+      </div>
+      <div class="col-lg-12" *ngIf="currentUser.employee === 'T'">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Employee Id</mat-label>
+          <input matInput [(ngModel)]="currentUser.empId" disabled>
         </mat-form-field>
       </div>
     </div>
@@ -332,17 +344,28 @@
 
   <div class="d-flex align-items-center justify-content-end mt-2">
     <button class="dialog-close-btn" mat-dialog-close>Close</button>
-    <button class="dialog-submit-btn" mat-dialog-close (click)="updateUser()">Update</button>
   </div>
 </ng-template>
 
 <ng-template #editprofileDialog>
   <div style="background-color: #084982;">
-    <p class="text-white p-1">EDIT PROFILE</p>
+    <p class="text-white p-1">EDIT PROFILE FOR - {{currentUser?.userId}}</p>
   </div>
   <div class="dialog-content" *ngIf="currentUser">
 
     <div class="row m-0">
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>User Name</mat-label>
+          <input matInput [(ngModel)]="currentUser.userName" disabled>
+        </mat-form-field>
+      </div>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Email Address</mat-label>
+          <input matInput [(ngModel)]="currentUser.email" disabled>
+        </mat-form-field>
+      </div>
       <div class="col-lg-6">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>First Name</mat-label>
@@ -381,6 +404,22 @@
       </div>
       <div class="col-lg-6">
         <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Select country</mat-label>
+          <mat-select [(ngModel)]="currentUser.country">
+            <mat-option *ngFor="let country of countryList" [value]="country.countryName" (click)="filterState(country.countryName)">{{ country.countryName }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Select state</mat-label>
+          <mat-select [(ngModel)]="currentUser.state">
+            <mat-option *ngFor="let state of stateList" [value]="state.stateName">{{ state.stateName }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-lg-6">
+        <mat-form-field appearance="outline" class="w-100">
           <mat-label>City</mat-label>
           <input matInput [(ngModel)]="currentUser.city">
         </mat-form-field>
@@ -391,81 +430,25 @@
           <input matInput [(ngModel)]="currentUser.pin">
         </mat-form-field>
       </div>
-      <div class="col-lg-6">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>State</mat-label>
-          <input matInput [(ngModel)]="currentUser.state">
-        </mat-form-field>
+      <div class="col-lg-12 mb-2">
+        <p>Employee</p>
+        <mat-radio-group [(ngModel)]="currentUser.employee">
+          <mat-radio-button value="T" class="me-5">Yes</mat-radio-button>
+          <mat-radio-button value="F">No</mat-radio-button>
+        </mat-radio-group>
       </div>
-      <div class="col-lg-6">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Country</mat-label>
-          <input matInput [(ngModel)]="currentUser.country">
-        </mat-form-field>
-      </div>
-      <!-- <div class="col-lg-6">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>active</mat-label>
-          <input matInput [(ngModel)]="currentUser.active">
-        </mat-form-field>
-      </div> -->
-      <div class="col-lg-6">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>employee</mat-label>
-          <input matInput [(ngModel)]="currentUser.employee">
-        </mat-form-field>
-      </div>
-      <!-- <div class="col-lg-6">
+      <div class="col-lg-12" *ngIf="currentUser.employee === 'T'">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>empId</mat-label>
           <input matInput [(ngModel)]="currentUser.empId">
         </mat-form-field>
-      </div> -->
-      <!-- <div class="col-lg-6">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>safetyEscort</mat-label>
-          <input matInput [(ngModel)]="currentUser.safetyEscort">
-        </mat-form-field>
-      </div> -->
+      </div>
     </div>
   </div>
 
   <div class="d-flex align-items-center justify-content-end mt-2">
     <button class="dialog-close-btn" mat-dialog-close>Close</button>
     <button class="dialog-submit-btn" mat-dialog-close (click)="updateUser()">Update</button>
-  </div>
-</ng-template>
-
-<ng-template #assignSiteDialog>
-  <div style="background-color: #084982;">
-    <p class="text-white p-1">Assign Site</p>
-  </div>
-
-  <div class="dialog-content">
-    <!-- <div class="w-100">
-      <app-filter [filterType]="'users'" (tableDataFromChild)="getSites($event)"></app-filter>
-    </div> -->
-
-    <div>
-      <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Select site</mat-label>
-        <input matInput #siteIdInput [matAutocomplete]="site" [(ngModel)]="selectedSites">
-        <button matSuffix mat-icon-button>
-          <mat-icon>arrow_drop_down</mat-icon>
-        </button>
-        <mat-autocomplete #site="matAutocomplete">
-          <mat-option *ngFor="let item of sitesList | search: searchText" [value]="item.siteId">
-            {{ item.siteId }} - {{ item.siteName }}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-    </div>
-
-
-    <div class="d-flex align-items-center justify-content-end mt-2">
-      <button class="dialog-close-btn" mat-dialog-close>Close</button>
-      <button class="dialog-submit-btn" mat-dialog-close>Submit</button>
-    </div>
   </div>
 </ng-template>
 

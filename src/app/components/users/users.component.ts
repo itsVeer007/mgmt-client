@@ -21,7 +21,8 @@ export class UsersComponent implements OnInit {
     private alertSer: AlertService,
     private dialog: MatDialog,
     private storageSer: StorageService,
-    private siteSer: SiteService
+    private siteSer: SiteService,
+    private http: HttpClient
   ) { }
   
   showLoader = false;
@@ -44,6 +45,9 @@ export class UsersComponent implements OnInit {
       // console.log(res);
       this.showLoader = false;
       this.userTableData = res.sort((a: any, b: any) => a.user_id < b.user_id ? 1 : a.user_id > b.user_id ? -1 : 0);
+
+      this.activeUsers = [];
+      this.inactiveUsers = [];
       this.userTableData.forEach((element:any) => {
         element.STATUS == 'IVISUSA' ? this.activeUsers.push(element) : this.inactiveUsers.push(element)
       });
@@ -79,6 +83,7 @@ export class UsersComponent implements OnInit {
   openEditProfileDialog(data: any) {
     this.userSer.getUserInfoForUserId({userId: data?.user_id}).subscribe((res: any) => {
       this.currentUser = res;
+      this.getCountry();
     });
     this.dialog.open(this.editprofileDialog);
   }
@@ -191,7 +196,7 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  selectedSites: any
+  // selectedSites: any;
   submitAssignSite(site: any) {
     if(site.isAssigned) {
       this.userSer.unassignSiteForUser({userId: this.currentUser?.user_id, siteId: site?.siteId}).subscribe({
@@ -265,9 +270,18 @@ export class UsersComponent implements OnInit {
   }
 
   deletePopup: boolean = true;
-  confirmDeleteRow() {
-    this.userTableData = this.userTableData.filter((item: any) => item.siteId !== this.currentItem.siteId);
-    this.deletePopup = true;
+  confirmDeleteRow(data: any) {
+    // this.userTableData = this.userTableData.filter((item: any) => item.siteId !== this.currentItem.siteId);
+    // this.deletePopup = true;
+    this.alertSer.confirmDelete().then((result) => {
+      if(result.isConfirmed) {
+        this.userSer.deleteUser(data).subscribe({
+          next: (res: any) => {
+            this.alertSer.success(res.message);
+          }
+        })
+      }
+    });
   }
 
   closeDeletePopup() {
@@ -381,6 +395,20 @@ export class UsersComponent implements OnInit {
         this.userTableData = this.userTableData.filter((item: any) => item.siteId !== el.siteId);
       });
     }
+  }
+
+  countryList: any;
+  getCountry() {
+    this.http.get("assets/JSON/countryList.json").subscribe((res: any) => {
+      this.countryList = res;
+      this.filterState(this.currentUser?.country)
+    });
+  }
+
+  stateList: any = [];
+  filterState(val: any) {
+    let x = this.countryList.filter((el: any) => el.countryName == val);
+    this.stateList = x.flatMap((el: any) => el.states);
   }
 
   sorted = false;
