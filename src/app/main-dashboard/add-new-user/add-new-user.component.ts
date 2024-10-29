@@ -56,7 +56,7 @@ export class AddNewUserComponent implements OnInit {
       emailId: new FormControl('', Validators.required),
       contactNumber: new FormControl('(844) GET-IVIS', Validators.required),
       alternateContactNumber: new FormControl(''),
-      addressLine1: new FormControl(''),
+      addressLine1: new FormControl('', Validators.required),
       addressLine2: new FormControl(''),
       country: new FormControl('', Validators.required),
       state: new FormControl('', Validators.required),

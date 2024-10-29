@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertService } from 'src/services/alert.service';
@@ -34,8 +34,6 @@ export class UsersComponent implements OnInit {
     this.listUsers();
   }
 
-  inactiveUsers:any=[];
-  activeUsers:any=[];
   searchText: any;
   assignText: any;
   userTableData: any = [];
@@ -45,12 +43,6 @@ export class UsersComponent implements OnInit {
       // console.log(res);
       this.showLoader = false;
       this.userTableData = res.sort((a: any, b: any) => a.user_id < b.user_id ? 1 : a.user_id > b.user_id ? -1 : 0);
-
-      this.activeUsers = [];
-      this.inactiveUsers = [];
-      this.userTableData.forEach((element:any) => {
-        element.STATUS == 'IVISUSA' ? this.activeUsers.push(element) : this.inactiveUsers.push(element)
-      });
     })
   }
 
@@ -277,7 +269,15 @@ export class UsersComponent implements OnInit {
       if(result.isConfirmed) {
         this.userSer.deleteUser(data).subscribe({
           next: (res: any) => {
-            this.alertSer.success(res.message);
+            if(res.statusCode === 200) {
+              this.listUsers();
+              this.alertSer.success(res.message);
+            } else {
+              this.alertSer.error(res.message);
+            }
+          },
+          error: (err: HttpErrorResponse) => {
+            this.alertSer.error('Failed');
           }
         })
       }

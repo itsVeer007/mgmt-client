@@ -9,7 +9,7 @@
         <div class="col-lg-2 d-flex justify-content-start">
           <div class="vl-blue"></div>
           <div class="mx-2">
-            <div class="status">Total</div>
+            <div class="status">Total Users</div>
             <div class="count">{{userTableData.length}}</div>
           </div>
         </div>
@@ -17,14 +17,16 @@
           <div class="vl-green"></div>
           <div class="mx-2">
             <div class="status">Active</div>
-            <div class="count">{{activeUsers.length}}</div>
+            <!-- <div class="count">{{activeUsers.length}}</div> -->
+            <div class="count">{{userTableData | count: 'STATUS' : 'IVISUSA'}}</div>
           </div>
         </div>
         <div class="col-lg-2 d-flex justify-content-start">
           <div class="vl-red"></div>
           <div class="mx-2">
             <div class="status">Inactive</div>
-            <div class="count">{{inactiveUsers.length}}</div>
+            <!-- <div class="count">{{inactiveUsers.length}}</div> -->
+            <div class="count">{{userTableData | count: 'STATUS' : ''}}</div>
           </div>
         </div>
       </div>
@@ -228,15 +230,15 @@
           </td>
 
           <td class="text-center">
-            <a class="pointer mx-1" matTooltip="View" (click)="openViewProfileDialog(cust)">
+            <button class="action-btns" matTooltip="View" (click)="openViewProfileDialog(cust)">
               <img src="assets/icons/view.svg">
-            </a>
-            <a class="pointer mx-1" matTooltip="Edit" (click)="openEditProfileDialog(cust)">
+            </button>
+            <button class="action-btns" matTooltip="Edit" (click)="openEditProfileDialog(cust)" [disabled]="cust.STATUS == ''">
               <img src="assets/icons/edit.svg">
-            </a>
-            <a class="pointer mx-1" value="Delete" matTooltip="Deactivate" (click)="confirmDeleteRow(cust)">
+            </button>
+            <button class="action-btns" value="Delete" [matTooltip]="cust.STATUS == 'IVISUSA' ? 'Deactivate' : 'Alredy deactivated!'" (click)="confirmDeleteRow(cust)" [disabled]="cust.STATUS == ''">
               <img src="assets/icons/delete.svg">
-            </a>
+            </button>
           </td>
         </tr>
       </tbody>

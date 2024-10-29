@@ -78,8 +78,9 @@ export class UserService {
   }
 
   deleteUser(payload: any) {
-    let url = `${environment.authUrl}//userDetails/deactivateUser_1_0/${payload?.user_id}`;
-    return this.http.get(url);
+    let url = `${environment.authUrl}/userDetails/deactivateUser_1_0/${payload?.user_id}`;
+    // let url = `http://192.168.0.201:9000/userDetails/deactivateUser_1_0/${payload?.user_id}`;
+    return this.http.post(url, null);
   }
 
   applySitesMapping(payload: any){
