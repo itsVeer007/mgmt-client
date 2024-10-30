@@ -9,6 +9,7 @@ import { UserService } from 'src/services/user.service';
 import { EditFormComponent } from 'src/app/utilities/edit-form/edit-form.component';
 import { EditCameraComponent } from '../cameras/edit-camera/edit-camera.component';
 import { MetadataService } from 'src/services/metadata.service';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -26,7 +27,8 @@ export class SitesComponent implements OnInit {
     private fb:FormBuilder,
     private alertSer: AlertService,
     private userSer: UserService,
-    private metaSer: MetadataService
+    private metaSer: MetadataService,
+    private http: HttpClient
   ) { }
 
   tableData: any = [];
@@ -314,8 +316,9 @@ export class SitesComponent implements OnInit {
     this.currentItem = JSON.parse(JSON.stringify(item));
     this.siteSer.getSiteFullDetails(item).subscribe((res:any)=> {
       // console.log(res);
-      this.getTimeZones();
       this.currentSite=res.siteDetails;
+      this.getTimeZones();
+      this.getCountry();
       
     })
     this.dialog.open(this.editSiteDialog);
@@ -412,6 +415,21 @@ resultSite:any;
       });
     }
   }
+
+  countryList: any;
+  getCountry() {
+    this.http.get("assets/JSON/countryList.json").subscribe((res: any) => {
+      this.countryList = res;
+      this.filterState(this.currentSite?.country)
+    });
+  }
+
+  stateList: any = [];
+  filterState(val: any) {
+    let x = this.countryList.filter((el: any) => el.countryName == val);
+    this.stateList = x.flatMap((el: any) => el.states);
+  }
+
 
   sorted = false;
   sort(label:any) {
