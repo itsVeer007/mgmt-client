@@ -68,8 +68,6 @@ export class NewDeviceComponent {
 
   devices:any
   sites:any = [];
-  Active:any= [];
-  inactive:any = [];
   newlistDeviceInfoData:any = [];
   listDeviceInfoData:any
   listDeviceInfo() {
@@ -83,18 +81,6 @@ export class NewDeviceComponent {
       this.devices = this.listDeviceInfoData;
       this.newlistDeviceInfoData = this.listDeviceInfoData.sort((a:any, b:any)=> a.createdTime > b.createdTime && a.active == 1 ? -1:  a.createdTime < b.createdTime ? 1 : 0);
       // this.newlistDeviceInfoData = this.listDeviceInfoData.sort((a:any, b:any)=> a.active > b.active ? -1:  a.active < b.active ? 1 : 0);
-
-      // console.log(this.newlistDeviceInfoData)
-      this.Active = [];
-      this.inactive=[];
-      for(let item of this.newlistDeviceInfoData) {
-        if(item.active === 1) {
-          this.Active.push(item)
-        }
-        if(item.active === 0) {
-          this.inactive.push(item)
-        }
-      }
     })
   }
 

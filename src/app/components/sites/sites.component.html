@@ -1,9 +1,33 @@
 <div class="container-fluid">
 
   <!-- header -->
-  <div class="d-flex justify-content-between">
+  <div class="d-flex justify-content-between my-2">
     <div class="users-header">
-      <p>List of Sites - <span>{{ newTableData?.length }}</span></p>
+      <!-- <p>List of Sites - <span>{{ newTableData?.length }}</span></p> -->
+      <!-- count -->
+      <div class="row">
+        <div class="col-lg-2 d-flex justify-content-start">
+          <div class="vl-green"></div>
+          <div class="mx-2">
+            <div class="status">Total Sites</div>
+            <div class="count">{{ newTableData.length }}</div>
+          </div>
+        </div>
+        <div class="col-lg-2 d-flex justify-content-start">
+          <div class="vl-red"></div>
+          <div class="mx-2">
+            <div class="status">Active</div>
+            <div class="count">{{ newTableData | count: '' : '' }}</div>
+          </div>
+        </div>
+        <div class="col-lg-2 d-flex justify-content-start">
+          <div class="vl-yellow"></div>
+          <div class="mx-2">
+            <div class="status">Inactive</div>
+            <div class="count">{{ newTableData | count: '' : '' }}</div>
+          </div>
+        </div>
+      </div>
     </div>
     <div>
       <!-- <a class="pointer" (click)="show('site')"><img src="assets/icons/add.svg" alt="" /></a> -->
@@ -13,33 +37,6 @@
       </a> -->
     </div>
   </div>
-  <!-- /header -->
-
-  <!-- count -->
-  <!-- <div class="row">
-      <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 d-flex justify-content-start">
-          <div class="vl-green"></div>
-          <div class="mx-2">
-              <div class="status">Active</div>
-              <div class="count">{{ active ? active : 0 }}</div>
-          </div>
-      </div>
-      <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 d-flex justify-content-start">
-          <div class="vl-red"></div>
-          <div class="mx-2">
-              <div class="status">Inactive</div>
-              <div class="count">{{ inActive.length }}</div>
-          </div>
-      </div>
-      <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2 d-flex justify-content-start">
-          <div class="vl-yellow"></div>
-          <div class="mx-2">
-              <div class="status">Onhold</div>
-              <div class="count">{{ onHold.length }}</div>
-          </div>
-      </div>
-  </div> -->
-  <!-- /count -->
 
   <!-- form -->
   <div class="search-form">
@@ -238,19 +235,30 @@
             <th>Edit</th>
           </tr>
         </thead>
-        
+
         <tbody>
           <tr *ngFor="let cam of cameras; let i=index">
-              <td>{{cam.cameraId}}</td>
-              <!-- <td>{{cam.userName}}</td>
+            <td>{{cam.cameraId}}</td>
+            <!-- <td>{{cam.userName}}</td>
               <td>{{cam.password}}</td> -->
-              <td><p>{{cam.name}}</p></td>
-              <td><p>{{cam.rtspUrl}}</p></td>
-              <td><p>{{cam.httpUrl}}</p></td>
-              <td><p>{{cam.hlsTunnel}}</p></td>
-              <td><p>{{cam.audioUrl}}</p></td>
-              <td><a class="mx-1 pointer" (click)="openEditCamera(cam)" matTooltip="Edit"><img src="assets/icons/edit.svg"></a></td>
-            </tr>
+            <td>
+              <p>{{cam.name}}</p>
+            </td>
+            <td>
+              <p>{{cam.rtspUrl}}</p>
+            </td>
+            <td>
+              <p>{{cam.httpUrl}}</p>
+            </td>
+            <td>
+              <p>{{cam.hlsTunnel}}</p>
+            </td>
+            <td>
+              <p>{{cam.audioUrl}}</p>
+            </td>
+            <td><a class="mx-1 pointer" (click)="openEditCamera(cam)" matTooltip="Edit"><img
+                  src="assets/icons/edit.svg"></a></td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -357,7 +365,7 @@
   <div style="background-color: #084982;">
     <p class="dialog-title">site - {{currentItem?.siteShortName}}</p>
   </div>
-  
+
   <div class="row m-0 dialog-content" *ngIf="currentItem">
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
@@ -365,7 +373,7 @@
         <input matInput [(ngModel)]="currentItem.siteId" disabled>
       </mat-form-field>
     </div>
-  
+
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Site Name</mat-label>
@@ -386,14 +394,14 @@
         <input matInput [(ngModel)]="currentItem.unitId" disabled>
       </mat-form-field>
     </div>
-  
+
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Phone Number</mat-label>
         <input matInput [(ngModel)]="currentItem.phoneNo" disabled>
       </mat-form-field>
     </div>
-  
+
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Email</mat-label>
@@ -407,7 +415,7 @@
         <input matInput [(ngModel)]="currentItem.fax" disabled>
       </mat-form-field>
     </div>
-  
+
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Website</mat-label>
@@ -421,49 +429,49 @@
         <input matInput [(ngModel)]="currentItem.status" disabled>
       </mat-form-field>
     </div>
-  
+
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Escalation Id</mat-label>
         <input matInput [(ngModel)]="currentItem.escalationId" disabled>
       </mat-form-field>
-    </div> 
-  
+    </div>
+
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Latitude</mat-label>
         <input matInput [(ngModel)]="currentItem.latitude" disabled>
       </mat-form-field>
     </div>
-  
+
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Longitude</mat-label>
         <input matInput [(ngModel)]="currentItem.longitude" disabled>
       </mat-form-field>
     </div>
-  
+
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Country</mat-label>
         <input matInput [(ngModel)]="currentItem.country" disabled>
       </mat-form-field>
     </div>
-  
+
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>State</mat-label>
         <input matInput [(ngModel)]="currentItem.state" disabled>
       </mat-form-field>
     </div>
-  
+
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Timezone</mat-label>
         <input matInput [(ngModel)]="currentItem.timezone" disabled>
       </mat-form-field>
     </div>
-  
+
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Remarks</mat-label>
@@ -471,7 +479,7 @@
       </mat-form-field>
     </div>
   </div>
-  
+
   <div class="d-flex align-items-center justify-content-end">
     <div>
       <button class="dialog-close-btn" mat-dialog-close>Close</button>
@@ -502,42 +510,42 @@
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Site Short Name</mat-label>
-        <input matInput [(ngModel)]="currentSite.siteShortName" >
+        <input matInput [(ngModel)]="currentSite.siteShortName">
       </mat-form-field>
     </div>
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Unit Id</mat-label>
-        <input matInput [(ngModel)]="currentSite.unitId" >
+        <input matInput [(ngModel)]="currentSite.unitId">
       </mat-form-field>
     </div>
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Phone No</mat-label>
-        <input matInput [(ngModel)]="currentSite.phoneNo" >
+        <input matInput [(ngModel)]="currentSite.phoneNo">
       </mat-form-field>
     </div>
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Email</mat-label>
-        <input matInput [(ngModel)]="currentSite.email" >
+        <input matInput [(ngModel)]="currentSite.email">
       </mat-form-field>
     </div>
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Fax</mat-label>
-        <input matInput [(ngModel)]="currentSite.fax" >
+        <input matInput [(ngModel)]="currentSite.fax">
       </mat-form-field>
     </div>
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Website</mat-label>
-        <input matInput [(ngModel)]="currentSite.website" >
+        <input matInput [(ngModel)]="currentSite.website">
       </mat-form-field>
     </div>
 
@@ -551,7 +559,7 @@
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label> Status</mat-label>
-        <input matInput [(ngModel)]="currentSite.status" >
+        <input matInput [(ngModel)]="currentSite.status">
       </mat-form-field>
     </div>
 
@@ -572,7 +580,7 @@
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Escalation Id</mat-label>
-        <input matInput [(ngModel)]="currentSite.escalationId" >
+        <input matInput [(ngModel)]="currentSite.escalationId">
       </mat-form-field>
     </div>
 
@@ -586,14 +594,14 @@
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Latitude</mat-label>
-        <input matInput [(ngModel)]="currentSite.latitude" >
+        <input matInput [(ngModel)]="currentSite.latitude">
       </mat-form-field>
     </div>
 
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Longitude</mat-label>
-        <input matInput [(ngModel)]="currentSite.longitude" >
+        <input matInput [(ngModel)]="currentSite.longitude">
       </mat-form-field>
     </div>
 
@@ -601,7 +609,8 @@
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Select country</mat-label>
         <mat-select [(ngModel)]="currentSite.country">
-          <mat-option *ngFor="let country of countryList" [value]="country.countryName" (click)="filterState(country.countryName)">{{ country.countryName }}</mat-option>
+          <mat-option *ngFor="let country of countryList" [value]="country.countryName"
+            (click)="filterState(country.countryName)">{{ country.countryName }}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
@@ -626,7 +635,7 @@
     <div class="col-lg-6">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Remarks</mat-label>
-        <input matInput [(ngModel)]="currentSite.remarks"  >
+        <input matInput [(ngModel)]="currentSite.remarks">
       </mat-form-field>
     </div>
   </div>
@@ -655,5 +664,6 @@
 </div>
 
 <div *ngIf="showCamera">
-  <app-add-new-camera (newItemEvent)="closenow('camera')" [centeralBoxFrom]="currentItem1" [currentSiteFrom]="currentItem"></app-add-new-camera>
+  <app-add-new-camera (newItemEvent)="closenow('camera')" [centeralBoxFrom]="currentItem1"
+    [currentSiteFrom]="currentItem"></app-add-new-camera>
 </div>

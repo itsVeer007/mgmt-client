@@ -1,15 +1,12 @@
 <div class="container-fluid" id="top">
     <!-- header -->
-    <div class="d-flex align-items-center justify-content-between mt-2">
-      <!-- <div class="users-header">
-        <p>List of Advertisements - <span>{{ newlistAdsInfoData?.length }}</span></p>
-      </div> -->
-      <div class="row mb-2">
-        <div class="col-lg-2 col-md-2 d-flex justify-content-start">
+    <div class="d-flex align-items-center justify-content-between my-2">
+      <div class="row">
+        <div class="col-lg-2 d-flex justify-content-start">
           <div class="vl-yellow"></div>
           <div class="mx-2">
             <div class="status">Total Ads</div>
-            <div class="count">{{ newlistAdsInfoData?.length }}</div>
+            <div class="count">{{ newlistAdsInfoData.length }}</div>
           </div>
         </div>
         <!-- <div class="col-lg-1 col-md-1 d-flex justify-content-start">
@@ -19,11 +16,11 @@
             <div class="count">{{ addedAd?.length }}</div>
           </div>
         </div> -->
-        <div class="col-lg-2 col-md-2 d-flex justify-content-start">
+        <div class="col-lg-2 d-flex justify-content-start">
           <div class="vl-blue"></div>
           <div class="mx-2">
             <div class="status">Activated</div>
-            <div class="count">{{ activated?.length }}</div>
+            <div class="count">{{ newlistAdsInfoData | count: 'status' : 4 }}</div>
           </div>
         </div>
         <!-- <div class="col-lg-1 col-md-1 d-flex justify-content-start">
@@ -33,35 +30,35 @@
             <div class="count">{{ removed?.length }}</div>
           </div>
         </div> -->
-        <div class="col-lg-2 col-md-2 d-flex justify-content-start">
+        <div class="col-lg-2 d-flex justify-content-start">
           <div class="vl-orange"></div>
           <div class="mx-2">
             <div class="status">Deactivated</div>
-            <div class="count">{{ Deactivated?.length }}</div>
+            <div class="count">{{ newlistAdsInfoData | count: 'status' : 5 }}</div>
           </div>
         </div>
-        <div class="col-lg-2 col-md-2 d-flex justify-content-start">
+        <div class="col-lg-2 d-flex justify-content-start">
           <div class="vl-orange"></div>
           <div class="mx-2">
             <div class="status">Pending</div>
-            <div class="count">{{ pending?.length }}</div>
+            <div class="count">{{ newlistAdsInfoData | count: 'status' : 1 || 2 || 3 }}</div>
           </div>
         </div>
       </div>
+
       <div>
-        <button class="create-btn mb-5" (click)="showAddAsset('asset')">Create Ad</button>
+        <button class="create-btn" (click)="showAddAsset('asset')">Create Ad</button>
       </div>
     </div>
   
-    <!-- status -->
    
-    <div>
-      <!-- <div class="col-lg-12"> -->
-        <!-- <app-filter [filterType]="'advertisements'" (tableDataFromChild)="getAdsFromChild($event)"
+    <!-- <div>
+      <div class="col-lg-12">
+        <app-filter [filterType]="'advertisements'" (tableDataFromChild)="getAdsFromChild($event)"
           (searchFromChild)="getSearchFromChild($event)" (loaderFromChild)="getLoaderFromChild($event)">
-        </app-filter> -->
-      <!-- </div> -->
-    </div>
+        </app-filter>
+      </div>
+    </div> -->
 
 
     <div class="row">

@@ -469,11 +469,10 @@ form .add-btn:active {
   background-size: cover;
   border-radius: 5px;
   margin-top: 20px;
-  position: -webkit-sticky;
   position: sticky;
   top: 0;
   font-weight: 100;
-  z-index: 1;
+  /* z-index: 1; */
 }
 
 .table-res table thead tr {

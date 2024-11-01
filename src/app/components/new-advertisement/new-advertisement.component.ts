@@ -117,13 +117,6 @@ export class NewAdvertisementComponent {
     })
   }
 
-
-  pending:any =[]
-  addedAd:any = []
-  activated:any = []
-  removed:any = []
-  Deactivated:any = []
-
   listAdsInfo() {
     this.tableLoader = true;
     this.adver.listAdsInfo().subscribe((res:any)=> {
@@ -136,25 +129,6 @@ export class NewAdvertisementComponent {
       this.devices = this.listAdsInfoData;
       this.newlistAdsInfoData = this.listAdsInfoData.flatMap((item: any) => item.ads);
       this.newlistAdsInfoData = this.newlistAdsInfoData.sort((a:any, b:any)=> a.createdTime > b.createdTime ? -1 :  a.createdTime < b.createdTime ? 1 : 0);
-
-      this.activated = [];
-      this.Deactivated = [];
-      this.pending = [];
-      for(let item of this.newlistAdsInfoData) {
-        if(item.status == 1 || item.status == 2 || item.status == 3) {
-          this.pending.push(item)
-        } 
-        
-        // else  if(item.status == 3) {
-        //   this.removed.push(item)
-        // }
-        else  if(item.status == 4) {
-          this.activated.push(item)
-        }
-        else  if(item.status == 5) {
-          this.Deactivated.push(item)
-        }
-      }
     })
   }
 

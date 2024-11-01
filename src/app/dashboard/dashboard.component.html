@@ -108,10 +108,6 @@
               </li>
             </ul>
           </div>
-          <!-- <a class="list-group-item " [routerLink]="['/tickets']" routerLinkActive="routeactive">
-            <img src="assets/icons/ticket.svg">
-            <span>Tickets/Jobs</span>
-          </a> -->
           <a *ngIf="isAdmin" class="list-group-item " [routerLink]="['./meta']" routerLinkActive="routeactive">
             <img src="assets/icons/storage.svg">
             <span>Metadata</span>
@@ -121,11 +117,8 @@
               <a [routerLink]="['./sensor-data']" routerLinkActive="routeactive">sensor</a>
             </li>
           </ul> -->
-          <!-- <a class="list-group-item " [routerLink]="['/reports']" routerLinkActive="routeactive">
-            <img src="assets/icons/report.svg">
-            <span>Reports</span>
-          </a> -->
-          <div class="navigation" >
+
+          <!-- <div class="navigation" >
             <ul>
               <li class="has-sub m-2">
                 <a class="d-inline-flex align-items-center">
@@ -141,7 +134,7 @@
                     </a>
                     <ul>
                       <li><a [routerLink]="['./qr-ads']" routerLinkActive="routeactive">QR Ads</a></li>
-                      <!-- <li><a [routerLink]="['./wifi-ads']" routerLinkActive="routeactive">Wifi Ads</a></li> -->
+                      <li><a [routerLink]="['./wifi-ads']" routerLinkActive="routeactive">Wifi Ads</a></li>
                       <li><a [routerLink]="['./wifi-analytics']" routerLinkActive="routeactive">Wifi Analytics</a></li>
                     </ul>
                   </li>
@@ -154,7 +147,7 @@
                 </ul>
               </li>
             </ul>
-          </div>
+          </div> -->
 
           <!-- <a  class="list-group-item " [routerLink]="['./mail']" routerLinkActive="routeactive">
             <img src="assets/icons/devices.svg">
@@ -247,9 +240,9 @@
           <a class="list-group-item my-2" [routerLink]="['./users']" routerLinkActive="routeactive">
               <img src="assets/icons/user-white.svg" /><span>Users</span>
           </a>
-          <a class="list-group-item my-2" [routerLink]="['./defender']" routerLinkActive="routeactive">
+          <!-- <a class="list-group-item my-2" [routerLink]="['./defender']" routerLinkActive="routeactive">
             <img src="assets/icons/user-white.svg" /><span>Defender</span>
-        </a>
+        </a> -->
           <a class="list-group-item " [routerLink]="['./indents']" routerLinkActive="routeactive">
             <img src="assets/icons/inventory.svg">
             <span>Indents</span>
@@ -280,12 +273,12 @@
           <a class="list-group-item my-2" [routerLink]="['./meta']" routerLinkActive="routeactive">
             <img src="assets/icons/storage.svg" /><span>Metadata</span>
           </a>
-          <a class="list-group-item my-2" [routerLink]="['./ticket-reports']" routerLinkActive="routeactive">
+          <!-- <a class="list-group-item my-2" [routerLink]="['./ticket-reports']" routerLinkActive="routeactive">
             <img src="assets/icons/storage.svg" /><span>Ticket Reports</span>
           </a>
           <a class="list-group-item my-2" [routerLink]="['./fr-reports']" routerLinkActive="routeactive">
             <img src="assets/icons/storage.svg" /><span>FR Reports</span>
-          </a>
+          </a> -->
         </div>
       </nav>
     </div>

@@ -1,39 +1,35 @@
 <div class="container-fluid">
 
     <!-- header -->
-    <div class="d-flex justify-content-between align-items-center my-3">
-      <!-- <div class="users-header">
-        <p class="m-0">Total Devices - <span>{{ newlistDeviceInfoData?.length }}</span></p>
-      </div> -->
-      <div class="row mb-2">
-        <div class="col-lg-3 col-md-3 d-flex justify-content-start">
+    <div class="d-flex justify-content-between align-items-center my-2">
+      <div class="row">
+        <div class="col-lg-3 d-flex justify-content-start">
           <div class="vl-yellow"></div>
           <div class="mx-2">
             <div class="status">Total Devices</div>
-            <div class="count">{{ newlistDeviceInfoData?.length }}</div>
+            <div class="count">{{ newlistDeviceInfoData.length }}</div>
           </div>
         </div>
-        <div class="col-lg-2 col-md-2 d-flex justify-content-start">
+        <div class="col-lg-2 d-flex justify-content-start">
           <div class="vl-green"></div>
           <div class="mx-2">
             <div class="status">Active</div>
-            <div class="count">{{ Active?.length }}</div>
+            <div class="count">{{ newlistDeviceInfoData | count: 'active' : 1 }}</div>
           </div>
         </div>
-        <div class="col-lg-2 col-md-2 d-flex justify-content-start">
+        <div class="col-lg-2 d-flex justify-content-start">
           <div class="vl-red"></div>
           <div class="mx-2">
             <div class="status">Inactive</div>
-            <div class="count">{{ inactive?.length }}</div>
+            <div class="count">{{ newlistDeviceInfoData | count: 'active' : 0 }}</div>
           </div>
         </div>
       </div>
+
       <div>
-        <button class="create-btn mb-4" (click)="show('device', null)">Create Device</button>
+        <button class="create-btn" (click)="show('device', null)">Create Device</button>
       </div>
     </div>
-  
-    <!-- count -->
     
   
     <!-- form -->

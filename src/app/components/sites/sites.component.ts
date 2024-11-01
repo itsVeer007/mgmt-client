@@ -36,11 +36,7 @@ export class SitesComponent implements OnInit {
   showLoader: boolean = false;
   searchText: any;
 
-  active: any;
-  inActive: any = [];
-  onHold: any = [];
   tempSite: any;
-  // siteData: any;
   createCenteralBox!: FormGroup;
 
   user:any
