@@ -90,6 +90,7 @@ import { EditFormComponent } from './utilities/edit-form/edit-form.component';
 import { EditCameraComponent } from './components/cameras/edit-camera/edit-camera.component';
 import { OrderByPipe } from './utilities/pipes/order-by.pipe';
 import { CountPipe } from './utilities/pipes/count.pipe';
+import { DeviceStatusComponent } from './device-status/device-status.component';
 
 
 
@@ -167,6 +168,7 @@ import { CountPipe } from './utilities/pipes/count.pipe';
     EditCameraComponent,
     NewDeviceComponent,
     GeneralComponent,
+    DeviceStatusComponent,
     MailComponent,
     EditFormComponent,
     OrderByPipe,

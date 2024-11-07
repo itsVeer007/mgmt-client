@@ -37,6 +37,7 @@ import { AddNewSiteComponent } from './main-dashboard/add-new-site/add-new-site.
 import { AddNewUserComponent } from './main-dashboard/add-new-user/add-new-user.component';
 import { MainDashboardComponent } from './main-dashboard/main-dashboard.component';
 import { SensorDataComponent } from './components/sensor-data/sensor-data.component';
+import { DeviceStatusComponent } from './device-status/device-status.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -53,6 +54,7 @@ const routes: Routes = [
       { path: 'add-new-business', component: AddNewBusinessVerticalComponent },
       { path: 'sites', component: SitesComponent },
       { path: 'devices', component: DevicesComponent },
+      { path: 'device-status', component: DeviceStatusComponent },
       { path: 'analytics', component: AnalyticsComponent },
       { path: 'customers', component: CustomersComponent },
       { path: 'users', component: UsersComponent },

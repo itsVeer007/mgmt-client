@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
           this.storageSer.set('user', res);
           this.userSer.user$.next(res);
           this.getSitesListForUserName();
-          this.router.navigate(['/dashboard/main-dashboard']);
+          this.router.navigate(['/dashboard/devices']);
         } else if(res?.Status == 'Failed') {
           this.alertSer.error(res?.message);
         }

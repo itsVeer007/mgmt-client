@@ -362,4 +362,9 @@ export class AssetService {
     let url = this. baseUrl + `/getAnalytics_1_0/${payload?.device_name}/${date}`;
     return this.http.get(url)
   }
+
+  devicesStatus() {
+    let url = 'http://192.168.0.103:1258/devices';
+    return this.http.get(url);
+  }
 }

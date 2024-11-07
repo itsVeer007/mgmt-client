@@ -1,29 +1,34 @@
 <div class="container-fluid">
 
   <!-- header -->
-  <div class="d-flex justify-content-between align-items-center">
+  <!-- <div class="d-flex justify-content-between align-items-center">
     <div class="users-header">
       <p class="m-0">Total Devices - <span>{{ newDeviceData?.length }}</span></p>
     </div>
 
     <div style="position: relative;">
-      <!-- <a class="pointer" (click)="show('device')"><img src="assets/icons/add.svg" alt="" /></a> -->
-      <!-- <button mat-flat-button color="primary" class="py-0" (click)="show('device')">Create Device</button> -->
       <button class="create-btn" (click)="show('device')">Create Device</button>
       <button class="create-btn mx-1" (click)="openSensor()">Sensors Data</button>
     </div>
-  </div>
+  </div> -->
 
   <!-- count -->
-  <div class="row mb-2">
-    <div class="col-lg-1 col-md-1 d-flex justify-content-start">
+  <div class="row my-2">
+    <div class="col-lg-1 d-flex justify-content-start">
+      <div class="vl-green"></div>
+      <div class="mx-2">
+        <div class="status">Tota Devices</div>
+        <div class="count">{{ newDeviceData?.length }}</div>
+      </div>
+    </div>
+    <div class="col-lg-1 d-flex justify-content-start">
       <div class="vl-green"></div>
       <div class="mx-2">
         <div class="status">Online</div>
         <div class="count">{{ active?.length }}</div>
       </div>
     </div>
-    <div class="col-lg-1 col-md-1 d-flex justify-content-start">
+    <div class="col-lg-1 d-flex justify-content-start">
       <div class="vl-red"></div>
       <div class="mx-2">
         <div class="status">Offline</div>
@@ -34,7 +39,6 @@
 
   <!-- form -->
     <div>
-      <!-- <div class="col-md-6 col-lg-6"> -->
         <app-filter
           [filterType]="'devices'"
           (tableDataFromChild)="getDevicesFromChild($event)"
@@ -42,10 +46,9 @@
           (loaderFromChild)="getLoaderFromChild($event)"
         >
         </app-filter>
-      <!-- </div> -->
     </div>
 
-  <div class="status-tile row py-2 mx-1 mb-3 d-lg-flex d-none">
+  <!-- <div class="status-tile row py-2 mx-1 mb-3 d-lg-flex d-none">
     <div class="col-lg-1">
       <p>Sites</p>
       <p class="status-tile-count">2</p>
@@ -135,7 +138,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <!-- table -->
   <div class="table-resp">
@@ -173,9 +176,9 @@
             <img (click)="sort('status')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
           </th>
           <th>Reboot</th>
-          <th>
+          <!-- <th>
             <span>Uptime</span>
-          </th>
+          </th> -->
           <th>
             <span>Actions</span>
           </th>
@@ -221,11 +224,11 @@
             <img class="pointer" style="opacity: 0.7;" src="assets/icons/restart.svg" width="25" height="25">
           </td>
 
-          <td>
+          <!-- <td>
             <p *ngFor="let item of upTime" >
               <span *ngIf="item.deviceId == cust.deviceId">{{ item.firstConnected | date: 'HH.mm' }}</span>
             </p>
-          </td>
+          </td> -->
 
           <td>
             <a class="pointer mx-1" matTooltip="view" (click)="openViewPopup(cust)">

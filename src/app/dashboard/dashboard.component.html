@@ -16,7 +16,11 @@
     <div class="left-content col-lg-2 d-lg-block d-none">
       <nav class="sidebar" id="navbarToggleExternalContent">
         <div class="list-group m-3">
-          <a class="list-group-item active " [routerLink]="['./main-dashboard']" routerLinkActive="routeactive">
+          <!-- <a class="list-group-item active " [routerLink]="['./main-dashboard']" routerLinkActive="routeactive">
+            <img src="assets/icons/dashboard.svg">
+            <span>Dashboard</span>
+          </a> -->
+          <a class="list-group-item active " [routerLink]="['./devices']" routerLinkActive="routeactive">
             <img src="assets/icons/dashboard.svg">
             <span>Dashboard</span>
           </a>
@@ -68,9 +72,13 @@
             <img src="assets/icons/devices.svg">
             <span>General</span>
           </a> -->
-          <a  class="list-group-item " [routerLink]="['./new-device']" routerLinkActive="routeactive">
+          <!-- <a  class="list-group-item " [routerLink]="['./new-device']" routerLinkActive="routeactive">
             <img src="assets/icons/devices.svg">
             <span>Devices</span>
+          </a> -->
+          <a  class="list-group-item " [routerLink]="['./device-status']" routerLinkActive="routeactive">
+            <img src="assets/icons/devices.svg">
+            <span>Device-Status</span>
           </a>
           <a  class="list-group-item " [routerLink]="['./new-adver']" routerLinkActive="routeactive">
             <img src="assets/icons/asset.svg">

@@ -1,9 +1,6 @@
 import { DatePipe } from '@angular/common';
-import { Component, EventEmitter, HostListener, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { MatOption } from '@angular/material/core';
+import { Component, EventEmitter, Output, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSelect } from '@angular/material/select';
-import { SensorDataComponent } from 'src/app/components/sensor-data/sensor-data.component';
 import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
 import { InventoryService } from 'src/services/inventory.service';
@@ -11,11 +8,11 @@ import { SiteService } from 'src/services/site.service';
 import { StorageService } from 'src/services/storage.service';
 
 @Component({
-  selector: 'app-devices',
-  templateUrl: './devices.component.html',
-  styleUrls: ['./devices.component.css']
+  selector: 'app-device-status',
+  templateUrl: './device-status.component.html',
+  styleUrls: ['./device-status.component.css']
 })
-export class DevicesComponent implements OnInit {
+export class DeviceStatusComponent {
 
   @Output() newItemEvent = new EventEmitter<boolean>();
 
@@ -31,9 +28,9 @@ export class DevicesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getSitesListForUserName()
+    // this.getSitesListForUserName()
     this.listDeviceAdsInfo();
-    this.getStatus();
+    // this.getStatus();
     // this.getData();
   }
   siteId: any;
@@ -117,21 +114,10 @@ export class DevicesComponent implements OnInit {
   inActive: any = [];
   listDeviceAdsInfo() {
     this.showLoader = true;
-    this.assetSer.listDeviceAdsInfo().subscribe((res: any) => {
-      // console.log(res);
+    this.assetSer.devicesStatus().subscribe((res: any) => {
       this.showLoader = false;
-      this.getMetadata();
-      this.deviceData = res.flatMap((item: any) => item.adsDevices);
+      this.deviceData = res;
       this.newDeviceData = this.deviceData;
-      this.active = [];
-      this.inActive = []
-      for(let item of this.newDeviceData) {
-        if(item.status == 1 || item.status == 3) {
-          this.active.push(item);
-        } else if(item.status == 2) {
-          this.inActive.push(item);
-        }
-      }
     })
   }
 
@@ -279,5 +265,5 @@ export class DevicesComponent implements OnInit {
       x.sort((a: string, b: string) => b[label] > a[label] ? 1 : b[label] < a[label] ? -1 : 0);
     }
   }
-
+  
 }
