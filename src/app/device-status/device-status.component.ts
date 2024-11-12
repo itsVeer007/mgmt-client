@@ -6,6 +6,7 @@ import { AssetService } from 'src/services/asset.service';
 import { InventoryService } from 'src/services/inventory.service';
 import { SiteService } from 'src/services/site.service';
 import { StorageService } from 'src/services/storage.service';
+import { CreateFormComponent } from '../utilities/create-form/create-form.component';
 
 @Component({
   selector: 'app-device-status',
@@ -149,7 +150,6 @@ export class DeviceStatusComponent {
 
   getDevicesFromChild1(data: any) {
     this.newGetDataForDevice = data;
-    console.log(data)
   }
 
   getSearchFromChild(data: any) {
@@ -240,10 +240,16 @@ export class DeviceStatusComponent {
   @ViewChild('viewSiteDialog') viewSiteDialog = {} as TemplateRef<any>;
   currentItem: any;
   currentWorkingDays: any;
-  openViewPopup(item: any) {
-    this.currentItem = item;
-    this.currentWorkingDays = JSON.parse(JSON.stringify(this.currentItem.workingDays.split(',').map((item: any) => +item)));
-    this.dialog.open(this.viewSiteDialog);
+  openViewPopup(data: any) {
+    this.currentItem = data;
+    let dialogRef = this.dialog.open(CreateFormComponent, {
+      data: data
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+    // this.currentWorkingDays = JSON.parse(JSON.stringify(this.currentItem.workingDays.split(',').map((item: any) => +item)));
+    // this.dialog.open(this.viewSiteDialog);
   }
 
   @ViewChild('editSiteDialog') editSiteDialog = {} as TemplateRef<any>;

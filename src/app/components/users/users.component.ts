@@ -265,7 +265,7 @@ export class UsersComponent implements OnInit {
   confirmDeleteRow(data: any) {
     // this.userTableData = this.userTableData.filter((item: any) => item.siteId !== this.currentItem.siteId);
     // this.deletePopup = true;
-    this.alertSer.confirmDelete().then((result) => {
+    this.alertSer.confirmDialog().then((result) => {
       if(result.isConfirmed) {
         this.userSer.deleteUser(data).subscribe({
           next: (res: any) => {

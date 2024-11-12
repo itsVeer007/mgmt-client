@@ -90,7 +90,7 @@ export class AlertService {
     })
   }
 
-  confirmDelete() {
+  confirmDialog() {
     return Swal.fire({
       title: "Are you sure?",
       // text: "You won't be able to revert this!",
@@ -98,7 +98,7 @@ export class AlertService {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, deactivate!"
+      confirmButtonText: "Yes"
     })
   }
 

@@ -74,7 +74,6 @@ export class FilterComponent {
   }
 
   // showFilter:boolean = true
-
   // applyFilter() {
   //   this.assetSer.dayWiseStats(this.ticketStatusObj).subscribe((res:any)=> {
   //     console.log(res);
@@ -115,11 +114,9 @@ export class FilterComponent {
 
     if(type === 'devices') {
       this.loaderFromChild.emit(true);
-      this.assetSer.listDeviceAdsInfo1({siteId: siteId, deviceId: deviceId}).subscribe((res: any) => {
+      this.assetSer.getHealth({siteId: siteId, deviceId: deviceId}).subscribe((res: any) => {
         this.loaderFromChild.emit(false);
-        let x = res.flatMap((item: any) => item.adsDevices);
-        console.log(x)
-        this.tableDataFromChild.emit(x);
+        this.tableDataFromChild.emit(res);
       })
     }
 

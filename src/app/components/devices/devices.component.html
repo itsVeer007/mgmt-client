@@ -25,14 +25,14 @@
       <div class="vl-green"></div>
       <div class="mx-2">
         <div class="status">Online</div>
-        <div class="count">{{ active?.length }}</div>
+        <div class="count">{{ 70 }}</div>
       </div>
     </div>
     <div class="col-lg-1 d-flex justify-content-start">
       <div class="vl-red"></div>
       <div class="mx-2">
         <div class="status">Offline</div>
-        <div class="count">{{ inActive?.length }}</div>
+        <div class="count">{{ 32 }}</div>
       </div>
     </div>
   </div>
@@ -145,103 +145,63 @@
     <table class="table table-hover" id="mytable">
       <thead>
         <tr class="form1">
-        <!-- <th>
-            <input type="checkbox" class="form-check-input" [(ngModel)]="selectedAll" (change)="selectAll()"
-              id="allcheck" style="
-                background-color: #00000000;
-                border-color: #fff;
-                margin-left: 10px;
-              " />
-          </th> -->
-          <th>
-            <span>Id</span>
-            <img (click)="sort('deviceId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-          </th>
-          <th>
-            <span>Type</span>
-            <img (click)="sort('deviceTypeId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-          </th>
-          <th>
-            <span>Site Details</span>
-            <img (click)="sort('siteId')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-          </th>
-          <th>
-            <span>Camera</span>
-          </th>
-          <th>
-            <span>Sensors</span>
-          </th>
-          <th>
-            <span>Status</span>
-            <img (click)="sort('status')" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px">
-          </th>
-          <th>Reboot</th>
-          <!-- <th>
-            <span>Uptime</span>
-          </th> -->
-          <th>
-            <span>Actions</span>
+          <th *ngFor="let header of columns">
+            <div class="d-inline-flex">
+              <p class="text-nowrap">{{ header.label | titlecase}}</p>
+              <img (click)="sort(header.id)" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px" alt="" *ngIf="header.sort">
+            </div>
           </th>
         </tr>
       </thead>
 
       <tbody *ngIf="!showLoader">
-        <tr *ngFor="let cust of newDeviceData | search : searchText; let i = index">
-          <!-- <td>
-            <input type="checkbox" name="foo" class="form-check-input" [(ngModel)]="cust.selected" (change)="
-                checkIfAllSelected();
-                deleteMultiRecords(cust, i, $event);
-                ViewByCheckbox(cust, i, $event);
-                EditByCheckbox(cust, i, $event)
-              " id="singleCheck" />
-          </td> -->
-          <!-- <td><input type="checkbox" class="form-check-input" [checked]="masterSelected" /></td> -->
-          <td>
-            <p>{{ cust.deviceId }}</p>
-          </td>
-          <td>
-            <p>{{ cust.deviceTypeId == 1 ? 'Audio' : cust.deviceTypeId == 2 ? 'Video': cust.deviceTypeId == 3 ? 'Wifi' : ''}}</p>
-          </td>
-          <td>
-            <p>{{ cust.siteId }}</p>
-          </td>
-          <td>
-            <p class="text-primary pointer" (click)="show('device-info')">1</p>
-          </td>
-          <td>
-            <p class="text-primary pointer" (click)="show('device-info')">0</p>
-          </td>
-          <td>
-            <!-- <p [style.color]="cust.status == 1 ? '#00A44C' : cust.status == 2 ? '#fa500f' : ''">
-              {{ cust.status == 1 ? 'Online' : cust.status == 2 ? 'Offline' : '' }}
-            </p> -->
-            <select class="form-control custom-form-control" [(ngModel)]="cust.status">
-              <option *ngFor="let status of deviceStatus" [value]="status.keyId">{{status.value}}</option>
-            </select>
-          </td>
-
-          <td (click)="openRebootDevice(cust)">
-            <img class="pointer" style="opacity: 0.7;" src="assets/icons/restart.svg" width="25" height="25">
-          </td>
-
-          <!-- <td>
-            <p *ngFor="let item of upTime" >
-              <span *ngIf="item.deviceId == cust.deviceId">{{ item.firstConnected | date: 'HH.mm' }}</span>
-            </p>
-          </td> -->
-
-          <td>
-            <a class="pointer mx-1" matTooltip="view" (click)="openViewPopup(cust)">
-              <img src="assets/icons/view.svg" alt="">
-            </a>
-            <a class="pointer mx-1" matTooltip="Edit" (click)="openEditPopup(cust)">
-              <img src="assets/icons/edit.svg" alt="">
-            </a>
-            <!-- <a class="pointer mx-1" matTooltip="Delete" (click)="openDeletePopup()">
-              <img src="assets/icons/delete.svg" alt="">
-            </a> -->
-          </td>
-        </tr>
+        <ng-container  *ngFor="let item of newDeviceData | search : searchText; let i = index">
+          <ng-container *ngFor="let el of item.devicesData | search : searchText; let first = first">
+            <tr >
+              <td *ngIf="first" [attr.rowspan]="item.devicesData.length">
+                <p>{{ item.siteId }}</p>
+              </td>
+              <td *ngIf="first" [attr.rowspan]="item.devicesData.length">
+                <p>{{ item.siteName }}</p>
+              </td>
+  
+              <td >
+                <p>{{ el.deviceId }}</p>
+              </td>
+              <td >
+                <p>{{ el.firstConnected | date: 'medium' }}</p>
+              </td>
+              <td >
+                <p>{{ el.lastTimeLastConnected | date: 'medium'}}</p>
+              </td>
+              <td >
+                <p>{{ el.uptime }}</p>
+              </td>
+              <td >
+                <p>{{ el.downTime }}</p>
+              </td>
+              <td >
+                <p [style.color]="getLiveStatus(el)[0]?.Status ? 'green' : 'red'">{{ getLiveStatus(el)[0]?.Status ? 'Online' : 'Offline' }}</p>
+              </td>
+  
+              <!-- <td [attr.rowspan]="item.devicesData.length" (click)="openRebootDevice(el)">
+                <img class="pointer" style="opacity: 0.7;" src="assets/icons/restart.svg" width="25" height="25">
+              </td> -->
+              
+              <!-- <td>
+                <a class="pointer mx-1" matTooltip="view" (click)="openViewPopup(el)">
+                  <img src="assets/icons/view.svg" alt="">
+                </a>
+                <a class="pointer mx-1" matTooltip="Edit" (click)="openEditPopup(el)">
+                  <img src="assets/icons/edit.svg" alt="">
+                </a>
+                <a class="pointer mx-1" matTooltip="Delete">
+                  <img src="assets/icons/delete.svg" alt="">
+                </a>
+              </td> -->
+            </tr>
+          </ng-container>
+        </ng-container>
       </tbody>
     </table>
     <!-- error info -->

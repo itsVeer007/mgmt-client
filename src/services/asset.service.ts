@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { DatePipe, formatDate } from '@angular/common';
 
 import { environment } from '../environments/environment';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { StorageService } from './storage.service';
 
 @Injectable({
@@ -171,13 +171,18 @@ export class AssetService {
     return this.http.get(url, {params: params});
   }
 
-  getHealth() {
-    let url = this.baseUrl + '/getHealth_1_0';
-    // var payload = {
-    //   'deviceId': deviceId
-    // }
+  getHealth(payload?: any): Observable<any> {
+    // let url = this.baseUrl + '/getHealth_1_0';
 
-    return this.http.get(url);
+    let url: string = 'http://192.168.0.133:8958/getDeviceHealth';
+    let params = new HttpParams();
+    if(payload?.siteId) {
+      params = params.set('siteId', payload?.siteId);
+    }
+    if(payload?.deviceId) {
+      params = params.set('deviceId', payload?.deviceId);
+    }
+    return this.http.get(url, {params: params});
   }
 
   updateRebootDevice(id: any) {

@@ -2,8 +2,6 @@ import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, HostListener, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { MatOption } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSelect } from '@angular/material/select';
-import { SensorDataComponent } from 'src/app/components/sensor-data/sensor-data.component';
 import { AlertService } from 'src/services/alert.service';
 import { AssetService } from 'src/services/asset.service';
 import { InventoryService } from 'src/services/inventory.service';
@@ -17,9 +15,51 @@ import { StorageService } from 'src/services/storage.service';
 })
 export class DevicesComponent implements OnInit {
 
+  columns = [
+    {
+      id: 'siteId',
+      label: 'site id',
+      sort: true
+    },
+    {
+      id: 'siteName',
+      label: 'site name',
+      sort: true
+    },
+    {
+      id: 'deviceId',
+      label: 'device id',
+      sort: true
+    },
+    {
+      id: 'firstConnected',
+      label: 'first connected',
+      sort: true
+    },
+    {
+      id: 'lastTimeLastConnected',
+      label: 'last connected',
+      sort: true
+    },
+    {
+      id: 'uptime',
+      label: 'up time',
+      sort: true
+    },
+    {
+      id: 'downTime',
+      label: 'down time',
+      sort: true
+    },
+    {
+      id: 'status',
+      label: 'status',
+      sort: true
+    }
+  ]
+
   @Output() newItemEvent = new EventEmitter<boolean>();
 
-  showLoader = false;
   constructor(
     private inventorySer: InventoryService,
     private assetSer: AssetService,
@@ -30,23 +70,22 @@ export class DevicesComponent implements OnInit {
     private storageSer: StorageService
   ) { }
 
+  showLoader = false;
   ngOnInit(): void {
-    this.getSitesListForUserName()
-    this.listDeviceAdsInfo();
+    // this.getSitesListForUserName()
+    // this.listDeviceAdsInfo();
     this.getStatus();
     // this.getData();
   }
   siteId: any;
   deviceId: any
 
-  // current:any
-  // currentItem1:any;
-  getDataForDevice:any = [];
-  newGetDataForDevice:any = [];
+  getDataForDevice: any = [];
+  newGetDataForDevice: any = [];
   showLoader1: boolean = false
-  getData(item:any) {
+  getData(item: any) {
     this.showLoader1 = true;
-    this.inventorySer.listSensorData(item).subscribe((res:any)=> {
+    this.inventorySer.listSensorData(item).subscribe((res: any) => {
       // console.log(res);
       this.showLoader1 = false
       this.getDataForDevice = res;
@@ -71,23 +110,23 @@ export class DevicesComponent implements OnInit {
 
   // }
 
-    @ViewChild('sensorDialog') sensorDialog = {} as TemplateRef<any>
-    openSensor() {
+  @ViewChild('sensorDialog') sensorDialog = {} as TemplateRef<any>
+  openSensor() {
     this.siteId = this.tableData[0].siteId
     this.getData(this.newTableData[0])
     this.dialog.open(this.sensorDialog);
   }
 
-   /* searches */
-    siteSearch: any;
-    siteNg: any = 'All'
-    searchSites(event: any) {
+  /* searches */
+  siteSearch: any;
+  siteNg: any = 'All'
+  searchSites(event: any) {
     this.siteSearch = (event.target as HTMLInputElement).value
-    }
+  }
 
-    filterSites(site: any) {
-    if(site != 'All') {
-      this.newTableData =  this.tableData.filter((item: any) => item.siteId == site)
+  filterSites(site: any) {
+    if (site != 'All') {
+      this.newTableData = this.tableData.filter((item: any) => item.siteId == site)
     } else {
       this.newTableData = this.tableData;
     }
@@ -101,12 +140,12 @@ export class DevicesComponent implements OnInit {
     this.siteSer.getSitesListForUserName().subscribe((res: any) => {
       // console.log(res);
       this.showLoader = false;
-      if(res?.Status == 'Success') {
+      if (res?.Status == 'Success') {
         this.tableData = res?.sites?.sort((a: any, b: any) => a.siteId < b.siteId ? -1 : a.siteId > b.siteId ? 1 : 0);
         this.newTableData = this.tableData;
       }
-      }, (err: any) => {
-        this.showLoader = false;
+    }, (err: any) => {
+      this.showLoader = false;
     });
   }
 
@@ -118,28 +157,41 @@ export class DevicesComponent implements OnInit {
   listDeviceAdsInfo() {
     this.showLoader = true;
     this.assetSer.listDeviceAdsInfo().subscribe((res: any) => {
-      // console.log(res);
       this.showLoader = false;
-      this.getMetadata();
+      // this.getMetadata();
       this.deviceData = res.flatMap((item: any) => item.adsDevices);
       this.newDeviceData = this.deviceData;
-      this.active = [];
-      this.inActive = []
-      for(let item of this.newDeviceData) {
-        if(item.status == 1 || item.status == 3) {
-          this.active.push(item);
-        } else if(item.status == 2) {
-          this.inActive.push(item);
-        }
-      }
     })
   }
 
   upTime: any;
+  newData: any = [];
   getStatus() {
-    this.assetSer.getHealth().subscribe((res: any) => {
-      this.upTime = res.flatMap((item: any) => item.on);
+    this.showLoader = true;
+    this.assetSer.getHealth().subscribe((res) => {
+      this.showLoader = false;
+      // this.upTime = res.flatMap((item: any) => item.on);
       // console.log(this.upTime[0]?.firstConnected.this.da - this.upTime[0]?.lastConnected)
+      this.deviceData = res.DeviceHealthData;
+      this.newDeviceData = this.deviceData;
+      this.getDeviceStatus();
+    }, (err) => {
+
+    })
+  }
+
+  statusData: Array<any> = new Array();
+  getDeviceStatus() {
+    this.assetSer.devicesStatus().subscribe((res: any) => {
+      this.statusData = res;
+    })
+  }
+
+  getLiveStatus(data: any) {
+    return this.statusData.filter((item) => {
+      if (data.deviceId == item.UnitId) {
+        return item.Status
+      }
     })
   }
 
@@ -149,16 +201,6 @@ export class DevicesComponent implements OnInit {
 
   getDevicesFromChild(data: any) {
     this.newDeviceData = data;
-
-    this.active = [];
-    this.inActive = [];
-    for(let item of data) {
-      if(item.status == 1) {
-        this.active.push(item);
-      } else if(item.status == 2) {
-        this.inActive.push(item);
-      }
-    }
   }
 
   getDevicesFromChild1(data: any) {
@@ -185,27 +227,27 @@ export class DevicesComponent implements OnInit {
   getMetadata() {
     let data = this.storageSer.get('metaData');;
     data?.forEach((item: any) => {
-      if(item.type == 2) {
+      if (item.type == 2) {
         this.deviceType = item.metadata;
-      } else if(item.type == 1) {
+      } else if (item.type == 1) {
         this.deviceMode = item.metadata;
-      } else if(item.type == 6) {
+      } else if (item.type == 6) {
         this.workingDay = item.metadata;
-      } else if(item.type == 10) {
+      } else if (item.type == 10) {
         this.tempRange = item.metadata;
-      } else if(item.type == 13) {
+      } else if (item.type == 13) {
         this.ageRange = item.metadata;
-      } else if(item.type == 7) {
+      } else if (item.type == 7) {
         this.modelObjectType = item.metadata;
-      } else if(item.type == 18) {
+      } else if (item.type == 18) {
         this.model = item.metadata;
-      } else if(item.type == 19) {
+      } else if (item.type == 19) {
         this.modelResolution = item.metadata;
-      } else if(item.type == 20) {
+      } else if (item.type == 20) {
         this.softwareVersion = item.metadata;
-      } else if(item.type == 21) {
+      } else if (item.type == 21) {
         this.weatherInterval = item.metadata;
-      } else if(item.type == 4) {
+      } else if (item.type == 4) {
         this.deviceStatus = item.metadata;
       }
     })
@@ -214,18 +256,19 @@ export class DevicesComponent implements OnInit {
   @ViewChild('rebootDeviceDialog') rebootDeviceDialog = {} as TemplateRef<any>;
   openRebootDevice(item: any) {
     this.currentItem = item;
-    this.dialog.open(this.rebootDeviceDialog);
+    // this.dialog.open(this.rebootDeviceDialog);
+    this.alertSer.confirmDialog()
   }
 
   rebootDevice(id: any) {
     this.alertSer.wait();
     this.assetSer.updateRebootDevice(id).subscribe((res: any) => {
       // console.log(res)
-      if(res) {
+      if (res) {
         this.alertSer.success(res?.message);
       }
     }, (err: any) => {
-      if(err) {
+      if (err) {
         this.alertSer.error(err?.error?.message);
       };
     });
@@ -235,13 +278,13 @@ export class DevicesComponent implements OnInit {
   showAddDevice: boolean = false;
   showDeviceInfo: boolean = false;
   show(type: any) {
-    if(type == 'device') { this.showAddDevice = true }
-    if(type == 'device-info') { this.showDeviceInfo = true }
+    if (type == 'device') { this.showAddDevice = true }
+    if (type == 'device-info') { this.showDeviceInfo = true }
   }
 
   closenow(type: any) {
-    if(type == 'device') {this.showAddDevice = false}
-    if(type == 'device-info') {this.showDeviceInfo = false}
+    if (type == 'device') { this.showAddDevice = false }
+    if (type == 'device-info') { this.showDeviceInfo = false }
   }
 
   @ViewChild('editStatusDialog') editStatusDialog = {} as TemplateRef<any>;
@@ -256,15 +299,14 @@ export class DevicesComponent implements OnInit {
   currentWorkingDays: any;
   openViewPopup(item: any) {
     this.currentItem = item;
-    this.currentWorkingDays = JSON.parse(JSON.stringify(this.currentItem.workingDays.split(',').map((item: any) => +item)));
+    // this.currentWorkingDays = JSON.parse(JSON.stringify(this.currentItem.workingDays.split(',').map((item: any) => +item)));
     this.dialog.open(this.viewSiteDialog);
   }
 
   @ViewChild('editSiteDialog') editSiteDialog = {} as TemplateRef<any>;
   openEditPopup(item: any) {
-    console.log(item)
     this.currentItem = item;
-    this.currentWorkingDays = JSON.parse(JSON.stringify(this.currentItem.workingDays.split(',').map((item: any) => +item)));
+    // this.currentWorkingDays = JSON.parse(JSON.stringify(this.currentItem.workingDays.split(',').map((item: any) => +item)));
     this.dialog.open(this.editSiteDialog);
   }
 
