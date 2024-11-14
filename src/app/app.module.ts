@@ -91,6 +91,7 @@ import { EditCameraComponent } from './components/cameras/edit-camera/edit-camer
 import { OrderByPipe } from './utilities/pipes/order-by.pipe';
 import { CountPipe } from './utilities/pipes/count.pipe';
 import { DeviceStatusComponent } from './device-status/device-status.component';
+import { CreateFormComponent } from './utilities/create-form/create-form.component';
 
 
 
@@ -170,6 +171,7 @@ import { DeviceStatusComponent } from './device-status/device-status.component';
     GeneralComponent,
     DeviceStatusComponent,
     MailComponent,
+    CreateFormComponent,
     EditFormComponent,
     OrderByPipe,
     CountPipe
