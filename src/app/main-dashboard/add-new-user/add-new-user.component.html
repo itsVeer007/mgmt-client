@@ -1,3 +1,4 @@
+
 <div class="row formModal">
   <div class="col-lg-6 col-4"></div>
   <div class="col-lg-6 col-8 add-form" id="user" @inOutPaneAnimation>
@@ -151,7 +152,7 @@
           </div>
 
           <div class="text-center my-3">
-            <button type="submit" class="btn add-btn" (click)="createUser()">create</button>
+            <button type="submit" class="btn add-btn" (click)="createUser()"><i class="fa fa-spinner fa-spin me-1" *ngIf="showLoader"></i>create</button>
           </div>
         </div>
       </form>

@@ -10,6 +10,7 @@ import { EditFormComponent } from 'src/app/utilities/edit-form/edit-form.compone
 import { EditCameraComponent } from '../cameras/edit-camera/edit-camera.component';
 import { MetadataService } from 'src/services/metadata.service';
 import { HttpClient } from '@angular/common/http';
+import { CreateFormComponent } from 'src/app/utilities/create-form/create-form.component';
 
 
 @Component({
@@ -291,12 +292,13 @@ export class SitesComponent implements OnInit {
   }
 
 
-  @ViewChild('viewSiteDialog') viewSiteDialog = {} as TemplateRef<any>;
-  openViewPopup(item: any) {
-    this.siteSer.getSiteFullDetails(item).subscribe((res:any)=>{
+  openViewPopup(data: any) {
+    this.siteSer.getSiteFullDetails(data).subscribe((res:any)=>{
       this.currentItem = res.siteDetails;
+      this.dialog.open(CreateFormComponent, {
+        data: res.siteDetails
+      })
     })
-    this.dialog.open(this.viewSiteDialog);
   }
 
   currentSite:any;
@@ -349,7 +351,7 @@ resultSite:any;
   viewArray: any = [];
   viewBySelectedOne() {
     if (this.viewArray.length > 0) {
-      this.dialog.open(this.viewSiteDialog, this.dialog.open(this.editSiteDialog));
+      // this.dialog.open(this.viewSiteDialog, this.dialog.open(this.editSiteDialog));
     }
   }
 

@@ -242,12 +242,12 @@ export class DeviceStatusComponent {
   currentWorkingDays: any;
   openViewPopup(data: any) {
     this.currentItem = data;
-    let dialogRef = this.dialog.open(CreateFormComponent, {
+    this.dialog.open(CreateFormComponent, {
       data: data
     });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+    // dialogRef.afterOpened().subscribe(result => {
+    //   console.log(`Dialog result: ${result}`);
+    // });
     // this.currentWorkingDays = JSON.parse(JSON.stringify(this.currentItem.workingDays.split(',').map((item: any) => +item)));
     // this.dialog.open(this.viewSiteDialog);
   }

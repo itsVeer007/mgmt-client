@@ -100,9 +100,12 @@ export class AddNewUserComponent implements OnInit {
     this.UserForm.get('emailId')!.setValue(event.target.value + '@gmail.com');
   }
 
+  showLoader: boolean = false;
   createUser() {
     if(this.UserForm.valid) {
+      this.showLoader = true;
       this.userSer.createUser(this.UserForm.value).subscribe((res: any) => {
+        this.showLoader = false;
         if(res.statusCode == 200) {
           this.newItemEvent.emit();
           this.alertSer.success(res.message);
@@ -110,6 +113,7 @@ export class AddNewUserComponent implements OnInit {
           this.alertSer.error(res.message);
         }
       }, (err: any) => {
+        this.showLoader = false;
         this.alertSer.error(err.error.message);
       });
     }

@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, HostListener, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { CreateFormComponent } from 'src/app/utilities/create-form/create-form.component';
 import { AlertService } from 'src/services/alert.service';
 import { SiteService } from 'src/services/site.service';
 import { StorageService } from 'src/services/storage.service';
@@ -59,16 +60,13 @@ export class UsersComponent implements OnInit {
   }
   
   currentUser: any;
-  @ViewChild('viewprofileDialog') viewprofileDialog = {} as TemplateRef<any>;
   openViewProfileDialog(data: any) {
     this.userSer.getUserInfoForUserId({userId: data?.user_id}).subscribe((res: any) => {
       this.currentUser = res;
-      // if(res.Status !== 'Failed') {
-      // } else {
-
-      // }
+      this.dialog.open(CreateFormComponent, {
+        data: res
+      });
     });
-    this.dialog.open(this.viewprofileDialog);
   }
 
   @ViewChild('editprofileDialog') editprofileDialog = {} as TemplateRef<any>;
