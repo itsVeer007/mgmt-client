@@ -36,11 +36,11 @@ export class DevicesComponent implements OnInit {
       label: 'first connected',
       sort: true
     },
-    {
-      id: 'lastTimeLastConnected',
-      label: 'last connected',
-      sort: true
-    },
+    // {
+    //   id: 'lastTimeLastConnected',
+    //   label: 'last connected',
+    //   sort: true
+    // },
     {
       id: 'uptime',
       label: 'up time',

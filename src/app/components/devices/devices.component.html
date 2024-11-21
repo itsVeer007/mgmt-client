@@ -25,14 +25,14 @@
       <div class="vl-green"></div>
       <div class="mx-2">
         <div class="status">Online</div>
-        <div class="count">{{ 70 }}</div>
+        <div class="count">{{ 0 }}</div>
       </div>
     </div>
     <div class="col-lg-1 d-flex justify-content-start">
       <div class="vl-red"></div>
       <div class="mx-2">
         <div class="status">Offline</div>
-        <div class="count">{{ 32 }}</div>
+        <div class="count">{{ 0 }}</div>
       </div>
     </div>
   </div>
@@ -171,9 +171,9 @@
               <td >
                 <p>{{ el.firstConnected | date: 'medium' }}</p>
               </td>
-              <td >
+              <!-- <td >
                 <p>{{ el.lastTimeLastConnected | date: 'medium'}}</p>
-              </td>
+              </td> -->
               <td >
                 <p>{{ el.uptime }}</p>
               </td>

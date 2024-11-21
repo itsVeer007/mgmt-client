@@ -174,7 +174,7 @@ export class AssetService {
   getHealth(payload?: any): Observable<any> {
     // let url = this.baseUrl + '/getHealth_1_0';
 
-    let url: string = 'http://192.168.0.133:8958/getDeviceHealth';
+    let url: string = 'http://192.168.0.237:8000/getDeviceHealth';
     let params = new HttpParams();
     if(payload?.siteId) {
       params = params.set('siteId', payload?.siteId);
