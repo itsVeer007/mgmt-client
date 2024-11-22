@@ -48,13 +48,13 @@ export class DevicesComponent implements OnInit {
     },
     {
       id: 'downTime',
-      label: 'down time',
+      label: 'previous down time',
       sort: true
     },
     {
       id: 'status',
       label: 'status',
-      sort: true
+      sort: false
     }
   ]
 
@@ -183,6 +183,7 @@ export class DevicesComponent implements OnInit {
   statusData: Array<any> = new Array();
   getDeviceStatus() {
     this.assetSer.devicesStatus().subscribe((res: any) => {
+      console.log(res)
       this.statusData = res;
     })
   }

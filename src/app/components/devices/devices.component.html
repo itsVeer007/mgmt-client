@@ -181,7 +181,8 @@
                 <p>{{ el.downTime }}</p>
               </td>
               <td >
-                <p [style.color]="getLiveStatus(el)[0]?.Status ? 'green' : 'red'">{{ getLiveStatus(el)[0]?.Status ? 'Online' : 'Offline' }}</p>
+                <!-- <p [style.color]="getLiveStatus(el)[0]?.Status ? 'green' : 'red'">{{ getLiveStatus(el)[0]?.Status ? 'Online' : 'Offline' }}</p> -->
+                 <img [src]="getLiveStatus(el)[0]?.Status ? 'assets/icons/green-dot.png' : 'assets/icons/red-dot.png'" width="16" alt="">
               </td>
   
               <!-- <td [attr.rowspan]="item.devicesData.length" (click)="openRebootDevice(el)">

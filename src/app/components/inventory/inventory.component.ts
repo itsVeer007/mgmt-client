@@ -55,15 +55,15 @@ export class InventoryComponent implements OnInit {
       // console.log(res);
       this.showLoader = false;
       if(res) {
-        this.getMetadata();
         this.inventoryTable = res;
         this.newInventoryTable = this.inventoryTable;
-  
+        
         this.inStock = this.newInventoryTable.reduce((sum: any, current: any) => sum + current.inStock, 0);
         this.dispatched = this.newInventoryTable.reduce((sum: any, current: any) => sum + current.dispatched, 0);
         this.installed = this.newInventoryTable.reduce((sum: any, current: any) => sum + current.used, 0);
         this.purchases = this.newInventoryTable.reduce((sum: any, current: any) => sum + current.purchases, 0);
         this.others = this.newInventoryTable.reduce((sum: any, current: any) => sum + current.others, 0);
+        this.getMetadata();
       } else {
         this.errInfo = 'No Data';
       }

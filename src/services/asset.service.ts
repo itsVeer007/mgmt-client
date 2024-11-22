@@ -171,20 +171,6 @@ export class AssetService {
     return this.http.get(url, {params: params});
   }
 
-  getHealth(payload?: any): Observable<any> {
-    // let url = this.baseUrl + '/getHealth_1_0';
-
-    let url: string = 'http://192.168.0.237:8000/getDeviceHealth';
-    let params = new HttpParams();
-    if(payload?.siteId) {
-      params = params.set('siteId', payload?.siteId);
-    }
-    if(payload?.deviceId) {
-      params = params.set('deviceId', payload?.deviceId);
-    }
-    return this.http.get(url, {params: params});
-  }
-
   updateRebootDevice(id: any) {
     let url = this.baseUrl + '/updateRebootDevice_1_0';
     const params = new HttpParams().set('deviceId', id.toString()).set('modifiedBy', 1);
@@ -368,8 +354,21 @@ export class AssetService {
     return this.http.get(url)
   }
 
+
+  getHealth(payload?: any): Observable<any> {
+    let url = environment.baseUrl + '/deviceHealth/generateDeviceHealthstats_1_0';
+    let params = new HttpParams();
+    if(payload?.siteId) {
+      params = params.set('siteId', payload?.siteId);
+    }
+    if(payload?.deviceId) {
+      params = params.set('deviceId', payload?.deviceId);
+    }
+    return this.http.get(url, {params: params});
+  }
+
   devicesStatus() {
-    let url = 'http://192.168.0.103:1258/devices';
+    let url = environment.baseUrl + '/deviceHealth/deviceHealthStatusfromTunnel_1_0';
     return this.http.get(url);
   }
 }
