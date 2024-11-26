@@ -357,7 +357,11 @@ export class AssetService {
 
   getHealth(payload?: any): Observable<any> {
     let url = environment.baseUrl + '/deviceHealth/generateDeviceHealthstats_1_0';
+    let user = this.storageSer.get('user');
     let params = new HttpParams();
+    if(user) {
+      params = params.set('user_name', user.UserName);
+    }
     if(payload?.siteId) {
       params = params.set('siteId', payload?.siteId);
     }

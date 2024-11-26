@@ -33,7 +33,7 @@ export class DevicesComponent implements OnInit {
     },
     {
       id: 'firstConnected',
-      label: 'first connected',
+      label: 'latest connected',
       sort: true
     },
     // {
@@ -42,20 +42,20 @@ export class DevicesComponent implements OnInit {
     //   sort: true
     // },
     {
-      id: 'uptime',
-      label: 'up time',
-      sort: true
-    },
-    {
-      id: 'downTime',
-      label: 'previous down time',
-      sort: true
-    },
-    {
       id: 'status',
-      label: 'status',
+      label: 'device status',
       sort: false
-    }
+    },
+    {
+      id: 'uptime',
+      label: 'up / down time',
+      sort: true
+    },
+    // {
+    //   id: 'piTunnel',
+    //   label: 'pi tunnel',
+    //   sort: false
+    // }
   ]
 
   @Output() newItemEvent = new EventEmitter<boolean>();
@@ -166,15 +166,16 @@ export class DevicesComponent implements OnInit {
 
   upTime: any;
   newData: any = [];
+  statusCounts: any = [];
   getStatus() {
     this.showLoader = true;
     this.assetSer.getHealth().subscribe((res) => {
       this.showLoader = false;
-      // this.upTime = res.flatMap((item: any) => item.on);
-      // console.log(this.upTime[0]?.firstConnected.this.da - this.upTime[0]?.lastConnected)
+      
+      this.statusCounts = res.DeviceHealthData.flatMap((item: any) => item.devicesData)
       this.deviceData = res.DeviceHealthData;
       this.newDeviceData = this.deviceData;
-      this.getDeviceStatus();
+      // this.getDeviceStatus();
     }, (err) => {
 
     })
@@ -183,7 +184,7 @@ export class DevicesComponent implements OnInit {
   statusData: Array<any> = new Array();
   getDeviceStatus() {
     this.assetSer.devicesStatus().subscribe((res: any) => {
-      console.log(res)
+      // console.log(res)
       this.statusData = res;
     })
   }
@@ -201,12 +202,11 @@ export class DevicesComponent implements OnInit {
   }
 
   getDevicesFromChild(data: any) {
-    this.newDeviceData = data;
+    this.newDeviceData = data.DeviceHealthData;
   }
 
   getDevicesFromChild1(data: any) {
     this.newGetDataForDevice = data;
-    console.log(data)
   }
 
   getSearchFromChild(data: any) {

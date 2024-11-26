@@ -18,21 +18,21 @@
       <div class="vl-green"></div>
       <div class="mx-2">
         <div class="status">Tota Devices</div>
-        <div class="count">{{ newDeviceData?.length }}</div>
+        <div class="count">{{ statusCounts.length }}</div>
       </div>
     </div>
     <div class="col-lg-1 d-flex justify-content-start">
       <div class="vl-green"></div>
       <div class="mx-2">
         <div class="status">Online</div>
-        <div class="count">{{ 0 }}</div>
+        <div class="count">{{ statusCounts | count: 'status' : 'ONLINE' }}</div>
       </div>
     </div>
     <div class="col-lg-1 d-flex justify-content-start">
       <div class="vl-red"></div>
       <div class="mx-2">
         <div class="status">Offline</div>
-        <div class="count">{{ 0 }}</div>
+        <div class="count">{{ statusCounts | count: 'status' : 'OFFLINE' }}</div>
       </div>
     </div>
   </div>
@@ -171,19 +171,18 @@
               <td >
                 <p>{{ el.firstConnected | date: 'medium' }}</p>
               </td>
+              <td >
+                <p [style.color]="el.status === 'ONLINE' ? 'green' : 'red'">{{ el.status}}</p>
+              </td>
+              <td >
+                <p>{{ el.upOrDowntime }} <img [src]="el.status === 'ONLINE' ? 'assets/icons/up-arrow.png' : 'assets/icons/down-arrow.png'" width="16" alt=""></p>
+              </td>
               <!-- <td >
-                <p>{{ el.lastTimeLastConnected | date: 'medium'}}</p>
-              </td> -->
-              <td >
-                <p>{{ el.uptime }}</p>
-              </td>
-              <td >
                 <p>{{ el.downTime }}</p>
-              </td>
-              <td >
-                <!-- <p [style.color]="getLiveStatus(el)[0]?.Status ? 'green' : 'red'">{{ getLiveStatus(el)[0]?.Status ? 'Online' : 'Offline' }}</p> -->
+              </td> -->
+              <!-- <td >
                  <img [src]="getLiveStatus(el)[0]?.Status ? 'assets/icons/green-dot.png' : 'assets/icons/red-dot.png'" width="16" alt="">
-              </td>
+              </td> -->
   
               <!-- <td [attr.rowspan]="item.devicesData.length" (click)="openRebootDevice(el)">
                 <img class="pointer" style="opacity: 0.7;" src="assets/icons/restart.svg" width="25" height="25">
