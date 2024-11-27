@@ -27,13 +27,13 @@ export class DevicesComponent implements OnInit {
       sort: true
     },
     {
-      id: 'deviceId',
+      id: 'siteId',
       label: 'device id',
       sort: true
     },
     {
-      id: 'firstConnected',
-      label: 'latest connected',
+      id: 'siteId',
+      label: 'first connected time',
       sort: true
     },
     // {
@@ -42,12 +42,12 @@ export class DevicesComponent implements OnInit {
     //   sort: true
     // },
     {
-      id: 'status',
+      id: 'siteId',
       label: 'device status',
-      sort: false
+      sort: true
     },
     {
-      id: 'uptime',
+      id: 'siteId',
       label: 'up / down time',
       sort: true
     },
@@ -71,14 +71,18 @@ export class DevicesComponent implements OnInit {
   ) { }
 
   showLoader = false;
+  timeSearches: any;
   ngOnInit(): void {
-    // this.getSitesListForUserName()
-    // this.listDeviceAdsInfo();
+    this.getSitesListForUserName()
     this.getStatus();
+    // this.listDeviceAdsInfo();
     // this.getData();
+    this.timeSearches = this.storageSer.getMetadataByType(109)[0]?.metadata;
+    console.log(this.timeSearches)
   }
-  siteId: any;
-  deviceId: any
+  siteId: any = 'All';
+  time: any = 'All';
+  deviceId: any;
 
   getDataForDevice: any = [];
   newGetDataForDevice: any = [];
@@ -140,8 +144,8 @@ export class DevicesComponent implements OnInit {
     this.siteSer.getSitesListForUserName().subscribe((res: any) => {
       // console.log(res);
       this.showLoader = false;
-      if (res?.Status == 'Success') {
-        this.tableData = res?.sites?.sort((a: any, b: any) => a.siteId < b.siteId ? -1 : a.siteId > b.siteId ? 1 : 0);
+      if (res.Status == 'Success') {
+        this.tableData = res.sites?.sort((a: any, b: any) => a.siteId < b.siteId ? -1 : a.siteId > b.siteId ? 1 : 0);
         this.newTableData = this.tableData;
       }
     }, (err: any) => {
@@ -167,9 +171,9 @@ export class DevicesComponent implements OnInit {
   upTime: any;
   newData: any = [];
   statusCounts: any = [];
-  getStatus() {
+  getStatus(data?: any) {
     this.showLoader = true;
-    this.assetSer.getHealth().subscribe((res) => {
+    this.assetSer.getHealth(data).subscribe((res) => {
       this.showLoader = false;
       
       this.statusCounts = res.DeviceHealthData.flatMap((item: any) => item.devicesData)

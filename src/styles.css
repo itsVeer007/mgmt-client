@@ -472,7 +472,7 @@ form .add-btn:active {
   position: sticky;
   top: 0;
   font-weight: 100;
-  z-index: 1;
+  /* z-index: 1; */
 }
 
 .table-res table thead tr {

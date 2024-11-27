@@ -38,14 +38,48 @@
   </div>
 
   <!-- form -->
-    <div>
-        <app-filter
+    <div class="row">
+        <!-- <app-filter
           [filterType]="'devices'"
           (tableDataFromChild)="getDevicesFromChild($event)"
           (searchFromChild)="getSearchFromChild($event)"
           (loaderFromChild)="getLoaderFromChild($event)"
         >
-        </app-filter>
+        </app-filter> -->
+
+        <div class="col-lg-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Site</mat-label>
+            <input matInput #siteIdInput [matAutocomplete]="site" [(ngModel)]="siteId" (keyup)="searchSites($event)">
+            <button matSuffix mat-icon-button>
+              <mat-icon>arrow_drop_down</mat-icon>
+            </button>
+            <mat-autocomplete #site="matAutocomplete">
+              <mat-option value="All" (click)="getStatus('All')">All</mat-option>
+              <mat-option *ngFor="let item of newTableData | search: siteSearch" [value]="item.siteId" (click)="getStatus(item)">{{item.siteId}}-{{item.siteName}}</mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Time</mat-label>
+            <mat-select [(ngModel)]="time">
+              <mat-option value="All" (click)="getStatus('All')">All</mat-option>
+              <mat-option *ngFor="let item of timeSearches" [value]="item.keyId" (click)="getStatus(item)">{{item.value}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+      </div>
+
+        <div class="col-lg-3">
+          <mat-form-field class="example-form-field" appearance="outline" class="w-100">
+            <mat-label>Search</mat-label>
+            <input matInput type="text" [(ngModel)]="searchText">
+            <button matSuffix mat-icon-button>
+              <mat-icon>search</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
     </div>
 
   <!-- <div class="status-tile row py-2 mx-1 mb-3 d-lg-flex d-none">
@@ -148,7 +182,7 @@
           <th *ngFor="let header of columns">
             <div class="d-inline-flex">
               <p class="text-nowrap">{{ header.label | titlecase}}</p>
-              <img (click)="sort(header.id)" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px" alt="" *ngIf="header.sort">
+              <img (click)="sort(header.id);" class="pointer ms-1" src="assets/icons/sorticon.svg" width="15px" alt="" *ngIf="header.sort">
             </div>
           </th>
         </tr>
@@ -172,10 +206,10 @@
                 <p>{{ el.firstConnected | date: 'medium' }}</p>
               </td>
               <td >
-                <p [style.color]="el.status === 'ONLINE' ? 'green' : 'red'">{{ el.status}}</p>
+                <p [style.color]="el.status === 'ONLINE' ? 'green' : 'red'">{{ el.status | titlecase }}</p>
               </td>
               <td >
-                <p>{{ el.upOrDowntime }} <img [src]="el.status === 'ONLINE' ? 'assets/icons/up-arrow.png' : 'assets/icons/down-arrow.png'" width="16" alt=""></p>
+                <p [style.color]="el.status === 'ONLINE' ? 'green' : 'red'">{{ el.upOrDowntime }} <img [src]="el.status === 'ONLINE' ? 'assets/icons/up-arrow.png' : 'assets/icons/down-arrow.png'" width="16" alt=""></p>
               </td>
               <!-- <td >
                 <p>{{ el.downTime }}</p>

@@ -17,7 +17,7 @@ export class DashboardComponent implements OnInit {
     private router: Router,
     private storageSer: StorageService,
     private cdr: ChangeDetectorRef,
-    private dialog:MatDialog
+    private dialog: MatDialog
   ) { }
 
 
@@ -30,11 +30,13 @@ export class DashboardComponent implements OnInit {
     // this.userSer.user$.subscribe(() => {
     //   this.user=  this.storageSer.get('user');
     // });
-    this.user =  this.storageSer.get('user');
-    if(this.user?.role.includes('Administrator')) {
+    this.user = this.storageSer.get('user');
+    let x: any = Array.from(this.user.roleList, (item: any) => item.roleId);
+
+    if(x.includes(1)) {
       this.isAdmin = true;
     }
-    if(this.user?.role.includes('FR')) {
+    if(x.includes(10)) {
       this.isFr = true;
     }
   }

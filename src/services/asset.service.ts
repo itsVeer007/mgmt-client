@@ -365,8 +365,8 @@ export class AssetService {
     if(payload?.siteId) {
       params = params.set('siteId', payload?.siteId);
     }
-    if(payload?.deviceId) {
-      params = params.set('deviceId', payload?.deviceId);
+    if(payload?.keyId) {
+      params = params.set('time', payload?.keyId);
     }
     return this.http.get(url, {params: params});
   }

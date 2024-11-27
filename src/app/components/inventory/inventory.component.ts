@@ -28,11 +28,6 @@ export class InventoryComponent implements OnInit {
     notFr = false;
     ngOnInit(): void {
       this.user = this.storageSer.get('user');
-      for(let item of this.user?.role) {
-        if(item == 'Administrator' || item == 'Support') {
-          this.notFr = true;
-        }
-      }
       this.listInventory();
     }
 

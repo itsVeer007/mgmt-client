@@ -37,7 +37,6 @@ export class FrComponent implements OnInit {
   listFRTickets() {
     this.showLoader = true;
     this.inventorySer.listFRTickets(this.user?.UserId).subscribe((res: any) => {
-      console.log(res);
       this.showLoader = false;
       this.getMetadata();
       this.frTickets = res;

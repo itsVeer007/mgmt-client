@@ -17,7 +17,7 @@
           </mat-form-field>
         </div>
 
-        <div class="col-lg-3" *ngIf="filterType === 'devices' || filterType === 'wifi'">
+        <div class="col-lg-3" *ngIf="filterType === 'wifi'">
           <mat-form-field appearance="outline" class="w-100">
             <mat-label>Device</mat-label>
             <input matInput #deviceIdInput type="text" [matAutocomplete]="device" [(ngModel)]="deviceId" (keyup)="searchDevices($event)">
