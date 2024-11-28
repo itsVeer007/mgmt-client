@@ -300,7 +300,7 @@ export class AssetService {
     if(payload?.siteId) {
       params = params.set('siteId',payload?.siteId)
     }
-    return this.http.get(url, {params:params})
+    return this.http.get(url, {params: params})
   }
  
 
@@ -323,7 +323,7 @@ export class AssetService {
       params= params.set('page',payload?.page)
     }
 
-    return this.http.get(url,{params:params})
+    return this.http.get(url, {params: params})
   }
 
   deviceWiseStats(payload?:any) {
@@ -334,18 +334,18 @@ export class AssetService {
     }
     if(payload?.doi) {
       // console.log(payload)
-      params = params.set('doi', payload?.doi)
+      params = params.set('doi', payload.doi)
     }
     if(payload?.time_connected) {
-      params = params.set('toi' ,payload?.time_connected)
+      params = params.set('toi' ,payload.time_connected)
     }
     if(payload?.pagesize) {
-      params = params.set('pagesize',payload?.pagesize)
+      params = params.set('pagesize',payload.pagesize)
     }
     if(payload?.page) {
-      params= params.set('page',payload?.page)
+      params= params.set('page',payload.page)
     }
-    return this.http.get(url,{params:params});
+    return this.http.get(url, {params: params});
   }
 
   getAnalytics(payload: any) {
@@ -362,11 +362,14 @@ export class AssetService {
     if(user) {
       params = params.set('user_name', user.UserName);
     }
-    if(payload?.siteId) {
-      params = params.set('siteId', payload?.siteId);
+    if(payload?.siteId && payload?.siteId != 'All') {
+      params = params.set('site_id', payload.siteId);
     }
-    if(payload?.keyId) {
-      params = params.set('time', payload?.keyId);
+    if(payload?.time && payload?.time != 'All') {
+      params = params.set('time', payload.time);
+    }
+    if(payload?.status && payload?.status != 'All') {
+      params = params.set('status', payload.status);
     }
     return this.http.get(url, {params: params});
   }

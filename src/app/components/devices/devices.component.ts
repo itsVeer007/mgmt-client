@@ -7,6 +7,7 @@ import { AssetService } from 'src/services/asset.service';
 import { InventoryService } from 'src/services/inventory.service';
 import { SiteService } from 'src/services/site.service';
 import { StorageService } from 'src/services/storage.service';
+import { UserService } from 'src/services/user.service';
 
 @Component({
   selector: 'app-devices',
@@ -67,21 +68,32 @@ export class DevicesComponent implements OnInit {
     public dialog: MatDialog,
     public datePipe: DatePipe,
     public alertSer: AlertService,
-    private storageSer: StorageService
+    private storageSer: StorageService,
+    private userSer: UserService
   ) { }
 
   showLoader = false;
   timeSearches: any;
+  deviceStatus: any;
   ngOnInit(): void {
     this.getSitesListForUserName()
     this.getStatus();
     // this.listDeviceAdsInfo();
     // this.getData();
-    this.timeSearches = this.storageSer.getMetadataByType(109)[0]?.metadata;
-    console.log(this.timeSearches)
+
+    // console.log(this.userSer.can_getdata())
+
+    setTimeout(() => {
+        this.timeSearches = this.storageSer.getMetadataByType(109)[0].metadata;
+        this.deviceStatus = this.storageSer.getMetadataByType(110)[0].metadata;
+    }, 3000)
   }
-  siteId: any = 'All';
-  time: any = 'All';
+
+  paramBody = {
+    siteId: 'All',
+    time: 'All',
+    status: 'All',
+  }
   deviceId: any;
 
   getDataForDevice: any = [];
@@ -116,7 +128,7 @@ export class DevicesComponent implements OnInit {
 
   @ViewChild('sensorDialog') sensorDialog = {} as TemplateRef<any>
   openSensor() {
-    this.siteId = this.tableData[0].siteId
+    this.paramBody.siteId = this.tableData[0].siteId
     this.getData(this.newTableData[0])
     this.dialog.open(this.sensorDialog);
   }
@@ -175,10 +187,14 @@ export class DevicesComponent implements OnInit {
     this.showLoader = true;
     this.assetSer.getHealth(data).subscribe((res) => {
       this.showLoader = false;
-      
-      this.statusCounts = res.DeviceHealthData.flatMap((item: any) => item.devicesData)
-      this.deviceData = res.DeviceHealthData;
-      this.newDeviceData = this.deviceData;
+      if(res.statusCode === 200) {
+        this.statusCounts = res.DeviceHealthData.flatMap((item: any) => item.devicesData)
+        this.deviceData = res.DeviceHealthData;
+        this.newDeviceData = this.deviceData;
+      } else {
+        this.statusCounts = [];
+        this.newDeviceData = [];
+      }
       // this.getDeviceStatus();
     }, (err) => {
 
@@ -217,46 +233,6 @@ export class DevicesComponent implements OnInit {
     this.searchText = data;
   }
 
-  /* metadata */
-  deviceType: any;
-  deviceMode: any;
-  workingDay: any;
-  tempRange: any;
-  ageRange: any;
-  modelObjectType: any;
-  model: any;
-  modelResolution: any;
-  softwareVersion: any;
-  weatherInterval: any;
-  deviceStatus: any;
-  getMetadata() {
-    let data = this.storageSer.get('metaData');;
-    data?.forEach((item: any) => {
-      if (item.type == 2) {
-        this.deviceType = item.metadata;
-      } else if (item.type == 1) {
-        this.deviceMode = item.metadata;
-      } else if (item.type == 6) {
-        this.workingDay = item.metadata;
-      } else if (item.type == 10) {
-        this.tempRange = item.metadata;
-      } else if (item.type == 13) {
-        this.ageRange = item.metadata;
-      } else if (item.type == 7) {
-        this.modelObjectType = item.metadata;
-      } else if (item.type == 18) {
-        this.model = item.metadata;
-      } else if (item.type == 19) {
-        this.modelResolution = item.metadata;
-      } else if (item.type == 20) {
-        this.softwareVersion = item.metadata;
-      } else if (item.type == 21) {
-        this.weatherInterval = item.metadata;
-      } else if (item.type == 4) {
-        this.deviceStatus = item.metadata;
-      }
-    })
-  }
 
   @ViewChild('rebootDeviceDialog') rebootDeviceDialog = {} as TemplateRef<any>;
   openRebootDevice(item: any) {

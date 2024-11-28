@@ -49,14 +49,12 @@ export class LoginComponent implements OnInit {
       this.showLoader = true;
       this.userSer.loginNew(this.loginForm.value).subscribe((res: any) => {
         this.showLoader = false;
-        if(res?.Status == 'Success') {
-          // this.userSer.isLoggedin.next(true);
+        if(res.Status == 'Success') {
           this.storageSer.set('user', res);
-          this.userSer.user$.next(res);
           this.getSitesListForUserName();
           this.router.navigate(['/dashboard/devices']);
-        } else if(res?.Status == 'Failed') {
-          this.alertSer.error(res?.message);
+        } else if(res.Status == 'Failed') {
+          this.alertSer.error(res.message);
         }
       }, (err: any) => {
         this.showLoader = false;
@@ -67,21 +65,22 @@ export class LoginComponent implements OnInit {
   
   getSitesListForUserName() {
     this.siteSer.getSitesListForUserName().subscribe((res: any) => {
-      this.getMetadata();
-      if(res?.Status == 'Success') {
+      if(res.Status == 'Success') {
+        this.getMetadata();
         this.storageSer.set('siteIds', res.sites);
       }
-      if(res?.Status == 'Failed') {
+      if(res.Status == 'Failed') {
         // this.userSer.logout();
       }
     }, (err: any) => {
       // console.log(err)
     })
   }
-
+  
   getMetadata() {
     this.metaDataSer.getMetadata().subscribe((res: any) => {
       this.storageSer.set('metaData', res);
+      this.userSer.can_getdata.emit('dasndkjs')
     })
   }
 

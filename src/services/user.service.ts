@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { StorageService } from './storage.service';
@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class UserService {
 
-  user$ = new BehaviorSubject<any>(null);
+  can_getdata: any = new EventEmitter();
   error$ = new BehaviorSubject<string>('');
 
   constructor(
@@ -29,7 +29,6 @@ export class UserService {
   logout() {
     this.storageSer.clearData();
     this.storageSer.clearData();
-    this.user$.next(null);
     this.router.navigate(['./login']);
   }
 
