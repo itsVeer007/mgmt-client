@@ -374,6 +374,21 @@ export class AssetService {
     return this.http.get(url, {params: params});
   }
 
+  downtimesForDeviceId(payload?: any): Observable<any> {
+    let url = environment.baseUrl + '/deviceHealth/downtimesForDeviceIdandDuration';
+    let params = new HttpParams();
+    // if(payload?.siteId) {
+    //   params = params.set('site_id', payload.siteId);
+    // }
+    if(payload?.deviceId) {
+      params = params.set('device_id', payload.deviceId);
+    }
+    if(payload?.days && payload?.days != 'All') {
+      params = params.set('days', payload.days);
+    }
+    return this.http.get(url, {params: params});
+  }
+
   devicesStatus() {
     let url = environment.baseUrl + '/deviceHealth/deviceHealthStatusfromTunnel_1_0';
     return this.http.get(url);

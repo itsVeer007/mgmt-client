@@ -52,11 +52,11 @@ export class DevicesComponent implements OnInit {
       label: 'up / down time',
       sort: true
     },
-    // {
-    //   id: 'piTunnel',
-    //   label: 'pi tunnel',
-    //   sort: false
-    // }
+    {
+      id: '',
+      label: 'down time',
+      sort: false
+    }
   ]
 
   @Output() newItemEvent = new EventEmitter<boolean>();
@@ -73,8 +73,8 @@ export class DevicesComponent implements OnInit {
   ) { }
 
   showLoader = false;
-  timeSearches: any;
-  deviceStatus: any;
+  timeSearches: any = [];
+  deviceStatus: any = [];
   ngOnInit(): void {
     this.getSitesListForUserName()
     this.getStatus();
@@ -217,6 +217,8 @@ export class DevicesComponent implements OnInit {
     })
   }
 
+  downTimes: any = [];
+
   getLoaderFromChild(data: boolean) {
     this.showLoader = data;
   }
@@ -287,8 +289,36 @@ export class DevicesComponent implements OnInit {
   @ViewChild('editSiteDialog') editSiteDialog = {} as TemplateRef<any>;
   openEditPopup(item: any) {
     this.currentItem = item;
-    // this.currentWorkingDays = JSON.parse(JSON.stringify(this.currentItem.workingDays.split(',').map((item: any) => +item)));
+
+    // this.alertSer.timeAlert().then((res) => {
+    //   if(res) {
+    //     this.assetSer.downtimesForDeviceId({deviceId: item.deviceId, days: res}).subscribe((res: any) => {
+    //       this.downTimes = res;
+    //     })
+    //     this.dialog.open(this.editSiteDialog);
+    //   }
+    // });
+
+    this.downtimesForDeviceId();
     this.dialog.open(this.editSiteDialog);
+
+    // this.currentWorkingDays = JSON.parse(JSON.stringify(this.currentItem.workingDays.split(',').map((item: any) => +item)));
+  }
+
+  downParams = {
+    deviceId: null,
+    days: 'All',
+  }
+  downtimesForDeviceId() {
+    console.log(this.currentItem)
+    this.downParams.deviceId = this.currentItem.deviceId;
+    this.assetSer.downtimesForDeviceId(this.downParams).subscribe((res: any) => {
+      if(res.statusCode === 200) {
+        this.downTimes = res.DeviceHealthData;
+      } else {
+        this.downTimes = [];
+      }
+    })
   }
 
 
