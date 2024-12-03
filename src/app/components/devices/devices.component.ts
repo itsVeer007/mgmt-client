@@ -59,6 +59,24 @@ export class DevicesComponent implements OnInit {
     }
   ]
 
+  subColumns = [
+    {
+      id: 'first_connected',
+      label: 'first connected',
+      sort: true
+    },
+    {
+      id: 'lasttime_last_connected',
+      label: 'last connected',
+      sort: true
+    },
+    {
+      id: 'down_time',
+      label: 'down time',
+      sort: true
+    }
+  ]
+
   @Output() newItemEvent = new EventEmitter<boolean>();
 
   constructor(
@@ -299,6 +317,7 @@ export class DevicesComponent implements OnInit {
     //   }
     // });
 
+    this.downParams.days = 'All'
     this.downtimesForDeviceId();
     this.dialog.open(this.editSiteDialog);
 
