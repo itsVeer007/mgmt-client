@@ -64,7 +64,7 @@ export class AlertService {
     })
   }
 
-  ruleSubject: Subject<boolean> = new Subject(); 
+  ruleSubject: Subject<boolean> = new Subject();
   successMessage(message: any) {
     Swal.fire({
       icon: 'success',
@@ -75,7 +75,7 @@ export class AlertService {
       // denyButtonText: "Use scheduled playback",
       confirmButtonText: "Do you want to add rules for this advertisement?",
     }).then((res) => {
-      if(res.isConfirmed) {
+      if (res.isConfirmed) {
         this.ruleSubject.next(true);
       }
     });
@@ -100,6 +100,48 @@ export class AlertService {
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes"
     })
+  }
+
+  async timeAlert() {
+    const inputOptions = new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({
+          1: "4 hours",
+          2: "6 hourseen",
+          3: "8 hours"
+        });
+      }, 1000);
+    });
+
+    const { value: color } = await Swal.fire({
+      title: "Select color",
+      input: "radio",
+      inputOptions: {
+        1: "4 hours",
+        2: "6 hours",
+        3: "8 hours"
+      },
+      showCloseButton: true,
+      allowOutsideClick: false,
+      // preConfirm: (value) => {
+      //   if (!value) {
+      //     Swal.showValidationMessage(
+      //       'You need to write something!'
+      //     )
+      //   }
+      // }
+      // inputOptions,
+      // inputValidator: (value) => {
+      //   if (!value) {
+      //     return "You need to choose something!";
+      //   }
+      // }
+    });
+    if (color) {
+      return color
+    } else {
+      return color
+    }
   }
 
 }
