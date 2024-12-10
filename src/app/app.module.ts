@@ -92,6 +92,8 @@ import { OrderByPipe } from './utilities/pipes/order-by.pipe';
 import { CountPipe } from './utilities/pipes/count.pipe';
 import { DeviceStatusComponent } from './device-status/device-status.component';
 import { CreateFormComponent } from './utilities/create-form/create-form.component';
+import { FaqComponent } from './components/faq/faq.component';
+import { CreateFaqComponent } from './main-dashboard/create-faq/create-faq.component';
 
 
 
@@ -174,7 +176,9 @@ import { CreateFormComponent } from './utilities/create-form/create-form.compone
     CreateFormComponent,
     EditFormComponent,
     OrderByPipe,
-    CountPipe
+    CountPipe,
+    FaqComponent,
+    CreateFaqComponent
   ],
   imports: [
     BrowserModule,

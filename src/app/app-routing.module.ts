@@ -38,6 +38,7 @@ import { AddNewUserComponent } from './main-dashboard/add-new-user/add-new-user.
 import { MainDashboardComponent } from './main-dashboard/main-dashboard.component';
 import { SensorDataComponent } from './components/sensor-data/sensor-data.component';
 import { DeviceStatusComponent } from './device-status/device-status.component';
+import { FaqComponent } from './components/faq/faq.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -80,6 +81,7 @@ const routes: Routes = [
       { path: 'new-device', component: NewDeviceComponent },
       { path: 'new-adver', component: NewAdvertisementComponent },
       { path: 'general', component: GeneralComponent },
+      { path: 'Faqs', component: FaqComponent },
     ]
   },
   // { path: 'home', canActivate: [AuthGuard], loadChildren: () => import('./main-routing/main.module').then((m) => m.MainModule) },
